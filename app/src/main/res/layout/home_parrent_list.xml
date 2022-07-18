@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/home_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin16"
+        android:layout_marginTop="@dimen/margin15"
+        android:fontFamily="@font/sf_pro_text_bold"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="TextView" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin18"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size15"
+        app:layout_constraintBottom_toBottomOf="@+id/home_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/home_title"
+        tools:ignore="TextContrastCheck"
+        tools:text="TextView" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/homeList"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin17"
+        android:layout_marginTop="@dimen/margin16"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_title"
+        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck"
+        tools:itemCount="3"
+        tools:listitem="@layout/recommended_item" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewpagerBack"
+        android:layout_width="match_parent"
+        android:layout_height="430dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/movie_default"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/viewpagerBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/viewpagerBack"
+        tools:ignore="ContentDescription" />
+
+    <com.github.islamkhsh.CardSliderViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen30"
+        android:visibility="visible"
+        app:cardSlider_otherPagesWidth="42.2dp"
+        app:cardSlider_pageMargin="@dimen/margin15"
+        app:cardSlider_smallScaleFactor="0.5"
+        app:layout_constraintBottom_toBottomOf="@+id/viewpagerBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/viewpagerBack" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="11dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/viewpager">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search"
+            style="@style/SearchViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/contentDes"
+            android:iconifiedByDefault="true"
+            android:queryHint="Search Here"
+            android:visibility="gone"
+            app:queryBackground="@drawable/bg_white_rounded">
+
+            <requestFocus />
+        </androidx.appcompat.widget.SearchView>
+
+    </RelativeLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/consAdvance"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginStart="@dimen/margin15"
+        android:layout_marginTop="@dimen/margin8"
+        android:layout_marginEnd="@dimen/margin15"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_title">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/sliderAdvance"
+            android:layout_width="match_parent"
+            android:layout_height="165dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/my_tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sliderAdvance"
+            app:tabBackground="@drawable/indicator_selector"
+            app:tabGravity="center"
+            app:tabIndicatorHeight="0dp"></com.google.android.material.tabs.TabLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

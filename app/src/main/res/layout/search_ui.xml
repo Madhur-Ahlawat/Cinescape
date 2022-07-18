@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/transparent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="visible"
+        android:id="@+id/searchUi"
+        android:backgroundTint="#393939"
+        android:background="@drawable/bg_white_rounded"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+    <View
+        android:id="@+id/view71"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/imageView35"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/view71"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view71"
+        app:srcCompat="@drawable/ic_close_black_48dp"
+        tools:ignore="ContentDescription" />
+
+        <EditText
+            android:id="@+id/movieSearch"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@null"
+            android:drawableEnd="@drawable/ic_close_icons_light"
+            android:drawablePadding="@dimen/margin10"
+            android:ems="10"
+            android:hint="@string/search_your_movie_here"
+            android:imeOptions="actionSearch"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:maxLines="1"
+            android:paddingStart="@dimen/margin12"
+            android:paddingEnd="@dimen/margin12"
+            android:textColor="@color/white"
+            android:textColorHint="@color/text_color"
+            app:layout_constraintBottom_toBottomOf="@+id/view71"
+            app:layout_constraintEnd_toStartOf="@+id/imageView35"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view71"
+            tools:ignore="TextContrastCheck" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/imageView36"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_search"
+        tools:ignore="ContentDescription" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

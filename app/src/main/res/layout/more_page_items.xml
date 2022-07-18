@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="@dimen/margin2"
+    app:cardBackgroundColor="@color/black"
+    app:cardElevation="@dimen/margin2">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/margin20"
+        android:background="@drawable/a_more_page_item_bg">
+
+        <ImageView
+            android:id="@+id/image_more_item"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/contentDes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/image_more" />
+
+        <View
+            android:id="@+id/view_mad_monday"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_more_item"
+            app:layout_constraintEnd_toEndOf="@+id/image_more_item"
+            app:layout_constraintStart_toStartOf="@+id/image_more_item"
+            app:layout_constraintTop_toTopOf="@+id/image_more_item" />
+
+        <TextView
+            android:id="@+id/text_mad_monday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_heavy"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="0sp"
+            android:text="@string/mad_n_monday"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size30"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/view_mad_monday"
+            app:layout_constraintEnd_toStartOf="@+id/text_discount"
+            app:layout_constraintStart_toStartOf="@+id/view_mad_monday"
+            app:layout_constraintTop_toTopOf="@+id/view_mad_monday" />
+
+        <TextView
+            android:id="@+id/text_discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_light"
+            android:gravity="center_horizontal"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size50"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/text_mad_monday"
+            app:layout_constraintEnd_toEndOf="@+id/view_mad_monday"
+            app:layout_constraintStart_toEndOf="@+id/text_mad_monday"
+            app:layout_constraintTop_toTopOf="@+id/text_mad_monday"
+            tools:text="50%" />
+
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/sf_pro_text_bold"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/image_more_item"
+            app:layout_constraintTop_toBottomOf="@+id/image_more_item"
+            tools:text="Mad Monday 50%" />
+
+        <TextView
+            android:id="@+id/textView_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:lineSpacingExtra="2.3sp"
+            android:textColor="#c1c1c1"
+            android:textSize="@dimen/size16"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="@+id/text_title"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/text_title"
+            app:layout_constraintTop_toBottomOf="@+id/text_title"
+            tools:text="Enjoy all our experiences with a 50% discount on Monday" />
+
+        <ImageView
+            android:id="@+id/imageView_forward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/contentDes"
+            android:padding="@dimen/margin6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textView_description"
+            app:layout_constraintTop_toBottomOf="@+id/textView_description"
+            app:srcCompat="@drawable/ic_forward_icon"
+            tools:ignore="ImageContrastCheck" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/black"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <View
+        android:id="@+id/view30_locations"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintEnd_toStartOf="@+id/view32_screens"
+        app:layout_constraintHorizontal_weight="4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view32_screens"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view30_locations"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintStart_toEndOf="@+id/view30_locations"
+        app:layout_constraintTop_toTopOf="@+id/view30_locations" />
+
+    <TextView
+        android:id="@+id/text_locations1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:text="@string/location"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/view30_locations"
+        app:layout_constraintStart_toStartOf="@+id/view30_locations"
+        app:layout_constraintTop_toTopOf="@+id/view30_locations" />
+
+    <TextView
+        android:id="@+id/text_address"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:lineSpacingExtra="9sp"
+        android:text="Cinescape Al-Kout"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/text_locations1"
+        app:layout_constraintStart_toStartOf="@+id/text_locations1"
+        app:layout_constraintTop_toBottomOf="@+id/text_locations1"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/textView_screen"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:text="@string/screen"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/view32_screens"
+        app:layout_constraintStart_toStartOf="@+id/view32_screens"
+        app:layout_constraintTop_toTopOf="@+id/view32_screens" />
+
+    <TextView
+        android:id="@+id/textView_screen_number"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:lineSpacingExtra="9sp"
+        android:text="@string/_9"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/textView_screen"
+        app:layout_constraintStart_toStartOf="@+id/textView_screen"
+        app:layout_constraintTop_toBottomOf="@+id/textView_screen" />
+
+    <View
+        android:id="@+id/view33_date"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toStartOf="@+id/view34_time"
+        app:layout_constraintHorizontal_weight="4"
+        app:layout_constraintStart_toStartOf="@+id/view30_locations"
+        app:layout_constraintTop_toBottomOf="@+id/view30_locations" />
+
+    <View
+        android:id="@+id/view34_time"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view33_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintStart_toEndOf="@+id/view33_date"
+        app:layout_constraintTop_toTopOf="@+id/view33_date" />
+
+    <TextView
+        android:id="@+id/textView_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:text="@string/date"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/view33_date"
+        app:layout_constraintStart_toStartOf="@+id/view33_date"
+        app:layout_constraintTop_toTopOf="@+id/view33_date" />
+
+    <TextView
+        android:id="@+id/textView_date_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:lineSpacingExtra="9sp"
+        android:text="03 June 2020"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/textView_date"
+        app:layout_constraintStart_toStartOf="@+id/textView_date"
+        app:layout_constraintTop_toBottomOf="@+id/textView_date"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/textView_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:text="@string/time"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/view34_time"
+        app:layout_constraintStart_toStartOf="@+id/view34_time"
+        app:layout_constraintTop_toTopOf="@+id/view34_time" />
+
+    <TextView
+        android:id="@+id/textView_time_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:lineSpacingExtra="9sp"
+        android:text="13:45"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/textView_time"
+        app:layout_constraintStart_toStartOf="@+id/textView_time"
+        app:layout_constraintTop_toBottomOf="@+id/textView_time"
+        tools:ignore="HardcodedText" />
+
+    <View
+        android:id="@+id/view_experience"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/view_categorys"
+        app:layout_constraintStart_toStartOf="@+id/textView_date_info"
+        app:layout_constraintTop_toBottomOf="@+id/view33_date" />
+
+    <View
+        android:id="@+id/view_categorys"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view_experience"
+        app:layout_constraintEnd_toEndOf="@+id/textView_time_info"
+        app:layout_constraintStart_toEndOf="@+id/view_experience"
+        app:layout_constraintTop_toTopOf="@+id/view_experience" />
+
+    <TextView
+        android:id="@+id/textView_category"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:text="@string/category"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/view_categorys"
+        app:layout_constraintStart_toStartOf="@+id/view_categorys"
+        app:layout_constraintTop_toTopOf="@+id/view_categorys" />
+
+    <TextView
+        android:id="@+id/textView_category_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:lineSpacingExtra="9sp"
+        android:text="Bachelors"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/view_categorys"
+        app:layout_constraintStart_toStartOf="@+id/view_categorys"
+        app:layout_constraintTop_toBottomOf="@+id/textView_category"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/textView_experience"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:text="@string/experience"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/view_experience"
+        app:layout_constraintStart_toStartOf="@+id/view_experience"
+        app:layout_constraintTop_toTopOf="@+id/view_experience" />
+
+    <TextView
+        android:id="@+id/textView_experience_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:lineSpacingExtra="9sp"
+        android:text="Standard"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/view_experience"
+        app:layout_constraintStart_toStartOf="@+id/view_experience"
+        app:layout_constraintTop_toBottomOf="@+id/textView_experience"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/textView_seats_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:text="@string/seats"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/textView_category_name"
+        app:layout_constraintStart_toStartOf="@+id/view_experience"
+        app:layout_constraintTop_toBottomOf="@+id/view_experience" />
+
+    <TextView
+        android:id="@+id/textView_seat_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:lineSpacingExtra="9sp"
+        app:alignContent="stretch"
+        app:alignItems="stretch"
+        app:flexWrap="wrap"
+        android:text="7N, 7M, 70, 80, 8N"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/textView_seats_title"
+        app:layout_constraintStart_toStartOf="@+id/textView_seats_title"
+        app:layout_constraintTop_toBottomOf="@+id/textView_seats_title"
+        tools:ignore="HardcodedText" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/foodMUi"
+        android:layout_marginTop="51dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/textView_seat_name"
+        app:layout_constraintStart_toStartOf="@+id/textView_seat_name"
+        app:layout_constraintTop_toBottomOf="@+id/textView_seat_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            layout="@layout/food_list_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/view_ticket_total_price"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="@+id/foodMUi"
+        app:layout_constraintStart_toStartOf="@+id/foodMUi"
+        app:layout_constraintTop_toBottomOf="@+id/foodMUi" />
+
+    <TextView
+        android:id="@+id/tv_total_tc_price_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:gravity="center"
+        android:text="@string/total_ticket_price"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toStartOf="@+id/text_kd_ticket_price"
+        app:layout_constraintStart_toStartOf="@+id/view_ticket_total_price"
+        app:layout_constraintTop_toTopOf="@+id/view_ticket_total_price" />
+
+    <TextView
+        android:id="@+id/text_kd_ticket_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:lineSpacingExtra="9sp"
+        android:text="KD 30.500"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size14"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_total_tc_price_text"
+        app:layout_constraintEnd_toEndOf="@+id/view_ticket_total_price"
+        app:layout_constraintStart_toEndOf="@+id/tv_total_tc_price_text"
+        app:layout_constraintTop_toTopOf="@+id/tv_total_tc_price_text"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/textView_paid_by_club_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:gravity="center"
+        android:visibility="visible"
+        android:text="@string/paid_by_club_card"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/tv_total_tc_price_text"
+        app:layout_constraintStart_toStartOf="@+id/tv_total_tc_price_text"
+        app:layout_constraintTop_toBottomOf="@+id/tv_total_tc_price_text" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

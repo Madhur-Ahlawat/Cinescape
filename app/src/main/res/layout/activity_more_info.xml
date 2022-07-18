@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        tools:context=".ui.main.views.MoreInfoActivity">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/margin2"
+            app:cardBackgroundColor="@color/black"
+            app:cardElevation="@dimen/margin2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/image_cinemass"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/ic_more_overlay"
+                    android:contentDescription="@string/contentDes"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/img_cinemas" />
+
+                <ImageView
+                    android:id="@+id/imageView1_back_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:contentDescription="@string/contentDes"
+                    app:layout_constraintStart_toStartOf="@+id/image_cinemass"
+                    app:layout_constraintTop_toTopOf="@+id/image_cinemass"
+                    app:srcCompat="@drawable/ic_back_button" />
+
+                <TextView
+                    android:id="@+id/textMonday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:fontFamily="@font/sf_pro_text_heavy"
+                    android:gravity="center_horizontal"
+                    android:lineSpacingExtra="0sp"
+                    android:text="@string/mad_n_monday"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size30"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toEndOf="@+id/image_cinemass"
+                    app:layout_constraintStart_toStartOf="@+id/image_cinemass"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView1_back_btn" />
+
+                <TextView
+                    android:id="@+id/textViewDiscount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/sf_pro_text_light"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size50"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toEndOf="@+id/image_cinemass"
+                    app:layout_constraintStart_toStartOf="@+id/image_cinemass"
+                    app:layout_constraintTop_toBottomOf="@+id/textMonday"
+                    tools:text="50%" />
+
+                <View
+                    android:id="@+id/view30_mainss"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/image_cinemass" />
+
+                <TextView
+                    android:id="@+id/textView_discount_description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/sf_pro_text_bold"
+                    android:lineSpacingExtra="2sp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size16"
+                    app:layout_constraintEnd_toEndOf="@+id/view30_mainss"
+                    app:layout_constraintStart_toStartOf="@+id/view30_mainss"
+                    app:layout_constraintTop_toBottomOf="@+id/image_cinemass"
+                    tools:text="Enjoy all our experiences with a 50% discount on Monday" />
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:lineSpacingExtra="2.5sp"
+                    android:textColor="@color/hint_color"
+                    android:textSize="@dimen/size10"
+                    android:textStyle="normal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/textView_discount_description"
+                    app:layout_constraintStart_toStartOf="@+id/textView_discount_description"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_discount_description"
+                    tools:text="Culpa qui officia deserunt mollit anim id esto polujimi laborum. Sed ut perspiciatis unde omnis iste eropluk onatuspop error sit voluptartem accusantium wetrop doloremque laudantium, totam rem aperiam, eaquep ipsa quaeer ab illo inventore veritatisy et quasi weth ropeior architecto beatae vitae dicta sunt explicapbo. Nemo popul eniem ipsam yui voluptatem quialoperyi " />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

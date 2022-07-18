@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black">
+
+    <View
+        android:id="@+id/view_amount1"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintEnd_toStartOf="@+id/view_expiry_date"
+        app:layout_constraintHorizontal_weight="4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view_expiry_date"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view_amount1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintStart_toEndOf="@+id/view_amount1"
+        app:layout_constraintTop_toTopOf="@+id/view_amount1" />
+
+    <TextView
+        android:id="@+id/text_expiry_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="0.8sp"
+        android:text="@string/expiry_date"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/view_expiry_date"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="@+id/view_expiry_date"
+        app:layout_constraintTop_toTopOf="@+id/view_expiry_date" />
+
+    <TextView
+        android:id="@+id/text_date_names"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_pro_text_bold"
+        tools:text="27 Jan 2021"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size14"
+        app:layout_constraintEnd_toEndOf="@+id/text_expiry_date"
+        app:layout_constraintStart_toStartOf="@+id/text_expiry_date"
+        app:layout_constraintTop_toBottomOf="@+id/text_expiry_date" />
+
+    <TextView
+        android:id="@+id/text1_amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="0.8sp"
+        android:text="@string/amount"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/view_amount1"
+        app:layout_constraintStart_toStartOf="@+id/view_amount1"
+        app:layout_constraintTop_toTopOf="@+id/view_amount1" />
+
+    <TextView
+        android:id="@+id/text_amount_kd1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_pro_text_bold"
+        tools:text="KD 15.000"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size14"
+        app:layout_constraintEnd_toEndOf="@+id/text1_amount"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/text1_amount"
+        app:layout_constraintTop_toBottomOf="@+id/text1_amount" />
+
+    <View
+        android:id="@+id/view33_lines1"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/view_bg_color_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_amount1" />
+</androidx.constraintlayout.widget.ConstraintLayout>

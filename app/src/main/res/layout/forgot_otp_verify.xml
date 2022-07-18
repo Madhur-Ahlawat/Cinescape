@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/black"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="visible"
+        android:id="@+id/ForgotOtpVerify"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="17.5dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16.5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_cinema"
+        app:layout_constraintVertical_bias="1.0">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/enterUsernames"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@color/transparent"
+            android:hint="@string/email_id"
+            android:textColorHint="@color/arabic_color"
+            app:boxStrokeColor="@color/edittext_selector"
+            app:hintTextColor="@color/editColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/resendEmailED"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:drawableEnd="@drawable/ic_baseline_edit"
+                android:clickable="false"
+                android:focusable="false"
+                android:textAlignment="textStart"
+                android:textColor="@color/white"
+                android:textColorHint="@color/hint_color"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/size15"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textView76"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/resend"
+            android:textAlignment="center"
+            android:textColor="@color/hint_color"
+            android:textSize="@dimen/size15"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/enterUsernames" />
+
+        <TextView
+            android:id="@+id/textView78"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="58dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/sent_verification"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size15"
+            app:layout_constraintEnd_toEndOf="@+id/textView76"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView76" />
+
+        <TextView
+            android:id="@+id/textView79"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48.5dp"
+            android:fontFamily="@font/sf_pro_text_bold"
+            android:text="@string/enter_verification_code"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size20"
+            app:layout_constraintEnd_toEndOf="@+id/textView78"
+            app:layout_constraintStart_toStartOf="@+id/textView78"
+            app:layout_constraintTop_toBottomOf="@+id/textView78" />
+
+        <TextView
+            android:id="@+id/textView80"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/enterVerification"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size15"
+            app:layout_constraintEnd_toEndOf="@+id/textView79"
+            app:layout_constraintStart_toStartOf="@+id/textView79"
+            app:layout_constraintTop_toBottomOf="@+id/textView79" />
+
+        <com.kevinschildhorn.otpview.OTPView
+            android:id="@+id/otp_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:importantForAutofill="no"
+            android:inputType="phone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView80"
+            app:otp_backgroundImage="@drawable/background"
+            app:otp_cursorColor="@color/colorPrimary"
+            android:outlineAmbientShadowColor="@color/hint_color"
+            app:otp_filledBackgroundImage="@drawable/background"
+            app:otp_filledTextSize="20sp"
+            app:otp_highlightedBackgroundImage="@drawable/background_highlighted"
+            app:otp_highlightedTextSize="24sp"
+            app:otp_itemCount="6"
+            app:otp_itemHeight="45dp"
+            app:otp_itemWidth="41dp"
+            app:otp_marginBetween="4dp"
+            app:otp_showCursor="true"
+            app:otp_textColor="@color/colorPrimary"
+            app:otp_textSize="20sp"
+            tools:ignore="UnusedAttribute" />
+
+        <TextView
+            android:id="@+id/verifyOtpForgot"
+            android:layout_width="184dp"
+            android:layout_height="@dimen/margin36"
+            android:layout_marginTop="58.5dp"
+            android:background="@drawable/btn_corner_bg_red"
+            android:fontFamily="@font/sf_pro_text_bold"
+            android:gravity="center"
+            android:text="@string/submit"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/otp_view" />
+
+
+        <View
+            app:layout_constraintTop_toBottomOf="@+id/verifyOtpForgot"
+            android:layout_width="match_parent"
+            android:layout_height="84.29dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,49 @@
+<resources>
+
+    <dimen name="size1">1sp</dimen>
+    <dimen name="size3">3sp</dimen>
+    <dimen name="size12">12sp</dimen>
+    <dimen name="size11">11sp</dimen>
+    <dimen name="size10">10sp</dimen>
+    <dimen name="size8">8sp</dimen>
+    <dimen name="size13">13sp</dimen>
+    <dimen name="size14">14sp</dimen>
+    <dimen name="size15">15sp</dimen>
+    <dimen name="size16">16sp</dimen>
+    <dimen name="size18">18sp</dimen>
+    <dimen name="size17">17sp</dimen>
+    <dimen name="size20">20sp</dimen>
+    <dimen name="size22">22sp</dimen>
+    <dimen name="size25">25sp</dimen>
+    <dimen name="size30">30sp</dimen>
+    <dimen name="size40">40sp</dimen>
+    <dimen name="size50">50sp</dimen>
+
+    <dimen name="margin8">8dp</dimen>
+    <dimen name="margin7">7dp</dimen>
+    <dimen name="margin6">6dp</dimen>
+    <dimen name="margin3">3dp</dimen>
+    <dimen name="margin10">10dp</dimen>
+    <dimen name="margin15">15dp</dimen>
+    <dimen name="margin17">17dp</dimen>
+    <dimen name="margin16">16dp</dimen>
+    <dimen name="margin18">18dp</dimen>
+    <dimen name="margin4">4dp</dimen>
+    <dimen name="margin5">5dp</dimen>
+    <dimen name="margin2">2dp</dimen>
+    <dimen name="margin12">12dp</dimen>
+    <dimen name="margin20">20dp</dimen>
+    <dimen name="margin27">27dp</dimen>
+    <dimen name="margin30">30dp</dimen>
+    <dimen name="margin25">25dp</dimen>
+    <dimen name="margin40">40dp</dimen>
+    <dimen name="margin45">45dp</dimen>
+    <dimen name="margin43">43dp</dimen>
+    <dimen name="margin48">48dp</dimen>
+    <dimen name="margin36">36dp</dimen>
+    <dimen name="margin35">35dp</dimen>
+    <dimen name="margin32">32dp</dimen>
+    <dimen name="dimen30">30dp</dimen>
+
+
+</resources>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <View
+        android:id="@+id/view97"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin10"
+        android:layout_marginEnd="12.13dp"
+        android:layout_marginBottom="39dp"
+        android:background="@drawable/cart_dailog_gradient_new"
+        android:minHeight="400dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/view97"
+        app:layout_constraintStart_toStartOf="@+id/view97">
+
+        <View
+            android:id="@+id/view98"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView104"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:fontFamily="@font/sf_pro_text_heavy"
+            android:text="@string/food_pickup_info"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size18"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/view98"
+            app:layout_constraintTop_toTopOf="@+id/view98" />
+
+        <TextView
+            android:id="@+id/textView105"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="53dp"
+            android:layout_marginEnd="17.21dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:gravity="center_horizontal|center_vertical"
+            android:lineSpacingExtra="0.12dp"
+            tools:text="Scan your Booking ID or QR code at any KIOSK or USHER POINT once you reach the cinema location Go to the food pickup counter as soon as you scan the Booking ID to receive your order."
+            android:textAlignment="center"
+            android:textColor="@color/hint_color"
+            android:textSize="@dimen/size15"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/view98"
+            app:layout_constraintTop_toBottomOf="@+id/textView104" />
+
+
+        <TextView
+            android:id="@+id/close_dialog"
+            android:layout_width="110dp"
+            android:layout_height="42dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/btn_corner_bg_red"
+            android:fontFamily="@font/sf_pro_text_bold"
+            android:gravity="center"
+            android:lineSpacingExtra="1.8sp"
+            android:text="@string/close"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

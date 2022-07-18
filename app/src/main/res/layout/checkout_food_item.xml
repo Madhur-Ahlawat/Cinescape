@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent">
+
+    <View
+        android:id="@+id/view_food_item"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_food_item"
+        android:layout_width="76dp"
+        android:layout_height="64dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/contentDes"
+        app:layout_constraintBottom_toBottomOf="@+id/view_food_item"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view_food_item"
+        app:srcCompat="@drawable/img_nachos_soda_combo" />
+
+    <TextView
+        android:id="@+id/text_item_combo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_bold"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="1.3sp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size14"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/image_food_item"
+        app:layout_constraintTop_toTopOf="@+id/image_food_item"
+        tools:text="Combo 1" />
+
+    <TextView
+        android:id="@+id/text_food_item_names"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:lineSpacingExtra="1.5sp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintStart_toEndOf="@+id/image_food_item"
+        app:layout_constraintTop_toBottomOf="@+id/text_item_combo"
+        tools:text="Large Popcorn &amp; Soda" />
+
+    <TextView
+        android:id="@+id/text_kd_food_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:gravity="end"
+        android:lineSpacingExtra="1.5sp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/view_food_item"
+        app:layout_constraintStart_toEndOf="@+id/text_item_combo"
+        app:layout_constraintTop_toTopOf="@+id/text_item_combo"
+        tools:text="KD 99.00" />
+</androidx.constraintlayout.widget.ConstraintLayout>

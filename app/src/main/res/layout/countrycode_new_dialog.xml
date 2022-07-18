@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MyDialogTransparent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/view75"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/view72"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin4"
+        android:background="@drawable/seat"
+        android:padding="@dimen/margin6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_marginEnd="@dimen/margin25"
+            android:layout_marginStart="@dimen/margin25"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/margin32"
+            android:id="@+id/search_ui">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:cardBackgroundColor="@color/countrySearch"
+                app:cardCornerRadius="@dimen/margin10"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <EditText
+                        android:id="@+id/searchData"
+                        android:layout_width="match_parent"
+                        android:layout_height="53.39dp"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:layout_marginEnd="26dp"
+                        android:background="@null"
+                        android:drawableEnd="@drawable/ic_baseline_search"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:hint="@string/search_country"
+                        android:imeOptions="actionDone"
+                        android:importantForAutofill="no"
+                        android:inputType="textPersonName"
+                        android:paddingStart="@dimen/margin20"
+                        android:singleLine="true"
+                        android:textColor="@color/text_color"
+                        android:textColorHint="@color/text_color"
+                        android:textSize="@dimen/size14"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_goneMarginEnd="20dp"
+                        tools:ignore="RtlSymmetry" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout13"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="@dimen/margin7"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/country_curv"
+            app:layout_constraintEnd_toEndOf="@+id/search_ui"
+            app:layout_constraintStart_toStartOf="@+id/search_ui"
+            app:layout_constraintTop_toBottomOf="@+id/search_ui">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/NewCountryRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/margin8"
+                android:layout_marginEnd="@dimen/margin8"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:itemCount="10"
+                tools:listitem="@layout/layout_country_code" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="42dp"
+            android:layout_marginBottom="95.9dp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout13"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout13"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout13">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:id="@+id/view73"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView57"
+                    app:layout_constraintEnd_toStartOf="@+id/textView57"
+                    app:layout_constraintStart_toStartOf="@+id/textView59"
+                    app:layout_constraintTop_toTopOf="@+id/textView57" />
+
+                <TextView
+                    android:id="@+id/textView59"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    android:fontFamily="@font/sf_pro_text_bold"
+                    android:gravity="start"
+                    android:text="@string/cancelComma"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size16"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView60"
+                    app:layout_constraintEnd_toStartOf="@+id/textView60"
+                    app:layout_constraintTop_toTopOf="@+id/textView60" />
+
+                <TextView
+                    android:id="@+id/textView60"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="11.12dp"
+                    android:fontFamily="@font/sf_pro_text_light"
+                    android:text="@string/and_go_back"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size14"
+                    app:layout_constraintBottom_toBottomOf="@+id/view73"
+                    app:layout_constraintEnd_toStartOf="@+id/textView57"
+                    app:layout_constraintTop_toTopOf="@+id/view73" />
+
+                <TextView
+                    android:id="@+id/textView57"
+                    android:layout_width="86.49dp"
+                    android:layout_height="32.6dp"
+                    android:layout_marginTop="42dp"
+                    android:layout_marginEnd="@dimen/margin20"
+                    android:background="@drawable/btn_corner_bg_red"
+                    android:fontFamily="@font/sf_pro_text_bold"
+                    android:gravity="center"
+                    android:text="@string/ok"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size16"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

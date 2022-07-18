@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="transparent">#00000000</color>
+    <color name="transparentHome">#aa000000</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="yellow">#FFA700</color>
+    <color name="red">#FF0000</color>
+    <color name="green">#00B429</color>
+    <color name="grey">#6F6F6F</color>
+    <color name="shimmer">#9EDDDDDD</color>
+    <color name="silver">#757575</color>
+    <color name="wowOrange">#f25f22</color>
+    <color name="box_border">#3b3b3b</color>
+    <color name="moreBgColor">#333333</color>
+    <color name="editColor">#66646464</color>
+    <color name="head_title">#ededed</color>
+    <color name="tabIndicater">#e12329</color>
+    <color name="hint_color">#adadad</color>
+    <color name="text_color">#c1c1c1</color>
+    <color name="arabic_color">#696969</color>
+    <color name="view_line_color">#2e2e2e</color>
+    <color name="text_alert_color">#7b7a7a</color>
+    <color name="text_alert_color_red">#e12329</color>
+    <color name="view_bg_color_line">#33adadad</color>
+    <color name="viewColor">#b23f05</color>
+    <color name="black80">#CB000000</color>
+    <color name="black70">#B2000000</color>
+    <color name="countrySearch">#393939</color>
+    <color name="back_food">#00000080</color>
+    <color name="back_70">#B2000000</color>
+    <color name="black_grey">#464646</color>
+
+</resources>

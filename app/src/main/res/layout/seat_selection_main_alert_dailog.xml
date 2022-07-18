@@ -1,0 +1,744 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MyDialogTransparent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/view100"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/margin4"
+        android:padding="@dimen/margin6"
+        android:fitsSystemWindows="true"
+        android:fillViewport="true"
+        android:background="@drawable/seat"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="@+id/view100"
+        app:layout_constraintEnd_toEndOf="@+id/view100"
+        app:layout_constraintStart_toStartOf="@+id/view100"
+        app:layout_constraintTop_toTopOf="@+id/view100">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/sf_pro_text_bold"
+                android:gravity="center_horizontal"
+                android:letterSpacing="-0.01"
+                android:text="@string/select_seat_category"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size18"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5"
+                app:layout_constraintVertical_bias="1.0">
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:id="@+id/select_seat_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin15"
+                    android:foregroundGravity="center"
+                    app:alignContent="flex_start"
+                    app:alignItems="flex_start"
+                    app:flexWrap="wrap"
+                    app:flow_horizontalAlign="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/view30" />
+
+                <View
+                    android:id="@+id/view30"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/view2s_line"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/view_bg_color_line"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/select_seat_category" />
+
+                <TextView
+                    android:id="@+id/tv_select_seat_type"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen30"
+                    android:fontFamily="@font/sf_pro_text_bold"
+                    android:gravity="center_horizontal"
+                    android:letterSpacing="-0.01"
+                    android:text="@string/select_seat_type"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size15"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view2s_line" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/typeView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_select_seat_type">
+
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:id="@+id/select_seat_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen30"
+                        android:foregroundGravity="center"
+                        app:alignContent="center"
+                        app:alignItems="center"
+                        app:flexWrap="wrap"
+                        app:flow_horizontalAlign="center"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <View
+                    android:id="@+id/vw_line2"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/view_bg_color_line"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/typeView" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/vw_ticket_qtyUi"
+                    android:layout_width="match_parent"
+                    android:layout_height="106dp"
+                    android:layout_marginTop="20dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/vw_line2">
+
+                    <View
+                        android:id="@+id/vw_ticket_qty"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toTopOf="@+id/view37lines"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_ticket_qty"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_text_bold"
+                        android:letterSpacing="-0.02"
+                        android:lineSpacingExtra="0.8sp"
+                        android:paddingStart="@dimen/margin30"
+                        android:paddingEnd="0dp"
+                        android:text="@string/ticket_quantity"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size14"
+                        app:layout_constraintBottom_toBottomOf="@+id/vw_ticket_qty"
+                        app:layout_constraintStart_toStartOf="@+id/vw_ticket_qty"
+                        app:layout_constraintTop_toTopOf="@+id/vw_ticket_qty"
+                        app:layout_constraintVertical_bias="0.233" />
+
+                    <View
+                        android:id="@+id/view_increase_decrease"
+                        android:layout_width="130dp"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="23dp"
+                        android:background="@drawable/food_item_bg"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_ticket_qty"
+                        app:layout_constraintEnd_toEndOf="@+id/vw_ticket_qty"
+                        app:layout_constraintTop_toTopOf="@+id/tv_ticket_qty" />
+
+                    <TextView
+                        android:id="@+id/text_decrease"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:clickable="false"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:gravity="center"
+                        android:text="@string/minus"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size14"
+                        app:layout_constraintBottom_toBottomOf="@+id/view_increase_decrease"
+                        app:layout_constraintEnd_toStartOf="@+id/text_number"
+                        app:layout_constraintStart_toStartOf="@+id/view_increase_decrease"
+                        app:layout_constraintTop_toTopOf="@+id/view_increase_decrease" />
+
+                    <TextView
+                        android:id="@+id/text_number"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size14"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_decrease"
+                        app:layout_constraintEnd_toStartOf="@+id/text_increase"
+                        app:layout_constraintStart_toEndOf="@+id/text_decrease"
+                        app:layout_constraintTop_toTopOf="@+id/text_decrease"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/text_increase"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:clickable="false"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:gravity="center"
+                        android:text="@string/plus"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size14"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_number"
+                        app:layout_constraintEnd_toEndOf="@+id/view_increase_decrease"
+                        app:layout_constraintStart_toEndOf="@+id/text_number"
+                        app:layout_constraintTop_toTopOf="@+id/text_number" />
+
+                    <TextView
+                        android:id="@+id/tv_total_ticket_price_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="12dp"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:gravity="center_horizontal"
+                        android:letterSpacing="-0.01"
+                        android:text="@string/total_ticket_price"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/size10"
+                        android:textStyle="normal"
+                        app:layout_constraintEnd_toStartOf="@+id/text_total_t_kd"
+                        app:layout_constraintTop_toBottomOf="@+id/view_increase_decrease" />
+
+                    <TextView
+                        android:id="@+id/text_total_t_kd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="-8dp"
+                        android:fontFamily="@font/sf_pro_text_bold"
+                        android:letterSpacing="-0.02"
+                        android:lineSpacingExtra="4.5sp"
+                        android:textColor="#a8a8a8"
+                        android:textSize="@dimen/size13"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_total_ticket_price_title"
+                        app:layout_constraintEnd_toEndOf="@+id/view_increase_decrease"
+                        app:layout_constraintTop_toTopOf="@+id/tv_total_ticket_price_title"
+                        tools:text="KD 4.000" />
+
+
+                    <View
+                        android:id="@+id/view37lines"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/view_bg_color_line"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/vw_ticket_qtyUi"
+                        app:layout_constraintStart_toStartOf="@+id/vw_ticket_qtyUi" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <View
+                    android:id="@+id/view38"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="16dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/vw_ticket_qtyUi"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/vw_ticket_qtyUi"
+                    app:layout_constraintTop_toBottomOf="@+id/vw_ticket_qtyUi" />
+
+                <TextView
+
+                    android:id="@+id/text_have"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:gravity="end"
+                    android:text="Have a"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size14"
+                    android:textStyle="normal"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/view38"
+                    app:layout_constraintEnd_toStartOf="@+id/text_bank_offer"
+                    app:layout_constraintStart_toStartOf="@+id/view38"
+                    app:layout_constraintTop_toTopOf="@+id/view38"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/text_bank_offer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="1dp"
+                    android:fontFamily="@font/sf_pro_text_bold"
+                    android:gravity="end"
+                    android:text="@string/bank_offers"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size14"
+                    android:textStyle="normal"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_have"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_gift_voucher"
+                    app:layout_constraintStart_toEndOf="@+id/text_have"
+                    app:layout_constraintTop_toTopOf="@+id/text_have" />
+
+                <TextView
+                    android:id="@+id/tv_gift_voucher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_text_bold"
+                    android:text="@string/gift_voucher"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size14"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_bank_offer"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_or"
+                    app:layout_constraintStart_toEndOf="@+id/text_bank_offer"
+                    app:layout_constraintTop_toTopOf="@+id/text_bank_offer" />
+
+                <TextView
+                    android:id="@+id/tv_or"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:gravity="end"
+                    android:text="@string/or"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size12"
+                    android:textStyle="normal"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_gift_voucher"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_gift_card"
+                    app:layout_constraintStart_toEndOf="@+id/tv_gift_voucher"
+                    app:layout_constraintTop_toTopOf="@+id/tv_gift_voucher" />
+
+                <TextView
+                    android:id="@+id/tv_gift_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/sf_pro_text_bold"
+                    android:gravity="end"
+                    android:text="@string/gift_card1"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size14"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_or"
+                    app:layout_constraintEnd_toEndOf="@+id/view38"
+                    app:layout_constraintStart_toEndOf="@+id/tv_or"
+                    app:layout_constraintTop_toTopOf="@+id/tv_or" />
+
+                <View
+                    android:id="@+id/view39lines"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="110dp"
+                    android:background="@color/view_bg_color_line"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/view38"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/view38"
+                    app:layout_constraintTop_toBottomOf="@+id/view38" />
+
+                <View
+                    android:id="@+id/vw_category"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/view39lines"
+                    app:layout_constraintStart_toStartOf="@+id/view39lines"
+                    app:layout_constraintTop_toBottomOf="@+id/view39lines" />
+
+                <TextView
+                    android:id="@+id/text_age_category"
+                    android:layout_width="@dimen/margin45"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/btn_corner_bg_red"
+                    android:fontFamily="@font/gibson_semibold"
+                    android:gravity="center"
+                    android:letterSpacing="-0.02"
+                    android:text="18+"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size16"
+                    android:textStyle="normal"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/vw_category"
+                    app:layout_constraintEnd_toStartOf="@+id/text_category_decription"
+                    app:layout_constraintStart_toStartOf="@+id/vw_category"
+                    app:layout_constraintTop_toTopOf="@+id/vw_category"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/text_category_decription"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="1.5sp"
+                    android:paddingStart="@dimen/margin10"
+                    android:paddingEnd="@dimen/margin10"
+                    android:text="Under 18 needs to be accompanied by parents or any adult age 18 and over."
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size14"
+                    android:textStyle="normal"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_age_category"
+                    app:layout_constraintEnd_toEndOf="@+id/vw_category"
+                    app:layout_constraintStart_toEndOf="@+id/text_age_category"
+                    app:layout_constraintTop_toTopOf="@+id/text_age_category"
+                    tools:ignore="HardcodedText" />
+
+                <View
+                    android:id="@+id/view42lines"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/view_bg_color_line"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/vw_category"
+                    app:layout_constraintStart_toStartOf="@+id/vw_category"
+                    app:layout_constraintTop_toBottomOf="@+id/vw_category" />
+
+                <TextView
+                    android:id="@+id/text_agree"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:text="@string/by_clicking_proceed_i_agree_to_the"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size14"
+                    android:textStyle="normal"
+                    android:visibility="gone"
+                    app:layout_constraintHorizontal_weight=".7"
+                    app:layout_constraintStart_toStartOf="@+id/view30"
+                    app:layout_constraintTop_toBottomOf="@+id/view42lines" />
+
+                <View
+                    android:id="@+id/view19"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_marginBottom="38dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/text_agree" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cancelDialog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/view19"
+                    app:layout_constraintStart_toStartOf="@+id/view30"
+                    app:layout_constraintTop_toTopOf="@+id/view19">
+
+                    <TextView
+                        android:id="@+id/cancel_goback"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_text_bold"
+                        android:gravity="start"
+                        android:text="@string/cancel"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size16"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="@string/and_go_back"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/size14"
+                        app:layout_constraintBottom_toBottomOf="@+id/cancel_goback"
+                        app:layout_constraintStart_toEndOf="@+id/cancel_goback"
+                        app:layout_constraintTop_toTopOf="@+id/cancel_goback" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:visibility="invisible"
+                    android:id="@+id/text_cancel_goback"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:gravity="start"
+                    android:text="@string/cancel_and_go_back"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/size12"
+                    app:layout_constraintStart_toStartOf="@+id/view19"
+                    app:layout_constraintTop_toTopOf="@+id/view19" />
+
+                <TextView
+                    android:id="@+id/text_proceeds"
+                    android:layout_width="110dp"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="@dimen/margin20"
+                    android:background="@drawable/btn_corner_bg_red"
+                    android:fontFamily="@font/sf_pro_text_bold"
+                    android:gravity="center"
+                    android:text="@string/proceed"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_cancel_goback"
+                    app:layout_constraintEnd_toEndOf="@+id/view19"
+                    app:layout_constraintTop_toTopOf="@+id/text_cancel_goback" />
+
+                <View
+                    android:id="@+id/view_gift"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/view38"
+                    app:layout_constraintStart_toStartOf="@+id/view38"
+                    app:layout_constraintTop_toBottomOf="@+id/view38" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/bank_offers"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:visibility="gone"
+                    app:boxStrokeColor="@color/edittext_selector"
+                    app:endIconDrawable="@drawable/ic_icons_light_next"
+                    app:endIconMode="dropdown_menu"
+                    app:endIconTint="@color/view_bg_color_line"
+                    app:errorIconDrawable="@color/text_color"
+                    app:layout_constraintBottom_toBottomOf="@+id/view_gift"
+                    app:layout_constraintEnd_toEndOf="@+id/view_gift"
+                    app:layout_constraintStart_toStartOf="@+id/view_gift"
+                    app:layout_constraintTop_toTopOf="@+id/view_gift">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/bank_offers1"
+                        style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/a_autotext_bg"
+                        android:completionThreshold="1"
+                        android:focusable="false"
+                        android:focusableInTouchMode="true"
+                        android:paddingBottom="@dimen/margin20"
+                        android:text="Available Bank Offers"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/arabic_color"
+                        android:textCursorDrawable="@null"
+                        android:textSize="@dimen/size14"
+                        app:errorIconDrawable="@color/text_color"
+                        tools:ignore="HardcodedText,LabelFor" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <View
+                    android:id="@+id/view_gift_voucher"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/view38"
+                    app:layout_constraintHorizontal_bias="0.466"
+                    app:layout_constraintStart_toStartOf="@+id/view38"
+                    app:layout_constraintTop_toBottomOf="@+id/view38" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/expireDateTextInputLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_marginStart="10dp"
+                    android:paddingEnd="@dimen/margin20"
+                    android:visibility="gone"
+                    app:boxCornerRadiusBottomEnd="@dimen/margin10"
+                    app:boxCornerRadiusBottomStart="@dimen/margin10"
+                    app:boxCornerRadiusTopEnd="@dimen/margin10"
+                    app:boxCornerRadiusTopStart="@dimen/margin10"
+                    app:boxStrokeColor="@color/edittext_selector"
+                    app:endIconDrawable="@drawable/ic_icon_feather_calendar"
+                    app:endIconTint="@color/text_color"
+                    app:hintTextColor="@color/editColor"
+                    app:layout_constraintBottom_toBottomOf="@+id/view_gift_voucher"
+                    app:layout_constraintEnd_toStartOf="@+id/textView9"
+                    app:layout_constraintHorizontal_weight="3"
+                    app:layout_constraintStart_toStartOf="@+id/view_gift_voucher"
+                    app:layout_constraintTop_toTopOf="@+id/view_gift_voucher"
+                    tools:ignore="RtlSymmetry">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/giftVaucherTextInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:focusableInTouchMode="true"
+                        android:text="Enter Gift Voucher Code"
+                        android:textColor="@color/white"
+                        android:textCursorDrawable="@null"
+                        android:textSize="@dimen/size14"
+                        app:endIconDrawable="@drawable/ic_icon_feather_calendar"
+                        app:endIconTint="@color/text_color"
+                        app:hintTextColor="@color/editColor"
+                        tools:ignore="HardcodedText" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin35"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/btn_corner_bg_red"
+                    android:fontFamily="@font/sf_pro_text_bold"
+                    android:gravity="center"
+                    android:text="@string/apply"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@+id/expireDateTextInputLayout"
+                    app:layout_constraintEnd_toEndOf="@+id/view_gift_voucher"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@+id/expireDateTextInputLayout"
+                    app:layout_constraintTop_toTopOf="@+id/expireDateTextInputLayout" />
+
+                <View
+                    android:id="@+id/view_gift_card1"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/view38"
+                    app:layout_constraintStart_toStartOf="@+id/view38"
+                    app:layout_constraintTop_toBottomOf="@+id/view_gift" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/giftCardTextInputLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="@dimen/margin20"
+                    android:textColorHint="@color/white"
+                    app:boxCornerRadiusBottomEnd="@dimen/margin10"
+                    app:boxCornerRadiusBottomStart="@dimen/margin10"
+                    app:boxCornerRadiusTopEnd="@dimen/margin10"
+                    app:boxCornerRadiusTopStart="@dimen/margin10"
+                    app:boxStrokeColor="@color/edittext_selector"
+                    app:endIconDrawable="@drawable/ic_icon_feather_calendar"
+                    app:endIconTint="@color/text_color"
+                    app:layout_constraintBottom_toBottomOf="@+id/view_gift_card1"
+                    app:layout_constraintEnd_toStartOf="@+id/textView_gift_card_apply"
+                    app:layout_constraintHorizontal_weight="3"
+                    app:layout_constraintStart_toStartOf="@+id/view_gift_card1"
+                    app:layout_constraintTop_toTopOf="@+id/view_gift_card1">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/giftcardTextInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:focusableInTouchMode="true"
+                        android:hint="Enter Gift Card Number"
+                        android:textColor="@color/white"
+                        android:textCursorDrawable="@null"
+                        android:textSize="@dimen/size14"
+                        app:endIconDrawable="@drawable/ic_icon_feather_calendar"
+                        app:endIconTint="@color/text_color"
+                        tools:ignore="HardcodedText" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/textView_gift_card_apply"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin35"
+                    android:background="@drawable/btn_corner_bg_red"
+                    android:fontFamily="@font/sf_pro_text_bold"
+                    android:gravity="center"
+                    android:text="@string/apply"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@+id/giftCardTextInputLayout"
+                    app:layout_constraintEnd_toEndOf="@+id/view_gift_card1"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@+id/giftCardTextInputLayout"
+                    app:layout_constraintTop_toTopOf="@+id/giftCardTextInputLayout" />
+
+                <TextView
+                    android:id="@+id/textView103"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:fontFamily="@font/sf_pro_text_semibold"
+                    android:text="@string/terms_amp_condition"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size13"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_agree"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/text_agree"
+                    app:layout_constraintTop_toTopOf="@+id/text_agree"
+                    app:layout_constraintVertical_bias="0.428" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

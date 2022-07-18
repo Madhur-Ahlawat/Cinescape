@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black">
+
+    <View
+        android:id="@+id/view30_locations"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintEnd_toStartOf="@+id/view32_screens"
+        app:layout_constraintHorizontal_weight="4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view32_screens"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view30_locations"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintStart_toEndOf="@+id/view30_locations"
+        app:layout_constraintTop_toTopOf="@+id/view30_locations" />
+
+    <TextView
+        android:id="@+id/text_locations1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:text="@string/location"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/view30_locations"
+        app:layout_constraintStart_toStartOf="@+id/view30_locations"
+        app:layout_constraintTop_toTopOf="@+id/view30_locations" />
+
+    <TextView
+        android:id="@+id/text_address"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:lineSpacingExtra="9sp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/text_locations1"
+        app:layout_constraintStart_toStartOf="@+id/text_locations1"
+        app:layout_constraintTop_toBottomOf="@+id/text_locations1"
+        tools:ignore="HardcodedText"
+        tools:text="Cinescape Al-Kout" />
+
+    <TextView
+        android:id="@+id/textView_screen"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:text="@string/screen"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/view32_screens"
+        app:layout_constraintStart_toStartOf="@+id/view32_screens"
+        app:layout_constraintTop_toTopOf="@+id/view32_screens" />
+
+    <TextView
+        android:id="@+id/textView_screen_number"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:lineSpacingExtra="9sp"
+        android:text="@string/_9"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/textView_screen"
+        app:layout_constraintStart_toStartOf="@+id/textView_screen"
+        app:layout_constraintTop_toBottomOf="@+id/textView_screen" />
+
+    <View
+        android:id="@+id/view33_date"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toStartOf="@+id/view34_time"
+        app:layout_constraintHorizontal_weight="4"
+        app:layout_constraintStart_toStartOf="@+id/view30_locations"
+        app:layout_constraintTop_toBottomOf="@+id/view30_locations" />
+
+    <View
+        android:id="@+id/view34_time"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view33_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintStart_toEndOf="@+id/view33_date"
+        app:layout_constraintTop_toTopOf="@+id/view33_date" />
+
+    <TextView
+        android:id="@+id/textView_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:text="@string/date"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/view33_date"
+        app:layout_constraintStart_toStartOf="@+id/view33_date"
+        app:layout_constraintTop_toTopOf="@+id/view33_date" />
+
+    <TextView
+        android:id="@+id/textView_date_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:lineSpacingExtra="9sp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/textView_date"
+        app:layout_constraintStart_toStartOf="@+id/textView_date"
+        app:layout_constraintTop_toBottomOf="@+id/textView_date"
+        tools:text="03 June 2020" />
+
+    <TextView
+        android:id="@+id/textView_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:text="@string/time"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/view34_time"
+        app:layout_constraintStart_toStartOf="@+id/view34_time"
+        app:layout_constraintTop_toTopOf="@+id/view34_time" />
+
+    <TextView
+        android:id="@+id/textView_time_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:lineSpacingExtra="9sp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/textView_time"
+        app:layout_constraintStart_toStartOf="@+id/textView_time"
+        app:layout_constraintTop_toBottomOf="@+id/textView_time"
+        tools:text="13:45" />
+
+    <View
+        android:id="@+id/view_experience"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/view_categorys"
+        app:layout_constraintStart_toStartOf="@+id/textView_date_info"
+        app:layout_constraintTop_toBottomOf="@+id/view33_date" />
+
+    <View
+        android:id="@+id/view_categorys"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view_experience"
+        app:layout_constraintEnd_toEndOf="@+id/textView_time_info"
+        app:layout_constraintStart_toEndOf="@+id/view_experience"
+        app:layout_constraintTop_toTopOf="@+id/view_experience" />
+
+    <TextView
+        android:id="@+id/textView_category"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:text="@string/category"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/view_categorys"
+        app:layout_constraintStart_toStartOf="@+id/view_categorys"
+        app:layout_constraintTop_toTopOf="@+id/view_categorys" />
+
+    <TextView
+        android:id="@+id/textView_category_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:lineSpacingExtra="9sp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/view_categorys"
+        app:layout_constraintStart_toStartOf="@+id/view_categorys"
+        app:layout_constraintTop_toBottomOf="@+id/textView_category"
+        tools:text="Bachelors" />
+
+    <TextView
+        android:id="@+id/textView_experience"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:text="@string/experience"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/view_experience"
+        app:layout_constraintStart_toStartOf="@+id/view_experience"
+        app:layout_constraintTop_toTopOf="@+id/view_experience" />
+
+    <TextView
+        android:id="@+id/textView_experience_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:lineSpacingExtra="9sp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/view_experience"
+        app:layout_constraintStart_toStartOf="@+id/view_experience"
+        app:layout_constraintTop_toBottomOf="@+id/textView_experience"
+        tools:text="Standard" />
+
+    <TextView
+        android:id="@+id/textView_seats_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:text="@string/seats"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/textView_category_name"
+        app:layout_constraintStart_toStartOf="@+id/view_experience"
+        app:layout_constraintTop_toBottomOf="@+id/view_experience" />
+
+    <TextView
+        android:id="@+id/textView_seat_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:lineSpacingExtra="9sp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:alignContent="stretch"
+        app:alignItems="stretch"
+        app:flexWrap="wrap"
+        app:layout_constraintEnd_toEndOf="@+id/textView_seats_title"
+        app:layout_constraintStart_toStartOf="@+id/textView_seats_title"
+        app:layout_constraintTop_toBottomOf="@+id/textView_seats_title"
+        tools:text="7N, 7M, 70, 80, 8N" />
+
+    <View
+        android:id="@+id/view_ticket_total_price"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView_seat_name"
+        app:layout_constraintStart_toStartOf="@+id/textView_seat_name"
+        app:layout_constraintTop_toBottomOf="@+id/textView_seat_name" />
+
+    <TextView
+        android:id="@+id/tv_total_tc_price_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:gravity="center"
+        android:text="@string/total_ticket_price"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toStartOf="@+id/text_kd_ticket_price"
+        app:layout_constraintStart_toStartOf="@+id/view_ticket_total_price"
+        app:layout_constraintTop_toTopOf="@+id/view_ticket_total_price" />
+
+    <TextView
+        android:id="@+id/text_kd_ticket_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:lineSpacingExtra="9sp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size14"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_total_tc_price_text"
+        app:layout_constraintEnd_toEndOf="@+id/view_ticket_total_price"
+        app:layout_constraintStart_toEndOf="@+id/tv_total_tc_price_text"
+        app:layout_constraintTop_toTopOf="@+id/tv_total_tc_price_text"
+        tools:text="KD 30.500" />
+
+    <TextView
+        android:id="@+id/textView_paid_by_club_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:gravity="center"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/tv_total_tc_price_text"
+        app:layout_constraintStart_toStartOf="@+id/tv_total_tc_price_text"
+        app:layout_constraintTop_toBottomOf="@+id/tv_total_tc_price_text"
+        tools:text="@string/paid_by_club_card" />
+
+    <View
+        android:id="@+id/vw_line"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/view_bg_color_line"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_ticket_total_price" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

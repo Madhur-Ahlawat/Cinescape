@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black"
+    android:paddingStart="@dimen/margin20"
+    android:paddingEnd="@dimen/margin20"
+    android:paddingTop="@dimen/margin20"
+    android:paddingBottom="@dimen/margin5">
+
+    <View
+        android:id="@+id/view33"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_pro_text_bold"
+        android:text="@string/contact_us"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size22"
+        app:layout_constraintStart_toStartOf="@+id/view33"
+        app:layout_constraintTop_toTopOf="@+id/view33"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/enterUsernames"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:hint="@string/name"
+        android:textColorHint="@color/arabic_color"
+        app:boxStrokeColor="@color/edittext_selector"
+        app:hintTextColor="@color/editColor"
+        app:layout_constraintEnd_toEndOf="@+id/view33"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/view33"
+        app:layout_constraintTop_toBottomOf="@+id/textView11">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/enterUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textColorHint="@color/hint_color"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/size15"
+            tools:ignore="TextContrastCheck,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/enterEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin10"
+        android:background="@color/transparent"
+        android:hint="@string/email"
+        android:textColorHint="@color/arabic_color"
+        app:boxStrokeColor="@color/edittext_selector"
+        app:hintTextColor="@color/editColor"
+        app:layout_constraintEnd_toEndOf="@+id/view33"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/view33"
+        app:layout_constraintTop_toBottomOf="@+id/enterUsernames">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/contactEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textColorHint="@color/hint_color"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/size15"
+            tools:ignore="TextContrastCheck,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:id="@+id/view_mobile1"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/enterEmail"
+        app:layout_constraintTop_toBottomOf="@+id/enterEmail" />
+
+    <TextView
+        android:id="@+id/text_mobile_title"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin43"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:gravity="bottom"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="2sp"
+        android:paddingStart="@dimen/margin4"
+        android:paddingEnd="@dimen/margin10"
+        android:paddingBottom="@dimen/margin4"
+        android:text="@string/mobile"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size14"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/view_mobile1"
+        app:layout_constraintEnd_toStartOf="@+id/enter_mobile_code"
+        app:layout_constraintHorizontal_weight="1.9"
+        app:layout_constraintStart_toStartOf="@+id/view_mobile1"
+        app:layout_constraintTop_toTopOf="@+id/view_mobile1" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/enter_mobile_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:paddingTop="@dimen/margin6"
+        app:endIconDrawable="@drawable/ic_icons_light_next"
+        app:endIconMode="dropdown_menu"
+        app:endIconTint="@color/text_color"
+        app:errorIconDrawable="@color/text_color"
+        app:layout_constraintBottom_toBottomOf="@+id/text_mobile_title"
+        app:layout_constraintEnd_toStartOf="@+id/enter_mobile_number"
+        app:layout_constraintHorizontal_weight="1.5"
+        app:layout_constraintStart_toEndOf="@+id/text_mobile_title"
+        app:layout_constraintTop_toTopOf="@+id/text_mobile_title">
+
+        <AutoCompleteTextView
+            android:id="@+id/mobileCodeMore"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/a_edit_bg"
+            android:backgroundTint="@color/edittext_profile"
+            android:clickable="false"
+            android:completionThreshold="1"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:paddingTop="@dimen/margin6"
+            android:text="+965"
+            android:textColor="@color/white"
+            android:textColorHint="@color/arabic_color"
+            android:textSize="@dimen/size14"
+            tools:ignore="HardcodedText,LabelFor,TouchTargetSizeCheck" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/enter_mobile_number"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:textColorHint="@color/text_color"
+        app:boxStrokeColor="@color/edittext_profile"
+        app:layout_constraintBottom_toBottomOf="@+id/enter_mobile_code"
+        app:layout_constraintEnd_toEndOf="@+id/view_mobile1"
+        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintStart_toEndOf="@+id/enter_mobile_code"
+        app:layout_constraintTop_toTopOf="@+id/enter_mobile_code"
+        tools:ignore="HardcodedText">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/enter_mobile_numbers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:inputType="phone"
+            android:lineSpacingExtra="1.8sp"
+            android:maxLength="12"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textColorHint="@color/text_color"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/size14"
+            tools:ignore="HardcodedText,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:id="@+id/view43_line"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginTop="2dp"
+        android:background="@color/view_bg_color_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_mobile1" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:gravity="center_vertical"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="2sp"
+        android:paddingStart="@dimen/margin4"
+        android:paddingEnd="@dimen/margin10"
+        android:text="@string/message"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size14"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="@+id/view33"
+        app:layout_constraintTop_toBottomOf="@+id/view43_line" />
+
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/back_msg"
+        android:gravity="start"
+        android:imeOptions="actionDone"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
+        android:minHeight="141dp"
+        android:padding="@dimen/margin15"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="@dimen/size20"
+        app:layout_constraintEnd_toEndOf="@+id/view33"
+        app:layout_constraintStart_toStartOf="@+id/view33"
+        app:layout_constraintTop_toBottomOf="@+id/textView17"
+        tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="59dp"
+        android:layout_height="28dp"
+        android:background="@drawable/back_image"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:gravity="center"
+        android:lineSpacingExtra="2sp"
+        android:text="@string/send"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size14"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/textView29"
+        app:layout_constraintEnd_toEndOf="@+id/view33"
+        app:layout_constraintTop_toTopOf="@+id/textView29" />
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="8dp"
+        android:drawablePadding="@dimen/margin10"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:gravity="center_vertical"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="2sp"
+        android:padding="@dimen/margin10"
+        android:text="@string/upload_file"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size14"
+        android:textStyle="normal"
+        app:drawableStartCompat="@drawable/ic_upload"
+        app:layout_constraintEnd_toStartOf="@+id/textView18"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+
+    <View
+        android:id="@+id/view40"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView29" />
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_pro_text_medium"
+        android:text="@string/call_center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size14"
+        app:layout_constraintStart_toStartOf="@+id/view40"
+        app:layout_constraintTop_toTopOf="@+id/view40" />
+
+    <TextView
+        android:id="@+id/textView31"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/working_hours"
+        android:textColor="@color/hint_color"
+        app:layout_constraintStart_toStartOf="@+id/view40"
+        app:layout_constraintTop_toBottomOf="@+id/textView30" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_border"
+        android:padding="@dimen/size10"
+        app:layout_constraintBottom_toBottomOf="@+id/view40"
+        app:layout_constraintEnd_toEndOf="@+id/view40"
+        app:layout_constraintTop_toTopOf="@+id/view40"
+        app:srcCompat="@drawable/ic_call"
+        tools:ignore="ContentDescription" />
+
+    <View
+        android:id="@+id/view41"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view40" />
+
+    <TextView
+        android:id="@+id/textView32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_pro_text_medium"
+        android:text="@string/whatsapp_chat"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size14"
+        app:layout_constraintStart_toStartOf="@+id/view40"
+        app:layout_constraintTop_toTopOf="@+id/view41" />
+
+    <TextView
+        android:id="@+id/textView33"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/working_hours"
+        android:textColor="@color/hint_color"
+        app:layout_constraintStart_toStartOf="@+id/view40"
+        app:layout_constraintTop_toBottomOf="@+id/textView32" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_border"
+        android:padding="@dimen/size10"
+        app:layout_constraintBottom_toBottomOf="@+id/view41"
+        app:layout_constraintEnd_toEndOf="@+id/view40"
+        app:layout_constraintTop_toTopOf="@+id/view41"
+        app:srcCompat="@drawable/ic_whatsapp"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/textView34"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/sf_pro_text_medium"
+        android:text="@string/connect_with_us"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view41" />
+
+    <ImageView
+        android:id="@+id/imageView17"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView34"
+        app:srcCompat="@drawable/ic_facebook"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/imageView18"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView17"
+        app:layout_constraintStart_toEndOf="@+id/imageView17"
+        app:layout_constraintTop_toTopOf="@+id/imageView17"
+        app:srcCompat="@drawable/ic_instagram"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/imageView19"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView18"
+        app:layout_constraintStart_toEndOf="@+id/imageView18"
+        app:layout_constraintTop_toTopOf="@+id/imageView18"
+        app:srcCompat="@drawable/ic_twitter"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/imageView20"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView19"
+        app:layout_constraintStart_toEndOf="@+id/imageView19"
+        app:layout_constraintTop_toTopOf="@+id/imageView19"
+        app:srcCompat="@drawable/ic_youtube"
+        tools:ignore="ContentDescription" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    android:backgroundTint="@color/transparent">
+
+    <View
+        android:id="@+id/view95"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_booking_alert2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15.25dp"
+        android:layout_marginEnd="15.75dp"
+        android:layout_marginBottom="102dp"
+        android:background="@color/transparent"
+        android:backgroundTint="@color/transparent"
+        android:elevation="@dimen/margin2"
+        app:cardBackgroundColor="@color/transparent"
+        app:cardCornerRadius="@dimen/margin12"
+        app:cardElevation="@dimen/margin2"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/view95"
+        app:layout_constraintStart_toStartOf="@+id/view95">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/alert_booking_bg">
+
+            <ImageView
+                android:id="@+id/img_cross_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/contentDes"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_close_icons_light" />
+
+            <TextView
+                android:id="@+id/text_booking_alert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size20"
+                android:fontFamily="@font/sf_pro_text_heavy"
+                android:gravity="center_horizontal"
+                android:text="@string/booking_alert"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size18"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_have_upcoming_booking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/sf_pro_text_semibold"
+                android:gravity="center_horizontal"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="2.3sp"
+                android:text="@string/you_have_an_upcoming_booking"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size15"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="@+id/text_booking_alert"
+                app:layout_constraintHorizontal_bias="0.511"
+                app:layout_constraintStart_toStartOf="@+id/text_booking_alert"
+                app:layout_constraintTop_toBottomOf="@+id/text_booking_alert" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewAlertBooking"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_have_upcoming_booking" />
+
+            <TextView
+                android:id="@+id/go_to_booking_btn"
+                android:layout_width="130dp"
+                android:layout_height="@dimen/margin35"
+                android:layout_marginTop="@dimen/margin8"
+                android:layout_marginBottom="@dimen/margin8"
+                android:background="@drawable/btn_corner_bg_red"
+                android:fontFamily="@font/sf_pro_text_heavy"
+                android:gravity="center"
+                android:text="@string/go_to_booking"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size16"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/recyclerViewAlertBooking"
+                app:layout_constraintHorizontal_bias="0.538"
+                app:layout_constraintStart_toStartOf="@+id/recyclerViewAlertBooking"
+                app:layout_constraintTop_toBottomOf="@+id/textView_dots" />
+
+            <ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
+                android:id="@+id/textView_dots"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/margin12"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:padding="6dp"
+                app:layout_constraintEnd_toEndOf="@+id/recyclerViewAlertBooking"
+                app:layout_constraintStart_toStartOf="@+id/recyclerViewAlertBooking"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerViewAlertBooking"
+                app:spi_dotSelectedColor="@color/tabIndicater" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

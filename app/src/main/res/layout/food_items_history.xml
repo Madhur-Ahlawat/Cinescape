@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/linearLayout3"
+    android:background="@color/black">
+
+    <LinearLayout
+        android:id="@+id/consUi"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+
+
+        <TextView
+            android:id="@+id/textView99"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size14"
+            android:text="@string/item"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView100"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/qty"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size14"
+            app:layout_constraintBottom_toBottomOf="@+id/textView99"
+            app:layout_constraintEnd_toStartOf="@+id/textView101"
+            app:layout_constraintTop_toTopOf="@+id/textView99" />
+
+        <TextView
+            android:id="@+id/textView101"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.9"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/price"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size14"
+            app:layout_constraintBottom_toBottomOf="@+id/textView100"
+            app:layout_constraintEnd_toStartOf="@+id/textView102"
+            app:layout_constraintTop_toTopOf="@+id/textView100" />
+
+        <TextView
+            android:id="@+id/textView102"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.3"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size14"
+            android:gravity="center"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/total"
+            app:layout_constraintBottom_toBottomOf="@+id/textView101"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView101" />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        android:layout_marginTop="@dimen/margin10"
+        app:layout_constraintTop_toBottomOf="@+id/consUi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView91"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="@font/sf_pro_text_regular"
+            tools:text="Popcorn "
+            android:ellipsize="end"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size14"
+            app:layout_constraintEnd_toStartOf="@+id/textView92"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView92"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:fontFamily="@font/sf_pro_text_regular"
+            tools:text="1"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size14"
+            app:layout_constraintEnd_toStartOf="@+id/textView94"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView93"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.9"
+            android:fontFamily="@font/sf_pro_text_regular"
+            tools:text="4.500"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView94"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.3"
+            android:fontFamily="@font/sf_pro_text_regular"
+            tools:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size14"
+            app:layout_constraintEnd_toStartOf="@+id/textView93"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/textView95"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_pro_text_regular"
+        tools:text="#C1C1C1"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/size13"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+
+</LinearLayout>

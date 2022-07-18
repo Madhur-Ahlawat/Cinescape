@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/transparent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ticketPage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:id="@+id/view_mains"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view_movie_name"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="100dp"
+            app:layout_constraintEnd_toEndOf="@+id/view_mains"
+            app:layout_constraintStart_toStartOf="@+id/view_mains"
+            app:layout_constraintTop_toTopOf="@+id/view_mains" />
+
+        <TextView
+            android:id="@+id/summary_name_movie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_heavy"
+            android:paddingStart="0dp"
+            tools:text="Bombshell"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size20"
+            app:layout_constraintBottom_toBottomOf="@+id/view_movie_name"
+            app:layout_constraintStart_toStartOf="@+id/view_movie_name"
+            app:layout_constraintTop_toTopOf="@+id/view_movie_name"
+            tools:ignore="RtlSymmetry" />
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="3dp"
+            android:layout_marginStart="@dimen/margin16"
+            android:paddingEnd="@dimen/margin30"
+            app:cardBackgroundColor="@color/transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/summary_name_movie"
+            app:layout_constraintStart_toEndOf="@+id/summary_name_movie"
+            app:layout_constraintTop_toTopOf="@+id/summary_name_movie"
+            tools:ignore="RtlSymmetry">
+
+            <TextView
+                android:id="@+id/summary_censor"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size20"
+                android:fontFamily="@font/gibson_semibold"
+                android:gravity="center"
+                android:minWidth="@dimen/margin15"
+                android:paddingStart="@dimen/margin10"
+                android:paddingEnd="@dimen/margin10"
+                tools:text="13+"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size14"
+                android:textStyle="normal" />
+
+        </androidx.cardview.widget.CardView>
+
+        <View
+            android:id="@+id/view_locations"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/view_date"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toStartOf="@+id/view_mains"
+            app:layout_constraintTop_toBottomOf="@+id/view_movie_name" />
+
+        <TextView
+            android:id="@+id/text_locations"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:letterSpacing="-0.01"
+            android:text="@string/location"
+            android:textColor="@color/hint_color"
+            android:textSize="@dimen/size15"
+            app:layout_constraintStart_toStartOf="@+id/view_locations"
+            app:layout_constraintTop_toTopOf="@+id/view_locations"
+            tools:ignore="TextContrastCheck" />
+
+        <TextView
+            android:layout_marginTop="4dp"
+            android:id="@+id/text_location_names"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="1sp"
+            tools:text="Cinescape Al Muhallab"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size15"
+            app:layout_constraintStart_toStartOf="@+id/view_locations"
+            app:layout_constraintTop_toBottomOf="@+id/text_locations" />
+
+        <View
+            android:id="@+id/view_date"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view_locations"
+            app:layout_constraintEnd_toStartOf="@+id/view_times1"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/view_locations"
+            app:layout_constraintTop_toTopOf="@+id/view_locations" />
+
+        <TextView
+            android:id="@+id/txt_dates"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/screen"
+            android:textColor="@color/hint_color"
+            android:textSize="@dimen/size15"
+            app:layout_constraintStart_toStartOf="@+id/view_date"
+            app:layout_constraintTop_toTopOf="@+id/view_date"
+            tools:ignore="TextContrastCheck" />
+
+        <TextView
+            android:id="@+id/txt_screen"
+            android:layout_marginTop="4dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="1sp"
+            android:text="@string/_9"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size14"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="@+id/view_date"
+            app:layout_constraintTop_toBottomOf="@+id/txt_dates" />
+
+        <View
+            android:id="@+id/view_times1"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view_date"
+            app:layout_constraintEnd_toEndOf="@+id/view_mains"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_weight="1.5"
+            app:layout_constraintStart_toEndOf="@+id/view_date"
+            app:layout_constraintTop_toTopOf="@+id/view_date"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/texts_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/experience"
+            android:textColor="@color/hint_color"
+            android:textSize="@dimen/size14"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="@+id/view_times1"
+            app:layout_constraintTop_toTopOf="@+id/view_times1"
+            tools:ignore="TextContrastCheck" />
+
+        <TextView
+            android:layout_marginTop="4dp"
+            android:id="@+id/text_times2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="1sp"
+            tools:text="Dolby Cinema"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size14"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="@+id/view_times1"
+            app:layout_constraintTop_toBottomOf="@+id/texts_time" />
+
+        <View
+            android:id="@+id/view_dates"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="23dp"
+            app:layout_constraintEnd_toStartOf="@+id/view_times"
+            app:layout_constraintHorizontal_weight="1.6"
+            app:layout_constraintStart_toStartOf="@+id/view_locations"
+            app:layout_constraintTop_toBottomOf="@+id/view_locations" />
+
+        <View
+            android:id="@+id/view_times"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view_dates"
+            app:layout_constraintEnd_toEndOf="@+id/view_times1"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toEndOf="@+id/view_dates"
+            app:layout_constraintTop_toTopOf="@+id/view_dates" />
+
+        <TextView
+            android:id="@+id/text_Dates"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/date"
+            android:textColor="@color/hint_color"
+            android:textSize="@dimen/size15"
+            app:layout_constraintStart_toStartOf="@+id/view_dates"
+            app:layout_constraintTop_toTopOf="@+id/view_dates" />
+
+        <TextView
+            android:layout_marginTop="4dp"
+            android:id="@+id/text_date_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="1sp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size15"
+            app:layout_constraintStart_toStartOf="@+id/view_dates"
+            app:layout_constraintTop_toBottomOf="@+id/text_Dates"
+            tools:text="25 Aug 2021" />
+
+        <TextView
+            android:id="@+id/text_timess"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/time"
+            android:textColor="@color/hint_color"
+            android:textSize="@dimen/size15"
+            app:layout_constraintStart_toStartOf="@+id/view_times"
+            app:layout_constraintTop_toTopOf="@+id/view_times" />
+
+        <TextView
+            android:layout_marginTop="4dp"
+            android:id="@+id/textView19"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="1sp"
+            tools:text="18 : 30"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size15"
+            app:layout_constraintStart_toStartOf="@+id/view_times"
+            app:layout_constraintTop_toBottomOf="@+id/text_timess" />
+
+        <TextView
+            android:id="@+id/text_seat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/seat"
+            android:textColor="@color/hint_color"
+            android:textSize="@dimen/size14"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="@+id/view_times"
+            app:layout_constraintStart_toStartOf="@+id/view_dates"
+            app:layout_constraintTop_toBottomOf="@+id/view_dates" />
+
+        <TextView
+            android:id="@+id/seatList"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:alignContent="stretch"
+            app:alignItems="stretch"
+            app:flexWrap="wrap"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/text_seat"
+            app:layout_constraintStart_toStartOf="@+id/text_seat"
+            app:layout_constraintTop_toBottomOf="@+id/text_seat" />
+
+        <View
+            android:id="@+id/view_ticket_price"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toStartOf="@+id/view_quntity"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toStartOf="@+id/seatList"
+            app:layout_constraintTop_toBottomOf="@+id/seatList" />
+
+        <View
+            android:id="@+id/view_quntity"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view_ticket_price"
+            app:layout_constraintEnd_toStartOf="@+id/view_total"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/view_ticket_price"
+            app:layout_constraintTop_toTopOf="@+id/view_ticket_price"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <View
+            android:id="@+id/view_total"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view_quntity"
+            app:layout_constraintEnd_toEndOf="@+id/seatList"
+            app:layout_constraintHorizontal_weight="1.5"
+            app:layout_constraintStart_toEndOf="@+id/view_quntity"
+            app:layout_constraintTop_toTopOf="@+id/view_quntity" />
+
+        <TextView
+            android:id="@+id/text_ticket_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/ticket_price"
+            android:textColor="@color/hint_color"
+            android:textSize="@dimen/size15"
+            app:layout_constraintEnd_toEndOf="@+id/view_ticket_price"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/view_ticket_price"
+            app:layout_constraintTop_toTopOf="@+id/view_ticket_price" />
+
+        <TextView
+            android:layout_marginTop="4dp"
+            android:id="@+id/text_kds"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="1sp"
+            tools:text="KD 3.540"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size14"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="@+id/view_ticket_price"
+            app:layout_constraintStart_toStartOf="@+id/view_ticket_price"
+            app:layout_constraintTop_toBottomOf="@+id/text_ticket_price" />
+
+        <TextView
+            android:id="@+id/text_quntity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/quantity"
+            android:textColor="@color/hint_color"
+            android:textSize="@dimen/size15"
+            app:layout_constraintEnd_toEndOf="@+id/view_quntity"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/view_quntity"
+            app:layout_constraintTop_toTopOf="@+id/view_quntity" />
+
+        <TextView
+            android:layout_marginTop="4dp"
+            android:id="@+id/text_qty_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="1sp"
+            android:text="@string/_9"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size14"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="@+id/view_quntity"
+            app:layout_constraintStart_toStartOf="@+id/view_quntity"
+            app:layout_constraintTop_toBottomOf="@+id/text_quntity" />
+
+        <TextView
+            android:id="@+id/text_total"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/total"
+            android:textColor="@color/hint_color"
+            android:textSize="@dimen/size15"
+            app:layout_constraintEnd_toEndOf="@+id/view_total"
+            app:layout_constraintStart_toStartOf="@+id/view_total"
+            app:layout_constraintTop_toTopOf="@+id/view_total" />
+
+        <TextView
+            android:layout_marginTop="4dp"
+            android:id="@+id/text_kd_total"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="1sp"
+            tools:text="KD 4.5400"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size14"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="@+id/view_total"
+            app:layout_constraintStart_toStartOf="@+id/view_total"
+            app:layout_constraintTop_toBottomOf="@+id/text_total" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include
+        android:id="@+id/checkout_food_include"
+        layout="@layout/food_review_pay_include"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:visibility="gone"
+       />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:maxHeight="500dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/dialog_bg"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/search_ui"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="2dp"
+        android:layout_margin="@dimen/margin10"
+        app:cardBackgroundColor="@color/transparent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/searchData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:background="@null"
+            android:textColor="@color/black"
+            android:paddingStart="@dimen/margin20"
+            android:drawableEnd="@drawable/ic_baseline_search"
+            android:textColorHint="#7a7a7a"
+            android:drawablePadding="@dimen/margin10"
+            android:hint="Search Country"
+            android:imeOptions="actionSearch"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:paddingEnd="@dimen/margin10"
+            android:singleLine="true"
+            tools:ignore="HardcodedText" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleCountry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin10"
+        android:layoutDirection="ltr"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_ui"
+        tools:itemCount="5"
+        tools:listitem="@layout/layout_country_code" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        app:layout_constraintEnd_toEndOf="@+id/recycleCountry"
+        app:layout_constraintStart_toStartOf="@+id/recycleCountry"
+        app:layout_constraintTop_toBottomOf="@+id/recycleCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel &amp; go back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/white"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/signup_btn"
+            android:layout_width="90dp"
+            android:layout_height="@dimen/margin36"
+            android:background="@drawable/btn_corner_bg_red"
+            android:fontFamily="@font/sf_pro_text_bold"
+            android:gravity="center"
+            android:lineSpacingExtra="1.8sp"
+            android:text="OK"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size16"
+            android:layout_marginStart="@dimen/margin10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView13"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

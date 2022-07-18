@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/text_switcher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:gravity="center"
+            android:text="English"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size15"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image_switcher"
+            app:layout_constraintTop_toTopOf="@+id/image_switcher"
+            tools:ignore="HardcodedText" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/image_switcher"
+            android:layout_width="wrap_content"
+            android:layout_height="27dp"
+            android:contentDescription="@string/contentDes"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:thumbTint="@color/text_alert_color_red"
+            app:track="@drawable/switch_track"
+            tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/text_arabic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_medium"
+            android:gravity="center"
+            android:text="إنجليزي"
+            android:textColor="@color/arabic_color"
+            android:textSize="@dimen/size15"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/image_switcher"
+            app:layout_constraintTop_toTopOf="@+id/image_switcher"
+            tools:ignore="HardcodedText,TextContrastCheck" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/view_first"
+        android:layout_width="90dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="64dp" />
+
+    <ImageView
+        android:id="@+id/image_sign_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/contentDes"
+        android:src="@drawable/ic_sign_out_icon"
+        app:layout_constraintEnd_toEndOf="@+id/view_first"
+        app:layout_constraintStart_toStartOf="@+id/view_first"
+        app:layout_constraintTop_toTopOf="@+id/view_first" />
+
+    <TextView
+        android:id="@+id/text_signout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:lineSpacingExtra="1.5sp"
+        android:text="@string/sign_out"
+        android:textColor="@color/head_title"
+        android:textSize="@dimen/size12"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/view_first"
+        app:layout_constraintStart_toStartOf="@+id/view_first"
+        app:layout_constraintTop_toBottomOf="@+id/image_sign_out" />
+</androidx.constraintlayout.widget.ConstraintLayout>

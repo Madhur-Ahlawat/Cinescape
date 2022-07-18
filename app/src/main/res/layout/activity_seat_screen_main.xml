@@ -1,0 +1,733 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".ui.main.views.SeatScreenMainActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/SeatnestedScroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:weightSum="7"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_seat_film_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/sf_pro_text_heavy"
+                    android:gravity="start"
+                    android:letterSpacing="-0.02"
+                    android:maxLines="2"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size20"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="HardcodedText,ObsoleteLayoutParam"
+                    tools:text="Bombshe" />
+
+                <LinearLayout
+                    android:id="@+id/constraintLayout18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_toEndOf="@+id/tv_seat_film_title"
+                    android:layout_weight="1"
+                    android:minWidth="110dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_seat_film_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_seat_film_title"
+                    app:layout_constraintTop_toTopOf="@+id/tv_seat_film_title"
+                    tools:ignore="ObsoleteLayoutParam">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/ratingUi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/tv_seat_film_title"
+                        app:cardCornerRadius="@dimen/margin3"
+                        app:cardUseCompatPadding="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_seat_film_title">
+
+                        <TextView
+                            android:id="@+id/tv_seat_film_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/size22"
+                            android:fontFamily="@font/sf_pro_text_heavy"
+                            android:gravity="center"
+                            android:paddingStart="@dimen/margin6"
+                            android:paddingEnd="@dimen/margin6"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/size11"
+                            tools:ignore="HardcodedText,TextContrastCheck"
+                            tools:text="13+" />
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+                <View
+                    android:id="@+id/vw_mains"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/vws_tilte"
+                    android:layout_width="0dp"
+                    android:layout_height="0.1dp"
+                    android:layout_marginTop="1dp"
+                    app:layout_constraintEnd_toEndOf="@+id/vw_mains"
+                    app:layout_constraintStart_toStartOf="@+id/vw_mains"
+                    app:layout_constraintTop_toTopOf="@+id/vw_mains" />
+
+                <View
+                    android:id="@+id/view37"
+                    android:layout_width="0dp"
+                    android:layout_height="90dp"
+                    android:layout_marginTop="2dp"
+                    app:layout_constraintEnd_toEndOf="@+id/vws_tilte"
+                    app:layout_constraintStart_toStartOf="@+id/vws_tilte"
+                    app:layout_constraintTop_toBottomOf="@+id/vws_tilte" />
+
+                <TextView
+                    android:id="@+id/tv_cinema_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/sf_pro_text_bold"
+                    android:lineSpacingExtra="1.5sp"
+                    android:text="Cinescape Al Muhallab"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="@+id/view37"
+                    app:layout_constraintStart_toStartOf="@+id/view37"
+                    app:layout_constraintTop_toTopOf="@+id/view37"
+                    tools:ignore="HardcodedText"
+                    tools:textSize="@dimen/size14" />
+
+                <TextView
+                    android:id="@+id/tv_seat_timing_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_text_bold"
+                    android:lineSpacingExtra="1.5sp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size14"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_cinema_name"
+                    app:layout_constraintStart_toStartOf="@+id/tv_cinema_name"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_cinema_name"
+                    tools:ignore="HardcodedText"
+                    tools:text="15:30  |  Wednesday  |  27  December 2020" />
+
+                <TextView
+                    android:id="@+id/text_type"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:lineSpacingExtra="1.3sp"
+                    android:text="Standard   |   2D   |   Bachelor"
+                    android:textColor="@color/white"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toEndOf="@+id/view37"
+                    app:layout_constraintStart_toStartOf="@+id/view37"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_seat_timing_date"
+                    tools:ignore="HardcodedText"
+                    tools:textSize="@dimen/size12" />
+
+                <ImageView
+                    android:id="@+id/img_demo_seat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/contentDes"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view37"
+                    app:srcCompat="@drawable/curv_ui" />
+
+                <androidx.core.widget.NestedScrollView
+                    android:id="@+id/seatView"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:layout_marginBottom="15dp"
+                    android:descendantFocusability="blocksDescendants"
+                    android:fillViewport="true"
+                    android:padding="8dp"
+                    android:scrollbarSize="5dp"
+                    android:scrollbarThumbVertical="@drawable/seat_top_scroll"
+                    android:scrollbars="vertical"
+                    app:layout_constraintBottom_toTopOf="@+id/view_available"
+                    app:layout_constraintEnd_toEndOf="@+id/vw_mains"
+                    app:layout_constraintStart_toStartOf="@+id/vw_mains"
+                    app:layout_constraintTop_toBottomOf="@+id/img_demo_seat">
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fadeScrollbars="false"
+                        android:fillViewport="true"
+                        android:scrollbarSize="5dp"
+                        android:scrollbarThumbHorizontal="@drawable/ic_scroll_thumb"
+                        android:scrollbars="horizontal"
+                        tools:ignore="SpeakableTextPresentCheck">
+
+                        <com.cinescape1.utils.ZoomLinearLayout
+                            android:id="@+id/zoom_linear_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            tools:ignore="ScrollViewSize">
+
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/innerView"
+                                android:layout_marginBottom="@dimen/margin10"
+                                tools:ignore="ScrollViewSize">
+
+                                <TableLayout
+                                    android:id="@+id/seat_table"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" />
+
+                            </RelativeLayout>
+
+                        </com.cinescape1.utils.ZoomLinearLayout>
+
+                    </HorizontalScrollView>
+
+
+                </androidx.core.widget.NestedScrollView>
+
+                <View
+                    android:id="@+id/view_available"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="15dp"
+                    app:layout_constraintEnd_toStartOf="@+id/view_unavailable"
+                    app:layout_constraintStart_toStartOf="@+id/vw_mains"
+                    app:layout_constraintTop_toBottomOf="@+id/seatView" />
+
+                <TextView
+                    android:id="@+id/text_available"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/gibson_regular"
+                    android:gravity="center_horizontal"
+                    android:letterSpacing="0.03"
+                    android:lineSpacingExtra="2.3sp"
+                    android:text="@string/available"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size12"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toEndOf="@+id/view_available"
+                    app:layout_constraintStart_toStartOf="@+id/view_available"
+                    app:layout_constraintTop_toTopOf="@+id/view_available" />
+
+                <ImageView
+                    android:id="@+id/image_available"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/contentDes"
+                    app:layout_constraintEnd_toEndOf="@+id/text_available"
+                    app:layout_constraintStart_toStartOf="@+id/text_available"
+                    app:layout_constraintTop_toBottomOf="@+id/text_available"
+                    app:srcCompat="@drawable/seat_available_icon" />
+
+                <View
+                    android:id="@+id/view_unavailable"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/view_available"
+                    app:layout_constraintEnd_toStartOf="@+id/view_selected"
+                    app:layout_constraintStart_toEndOf="@+id/view_available"
+                    app:layout_constraintTop_toTopOf="@+id/view_available" />
+
+                <TextView
+                    android:id="@+id/text_unavailable"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/gibson_regular"
+                    android:gravity="center_horizontal"
+                    android:letterSpacing="0.03"
+                    android:lineSpacingExtra="2.3sp"
+                    android:text="@string/unavailable"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size12"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toEndOf="@+id/view_unavailable"
+                    app:layout_constraintStart_toStartOf="@+id/view_unavailable"
+                    app:layout_constraintTop_toTopOf="@+id/view_unavailable" />
+
+                <ImageView
+                    android:id="@+id/imageView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/contentDes"
+                    app:layout_constraintEnd_toEndOf="@+id/text_unavailable"
+                    app:layout_constraintHorizontal_bias="0.492"
+                    app:layout_constraintStart_toStartOf="@+id/view_unavailable"
+                    app:layout_constraintTop_toBottomOf="@+id/text_unavailable"
+                    app:srcCompat="@drawable/seat_unavailable_icon"
+                    tools:ignore="ImageContrastCheck" />
+
+                <View
+                    android:id="@+id/view_selected"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="50dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/view_unavailable"
+                    app:layout_constraintEnd_toEndOf="@+id/vw_mains"
+                    app:layout_constraintStart_toEndOf="@+id/view_unavailable"
+                    app:layout_constraintTop_toTopOf="@+id/view_unavailable" />
+
+                <TextView
+                    android:id="@+id/text_selected"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/gibson_regular"
+                    android:gravity="center_horizontal"
+                    android:letterSpacing="0.03"
+                    android:lineSpacingExtra="2.3sp"
+                    android:text="@string/selected"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size12"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toEndOf="@+id/view_selected"
+                    app:layout_constraintStart_toStartOf="@+id/view_selected"
+                    app:layout_constraintTop_toTopOf="@+id/view_selected" />
+
+                <ImageView
+                    android:id="@+id/img_selected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:contentDescription="@string/contentDes"
+                    android:scaleType="fitXY"
+                    app:layout_constraintEnd_toEndOf="@+id/text_selected"
+                    app:layout_constraintStart_toStartOf="@+id/text_selected"
+                    app:layout_constraintTop_toBottomOf="@+id/text_selected"
+                    app:srcCompat="@drawable/ic_group_812"
+                    tools:ignore="ImageContrastCheck" />
+
+                <View
+                    android:id="@+id/vws_seat_type"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="@+id/view_selected"
+                    app:layout_constraintStart_toStartOf="@+id/view_available"
+                    app:layout_constraintTop_toBottomOf="@+id/view_unavailable" />
+
+                <TextView
+                    android:id="@+id/text_modify"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_text_light"
+                    android:gravity="end"
+                    android:letterSpacing="-0.01"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="@dimen/margin3"
+                    android:text="@string/modify_your"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size14"
+                    android:textStyle="normal"
+                    app:layout_constraintBottom_toBottomOf="@+id/vws_seat_type"
+                    app:layout_constraintEnd_toStartOf="@+id/text_seat_types"
+                    app:layout_constraintStart_toStartOf="@+id/vws_seat_type"
+                    app:layout_constraintTop_toTopOf="@+id/vws_seat_type" />
+
+                <TextView
+                    android:id="@+id/text_seat_types"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_text_bold"
+                    android:letterSpacing="-0.01"
+                    android:paddingStart="@dimen/margin3"
+                    android:paddingEnd="0dp"
+                    android:text="@string/seat_type"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size14"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_modify"
+                    app:layout_constraintEnd_toEndOf="@+id/vws_seat_type"
+                    app:layout_constraintStart_toEndOf="@+id/text_modify"
+                    app:layout_constraintTop_toTopOf="@+id/text_modify" />
+
+                <TextView
+                    android:id="@+id/text_other_showtimes"
+                    android:layout_width="145dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/bt_bg_svg"
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:gravity="center"
+                    android:text="@string/other_showtimes"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/vws_seat_type" />
+
+                <View
+                    android:id="@+id/vws_tilte1"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="16dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/text_other_showtimes"
+                    app:layout_constraintStart_toStartOf="@+id/text_other_showtimes"
+                    app:layout_constraintTop_toBottomOf="@+id/text_other_showtimes" />
+
+
+                <LinearLayout
+                    android:id="@+id/tv_seat_filmUi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/vws_tilte1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/vws_tilte1">
+
+                    <TextView
+                        android:id="@+id/tv_seat_film_title1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_text_bold"
+                        android:gravity="start"
+                        android:letterSpacing="-0.02"
+                        android:maxLines="2"
+                        android:text="Bombshell"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size14"
+                        android:textStyle="normal"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="HardcodedText" />
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_toEndOf="@+id/tv_seat_film_title1"
+                        tools:ignore="ObsoleteLayoutParam">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@+id/tv_seat_film_title"
+                            app:cardCornerRadius="@dimen/margin3"
+                            app:cardUseCompatPadding="true"
+                            android:layout_marginStart="14dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/tv_seat_film_title">
+
+                            <TextView
+                                android:id="@+id/tv_seat_film_type1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/size22"
+                                android:fontFamily="@font/sf_pro_text_heavy"
+                                android:gravity="center"
+                                android:paddingStart="@dimen/margin6"
+                                android:paddingEnd="@dimen/margin6"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/size11"
+                                tools:ignore="HardcodedText,TextContrastCheck"
+                                tools:text="13+" />
+
+                        </androidx.cardview.widget.CardView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview_cinemas_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/vw_mains"
+                    app:layout_constraintStart_toStartOf="@+id/vw_mains"
+                    app:layout_constraintTop_toBottomOf="@+id/vws_tilte1" />
+
+                <View
+                    android:id="@+id/view43lines"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:visibility="gone"
+                    android:background="@color/view_bg_color_line"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerview_cinemas_name" />
+
+                <TextView
+                    android:id="@+id/textView75"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:lineSpacingExtra="0.1dp"
+                    android:text="@string/screen"
+                    android:textAllCaps="true"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/size13"
+                    app:layout_constraintBottom_toBottomOf="@+id/img_demo_seat"
+                    app:layout_constraintEnd_toEndOf="@+id/img_demo_seat"
+                    app:layout_constraintStart_toStartOf="@+id/img_demo_seat"
+                    app:layout_constraintTop_toTopOf="@+id/img_demo_seat"
+                    tools:ignore="TextContrastCheck" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+
+        <View
+            android:id="@+id/view45lines"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:visibility="visible"
+            android:background="@color/view_bg_color_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view_cancel"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/view_time_left"
+            app:layout_constraintHorizontal_weight="1.4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view45lines" />
+
+        <ImageView
+            android:id="@+id/imag_cross"
+            android:layout_width="33dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="8dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/contentDes"
+            app:layout_constraintEnd_toEndOf="@+id/view_cancel"
+            app:layout_constraintStart_toStartOf="@+id/view_cancel"
+            app:layout_constraintTop_toTopOf="@+id/view_cancel"
+            app:srcCompat="@drawable/ic_close_icons_light"
+            app:tint="@color/text_color" />
+
+        <TextView
+            android:id="@+id/text_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:gravity="center_horizontal"
+            android:text="@string/cancel"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/size12"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="@+id/view_cancel"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/view_cancel"
+            app:layout_constraintTop_toBottomOf="@+id/imag_cross" />
+
+        <View
+            android:id="@+id/view_time_left"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view_cancel"
+            app:layout_constraintEnd_toStartOf="@+id/view_cart"
+            app:layout_constraintHorizontal_weight="1.4"
+            app:layout_constraintStart_toEndOf="@+id/view_cancel"
+            app:layout_constraintTop_toTopOf="@+id/view_cancel" />
+
+        <TextView
+            android:id="@+id/text_time_left"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/gibson_regular"
+            android:gravity="center"
+            android:text="@string/time_left"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size12"
+            android:textStyle="normal"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/view_time_left"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/view_time_left"
+            app:layout_constraintTop_toTopOf="@+id/view_time_left" />
+
+        <TextView
+            android:id="@+id/text_time_to_left"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_heavy"
+            android:gravity="center"
+            android:letterSpacing="0.05"
+            android:text="6:35"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size16"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/view_time_left"
+            app:layout_constraintStart_toStartOf="@+id/view_time_left"
+            app:layout_constraintTop_toBottomOf="@+id/text_time_left"
+            tools:ignore="HardcodedText" />
+
+
+        <ImageView
+            android:id="@+id/image_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/contentDes"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/text_cart_count_notiication"
+            app:layout_constraintEnd_toEndOf="@+id/view_cart"
+            app:layout_constraintHorizontal_bias="0.529"
+            app:layout_constraintStart_toStartOf="@+id/view_cart"
+            app:layout_constraintTop_toBottomOf="@+id/text_cart_count_notiication"
+            app:srcCompat="@drawable/ic_cart" />
+
+        <TextView
+            android:id="@+id/text_cart_count_notiication"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/filter_cross"
+            android:gravity="center"
+            android:text="22"
+            android:textColor="@color/white"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/view_cart"
+            app:layout_constraintStart_toStartOf="@+id/image_cart"
+            app:layout_constraintTop_toTopOf="@+id/view_cart"
+            tools:ignore="HardcodedText" />
+
+        <View
+            android:id="@+id/view_cart"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view_time_left"
+            app:layout_constraintEnd_toStartOf="@+id/view_proceed"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/view_time_left"
+            app:layout_constraintTop_toTopOf="@+id/view_time_left" />
+
+        <View
+            android:id="@+id/view_proceed"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view_cart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toEndOf="@+id/view_cart"
+            app:layout_constraintTop_toTopOf="@+id/view_cart"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/txt_proceed"
+            android:layout_width="120dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="14.3dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/btn_corner_bg_red"
+            android:fontFamily="@font/sf_pro_text_bold"
+            android:gravity="center"
+            android:text="@string/proceed"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/view_proceed"
+            app:layout_constraintEnd_toEndOf="@+id/view_proceed"
+            app:layout_constraintStart_toStartOf="@+id/view_proceed"
+            app:layout_constraintTop_toTopOf="@+id/view_proceed" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

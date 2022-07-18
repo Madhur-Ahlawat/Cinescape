@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/uiFinalTaket"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/image_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/contentDes"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/bombshell_alert" />
+
+        <ImageView
+            android:id="@+id/image_qr_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/contentDes"
+            app:layout_constraintBottom_toBottomOf="@+id/image_head"
+            app:layout_constraintEnd_toEndOf="@+id/image_head"
+            app:layout_constraintStart_toStartOf="@+id/image_head"
+            app:layout_constraintTop_toTopOf="@+id/image_head" />
+
+        <TextView
+            android:id="@+id/text_booking_added_wallet"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/alert_checkout_bg"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:gravity="center"
+            android:text="@string/booking_added_to_your_wallet"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size16"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/image_head"
+            app:layout_constraintEnd_toEndOf="@+id/image_head"
+            app:layout_constraintStart_toStartOf="@+id/image_head"
+            app:layout_constraintTop_toTopOf="@+id/image_head" />
+
+        <TextView
+            android:id="@+id/text_booking_success"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/alert_checkout_bg"
+            tools:drawableEnd="@drawable/ic_icon_checkmark_circle_outline"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:gravity="center"
+            android:paddingStart="0dp"
+            android:paddingEnd="@dimen/margin20"
+            android:text="@string/your_booking_was_successful"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size16"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/image_head"
+            app:layout_constraintEnd_toEndOf="@+id/image_head"
+            app:layout_constraintStart_toStartOf="@+id/image_head"
+            app:layout_constraintTop_toTopOf="@+id/image_head" />
+
+        <View
+            android:id="@+id/view29"
+            android:layout_width="100dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="-40dp"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_head" />
+
+        <ImageView
+            android:id="@+id/imag_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/contentDes"
+            android:paddingStart="@dimen/margin10"
+            android:paddingEnd="@dimen/margin10"
+            app:layout_constraintBottom_toBottomOf="@+id/view29"
+            app:layout_constraintEnd_toStartOf="@+id/tv_share"
+            app:layout_constraintTop_toTopOf="@+id/view29"
+            app:srcCompat="@drawable/ic_icon_feather_upload" />
+
+        <TextView
+            android:id="@+id/tv_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/share"
+            android:textColor="@color/hint_color"
+            android:textSize="@dimen/size14"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/imag_share"
+            app:layout_constraintEnd_toEndOf="@+id/view29"
+            app:layout_constraintTop_toTopOf="@+id/imag_share" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_head">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:src="@drawable/ic_subtraction_3_frame"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
+
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewPager_slider_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="29dp"
+                    android:layout_marginEnd="29dp"
+                    android:layout_marginBottom="25dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/layoutDots"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin15"
+                    android:background="@color/transparent"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:tabBackground="@drawable/indicator_selector"
+                    app:tabGravity="center"
+                    app:tabIndicatorHeight="0dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size15"
+            android:layout_marginTop="@dimen/margin20"
+            app:layout_constraintStart_toStartOf="@+id/image_head"
+            app:layout_constraintTop_toTopOf="@+id/image_head"
+            app:srcCompat="@drawable/ic_back_button"
+            tools:ignore="ContentDescription,ImageContrastCheck" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

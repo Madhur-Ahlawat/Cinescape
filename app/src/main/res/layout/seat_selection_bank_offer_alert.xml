@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:backgroundTint="@color/transparent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/alert_booking_food_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:id="@+id/view42"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textV_are_u_sure"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/sf_pro_text_heavy"
+            android:gravity="center_horizontal"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="1.5sp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size18"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="@+id/view42"
+            app:layout_constraintStart_toStartOf="@+id/view42"
+            app:layout_constraintTop_toTopOf="@+id/view42"
+            tools:text="ARE YOU SURE ?" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:gravity="center_horizontal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="1.3sp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size14"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="@+id/textV_are_u_sure"
+            app:layout_constraintStart_toStartOf="@+id/textV_are_u_sure"
+            app:layout_constraintTop_toBottomOf="@+id/textV_are_u_sure"
+            tools:text="This offer allow you to choose only 1 ticket. The offer doesn’t not include food." />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:gravity="center_horizontal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="1.3sp"
+            android:paddingStart="@dimen/margin10"
+            android:paddingEnd="@dimen/margin10"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size14"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="@+id/textView14"
+            app:layout_constraintStart_toStartOf="@+id/textView14"
+            app:layout_constraintTop_toBottomOf="@+id/textView14"
+            tools:text="You can add food later to the reservation by clicking “Add Food” to your reservation " />
+
+        <View
+            android:id="@+id/view43"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textView16"
+            app:layout_constraintStart_toStartOf="@+id/textView16"
+            app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+        <TextView
+            android:id="@+id/textView1_cancel_back"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:gravity="center_horizontal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="0.8sp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size14"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/view43"
+            app:layout_constraintEnd_toStartOf="@+id/textView2_yes"
+            app:layout_constraintHorizontal_weight="3"
+            app:layout_constraintStart_toStartOf="@+id/view43"
+            app:layout_constraintTop_toTopOf="@+id/view43"
+            tools:text="Cancel, &amp; go back" />
+
+        <TextView
+            android:id="@+id/textView2_yes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/btn_corner_bg_red"
+            android:fontFamily="@font/sf_pro_text_bold"
+            android:gravity="center_horizontal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="0.8sp"
+            android:text="@string/yes"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size14"
+            app:layout_constraintBottom_toBottomOf="@+id/textView1_cancel_back"
+            app:layout_constraintEnd_toEndOf="@+id/view43"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/textView1_cancel_back"
+            app:layout_constraintTop_toTopOf="@+id/textView1_cancel_back" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

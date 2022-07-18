@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    android:padding="@dimen/margin20"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/margin10"
+        android:paddingTop="@dimen/margin10"
+        android:paddingEnd="@dimen/margin10"
+        android:paddingBottom="@dimen/margin20">
+
+        <View
+            android:id="@+id/view_booking_id"
+            android:layout_width="0dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="4dp"
+            app:layout_constraintEnd_toStartOf="@+id/view_food_picku_no"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_bookig_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/booking_id"
+            android:textColor="@color/text_alert_color"
+            android:textSize="@dimen/size14"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="@+id/view_booking_id"
+            app:layout_constraintHorizontal_bias="0.481"
+            app:layout_constraintStart_toStartOf="@+id/view_booking_id"
+            app:layout_constraintTop_toTopOf="@+id/view_booking_id" />
+
+        <TextView
+            android:id="@+id/text_bookin_id_no1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_bold"
+            tools:text="WN5H3HD"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size16"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/view_booking_id"
+            app:layout_constraintHorizontal_bias="0.487"
+            app:layout_constraintStart_toStartOf="@+id/view_booking_id"
+            app:layout_constraintTop_toBottomOf="@+id/text_bookig_id" />
+
+        <View
+            android:id="@+id/view_food_picku_no"
+            android:layout_width="0dp"
+            android:layout_height="75dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view_booking_id"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1.2"
+            app:layout_constraintStart_toEndOf="@+id/view_booking_id"
+            app:layout_constraintTop_toTopOf="@+id/view_booking_id" />
+
+        <TextView
+            android:visibility="invisible"
+            android:id="@+id/text_food_pickup_no"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/food_pickup_number"
+            android:textColor="@color/text_alert_color"
+            android:textSize="@dimen/size14"
+            app:layout_constraintEnd_toEndOf="@+id/view_food_picku_no"
+            app:layout_constraintStart_toStartOf="@+id/view_food_picku_no"
+            app:layout_constraintTop_toTopOf="@+id/view_food_picku_no" />
+
+        <TextView
+            android:id="@+id/textFoodPicUp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_bold"
+            android:text="@string/how_to_pickup_food"
+            android:textAlignment="textStart"
+            android:textColor="@color/text_alert_color_red"
+            android:textSize="@dimen/size12"
+            app:layout_constraintEnd_toEndOf="@+id/view_food_picku_no"
+            app:layout_constraintStart_toEndOf="@+id/text_bookig_id"
+            app:layout_constraintTop_toBottomOf="@+id/text_food_pickup_no" />
+
+        <View
+            android:id="@+id/view_bookin_line"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/view_bg_color_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_booking_id" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin8"
+            android:padding="@dimen/margin2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_bookin_line">
+
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/sf_pro_text_bold"
+                android:text="@string/food_details"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size16"
+                app:layout_constraintStart_toStartOf="@+id/recyclerview_food_details"
+                tools:ignore="MissingConstraints" />
+
+            <View
+                android:id="@+id/view36"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+            <TextView
+                android:id="@+id/tv_item_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_semibold"
+                android:lineSpacingExtra="7.5sp"
+                android:text="@string/item"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size14"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toBottomOf="@+id/view36"
+                app:layout_constraintEnd_toStartOf="@+id/textView_qty"
+                app:layout_constraintHorizontal_weight="4"
+                app:layout_constraintStart_toStartOf="@+id/view36"
+                app:layout_constraintTop_toTopOf="@+id/view36" />
+
+            <TextView
+                android:id="@+id/textView_qty"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_semibold"
+                android:gravity="center"
+                android:lineSpacingExtra="7.5sp"
+                android:text="@string/qty"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size14"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_item_name"
+                app:layout_constraintEnd_toStartOf="@+id/textView1_price"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@+id/tv_item_name"
+                app:layout_constraintTop_toTopOf="@+id/tv_item_name" />
+
+            <TextView
+                android:id="@+id/textView1_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_semibold"
+                android:gravity="center"
+                android:lineSpacingExtra="7.5sp"
+                android:text="@string/price"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size14"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_qty"
+                app:layout_constraintEnd_toStartOf="@+id/textView1_total"
+                app:layout_constraintHorizontal_weight="1.4"
+                app:layout_constraintStart_toEndOf="@+id/textView_qty"
+                app:layout_constraintTop_toTopOf="@+id/textView_qty" />
+
+            <TextView
+                android:id="@+id/textView1_total"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_semibold"
+                android:gravity="center"
+                android:lineSpacingExtra="7.5sp"
+                android:text="@string/total"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size14"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toBottomOf="@+id/textView1_price"
+                app:layout_constraintEnd_toEndOf="@+id/view36"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_weight="1.4"
+                app:layout_constraintStart_toEndOf="@+id/textView1_price"
+                app:layout_constraintTop_toTopOf="@+id/textView1_price"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_food_details"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/view36"
+                app:layout_constraintStart_toStartOf="@+id/view36"
+                app:layout_constraintTop_toBottomOf="@+id/view36" />
+
+
+            <View
+                android:id="@+id/view_payment_mode"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="16dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toStartOf="@+id/view_total_tickect_price"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerview_food_details" />
+
+            <View
+                android:id="@+id/view_total_tickect_price"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="@dimen/margin10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/recyclerview_food_details"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerview_food_details" />
+
+            <TextView
+                android:id="@+id/text_payment_mode2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:text="@string/payment_mode"
+                android:textColor="@color/hint_color"
+                android:textSize="@dimen/size14"
+                android:textStyle="normal"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/view_total_tickect_price" />
+
+            <TextView
+                android:id="@+id/text_wallet1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_bold"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="1sp"
+                tools:text="Wallet"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size14"
+                android:textStyle="normal"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="@+id/view_total_tickect_price"
+                app:layout_constraintTop_toBottomOf="@+id/text_payment_mode2" />
+
+            <TextView
+                android:id="@+id/text_total_ticket_price2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:text="@string/total_food_price"
+                android:textColor="@color/hint_color"
+                android:textSize="@dimen/size14"
+                android:textStyle="normal"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="@+id/view_total_tickect_price"
+                app:layout_constraintTop_toTopOf="@+id/view_total_tickect_price" />
+
+            <TextView
+                android:id="@+id/text_kd_total_ticket_price1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_bold"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="1sp"
+                tools:text="KD 30.750"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size14"
+                android:textStyle="normal"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="@+id/view_total_tickect_price"
+                app:layout_constraintTop_toBottomOf="@+id/text_total_ticket_price2" />
+
+
+            <TextView
+                android:id="@+id/textView46"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_bold"
+                android:text="@string/food_details"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size16"
+                app:layout_constraintBottom_toBottomOf="@+id/textView7"
+                app:layout_constraintEnd_toEndOf="@+id/textView7"
+                app:layout_constraintTop_toTopOf="@+id/textView7" />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/textView51"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_bold"
+                android:text="@string/food_details"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size16"
+                app:layout_constraintBottom_toBottomOf="@+id/textView7"
+                app:layout_constraintEnd_toEndOf="@+id/recyclerview_food_details"
+                app:layout_constraintTop_toTopOf="@+id/textView7" />
+
+
+            <TextView
+                android:id="@+id/imageView31"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:text="@string/cancelReservation"
+                android:textColor="@color/black"
+                android:drawablePadding="@dimen/margin8"
+                android:textSize="@dimen/size14"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@+id/view_total_tickect_price"
+                app:srcCompat="@drawable/cancel_food_order"
+                app:drawableStartCompat="@drawable/ic_delete"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/imageView32"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_total_tickect_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:drawablePadding="@dimen/margin8"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:text="@string/resendEmail"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size14"
+                android:visibility="visible"
+                tools:ignore="ContentDescription"
+                app:drawableStartCompat="@drawable/email" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    android:backgroundTint="@color/transparent">
+
+
+    <View
+        android:id="@+id/view96"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_booking_alert"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:backgroundTint="@color/transparent"
+        android:layout_marginEnd="15.75dp"
+        android:layout_marginStart="15.25dp"
+        android:layout_marginBottom="102dp"
+        android:elevation="@dimen/margin2"
+        app:cardUseCompatPadding="true"
+        app:cardBackgroundColor="@color/transparent"
+        app:cardCornerRadius="@dimen/margin12"
+        app:cardElevation="@dimen/margin2"
+        app:layout_constraintBottom_toBottomOf="@+id/view96"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/view96">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:background="@drawable/alert_booking_bg">
+
+            <TextView
+                android:id="@+id/text_booking_alert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/sf_pro_text_heavy"
+                android:gravity="center_horizontal"
+                android:textAllCaps="true"
+                android:text="@string/booking_alert"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size18"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_have_upcoming_booking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/sf_pro_text_semibold"
+                android:gravity="center_horizontal"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="2.3sp"
+                android:text="@string/you_have_an_upcoming_booking"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size14"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="@+id/text_booking_alert"
+                app:layout_constraintHorizontal_bias="0.511"
+                app:layout_constraintStart_toStartOf="@+id/text_booking_alert"
+                app:layout_constraintTop_toBottomOf="@+id/text_booking_alert" />
+
+            <ImageView
+                android:id="@+id/image_cross_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/contentDes"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_close_icons_light" />
+
+            <ImageView
+                android:id="@+id/image_booking_alert"
+                android:layout_width="0dp"
+                android:layout_height="263.37dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="17dp"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/contentDes"
+                app:layout_constraintBottom_toTopOf="@+id/view_location1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_have_upcoming_booking"
+                tools:srcCompat="@drawable/bombshell_alert" />
+
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+
+                app:layout_constraintBottom_toBottomOf="@+id/image_booking_alert"
+                app:layout_constraintStart_toStartOf="@+id/image_booking_alert"
+                app:layout_constraintTop_toTopOf="@+id/image_booking_alert"
+                app:layout_constraintVertical_bias="0.956">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="7"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/text_bombshell"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/sf_pro_text_heavy"
+                        android:gravity="start"
+                        android:letterSpacing="-0.02"
+                        android:maxLines="2"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size20"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="HardcodedText,ObsoleteLayoutParam"
+                        tools:text="Bombshe" />
+
+                    <LinearLayout
+                        android:id="@+id/constraintLayout18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:minWidth="110dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_seat_film_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/tv_seat_film_title"
+                        app:layout_constraintTop_toTopOf="@+id/tv_seat_film_title">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/ratingUi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="@dimen/margin3"
+                            app:cardUseCompatPadding="true"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/tv_seat_film_title">
+
+                            <TextView
+                                android:id="@+id/text13"
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/size22"
+                                android:fontFamily="@font/sf_pro_text_heavy"
+                                android:gravity="center"
+                                android:paddingStart="@dimen/margin6"
+                                android:paddingEnd="@dimen/margin6"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/size11"
+                                tools:ignore="HardcodedText,TextContrastCheck"
+                                tools:text="13+" />
+
+                        </androidx.cardview.widget.CardView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <View
+                android:id="@+id/view_location1"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="@dimen/margin12"
+                android:layout_marginTop="17dp"
+                app:layout_constraintEnd_toStartOf="@+id/view3"
+                app:layout_constraintHorizontal_weight="5"
+                app:layout_constraintStart_toStartOf="@+id/image_booking_alert"
+                app:layout_constraintTop_toBottomOf="@+id/image_booking_alert" />
+
+            <TextView
+                android:id="@+id/text_location_name"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:fontFamily="@font/sf_pro_text_bold"
+                android:text="@string/cinescape_al_muhallab"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size14"
+                app:layout_constraintBottom_toBottomOf="@+id/view_location1"
+                app:layout_constraintEnd_toEndOf="@+id/view_location1"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/view_location1"
+                app:layout_constraintTop_toBottomOf="@+id/text_location2" />
+
+            <TextView
+                android:id="@+id/text_location2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:text="@string/location"
+                android:textColor="@color/text_alert_color"
+                android:textSize="@dimen/size13"
+                app:layout_constraintEnd_toEndOf="@+id/view_location1"
+                app:layout_constraintStart_toStartOf="@+id/view_location1"
+                app:layout_constraintTop_toTopOf="@+id/view_location1"
+                tools:ignore="TextContrastCheck" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/view_location1"
+                app:layout_constraintEnd_toStartOf="@+id/view4"
+                app:layout_constraintHorizontal_weight="2"
+                app:layout_constraintStart_toEndOf="@+id/view_location1"
+                app:layout_constraintTop_toTopOf="@+id/view_location1"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/text_screen"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:text="@string/screen"
+                android:textSize="@dimen/size13"
+                app:layout_constraintEnd_toEndOf="@+id/view3"
+                app:layout_constraintStart_toStartOf="@+id/view3"
+                app:layout_constraintTop_toTopOf="@+id/view3" />
+
+            <TextView
+                android:id="@+id/text_screen_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_bold"
+                android:text="@string/_9"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size14"
+                app:layout_constraintBottom_toBottomOf="@+id/view3"
+                app:layout_constraintEnd_toEndOf="@+id/view3"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/view3"
+                app:layout_constraintTop_toBottomOf="@+id/text_screen"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <View
+                android:id="@+id/view4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="17dp"
+                app:layout_constraintBottom_toBottomOf="@+id/view3"
+                app:layout_constraintEnd_toEndOf="@+id/image_booking_alert"
+                app:layout_constraintHorizontal_weight="3"
+                app:layout_constraintStart_toEndOf="@+id/view3"
+                app:layout_constraintTop_toTopOf="@+id/view3"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/text_expereince"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:text="@string/experience"
+                android:textSize="@dimen/size13"
+                app:layout_constraintEnd_toEndOf="@+id/view4"
+                app:layout_constraintStart_toStartOf="@+id/view4"
+                app:layout_constraintTop_toTopOf="@+id/view4" />
+
+            <TextView
+                android:id="@+id/text_experience_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_screenx_icon"
+                app:layout_constraintEnd_toEndOf="@+id/view4"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/view4"
+                app:layout_constraintTop_toBottomOf="@+id/text_expereince"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/experience_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:layout_marginTop="4dp"
+                app:layout_constraintEnd_toEndOf="@+id/view4"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/view4"
+                app:layout_constraintTop_toBottomOf="@+id/text_expereince"
+                app:srcCompat="@drawable/img_4dx"
+                tools:ignore="ContentDescription" />
+
+            <View
+                android:id="@+id/view5"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="@dimen/margin10"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/view6"
+                app:layout_constraintHorizontal_weight="4.2"
+                app:layout_constraintStart_toStartOf="@+id/text_location_name"
+                app:layout_constraintTop_toBottomOf="@+id/view_location1"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <View
+                android:id="@+id/view6"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/view5"
+                app:layout_constraintEnd_toStartOf="@+id/view7"
+                app:layout_constraintHorizontal_weight="3"
+                app:layout_constraintStart_toEndOf="@+id/view5"
+                app:layout_constraintTop_toTopOf="@+id/view5"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <View
+                android:id="@+id/view7"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/view6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="6"
+                app:layout_constraintStart_toEndOf="@+id/view6"
+                app:layout_constraintTop_toTopOf="@+id/view6" />
+
+            <TextView
+                android:id="@+id/text_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+               android:fontFamily="@font/sf_pro_text_regular"
+                android:text="@string/date"
+                android:textColor="@color/text_alert_color"
+                android:textSize="@dimen/size12"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="@+id/view5"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/view5"
+                app:layout_constraintTop_toTopOf="@+id/view5"
+                tools:ignore="TextContrastCheck" />
+
+            <TextView
+                android:id="@+id/text_date_visible"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_bold"
+                android:text="@string/_04_nov_2020"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size14"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/view5"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/view5"
+                app:layout_constraintTop_toBottomOf="@+id/text_date" />
+
+            <TextView
+                android:id="@+id/text_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:text="@string/time"
+                android:textColor="@color/text_alert_color"
+                android:textSize="@dimen/size12"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="@+id/view6"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/view6"
+                app:layout_constraintTop_toTopOf="@+id/view6"
+                tools:ignore="TextContrastCheck" />
+
+            <TextView
+                android:id="@+id/text_time_visible"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_bold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size14"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/view6"
+                app:layout_constraintEnd_toEndOf="@+id/view6"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/view6"
+                app:layout_constraintTop_toBottomOf="@+id/text_time"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="17:45" />
+
+            <TextView
+                android:id="@+id/go_to_booking_btn1"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_marginEnd="17dp"
+                android:background="@drawable/btn_corner_bg_red"
+                android:fontFamily="@font/sf_pro_text_bold"
+                android:gravity="center"
+                android:text="@string/go_to_booking"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size13"
+                app:layout_constraintBottom_toBottomOf="@+id/view7"
+                app:layout_constraintEnd_toEndOf="@+id/view7"
+                app:layout_constraintStart_toStartOf="@+id/view7"
+                app:layout_constraintTop_toTopOf="@+id/view7" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

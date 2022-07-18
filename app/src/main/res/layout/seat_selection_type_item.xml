@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/margin10"
+    android:background="@color/transparent">
+
+
+    <ImageView
+        android:id="@+id/img_seat_selection_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/contentDes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_seat_icon_1_select" />
+
+    <TextView
+        android:id="@+id/textseat_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_pro_text_semibold"
+        android:text="Standard"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size14"
+        app:layout_constraintEnd_toEndOf="@+id/img_seat_selection_type"
+        app:layout_constraintStart_toStartOf="@+id/img_seat_selection_type"
+        app:layout_constraintTop_toBottomOf="@+id/img_seat_selection_type"
+        tools:ignore="HardcodedText,TextContrastCheck" />
+
+    <TextView
+        android:id="@+id/tv_seat_avialable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:gravity="center_horizontal"
+        android:text="125 Available"
+        android:textColor="#adadad"
+        android:textSize="@dimen/size12"
+        app:layout_constraintEnd_toEndOf="@+id/textseat_type"
+        app:layout_constraintStart_toStartOf="@+id/textseat_type"
+        app:layout_constraintTop_toBottomOf="@+id/textseat_type"
+        tools:ignore="HardcodedText,TextContrastCheck" />
+
+    <ImageView
+        android:id="@+id/img_metro_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/contentDes"
+        app:layout_constraintStart_toEndOf="@+id/img_seat_selection_type"
+        app:layout_constraintTop_toTopOf="@+id/textseat_type"
+        app:srcCompat="@drawable/ic_icon_metro_info" />
+
+    <TextView
+        android:id="@+id/tv_kd_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:gravity="center_horizontal"
+        android:text="KD 2.500"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size12"
+        app:layout_constraintEnd_toEndOf="@+id/tv_seat_avialable"
+        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintStart_toStartOf="@+id/tv_seat_avialable"
+        app:layout_constraintTop_toBottomOf="@+id/tv_seat_avialable"
+        tools:ignore="HardcodedText,TextContrastCheck" />
+</androidx.constraintlayout.widget.ConstraintLayout>
