@@ -146,15 +146,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     private var ageRating: ArrayList<String> = ArrayList()
 
 
-    private var personNames: ArrayList<String> = ArrayList(
-        listOf(
-            "18+",
-            "15+",
-            "13+",
-            "PG",
-            "E"
-        )
-    )
     private var locationlist = ArrayList<FoodResponse.Output.Cinema>()
 
     private var clickEnable: Int = 0
@@ -668,6 +659,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }
 
         binding?.viewHistorys?.setOnClickListener {
+            binding?.nestedUi?.show()
+            binding?.appBarAccount?.show()
             myBooking(
                 MyBookingRequest(
                     "",
@@ -2678,8 +2671,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                             resource.data?.let { it ->
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                     try {
-                                        binding?.nestedUi?.show()
-                                        binding?.appBarAccount?.show()
                                         setBookingHistoryAdapter(it.data.output)
 
                                     } catch (e: Exception) {
@@ -2707,6 +2698,10 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                             dialog.show()
                         }
                         Status.LOADING -> {
+//                            if (isAdded) {
+//                                loader = LoaderDialog(R.string.pleasewait)
+//                                loader?.show(requireActivity().supportFragmentManager, null)
+//                            }
                         }
                     }
                 }

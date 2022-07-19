@@ -211,6 +211,8 @@ class HomeParentAdapter(
                     holder.viewpager.hide()
                     holder.viewpagerBack.hide()
                     holder.itemView.show()
+                    holder.txtSeeAll.show()
+
                     val gridLayout =
                         GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
                     holder.homeList?.layoutManager = LinearLayoutManager(mContext)

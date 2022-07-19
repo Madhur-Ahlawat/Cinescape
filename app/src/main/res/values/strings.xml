@@ -127,7 +127,7 @@
     <!-- TODO: Remove or change this placeholder text -->
 
     <string name="profile">Profile</string>
-    <string name="booking">Booking</string>
+    <string name="booking">Bookings</string>
     <string name="preferences">Preferences</string>
     <string name="recharge_wallet">Recharge Wallet</string>
     <string name="history">History</string>
@@ -298,6 +298,7 @@
     <string name="no_items_added_to_cart">No Items added to cart</string>
     <string name="userNameEmpty">Please Enter Your User Name</string>
     <string name="countryEmpty">Please Select Your Country</string>
+    <string name="selectCateogry">Please Select Your Category</string>
     <string name="seatTypeReset">Choosing Yes will reset your current selections.</string>
     <string name="noComma">No ,</string>
     <string name="gobackComma"> , go back</string>

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.CinemaSessionResponse
+import com.cinescape1.data.models.responseModel.SeatLayoutResponse
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.invisible
 import com.cinescape1.utils.show
@@ -17,11 +18,11 @@ import com.github.islamkhsh.CardSliderViewPager
 import kotlinx.android.synthetic.main.item_cinematxt.view.*
 
 
-class CinemaPageAdapter(
+class CinemaSeatPagerAdapter(
     private val mContext: Activity,
-    private val movies: ArrayList<CinemaSessionResponse.DaySession>,
+    private val movies: ArrayList<SeatLayoutResponse.DaySession>,
     private val viewpager: CardSliderViewPager?
-) : CardSliderAdapter<CinemaPageAdapter.MovieViewHolder>() {
+) : CardSliderAdapter<CinemaSeatPagerAdapter.MovieViewHolder>() {
 
     private var rowIndex = 0
     override fun getItemCount() = movies.size
@@ -37,7 +38,7 @@ class CinemaPageAdapter(
 
         viewpager?.registerOnPageChangeCallback(object :
             com.github.islamkhsh.viewpager2.ViewPager2.OnPageChangeCallback() {
-
+            
             override fun onPageScrolled(
                 position: Int,
                 positionOffset: Float,

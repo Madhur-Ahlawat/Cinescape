@@ -31,7 +31,8 @@ import javax.inject.Inject
 
 @SuppressLint("CustomSplashScreen")
 @ActivityScoped
-class ActivateWalletActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewItemClickListener {
+class ActivateWalletActivity : DaggerAppCompatActivity(),
+    CountryCodeAdapter.RecycleViewItemClickListener {
     private var loader: LoaderDialog? = null
 
     @Inject
@@ -362,7 +363,8 @@ class ActivateWalletActivity : DaggerAppCompatActivity(), CountryCodeAdapter.Rec
 
     override fun onItemClick(view: CountryCodeResponse.Output) {
         countryCode = view.isdCode
-        println("CountryCode--->${view.isdCode}")    }
+        println("CountryCode--->${view.isdCode}")
+    }
 
 
 }

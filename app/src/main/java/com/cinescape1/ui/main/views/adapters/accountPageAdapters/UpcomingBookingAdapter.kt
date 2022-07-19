@@ -40,6 +40,7 @@ class UpcomingBookingAdapter(private val context: Context, private var upcomingB
             Glide.with(mContext).load(foodSelctedItem.posterhori).placeholder(R.drawable.movie_default).into(holder.thumbnail)
             holder.textNameMovie.text = foodSelctedItem.moviename
             holder.textTypes.text = "+13"
+
             holder.adressName.text = foodSelctedItem.cinemaname
             holder.screenNumber.text = foodSelctedItem.screenId.toString()
             holder.cinemaName.text = foodSelctedItem.experience

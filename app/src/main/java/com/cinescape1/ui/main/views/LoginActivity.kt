@@ -9,7 +9,6 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.net.ConnectivityManager
 import android.net.ConnectivityManager.CONNECTIVITY_ACTION
 import android.os.Bundle
 import android.text.Editable
@@ -65,6 +64,7 @@ import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
+import android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS as FLAG_TRANSLUCENT_STATUS1
 
 
 class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewItemClickListener {
@@ -169,6 +169,14 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
             dt = intent.getStringExtra("dt").toString()
         }
 
+        if (intent.hasExtra("from")) {
+            println("Details--->1231")
+
+            ttType = intent.getStringExtra("type").toString()
+            MovieId = intent.getStringExtra("movieId").toString()
+            from = intent.getStringExtra("from").toString()
+
+        }
         if (intent.hasExtra("Payment")) {
             BOOKING = intent.getStringExtra("BOOKING").toString()
             from = intent.getStringExtra("FROM").toString()
@@ -181,7 +189,7 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
 
         //AppBar Hide
         window.apply {
-            clearFlags(LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            clearFlags(FLAG_TRANSLUCENT_STATUS1)
             addFlags(LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
             statusBarColor = Color.TRANSPARENT
@@ -237,6 +245,17 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
         val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
         val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
 
+        //terms Condition
+        binding?.textTermsConditions?.setOnClickListener {
+            val intent = Intent(
+                this,
+                PaymentWebActivity::class.java
+            )
+            intent.putExtra("From", "login")
+            intent.putExtra("PAY_URL", Constant.termsCondition)
+            startActivity(intent)
+        }
+
         binding?.textView81?.setOnClickListener {
             val intent = Intent(this@LoginActivity, HomeActivity::class.java)
             startActivity(intent)
@@ -257,11 +276,12 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
         }
         //signUpUi
         binding?.textView108?.setOnClickListener {
-            binding?.signInUi?.hide()
-            binding?.signupUi?.show()
 
             binding?.textView2?.typeface = regular
             binding?.textView108?.typeface = bold
+
+            binding?.signInUi?.hide()
+            binding?.signupUi?.show()
 
             binding?.textView2?.setBackgroundResource(R.drawable.signin_bt_ui_trans)
             binding?.textView108?.setBackgroundResource(R.drawable.signup_ui)
@@ -795,6 +815,19 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                                         Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
                                     startActivity(intent)
                                     finish()
+                                } else if (from == "Details") {
+                                    println("Details--->123")
+                                    val intent =
+                                        Intent(this@LoginActivity, ShowTimesActivity::class.java)
+                                            .putExtra("type", ttType)
+                                            .putExtra("from", show_pos)
+                                            .putExtra("movieId", MovieId)
+
+                                    intent.flags =
+                                        Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                                    startActivity(intent)
+                                    finish()
+
                                 } else {
                                     val intent =
                                         Intent(this@LoginActivity, HomeActivity::class.java)
@@ -1146,6 +1179,28 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                                         Constant.COUNTRY_CODE,
                                         it.data.output.countryCode
                                     )
+                                    if (from == "Details") {
+                                        println("Details--->1234")
+
+                                        val intent =
+                                            Intent(
+                                                this@LoginActivity,
+                                                ShowTimesActivity::class.java
+                                            )
+                                                .putExtra("type", ttType)
+                                                .putExtra("from", show_pos)
+                                                .putExtra("movieId", MovieId)
+
+                                        intent.flags =
+                                            Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                                        startActivity(intent)
+                                        finish()
+
+                                    }
+
+
+
+
                                     if (from == "seat") {
                                         val intent = Intent(
                                             this,

@@ -9,33 +9,32 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.webkit.*
-import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.cinescape1.R
 import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.databinding.ActivityPaymentWebBinding
 import com.cinescape1.di.scoped.ActivityScoped
 import com.cinescape1.ui.main.FinalTicketActivity
-import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
-import com.cinescape1.ui.main.viewModels.SplashViewModel
 import com.cinescape1.utils.Constant
+import com.cinescape1.utils.hide
+import com.cinescape1.utils.show
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
 
 @ActivityScoped
 class PaymentWebActivity : DaggerAppCompatActivity() {
-    private var loader: LoaderDialog? = null
     private var fnb = ""
 
     @Inject
-    lateinit var viewmodelFactory: ViewModelProvider.Factory
+    lateinit var viewModelFactory: ViewModelProvider.Factory
     private var binding: ActivityPaymentWebBinding? = null
 
     @Inject
     lateinit var preferences: AppPreferences
-    private val splashViewModel: SplashViewModel by viewModels { viewmodelFactory }
+
+    //    private val splashViewModel: SplashViewModel by viewModels { viewModelFactory }
     private var pay_url = ""
     var bookingId = ""
     var transId = ""
@@ -50,6 +49,20 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
         bookingId = intent.getStringExtra(Constant.IntentKey.BOOKING_ID).toString()
         transId = intent.getStringExtra(Constant.IntentKey.TRANSACTION_ID).toString()
         From = intent.getStringExtra("From").toString()
+        if (From == "login") {
+            binding?.textView109?.text = ""
+            binding?.viewBack?.show()
+            binding?.textView109?.show()
+            binding?.imageView47?.show()
+        } else {
+            binding?.viewBack?.hide()
+            binding?.textView109?.hide()
+            binding?.imageView47?.hide()
+
+        }
+        binding?.imageView47?.setOnClickListener {
+            finish()
+        }
 
         println("pay_url--->$pay_url")
         println("transId--->$transId")
@@ -168,18 +181,13 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
         }
     }
 
-
-    private fun openMovieForYou() {
-//            val intent = Intent(this@PaymentWebActivity, Fina::class.java)
-//            startActivity(intent)
-//            finish()
-    }
-
-
     override fun onBackPressed() {
-        if (fnb == Constant.FNB) {
+        if (From == "login") {
             finish()
         } else {
+            if (fnb == Constant.FNB) {
+                finish()
+            } else {
 
 //            val intent = Intent(this, CinemaSessionActivity::class.java)
 ////            intent.putExtra(Constant.IntentKey.TICKET_BOOKING_DETAILS, paymentIntentData)
@@ -198,7 +206,9 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
 //                paymentViewModel,
 //                prefrences.getString(Constant.USER_ID).toString()
 //            )
+            }
         }
+
 
     }
 

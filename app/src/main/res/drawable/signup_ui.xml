@@ -4,10 +4,10 @@
         android:color="#e12329"
         />
     <padding
-        android:top="@dimen/margin10"
-        android:bottom="7dp"
-        android:left="39dp"
-        android:right="38dp"
+        android:top="3dp"
+        android:bottom="3dp"
+        android:left="30dp"
+        android:right="25dp"
         />
     <solid android:color="#e12329"
         />

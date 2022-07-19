@@ -10,21 +10,27 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.SeatLayoutResponse
+import com.cinescape1.utils.hide
+import com.cinescape1.utils.show
 
 class SeatLayoutCinemaSessionAdapter(
     var context: Context, private var showtimeList: List<SeatLayoutResponse.DaySession.Show>, val listener: SeatSessionAdapterListener, val name:String,
     private val cinemaPos:Int) : RecyclerView.Adapter<SeatLayoutCinemaSessionAdapter.MyViewHolderCinemaSession>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderCinemaSession {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.showtimes_time_dimensions_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_cinema_time, parent, false)
         return MyViewHolderCinemaSession(view)}
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolderCinemaSession, position: Int) {
             val showtimeListItem = showtimeList[position]
             holder.textDimension.text = showtimeListItem.format
-            holder.textMoviesCategory.text = showtimeListItem.showTime
-            holder.textMoviesCategory.text = showtimeListItem.experience
+        if (!showtimeListItem.premium){
+            holder.textMoviesCategory.hide()
+        }else{
+            holder.textMoviesCategory.show()
+        }
+
             holder.textTimes.text = showtimeListItem.showTime
             holder.cardScroll.setOnClickListener {
                 listener.onSeatShowClicked(showtimeList[position],name,position,cinemaPos)

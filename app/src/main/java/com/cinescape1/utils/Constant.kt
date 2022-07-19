@@ -313,7 +313,8 @@ import java.util.ArrayList
         const val MOBILE = "mobile"
         const val mid = "movieId"
 
-        const val SEAT_AVAILABEL = 1
+        const val termsCondition = "https://cinescapeweb.wemonde.co/app/tc"
+        const val privacyPolicy = "https://cinescapeweb.wemonde.co/app/pp"
         const val SEAT_BOOKED = 2
         const val SEAT_SELECTED = 3
         const val SEAT_NOT_ABAILABLE = 0

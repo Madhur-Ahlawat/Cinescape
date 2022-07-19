@@ -204,7 +204,7 @@
         android:layout_marginTop="4dp"
         android:fontFamily="@font/sf_pro_text_regular"
         android:lineSpacingExtra="9sp"
-        android:text="Bachelors"
+        tools:text="Bachelors"
         android:textColor="@color/white"
         android:textSize="@dimen/size12"
         android:textStyle="normal"
@@ -296,61 +296,61 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <View
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/view_ticket_total_price"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="60dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="@+id/foodMUi"
-        app:layout_constraintStart_toStartOf="@+id/foodMUi"
-        app:layout_constraintTop_toBottomOf="@+id/foodMUi" />
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/foodMUi">
 
-    <TextView
-        android:id="@+id/tv_total_tc_price_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/sf_pro_text_regular"
-        android:gravity="center"
-        android:text="@string/total_ticket_price"
-        android:textColor="@color/hint_color"
-        android:textSize="@dimen/size12"
-        android:textStyle="normal"
-        app:layout_constraintEnd_toStartOf="@+id/text_kd_ticket_price"
-        app:layout_constraintStart_toStartOf="@+id/view_ticket_total_price"
-        app:layout_constraintTop_toTopOf="@+id/view_ticket_total_price" />
+        <TextView
+            android:id="@+id/tv_total_tc_price_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:gravity="start"
+            android:text="@string/total_ticket_price"
+            android:textColor="@color/hint_color"
+            android:textSize="@dimen/size12"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="@+id/view_ticket_total_price"
+            app:layout_constraintTop_toTopOf="@+id/view_ticket_total_price" />
 
-    <TextView
-        android:id="@+id/text_kd_ticket_price"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/sf_pro_text_regular"
-        android:lineSpacingExtra="9sp"
-        android:text="KD 30.500"
-        android:textColor="@color/white"
-        android:textSize="@dimen/size14"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_total_tc_price_text"
-        app:layout_constraintEnd_toEndOf="@+id/view_ticket_total_price"
-        app:layout_constraintStart_toEndOf="@+id/tv_total_tc_price_text"
-        app:layout_constraintTop_toTopOf="@+id/tv_total_tc_price_text"
-        tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/text_kd_ticket_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:lineSpacingExtra="9sp"
+            android:text="KD 30.500"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size14"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_total_tc_price_text"
+            app:layout_constraintEnd_toEndOf="@+id/view_ticket_total_price"
+            app:layout_constraintStart_toEndOf="@+id/tv_total_tc_price_text"
+            app:layout_constraintTop_toTopOf="@+id/tv_total_tc_price_text"
+            tools:ignore="HardcodedText" />
 
-    <TextView
-        android:id="@+id/textView_paid_by_club_card"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/sf_pro_text_regular"
-        android:gravity="center"
-        android:visibility="visible"
-        android:text="@string/paid_by_club_card"
-        android:textColor="@color/hint_color"
-        android:textSize="@dimen/size12"
-        android:textStyle="normal"
-        app:layout_constraintEnd_toEndOf="@+id/tv_total_tc_price_text"
-        app:layout_constraintStart_toStartOf="@+id/tv_total_tc_price_text"
-        app:layout_constraintTop_toBottomOf="@+id/tv_total_tc_price_text" />
+        <TextView
+            android:id="@+id/textView_paid_by_club_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:gravity="start"
+            android:textColor="@color/hint_color"
+            android:textSize="@dimen/size12"
+            android:textStyle="normal"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="@+id/tv_total_tc_price_text"
+            app:layout_constraintTop_toBottomOf="@+id/tv_total_tc_price_text"
+            tools:text="@string/paid_by_club_card" />
 
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

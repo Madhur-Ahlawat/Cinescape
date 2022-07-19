@@ -7,6 +7,14 @@
     android:weightSum="100"
     android:orientation="vertical"
     tools:context=".ui.main.views.PaymentWebActivity">
+    <View
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/viewBack"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"/>
 
 
     <WebView
@@ -16,6 +24,34 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewBack"
          />
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/imageView47"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/viewBack"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/viewBack"
+        app:srcCompat="@drawable/ic_back_button"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/textView109"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/sf_pro_text_bold"
+        tools:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size12"
+        app:layout_constraintBottom_toBottomOf="@+id/viewBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView47"
+        app:layout_constraintTop_toTopOf="@+id/viewBack" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

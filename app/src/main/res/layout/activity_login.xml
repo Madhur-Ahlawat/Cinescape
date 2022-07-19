@@ -31,10 +31,10 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="37dp"
             android:background="@drawable/signin_bt_ui"
-            android:fontFamily="@font/sf_pro_text_heavy"
+            android:fontFamily="@font/sf_pro_text_bold"
+            android:textSize="20sp"
             android:text="@string/sign_in"
             android:textColor="@color/white"
-            android:textSize="@dimen/size20"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="@+id/imageView" />
 
@@ -51,6 +51,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:visibility="gone"
                 android:id="@+id/text_not_registerUi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -988,6 +989,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="17dp"
             android:text="@string/sign_up"
+            android:textSize="20sp"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/textView2"
             app:layout_constraintStart_toEndOf="@+id/textView2"

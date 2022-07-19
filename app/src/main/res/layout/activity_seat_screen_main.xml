@@ -509,6 +509,20 @@
 
                 </LinearLayout>
 
+                <com.github.islamkhsh.CardSliderViewPager
+                    android:id="@+id/viewpager"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="16dp"
+                    android:minHeight="@dimen/size50"
+                    android:visibility="gone"
+                    app:cardSlider_otherPagesWidth="50dp"
+                    app:cardSlider_pageMargin="@dimen/margin15"
+                    app:cardSlider_smallScaleFactor="0.2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/vws_tilte1" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview_cinemas_name"
                     android:layout_width="0dp"
@@ -518,7 +532,7 @@
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@+id/vw_mains"
                     app:layout_constraintStart_toStartOf="@+id/vw_mains"
-                    app:layout_constraintTop_toBottomOf="@+id/vws_tilte1" />
+                    app:layout_constraintTop_toBottomOf="@+id/viewpager" />
 
                 <View
                     android:id="@+id/view43lines"

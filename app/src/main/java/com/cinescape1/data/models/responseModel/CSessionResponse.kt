@@ -128,7 +128,6 @@ data class CSessionResponse(
                     val urlToPicture: String
                 ):Serializable
             }
-
         }
     }
 

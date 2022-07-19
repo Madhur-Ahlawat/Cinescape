@@ -167,7 +167,11 @@ class MoviesFragment : DaggerFragment() {
                 ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
             view69.invisible()
             view70.show()
-            comingSoon(moviesResponse?.output?.nowshowing!!)
+            try {
+                comingSoon(moviesResponse?.output?.nowshowing!!)
+            }catch (e:Exception){
+                println("Exception--->${e.message}")
+            }
         }
         //filter
         imageView33.setOnClickListener {

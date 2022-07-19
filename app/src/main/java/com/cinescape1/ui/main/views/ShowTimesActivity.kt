@@ -22,6 +22,7 @@ import android.widget.*
 import android.widget.TextView.OnEditorActionListener
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -55,7 +56,6 @@ import kotlinx.android.synthetic.main.cancel_dialog.view.*
 import kotlinx.android.synthetic.main.search_ui.*
 import kotlinx.android.synthetic.main.seat_selection_bank_offer_alert.*
 import kotlinx.android.synthetic.main.show_times_layout_include.*
-import java.util.*
 import javax.inject.Inject
 
 
@@ -93,6 +93,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     var totalPriceResponse: Double = 0.0
     var selectSeatClick: Int = 0
     var seatAbility: Int = 0
+    private var categoryClick: Boolean = false
     private var mAlertDialog: AlertDialog? = null
     var adapterShowTimesCinemaTitle: AdapterShowTimesCinemaTitle? = null
     private var languageCheck: String = "en"
@@ -101,7 +102,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         super.onCreate(savedInstanceState)
         binding = ActivityShowTimesBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
-
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
@@ -139,6 +139,16 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         movieID = intent.getStringExtra(Constant.IntentKey.MOVIE_ID)!!
         when (type) {
             "comingSoon" -> {
+                val layoutParams =
+                    (binding?.recylerviewShowTimeDate?.layoutParams as? ViewGroup.MarginLayoutParams)
+                layoutParams?.setMargins(0, 0, 0, 16)
+                binding?.recylerviewShowTimeDate?.layoutParams = layoutParams
+
+//                val layoutParams2 = (binding?.showTimesUi?.layoutParams as? ViewGroup.MarginLayoutParams)
+//                layoutParams?.setMargins(0, -50, 0, 0)
+//                binding?.showTimesUi?.layoutParams = layoutParams2
+
+
                 binding?.moviePage?.hide()
                 binding?.comingSoon?.show()
                 binding?.viewpager?.hide()
@@ -147,10 +157,26 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
             }
             "movie" -> {
+                val layoutParams =
+                    (binding?.recylerviewShowTimeDate?.layoutParams as? ViewGroup.MarginLayoutParams)
+                layoutParams?.setMargins(0, 0, 0, 16)
+                binding?.recylerviewShowTimeDate?.layoutParams = layoutParams
+
+
+//                val layoutParams2 = (binding?.showTimesUi?.layoutParams as? ViewGroup.MarginLayoutParams)
+//                layoutParams?.setMargins(0, -50, 0, 0)
+//                binding?.showTimesUi?.layoutParams = layoutParams2
+
+
                 binding?.viewpager?.hide()
                 getCinemaData(CinemaSessionRequest(dateTime, movieID))
             }
             else -> {
+                val layoutParams =
+                    (binding?.recylerviewShowTimeDate?.layoutParams as? ViewGroup.MarginLayoutParams)
+                layoutParams?.setMargins(0, 24, 0, 8)
+                binding?.recylerviewShowTimeDate?.layoutParams = layoutParams
+
                 binding?.moviePage?.show()
                 binding?.comingSoon?.hide()
                 binding?.viewpager?.show()
@@ -234,11 +260,11 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         binding?.moviePage?.setOnClickListener {
             if (!up) {
                 up = true
-                binding?.imageUp?.setImageResource(R.drawable.arrow_up)
+                binding?.imageUp?.setImageResource(R.drawable.arrow_down)
                 include.hide()
             } else {
                 up = false
-                binding?.imageUp?.setImageResource(R.drawable.arrow_down)
+                binding?.imageUp?.setImageResource(R.drawable.arrow_up)
                 include.show()
             }
             return@setOnClickListener
@@ -625,9 +651,15 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 positionOffsetPixels: Int
             ) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-                val gridLayout = GridLayoutManager(this@ShowTimesActivity, 1, GridLayoutManager.VERTICAL, false)
-                binding?.recyclerviewCinemaTitle?.layoutManager = LinearLayoutManager(this@ShowTimesActivity)
-                adapterShowTimesCinemaTitle = AdapterShowTimesCinemaTitle(this@ShowTimesActivity, daySessionResponse[0].experienceSessions, this@ShowTimesActivity)
+                val gridLayout =
+                    GridLayoutManager(this@ShowTimesActivity, 1, GridLayoutManager.VERTICAL, false)
+                binding?.recyclerviewCinemaTitle?.layoutManager =
+                    LinearLayoutManager(this@ShowTimesActivity)
+                adapterShowTimesCinemaTitle = AdapterShowTimesCinemaTitle(
+                    this@ShowTimesActivity,
+                    daySessionResponse[position].experienceSessions,
+                    this@ShowTimesActivity
+                )
                 binding?.recyclerviewCinemaTitle?.layoutManager = gridLayout
                 binding?.recyclerviewCinemaTitle?.adapter = adapterShowTimesCinemaTitle
             }
@@ -666,11 +698,25 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         SessionID = show.sessionId
         println("Checkides--->$CinemaID},Movieid--->${movieID}")
 
-        getSeatLayout(
-            SeatLayoutRequest(show.cinemaId, dateTime, movieID, show.sessionId),
-            name,
-            position
-        )
+
+
+
+        if (!preferences.getBoolean(Constant.IS_LOGIN)) {
+            type
+            val intent = Intent(this, LoginActivity::class.java).putExtra("AREA_CODE", areaCode)
+                .putExtra("type", type)
+                .putExtra("from", "Details")
+                .putExtra("movieId", movieID)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+            finish()
+        } else {
+            getSeatLayout(
+                SeatLayoutRequest(show.cinemaId, dateTime, movieID, show.sessionId),
+                name,
+                position
+            )
+        }
     }
 
     @Deprecated("Deprecated in Java")
@@ -701,6 +747,9 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         mAlertDialog?.window?.setBackgroundDrawableResource(R.color.transparent)
         val totalPrice = mDialogView.findViewById<TextView>(R.id.text_total_t_kd)
         val termsCond = mDialogView.findViewById<TextView>(R.id.textView103)
+        val ratingDesc = mDialogView.findViewById<TextView>(R.id.text_category_decription)
+        val ratingUi = mDialogView.findViewById<CardView>(R.id.rating_ui)
+        val rating = mDialogView.findViewById<TextView>(R.id.text_age_category)
         val terms = mDialogView.findViewById<TextView>(R.id.text_agree)
         val tvGiftCard = mDialogView.findViewById<TextView>(R.id.tv_gift_card)
         val tvGiftVoucher = mDialogView.findViewById<TextView>(R.id.tv_gift_voucher)
@@ -718,6 +767,41 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         tvGiftCard.paintFlags = tvGiftCard.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         tvGiftVoucher.paintFlags = tvGiftVoucher.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         textBankOffer.paintFlags = textBankOffer.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+
+        ratingDesc.text=output.movie.ratingDescription
+        rating.text=output.movie.rating
+        when (output.movie.rating) {
+            "PG" -> {
+                ratingUi.setCardBackgroundColor(this.resources.getColor(R.color.grey))
+
+            }
+            "G" -> {
+                ratingUi.setCardBackgroundColor(this.resources.getColor(R.color.green))
+
+            }
+            "18+" -> {
+                ratingUi.setCardBackgroundColor(this.resources.getColor(R.color.red))
+
+            }
+            "13+" -> {
+                ratingUi.setCardBackgroundColor(this.resources.getColor(R.color.yellow))
+
+            }
+            "E" -> {
+                ratingUi.setCardBackgroundColor(this.resources.getColor(R.color.wowOrange))
+
+            }
+            "T" -> {
+                ratingUi.setCardBackgroundColor(this.resources.getColor(R.color.tabIndicater))
+
+            }
+            else -> {
+                ratingUi.setCardBackgroundColor(this.resources.getColor(R.color.blue))
+
+            }
+        }
+
+
 
         cancelDialog.setOnClickListener {
             mAlertDialog?.dismiss()
@@ -918,6 +1002,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 var tvKdPrice11: TextView?
                 println("seatTypeArrayOne--->${item.seatTypes.size}")
                 if (item.seatTypes.isNotEmpty()) {
+                    categoryClick=false
                     btnDecrease.isEnabled = false
                     btnIncrease.isEnabled = false
                     btnDecrease.isClickable = false
@@ -925,6 +1010,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
                     ClickUi.hide()
                 } else {
+                    categoryClick=true
 
                     ClickUi.show()
                     btnDecrease.isEnabled = true
@@ -1039,12 +1125,14 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                             println("seatTypeArrayOne1--->${item.seatTypes.size}")
                             if (item.seatTypes.isNotEmpty()) {
 
+                                categoryClick=true
                                 ClickUi.show()
                                 btnDecrease.isEnabled = true
                                 btnIncrease.isEnabled = true
                                 btnDecrease.isClickable = true
                                 btnIncrease.isClickable = true
                             } else {
+                                categoryClick=false
                                 ClickUi.hide()
                                 btnDecrease.isEnabled = false
                                 btnIncrease.isEnabled = false
@@ -1141,10 +1229,34 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
             textProceeds.setOnClickListener {
                 println("seatTypeCheck--->${ttType}")
-                if (num == 0) {
-                    selectSeatAlert()
+                if(!categoryClick){
+                    val dialog = OptionDialog(this,
+                        R.mipmap.ic_launcher,
+                        R.string.app_name,
+                        getString(R.string.selectCateogry),
+                        positiveBtnText = R.string.ok,
+                        negativeBtnText = R.string.no,
+                        positiveClick = {
+                        },
+                        negativeClick = {
+                        })
+                    dialog.show()
+                }else if (num == 0) {
+                    val dialog = OptionDialog(this,
+                        R.mipmap.ic_launcher,
+                        R.string.app_name,
+                        getString(R.string.selectSeat),
+                        positiveBtnText = R.string.ok,
+                        negativeBtnText = R.string.no,
+                        positiveClick = {
+                        },
+                        negativeClick = {
+                        })
+                    dialog.show()
+//                    selectSeatAlert()
                 } else {
                     this.startActivityForResult(
+
                         Intent(
                             mAlertDialog?.context,
                             SeatScreenMainActivity::class.java
@@ -1167,6 +1279,9 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                             .putExtra("SHOW_POS", pos)
                             .putExtra("CINEMA_POS", showPose), 50
                     )
+
+                    categoryClick=false
+                    num=0
                     mAlertDialog?.dismiss()
                     println("dateCheck--->${dateTime},  Movieid--->${movieID},CinemaId--->${CinemaID} ,SessionID--->${SessionID}")
                 }
@@ -1244,9 +1359,21 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         movieID = movieCinemaId
 
         println("movieCinemaID--->$movieID},Cinemaid--->${show.cinemaId},")
-        getSeatLayout(
-            SeatLayoutRequest(show.cinemaId, dateTime, movieID, show.sessionId), name, position
-        )
+        if (!preferences.getBoolean(Constant.IS_LOGIN)) {
+            type
+            val intent = Intent(this, LoginActivity::class.java).putExtra("AREA_CODE", areaCode)
+                .putExtra("type", type)
+                .putExtra("from", "Details")
+                .putExtra("movieId", movieID)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+            finish()
+        } else {
+            getSeatLayout(
+                SeatLayoutRequest(show.cinemaId, dateTime, movieID, show.sessionId), name, position
+            )
+        }
+
     }
 
 }

@@ -45,14 +45,15 @@ class AdapterBookingHistory(private val context: Activity, private var bookingHi
         holder.textBookingHistoryDate.text = bookingHistoryItem.showDate
         holder.textBookingHistoryTime.text = bookingHistoryItem.showTime
 
-        holder.textviewDateInfo.text = bookingHistoryItem.showDateTime
-        holder.textviewTimeInfo.text = bookingHistoryItem.showDateTime
+        holder.textviewDateInfo.text = bookingHistoryItem.showDate
+        holder.textviewTimeInfo.text = bookingHistoryItem.showTime
         holder.textAddress.text = bookingHistoryItem.cinemaname
         holder.textviewScreenNumber.text = bookingHistoryItem.screenId
-        holder.textviewExperienceName.text = "Standard"
+        holder.textviewExperienceName.text =bookingHistoryItem.experience
         holder.textviewCategoryName.text = "Bachelor"
         val commaSeparatedString = bookingHistoryItem.seatsArr.joinToString { "$it $|" }
         holder.textviewSeatName.text = commaSeparatedString
+
         holder.textKdTicketPrice.text = bookingHistoryItem.totalTicketPrice
 
 
@@ -75,6 +76,7 @@ class AdapterBookingHistory(private val context: Activity, private var bookingHi
         //food
         holder.foodTotalPrice.text=bookingHistoryItem.totalPrice
         holder.foodPaidby.text=context.resources.getString(R.string.paid_by_club_card)+" "+bookingHistoryItem.payDone
+        holder.paidBy.text=context.resources.getString(R.string.paid_by_club_card)+" "+bookingHistoryItem.payDone
 
         if (rowIndex == position) {
             holder.imageArrowDrop.setImageResource(R.drawable.arrow_drop_up)
@@ -146,6 +148,7 @@ class AdapterBookingHistory(private val context: Activity, private var bookingHi
         var rechargeTime: TextView = view.findViewById(R.id.textView89)
         var rechargePrice: TextView = view.findViewById(R.id.textView83)
         var rechargeDate: TextView = view.findViewById(R.id.textView87)
+        var paidBy: TextView = view.findViewById(R.id.textView_paid_by_club_card)
         var foodTotalPrice: TextView = view.findViewById(R.id.textView96)
         var foodPaidby: TextView = view.findViewById(R.id.textView98)
 

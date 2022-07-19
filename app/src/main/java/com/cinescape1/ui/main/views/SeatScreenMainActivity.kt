@@ -41,6 +41,7 @@ import com.cinescape1.databinding.ActivitySeatScreenMainBinding
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.viewModels.SeatScreenMainViewModel
+import com.cinescape1.ui.main.views.adapters.CinemaSeatPagerAdapter
 import com.cinescape1.ui.main.views.adapters.cinemaSessionAdapters.AdapterCinemaSessionScroll
 import com.cinescape1.ui.main.views.adapters.seatlayout.SeatShowTimesCinemaAdapter
 import com.cinescape1.utils.*
@@ -224,8 +225,11 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
     private fun setMovieData(output: SeatLayoutResponse.Output) {
         binding?.SeatnestedScroll?.show()
         binding?.constraintLayout4?.show()
+
+        binding?.viewpager?.adapter =
+            CinemaSeatPagerAdapter(this,output.daySessions, binding?.viewpager)
+
         try {
-            println("showsSeddionArray--->${output.daySessions}")
             if (output.daySessions.isNullOrEmpty()) {
                 binding?.textOtherShowtimes?.hide()
             } else {
@@ -238,6 +242,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                     binding?.tvSeatFilmTitle1?.hide()
                     binding?.tvSeatFilmType1?.hide()
                     binding?.tvSeatFilmUi?.hide()
+                    binding?.viewpager?.hide()
 
                     binding?.recyclerviewCinemasName?.hide()
                 } else {
@@ -245,12 +250,14 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                     binding?.tvSeatFilmTitle1?.show()
                     binding?.tvSeatFilmType1?.show()
                     binding?.tvSeatFilmUi?.show()
+                    binding?.viewpager?.show()
                     movedBottom()
 
 
                     binding?.recyclerviewCinemasName?.show()
                 }
             }
+
 
             binding?.textSeatTypes?.setOnClickListener {
                 val dialog = Dialog(this)
@@ -342,22 +349,46 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
             binding?.textType?.text = "$seatType | $seatCat"
 
 
-            setTitleAdapter(output.daySessions)
+
+            binding?.viewpager?.registerOnPageChangeCallback(object :
+                com.github.islamkhsh.viewpager2.ViewPager2.OnPageChangeCallback() {
+
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    println("position----123>${position}")
+
+                }
+
+                override fun onPageScrolled(
+                    position: Int,
+                    positionOffset: Float,
+                    positionOffsetPixels: Int
+                ) {
+                    super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+                    val gridLayout = GridLayoutManager(this@SeatScreenMainActivity, 1, GridLayoutManager.VERTICAL, false)
+                    binding?.recyclerviewCinemasName?.layoutManager = LinearLayoutManager(this@SeatScreenMainActivity)
+                    val adapter = SeatShowTimesCinemaAdapter(this@SeatScreenMainActivity, output.daySessions[position].experienceSessions, this@SeatScreenMainActivity)
+                    binding?.recyclerviewCinemasName?.layoutManager = gridLayout
+                    binding?.recyclerviewCinemasName?.adapter = adapter
+                }
+
+            })
+//            setTitleAdapter(output.daySessions)
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
     private fun movedBottom() {
-        binding?.SeatnestedScroll?.post(Runnable { binding?.SeatnestedScroll?.fullScroll(View.FOCUS_DOWN) })
+        binding?.SeatnestedScroll?.post({ binding?.SeatnestedScroll?.fullScroll(View.FOCUS_DOWN) })
     }
 
     private fun setTitleAdapter(daySessions: ArrayList<SeatLayoutResponse.DaySession>) {
-        val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
-        binding?.recyclerviewCinemasName?.layoutManager = LinearLayoutManager(this)
-        val adapter = SeatShowTimesCinemaAdapter(this, daySessions, this)
-        binding?.recyclerviewCinemasName?.layoutManager = gridLayout
-        binding?.recyclerviewCinemasName?.adapter = adapter
+//        val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
+//        binding?.recyclerviewCinemasName?.layoutManager = LinearLayoutManager(this)
+//        val adapter = SeatShowTimesCinemaAdapter(this, daySessions, this)
+//        binding?.recyclerviewCinemasName?.layoutManager = gridLayout
+//        binding?.recyclerviewCinemasName?.adapter = adapter
     }
 
     private fun createRows(output: SeatLayoutResponse.Output) {

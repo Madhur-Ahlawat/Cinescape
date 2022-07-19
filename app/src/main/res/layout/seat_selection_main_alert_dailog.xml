@@ -295,7 +295,7 @@
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="16dp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="@+id/vw_ticket_qtyUi"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/vw_ticket_qtyUi"
@@ -312,7 +312,7 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/size14"
                     android:textStyle="normal"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="@+id/view38"
                     app:layout_constraintEnd_toStartOf="@+id/text_bank_offer"
                     app:layout_constraintStart_toStartOf="@+id/view38"
@@ -330,7 +330,7 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/size14"
                     android:textStyle="normal"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="@+id/text_have"
                     app:layout_constraintEnd_toStartOf="@+id/tv_gift_voucher"
                     app:layout_constraintStart_toEndOf="@+id/text_have"
@@ -344,7 +344,7 @@
                     android:text="@string/gift_voucher"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size14"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="@+id/text_bank_offer"
                     app:layout_constraintEnd_toStartOf="@+id/tv_or"
                     app:layout_constraintStart_toEndOf="@+id/text_bank_offer"
@@ -360,7 +360,7 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/size12"
                     android:textStyle="normal"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_gift_voucher"
                     app:layout_constraintEnd_toStartOf="@+id/tv_gift_card"
                     app:layout_constraintStart_toEndOf="@+id/tv_gift_voucher"
@@ -376,7 +376,7 @@
                     android:text="@string/gift_card1"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size14"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_or"
                     app:layout_constraintEnd_toEndOf="@+id/view38"
                     app:layout_constraintStart_toEndOf="@+id/tv_or"
@@ -388,7 +388,7 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="110dp"
                     android:background="@color/view_bg_color_line"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="@+id/view38"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/view38"
@@ -399,30 +399,40 @@
                     android:layout_width="0dp"
                     android:layout_height="80dp"
                     android:layout_marginTop="8dp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="@+id/view39lines"
                     app:layout_constraintStart_toStartOf="@+id/view39lines"
                     app:layout_constraintTop_toBottomOf="@+id/view39lines" />
 
-                <TextView
-                    android:id="@+id/text_age_category"
-                    android:layout_width="@dimen/margin45"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="10dp"
-                    android:background="@drawable/btn_corner_bg_red"
-                    android:fontFamily="@font/gibson_semibold"
-                    android:gravity="center"
-                    android:letterSpacing="-0.02"
-                    android:text="18+"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/size16"
-                    android:textStyle="normal"
-                    android:visibility="gone"
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/rating_ui"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    app:cardUseCompatPadding="true"
                     app:layout_constraintBottom_toBottomOf="@+id/vw_category"
                     app:layout_constraintEnd_toStartOf="@+id/text_category_decription"
                     app:layout_constraintStart_toStartOf="@+id/vw_category"
-                    app:layout_constraintTop_toTopOf="@+id/vw_category"
-                    tools:ignore="HardcodedText" />
+                    app:layout_constraintTop_toTopOf="@+id/vw_category">
+
+                    <TextView
+                        android:textAlignment="center"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:id="@+id/text_age_category"
+                        android:minWidth="@dimen/margin35"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingStart="@dimen/margin3"
+                        android:paddingEnd="@dimen/margin3"
+                        android:fontFamily="@font/sf_pro_text_semibold"
+                        tools:text="18+"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size10"/>
+
+
+                </androidx.cardview.widget.CardView>
+
 
                 <TextView
                     android:id="@+id/text_category_decription"
@@ -431,17 +441,18 @@
                     android:fontFamily="@font/sf_pro_text_regular"
                     android:letterSpacing="-0.01"
                     android:lineSpacingExtra="1.5sp"
+                    android:maxLines="2"
                     android:paddingStart="@dimen/margin10"
                     android:paddingEnd="@dimen/margin10"
                     android:text="Under 18 needs to be accompanied by parents or any adult age 18 and over."
                     android:textColor="@color/white"
                     android:textSize="@dimen/size14"
                     android:textStyle="normal"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@+id/text_age_category"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@+id/rating_ui"
                     app:layout_constraintEnd_toEndOf="@+id/vw_category"
-                    app:layout_constraintStart_toEndOf="@+id/text_age_category"
-                    app:layout_constraintTop_toTopOf="@+id/text_age_category"
+                    app:layout_constraintStart_toEndOf="@+id/rating_ui"
+                    app:layout_constraintTop_toTopOf="@+id/rating_ui"
                     tools:ignore="HardcodedText" />
 
                 <View
@@ -456,6 +467,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/vw_category" />
 
                 <TextView
+
                     android:id="@+id/text_agree"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -513,7 +525,8 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
-                    android:visibility="invisible"
+
+                    android:visibility="gone"
                     android:id="@+id/text_cancel_goback"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -536,16 +549,16 @@
                     android:gravity="center"
                     android:text="@string/proceed"
                     android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="@+id/text_cancel_goback"
+                    app:layout_constraintBottom_toBottomOf="@+id/view19"
                     app:layout_constraintEnd_toEndOf="@+id/view19"
-                    app:layout_constraintTop_toTopOf="@+id/text_cancel_goback" />
+                    app:layout_constraintTop_toTopOf="@+id/view19" />
 
                 <View
                     android:id="@+id/view_gift"
                     android:layout_width="0dp"
                     android:layout_height="80dp"
                     android:layout_marginTop="8dp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="@+id/view38"
                     app:layout_constraintStart_toStartOf="@+id/view38"
                     app:layout_constraintTop_toBottomOf="@+id/view38" />
@@ -557,7 +570,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:boxStrokeColor="@color/edittext_selector"
                     app:endIconDrawable="@drawable/ic_icons_light_next"
                     app:endIconMode="dropdown_menu"
@@ -607,7 +620,7 @@
                     android:layout_margin="4dp"
                     android:layout_marginStart="10dp"
                     android:paddingEnd="@dimen/margin20"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:boxCornerRadiusBottomEnd="@dimen/margin10"
                     app:boxCornerRadiusBottomStart="@dimen/margin10"
                     app:boxCornerRadiusTopEnd="@dimen/margin10"

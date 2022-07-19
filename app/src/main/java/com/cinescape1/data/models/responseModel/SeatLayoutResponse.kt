@@ -13,6 +13,7 @@ data class SeatLayoutResponse(
         val daySessions: ArrayList<DaySession>,
         val movie: Movie,
         val rows: ArrayList<Row>,
+        val ratingTxt: String,
         val seatCount: String,
         val seatTypes: ArrayList<SeatType>
     ):Serializable
@@ -27,7 +28,9 @@ data class SeatLayoutResponse(
         val seatTypeStr: String,
         val seatTypes: ArrayList<SeatType>
     ):Serializable
-    data class Row(val name:String,val seats:ArrayList<SeatVO>):Serializable
+    data class Row(
+        val name:String,val seats:ArrayList<SeatVO>
+        ):Serializable
     data class Cinema(
         val active: Boolean,
         val address1: String,
@@ -60,8 +63,15 @@ data class SeatLayoutResponse(
     data class DaySession(
         val cinema: CinemaX,
         val showCount: Int,
+        val experienceSessions: List<ExperienceSession>,
         val shows: List<Show>
     ):Serializable{
+        data class ExperienceSession(
+            val experience: String,
+            val experienceAlt: String,
+            val showCount: Int,
+            val shows: List<Show>
+        ):Serializable
         data class CinemaX(
             val active: Boolean,
             val address1: String,
@@ -117,7 +127,8 @@ data class SeatLayoutResponse(
             val showTime: String,
             val showtime: String,
             val soldoutStatus: Int,
-            val typeCode: String
+            val typeCode: String,
+            val premium:Boolean
         ):Serializable
     }
         data class Movie(

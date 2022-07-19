@@ -11,18 +11,15 @@
         android:id="@+id/constraintLayout21"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/imageView48"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:paddingTop="@dimen/margin8"
-            android:paddingBottom="@dimen/margin8"
             android:scaleType="fitXY"
             android:src="@drawable/cinema_back_item"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -56,7 +53,7 @@
         android:textSize="@dimen/size13"
         android:textColor="#C1C1C1"
         android:fontFamily="@font/sf_pro_text_regular"
-        android:text="Al Kout Mall, Fahaheel"
+        tools:text="Al mall"
         app:layout_constraintEnd_toEndOf="@+id/constraintLayout21"
         app:layout_constraintStart_toStartOf="@+id/constraintLayout21"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout21" />
