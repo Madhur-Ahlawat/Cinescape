@@ -11,7 +11,7 @@ import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.SeatLayoutResponse
 
 class SeatShowTimesCinemaAdapter(
-    private var context: Context, private var showTimeTitleList: List<SeatLayoutResponse.DaySession.ExperienceSession>,
+    private var context: Context, private var showTimeTitleList: ArrayList<SeatLayoutResponse.DaySession>,
     val listener: SeatCinemaAdapterListener) : RecyclerView.Adapter<SeatShowTimesCinemaAdapter.MyViewHolderShowTimesTitle>(),
     SeatLayoutCinemaSessionAdapter.SeatSessionAdapterListener {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderShowTimesTitle {
