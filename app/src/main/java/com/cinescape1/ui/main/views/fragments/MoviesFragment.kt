@@ -60,7 +60,6 @@ class MoviesFragment : DaggerFragment() {
     private var isChecked = false
     private var moviesResponse: MoviesResponse? = null
 
-    //    private var moviesFilter: MoviesResponse? = null
     private var comingSoonFilter: ArrayList<MoviesResponse.Nowshowing>? = null
     private var broadcastReceiver: BroadcastReceiver? = null
 
@@ -177,6 +176,7 @@ class MoviesFragment : DaggerFragment() {
         imageView33.setOnClickListener {
             isChecked
             imageView33.setImageResource(R.drawable.ic_filter_select)
+            binding?.recyclerviewCategory?.show()
             setFilterAlertDialog(moviesResponse?.output!!)
         }
 
@@ -363,18 +363,18 @@ class MoviesFragment : DaggerFragment() {
         })
     }
 
-    private fun setFilterAlertDialog(output: MoviesResponse.Output) {
+    private fun  setFilterAlertDialog(output: MoviesResponse.Output) {
         val mDialogView =
             LayoutInflater.from(requireContext()).inflate(R.layout.filter_alert_page_dailog, null)
         val mBuilder = AlertDialog.Builder(requireContext())
             .setView(mDialogView)
         val mAlertDialog = mBuilder.show()
+
 //Outside Clickable  False
         mAlertDialog.setCancelable(false)
         mAlertDialog.setCanceledOnTouchOutside(false)
         mAlertDialog.show()
 
-        println("ratingResponse--->${output.ratings}")
         if (output.experiences.size > 0) {
             dataList.add(FilterModel("Experience", 1, output.experiences))
         }
@@ -409,7 +409,7 @@ class MoviesFragment : DaggerFragment() {
             mAlertDialog.dismiss()
             isChecked = false
             imageView33.setImageResource(R.drawable.ic_icon_awesome_filter)
-
+            binding?.recyclerviewCategory?.hide()
         }
     }
 

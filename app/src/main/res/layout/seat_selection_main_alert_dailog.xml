@@ -407,8 +407,10 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/rating_ui"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="44dp"
+                    android:layout_height="@dimen/margin36"
+                    android:minHeight="@dimen/margin36"
+                    android:minWidth="44dp"
                     android:layout_marginEnd="2dp"
                     app:cardUseCompatPadding="true"
                     app:layout_constraintBottom_toBottomOf="@+id/vw_category"
@@ -416,19 +418,26 @@
                     app:layout_constraintStart_toStartOf="@+id/vw_category"
                     app:layout_constraintTop_toTopOf="@+id/vw_category">
 
-                    <TextView
-                        android:textAlignment="center"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:id="@+id/text_age_category"
-                        android:minWidth="@dimen/margin35"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingStart="@dimen/margin3"
-                        android:paddingEnd="@dimen/margin3"
-                        android:fontFamily="@font/sf_pro_text_semibold"
-                        tools:text="18+"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/size10"/>
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/text_age_category"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_text_semibold"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/size10"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="18+" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                 </androidx.cardview.widget.CardView>

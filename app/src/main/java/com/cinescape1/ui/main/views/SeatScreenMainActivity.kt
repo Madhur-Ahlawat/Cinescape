@@ -44,7 +44,6 @@ import com.cinescape1.ui.main.viewModels.SeatScreenMainViewModel
 import com.cinescape1.ui.main.views.adapters.CinemaSeatPagerAdapter
 import com.cinescape1.ui.main.views.adapters.cinemaSessionAdapters.AdapterCinemaSessionScroll
 import com.cinescape1.ui.main.views.adapters.seatlayout.SeatShowTimesCinemaAdapter
-import com.cinescape1.ui.main.views.adapters.showTimesAdapters.AdapterShowTimesCinemaTitle
 import com.cinescape1.utils.*
 import com.cinescape1.utils.Constant.Companion.SEAT_SESSION_CLICK
 import com.google.android.flexbox.FlexboxLayout
@@ -228,7 +227,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
         binding?.constraintLayout4?.show()
 
         binding?.viewpager?.adapter =
-            CinemaSeatPagerAdapter(this,output.daySessions, binding?.viewpager)
+            CinemaSeatPagerAdapter(this, output.daySessions, binding?.viewpager)
 
         try {
             if (output.daySessions.isNullOrEmpty()) {
@@ -348,7 +347,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
             binding?.tvSeatTimingDate?.text =
                 "${output.daySessions[cinema_pos].shows[show_pos].showTime} | ${DatePosition} | ${dt}"
             binding?.textType?.text = "$seatType | $seatCat"
-            
+
 //            binding?.viewpager?.registerOnPageChangeCallback(object :
 //                com.github.islamkhsh.viewpager2.ViewPager2.OnPageChangeCallback() {
 //

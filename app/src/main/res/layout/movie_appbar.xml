@@ -32,12 +32,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="19dp"
-        android:layout_marginEnd="16dp"
         android:fontFamily="@font/sf_pro_text_heavy"
         android:text="@string/coming_soon"
         android:textColor="@color/text_color"
         android:textSize="@dimen/size14"
-        app:layout_constraintEnd_toStartOf="@+id/imageView33"
         app:layout_constraintStart_toEndOf="@+id/textView52"
         app:layout_constraintTop_toTopOf="@+id/textView52" />
 
@@ -76,16 +74,5 @@
         tools:ignore="ContentDescription">
 
     </ImageView>
-
-    <ImageView
-        android:id="@+id/imageView33"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/searchView"
-        app:layout_constraintEnd_toStartOf="@+id/searchView"
-        app:layout_constraintTop_toTopOf="@+id/searchView"
-        app:srcCompat="@drawable/ic_icon_awesome_filter"
-        tools:ignore="ContentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

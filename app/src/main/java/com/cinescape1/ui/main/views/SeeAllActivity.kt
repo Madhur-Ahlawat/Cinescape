@@ -73,8 +73,9 @@ class SeeAllActivity : DaggerAppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        unregisterReceiver(broadcastReceiver)
+//        unregisterReceiver(broadcastReceiver)
     }
+
     private fun offers() {
         seeAllViewModel.offers()
             .observe(this) {
