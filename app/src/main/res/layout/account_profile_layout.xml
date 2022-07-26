@@ -783,7 +783,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/margin43"
             android:fontFamily="@font/sf_pro_text_regular"
-            android:gravity="bottom"
+            android:gravity="center_vertical"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="2sp"
             android:paddingStart="@dimen/margin4"

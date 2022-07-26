@@ -1200,7 +1200,7 @@ class FoodActivity : DaggerAppCompatActivity(),
 
             /*todo combo items add*/
 
-            if (!foodItem.packageChildItems.isNullOrEmpty()) {
+            if (foodItem.packageChildItems.isNotEmpty()) {
                 foodRequestData.headOfficeItemCode = foodItem.headOfficeItemCode
                 val arrPackage = ArrayList<SaveFoodRequest.Item>()
                 for (n in 0 until foodItem.packageChildItems.size) {

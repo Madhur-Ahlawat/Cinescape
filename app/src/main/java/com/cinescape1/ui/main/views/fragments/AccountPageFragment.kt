@@ -232,8 +232,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                 Constant.IntentKey.LANGUAGE_SELECT = "en"
                 LocaleHelper.setLocale(requireActivity(), "en")
                 preferences.putString(Constant.IntentKey.SELECT_LANGUAGE, "en")
-                Constant.IntentKey.OPEN_FROM = 1
-
+                OPEN_FROM = 1
                 val intent = requireActivity().intent
                 requireActivity().overridePendingTransition(0, 0)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
@@ -245,7 +244,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                 Constant.IntentKey.LANGUAGE_SELECT = "ar"
                 LocaleHelper.setLocale(requireActivity(), "ar")
                 preferences.putString(Constant.IntentKey.SELECT_LANGUAGE, "ar")
-                Constant.IntentKey.OPEN_FROM = 1
+                OPEN_FROM = 1
 
 //                preferences.putString( Constant.IntentKey.OPEN_FROM,"More")
                 val intent = requireActivity().intent
@@ -423,6 +422,10 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }
 
         text_make_editable.setOnClickListener {
+            view39_line.show()
+            view_ConfPassword.show()
+            textConfPassword.show()
+            enter_ConfPassword.show()
             enter_first_name.isClickable = true
             enter_first_name.isFocusable = true
             enter_first_name.isFocusableInTouchMode = true
@@ -898,6 +901,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
         //Save Prefrence
         textView3.setOnClickListener {
+
             updatePreference(
                 PreferenceRequest(
                     arbic,
@@ -919,6 +923,10 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         loadLocation()
         CinemaResponse()
         countryCodeLoad()
+        view39_line.hide()
+        view_ConfPassword.hide()
+        textConfPassword.hide()
+        enter_ConfPassword.hide()
     }
 
     private fun creditCardDialog() {
@@ -1904,6 +1912,10 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                             resource.data?.let { it ->
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                     println("SomethingWrong--->${it.data.msg}")
+                                    view39_line.hide()
+                                    view_ConfPassword.hide()
+                                    textConfPassword.hide()
+                                    enter_ConfPassword.hide()
                                     val dialog = OptionDialog(requireContext(),
                                         R.mipmap.ic_launcher,
                                         R.string.app_name,

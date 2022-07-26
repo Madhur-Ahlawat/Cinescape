@@ -21,7 +21,7 @@ class FaqChildAdapter(
     private val context: Activity
 ) :
     RecyclerView.Adapter<FaqChildAdapter.TodoViewHolder>() {
-    private var rowIndex = 0
+    private var rowIndex = -1
 
     private val dataList: ArrayList<String> = ArrayList()
     private var up = true
@@ -66,13 +66,14 @@ class FaqChildAdapter(
 
 
 
-        if(!up){
+        if(rowIndex==position){
             holder.todoTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(
                 0,
                 0,
                 R.drawable.arrow_up,
                 0
             )
+            holder.desc.show()
 
         }else{
             holder.todoTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(
@@ -81,29 +82,13 @@ class FaqChildAdapter(
                 R.drawable.arrow_down,
                 0
             )
+            holder.desc.hide()
         }
         holder.todoTitle.setOnClickListener {
-            if (!up) {
-                up = true
-                holder.todoTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                    0,
-                    0,
-                    R.drawable.arrow_down,
-                    0
-                )
-                holder.desc.hide()
-
-            }
-            else {
-                up = false
-                holder.todoTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                    0,
-                    0,
-                    R.drawable.arrow_up,
-                    0
-                )
-                holder.desc.show()
-
+            rowIndex = if (position==rowIndex){
+                -1
+            }else {
+                position
             }
             notifyDataSetChanged()
         }

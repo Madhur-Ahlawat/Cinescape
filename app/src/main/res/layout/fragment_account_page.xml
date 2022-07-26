@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:gravity="center"
-                tools:text="English"
+                android:text="English"
                 android:textColor="@color/white"
                 android:textSize="@dimen/size15"
                 app:layout_constraintBottom_toBottomOf="parent"
