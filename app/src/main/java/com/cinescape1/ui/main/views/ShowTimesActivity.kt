@@ -801,8 +801,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             }
         }
 
-
-
         cancelDialog.setOnClickListener {
             mAlertDialog?.dismiss()
         }

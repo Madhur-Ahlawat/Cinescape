@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.CSessionResponse
 import com.cinescape1.ui.main.views.adapters.cinemaSessionAdapters.AdapterCinemaSessionScroll
+import com.cinescape1.utils.hide
+import com.cinescape1.utils.show
 
 class CinemaSessionMovieAdapter(
     var context: Context,
@@ -22,19 +24,33 @@ class CinemaSessionMovieAdapter(
 
 ) : RecyclerView.Adapter<CinemaSessionMovieAdapter.MyViewHolderCinemaSession>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderCinemaSession {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.showtimes_time_dimensions_item, parent, false)
-        return MyViewHolderCinemaSession(view)}
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_cinema_time, parent, false)
+        return MyViewHolderCinemaSession(view)
+    }
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolderCinemaSession, position: Int) {
-            val showtimeListItem = showtimeList[position]
-            holder.textDimension.text = showtimeListItem.format
-            holder.textMoviesCategory.text = showtimeListItem.showTime
-            holder.textMoviesCategory.text = showtimeListItem.experience
-            holder.textTimes.text = showtimeListItem.showTime
-            holder.cardScroll.setOnClickListener {
-                listener.onLocationShowClicked(showtimeList[position],title,position,moviePos,movieCinemaId)
-            }
+        val showtimeListItem = showtimeList[position]
+        holder.textDimension.text = showtimeListItem.format
+        holder.textTimes.text = showtimeListItem.showTime
+        holder.type.text=showtimeListItem.experience
+        if (!showtimeListItem.premium) {
+            holder.textMoviesCategory.hide()
+        } else {
+            holder.textMoviesCategory.show()
+        }
+        holder.type.show()
+
+        holder.cardScroll.setOnClickListener {
+            listener.onLocationShowClicked(
+                showtimeList[position],
+                title,
+                position,
+                moviePos,
+                movieCinemaId
+            )
+        }
     }
 
     override fun getItemCount(): Int {
@@ -43,6 +59,7 @@ class CinemaSessionMovieAdapter(
 
     class MyViewHolderCinemaSession(view: View) : RecyclerView.ViewHolder(view) {
         var textTimes: TextView = view.findViewById(R.id.text_times)
+        var type: TextView = view.findViewById(R.id.type)
         var textDimension: TextView = view.findViewById(R.id.text_dimension)
         var textMoviesCategory: TextView = view.findViewById(R.id.text_movies_category)
         var cardScroll: CardView = view.findViewById(R.id.card_scroll)

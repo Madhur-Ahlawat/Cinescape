@@ -16,6 +16,7 @@
         android:elevation="@dimen/margin2"
         app:cardCornerRadius="@dimen/margin12"
         app:cardElevation="@dimen/margin2"
+        app:cardBackgroundColor="@color/head_title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -23,18 +24,31 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/alert_booking_bg"
-            android:padding="@dimen/margin4">
+           >
 
-            <ImageView
-                android:id="@+id/img_film"
-                android:layout_width="170dp"
-                android:layout_height="170dp"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/contentDes"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                app:cardCornerRadius="@dimen/margin8"
+                app:cardUseCompatPadding="true"
+                android:layout_marginBottom="@dimen/margin2"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/bombshell" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/img_film"
+                    android:layout_width="160dp"
+                    android:layout_height="229dp"
+                    android:scaleType="fitXY"
+                    android:contentDescription="@string/contentDes"
+                    app:srcCompat="@drawable/bombshell" />
+
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/tv_cinemas"
@@ -46,19 +60,19 @@
                 android:fontFamily="@font/sf_pro_text_bold"
                 android:letterSpacing="-0.01"
                 android:lines="1"
-                tools:text="Cinescape Al-Muhallab"
                 android:textColor="@color/black"
-                android:textSize="@dimen/size12"
-                app:layout_constraintEnd_toEndOf="@+id/img_film"
-                app:layout_constraintStart_toStartOf="@+id/img_film"
-                app:layout_constraintTop_toBottomOf="@+id/img_film" />
+                android:textSize="@dimen/size14"
+                app:layout_constraintEnd_toEndOf="@+id/card"
+                app:layout_constraintStart_toStartOf="@+id/card"
+                app:layout_constraintTop_toBottomOf="@+id/card"
+                tools:text="Cinescape Al-Muhallab" />
 
             <View
                 android:id="@+id/view39"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
-                app:layout_constraintEnd_toEndOf="@+id/img_film"
-                app:layout_constraintStart_toStartOf="@+id/img_film"
+                app:layout_constraintEnd_toEndOf="@+id/card"
+                app:layout_constraintStart_toStartOf="@+id/card"
                 app:layout_constraintTop_toBottomOf="@+id/tv_cinemas" />
 
             <TextView

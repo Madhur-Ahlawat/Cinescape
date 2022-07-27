@@ -19,12 +19,11 @@ import com.cinescape1.data.models.responseModel.CSessionResponse
 import com.cinescape1.ui.main.views.adapters.CinemaSessionMovieAdapter
 import com.cinescape1.utils.show
 class AdapterCinemaSessionScroll(
-    context: Context,
+   private val context: Context,
     private var cinemaSessionList: ArrayList<CSessionResponse.Output.DaySession>,
     val listener: LocationListener
 ) :
     RecyclerView.Adapter<AdapterCinemaSessionScroll.ViewHolder>() {
-    private var context: Context = context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         Log.d(ContentValues.TAG, ".onCreateViewHolder new view requested")
         val view =
@@ -37,8 +36,9 @@ class AdapterCinemaSessionScroll(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val showtimeListItem = cinemaSessionList[position]
         holder.name.text = showtimeListItem.movie.title
-        holder.duration.text = showtimeListItem.movie.language+" | "+showtimeListItem.movie.genre+" | "+showtimeListItem.movie.runTime+"min."
+        holder.duration.text = showtimeListItem.movie.language+" | "+showtimeListItem.movie.runTime+"min."
         holder.cateogry.text = showtimeListItem.movie.rating
+        holder.genre.text = showtimeListItem.movie.genre
 
         when (showtimeListItem.movie.rating) {
             "PG" -> {
@@ -119,6 +119,7 @@ class AdapterCinemaSessionScroll(
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var image: ImageView = view.findViewById(R.id.image_showtimes)
         var name: TextView = view.findViewById(R.id.text_film_name)
+        var genre: TextView = view.findViewById(R.id.genre)
         var cateogry: TextView = view.findViewById(R.id.text_category)
         var duration: TextView = view.findViewById(R.id.text_film_types_duration)
         val recyclerView =

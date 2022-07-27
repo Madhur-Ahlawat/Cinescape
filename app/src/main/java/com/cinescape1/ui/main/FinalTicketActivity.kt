@@ -31,6 +31,7 @@ import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.viewModels.FinalTicketViewModel
 import com.cinescape1.ui.main.views.FoodActivity
 import com.cinescape1.ui.main.views.HomeActivity
+import com.cinescape1.ui.main.views.adapters.SeatListAdapter
 import com.cinescape1.ui.main.views.adapters.checkoutAdapter.AdapterCheckoutConFirmFoodDetail
 import com.cinescape1.ui.main.views.adapters.sliderAdapter.SliderFoodConfirmViewPgweAdapter
 import com.cinescape1.utils.*
@@ -221,11 +222,19 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
             txt_date.text = output.showDate
             text_times2.text = output.showTime
             text_wallet.text = output.payDone
+            tv_category_name.text = output.category
             text_kd_total_ticket_price.text = output.totalTicketPrice
             text_types.text = output.mcensor
-            val commaSeparatedString = output.seatsArr.joinToString { "$it | " }
-            seats_list.text = commaSeparatedString
-//            tv_category_name.text=output.
+
+
+            text_wallet1.text = output.payDone
+            text_kd_total_ticket_price1.text = output.totalPrice
+
+            val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
+            val adapter = SeatListAdapter(output.seatsArr)
+            seats_list.setHasFixedSize(true)
+            seats_list.layoutManager = layoutManager
+            seats_list.adapter = adapter
             text_how_picup.paintFlags = text_how_picup.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
             if (!output.cancelReserve) {
@@ -285,6 +294,8 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
             textView51.text = "KD " + output.ticketPrice
             text_bookin_id_no1.text = output.kioskId
             text_wallet1.text = output.payDone
+            tv_category_name.text = output.category
+
             text_kd_total_ticket_price1.text = output.totalPrice
             textFoodPicUp.paintFlags = textFoodPicUp.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 

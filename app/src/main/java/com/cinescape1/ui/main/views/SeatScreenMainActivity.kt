@@ -503,7 +503,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                     this,
                     R.anim.zoom_out
                 )
-                binding?.innerView?.startAnimation(animZoomOut)
+//                binding?.innerView?.startAnimation(animZoomOut)
             }
         } catch (e: Exception) {
             println("CheckException--->${e.message}")

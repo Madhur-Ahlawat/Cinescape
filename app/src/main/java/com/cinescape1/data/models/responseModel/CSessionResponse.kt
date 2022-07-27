@@ -80,7 +80,8 @@ data class CSessionResponse(
                 val showTime: String,
                 val showtime: String,
                 val soldoutStatus: Int,
-                val typeCode: String
+                val typeCode: String,
+                val premium: Boolean,
             ):Serializable
             data class Movie(
                 val cast: List<Cast>,

@@ -27,12 +27,6 @@ class AdapterShowTimesCinemaTitle(
         val showtimeListItem = showTimeTitleList[position]
         holder.textTitle.text = showtimeListItem.experience
 
-
-//        Glide.with(context)
-//            .load(R.drawable.img_3d)
-//            .into(holder.imageCinema)
-
-
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL ,false)
         holder.recyclerShowTimeDimensions.layoutManager = layoutManager
         val adapter = AdapterCinemaSessionDimension(context,showtimeListItem.shows,this,showtimeListItem.experience,position)

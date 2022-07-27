@@ -35,6 +35,7 @@ data class TicketSummaryResponse(
         val clubEnable: Boolean,
         val addFood: Boolean,
         val cancelReserve: Boolean,
+        val category: String,
         val payDone: String,
         val qr: String
     )

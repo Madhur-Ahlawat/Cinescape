@@ -93,10 +93,14 @@
 
             <TextView
                 android:id="@+id/go_to_booking_btn"
-                android:layout_width="130dp"
-                android:layout_height="@dimen/margin35"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin8"
                 android:layout_marginBottom="@dimen/margin8"
+                android:paddingTop="@dimen/margin10"
+                android:paddingBottom="@dimen/margin10"
+                android:paddingEnd="@dimen/margin16"
+                android:paddingStart="@dimen/margin16"
                 android:background="@drawable/btn_corner_bg_red"
                 android:fontFamily="@font/sf_pro_text_heavy"
                 android:gravity="center"

@@ -31,7 +31,7 @@ class AdapterMultiMovieAlertBooking(context: Context, private var sliderMultiMov
 //            holder.showTimeTitleList.setImageResource(R.drawable.img_demo)
         } else {
             val showtimeListItem = sliderMultiMovieItemList[position]
-            holder.tvCinemas.text = showtimeListItem.moviename
+            holder.tvCinemas.text = showtimeListItem.cinemaname
             holder.textviewDates.text = showtimeListItem.showDate
             holder.textviewTime1.text = showtimeListItem.showTime
             Glide.with(mContext)

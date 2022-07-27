@@ -358,17 +358,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/views_screen"
                 tools:ignore="TextContrastCheck" />
 
-            <TextView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/seats_list"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:fontFamily="@font/sf_pro_text_bold"
-                android:textColor="@color/black"
-                android:textSize="@dimen/size15"
-                app:alignContent="stretch"
-                app:alignItems="stretch"
-                app:flexWrap="wrap"
                 app:layout_constraintEnd_toEndOf="@+id/txt_seats"
                 app:layout_constraintStart_toStartOf="@+id/txt_seats"
                 app:layout_constraintTop_toBottomOf="@+id/txt_seats" />

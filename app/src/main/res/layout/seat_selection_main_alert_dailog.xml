@@ -80,6 +80,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:layout_marginEnd="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -115,10 +116,10 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/typeView"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/view_gift"
+                    app:layout_constraintStart_toStartOf="@+id/view_gift"
                     app:layout_constraintTop_toBottomOf="@+id/tv_select_seat_type">
 
                     <com.google.android.flexbox.FlexboxLayout
@@ -137,7 +138,6 @@
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
                 <View
                     android:id="@+id/vw_line2"
                     android:layout_width="0dp"
@@ -147,7 +147,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/typeView" />
-
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/vw_ticket_qtyUi"
@@ -289,16 +288,15 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
                 <View
                     android:id="@+id/view38"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="16dp"
                     android:visibility="visible"
-                    app:layout_constraintEnd_toEndOf="@+id/vw_ticket_qtyUi"
+                    app:layout_constraintEnd_toEndOf="@+id/vw_category"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/vw_ticket_qtyUi"
+                    app:layout_constraintStart_toStartOf="@+id/vw_category"
                     app:layout_constraintTop_toBottomOf="@+id/vw_ticket_qtyUi" />
 
                 <TextView
@@ -400,8 +398,8 @@
                     android:layout_height="80dp"
                     android:layout_marginTop="8dp"
                     android:visibility="visible"
-                    app:layout_constraintEnd_toEndOf="@+id/view39lines"
-                    app:layout_constraintStart_toStartOf="@+id/view39lines"
+                    app:layout_constraintEnd_toEndOf="@+id/view30"
+                    app:layout_constraintStart_toStartOf="@+id/view30"
                     app:layout_constraintTop_toBottomOf="@+id/view39lines" />
 
 
@@ -447,6 +445,7 @@
                     android:id="@+id/text_category_decription"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
                     android:fontFamily="@font/sf_pro_text_regular"
                     android:letterSpacing="-0.01"
                     android:lineSpacingExtra="1.5sp"
@@ -491,50 +490,62 @@
                     app:layout_constraintStart_toStartOf="@+id/view30"
                     app:layout_constraintTop_toBottomOf="@+id/view42lines" />
 
-                <View
-                    android:id="@+id/view19"
-                    android:layout_width="0dp"
-                    android:layout_height="52dp"
-                    android:layout_marginBottom="38dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/text_agree" />
-
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cancelDialog"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/view19"
-                    app:layout_constraintStart_toStartOf="@+id/view30"
-                    app:layout_constraintTop_toTopOf="@+id/view19">
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/view30"
+                    app:layout_constraintStart_toStartOf="@+id/text_agree"
+                    app:layout_constraintTop_toBottomOf="@+id/view42lines">
 
-                    <TextView
-                        android:id="@+id/cancel_goback"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cancelDialog"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/sf_pro_text_bold"
-                        android:gravity="start"
-                        android:text="@string/cancel"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/size16"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_proceeds"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="@+id/text_proceeds">
+
+                        <TextView
+                            android:id="@+id/cancel_goback"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_text_bold"
+                            android:gravity="start"
+                            android:text="@string/cancel"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/size16"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:text="@string/and_go_back"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/size14"
+                            app:layout_constraintBottom_toBottomOf="@+id/cancel_goback"
+                            app:layout_constraintStart_toEndOf="@+id/cancel_goback"
+                            app:layout_constraintTop_toTopOf="@+id/cancel_goback" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:text="@string/and_go_back"
-                        android:textColor="@color/text_color"
-                        android:textSize="@dimen/size14"
-                        app:layout_constraintBottom_toBottomOf="@+id/cancel_goback"
-                        app:layout_constraintStart_toEndOf="@+id/cancel_goback"
-                        app:layout_constraintTop_toTopOf="@+id/cancel_goback" />
+                        android:id="@+id/text_proceeds"
+                        android:layout_width="110dp"
+                        android:layout_height="36dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/btn_corner_bg_red"
+                        android:fontFamily="@font/sf_pro_text_bold"
+                        android:gravity="center"
+                        android:text="@string/proceed"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
                 <TextView
-
                     android:visibility="gone"
                     android:id="@+id/text_cancel_goback"
                     android:layout_width="0dp"
@@ -542,25 +553,13 @@
                     android:layout_marginTop="12dp"
                     android:fontFamily="@font/sf_pro_text_regular"
                     android:gravity="start"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     android:text="@string/cancel_and_go_back"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/size12"
-                    app:layout_constraintStart_toStartOf="@+id/view19"
-                    app:layout_constraintTop_toTopOf="@+id/view19" />
+                    android:textSize="@dimen/size12" />
 
-                <TextView
-                    android:id="@+id/text_proceeds"
-                    android:layout_width="110dp"
-                    android:layout_height="36dp"
-                    android:layout_marginEnd="@dimen/margin20"
-                    android:background="@drawable/btn_corner_bg_red"
-                    android:fontFamily="@font/sf_pro_text_bold"
-                    android:gravity="center"
-                    android:text="@string/proceed"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="@+id/view19"
-                    app:layout_constraintEnd_toEndOf="@+id/view19"
-                    app:layout_constraintTop_toTopOf="@+id/view19" />
 
                 <View
                     android:id="@+id/view_gift"
@@ -568,8 +567,8 @@
                     android:layout_height="80dp"
                     android:layout_marginTop="8dp"
                     android:visibility="visible"
-                    app:layout_constraintEnd_toEndOf="@+id/view38"
-                    app:layout_constraintStart_toStartOf="@+id/view38"
+                    app:layout_constraintEnd_toEndOf="@+id/vw_category"
+                    app:layout_constraintStart_toStartOf="@+id/vw_category"
                     app:layout_constraintTop_toBottomOf="@+id/view38" />
 
                 <com.google.android.material.textfield.TextInputLayout

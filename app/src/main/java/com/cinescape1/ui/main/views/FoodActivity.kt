@@ -116,14 +116,13 @@ class FoodActivity : DaggerAppCompatActivity(),
                 LocaleHelper.setLocale(this, "en")
             }
         }
-
         setContentView(view)
         cinemaId = intent.getStringExtra("CINEMA_ID").toString()
         sessionId = intent.getStringExtra("SESSION_ID").toString()
         booktype = intent.getStringExtra("BOOKING").toString()
         transId = intent.getStringExtra("TRANS_ID").toString()
         type = intent.getStringExtra("type").toString()
-        println("CheckType--->${type}")
+
         if (type == "0") {
             binding?.txtSkipProceed?.hide()
             binding?.viewCancel?.setOnClickListener {
@@ -164,15 +163,31 @@ class FoodActivity : DaggerAppCompatActivity(),
             binding?.viewCancel?.setOnClickListener {
                 cancelDialog()
             }
+
             binding?.viewProceed?.setOnClickListener {
-                val intent = Intent(this, CheckoutWithFoodActivity::class.java)
-                intent.putExtra("CINEMA_ID", cinemaId)
-                intent.putExtra("SESSION_ID", sessionId)
-                intent.putExtra("TRANS_ID", transId)
-                intent.putExtra("TYPE", "0")
-                TimerTime = timeCount
-                startActivity(intent)
-                finish()
+                if (!foodCartList.isNullOrEmpty()) {
+                    try {
+                        val foodRequest = SaveFoodRequest()
+                        foodRequest.concessionFoods = foodCartList!!
+                        foodRequest.transid = transId
+                        foodRequest.cinemaId = cinemaId
+                        foodRequest.booktype = booktype
+                        foodRequest.userId = preferences.getString(Constant.USER_ID).toString()
+                        foodRequest.sessionId = sessionId
+                        saveFoods(foodRequest)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                } else {
+                    val intent = Intent(this, CheckoutWithFoodActivity::class.java)
+                    intent.putExtra("CINEMA_ID", cinemaId)
+                    intent.putExtra("SESSION_ID", sessionId)
+                    intent.putExtra("TRANS_ID", transId)
+                    intent.putExtra("TYPE", "0")
+                    TimerTime = timeCount
+                    startActivity(intent)
+                    finish()
+                }
             }
 
         }
