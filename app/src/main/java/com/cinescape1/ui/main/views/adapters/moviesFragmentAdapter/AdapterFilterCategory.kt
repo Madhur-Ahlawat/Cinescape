@@ -1,15 +1,20 @@
 package com.cinescape1.ui.main.views.adapters.moviesFragmentAdapter
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
+import com.cinescape1.data.models.responseModel.CinemaSessionResponse
 
 
-
-class AdapterFilterCategory(private var categoryFilterList: ArrayList<Any>) :
+class AdapterFilterCategory(
+    private val context: Activity,
+    private var categoryFilterList: ArrayList<String>,private var listener:RecycleViewItemClickListener
+) :
     RecyclerView.Adapter<AdapterFilterCategory.MyViewHolderCategoryFilter>() {
 
 
@@ -20,16 +25,25 @@ class AdapterFilterCategory(private var categoryFilterList: ArrayList<Any>) :
     }
 
     override fun onBindViewHolder(holder: MyViewHolderCategoryFilter, position: Int) {
-            val categoryFilterItem = categoryFilterList[position]
-            holder.categoryTitle.text = categoryFilterItem as CharSequence?
+        val categoryFilterItem = categoryFilterList[position]
+        holder.categoryTitle.text = categoryFilterItem.split("-")[0]
+        holder.cross.setOnClickListener {
+            listener.onCrossClick(categoryFilterItem)
+        }
     }
 
     override fun getItemCount(): Int {
         return if (categoryFilterList.isNotEmpty()) categoryFilterList.size else 0
     }
+
     class MyViewHolderCategoryFilter(view: View) : RecyclerView.ViewHolder(view) {
         var categoryTitle: TextView = view.findViewById(R.id.tv_category_titles)
+        var cross: ImageView = view.findViewById(R.id.imageView15)
 
+    }
+
+    interface RecycleViewItemClickListener {
+        fun onCrossClick(item:String)
     }
 
 }

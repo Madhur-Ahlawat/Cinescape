@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.*
 import android.view.inputmethod.EditorInfo
@@ -26,6 +27,7 @@ import androidx.viewpager.widget.ViewPager
 import com.cinescape1.R
 import com.cinescape1.data.models.requestModel.MovieRequest
 import com.cinescape1.data.models.responseModel.FilterModel
+import com.cinescape1.data.models.responseModel.FilterTypeModel
 import com.cinescape1.data.models.responseModel.MoviesResponse
 import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.databinding.FragmentMoviesBinding
@@ -34,6 +36,7 @@ import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.viewModels.HomeViewModel
 import com.cinescape1.ui.main.views.adapters.filterAdapter.AdapterFilterTitle
 import com.cinescape1.ui.main.views.adapters.moviesFragmentAdapter.AdapterCommingSoon
+import com.cinescape1.ui.main.views.adapters.moviesFragmentAdapter.AdapterFilterCategory
 import com.cinescape1.ui.main.views.adapters.moviesFragmentAdapter.AdapterNowShowing
 import com.cinescape1.utils.*
 import com.google.android.material.tabs.TabLayout
@@ -44,7 +47,7 @@ import kotlinx.android.synthetic.main.search_ui.*
 import javax.inject.Inject
 
 
-class MoviesFragment : DaggerFragment() {
+class MoviesFragment : DaggerFragment(),AdapterFilterCategory.RecycleViewItemClickListener {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -62,6 +65,16 @@ class MoviesFragment : DaggerFragment() {
 
     private var comingSoonFilter: ArrayList<MoviesResponse.Nowshowing>? = null
     private var broadcastReceiver: BroadcastReceiver? = null
+    private var isComingsoon = false
+
+    //Filter Params
+    var filterDataList:ArrayList<FilterTypeModel> = ArrayList()
+    var exp_data = "ALL";
+    var cinema_data = "ALL";
+    var timing_data = "ALL";
+    var rating_data = "ALL";
+    var genre_data = "ALL";
+    var language_data = "ALL";
 
     @SuppressLint("ResourceAsColor")
     override fun onCreateView(
@@ -123,7 +136,7 @@ class MoviesFragment : DaggerFragment() {
                 binding?.searchMovie?.layoutParams = params
             }
         }
-        movesData(MovieRequest("string", "string", "string", "string", "string", "string"))
+        movesData(MovieRequest(cinema_data, exp_data, genre_data, language_data, rating_data, timing_data))
         movedNext()
         broadcastReceiver = MyReceiver()
         broadcastIntent()
@@ -152,6 +165,7 @@ class MoviesFragment : DaggerFragment() {
             view69.show()
             view70.invisible()
             nowSowing(moviesResponse?.output?.nowshowing!!)
+            isComingsoon = false
         }
         //coming soon
         textView53.setOnClickListener {
@@ -168,15 +182,16 @@ class MoviesFragment : DaggerFragment() {
             view70.show()
             try {
                 comingSoon(moviesResponse?.output?.nowshowing!!)
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 println("Exception--->${e.message}")
             }
+            isComingsoon = true
         }
         //filter
         imageView33.setOnClickListener {
             isChecked
             imageView33.setImageResource(R.drawable.ic_filter_select)
-            binding?.recyclerviewCategory?.show()
+            binding?.recyclerviewCategory?.hide()
             setFilterAlertDialog(moviesResponse?.output!!)
         }
 
@@ -235,7 +250,7 @@ class MoviesFragment : DaggerFragment() {
                     when (resource.status) {
                         Status.SUCCESS -> {
                             loader?.dismiss()
-                            if (Constant.SUCCESS_CODE == it.data?.data?.code) {
+                            if (Constant.SUCCESS_CODE == it.data?.data?.code && Constant.status == it.data?.data?.result) {
                                 try {
                                     moviesResponse = it.data.data
                                     comingSoonFilter = it.data.data.output.comingsoon
@@ -243,6 +258,19 @@ class MoviesFragment : DaggerFragment() {
                                 } catch (e: Exception) {
                                     println("MovieException----${e.message}")
                                 }
+                            }else{
+                                val dialog = OptionDialog(requireActivity(),
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.data?.msg!!,
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {
+
+                                    },
+                                    negativeClick = {
+                                    })
+                                dialog.show()
                             }
                         }
                         Status.ERROR -> {
@@ -317,53 +345,63 @@ class MoviesFragment : DaggerFragment() {
     }
 
     private fun nowSowing(nowShowing: ArrayList<MoviesResponse.Nowshowing>) {
-        binding?.movieLayout?.show()
-        val gridLayout = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+        val gridLayout =
+            GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
         binding?.fragmentMovie?.setHasFixedSize(true)
         var comingSoonList: ArrayList<MoviesResponse.Nowshowing>
-        comingSoonList = nowShowing
-        val adapter = AdapterNowShowing(nowShowing, requireActivity())
-//        binding?.fragmentMovie?.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
+        if (nowShowing.size>0) {
+            binding?.noData?.hide()
+            binding?.movieLayout?.show()
+            comingSoonList = nowShowing
+            val adapter = AdapterNowShowing(nowShowing, requireActivity())
+            binding?.fragmentMovie?.layoutManager = gridLayout
+            binding?.fragmentMovie?.adapter = adapter
 
-        binding?.fragmentMovie?.layoutManager =gridLayout
-//            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        binding?.fragmentMovie?.adapter = adapter
-
-        movieSearch.addTextChangedListener(object : TextWatcher {
-            @SuppressLint("NotifyDataSetChanged")
-            override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
-                comingSoonList = ArrayList()
-                comingSoonList = if (cs == "") {
-                    nowShowing
-                } else {
-                    ArrayList()
-                }
-                for (i in 0 until nowShowing.size) {
-                    try {
-                        if (nowShowing[i].title.lowercase().contains(cs.toString().lowercase())) {
-                            comingSoonList.add(nowShowing[i])
-                        }
-                    } catch (e: Exception) {
-                        println("SearchMsg--->${e.message}")
+            movieSearch.addTextChangedListener(object : TextWatcher {
+                @SuppressLint("NotifyDataSetChanged")
+                override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
+                    comingSoonList = ArrayList()
+                    comingSoonList = if (cs == "") {
+                        nowShowing
+                    } else {
+                        ArrayList()
                     }
+                    for (i in 0 until nowShowing.size) {
+                        try {
+                            if (nowShowing[i].title.lowercase()
+                                    .contains(cs.toString().lowercase())
+                            ) {
+                                comingSoonList.add(nowShowing[i])
+                            }
+                        } catch (e: Exception) {
+                            println("SearchMsg--->${e.message}")
+                        }
+                    }
+                    println("comingSoonSize--->${comingSoonList.size}")
+                    adapter.updateList(comingSoonList)
                 }
-                println("comingSoonSize--->${comingSoonList.size}")
-                adapter.updateList(comingSoonList)
-            }
 
-            override fun beforeTextChanged(
-                arg0: CharSequence, arg1: Int, arg2: Int, arg3: Int
-            ) {
-                // TODO Auto-generated method stub
-            }
+                override fun beforeTextChanged(
+                    arg0: CharSequence, arg1: Int, arg2: Int, arg3: Int
+                ) {
+                    // TODO Auto-generated method stub
+                }
 
-            override fun afterTextChanged(arg0: Editable) {
-                // TODO Auto-generated method stub
-            }
-        })
+                override fun afterTextChanged(arg0: Editable) {
+                    // TODO Auto-generated method stub
+                }
+            })
+        }else{
+            val adapter = AdapterNowShowing(nowShowing, requireActivity())
+            binding?.fragmentMovie?.layoutManager = gridLayout
+            binding?.fragmentMovie?.adapter = adapter
+            binding?.noData?.show()
+            toast("No movie available!")
+        }
     }
 
-    private fun  setFilterAlertDialog(output: MoviesResponse.Output) {
+    private fun setFilterAlertDialog(output: MoviesResponse.Output) {
+        dataList.clear()
         val mDialogView =
             LayoutInflater.from(requireContext()).inflate(R.layout.filter_alert_page_dailog, null)
         val mBuilder = AlertDialog.Builder(requireContext())
@@ -374,29 +412,106 @@ class MoviesFragment : DaggerFragment() {
         mAlertDialog.setCancelable(false)
         mAlertDialog.setCanceledOnTouchOutside(false)
         mAlertDialog.show()
+        val selectedList = arrayListOf<String>()
+        val selectedList1 = arrayListOf<String>()
+        val selectedList2 = arrayListOf<String>()
+        val selectedList3 = arrayListOf<String>()
+        val selectedList4 = arrayListOf<String>()
+        val selectedList5 = arrayListOf<String>()
+        val selectedCinemaList = arrayListOf<MoviesResponse.Cinema>()
+        val selectedMovieList = arrayListOf<MoviesResponse.MovieTimings>()
 
-        if (output.experiences.size > 0) {
-            dataList.add(FilterModel("Experience", 1, output.experiences))
+        if (output.cinemas?.size!! > 0) {
+            dataList.add(
+                FilterModel(
+                    "Location",
+                    2,
+                    output.experiences,
+                    selectedList4,
+                    output.cinemas,
+                    null,
+                    null,
+                    selectedCinemaList
+                )
+            )
         }
         if (output.experiences.size > 0) {
-            dataList.add(FilterModel("Time", 1, output.alllanguages))
+            dataList.add(
+                FilterModel(
+                    "Experience",
+                    1,
+                    output.experiences,
+                    selectedList,
+                    null,
+                    null,
+                    null,
+                    null
+                )
+            )
+        }
+        if (output.movieTimings.size > 0) {
+            dataList.add(
+                FilterModel(
+                    "Time",
+                    3,
+                    output.experiences,
+                    selectedList5,
+                    null,
+                    output.movieTimings,
+                    selectedMovieList,
+                    null
+                )
+            )
         }
         if (output.ratings.size > 0) {
-            dataList.add(FilterModel("Rating", 1, output.ratings))
+            dataList.add(
+                FilterModel(
+                    "Rating",
+                    4,
+                    output.ratings,
+                    selectedList1,
+                    null,
+                    null,
+                    null,
+                    null
+                )
+            )
         }
         if (output.genreList.size > 0) {
-            dataList.add(FilterModel("Genre", 1, output.genreList))
+            dataList.add(
+                FilterModel(
+                    "Genre",
+                    5,
+                    output.genreList,
+                    selectedList2,
+                    null,
+                    null,
+                    null,
+                    null
+                )
+            )
         }
 
         if (output.alllanguages.size > 0) {
-            dataList.add(FilterModel("Language", 1, output.alllanguages))
+            dataList.add(
+                FilterModel(
+                    "Language",
+                    6,
+                    output.alllanguages,
+                    selectedList3,
+                    null,
+                    null,
+                    null,
+                    null
+                )
+            )
         }
 
         val recyclerviewExperience =
             mDialogView.findViewById<View>(R.id.recyclerview_filter_title) as RecyclerView
         val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
         recyclerviewExperience.layoutManager = LinearLayoutManager(context)
-        val adapter = AdapterFilterTitle(requireActivity(), dataList)
+        val adapter = AdapterFilterTitle(requireActivity(), dataList,filterDataList)
         recyclerviewExperience.layoutManager = gridLayout
         recyclerviewExperience.adapter = adapter
 
@@ -404,13 +519,117 @@ class MoviesFragment : DaggerFragment() {
         val textReset = mDialogView.findViewById<View>(R.id.text_reset) as ConstraintLayout
 
         textReset.setOnClickListener {
-        }
-        textViewDone.setOnClickListener {
             mAlertDialog.dismiss()
+        }
+        println("selectedList123--->" + dataList.size)
+
+        textViewDone.setOnClickListener {
             isChecked = false
             imageView33.setImageResource(R.drawable.ic_icon_awesome_filter)
             binding?.recyclerviewCategory?.hide()
+            updateFilterData(dataList,"")
+            mAlertDialog.dismiss()
         }
+    }
+
+    private fun updateFilterData(dataList: ArrayList<FilterModel>,crossItem:String) {
+        filterDataList = getFinalFilterList(dataList,crossItem)
+        movesData(MovieRequest(cinema_data, exp_data, genre_data, language_data, rating_data, timing_data))
+        if (filterDataList.size>0){
+            binding?.recyclerviewCategory?.show()
+            updateFilterView(filterDataList)
+        }
+    }
+
+    private fun updateFilterView(filterDataList: ArrayList<FilterTypeModel>) {
+        val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.HORIZONTAL, false)
+        val adapter = AdapterFilterCategory(requireActivity(), getList(filterDataList),this)
+        binding?.recyclerviewCategory?.layoutManager = gridLayout
+        binding?.recyclerviewCategory?.adapter = adapter
+    }
+
+    private fun getList(filterDataList: ArrayList<FilterTypeModel>): ArrayList<String> {
+        val list = ArrayList<String>()
+        for (data in filterDataList){
+            list.addAll(data.selectedList)
+        }
+
+        return list
+    }
+
+    private fun getFinalFilterList(dataList: ArrayList<FilterModel>,crossItem:String): ArrayList<FilterTypeModel> {
+        val list = ArrayList<FilterTypeModel>()
+        val list1 = ArrayList<String>()
+        val list11 = ArrayList<String>()
+        val list2 = ArrayList<String>()
+        val list22 = ArrayList<String>()
+        for (data in dataList) {
+            when (data.type) {
+                1 -> {
+                    if (data.selectedList.contains(crossItem.split("-")[0]))
+                        data.selectedList.remove(crossItem.split("-")[0])
+                    list.add(FilterTypeModel(1, data.selectedList))
+                    exp_data = if (data.selectedList.size==0)
+                        "ALL"
+                    else TextUtils.join(",", data.selectedList)
+                }
+                2 -> {
+                    if (data.selectedList.contains(crossItem))
+                        data.selectedList.remove(crossItem)
+                    for (item in data.selectedList) {
+                        println("hhhhhhh---$item")
+                        list1.add(item.split("-")[1])
+                        list11.add(item)
+                    }
+                    list.add(FilterTypeModel(2, list11))
+                    cinema_data = if (list1.size==0)
+                        "ALL"
+                    else TextUtils.join(",", list1)
+                }
+                3 -> {
+                    if (data.selectedList.contains(crossItem))
+                        data.selectedList.remove(crossItem)
+                    for (item in data.selectedList) {
+                        list2.add(item.split("-")[1])
+                        list22.add(item)
+                    }
+                    list.add(FilterTypeModel(3, list22))
+                    timing_data = if (list2.size==0)
+                        "ALL"
+                    else TextUtils.join(",", list2)
+                }
+                4 -> {
+                    if (data.selectedList.contains(crossItem.split("-")[0]))
+                        data.selectedList.remove(crossItem.split("-")[0])
+                    list.add(FilterTypeModel(4, data.selectedList))
+                    rating_data = if (data.selectedList.size==0)
+                        "ALL"
+                    else TextUtils.join(",", data.selectedList)
+                }
+                5 -> {
+                    if (data.selectedList.contains(crossItem.split("-")[0]))
+                        data.selectedList.remove(crossItem.split("-")[0])
+                    list.add(FilterTypeModel(5, data.selectedList))
+                    genre_data = if (data.selectedList.size==0)
+                        "ALL"
+                    else TextUtils.join(",", data.selectedList)
+                }
+                6 -> {
+                    if (data.selectedList.contains(crossItem.split("-")[0]))
+                        data.selectedList.remove(crossItem.split("-")[0])
+                    list.add(FilterTypeModel(6, data.selectedList))
+                    language_data = if (data.selectedList.size==0)
+                        "ALL"
+                    else TextUtils.join(",", data.selectedList)
+                }
+            }
+        }
+
+        return list
+    }
+
+    override fun onCrossClick(item: String) {
+        updateFilterData(dataList,item)
     }
 
 }

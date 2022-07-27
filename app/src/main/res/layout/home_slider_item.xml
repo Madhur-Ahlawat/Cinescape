@@ -13,7 +13,7 @@
         android:background="@color/transparent"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"
-        app:cardCornerRadius="@dimen/margin10"
+        app:cardCornerRadius="@dimen/margin8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -69,6 +69,9 @@ class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitle
             holder.itemView.setOnClickListener {
                 rowIndex = position
                 notifyDataSetChanged()
+                for (data in alternateItems){
+                    data.checkFlag = false
+                }
                 listener.onAlternateClick(foodSelctedItem,foodItem,foodPos)
             }
 
@@ -114,6 +117,8 @@ class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitle
                 holder.foodComboSubtitleList.addView(v)
                 v.setOnClickListener {
                     val data = it.tag as GetFoodResponse.Item
+                    println("foodSelectedItem----"+data.description)
+
                     var viewLine: TextView?
                     for(item in foodSelectedItem.alternateItems){
                         item.checkFlag = data.id==item.id

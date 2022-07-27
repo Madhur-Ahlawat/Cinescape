@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.MoviesResponse
 
-class FilterChildAdapter(private val mContext: Context, private val items: ArrayList<*>, private val selected: ArrayList<String>) :
-    RecyclerView.Adapter<FilterChildAdapter.TodoViewHolder>() {
+class FilterChildMovieAdapter(private val mContext: Context, private val items: ArrayList<MoviesResponse.MovieTimings>, private val selected: ArrayList<String>) :
+    RecyclerView.Adapter<FilterChildMovieAdapter.TodoViewHolder>() {
 
 
     @SuppressLint("InflateParams")
@@ -32,13 +32,13 @@ class FilterChildAdapter(private val mContext: Context, private val items: Array
         @SuppressLint("RecyclerView") position: Int
     ) {
         val obj = items[position]
-        holder.todoTitle.text = obj.toString()
+        holder.todoTitle.text = obj.name
         holder.todoTitle.setOnClickListener {
-            if (selected.contains(obj)){
-                selected.remove(obj)
+            if (selected.contains(obj.name+"-"+obj.id)){
+                selected.remove(obj.name+"-"+obj.id)
                 holder.todoTitle.setTextColor(ContextCompat.getColor(mContext, R.color.hint_color))
             }else {
-                selected.add(obj.toString())
+                selected.add(obj.name+"-"+obj.id)
                 holder.todoTitle.setTextColor(
                     ContextCompat.getColor(
                         mContext,
@@ -47,8 +47,7 @@ class FilterChildAdapter(private val mContext: Context, private val items: Array
                 )
             }
         }
-
-        if (selected.contains(obj)) {
+        if (selected.contains(obj.name+"-"+obj.id)) {
             holder.todoTitle.setTextColor(
                 ContextCompat.getColor(
                     mContext,

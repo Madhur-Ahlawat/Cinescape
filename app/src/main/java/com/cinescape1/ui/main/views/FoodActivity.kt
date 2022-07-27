@@ -64,7 +64,7 @@ class FoodActivity : DaggerAppCompatActivity(),
     private var foodCartAdapter: AdapterCart? = null
     private var mFoodCartDialog: AlertDialog? = null
     private var type = ""
-    private var seat_price = ""
+    private var seat_price = "0.0"
     private var textNumber: TextView? = null
     private var addBtns: TextView? = null
     private var textDecrease: TextView? = null
@@ -1147,6 +1147,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                         foodItem.description + " ( " + foodItem.alternateItems[k].description + " ) "
                     foodRequestData.descriptionAlt =
                         foodItem.description + " ( " + foodItem.alternateItems[k].descriptionAlt.toString() + " ) "
+                    println("foodItem.alternateItems---"+foodRequestData.description)
                     for (l in foodItem.alternateItems[k].modifierGroups.indices) {
                         for (m in foodItem.alternateItems[k].modifierGroups[l].Modifiers.indices) {
                             val modifyModel = SaveFoodRequest.Modifier()
@@ -1316,9 +1317,9 @@ class FoodActivity : DaggerAppCompatActivity(),
 
                 if (!foodItem.packageChildItems.isNullOrEmpty()) {
                     for (n in 0 until foodItem.packageChildItems.size) {
-
                         for (o in 0 until foodItem.packageChildItems[n].alternateItems.size) {
                             if (foodItem.packageChildItems[n].alternateItems[o].checkFlag) {
+                                println("foodCartListNewdata--->${foodItem.packageChildItems[n].alternateItems[o].description}---")
                                 foodSubName =
                                     foodSubName + " + " + foodItem.packageChildItems[n].alternateItems[o].description
 
@@ -1326,7 +1327,6 @@ class FoodActivity : DaggerAppCompatActivity(),
                         }
                     }
                 }
-
                 if (foodSubName.isEmpty()) {
                     foodDtls.foodName = tabItem?.name!!
                     foodDtls.foodModifiers = foodName
@@ -1372,7 +1372,6 @@ class FoodActivity : DaggerAppCompatActivity(),
                 } catch (e: Exception) {
                     println("SingleAddFoodExceptionTwo--->${e.message} ")
                 }
-
             }
         }
 
@@ -1414,11 +1413,12 @@ class FoodActivity : DaggerAppCompatActivity(),
         itemCartPrice = getCartFoodPrice()
         itemSetCartPrice = Constant.DECIFORMAT.format(itemCheckPrice / 100.0)
         tv_food_price?.text = getAllFoodPrice()
+        println("foodCartListNew--->"+foodCartList?.size)
     }
 
     private fun itemExistCartList(foodCartListC: SaveFoodRequest.ConcessionFood): Boolean {
         for (item in foodCartList!!) {
-            if (item.id == foodCartListC.id) {
+            if (item.description == foodCartListC.description) {
                 return true
             }
         }

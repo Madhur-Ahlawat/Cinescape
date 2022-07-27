@@ -11,15 +11,18 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.FilterModel
+import com.cinescape1.data.models.responseModel.FilterTypeModel
 import com.cinescape1.ui.main.views.adapters.FilterChildAdapter
+import com.cinescape1.ui.main.views.adapters.FilterChildCinemaAdapter
+import com.cinescape1.ui.main.views.adapters.FilterChildMovieAdapter
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 import com.google.android.flexbox.*
 
-class AdapterFilterTitle(context: Activity, private var filterTitleList: ArrayList<FilterModel>) :
+class AdapterFilterTitle(context: Activity, private var filterTitleList: ArrayList<FilterModel>,private val dataList:ArrayList<FilterTypeModel>) :
     RecyclerView.Adapter<AdapterFilterTitle.MyViewHolderFilterTitle>() {
     private var up = true
-    private var rowIndex = 0
+    private var rowIndex = -1
 
     private val mContext: Context = context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderFilterTitle {
@@ -39,7 +42,79 @@ class AdapterFilterTitle(context: Activity, private var filterTitleList: ArrayLi
                     holder.filterExpand.visibility = View.VISIBLE
                     holder.filterExpand.removeAllViews()
                     val adapter = FilterChildAdapter(mContext,
-                        filterExpItem.dataList
+                        filterExpItem.dataList,getList(filterExpItem)
+                    )
+                    holder.filterExpand.adapter = adapter
+                    val layoutManager = FlexboxLayoutManager(mContext)
+                    layoutManager.flexDirection = FlexDirection.ROW
+                    layoutManager.flexWrap = FlexWrap.WRAP
+                    layoutManager.alignItems = AlignItems.FLEX_START
+                    layoutManager.justifyContent = JustifyContent.FLEX_START
+                    holder.filterExpand.layoutManager = layoutManager
+                } 4 ->{
+                    up = false
+                    holder.filterExpand.visibility = View.VISIBLE
+                    holder.filterExpand.removeAllViews()
+                    val adapter = FilterChildAdapter(mContext,
+                        filterExpItem.dataList,getList(filterExpItem)
+                    )
+                    holder.filterExpand.adapter = adapter
+                    val layoutManager = FlexboxLayoutManager(mContext)
+                    layoutManager.flexDirection = FlexDirection.ROW
+                    layoutManager.flexWrap = FlexWrap.WRAP
+                    layoutManager.alignItems = AlignItems.FLEX_START
+                    layoutManager.justifyContent = JustifyContent.FLEX_START
+                    holder.filterExpand.layoutManager = layoutManager
+                } 5 ->{
+                    up = false
+                    holder.filterExpand.visibility = View.VISIBLE
+                    holder.filterExpand.removeAllViews()
+                    val adapter = FilterChildAdapter(mContext,
+                        filterExpItem.dataList,getList(filterExpItem)
+                    )
+                    holder.filterExpand.adapter = adapter
+                    val layoutManager = FlexboxLayoutManager(mContext)
+                    layoutManager.flexDirection = FlexDirection.ROW
+                    layoutManager.flexWrap = FlexWrap.WRAP
+                    layoutManager.alignItems = AlignItems.FLEX_START
+                    layoutManager.justifyContent = JustifyContent.FLEX_START
+                    holder.filterExpand.layoutManager = layoutManager
+                } 6 ->{
+                    up = false
+                    holder.filterExpand.visibility = View.VISIBLE
+                    holder.filterExpand.removeAllViews()
+                    val adapter = FilterChildAdapter(mContext,
+                        filterExpItem.dataList,getList(filterExpItem)
+                    )
+                    holder.filterExpand.adapter = adapter
+                    val layoutManager = FlexboxLayoutManager(mContext)
+                    layoutManager.flexDirection = FlexDirection.ROW
+                    layoutManager.flexWrap = FlexWrap.WRAP
+                    layoutManager.alignItems = AlignItems.FLEX_START
+                    layoutManager.justifyContent = JustifyContent.FLEX_START
+                    holder.filterExpand.layoutManager = layoutManager
+                }
+                2->{
+                    up = false
+                    holder.filterExpand.visibility = View.VISIBLE
+                    holder.filterExpand.removeAllViews()
+                    val adapter = FilterChildCinemaAdapter(mContext,
+                        filterExpItem.cinemaList!!, getList(filterExpItem)
+                    )
+                    holder.filterExpand.adapter = adapter
+                    val layoutManager = FlexboxLayoutManager(mContext)
+                    layoutManager.flexDirection = FlexDirection.ROW
+                    layoutManager.flexWrap = FlexWrap.WRAP
+                    layoutManager.alignItems = AlignItems.FLEX_START
+                    layoutManager.justifyContent = JustifyContent.FLEX_START
+                    holder.filterExpand.layoutManager = layoutManager
+                }
+                3->{
+                    up = false
+                    holder.filterExpand.visibility = View.VISIBLE
+                    holder.filterExpand.removeAllViews()
+                    val adapter = FilterChildMovieAdapter(mContext,
+                        filterExpItem.movieTimings!!, getList(filterExpItem)
                     )
                     holder.filterExpand.adapter = adapter
                     val layoutManager = FlexboxLayoutManager(mContext)
@@ -67,6 +142,17 @@ class AdapterFilterTitle(context: Activity, private var filterTitleList: ArrayLi
             holder.filterExpand.hide()
         }
 
+    }
+
+    private fun getList(i: FilterModel): ArrayList<String> {
+        for (data in dataList){
+            if (data.type == i.type){
+                i.selectedList = data.selectedList
+                println("data.selectedList12345---"+i.selectedList+"----")
+                break
+            }
+        }
+        return i.selectedList
     }
 
     override fun getItemCount(): Int {

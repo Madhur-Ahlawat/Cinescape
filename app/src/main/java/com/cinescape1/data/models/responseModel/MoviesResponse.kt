@@ -10,12 +10,20 @@ data class MoviesResponse(
         val comingsoon: ArrayList<Nowshowing>,
         val nowshowing: ArrayList<Nowshowing>,
         val alllanguages: ArrayList<String>,
-        val cinemas: List<Cinema>,
+        val cinemas: ArrayList<Cinema>?,
         val cslanguages: ArrayList<*>,
+        val movieTimings: ArrayList<MovieTimings>,
         val experiences: ArrayList<*>,
         val genreList: ArrayList<*>,
         val nslanguages: ArrayList<String>,
         val ratings: ArrayList<String>
+    )
+    data class MovieTimings(
+        val id:String,
+        val name:String,
+        val nameAlt:String,
+        val timing:String,
+        val timingAlt:String
     )
     data class Nowshowing(
         val cast: List<Cast>,

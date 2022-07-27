@@ -121,7 +121,7 @@ class HomeParentAdapter(
                         super.onPageScrolled(position, positionOffset, positionOffsetPixels)
                         println("positionOffset3--->${holder.viewpager?.getChildAt(position)?.scrollX}---->$position---->${positionOffsetPixels}")
 
-                        holder.viewpagerBack?.getChildAt(position)?.scrollX= -positionOffsetPixels
+                        //holder.viewpagerBack?.getChildAt(position)?.scrollX= -positionOffsetPixels
 
 //                        holder.viewpager.getChildAt(holder.viewpager.currentItem).scrollY
                        // holder.viewpagerBack.getChildAt(holder.viewpagerBack.currentItem).scrollY = holder.viewpager.getChildAt(holder.viewpager.currentItem).scrollY
