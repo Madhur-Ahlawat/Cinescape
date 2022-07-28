@@ -186,6 +186,21 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun retrieveBookedResponse(output: TicketSummaryResponse.Output) {
+
+        // Make Qr data
+        qrData = output.qr
+        qrBitmap = Constant().createQrCode(output.qr)
+        binding?.imageQrCode?.setImageBitmap(qrBitmap)
+
+        println("imageUrl---->${output.posterhori}")
+        //Set Header image
+        binding?.imageHead?.let {
+            Glide.with(this)
+                .load(output.posterhori)
+                .placeholder(R.drawable.cinema)
+                .into(it)
+        }
+
         binding?.uiFinalTaket?.show()
 
         val viewPager: ViewPager = findViewById(R.id.viewPager_slider_layout)
@@ -208,116 +223,125 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
 
         val myViewPagerAdapter = SliderFoodConfirmViewPgweAdapter(layouts, this)
         viewPager.adapter = myViewPagerAdapter
-        if (output.bookingType == "BOOKING") {
-            if (output.concessionFoods.isNotEmpty()) {
-                binding?.layoutDots?.setupWithViewPager(binding?.viewPagerSliderLayout, true)
-            }
-        }
+
 
         if (output.bookingType == "BOOKING") {
-            binding?.layoutDots?.show()
-            text_bookin_id_no.text = output.kioskId
-            text_name_movie.text = output.moviename
-            text_location_names.text = output.cinemaname
-            txt_date.text = output.showDate
-            text_times2.text = output.showTime
-            text_wallet.text = output.payDone
-            tv_category_name.text = output.category
-            text_kd_total_ticket_price.text = output.totalTicketPrice
-            text_types.text = output.mcensor
+            try {
+                binding?.layoutDots?.show()
+                if (output.concessionFoods.isNotEmpty()) {
+                    binding?.layoutDots?.setupWithViewPager(binding?.viewPagerSliderLayout, true)
+                }
+                text_bookin_id_no.text = output.kioskId
+                text_name_movie.text = output.moviename
+                text_location_names.text = output.cinemaname
+                txt_date.text = output.showDate
+                text_times2.text = output.showTime
+                text_wallet.text = output.payDone
+                tv_category_name.text = output.category
+                text_kd_total_ticket_price.text = output.totalTicketPrice
+                text_types.text = output.mcensor
+                
+                val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
+                val adapter = SeatListAdapter(output.seatsArr)
+                seats_list.setHasFixedSize(true)
+                seats_list.layoutManager = layoutManager
+                seats_list.adapter = adapter
+                text_how_picup.paintFlags = text_how_picup.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
+                if (!output.cancelReserve) {
+                    textView48.show()
+                } else {
+                    textView48.invisible()
+                }
 
-            text_wallet1.text = output.payDone
-            text_kd_total_ticket_price1.text = output.totalPrice
+                if (!output.addFood) {
+                    textView49.show()
+                } else {
+                    textView49.invisible()
+                }
 
-            val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
-            val adapter = SeatListAdapter(output.seatsArr)
-            seats_list.setHasFixedSize(true)
-            seats_list.layoutManager = layoutManager
-            seats_list.adapter = adapter
-            text_how_picup.paintFlags = text_how_picup.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+                //Cancel Reservation
+                textView48.setOnClickListener {
+                    cancelReservationDialog()
+                }
 
-            if (!output.cancelReserve) {
-                textView48.show()
-            } else {
-                textView48.invisible()
-            }
+                //Add Food
+                textView49.setOnClickListener {
+                    startActivity(
+                        Intent(this, FoodActivity::class.java)
+                            .putExtra("CINEMA_ID", output.cinemacode)
+                            .putExtra("BOOKING", "FOOD")
+                            .putExtra("type", "0")
 
-            if (!output.addFood) {
-                textView49.show()
-            } else {
-                textView49.invisible()
-            }
-
-            //Cancel Reservation
-            textView48.setOnClickListener {
-                cancelReservationDialog()
-            }
-
-            //Add Food
-            textView49.setOnClickListener {
-                startActivity(
-                    Intent(this, FoodActivity::class.java)
-                        .putExtra("CINEMA_ID", output.cinemacode)
-                        .putExtra("BOOKING", "FOOD")
-                        .putExtra("type", "0")
-
-                )
-
-            }
-
-            //Send Mail
-            textView50.setOnClickListener {
-                resendMail(
-                    ResendRequest(
-                        bookingId,
-                        output.bookingType,
-                        transId,
-                        preferences.getString(Constant.USER_ID).toString()
                     )
-                )
+
+                }
+
+                //Send Mail
+                textView50.setOnClickListener {
+                    resendMail(
+                        ResendRequest(
+                            bookingId,
+                            output.bookingType,
+                            transId,
+                            preferences.getString(Constant.USER_ID).toString()
+                        )
+                    )
+                }
+
+                //Resend Mail
+                imageView28.setOnClickListener {
+                    resendMail(
+                        ResendRequest(
+                            bookingId,
+                            output.bookingType,
+                            transId,
+                            preferences.getString(Constant.USER_ID).toString()
+                        )
+                    )
+                }
+            }catch (e:Exception){
+                println("exception---->${e.printStackTrace()}")
             }
 
-            //Resend Mail
-            imageView28.setOnClickListener {
-                resendMail(
-                    ResendRequest(
-                        bookingId,
-                        output.bookingType,
-                        transId,
-                        preferences.getString(Constant.USER_ID).toString()
-                    )
-                )
-            }
         } else {
-            binding?.layoutDots?.hide()
-            textView51.text = "KD " + output.ticketPrice
-            text_bookin_id_no1.text = output.kioskId
-            text_wallet1.text = output.payDone
-            tv_category_name.text = output.category
+            try{
 
-            text_kd_total_ticket_price1.text = output.totalPrice
-            textFoodPicUp.paintFlags = textFoodPicUp.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+                binding?.layoutDots?.hide()
+                textView51.text = "KD " + output.ticketPrice
+                text_bookin_id_no1.text = output.kioskId
+                text_wallet1.text = output.payDone
+                tv_category_name.text = output.category
+
+                text_kd_total_ticket_price1.text = output.totalPrice
+                textFoodPicUp.paintFlags = textFoodPicUp.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
 
-            if (!output.cancelReserve) {
-                imageView31.show()
-            } else {
-                imageView31.invisible()
+                if (!output.cancelReserve) {
+                    imageView31.show()
+                } else {
+                    imageView31.invisible()
+                }
+
+                if (!output.addFood) {
+                    imageView32.show()
+                } else {
+                    imageView32.invisible()
+                }
+
+                //Cancel Food
+                imageView31.setOnClickListener {
+                    cancelReservationDialog()
+                }
+
+            }catch (e:Exception){
+                println("exception2--->${e.message}")
             }
-
-            if (!output.addFood) {
-                imageView32.show()
-            } else {
-                imageView32.invisible()
-            }
-
-            //Cancel Food
-            imageView31.setOnClickListener {
-                cancelReservationDialog()
-            }
-
         }
+
+
+
+
         // Set Food
         if (output.concessionFoods.isNotEmpty()) {
             if (output.bookingType == "BOOKING") {
@@ -326,19 +350,6 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
                 binding?.layoutDots?.hide()
             }
             setFinalFoodItemAdapter(output.concessionFoods)
-        }
-
-        // Make Qr data
-        qrData = output.qr
-        qrBitmap = Constant().createQrCode(output.qr)
-        binding?.imageQrCode?.setImageBitmap(qrBitmap)
-
-        //Set Header image
-        binding?.imageHead?.let {
-            Glide.with(this)
-                .load(output.poster)
-                .placeholder(R.drawable.bombshell_alert)
-                .into(it)
         }
 
         //Resend mail

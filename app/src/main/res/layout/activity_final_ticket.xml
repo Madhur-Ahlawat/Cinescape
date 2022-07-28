@@ -27,12 +27,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/bombshell_alert" />
+            app:srcCompat="@drawable/cinema" />
 
         <ImageView
             android:id="@+id/image_qr_code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="153dp"
+            android:layout_height="153dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/contentDes"
             app:layout_constraintBottom_toBottomOf="@+id/image_head"
@@ -178,7 +178,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/size15"
-            android:layout_marginTop="@dimen/margin20"
+            android:layout_marginTop="30dp"
             app:layout_constraintStart_toStartOf="@+id/image_head"
             app:layout_constraintTop_toTopOf="@+id/image_head"
             app:srcCompat="@drawable/ic_back_button"
