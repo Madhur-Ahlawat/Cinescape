@@ -427,6 +427,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             foodCartAdapter?.loadNewData(foodCartListNew!!)
             emptyCart?.show()
             tv_clear_item?.hide()
+            updateSelectedList(null,1)
             foodCartAdapter?.notifyDataSetChanged()
             individualAdapter?.notifyDataSetChanged()
             mFoodCartDialog?.dismiss()
@@ -702,7 +703,7 @@ class FoodActivity : DaggerAppCompatActivity(),
 
     //Add Food
     @SuppressLint("SetTextI18n")
-    override fun onAddFood(foodItem: GetFoodResponse.ConcessionItem, position: Int) {
+    override fun onAddFood(foodItem: GetFoodResponse.ConcessionItem, position: Int,foodComboList: ArrayList<GetFoodResponse.ConcessionItem>) {
         val mDialogView =
             LayoutInflater.from(this).inflate(R.layout.food_selected_add_alert_dailog, null)
         val mBuilder = AlertDialog.Builder(this)
@@ -834,6 +835,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                         }
 
                         updateItemUi(foodItem)
+                        foodAdapter?.loadNewData(foodComboList)
                     }
 
                 } catch (e: Exception) {
@@ -918,6 +920,8 @@ class FoodActivity : DaggerAppCompatActivity(),
 
 
                     updateItemUi(foodItem)
+                    foodAdapter?.loadNewData(foodComboList)
+
                 }
 
             }
@@ -927,34 +931,39 @@ class FoodActivity : DaggerAppCompatActivity(),
     }
 
     private fun updateItemUi(crossinline: GetFoodResponse.ConcessionItem) {
-        println("RefreshUpdateItemUi--->${crossinline.quantity}")
-        var flag = false
-        var foodid = 0
-        var quantity = 0
+        for (item in foodCartListNew!!) {
+            if (item.foodId == crossinline.id) {
+                println("RefreshUpdateItemUi--->${item.foodQuan}----${crossinline.quantityUpdate}")
+                crossinline.quantityUpdate = crossinline.quantityUpdate+item.foodQuan
+                break
+            }
+        }
 
 //
 //        individualAdapter?.notifyDataSetChanged()
 //        foodAdapter?.notifyDataSetChanged()
-        for (item in foodCartListNew!!) {
-            quantity = item.foodQuan
-            foodid = item.foodId.toInt()
-        }
-
-        for (item in crossinline.alternateItems) {
-            if (item.id.toInt() == foodid) {
-                flag = true
-                if (flag) {
-                    crossinline.quantityUpdate = quantity
-                    individualAdapter?.notifyDataSetChanged()
-                    foodAdapter?.notifyDataSetChanged()
-                } else {
-                    break
-                }
-            }
-        }
+//        for (item in foodCartListNew!!) {
+//            if (item.foodId == crossinline.id) {
+//                quantity = item.foodQuan
+//                crossinline.quantityUpdate = crossinline.quantityUpdate+quantity
+//                foodid = item.foodId.toInt()
+//            }
+//        }
+//
+//        for (item in crossinline.alternateItems) {
+//            if (item.id.toInt() == foodid) {
+//                flag = true
+//                if (flag) {
+//                    individualAdapter?.notifyDataSetChanged()
+//                    foodAdapter?.notifyDataSetChanged()
+//                } else {
+//                    break
+//                }
+//            }
+//        }
 
         individualAdapter?.notifyDataSetChanged()
-        foodAdapter?.notifyDataSetChanged()
+       // foodAdapter?.notifyDataSetChanged()
     }
 
     override fun onDecreaseFood(foodItem: GetFoodResponse.ConcessionItem, pos: Int) {
@@ -967,7 +976,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             foodSelectedList?.removeAt(pos)
             updateCartList(foodItem)
             foodSelectedList?.add(pos, foodItem)
-            // foodAdapter?.loadNewData(foodSelectedList!!)
+             foodAdapter?.loadNewData(foodSelectedList!!)
         }
 
     }
@@ -982,7 +991,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             foodSelectedList?.removeAt(pos)
             foodSelectedList?.add(pos, foodItem)
             updateCartList(foodItem)
-            // foodAdapter?.loadNewData(foodSelectedList!!)
+             foodAdapter?.loadNewData(foodSelectedList!!)
         }
     }
 
@@ -1007,8 +1016,11 @@ class FoodActivity : DaggerAppCompatActivity(),
 
             updateSelectedItem(true, pos,tabItem?.concessionItems!!,foodItem)
 
-            if (foodItem.foodType.uppercase() == "INDIVIDUAL")
+            if (foodItem.foodType.uppercase() == "INDIVIDUAL") {
                 individualAdapter?.loadNewData(tabItem?.concessionItems!!)
+            }else{
+                updateSelectedList(foodItem,2)
+            }
             foodCartAdapter?.notifyDataSetChanged()
             foodAdapter?.notifyDataSetChanged()
         } else {
@@ -1045,6 +1057,8 @@ class FoodActivity : DaggerAppCompatActivity(),
             foodAdapter?.notifyDataSetChanged()
             if (foodItem.foodType.uppercase() == "INDIVIDUAL") {
                 individualAdapter?.loadNewData(tabItem?.concessionItems!!)
+            }else{
+                updateSelectedList(foodItem,3)
             }
         }
         itemCartPrice -= getCartFoodPrice()
@@ -1118,7 +1132,10 @@ class FoodActivity : DaggerAppCompatActivity(),
     @SuppressLint("NotifyDataSetChanged")
     override fun onRemoveCart(foodItem: GetFoodResponse.FoodDtls, pos: Int) {
         TOTALFOODAMT -= (foodCartListNew?.get(pos)?.foodQuan!! * foodCartListNew?.get(pos)?.itemPrice!!)
+        if (pos <= (foodCartList?.size!!-1))
         foodCartList?.removeAt(pos)
+
+        if (pos <= (foodCartListNew?.size!!-1))
         foodCartListNew?.removeAt(pos)
 
         Log.w("Total", "" + TOTALFOODAMT)
@@ -1132,6 +1149,32 @@ class FoodActivity : DaggerAppCompatActivity(),
             binding?.textCartCountNotiication?.show()
         }
         foodCartAdapter?.notifyDataSetChanged()
+        updateSelectedList(foodItem,0)
+    }
+
+    private fun updateSelectedList(foodItem: GetFoodResponse.FoodDtls?, type:Int) {
+        println("updateSelectedList----$type")
+        for (item in foodSelectedList!!){
+            if (type==0){
+                if (item.id==foodItem?.foodId){
+                    item.quantityUpdate = item.quantityUpdate-foodItem.foodQuan
+                    break
+                }
+            } else if (type==2) {
+                if (item.id == foodItem?.foodId){
+                    item.quantityUpdate = item.quantityUpdate+1
+                    break
+                }
+            }else if (type==3) {
+                if (item.id == foodItem?.foodId){
+                    item.quantityUpdate = item.quantityUpdate-1
+                    break
+                }
+            }else{
+                item.quantityUpdate = 0;
+            }
+        }
+        foodAdapter?.notifyDataSetChanged()
     }
 
     private fun updateCartList(foodItem: GetFoodResponse.ConcessionItem) {
@@ -1147,6 +1190,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             foodRequestData.itemType = foodItem.foodtype
             foodRequestData.itemPrice = foodItem.itemPrice.toString()
             foodRequestData.description = foodItem.description
+            foodRequestData.itemImageUrl = foodItem.itemImageUrl
             foodRequestData.descriptionAlt = foodItem.descriptionAlt
 
             val arrModify = ArrayList<SaveFoodRequest.Modifier>()
@@ -1155,6 +1199,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             for (k in foodItem.alternateItems.indices) {
                 if (foodItem.alternateItems[k].checkFlag) {
                     foodRequestData.itemId = foodItem.alternateItems[k].id
+                    foodRequestData.itemImageUrl = foodItem.itemImageUrl
                     foodRequestData.itemPrice = foodItem.alternateItems[k].itemPrice
                     foodRequestData.headOfficeItemCode =
                         foodItem.alternateItems[k].headOfficeItemCode
@@ -1186,13 +1231,15 @@ class FoodActivity : DaggerAppCompatActivity(),
 
                 var modifiers = ""
                 foodRequestData.headOfficeItemCode = foodItem.headOfficeItemCode
-                foodRequestData.description = ""
-                foodRequestData.descriptionAlt = ""
+                foodRequestData.description = foodItem.description
+                foodRequestData.itemImageUrl = foodItem.itemImageUrl
+                foodRequestData.descriptionAlt = foodItem.descriptionAlt
                 for (l in foodItem.modifierGroups.indices) {
                     try {
-                        foodRequestData.description = foodItem.modifierGroups[l].Description
+                        foodRequestData.description = foodItem.description
+                        foodRequestData.itemImageUrl = foodItem.itemImageUrl
                         foodRequestData.descriptionAlt =
-                            foodItem.modifierGroups[l].Descriptionalt.toString()
+                            foodItem.descriptionAlt
                         for (m in foodItem.modifierGroups[l].Modifiers.indices) {
                             val modifyModel = SaveFoodRequest.Modifier()
                             if (foodItem.modifierGroups[l].Modifiers[m].checkFlag) {
@@ -1221,6 +1268,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                 val arrPackage = ArrayList<SaveFoodRequest.Item>()
                 for (n in 0 until foodItem.packageChildItems.size) {
                     foodRequestData.description = foodItem.packageChildItems[n].description
+                    foodRequestData.itemImageUrl = foodItem.itemImageUrl
                     foodRequestData.descriptionAlt =
                         foodItem.packageChildItems[n].descriptionAlt.toString()
                     try {
@@ -1249,7 +1297,12 @@ class FoodActivity : DaggerAppCompatActivity(),
                 if (itemExistCartList(foodRequestData)) {
                     for (item in foodCartList!!) {
                         if (item.id == foodRequestData.id) {
-                            item.quantity = item.quantity + foodRequestData.quantity
+                            if (foodRequestData.itemType=="Individual"){
+                                item.quantity = foodRequestData.quantity
+                            }else {
+                                item.quantity = item.quantity + foodRequestData.quantity
+                            }
+                            println("item.quantity---"+foodRequestData.itemType)
                             break
                         }
                     }
@@ -1354,7 +1407,11 @@ class FoodActivity : DaggerAppCompatActivity(),
                     if (itemExist(foodDtls)) {
                         for (item in foodCartListNew!!) {
                             if (item.foodModifiers == foodDtls.foodModifiers) {
-                                item.foodQuan = foodDtls.foodQuan
+                                if (foodDtls.foodType=="Individual"){
+                                    item.foodQuan = foodDtls.foodQuan
+                                }else {
+                                    item.foodQuan = item.foodQuan + foodDtls.foodQuan
+                                }
                                 break
                             }
                         }
@@ -1433,7 +1490,7 @@ class FoodActivity : DaggerAppCompatActivity(),
 
     private fun itemExistCartList(foodCartListC: SaveFoodRequest.ConcessionFood): Boolean {
         for (item in foodCartList!!) {
-            if (item.description == foodCartListC.description) {
+            if (item.description == foodCartListC.description && item.id == foodCartListC.id) {
                 return true
             }
         }
@@ -1442,7 +1499,7 @@ class FoodActivity : DaggerAppCompatActivity(),
 
     private fun itemExist(foodDtls: GetFoodResponse.FoodDtls): Boolean {
         for (item in foodCartListNew!!) {
-            if (item.foodModifiers == foodDtls.foodModifiers) {
+            if (item.foodModifiers == foodDtls.foodModifiers && item.foodId == foodDtls.foodId) {
                 return true
             }
         }

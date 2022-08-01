@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.TicketSummaryResponse
 import com.cinescape1.utils.Constant
@@ -29,13 +30,17 @@ class AdapterCheckoutConFirmFoodDetail(context: Context, private var CheckoutCon
             val foodSelctedItem = CheckoutConirmFoodDetailList[position]
             holder.tvsItemTitle.text = foodSelctedItem.description
             holder.tvsOtemSubtitle.text = foodSelctedItem.itemType
-            holder.textNQty.text = foodSelctedItem.quantity
-            holder.textNPrice.text = Constant.DECIFORMAT.format((foodSelctedItem.priceInCents.toDouble()/ (100.0*foodSelctedItem.quantity.toInt())))
+            holder.textNQty.text = foodSelctedItem.quantity.toString()
+            val price = (foodSelctedItem.priceInCents*foodSelctedItem.quantity)/100.0
+            holder.textNPrice.text =  mContext.getString(R.string.price_kd)+" "+Constant.DECIFORMAT.format(price)
 //            holder.textNPrice.text = foodSelctedItem.priceInCents.toString()
 //            holder.textNTotal.text = foodSelctedItem.priceInCents.toString()
-            holder.textNTotal.text =Constant.DECIFORMAT.format((foodSelctedItem.priceInCents.toDouble()/ 100.0))
-
-
+            holder.textNTotal.text = mContext.getString(R.string.price_kd)+" "+Constant.DECIFORMAT.format((foodSelctedItem.priceInCents.toDouble()/ 100.0))
+//
+//            Glide.with(mContext)
+//                .load(foodSelctedItem.itemImageUrl)
+//                .placeholder(R.drawable.movie_default)
+//                .into(holder.imgCheckoutFood)
 
         }
     }
