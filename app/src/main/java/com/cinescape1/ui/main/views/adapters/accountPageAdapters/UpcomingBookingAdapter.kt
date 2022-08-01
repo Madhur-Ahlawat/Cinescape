@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cinescape1.R
@@ -39,13 +40,50 @@ class UpcomingBookingAdapter(private val context: Context, private var upcomingB
             val foodSelctedItem = upcomingBookingList[position]
             Glide.with(mContext).load(foodSelctedItem.posterhori).placeholder(R.drawable.movie_default).into(holder.thumbnail)
             holder.textNameMovie.text = foodSelctedItem.moviename
-            holder.textTypes.text = "+13"
+            holder.textTypes.text = foodSelctedItem.mcensor
 
             holder.adressName.text = foodSelctedItem.cinemaname
             holder.screenNumber.text = foodSelctedItem.screenId.toString()
             holder.cinemaName.text = foodSelctedItem.experience
             holder.date.text = foodSelctedItem.showDate
             holder.times.text = foodSelctedItem.showTime
+
+            if (foodSelctedItem.mcensor.isNullOrEmpty()){
+                holder.cardView.hide()
+            }else{
+                holder.cardView.show()
+                when (foodSelctedItem.mcensor) {
+                    "PG" -> {
+                        holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.grey))
+
+                    }
+                    "G" -> {
+                        holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.green))
+
+                    }
+                    "18+" -> {
+                        holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.red))
+
+                    }
+                    "13+" -> {
+                        holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.yellow))
+
+                    }
+                    "E" -> {
+                        holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.wowOrange))
+
+                    }
+                    "T" -> {
+                        holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.tabIndicater))
+
+                    }
+                    else -> {
+                        holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.blue))
+
+                    }
+                }
+
+            }
 
             if (!foodSelctedItem.addFood){
                 holder.btClick.text=mContext.resources.getString(R.string.addFoodMsg)
@@ -56,6 +94,7 @@ class UpcomingBookingAdapter(private val context: Context, private var upcomingB
                         .putExtra("type", "0")
                     mContext.startActivity(intent)
                 }
+
             }else{
                 holder.btClick.text=mContext.resources.getString(R.string.food_pickup_info)
 
@@ -113,6 +152,7 @@ class UpcomingBookingAdapter(private val context: Context, private var upcomingB
         var times: TextView = view.findViewById(R.id.text_times2)
         var textNameMovie: TextView = view.findViewById(R.id.text_name_movie)
         var textTypes: TextView = view.findViewById(R.id.text_types)
+        var cardView: CardView = view.findViewById(R.id.ratingUi)
         var thumbnail: ImageView = view.findViewById(R.id.imageView7)
         var trailer: ImageView = view.findViewById(R.id.imageView30)
         var btClick: TextView = view.findViewById(R.id.food_pickup_btn)

@@ -75,10 +75,11 @@
             android:textColor="@color/text_alert_color"
             android:textSize="@dimen/size14"
             android:textStyle="normal"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="@+id/view_food_picku_no"
             app:layout_constraintStart_toStartOf="@+id/view_food_picku_no"
-            app:layout_constraintTop_toTopOf="@+id/view_food_picku_no" />
+            app:layout_constraintTop_toTopOf="@+id/view_food_picku_no"
+            tools:ignore="TextContrastCheck" />
 
         <TextView
             android:id="@+id/text_how_picup"
@@ -237,7 +238,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/view_times1"
                 app:layout_constraintStart_toStartOf="@+id/view_date"
                 app:layout_constraintTop_toBottomOf="@+id/txt_dates"
-                tools:text="03 nov" />
+                tools:text="01 Aug 2022  03 nov" />
 
             <View
                 android:id="@+id/view_times1"
@@ -561,7 +562,7 @@
                 tools:ignore="TextContrastCheck" />
 
             <TextView
-                android:id="@+id/tv_category_name"
+                android:id="@+id/categoryName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -573,8 +574,7 @@
                 android:textStyle="normal"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="@+id/tv_category_title"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/tv_category_title"
+                app:layout_constraintStart_toEndOf="@+id/views_screen"
                 app:layout_constraintTop_toBottomOf="@+id/tv_category_title"
                 tools:text="Family" />
 

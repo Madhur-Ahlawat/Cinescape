@@ -66,7 +66,6 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
             statusBarColor = Color.TRANSPARENT
         }
-
         movedNext()
     }
 
@@ -74,7 +73,7 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility", "ShowToast")
     private fun movedNext() {
         //Edit
-        resendEmailED.setOnTouchListener(OnTouchListener { v, event ->
+        resendEmailED.setOnTouchListener(OnTouchListener { _, event ->
             val DRAWABLE_LEFT = 0
             val DRAWABLE_TOP = 1
             val DRAWABLE_RIGHT = 2
@@ -83,7 +82,6 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
                 if (event.rawX >= resendEmailED.right - resendEmailED.compoundDrawables[DRAWABLE_RIGHT].bounds.width()
                 ) {
                     // your action here
-
                     binding?.sendOtpForgotUi?.show()
                     binding?.ForgotOtpVerify?.hide()
                     return@OnTouchListener true

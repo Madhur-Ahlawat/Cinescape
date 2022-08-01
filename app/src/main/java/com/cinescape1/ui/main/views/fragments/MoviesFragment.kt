@@ -176,42 +176,7 @@ class MoviesFragment : DaggerFragment(), AdapterFilterCategory.RecycleViewItemCl
 
     @SuppressLint("ClickableViewAccessibility")
     private fun movedNext() {
-//        //now Showing
-//        textView52.setOnClickListener {
-//            textView52.textSize = 18F
-//            textView52.typeface =
-//                ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
-//            textView52.setTextColor(requireActivity().getColor(R.color.white))
-//
-//            textView53.textSize = 14F
-//            textView53.setTextColor(requireActivity().getColor(R.color.text_color))
-//            textView53.typeface =
-//                ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
-//            view69.show()
-//            view70.invisible()
-//            nowSowing(moviesResponse?.output?.nowshowing!!)
-//            isComingsoon = false
-//        }
-//        //coming soon
-//        textView53.setOnClickListener {
-//            textView53.setTextColor(requireActivity().getColor(R.color.white))
-//            textView53.textSize = 18F
-//            textView53.typeface =
-//                ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
-//
-//            textView52.setTextColor(requireActivity().getColor(R.color.text_color))
-//            textView52.textSize = 14F
-//            textView52.typeface =
-//                ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
-//            view69.invisible()
-//            view70.show()
-//            try {
-//                comingSoon(moviesResponse?.output?.nowshowing!!)
-//            } catch (e: Exception) {
-//                println("Exception--->${e.message}")
-//            }
-//            isComingsoon = true
-//        }
+
         //filter
         imageView33.setOnClickListener {
             isChecked
@@ -219,20 +184,12 @@ class MoviesFragment : DaggerFragment(), AdapterFilterCategory.RecycleViewItemCl
             setFilterAlertDialog(moviesResponse?.output!!)
         }
 
-//        searchView.setOnClickListener {
-//            searchMovieUi.show()
-//            searchUi.show()
-////            movieAppbar.hide()
-//            imageView36.hide()
-//        }
-
         movieSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 searchMovieUi.hide()
                 searchUi.hide()
                 Constant().hideKeyboard(requireActivity())
                 imageView36.hide()
-//                movieAppbar.show()
                 return@OnEditorActionListener true
             }
             false
@@ -243,7 +200,6 @@ class MoviesFragment : DaggerFragment(), AdapterFilterCategory.RecycleViewItemCl
             searchUi.hide()
             Constant().hideKeyboard(requireActivity())
             imageView36.hide()
-//            movieAppbar.show()
 
         }
 

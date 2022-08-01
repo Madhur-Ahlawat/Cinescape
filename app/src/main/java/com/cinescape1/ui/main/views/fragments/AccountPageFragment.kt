@@ -315,45 +315,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         println("Mobile--->${mobile}")
         binding?.viewFirst?.setOnClickListener {
             signOut()
-//            val dialog = OptionDialog(requireContext(),
-//                R.mipmap.ic_launcher,
-//                R.string.app_name,
-//                getString(R.string.signout),
-//                positiveBtnText = R.string.yes,
-//                negativeBtnText = R.string.no,
-//                positiveClick = {
-//                    preferences.clearData()
-//                    val intent = Intent(requireActivity(), LoginActivity::class.java)
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-//                    startActivity(intent)
-//                },
-//                negativeClick = {
-//                })
-//            dialog.show()
 
-
-//
-//
-//
-//            val dialog = OptionDialog(requireContext(),
-//                R.mipmap.ic_launcher,
-//                R.string.app_name,
-//                it.resources.getString(R.string.signout),
-//                positiveBtnText = R.string.ok,
-//                negativeBtnText = R.string.no,
-//                positiveClick = {
-//                    FirebaseAuth.getInstance().signOut()
-//                    preferences.clearData()
-//                    val intent = Intent(requireContext(), LoginActivity::class.java)
-//                    intent.flags =
-//                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-//                    startActivity(intent)
-//                    requireActivity().finish()
-//                },
-//                negativeClick = {
-//                    dialog?.dismiss()
-//                })
-//            dialog.show()
         }
 
 

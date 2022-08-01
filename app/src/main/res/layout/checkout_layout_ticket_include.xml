@@ -282,15 +282,15 @@
             app:layout_constraintStart_toStartOf="@+id/view_dates"
             app:layout_constraintTop_toBottomOf="@+id/view_dates" />
 
-        <TextView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/seatList"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            app:alignContent="stretch"
-            app:alignItems="stretch"
-            app:flexWrap="wrap"
-            android:textColor="@color/white"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="6"
+            android:orientation="horizontal"
+            tools:listitem="@layout/item_summery_seat_list"
             app:layout_constraintEnd_toEndOf="@+id/text_seat"
             app:layout_constraintStart_toStartOf="@+id/text_seat"
             app:layout_constraintTop_toBottomOf="@+id/text_seat" />

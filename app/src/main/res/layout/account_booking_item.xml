@@ -38,7 +38,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="7"
+            android:weightSum="4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -59,7 +59,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="HardcodedText,ObsoleteLayoutParam"
-                tools:text="Bombshe" />
+                tools:text="Bombshedfsfdsfssgsgsgsdgdsgsgsdgfsdgsgsgf" />
 
             <LinearLayout
                 android:id="@+id/constraintLayout18"

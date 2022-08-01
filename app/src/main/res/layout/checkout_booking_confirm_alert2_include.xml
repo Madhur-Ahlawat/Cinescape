@@ -67,7 +67,7 @@
             app:layout_constraintTop_toTopOf="@+id/view_booking_id" />
 
         <TextView
-            android:visibility="invisible"
+            android:visibility="visible"
             android:id="@+id/text_food_pickup_no"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

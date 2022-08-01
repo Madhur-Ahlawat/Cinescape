@@ -15,6 +15,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
 import android.text.Editable
+import android.text.InputFilter
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
@@ -91,7 +92,6 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //AppBar Hide
-        // Show status bar
         requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         requireActivity().window.decorView.systemUiVisibility = SYSTEM_UI_FLAG_LAYOUT_STABLE
         requireActivity().window.statusBarColor = Color.BLACK
@@ -770,6 +770,9 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                                     println("LocationResponse--->${it.data.output}")
                                     countryCodeList = it.data.output
                                     enter_mobile_code.text = it.data.output[0].isdCode
+                                    val maxLengthEditText = it.data.output[0].phoneLength
+                                    enter_mobile_numbers.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxLengthEditText ))
+
                                     retrieveCountryList(it.data.output)
 
                                 } else {
@@ -875,28 +878,12 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
     }
 
     override fun onItemClick(view: CountryCodeResponse.Output) {
+        println("PhoneLength--->${view.phoneLength}")
         countryCode = view.isdCode
-    }
+        val maxLengthEditText = view.phoneLength
+        enter_mobile_numbers.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxLengthEditText ))
 
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<out String>,
-//        grantResults: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        when (requestCode) {
-//            myGalleryPermissionCode -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                textView29.performClick()
-//            } else {
-//
-//                Toast.makeText(
-//                    requireActivity(),
-//                    "Permission Canceled, Now your application cannot access GALLERY."+"    "+requestCode,
-//                    Toast.LENGTH_LONG
-//                ).show()
-//            }
-//        }
-//    }
+    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -976,22 +963,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
         }.start()
     }
 
-    /* Get the real path from the URI */
-    private fun getPathFromURI(contentUri: Uri?): String? {
-        var res: String? = null
-        val proj = arrayOf(MediaStore.Images.Media.DATA)
-        val cursor = requireActivity().contentResolver.query(contentUri!!, proj, null, null, null)
-        if (cursor!!.moveToFirst()) {
-            val column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-            res = cursor.getString(column_index)
-        }
-        cursor.close()
-        return res
-    }
-
     companion object {
-        private const val SELECT_PICTURE = 100
-        private const val TAG = "SelectImageActivity"
         fun openAppSettings(context: Activity?) {
             if (context == null) {
                 return
@@ -1007,29 +979,4 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
         }
     }
 
-
-//    @Deprecated("Deprecated in Java")
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        println("cameraRequest--->$requestCode----$resultCode")
-//        if (resultCode == DaggerAppCompatActivity.RESULT_OK && requestCode == selectPicture) {
-//           val imageUri = data?.data
-////            binding?.profileImage?.setImageURI(imageUri)
-//            val mFileTemp = File(imageUri?.let { ImageFilePath.getFilePath(requireContext(), it) })
-//            val requestFile: RequestBody =
-//                mFileTemp.asRequestBody("multipart/form-data".toMediaTypeOrNull())
-//            val file = MultipartBody.Part.createFormData("file", mFileTemp.name, requestFile)
-//            Toast.makeText(requireContext(), ""+file, Toast.LENGTH_SHORT).show()
-//            frontPhoto = file
-//        }
-//    }
-//
-
-    private fun getImageUri(inImage: Bitmap?): Uri? {
-        val path: String = MediaStore.Images.Media.insertImage(
-            requireActivity().contentResolver, inImage,
-            System.currentTimeMillis().toString(), null
-        )
-        return Uri.parse(path)
-    }
 }

@@ -123,18 +123,23 @@ class HomeActivity : DaggerAppCompatActivity() {
         navigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.homeFragment -> {
+                    binding?.imageView42?.show()
                     setCurrentFragment(HomeFragment())
                 }
                 R.id.movieFragment -> {
+                    binding?.imageView42?.hide()
                     setCurrentFragment(MoviesFragment())
                 }
                 R.id.foodFragment -> {
+                    binding?.imageView42?.hide()
                     FoodDialog()
                 }
                 R.id.accountFragment -> {
+                    binding?.imageView42?.hide()
                     setCurrentFragment(AccountPageFragment())
                 }
                 R.id.moreFragment -> {
+                    binding?.imageView42?.hide()
                     setCurrentFragment(MorePageFragment())
                 }
             }

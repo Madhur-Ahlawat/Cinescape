@@ -13,6 +13,7 @@ data class CountryCodeResponse(
         val countryName: String,
         val flag: String,
         val id: Int,
+        val phoneLength: Int,
         val isdCode: String
     ):Serializable
 }

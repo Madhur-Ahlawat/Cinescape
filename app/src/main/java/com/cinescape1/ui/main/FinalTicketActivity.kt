@@ -35,6 +35,10 @@ import com.cinescape1.ui.main.views.adapters.SeatListAdapter
 import com.cinescape1.ui.main.views.adapters.checkoutAdapter.AdapterCheckoutConFirmFoodDetail
 import com.cinescape1.ui.main.views.adapters.sliderAdapter.SliderFoodConfirmViewPgweAdapter
 import com.cinescape1.utils.*
+import com.google.android.flexbox.AlignItems
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.cancel_dialog.view.*
 import kotlinx.android.synthetic.main.checkout_booking_confirm_alert2_include.*
@@ -204,9 +208,7 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
         binding?.uiFinalTaket?.show()
 
         val viewPager: ViewPager = findViewById(R.id.viewPager_slider_layout)
-        val dots: ArrayList<TextView> = ArrayList()
         val layouts: ArrayList<Int> = ArrayList()
-        var positions: Int
         viewPager.offscreenPageLimit = 1
         if (output.bookingType == "BOOKING") {
             if (output.concessionFoods.isNotEmpty()) {
@@ -234,15 +236,26 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
                 text_bookin_id_no.text = output.kioskId
                 text_name_movie.text = output.moviename
                 text_location_names.text = output.cinemaname
-                txt_date.text = output.showDate
-                text_times2.text = output.showTime
+                txt_date.text = output.showDate+" "+ output.showTime
                 text_wallet.text = output.payDone
-                tv_category_name.text = output.category
+
+                if (output.category.isNullOrEmpty()){
+                    tv_category_title.invisible()
+                }else{
+                    tv_category_title.show()
+                    categoryName.text=output.category
+                }
+
+                println("checkCat--->${output.category}")
                 text_kd_total_ticket_price.text = output.totalTicketPrice
                  text_types.text = output.mcensor
-                
-                val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
+
+                val layoutManager = FlexboxLayoutManager(this)
+                layoutManager.flexDirection = FlexDirection.ROW
+                layoutManager.justifyContent = JustifyContent.FLEX_START
+                layoutManager.alignItems = AlignItems.STRETCH
                 val adapter = SeatListAdapter(output.seatsArr)
+
                 seats_list.setHasFixedSize(true)
                 seats_list.layoutManager = layoutManager
                 seats_list.adapter = adapter
@@ -303,19 +316,8 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
             }catch (e:Exception){
                 println("exception---->${e.printStackTrace()}")
             }
-
         } else {
             try{
-
-                binding?.layoutDots?.hide()
-                textView51.text = "KD " + output.ticketPrice
-                text_bookin_id_no1.text = output.kioskId
-                text_wallet1.text = output.payDone
-                tv_category_name.text = output.category
-
-                text_kd_total_ticket_price1.text = output.totalPrice
-                textFoodPicUp.paintFlags = textFoodPicUp.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-
 
                 if (!output.cancelReserve) {
                     imageView31.show()
@@ -340,8 +342,6 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
         }
 
 
-
-
         // Set Food
         if (output.concessionFoods.isNotEmpty()) {
             if (output.bookingType == "BOOKING") {
@@ -349,6 +349,14 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
             } else {
                 binding?.layoutDots?.hide()
             }
+            textView51.text = getString(R.string.price_kd) + output.ticketPrice
+            text_bookin_id_no1.text = output.kioskId
+            text_wallet1.text = output.payDone
+
+            text_kd_total_ticket_price1.text = output.totalPrice
+            textFoodPicUp.paintFlags = textFoodPicUp.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+
+
             setFinalFoodItemAdapter(output.concessionFoods)
         }
 

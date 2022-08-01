@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputFilter
 import android.text.TextWatcher
 import android.view.View
 import android.view.WindowManager
@@ -306,6 +307,12 @@ class ContinueGuestActivity : DaggerAppCompatActivity(),
                                     countryCodeList = it.data.output
                                     binding?.mobileCode?.setText(it.data.output[0].isdCode)
                                     countryCode = it.data.output[0].isdCode
+                                    val maxLengthEditText = it.data.output[0].phoneLength
+                                    binding?.editTextPhone?.filters = arrayOf<InputFilter>(
+                                        InputFilter.LengthFilter(
+                                            maxLengthEditText
+                                        )
+                                    )
                                     retrieveCountryList(it.data.output)
 
                                 } else {
@@ -410,6 +417,14 @@ class ContinueGuestActivity : DaggerAppCompatActivity(),
 
     override fun onItemClick(view: CountryCodeResponse.Output) {
         countryCode = view.isdCode
+
+        val maxLengthEditText = view.phoneLength
+        binding?.editTextPhone?.filters = arrayOf<InputFilter>(
+            InputFilter.LengthFilter(
+                maxLengthEditText
+            )
+        )
+
         println("CountryCode--->${view.isdCode}")
 //        dialog?.dismiss()
     }

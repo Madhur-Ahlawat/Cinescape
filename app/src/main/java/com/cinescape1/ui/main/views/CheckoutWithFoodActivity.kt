@@ -40,17 +40,25 @@ import com.cinescape1.ui.main.FinalTicketActivity
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.viewModels.CheckoutWithFoodViewModel
+import com.cinescape1.ui.main.views.adapters.SummerySeatListAdapter
 import com.cinescape1.ui.main.views.adapters.checkoutAdapter.AdapterCheckoutFoodItem
 import com.cinescape1.utils.*
 import com.cinescape1.utils.Constant.IntentKey.Companion.USER_ID
+import com.google.android.flexbox.AlignItems
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import com.threatmetrix.TrustDefender.*
 import com.threatmetrix.TrustDefender.TMXProfilingConnections.TMXProfilingConnections
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_checkout_with_food.*
 import kotlinx.android.synthetic.main.cancel_dialog.*
 import kotlinx.android.synthetic.main.cancel_dialog.view.*
+import kotlinx.android.synthetic.main.checkout_booking_confirm_alert_include.*
 import kotlinx.android.synthetic.main.checkout_creditcart_payment_alert.*
 import kotlinx.android.synthetic.main.checkout_layout_ticket_include.*
+import kotlinx.android.synthetic.main.checkout_layout_ticket_include.text_location_names
+import kotlinx.android.synthetic.main.checkout_layout_ticket_include.text_times2
 import kotlinx.android.synthetic.main.food_review_pay_include.*
 import org.json.JSONArray
 import java.text.ParseException
@@ -1165,8 +1173,17 @@ class CheckoutWithFoodActivity : DaggerAppCompatActivity() {
             text_times2.text = output.experience
             text_date_name.text = output.showDate
             textView19.text = output.showTime
-            val commaSeperatedString = output.seatsArr.joinToString { it }
-            seatList.text = commaSeperatedString
+
+            val layoutManager = FlexboxLayoutManager(this)
+            layoutManager.flexDirection = FlexDirection.ROW
+            layoutManager.justifyContent = JustifyContent.FLEX_START
+            layoutManager.alignItems = AlignItems.STRETCH
+//            val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
+            val adapter = SummerySeatListAdapter(output.seatsArr)
+            seatList.layoutManager = layoutManager
+            seatList.adapter = adapter
+
+
             text_kds.text = output.ticketPrice
             text_kd_total.text = output.totalTicketPrice
             paidPrice=output.totalPrice

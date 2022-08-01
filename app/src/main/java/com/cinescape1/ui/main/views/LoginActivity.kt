@@ -11,10 +11,8 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.net.ConnectivityManager.CONNECTIVITY_ACTION
 import android.os.Bundle
-import android.text.Editable
-import android.text.SpannableString
-import android.text.TextUtils
-import android.text.TextWatcher
+import android.text.*
+import android.text.InputFilter.LengthFilter
 import android.text.style.ForegroundColorSpan
 import android.text.style.UnderlineSpan
 import android.util.Log
@@ -1104,6 +1102,10 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                                     countryCodeList = it.data.output
                                     binding?.mobileCode?.setText(resources.getString(R.string.mobile) + "    " + it.data.output[0].isdCode)
                                     countryCode = it.data.output[0].isdCode
+
+                                    val maxLengthEditText = it.data.output[0].phoneLength
+                                    binding?.editTextPhone?.filters = arrayOf<InputFilter>(LengthFilter(maxLengthEditText))
+
                                     retriveCountryList(it.data.output)
                                 } else {
                                     println("Something Wrong")
@@ -1283,7 +1285,11 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
     }
 
     override fun onItemClick(view: CountryCodeResponse.Output) {
+        println("PhoneLength--->${view.phoneLength}")
         countryCode = view.isdCode
+        val maxLengthEditText = view.phoneLength
+        binding?.editTextPhone?.filters = arrayOf<InputFilter>(LengthFilter(maxLengthEditText))
+
     }
 
     private fun bottomDialog(countryList: ArrayList<CountryCodeResponse.Output>) {
