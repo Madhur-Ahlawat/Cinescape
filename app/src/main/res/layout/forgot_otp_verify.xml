@@ -110,30 +110,21 @@
             app:layout_constraintTop_toBottomOf="@+id/textView79" />
 
         <com.kevinschildhorn.otpview.OTPView
-            android:id="@+id/otp_view"
+            android:id="@+id/otpView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:importantForAutofill="no"
-            android:inputType="phone"
+            android:layout_marginTop="13dp"
+            android:clipToPadding="true"
+            android:inputType="number"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView80"
             app:otp_backgroundImage="@drawable/background"
-            app:otp_cursorColor="@color/colorPrimary"
-            android:outlineAmbientShadowColor="@color/hint_color"
             app:otp_filledBackgroundImage="@drawable/background"
-            app:otp_filledTextSize="20sp"
             app:otp_highlightedBackgroundImage="@drawable/background_highlighted"
-            app:otp_highlightedTextSize="24sp"
             app:otp_itemCount="6"
-            app:otp_itemHeight="45dp"
-            app:otp_itemWidth="41dp"
-            app:otp_marginBetween="4dp"
-            app:otp_showCursor="true"
-            app:otp_textColor="@color/colorPrimary"
-            app:otp_textSize="20sp"
-            tools:ignore="UnusedAttribute" />
+            app:otp_itemHeight="42dp"
+            app:otp_itemWidth="42dp"
+            app:otp_showCursor="false"/>
 
         <TextView
             android:id="@+id/verifyOtpForgot"
@@ -149,7 +140,7 @@
             android:textSize="@dimen/size16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/otp_view" />
+            app:layout_constraintTop_toBottomOf="@+id/otpView" />
 
 
         <View

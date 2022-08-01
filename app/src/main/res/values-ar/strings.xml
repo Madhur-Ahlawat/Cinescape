@@ -69,6 +69,8 @@
     <string name="_04_nov_2020">04 نوفمبر 2020</string>
     <string name="time">الوقت</string>
     <string name="go_to_booking">توجه إلى الحجز</string>
+    <string name="go_to_bookings">اذهب إلى الحجوزات</string>
+
     <string name="you_have_an_upcoming_booking">لديك حجز قادم</string>
     <string name="upcoming_booking">لديك حجز قادم</string>
     <string name="booking_alert">تنبيه الحجز</string>

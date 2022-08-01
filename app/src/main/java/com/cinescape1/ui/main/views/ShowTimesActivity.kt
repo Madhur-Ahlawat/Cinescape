@@ -489,9 +489,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                             resource.data?.let { it ->
                                 if (it.data?.code == Constant.SUCCESS_CODE) {
                                     try {
-//                                        dt=it.data.output.
                                         showSeatTypePopup(it.data.output, name, pos)
-
                                     } catch (e: Exception) {
                                         println("updateUiCinemaSession123 ---> ${e.message + e.stackTrace}")
                                         e.printStackTrace()
@@ -768,12 +766,12 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         tvGiftVoucher.paintFlags = tvGiftVoucher.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         textBankOffer.paintFlags = textBankOffer.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
-        ratingDesc.text=output.movie.ratingDescription
-        if (output.movie.rating.isNullOrEmpty()){
+        ratingDesc.text = output.movie.ratingDescription
+        if (output.movie.rating.isNullOrEmpty()) {
             rating.hide()
-        }else{
+        } else {
             rating.show()
-            rating.text=output.movie.rating
+            rating.text = output.movie.rating
         }
         when (output.movie.rating) {
             "PG" -> {
@@ -1005,7 +1003,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 var tvKdPrice11: TextView?
                 println("seatTypeArrayOne--->${item.seatTypes.size}")
                 if (item.seatTypes.isNotEmpty()) {
-                    categoryClick=false
+                    categoryClick = false
                     btnDecrease.isEnabled = false
                     btnIncrease.isEnabled = false
                     btnDecrease.isClickable = false
@@ -1013,7 +1011,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
                     ClickUi.hide()
                 } else {
-                    categoryClick=true
+                    categoryClick = true
 
                     ClickUi.show()
                     btnDecrease.isEnabled = true
@@ -1128,14 +1126,14 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                             println("seatTypeArrayOne1--->${item.seatTypes.size}")
                             if (item.seatTypes.isNotEmpty()) {
 
-                                categoryClick=true
+                                categoryClick = true
                                 ClickUi.show()
                                 btnDecrease.isEnabled = true
                                 btnIncrease.isEnabled = true
                                 btnDecrease.isClickable = true
                                 btnIncrease.isClickable = true
                             } else {
-                                categoryClick=false
+                                categoryClick = false
                                 ClickUi.hide()
                                 btnDecrease.isEnabled = false
                                 btnIncrease.isEnabled = false
@@ -1232,7 +1230,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
             textProceeds.setOnClickListener {
                 println("seatTypeCheck--->${ttType}")
-                if(!categoryClick){
+                if (!categoryClick) {
                     val dialog = OptionDialog(this,
                         R.mipmap.ic_launcher,
                         R.string.app_name,
@@ -1244,7 +1242,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                         negativeClick = {
                         })
                     dialog.show()
-                }else if (num == 0) {
+                } else if (num == 0) {
                     val dialog = OptionDialog(this,
                         R.mipmap.ic_launcher,
                         R.string.app_name,
@@ -1283,8 +1281,8 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                             .putExtra("CINEMA_POS", showPose), 50
                     )
 
-                    categoryClick=false
-                    num=0
+                    categoryClick = false
+                    num = 0
                     mAlertDialog?.dismiss()
                     println("dateCheck--->${dateTime},  Movieid--->${movieID},CinemaId--->${CinemaID} ,SessionID--->${SessionID}")
                 }

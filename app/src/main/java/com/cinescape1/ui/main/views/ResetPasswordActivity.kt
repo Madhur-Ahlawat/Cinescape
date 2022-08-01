@@ -134,7 +134,7 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
         }
 
         verifyOtpForgot.setOnClickListener {
-            otpGet = otp_view.getStringFromFields()
+            otpGet = otpView.getStringFromFields()
             if (otpGet.contains("null")) {
                 val dialog = OptionDialog(this,
                     R.mipmap.ic_launcher,
