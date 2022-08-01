@@ -43,6 +43,7 @@ data class TicketSummaryResponse(
     data class ConcessionFood(
         val deliveryOption: Int,
         val description: String,
+        val itemImageUrl: String,
         val descriptionAlt: String,
         val headOfficeItemCode: String,
         val itemId: String,
@@ -52,7 +53,7 @@ data class TicketSummaryResponse(
         val parentId: String,
         val priceInCents: Int,
         val itemPrice: String,
-        val quantity: String
+        val quantity: Int
     )
 
     class Paymodes

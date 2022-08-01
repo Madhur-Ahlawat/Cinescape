@@ -36,24 +36,15 @@ class AdapterFoodCombo(
             holder.foodcomboName.text = "Combo " + (position + 1)
             holder.foodTitleName.text = foodSelectedItem.description
             holder.foodTitleName.show()
-            if (foodSelectedItem.quantityUpdate>0){
-                holder.totalItems.text = foodSelectedItem.quantityUpdate.toString()+" "+mContext.getString(R.string.ItemAdded)
-            }else{
-                holder.totalItems.hide()
-            }
-
         } else {
             holder.foodcomboName.text = foodSelectedItem.description
             holder.foodTitleName.hide()
-            if (foodSelectedItem.quantityUpdate>0){
-                holder.totalItems.text = foodSelectedItem.quantityUpdate.toString()+" "+mContext.getString(R.string.ItemAdded)
-            }else{
-                holder.totalItems.hide()
-            }
         }
         holder.foodKdName.text = foodSelectedItem.itemPrice
         holder.foodKdName.show()
+        println("notifyDataSetChanged12--->"+type+"---"+foodSelectedItem.quantityUpdate)
         if (foodSelectedItem.quantityUpdate>0){
+            holder.totalItems.show()
             holder.totalItems.text = foodSelectedItem.quantityUpdate.toString()+" "+mContext.getString(R.string.ItemAdded)
         }else{
             holder.totalItems.hide()
@@ -66,7 +57,7 @@ class AdapterFoodCombo(
             .into(holder.imgFood)
 
         holder.addBtn.setOnClickListener {
-            listener.onAddFood(foodSelectedItem, position)
+            listener.onAddFood(foodSelectedItem, position,foodComboList)
         }
 
         holder.btnIncrease.setOnClickListener {
@@ -84,12 +75,13 @@ class AdapterFoodCombo(
 
     @SuppressLint("NotifyDataSetChanged")
     fun loadNewData(newFoodSelectable: ArrayList<GetFoodResponse.ConcessionItem>) {
+        println("notifyDataSetChanged-----")
         foodComboList = newFoodSelectable
         notifyDataSetChanged()
     }
 
     interface RecycleViewItemClickListener {
-        fun onAddFood(foodItem: GetFoodResponse.ConcessionItem, position: Int)
+        fun onAddFood(foodItem: GetFoodResponse.ConcessionItem, position: Int,foodComboList: ArrayList<GetFoodResponse.ConcessionItem>)
         fun onDecreaseFood(foodItem: GetFoodResponse.ConcessionItem, position: Int)
         fun onIncreaseFood(foodItem: GetFoodResponse.ConcessionItem, position: Int)
     }

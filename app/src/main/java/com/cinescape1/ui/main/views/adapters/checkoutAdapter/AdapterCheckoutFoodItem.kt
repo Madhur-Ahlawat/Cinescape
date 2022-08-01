@@ -8,11 +8,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.TicketSummaryResponse
+import com.cinescape1.utils.Constant
 
 
-class AdapterCheckoutFoodItem (context: Context, private var foodComboList: List<TicketSummaryResponse.ConcessionFood>) :
+class AdapterCheckoutFoodItem ( context: Context, private var foodComboList: List<TicketSummaryResponse.ConcessionFood>) :
     RecyclerView.Adapter<AdapterCheckoutFoodItem.MyViewHolderCheckoutFoodItem>() {
     private var mContext = context
 
@@ -21,6 +23,7 @@ class AdapterCheckoutFoodItem (context: Context, private var foodComboList: List
         return MyViewHolderCheckoutFoodItem(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolderCheckoutFoodItem, position: Int) {
         if (foodComboList.isEmpty()) {
 //            holder.title.setText(R.string.empty_photo)
@@ -28,8 +31,13 @@ class AdapterCheckoutFoodItem (context: Context, private var foodComboList: List
             val foodSelctedItem = foodComboList[position]
             holder.foodTitleName.text = foodSelctedItem.itemType
             holder.foodItemcomboName.text = foodSelctedItem.description
-            holder.foodKd.text = foodSelctedItem.itemPrice.toString()
-            holder.imgCheckoutFood.setImageResource(R.drawable.img_nachos_soda_combo)
+            val price = (foodSelctedItem.priceInCents*foodSelctedItem.quantity)/100.0
+            holder.foodKd.text = mContext.getString(R.string.price_kd)+" "+Constant.DECIFORMAT.format(price)
+//            holder.imgCheckoutFood.setImageResource(R.drawable.img_nachos_soda_combo)
+            Glide.with(mContext)
+                .load(foodSelctedItem.itemImageUrl)
+                .placeholder(R.drawable.movie_default)
+                .into(holder.imgCheckoutFood)
 
         }
     }
