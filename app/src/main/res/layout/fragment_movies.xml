@@ -53,15 +53,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
-<!--                <include-->
-<!--                    android:id="@+id/movieAppbar"-->
-<!--                    layout="@layout/movie_appbar"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -163,7 +154,7 @@
             android:id="@+id/no_data"
             android:visibility="gone"
             android:fontFamily="@font/sfprodisplay_bold"
-            android:text="No Movie Available"
+            android:text="@string/no_movie_available"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

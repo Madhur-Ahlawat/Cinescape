@@ -16,8 +16,8 @@ import com.cinescape1.ui.main.views.ShowTimesActivity
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.hide
 
-class AdapterCommingSoon(private var nowShowingList: ArrayList<MoviesResponse.Nowshowing>, context:Context) :
-    RecyclerView.Adapter<AdapterCommingSoon.MyViewHolderNowShowing>() {
+class AdapterComingSoon(private var nowShowingList: ArrayList<MoviesResponse.Comingsoon>, context:Context) :
+    RecyclerView.Adapter<AdapterComingSoon.MyViewHolderNowShowing>() {
     private var mContext = context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderNowShowing {
@@ -27,6 +27,7 @@ class AdapterCommingSoon(private var nowShowingList: ArrayList<MoviesResponse.No
     }
 
     override fun onBindViewHolder(holder: MyViewHolderNowShowing, position: Int) {
+
         val comingSoonItem = nowShowingList[position]
 
         Glide.with(mContext)
@@ -60,7 +61,7 @@ class AdapterCommingSoon(private var nowShowingList: ArrayList<MoviesResponse.No
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public fun updateList(updatedList: ArrayList<MoviesResponse.Nowshowing>){
+     fun updateList(updatedList: ArrayList<MoviesResponse.Comingsoon>){
         nowShowingList = updatedList
         notifyDataSetChanged()
     }

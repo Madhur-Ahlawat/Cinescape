@@ -769,7 +769,12 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         textBankOffer.paintFlags = textBankOffer.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
         ratingDesc.text=output.movie.ratingDescription
-        rating.text=output.movie.rating
+        if (output.movie.rating.isNullOrEmpty()){
+            rating.hide()
+        }else{
+            rating.show()
+            rating.text=output.movie.rating
+        }
         when (output.movie.rating) {
             "PG" -> {
                 ratingUi.setCardBackgroundColor(this.resources.getColor(R.color.grey))

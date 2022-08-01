@@ -70,6 +70,7 @@
     <string name="time">الوقت</string>
     <string name="go_to_booking">توجه إلى الحجز</string>
     <string name="you_have_an_upcoming_booking">لديك حجز قادم</string>
+    <string name="upcoming_booking">لديك حجز قادم</string>
     <string name="booking_alert">تنبيه الحجز</string>
     <string name="english_action_thriller_horror_128_min">الإنجليزية | أكشن ، إثارة ، رعب | 128 دقيقة</string>
     <string name="contentDes">وصف المحتوى</string>
@@ -309,6 +310,7 @@
     <string name="internetMsg">انقطع الاتصال بالإنترنت. \  الرجاء الاتصال والمحاولة مرة أخرى
 </string>
     <string name="selectCateogry">يرجى تحديد الفئة الخاصة بك</string>
+    <string name="no_movie_available">لا يوجد فيلم متاح</string>
 
     <string name="nowSowing">يعرض الآن</string>
     <string name="commingSoon">قريبا</string>

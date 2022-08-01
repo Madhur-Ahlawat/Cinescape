@@ -17,12 +17,13 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.SmoothScroller
 import androidx.viewpager.widget.ViewPager
 import com.cinescape1.R
 import com.cinescape1.data.models.MovieTypeModel
@@ -37,19 +38,20 @@ import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.viewModels.HomeViewModel
 import com.cinescape1.ui.main.views.adapters.MovieTypeAdapter
 import com.cinescape1.ui.main.views.adapters.filterAdapter.AdapterFilterTitle
-import com.cinescape1.ui.main.views.adapters.moviesFragmentAdapter.AdapterCommingSoon
+import com.cinescape1.ui.main.views.adapters.moviesFragmentAdapter.AdapterComingSoon
 import com.cinescape1.ui.main.views.adapters.moviesFragmentAdapter.AdapterFilterCategory
 import com.cinescape1.ui.main.views.adapters.moviesFragmentAdapter.AdapterNowShowing
+import com.cinescape1.ui.main.views.adapters.moviesFragmentAdapter.AdvanceBookingAdapter
 import com.cinescape1.utils.*
 import com.google.android.material.tabs.TabLayout
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_movies.*
-import kotlinx.android.synthetic.main.movie_appbar.*
 import kotlinx.android.synthetic.main.search_ui.*
 import javax.inject.Inject
 
 
-class MoviesFragment : DaggerFragment(), AdapterFilterCategory.RecycleViewItemClickListener {
+class MoviesFragment : DaggerFragment(), AdapterFilterCategory.RecycleViewItemClickListener,
+    MovieTypeAdapter.RecycleViewItemClickListener {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -65,9 +67,8 @@ class MoviesFragment : DaggerFragment(), AdapterFilterCategory.RecycleViewItemCl
     private var isChecked = false
     private var moviesResponse: MoviesResponse? = null
 
-    private var comingSoonFilter: ArrayList<MoviesResponse.Nowshowing>? = null
+    private var comingSoonFilter: ArrayList<MoviesResponse.Comingsoon>? = null
     private var broadcastReceiver: BroadcastReceiver? = null
-    private var isComingsoon = false
 
     //Filter Params
     var filterDataList: ArrayList<FilterTypeModel> = ArrayList()
@@ -79,7 +80,6 @@ class MoviesFragment : DaggerFragment(), AdapterFilterCategory.RecycleViewItemCl
     var language_data = "ALL"
 
     private val list = ArrayList<MovieTypeModel>()
-
 
     @SuppressLint("ResourceAsColor")
     override fun onCreateView(
@@ -118,10 +118,9 @@ class MoviesFragment : DaggerFragment(), AdapterFilterCategory.RecycleViewItemCl
         list.add(MovieTypeModel(getString(R.string.advanceBooking)))
 
 
-
         val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.HORIZONTAL, false)
         binding?.recyclerType?.layoutManager = LinearLayoutManager(context)
-        val adapter = MovieTypeAdapter(list)
+        val adapter = MovieTypeAdapter(list, requireActivity(), this)
         binding?.recyclerType?.layoutManager = gridLayout
         binding?.recyclerType?.adapter = adapter
 
@@ -217,7 +216,6 @@ class MoviesFragment : DaggerFragment(), AdapterFilterCategory.RecycleViewItemCl
         imageView33.setOnClickListener {
             isChecked
             imageView33.setImageResource(R.drawable.ic_filter_select)
-            binding?.recyclerviewCategory?.hide()
             setFilterAlertDialog(moviesResponse?.output!!)
         }
 
@@ -258,15 +256,12 @@ class MoviesFragment : DaggerFragment(), AdapterFilterCategory.RecycleViewItemCl
                         searchMovieUi.hide()
                         searchUi.hide()
                         imageView36.hide()
-//                        movieAppbar.show()
                         Constant().hideKeyboard(requireActivity())
                     }
                 }
             }
             false
         }
-
-
     }
 
     private fun movesData(movieRequest: MovieRequest) {
@@ -325,48 +320,25 @@ class MoviesFragment : DaggerFragment(), AdapterFilterCategory.RecycleViewItemCl
             }
     }
 
-    private fun comingSoon(comingSoon: ArrayList<MoviesResponse.Nowshowing>) {
+    private fun advanceBooking(advanceBooking: List<MoviesResponse.AdvanceBooking>) {
+        if (advanceBooking.isNullOrEmpty()) {
+            binding?.noData?.show()
+        } else {
+            binding?.noData?.hide()
+            val gridLayout =
+                GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+            val adapter = AdvanceBookingAdapter(advanceBooking, requireActivity())
+            binding?.fragmentMovie?.layoutManager = gridLayout
+            binding?.fragmentMovie?.adapter = adapter
+        }
+    }
+
+    private fun comingSoon(comingSoon: ArrayList<MoviesResponse.Comingsoon>) {
         val gridLayout = GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false)
-//        binding?.fragmentMovie?.setHasFixedSize(true)
-        var comingSoonList = ArrayList<MoviesResponse.Nowshowing>()
-        comingSoonList = comingSoon
-        val adapter = AdapterCommingSoon(comingSoonList, requireActivity())
+
+        val adapter = AdapterComingSoon(comingSoon, requireActivity())
         binding?.fragmentMovie?.layoutManager = gridLayout
         binding?.fragmentMovie?.adapter = adapter
-        movieSearch.addTextChangedListener(object : TextWatcher {
-            @SuppressLint("NotifyDataSetChanged")
-            override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
-                comingSoonList = ArrayList()
-                comingSoonList = if (cs == "") {
-                    comingSoon
-                } else {
-                    ArrayList()
-                }
-                for (i in 0 until comingSoon.size) {
-                    try {
-                        if (comingSoon[i].title.lowercase().contains(cs.toString().lowercase())) {
-                            comingSoonList.add(comingSoon[i])
-                        }
-
-                    } catch (e: Exception) {
-                        println("SearchMsg--->${e.message}")
-                    }
-                }
-                println("comingSoonSize--->${comingSoonList.size}")
-
-                adapter.updateList(comingSoonList)
-            }
-
-            override fun beforeTextChanged(
-                arg0: CharSequence, arg1: Int, arg2: Int, arg3: Int
-            ) {
-                // TODO Auto-generated method stub
-            }
-
-            override fun afterTextChanged(arg0: Editable) {
-                // TODO Auto-generated method stub
-            }
-        })
 
     }
 
@@ -545,9 +517,10 @@ class MoviesFragment : DaggerFragment(), AdapterFilterCategory.RecycleViewItemCl
         val textReset = mDialogView.findViewById<View>(R.id.text_reset) as ConstraintLayout
 
         textReset.setOnClickListener {
+            dataList.clear()
+            binding?.recyclerviewCategory?.hide()
             mAlertDialog.dismiss()
         }
-        println("selectedList123--->" + dataList.size)
 
         textViewDone.setOnClickListener {
             isChecked = false
@@ -668,6 +641,44 @@ class MoviesFragment : DaggerFragment(), AdapterFilterCategory.RecycleViewItemCl
 
     override fun onCrossClick(item: String) {
         updateFilterData(dataList, item)
+    }
+
+    override fun onMovieTypeClick(position: Int) {
+        if (isAdded) {
+            val smoothScroller: SmoothScroller =
+                object : LinearSmoothScroller(this.requireActivity()) {
+                    override fun getVerticalSnapPreference(): Int {
+                        return SNAP_TO_START
+                    }
+                }
+            smoothScroller.targetPosition = position
+            binding?.recyclerType?.layoutManager?.startSmoothScroll(smoothScroller)
+
+        }
+
+        when (position) {
+            0 -> {
+                try {
+                    nowSowing(moviesResponse?.output?.nowshowing!!)
+                } catch (e: Exception) {
+                    println("exception--->${e.message}")
+                }
+            }
+            1 -> {
+                try {
+                    comingSoon(moviesResponse?.output?.comingsoon!!)
+                } catch (e: Exception) {
+                    println("Exception--->${e.message}")
+                }
+            }
+            2 -> {
+                try {
+                    advanceBooking(moviesResponse?.output?.advanceBooking!!)
+                } catch (e: Exception) {
+                    println("Exception--->${e.message}")
+                }
+            }
+        }
     }
 
 }

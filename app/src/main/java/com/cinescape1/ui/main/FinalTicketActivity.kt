@@ -499,7 +499,6 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
                                         })
                                     dialog.show()
                                 }
-
                             }
                         }
                         Status.ERROR -> {
@@ -533,7 +532,6 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
         recyclerview_food_details.layoutManager = gridLayout
         recyclerview_food_details.adapter = adapter
         adapter.loadNewData(concessionFoods)
-
     }
 
     private fun setMySingleTicket() {

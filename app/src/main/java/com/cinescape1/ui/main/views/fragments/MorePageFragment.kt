@@ -111,7 +111,9 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
             }
         }
         mobile = preferences.getString(Constant.MOBILE).toString()
-
+        contactEmail.setText(preferences.getString(Constant.USER_EMAIL))
+        enterUsername.setText(preferences.getString(Constant.USER_NAME))
+        enter_mobile_numbers.setText(preferences.getString(Constant.MOBILE))
         image_switcher?.setOnCheckedChangeListener { _, b ->
             if (b) {
                 Constant.IntentKey.LANGUAGE_SELECT = "en"
@@ -392,7 +394,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                 }
 
 
-            }else if (mobile.isNullOrEmpty()) {
+            } else if (mobile.isNullOrEmpty()) {
                 val dialog = OptionDialog(requireContext(),
                     R.mipmap.ic_launcher,
                     R.string.app_name,
@@ -404,8 +406,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                     negativeClick = {
                     })
                 dialog.show()
-            }
-            else if(name.isNullOrEmpty()){
+            } else if (name.isNullOrEmpty()) {
                 val dialog = OptionDialog(requireContext(),
                     R.mipmap.ic_launcher,
                     R.string.app_name,
@@ -417,7 +418,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                     negativeClick = {
                     })
                 dialog.show()
-            }else if (frontPhoto==null) {
+            } else if (frontPhoto == null) {
                 val dialog = OptionDialog(requireContext(),
                     R.mipmap.ic_launcher,
                     R.string.app_name,
@@ -429,455 +430,453 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                     negativeClick = {
                     })
                 dialog.show()
-            }else {
+            } else {
                 contactUs(email, name, mobile, username, frontPhoto)
                 Constant().hideKeyboard(requireActivity())
             }
 
+        }
+
+        println("Mobile--->${mobile}")
+        if (mobile == "") {
+            text_signout.text = getString(R.string.sign_in)
+            view_first.setOnClickListener {
+                val intent = Intent(requireContext(), LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(intent)
+                requireActivity().finish()
+            }
+        } else {
+            text_signout.text = getString(R.string.sign_out)
+            view_first.setOnClickListener {
+                val dialog = OptionDialog(requireContext(),
+                    R.mipmap.ic_launcher,
+                    R.string.app_name,
+                    it.resources.getString(R.string.signout),
+                    positiveBtnText = R.string.ok,
+                    negativeBtnText = R.string.no,
+                    positiveClick = {
+                        FirebaseAuth.getInstance().signOut()
+                        preferences.clearData()
+                        val intent = Intent(requireContext(), LoginActivity::class.java)
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
+                        requireActivity().finish()
+                    },
+                    negativeClick = {
+                    })
+                dialog.show()
+            }
+        }
+
+        broadcastReceiver = MyReceiver()
+        broadcastIntent()
+        countryCodeLoad()
+        moreTabs()
+        contact()
     }
 
-    println("Mobile--->${mobile}")
-    if (mobile == "")
-    {
-        text_signout.text = getString(R.string.sign_in)
-        view_first.setOnClickListener {
-            val intent = Intent(requireContext(), LoginActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+    /* Choose an image from Gallery */
+    private fun openImageChooser() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE)
+    }
+
+    @SuppressLint("ObsoleteSdkInt")
+    private fun handlePermission() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return
+        }
+        if (ContextCompat.checkSelfPermission(
+                requireActivity(),
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            //ask for permission
+            ActivityCompat.requestPermissions(
+                requireActivity(), arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                SELECT_PICTURE
+            )
+        } else {
+            openImageChooser()
+        }
+    }
+
+    private fun broadcastIntent() {
+        requireActivity().registerReceiver(
+            broadcastReceiver,
+            IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        )
+    }
+
+    private fun openTwitter() {
+        try {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("twitter://user?screen_name=$twitter_user_name")
+                )
+            )
+        } catch (e: java.lang.Exception) {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://twitter.com/#!/$twitter_user_name")
+                )
+            )
+        }
+    }
+
+    private fun launchFacebook() {
+        try {
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://www.facebook.com/CinescapeKuwait/?view_public_for=84586906921")
+            )
             startActivity(intent)
-            requireActivity().finish()
-        }
-    } else
-    {
-        text_signout.text = getString(R.string.sign_out)
-        view_first.setOnClickListener {
-            val dialog = OptionDialog(requireContext(),
-                R.mipmap.ic_launcher,
-                R.string.app_name,
-                it.resources.getString(R.string.signout),
-                positiveBtnText = R.string.ok,
-                negativeBtnText = R.string.no,
-                positiveClick = {
-                    FirebaseAuth.getInstance().signOut()
-                    preferences.clearData()
-                    val intent = Intent(requireContext(), LoginActivity::class.java)
-                    intent.flags =
-                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    startActivity(intent)
-                    requireActivity().finish()
-                },
-                negativeClick = {
-                })
-            dialog.show()
+        } catch (e: java.lang.Exception) {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("http://www.facebook.com/CinescapeKuwait")
+                )
+            )
         }
     }
 
-    broadcastReceiver = MyReceiver()
-    broadcastIntent()
-    countryCodeLoad()
-    moreTabs()
-    contact()
-}
-
-/* Choose an image from Gallery */
-private fun openImageChooser() {
-    val intent = Intent()
-    intent.type = "image/*"
-    intent.action = Intent.ACTION_GET_CONTENT
-    startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE)
-}
-
-@SuppressLint("ObsoleteSdkInt")
-private fun handlePermission() {
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-        return
-    }
-    if (ContextCompat.checkSelfPermission(
-            requireActivity(),
-            Manifest.permission.READ_EXTERNAL_STORAGE
-        ) != PackageManager.PERMISSION_GRANTED
-    ) {
-        //ask for permission
-        ActivityCompat.requestPermissions(
-            requireActivity(), arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-            SELECT_PICTURE
-        )
-    } else {
-        openImageChooser()
-    }
-}
-
-private fun broadcastIntent() {
-    requireActivity().registerReceiver(
-        broadcastReceiver,
-        IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
-    )
-}
-
-private fun openTwitter() {
-    try {
+    private fun youtube() {
         startActivity(
             Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse("twitter://user?screen_name=$twitter_user_name")
+                Uri.parse("https://www.youtube.com/c/CinescapeKuwait")
             )
         )
-    } catch (e: java.lang.Exception) {
-        startActivity(
-            Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("https://twitter.com/#!/$twitter_user_name")
-            )
-        )
+
     }
-}
 
-private fun launchFacebook() {
-    try {
-        val intent = Intent(
-            Intent.ACTION_VIEW,
-            Uri.parse("https://www.facebook.com/CinescapeKuwait/?view_public_for=84586906921")
+    private fun launchInsta() {
+        val uriForApp: Uri = Uri.parse("http://instagram.com/_u/cinescapekuwait/")
+        val forApp = Intent(Intent.ACTION_VIEW, uriForApp)
+
+        val uriForBrowser: Uri = Uri.parse("http://instagram.com/cinescapekuwait/")
+        val forBrowser = Intent(Intent.ACTION_VIEW, uriForBrowser)
+
+        forApp.component = ComponentName(
+            "com.instagram.android",
+            "com.instagram.android.activity.UrlHandlerActivity"
         )
-        startActivity(intent)
-    } catch (e: java.lang.Exception) {
-        startActivity(
-            Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("http://www.facebook.com/CinescapeKuwait")
-            )
-        )
+
+        try {
+            startActivity(forApp)
+        } catch (e: ActivityNotFoundException) {
+            startActivity(forBrowser)
+        }
     }
-}
 
-private fun youtube() {
-    startActivity(
-        Intent(
-            Intent.ACTION_VIEW,
-            Uri.parse("https://www.youtube.com/c/CinescapeKuwait")
-        )
-    )
+    private fun moreTabs() {
+        moreInfoViewModel.moreTabs()
+            .observe(requireActivity()) {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            loader?.dismiss()
+                            resource.data?.let { it ->
+                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                    println("SomethingWrong--->${it.data.msg}")
+                                    try {
+                                        binding?.moreLayout?.show()
+                                        responseData = it.data
+                                        location(responseData?.output?.cinemas!!)
+                                    } catch (e: Exception) {
+                                        println("exceptionMsg--->${e.message}")
+                                    }
 
-}
-
-private fun launchInsta() {
-    val uriForApp: Uri = Uri.parse("http://instagram.com/_u/cinescapekuwait/")
-    val forApp = Intent(Intent.ACTION_VIEW, uriForApp)
-
-    val uriForBrowser: Uri = Uri.parse("http://instagram.com/cinescapekuwait/")
-    val forBrowser = Intent(Intent.ACTION_VIEW, uriForBrowser)
-
-    forApp.component = ComponentName(
-        "com.instagram.android",
-        "com.instagram.android.activity.UrlHandlerActivity"
-    )
-
-    try {
-        startActivity(forApp)
-    } catch (e: ActivityNotFoundException) {
-        startActivity(forBrowser)
-    }
-}
-
-private fun moreTabs() {
-    moreInfoViewModel.moreTabs()
-        .observe(requireActivity()) {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        loader?.dismiss()
-                        resource.data?.let { it ->
-                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                println("SomethingWrong--->${it.data.msg}")
-                                try {
-                                    binding?.moreLayout?.show()
-                                    responseData = it.data
-                                    location(responseData?.output?.cinemas!!)
-                                } catch (e: Exception) {
-                                    println("exceptionMsg--->${e.message}")
+                                } else {
+                                    println("Something Wrong")
                                 }
-
-                            } else {
-                                println("Something Wrong")
+                            }
+                        }
+                        Status.ERROR -> {
+                            loader?.dismiss()
+                            val dialog = OptionDialog(requireActivity(),
+                                R.mipmap.ic_launcher,
+                                R.string.app_name,
+                                it.message.toString(),
+                                positiveBtnText = R.string.ok,
+                                negativeBtnText = R.string.no,
+                                positiveClick = {
+                                },
+                                negativeClick = {
+                                })
+                            dialog.show()
+                        }
+                        Status.LOADING -> {
+                            if (isAdded) {
+                                loader = LoaderDialog(R.string.pleasewait)
+                                loader?.show(requireActivity().supportFragmentManager, null)
                             }
                         }
                     }
-                    Status.ERROR -> {
-                        loader?.dismiss()
-                        val dialog = OptionDialog(requireActivity(),
-                            R.mipmap.ic_launcher,
-                            R.string.app_name,
-                            it.message.toString(),
-                            positiveBtnText = R.string.ok,
-                            negativeBtnText = R.string.no,
-                            positiveClick = {
-                            },
-                            negativeClick = {
-                            })
-                        dialog.show()
-                    }
-                    Status.LOADING -> {
-                        if (isAdded) {
+                }
+            }
+    }
+
+    private fun contactUs(
+        email: String,
+        name: String,
+        mobile: String,
+        username: String,
+        Photo: MultipartBody.Part?,
+    ) {
+        moreInfoViewModel.contactUs(email, name, mobile, username, Photo)
+            .observe(requireActivity()) {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            loader?.dismiss()
+                            resource.data?.let { it ->
+                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                    println("SomethingWrong--->${it.data.msg}")
+                                    val dialog = OptionDialog(requireActivity(),
+                                        R.mipmap.ic_launcher,
+                                        R.string.app_name,
+                                        it.data.msg,
+                                        positiveBtnText = R.string.ok,
+                                        negativeBtnText = R.string.no,
+                                        positiveClick = {
+                                            contactEmail.text?.clear()
+                                            enter_mobile_numbers.text?.clear()
+                                            editTextTextPersonName.text?.clear()
+                                            enterUsername.text?.clear()
+                                            frontPhoto = null
+                                        },
+                                        negativeClick = {
+                                        })
+                                    dialog.show()
+                                } else {
+                                    println("Something Wrong")
+                                }
+                            }
+                        }
+                        Status.ERROR -> {
+                            loader?.dismiss()
+                            val dialog = OptionDialog(requireActivity(),
+                                R.mipmap.ic_launcher,
+                                R.string.app_name,
+                                it.message.toString(),
+                                positiveBtnText = R.string.ok,
+                                negativeBtnText = R.string.no,
+                                positiveClick = {
+                                },
+                                negativeClick = {
+                                })
+                            dialog.show()
+                        }
+                        Status.LOADING -> {
                             loader = LoaderDialog(R.string.pleasewait)
                             loader?.show(requireActivity().supportFragmentManager, null)
                         }
                     }
                 }
             }
-        }
-}
+    }
 
-private fun contactUs(
-    email: String,
-    name: String,
-    mobile: String,
-    username: String,
-    Photo: MultipartBody.Part?,
-) {
-    moreInfoViewModel.contactUs(email, name, mobile, username, Photo)
-        .observe(requireActivity()) {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        loader?.dismiss()
-                        resource.data?.let { it ->
-                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                println("SomethingWrong--->${it.data.msg}")
-                                val dialog = OptionDialog(requireActivity(),
-                                    R.mipmap.ic_launcher,
-                                    R.string.app_name,
-                                    it.data.msg,
-                                    positiveBtnText = R.string.ok,
-                                    negativeBtnText = R.string.no,
-                                    positiveClick = {
-                                        contactEmail.text?.clear()
-                                        enter_mobile_numbers.text?.clear()
-                                        editTextTextPersonName.text?.clear()
-                                        enterUsername.text?.clear()
-                                        frontPhoto = null
-                                    },
-                                    negativeClick = {
-                                    })
-                                dialog.show()
-                            } else {
-                                println("Something Wrong")
+    private fun contact() {
+
+        imageView3.setOnClickListener {
+            val phone = "1803456"
+            val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null))
+            startActivity(intent)
+        }
+
+        imageView4.setOnClickListener {
+            val pm: PackageManager = requireActivity().packageManager
+            try {
+                val waIntent = Intent(Intent.ACTION_SEND)
+                waIntent.type = "text/plain"
+                val text = "YOUR TEXT HERE"
+                val info = pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA)
+                //Check if package exists or not. If not then code
+                //in catch block will be called
+                waIntent.setPackage("com.whatsapp")
+                waIntent.putExtra(Intent.EXTRA_TEXT, text)
+                startActivity(Intent.createChooser(waIntent, "Share with"))
+            } catch (e: PackageManager.NameNotFoundException) {
+                Toast.makeText(requireActivity(), "WhatsApp not Installed", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+    }
+
+    private fun faq(faqs: ArrayList<MoreTabResponse.Faq>) {
+        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        val adapter = FaqAdapter(faqs, requireActivity())
+        binding?.recyclerMore?.setHasFixedSize(true)
+        binding?.recyclerMore?.layoutManager = layoutManager
+        binding?.recyclerMore?.adapter = adapter
+    }
+
+    private fun privacyPolicy(privacy: ArrayList<MoreTabResponse.Privacy>) {
+        val layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding?.recyclerMore?.setHasFixedSize(true)
+        val adapter = PrivacyAdapter(privacy, requireContext())
+        binding?.recyclerMore?.layoutManager = layoutManager
+        binding?.recyclerMore?.adapter = adapter
+    }
+
+    private fun ageRating(ratings: ArrayList<MoreTabResponse.Rating>) {
+        println("ageRating--->${ratings}")
+        val layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding?.recyclerMore?.setHasFixedSize(true)
+        val adapter = AgeRatingAdapter(ratings, requireContext())
+        binding?.recyclerMore?.layoutManager = layoutManager
+        binding?.recyclerMore?.adapter = adapter
+    }
+
+    private fun termsAndCondition(tunics: ArrayList<MoreTabResponse.Tnc>) {
+        val layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding?.recyclerMore?.setHasFixedSize(true)
+        val adapter = TermsConditionAdapter(tunics, requireContext())
+        binding?.recyclerMore?.layoutManager = layoutManager
+        binding?.recyclerMore?.adapter = adapter
+
+    }
+
+    private fun location(location: ArrayList<MoreTabResponse.Cinema>) {
+        val layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding?.recyclerMore?.setHasFixedSize(true)
+        val adapter = LocationAdapter(location, requireContext())
+        binding?.recyclerMore?.layoutManager = layoutManager
+        binding?.recyclerMore?.adapter = adapter
+
+    }
+
+    private fun countryCodeLoad() {
+        moreInfoViewModel.countryCode(requireActivity())
+            .observe(requireActivity()) {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            loader?.dismiss()
+                            resource.data?.let { it ->
+                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                    println("LocationResponse--->${it.data.output}")
+                                    countryCodeList = it.data.output
+                                    enter_mobile_code.text = it.data.output[0].isdCode
+                                    retrieveCountryList(it.data.output)
+
+                                } else {
+                                    println("Something Wrong")
+                                }
                             }
                         }
-                    }
-                    Status.ERROR -> {
-                        loader?.dismiss()
-                        val dialog = OptionDialog(requireActivity(),
-                            R.mipmap.ic_launcher,
-                            R.string.app_name,
-                            it.message.toString(),
-                            positiveBtnText = R.string.ok,
-                            negativeBtnText = R.string.no,
-                            positiveClick = {
-                            },
-                            negativeClick = {
-                            })
-                        dialog.show()
-                    }
-                    Status.LOADING -> {
-                        loader = LoaderDialog(R.string.pleasewait)
-                        loader?.show(requireActivity().supportFragmentManager, null)
+                        Status.ERROR -> {
+                            loader?.dismiss()
+                            val dialog = OptionDialog(requireActivity(),
+                                R.mipmap.ic_launcher,
+                                R.string.app_name,
+                                it.message.toString(),
+                                positiveBtnText = R.string.ok,
+                                negativeBtnText = R.string.no,
+                                positiveClick = {
+                                },
+                                negativeClick = {
+                                })
+                            dialog.show()
+                        }
+                        Status.LOADING -> {
+                        }
                     }
                 }
             }
-        }
-}
-
-private fun contact() {
-
-    imageView3.setOnClickListener {
-        val phone = "1803456"
-        val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null))
-        startActivity(intent)
     }
 
-    imageView4.setOnClickListener {
-        val pm: PackageManager = requireActivity().packageManager
-        try {
-            val waIntent = Intent(Intent.ACTION_SEND)
-            waIntent.type = "text/plain"
-            val text = "YOUR TEXT HERE"
-            val info = pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA)
-            //Check if package exists or not. If not then code
-            //in catch block will be called
-            waIntent.setPackage("com.whatsapp")
-            waIntent.putExtra(Intent.EXTRA_TEXT, text)
-            startActivity(Intent.createChooser(waIntent, "Share with"))
-        } catch (e: PackageManager.NameNotFoundException) {
-            Toast.makeText(requireActivity(), "WhatsApp not Installed", Toast.LENGTH_SHORT)
-                .show()
+    private fun retrieveCountryList(output: ArrayList<CountryCodeResponse.Output>) {
+        enter_mobile_code.setOnClickListener {
+            bottomDialog(output)
         }
     }
-}
 
-private fun faq(faqs: ArrayList<MoreTabResponse.Faq>) {
-    val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-    val adapter = FaqAdapter(faqs, requireActivity())
-    binding?.recyclerMore?.setHasFixedSize(true)
-    binding?.recyclerMore?.layoutManager = layoutManager
-    binding?.recyclerMore?.adapter = adapter
-}
-
-private fun privacyPolicy(privacy: ArrayList<MoreTabResponse.Privacy>) {
-    val layoutManager =
-        LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-    binding?.recyclerMore?.setHasFixedSize(true)
-    val adapter = PrivacyAdapter(privacy, requireContext())
-    binding?.recyclerMore?.layoutManager = layoutManager
-    binding?.recyclerMore?.adapter = adapter
-}
-
-private fun ageRating(ratings: ArrayList<MoreTabResponse.Rating>) {
-    println("ageRating--->${ratings}")
-    val layoutManager =
-        LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-    binding?.recyclerMore?.setHasFixedSize(true)
-    val adapter = AgeRatingAdapter(ratings, requireContext())
-    binding?.recyclerMore?.layoutManager = layoutManager
-    binding?.recyclerMore?.adapter = adapter
-}
-
-private fun termsAndCondition(tunics: ArrayList<MoreTabResponse.Tnc>) {
-    val layoutManager =
-        LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-    binding?.recyclerMore?.setHasFixedSize(true)
-    val adapter = TermsConditionAdapter(tunics, requireContext())
-    binding?.recyclerMore?.layoutManager = layoutManager
-    binding?.recyclerMore?.adapter = adapter
-
-}
-
-private fun location(location: ArrayList<MoreTabResponse.Cinema>) {
-    val layoutManager =
-        LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-    binding?.recyclerMore?.setHasFixedSize(true)
-    val adapter = LocationAdapter(location, requireContext())
-    binding?.recyclerMore?.layoutManager = layoutManager
-    binding?.recyclerMore?.adapter = adapter
-
-}
-
-private fun countryCodeLoad() {
-    moreInfoViewModel.countryCode(requireActivity())
-        .observe(requireActivity()) {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        loader?.dismiss()
-                        resource.data?.let { it ->
-                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                println("LocationResponse--->${it.data.output}")
-                                countryCodeList = it.data.output
-                                mobileCodeMore.setText(it.data.output[0].isdCode)
-                                retrieveCountryList(it.data.output)
-
-                            } else {
-                                println("Something Wrong")
-                            }
-                        }
-                    }
-                    Status.ERROR -> {
-                        loader?.dismiss()
-                        val dialog = OptionDialog(requireActivity(),
-                            R.mipmap.ic_launcher,
-                            R.string.app_name,
-                            it.message.toString(),
-                            positiveBtnText = R.string.ok,
-                            negativeBtnText = R.string.no,
-                            positiveClick = {
-                            },
-                            negativeClick = {
-                            })
-                        dialog.show()
-                    }
-                    Status.LOADING -> {
-                    }
-                }
-            }
-        }
-}
-
-private fun retrieveCountryList(output: ArrayList<CountryCodeResponse.Output>) {
-    mobileCodeMore.setOnClickListener {
-        bottomDialog(output)
-    }
-}
-
-private fun bottomDialog(countryList: ArrayList<CountryCodeResponse.Output>) {
-    val mDialogView = layoutInflater.inflate(R.layout.countrycode_new_dialog, null)
-    val mBuilder = AlertDialog.Builder(requireActivity(), R.style.MyDialogTransparent)
-        .setView(mDialogView)
-    val mAlertDialog = mBuilder.show()
-    mAlertDialog.setCancelable(false)
-    mAlertDialog.setCanceledOnTouchOutside(false)
-    mAlertDialog.window?.setBackgroundDrawableResource(R.color.transparent)
-    val recyclerView = mDialogView.findViewById<RecyclerView>(R.id.NewCountryRecycler)
-    val cancel = mDialogView.findViewById<View>(R.id.view73)
-    val edSearch = mDialogView.findViewById<EditText>(R.id.searchData)
-    val proceed = mDialogView.findViewById<View>(R.id.textView57)
-    mAdapter = CountryCodeAdapter(countryCodeList, this, requireActivity())
-    recyclerView.adapter = mAdapter
-    //Recycler
-    val layoutManager =
-        LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+    private fun bottomDialog(countryList: ArrayList<CountryCodeResponse.Output>) {
+        val mDialogView = layoutInflater.inflate(R.layout.countrycode_new_dialog, null)
+        val mBuilder = AlertDialog.Builder(requireActivity(), R.style.MyDialogTransparent)
+            .setView(mDialogView)
+        val mAlertDialog = mBuilder.show()
+        mAlertDialog.setCancelable(false)
+        mAlertDialog.setCanceledOnTouchOutside(false)
+        mAlertDialog.window?.setBackgroundDrawableResource(R.color.transparent)
+        val recyclerView = mDialogView.findViewById<RecyclerView>(R.id.NewCountryRecycler)
+        val cancel = mDialogView.findViewById<View>(R.id.view73)
+        val edSearch = mDialogView.findViewById<EditText>(R.id.searchData)
+        val proceed = mDialogView.findViewById<View>(R.id.textView57)
+        mAdapter = CountryCodeAdapter(countryCodeList, this, requireActivity())
+        recyclerView.adapter = mAdapter
+        //Recycler
+        val layoutManager =
+            LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
 //        recyclerView.isNestedScrollingEnabled = true
-    recyclerView.setHasFixedSize(true)
-    recyclerView.layoutManager = layoutManager
-    countryCodeList = countryList
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = layoutManager
+        countryCodeList = countryList
 
-    edSearch.addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(s: Editable) {}
-        override fun beforeTextChanged(
-            s: CharSequence, start: Int, count: Int, after: Int
-        ) {
+        edSearch.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int, count: Int, after: Int
+            ) {
 
-        }
-
-        override fun onTextChanged(
-            cs: CharSequence, start: Int, before: Int, count: Int
-        ) {
-            countryCodeList = java.util.ArrayList()
-            countryCodeList = if (cs == "") {
-                countryList
-            } else {
-                java.util.ArrayList()
             }
-            for (i in 0 until countryList.size) {
-                try {
-                    if (countryList[i].countryName.lowercase()
-                            .contains(cs.toString().lowercase())
-                    ) {
-                        countryCodeList.add(countryList[i])
-                    }
 
-                } catch (e: Exception) {
-                    println("SearchMsg--->${e.message}")
+            override fun onTextChanged(
+                cs: CharSequence, start: Int, before: Int, count: Int
+            ) {
+                countryCodeList = java.util.ArrayList()
+                countryCodeList = if (cs == "") {
+                    countryList
+                } else {
+                    java.util.ArrayList()
                 }
-            }
-            println("comingSoonSize--->${countryCodeList.size}")
+                for (i in 0 until countryList.size) {
+                    try {
+                        if (countryList[i].countryName.lowercase()
+                                .contains(cs.toString().lowercase())
+                        ) {
+                            countryCodeList.add(countryList[i])
+                        }
 
-            mAdapter?.updateList(countryCodeList)
+                    } catch (e: Exception) {
+                        println("SearchMsg--->${e.message}")
+                    }
+                }
+                println("comingSoonSize--->${countryCodeList.size}")
+
+                mAdapter?.updateList(countryCodeList)
 //                field1.setText("")
+            }
+        })
+
+        cancel.setOnClickListener {
+            mAlertDialog?.dismiss()
         }
-    })
 
-    cancel.setOnClickListener {
-        mAlertDialog?.dismiss()
+        proceed.setOnClickListener {
+            mAlertDialog?.dismiss()
+            edSearch.text.clear()
+            enter_mobile_code.text = countryCode
+        }
+
     }
 
-    proceed.setOnClickListener {
-        mAlertDialog?.dismiss()
-        edSearch.text.clear()
-        mobileCodeMore.setText(countryCode)
+    override fun onItemClick(view: CountryCodeResponse.Output) {
+        countryCode = view.isdCode
     }
-
-}
-
-override fun onItemClick(view: CountryCodeResponse.Output) {
-    countryCode = view.isdCode
-}
 
 //    override fun onRequestPermissionsResult(
 //        requestCode: Int,
@@ -899,114 +898,114 @@ override fun onItemClick(view: CountryCodeResponse.Output) {
 //        }
 //    }
 
-override fun onRequestPermissionsResult(
-    requestCode: Int,
-    permissions: Array<String>,
-    grantResults: IntArray
-) {
-    when (requestCode) {
-        SELECT_PICTURE -> {
-            var i = 0
-            while (i < permissions.size) {
-                val permission = permissions[i]
-                if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
-                    val showRationale =
-                        ActivityCompat.shouldShowRequestPermissionRationale(
-                            requireActivity(),
-                            permission
-                        )
-                    if (showRationale) {
-                        textView29.performClick()
-                        //  Show your own message here
-                    } else {
-                        showSettingsAlert()
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            SELECT_PICTURE -> {
+                var i = 0
+                while (i < permissions.size) {
+                    val permission = permissions[i]
+                    if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
+                        val showRationale =
+                            ActivityCompat.shouldShowRequestPermissionRationale(
+                                requireActivity(),
+                                permission
+                            )
+                        if (showRationale) {
+                            textView29.performClick()
+                            //  Show your own message here
+                        } else {
+                            showSettingsAlert()
+                        }
                     }
+                    i++
                 }
-                i++
             }
         }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
-    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-}
 
-private fun showSettingsAlert() {
-    val alertDialog = android.app.AlertDialog.Builder(requireActivity()).create()
-    alertDialog.setTitle("Alert")
-    alertDialog.setMessage("App needs to access the Camera.")
-    alertDialog.setButton(
-        android.app.AlertDialog.BUTTON_NEGATIVE, "DONT ALLOW"
-    ) { dialog, _ ->
-        dialog.dismiss()
-        //finish();
+    private fun showSettingsAlert() {
+        val alertDialog = android.app.AlertDialog.Builder(requireActivity()).create()
+        alertDialog.setTitle("Alert")
+        alertDialog.setMessage("App needs to access the Camera.")
+        alertDialog.setButton(
+            android.app.AlertDialog.BUTTON_NEGATIVE, "DONT ALLOW"
+        ) { dialog, _ ->
+            dialog.dismiss()
+            //finish();
+        }
+        alertDialog.setButton(
+            android.app.AlertDialog.BUTTON_POSITIVE, "SETTINGS"
+        ) { dialog, _ ->
+            dialog.dismiss()
+            openAppSettings(requireActivity())
+        }
+        alertDialog.show()
     }
-    alertDialog.setButton(
-        android.app.AlertDialog.BUTTON_POSITIVE, "SETTINGS"
-    ) { dialog, _ ->
-        dialog.dismiss()
-        openAppSettings(requireActivity())
-    }
-    alertDialog.show()
-}
 
 
-@Deprecated("Deprecated in Java")
-override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    super.onActivityResult(requestCode, resultCode, data)
-    Thread {
-        if (resultCode == AppCompatActivity.RESULT_OK) {
-            if (requestCode == SELECT_PICTURE) {
-                // Get the url from data
-                val selectedImageUri = data!!.data
-                if (null != selectedImageUri) {
-                    // Get the path from the Uri
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Thread {
+            if (resultCode == AppCompatActivity.RESULT_OK) {
+                if (requestCode == SELECT_PICTURE) {
+                    // Get the url from data
+                    val selectedImageUri = data!!.data
+                    if (null != selectedImageUri) {
+                        // Get the path from the Uri
 //                        val path = getPathFromURI(selectedImageUri)
 
-                    val mFileTemp =
-                        File(ImageFilePath.getFilePath(requireContext(), selectedImageUri))
-                    val requestFile: RequestBody =
-                        mFileTemp.asRequestBody("multipart/form-data".toMediaTypeOrNull())
-                    val file =
-                        MultipartBody.Part.createFormData("file", mFileTemp.name, requestFile)
+                        val mFileTemp =
+                            File(ImageFilePath.getFilePath(requireContext(), selectedImageUri))
+                        val requestFile: RequestBody =
+                            mFileTemp.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+                        val file =
+                            MultipartBody.Part.createFormData("file", mFileTemp.name, requestFile)
 //                        updateImage(file)
-                    frontPhoto = file
-                    println("showImagePath--->${file}")
+                        frontPhoto = file
+                        println("showImagePath--->${file}")
 
+                    }
                 }
             }
-        }
-    }.start()
-}
-
-/* Get the real path from the URI */
-private fun getPathFromURI(contentUri: Uri?): String? {
-    var res: String? = null
-    val proj = arrayOf(MediaStore.Images.Media.DATA)
-    val cursor = requireActivity().contentResolver.query(contentUri!!, proj, null, null, null)
-    if (cursor!!.moveToFirst()) {
-        val column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-        res = cursor.getString(column_index)
+        }.start()
     }
-    cursor.close()
-    return res
-}
 
-companion object {
-    private const val SELECT_PICTURE = 100
-    private const val TAG = "SelectImageActivity"
-    fun openAppSettings(context: Activity?) {
-        if (context == null) {
-            return
+    /* Get the real path from the URI */
+    private fun getPathFromURI(contentUri: Uri?): String? {
+        var res: String? = null
+        val proj = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor = requireActivity().contentResolver.query(contentUri!!, proj, null, null, null)
+        if (cursor!!.moveToFirst()) {
+            val column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            res = cursor.getString(column_index)
         }
-        val i = Intent()
-        i.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-        i.addCategory(Intent.CATEGORY_DEFAULT)
-        i.data = Uri.parse("package:" + context.packageName)
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
-        i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
-        context.startActivity(i)
+        cursor.close()
+        return res
     }
-}
+
+    companion object {
+        private const val SELECT_PICTURE = 100
+        private const val TAG = "SelectImageActivity"
+        fun openAppSettings(context: Activity?) {
+            if (context == null) {
+                return
+            }
+            val i = Intent()
+            i.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+            i.addCategory(Intent.CATEGORY_DEFAULT)
+            i.data = Uri.parse("package:" + context.packageName)
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+            i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
+            context.startActivity(i)
+        }
+    }
 
 
 //    @Deprecated("Deprecated in Java")
@@ -1026,11 +1025,11 @@ companion object {
 //    }
 //
 
-private fun getImageUri(inImage: Bitmap?): Uri? {
-    val path: String = MediaStore.Images.Media.insertImage(
-        requireActivity().contentResolver, inImage,
-        System.currentTimeMillis().toString(), null
-    )
-    return Uri.parse(path)
-}
+    private fun getImageUri(inImage: Bitmap?): Uri? {
+        val path: String = MediaStore.Images.Media.insertImage(
+            requireActivity().contentResolver, inImage,
+            System.currentTimeMillis().toString(), null
+        )
+        return Uri.parse(path)
+    }
 }

@@ -335,7 +335,6 @@ class HomeActivity : DaggerAppCompatActivity() {
                     mDialogView.text_time_visible.text = output.output[0].showTime
                     mDialogView.text_bombshell.text = output.output[0].moviename
                     mDialogView.text13.text = output.output[0].mcensor
-
                     when (output.output[0].mcensor) {
                         "PG" -> {
                             mDialogView.text13.setBackgroundResource(R.color.grey)
@@ -420,6 +419,7 @@ class HomeActivity : DaggerAppCompatActivity() {
                         mAlertDialog?.dismiss()
                     }
 
+                    mDialogView.text_have_upcoming_booking.text=getString(R.string.upcoming_booking)
                     mDialogView.go_to_booking_btn.setOnClickListener {
                         binding?.navigationView?.selectedItemId = R.id.accountFragment
                         setCurrentFragment(AccountPageFragment())

@@ -7,7 +7,7 @@ data class MoviesResponse(
     val result: String
 ) {
     data class Output(
-        val comingsoon: ArrayList<Nowshowing>,
+        val comingsoon: ArrayList<Comingsoon>,
         val nowshowing: ArrayList<Nowshowing>,
         val alllanguages: ArrayList<String>,
         val cinemas: ArrayList<Cinema>?,
@@ -16,7 +16,77 @@ data class MoviesResponse(
         val experiences: ArrayList<*>,
         val genreList: ArrayList<*>,
         val nslanguages: ArrayList<String>,
-        val ratings: ArrayList<String>
+        val ratings: ArrayList<String>,
+
+        val advanceBooking: List<AdvanceBooking>,
+
+        val lastChance: List<LastChance>
+    )
+    data class AdvanceBooking(
+        val cast: List<CastXY>,
+        val comingSoon: Boolean,
+        val director: DirectorXY,
+        val distributorName: String,
+        val genre: String,
+        val genreAlt: Any,
+        val hOFilmCode: String,
+        val id: String,
+        val language: String,
+        val languageAlt: String,
+        val mobimgbig: String,
+        val mobimgsmall: String,
+        val movieCinemas: List<String>,
+        val movieExperience: List<String>,
+        val movieTimings: List<Int>,
+        val openingDate: String,
+        val producer: Any,
+        val rating: String,
+        val ratingDescription: String,
+        val ratingDescriptionAlt: String,
+        val runTime: Int,
+        val runTimeStr: String,
+        val scheduledAtCinema: Boolean,
+        val sliderimgurl: String,
+        val synopsis: String,
+        val synopsisAlt: String,
+        val title: String,
+        val titleAlt: String,
+        val trailerUrl: String,
+        val webimgbig: String,
+        val webimgsmall: String
+    )
+    data class LastChance(
+        val cast: List<CastXY>,
+        val comingSoon: Boolean,
+        val director: DirectorXY,
+        val distributorName: String,
+        val genre: String,
+        val genreAlt: Any,
+        val hOFilmCode: String,
+        val id: String,
+        val language: String,
+        val languageAlt: String,
+        val mobimgbig: String,
+        val mobimgsmall: String,
+        val movieCinemas: List<String>,
+        val movieExperience: List<String>,
+        val movieTimings: List<Int>,
+        val openingDate: String,
+        val producer: Any,
+        val rating: String,
+        val ratingDescription: String,
+        val ratingDescriptionAlt: String,
+        val runTime: Int,
+        val runTimeStr: String,
+        val scheduledAtCinema: Boolean,
+        val sliderimgurl: String,
+        val synopsis: String,
+        val synopsisAlt: String,
+        val title: String,
+        val titleAlt: String,
+        val trailerUrl: String,
+        val webimgbig: String,
+        val webimgsmall: String
     )
     data class MovieTimings(
         val id:String,
@@ -54,6 +124,39 @@ data class MoviesResponse(
         val webimgbig: Any,
         val webimgsmall: Any
     )
+    data class Comingsoon(
+        val cast: List<CastXY>,
+        val comingSoon: Boolean,
+        val director: DirectorXY,
+        val distributorName: String,
+        val genre: String,
+        val genreAlt: Any,
+        val hOFilmCode: String,
+        val id: String,
+        val language: String,
+        val languageAlt: String,
+        val mobimgbig: String,
+        val mobimgsmall: String,
+        val movieCinemas: List<Any>,
+        val movieExperience: List<Any>,
+        val movieTimings: List<Any>,
+        val openingDate: String,
+        val producer: Any,
+        val rating: String,
+        val ratingDescription: String,
+        val ratingDescriptionAlt: Any,
+        val runTime: Int,
+        val runTimeStr: String,
+        val scheduledAtCinema: Boolean,
+        val sliderimgurl: String,
+        val synopsis: String,
+        val synopsisAlt: String,
+        val title: String,
+        val titleAlt: String,
+        val trailerUrl: String,
+        val webimgbig: String,
+        val webimgsmall: String
+    )
     data class Director(
         val firstName: String,
         val id: String,
@@ -70,7 +173,16 @@ data class MoviesResponse(
         val urlToDetails: String,
         val urlToPicture: String
     )
-
+    data class DirectorXY(
+        val firstName: String,
+        val firstNameAlt: Any,
+        val id: String,
+        val lastName: String,
+        val lastNameAlt: Any,
+        val personType: String,
+        val urlToDetails: String,
+        val urlToPicture: String
+    )
     data class Cinema(
         val active: Boolean,
         val address1: String,
@@ -101,5 +213,15 @@ data class MoviesResponse(
         val key: String,
         val value: String,
         val valueAlt: String
+    )
+    data class CastXY(
+        val firstName: String,
+        val firstNameAlt: Any,
+        val id: String,
+        val lastName: String,
+        val lastNameAlt: Any,
+        val personType: String,
+        val urlToDetails: String,
+        val urlToPicture: String
     )
 }

@@ -12,11 +12,11 @@ import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.MoviesResponse
 import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.ui.main.viewModels.HomeViewModel
-import com.cinescape1.ui.main.views.adapters.moviesFragmentAdapter.AdapterCommingSoon
+import com.cinescape1.ui.main.views.adapters.moviesFragmentAdapter.AdapterComingSoon
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class ComingSoonFragment(private val nowshowing: ArrayList<MoviesResponse.Nowshowing>) : DaggerFragment() {
+class ComingSoonFragment(private val nowshowing: ArrayList<MoviesResponse.Comingsoon>) : DaggerFragment() {
     private var recyclerComingSoon: RecyclerView? = null
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -37,7 +37,7 @@ class ComingSoonFragment(private val nowshowing: ArrayList<MoviesResponse.Nowsho
         recyclerComingSoon = view.findViewById<View>(R.id.recyclerview_coming_soon) as RecyclerView
         val gridLayout = GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false)
         recyclerComingSoon?.setHasFixedSize(true)
-        val adapter = AdapterCommingSoon(nowshowing, requireActivity())
+        val adapter = AdapterComingSoon(nowshowing, requireActivity())
         recyclerComingSoon?.layoutManager = gridLayout
         recyclerComingSoon?.adapter = adapter
 

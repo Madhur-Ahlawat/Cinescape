@@ -32,7 +32,7 @@ class FilterChildMovieAdapter(private val mContext: Context, private val items: 
         @SuppressLint("RecyclerView") position: Int
     ) {
         val obj = items[position]
-        holder.todoTitle.text = obj.name
+        holder.todoTitle.text = obj.name+"\n"+obj.timing
         holder.todoTitle.setOnClickListener {
             if (selected.contains(obj.name+"-"+obj.id)){
                 selected.remove(obj.name+"-"+obj.id)

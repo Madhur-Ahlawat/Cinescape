@@ -71,7 +71,8 @@
     <string name="time">Time</string>
     <string name="go_to_booking">Go to Booking</string>
     <string name="you_have_an_upcoming_booking">You have an upcoming booking.</string>
-    <string name="booking_alert">Booking alert</string>
+    <string name="upcoming_booking">You have an upcoming bookings</string>
+    <string name="booking_alert">BOOKING ALERT</string>
     <string name="english_action_thriller_horror_128_min">English | Action, Thriller, Horror | 128 min</string>
     <string name="contentDes">contentDescription</string>
     <string name="notify_me">Notify me</string>
@@ -312,5 +313,6 @@
     <string name="commingSoon">COMING SOON</string>
     <string name="advanceBooking">ADVANCE BOOKING</string>
     <string name="internetMsg">Your connection to the internet was lost.\n Please connect and try again</string>
+    <string name="no_movie_available">No Movie Available</string>
 
 </resources>

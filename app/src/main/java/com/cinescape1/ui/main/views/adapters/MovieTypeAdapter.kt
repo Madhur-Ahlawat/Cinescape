@@ -1,20 +1,27 @@
 package com.cinescape1.ui.main.views.adapters
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
 import com.cinescape1.data.models.MovieTypeModel
-import com.cinescape1.data.models.responseModel.MoviesResponse
+import com.cinescape1.utils.hide
+import com.cinescape1.utils.show
 
 class MovieTypeAdapter(
-    private val arrayList: ArrayList<MovieTypeModel>
+    private val arrayList: ArrayList<MovieTypeModel>,
+    private val context: Context,
+    private var listener: RecycleViewItemClickListener
 ) :
     RecyclerView.Adapter<MovieTypeAdapter.ViewHolder>() {
-    private var count: Int = 0
+    private var rowIndex = 0
+
     @SuppressLint("InflateParams")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_type_item, null)
@@ -29,8 +36,22 @@ class MovieTypeAdapter(
         val list = arrayList[position]
         holder.text.text = list.name
 
+        val heavy: Typeface = context.resources.getFont(R.font.sf_pro_text_heavy)
+
+        if (rowIndex == position) {
+            holder.view.show()
+            holder.text.setTextColor(ContextCompat.getColor(context, R.color.white))
+            holder.text.textSize = 18f
+            holder.text.typeface = heavy
+        } else {
+            holder.view.hide()
+            holder.text.setTextColor(ContextCompat.getColor(context, R.color.text_color))
+            holder.text.typeface = heavy
+            holder.text.textSize = 14F
+        }
         holder.itemView.setOnClickListener {
-            count=position
+            rowIndex = position
+            listener.onMovieTypeClick(position)
             notifyDataSetChanged()
         }
     }
@@ -41,6 +62,6 @@ class MovieTypeAdapter(
     }
 
     interface RecycleViewItemClickListener {
-        fun onItemClick(view: MoviesResponse.Output, title: String)
+        fun onMovieTypeClick(position: Int)
     }
 }

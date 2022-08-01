@@ -113,7 +113,6 @@ class CheckoutWithFoodActivity : DaggerAppCompatActivity() {
         from = intent.getStringExtra("From").toString()
         bookType = intent.getStringExtra("BOOKING").toString()
         type = intent.getStringExtra("TYPE").toString()
-        println("typeCheck--->${type}--->${from}")
         //AppBar Hide
         window.apply {
             clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)

@@ -120,42 +120,23 @@
         app:layout_constraintStart_toStartOf="@+id/view_mobile1"
         app:layout_constraintTop_toTopOf="@+id/view_mobile1" />
 
-    <com.google.android.material.textfield.TextInputLayout
+    <TextView
         android:id="@+id/enter_mobile_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
+        android:drawablePadding="@dimen/margin8"
         android:fontFamily="@font/sf_pro_text_regular"
         android:paddingTop="@dimen/margin6"
-        app:endIconDrawable="@drawable/ic_icons_light_next"
         app:endIconMode="dropdown_menu"
-        app:endIconTint="@color/text_color"
-        app:errorIconDrawable="@color/text_color"
+        android:textColor="@color/white"
+        tools:text="+92"
         app:layout_constraintBottom_toBottomOf="@+id/text_mobile_title"
         app:layout_constraintEnd_toStartOf="@+id/enter_mobile_number"
         app:layout_constraintHorizontal_weight="1.5"
         app:layout_constraintStart_toEndOf="@+id/text_mobile_title"
-        app:layout_constraintTop_toTopOf="@+id/text_mobile_title">
-
-        <AutoCompleteTextView
-            android:id="@+id/mobileCodeMore"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/a_edit_bg"
-            android:backgroundTint="@color/edittext_profile"
-            android:clickable="false"
-            android:completionThreshold="1"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:paddingTop="@dimen/margin6"
-            android:text="+965"
-            android:textColor="@color/white"
-            android:textColorHint="@color/arabic_color"
-            android:textSize="@dimen/size14"
-            tools:ignore="HardcodedText,LabelFor,TouchTargetSizeCheck" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toTopOf="@+id/text_mobile_title"
+        app:drawableEndCompat="@drawable/ic_icons_light_next" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/enter_mobile_number"

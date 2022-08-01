@@ -12,6 +12,8 @@
         android:id="@+id/card_now_showing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:maxWidth="110dp"
+        android:maxHeight="155dp"
         android:elevation="@dimen/margin2"
         app:cardBackgroundColor="@color/black"
         app:cardCornerRadius="@dimen/margin10"
