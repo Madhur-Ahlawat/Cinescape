@@ -158,10 +158,6 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
 
     }
 
-    private fun broadcastIntent() {
-        registerReceiver(broadcastReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
-    }
-
     //GetSeatLayout
     private fun getSeatLayout(request: SeatLayoutRequest) {
         seatScreenMainViewModel.getSeatLayout(request)
@@ -380,7 +376,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
     }
 
     private fun movedBottom() {
-        binding?.SeatnestedScroll?.post(Runnable { binding?.SeatnestedScroll?.fullScroll(View.FOCUS_DOWN) })
+        binding?.SeatnestedScroll?.post { binding?.SeatnestedScroll?.fullScroll(View.FOCUS_DOWN) }
     }
 
     private fun setTitleAdapter(daySessions: ArrayList<SeatLayoutResponse.DaySession>) {
@@ -653,6 +649,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
         cinemaPos: Int,
         movieCinemaId: String
     ) {
+
         println("Cinema--->${position}")
     }
 
@@ -666,8 +663,31 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
         CinemaID = show.cinemaId
         SessionID = show.sessionId
         show_pos = position
-        cinemaSessionResponse?.let { showSeatTypePopup(it, name, position) }
+
+        SEAT_SESSION_CLICK = 1
+        val intent = Intent(this, ShowTimesActivity::class.java)
+        intent.putExtra("NAME", name).putExtra("CINEMAID", show.cinemaId)
+            .putExtra("SESSIONID", show.sessionId).putExtra("SHOW_POS", position)
+            .putExtra("CINEMA_POS", cinemaPos)
+        setResult(50, intent)
+        finish()
+//        cinemaSessionResponse?.let { showSeatTypePopup(it, name, position) }
     }
+
+//    override fun onShowClicked(
+//        show: CinemaSessionResponse.Show,
+//        name: String,
+//        position: Int,
+//        cinemaPos: Int
+//    ) {
+//        SEAT_SESSION_CLICK = 1
+//        val intent = Intent(this, ShowTimesActivity::class.java)
+//        intent.putExtra("NAME", name).putExtra("CINEMAID", show.cinemaId)
+//            .putExtra("SESSIONID", show.sessionId).putExtra("SHOW_POS", position)
+//            .putExtra("CINEMA_POS", cinemaPos)
+//        setResult(50, intent)
+//        finish()
+//    }
 
     @SuppressLint("CutPasteId")
     private fun showSeatTypePopup(output: SeatLayoutResponse.Output, name: String, pos: Int) {
@@ -1144,6 +1164,10 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
         } catch (e: Exception) {
 
         }
+    }
+
+    private fun broadcastIntent() {
+        registerReceiver(broadcastReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
     }
 
 }

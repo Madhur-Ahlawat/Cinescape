@@ -146,6 +146,7 @@ class SplashActivity : DaggerAppCompatActivity() {
                                 positiveBtnText = R.string.ok,
                                 negativeBtnText = R.string.no,
                                 positiveClick = {
+                                  finish()
                                 },
                                 negativeClick = {
                                 })

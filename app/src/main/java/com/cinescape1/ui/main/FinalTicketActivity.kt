@@ -239,7 +239,7 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
                 text_wallet.text = output.payDone
                 tv_category_name.text = output.category
                 text_kd_total_ticket_price.text = output.totalTicketPrice
-                text_types.text = output.mcensor
+                 text_types.text = output.mcensor
                 
                 val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
                 val adapter = SeatListAdapter(output.seatsArr)

@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.cinescape1.R
+import com.cinescape1.data.models.MovieTypeModel
 import com.cinescape1.data.models.requestModel.MovieRequest
 import com.cinescape1.data.models.responseModel.FilterModel
 import com.cinescape1.data.models.responseModel.FilterTypeModel
@@ -34,6 +35,7 @@ import com.cinescape1.databinding.FragmentMoviesBinding
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.viewModels.HomeViewModel
+import com.cinescape1.ui.main.views.adapters.MovieTypeAdapter
 import com.cinescape1.ui.main.views.adapters.filterAdapter.AdapterFilterTitle
 import com.cinescape1.ui.main.views.adapters.moviesFragmentAdapter.AdapterCommingSoon
 import com.cinescape1.ui.main.views.adapters.moviesFragmentAdapter.AdapterFilterCategory
@@ -47,7 +49,7 @@ import kotlinx.android.synthetic.main.search_ui.*
 import javax.inject.Inject
 
 
-class MoviesFragment : DaggerFragment(),AdapterFilterCategory.RecycleViewItemClickListener {
+class MoviesFragment : DaggerFragment(), AdapterFilterCategory.RecycleViewItemClickListener {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -68,13 +70,16 @@ class MoviesFragment : DaggerFragment(),AdapterFilterCategory.RecycleViewItemCli
     private var isComingsoon = false
 
     //Filter Params
-    var filterDataList:ArrayList<FilterTypeModel> = ArrayList()
-    var exp_data = "ALL";
-    var cinema_data = "ALL";
-    var timing_data = "ALL";
-    var rating_data = "ALL";
-    var genre_data = "ALL";
-    var language_data = "ALL";
+    var filterDataList: ArrayList<FilterTypeModel> = ArrayList()
+    var exp_data = "ALL"
+    var cinema_data = "ALL"
+    var timing_data = "ALL"
+    var rating_data = "ALL"
+    var genre_data = "ALL"
+    var language_data = "ALL"
+
+    private val list = ArrayList<MovieTypeModel>()
+
 
     @SuppressLint("ResourceAsColor")
     override fun onCreateView(
@@ -108,6 +113,18 @@ class MoviesFragment : DaggerFragment(),AdapterFilterCategory.RecycleViewItemCli
         tabLayout.addTab(tabLayout.newTab().setText("COMING SOON"))
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
 
+        list.add(MovieTypeModel(getString(R.string.nowSowing)))
+        list.add(MovieTypeModel(getString(R.string.commingSoon)))
+        list.add(MovieTypeModel(getString(R.string.advanceBooking)))
+
+
+
+        val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.HORIZONTAL, false)
+        binding?.recyclerType?.layoutManager = LinearLayoutManager(context)
+        val adapter = MovieTypeAdapter(list)
+        binding?.recyclerType?.layoutManager = gridLayout
+        binding?.recyclerType?.adapter = adapter
+
         //AppBar Hide
 // Show status bar
         requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
@@ -136,7 +153,16 @@ class MoviesFragment : DaggerFragment(),AdapterFilterCategory.RecycleViewItemCli
                 binding?.searchMovie?.layoutParams = params
             }
         }
-        movesData(MovieRequest(cinema_data, exp_data, genre_data, language_data, rating_data, timing_data))
+        movesData(
+            MovieRequest(
+                cinema_data,
+                exp_data,
+                genre_data,
+                language_data,
+                rating_data,
+                timing_data
+            )
+        )
         movedNext()
         broadcastReceiver = MyReceiver()
         broadcastIntent()
@@ -151,42 +177,42 @@ class MoviesFragment : DaggerFragment(),AdapterFilterCategory.RecycleViewItemCli
 
     @SuppressLint("ClickableViewAccessibility")
     private fun movedNext() {
-        //now Showing
-        textView52.setOnClickListener {
-            textView52.textSize = 18F
-            textView52.typeface =
-                ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
-            textView52.setTextColor(requireActivity().getColor(R.color.white))
-
-            textView53.textSize = 14F
-            textView53.setTextColor(requireActivity().getColor(R.color.text_color))
-            textView53.typeface =
-                ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
-            view69.show()
-            view70.invisible()
-            nowSowing(moviesResponse?.output?.nowshowing!!)
-            isComingsoon = false
-        }
-        //coming soon
-        textView53.setOnClickListener {
-            textView53.setTextColor(requireActivity().getColor(R.color.white))
-            textView53.textSize = 18F
-            textView53.typeface =
-                ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
-
-            textView52.setTextColor(requireActivity().getColor(R.color.text_color))
-            textView52.textSize = 14F
-            textView52.typeface =
-                ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
-            view69.invisible()
-            view70.show()
-            try {
-                comingSoon(moviesResponse?.output?.nowshowing!!)
-            } catch (e: Exception) {
-                println("Exception--->${e.message}")
-            }
-            isComingsoon = true
-        }
+//        //now Showing
+//        textView52.setOnClickListener {
+//            textView52.textSize = 18F
+//            textView52.typeface =
+//                ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
+//            textView52.setTextColor(requireActivity().getColor(R.color.white))
+//
+//            textView53.textSize = 14F
+//            textView53.setTextColor(requireActivity().getColor(R.color.text_color))
+//            textView53.typeface =
+//                ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
+//            view69.show()
+//            view70.invisible()
+//            nowSowing(moviesResponse?.output?.nowshowing!!)
+//            isComingsoon = false
+//        }
+//        //coming soon
+//        textView53.setOnClickListener {
+//            textView53.setTextColor(requireActivity().getColor(R.color.white))
+//            textView53.textSize = 18F
+//            textView53.typeface =
+//                ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
+//
+//            textView52.setTextColor(requireActivity().getColor(R.color.text_color))
+//            textView52.textSize = 14F
+//            textView52.typeface =
+//                ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
+//            view69.invisible()
+//            view70.show()
+//            try {
+//                comingSoon(moviesResponse?.output?.nowshowing!!)
+//            } catch (e: Exception) {
+//                println("Exception--->${e.message}")
+//            }
+//            isComingsoon = true
+//        }
         //filter
         imageView33.setOnClickListener {
             isChecked
@@ -195,12 +221,12 @@ class MoviesFragment : DaggerFragment(),AdapterFilterCategory.RecycleViewItemCli
             setFilterAlertDialog(moviesResponse?.output!!)
         }
 
-        searchView.setOnClickListener {
-            searchMovieUi.show()
-            searchUi.show()
-            movieAppbar.hide()
-            imageView36.hide()
-        }
+//        searchView.setOnClickListener {
+//            searchMovieUi.show()
+//            searchUi.show()
+////            movieAppbar.hide()
+//            imageView36.hide()
+//        }
 
         movieSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -208,7 +234,7 @@ class MoviesFragment : DaggerFragment(),AdapterFilterCategory.RecycleViewItemCli
                 searchUi.hide()
                 Constant().hideKeyboard(requireActivity())
                 imageView36.hide()
-                movieAppbar.show()
+//                movieAppbar.show()
                 return@OnEditorActionListener true
             }
             false
@@ -219,7 +245,7 @@ class MoviesFragment : DaggerFragment(),AdapterFilterCategory.RecycleViewItemCli
             searchUi.hide()
             Constant().hideKeyboard(requireActivity())
             imageView36.hide()
-            movieAppbar.show()
+//            movieAppbar.show()
 
         }
 
@@ -232,7 +258,7 @@ class MoviesFragment : DaggerFragment(),AdapterFilterCategory.RecycleViewItemCli
                         searchMovieUi.hide()
                         searchUi.hide()
                         imageView36.hide()
-                        movieAppbar.show()
+//                        movieAppbar.show()
                         Constant().hideKeyboard(requireActivity())
                     }
                 }
@@ -250,7 +276,7 @@ class MoviesFragment : DaggerFragment(),AdapterFilterCategory.RecycleViewItemCli
                     when (resource.status) {
                         Status.SUCCESS -> {
                             loader?.dismiss()
-                            if (Constant.SUCCESS_CODE == it.data?.data?.code && Constant.status == it.data?.data?.result) {
+                            if (Constant.SUCCESS_CODE == it.data?.data?.code && Constant.status == it.data.data.result) {
                                 try {
                                     moviesResponse = it.data.data
                                     comingSoonFilter = it.data.data.output.comingsoon
@@ -258,7 +284,7 @@ class MoviesFragment : DaggerFragment(),AdapterFilterCategory.RecycleViewItemCli
                                 } catch (e: Exception) {
                                     println("MovieException----${e.message}")
                                 }
-                            }else{
+                            } else {
                                 val dialog = OptionDialog(requireActivity(),
                                     R.mipmap.ic_launcher,
                                     R.string.app_name,
@@ -349,7 +375,7 @@ class MoviesFragment : DaggerFragment(),AdapterFilterCategory.RecycleViewItemCli
             GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
         binding?.fragmentMovie?.setHasFixedSize(true)
         var comingSoonList: ArrayList<MoviesResponse.Nowshowing>
-        if (nowShowing.size>0) {
+        if (nowShowing.size > 0) {
             binding?.noData?.hide()
             binding?.movieLayout?.show()
             comingSoonList = nowShowing
@@ -391,7 +417,7 @@ class MoviesFragment : DaggerFragment(),AdapterFilterCategory.RecycleViewItemCli
                     // TODO Auto-generated method stub
                 }
             })
-        }else{
+        } else {
             val adapter = AdapterNowShowing(nowShowing, requireActivity())
             binding?.fragmentMovie?.layoutManager = gridLayout
             binding?.fragmentMovie?.adapter = adapter
@@ -511,7 +537,7 @@ class MoviesFragment : DaggerFragment(),AdapterFilterCategory.RecycleViewItemCli
             mDialogView.findViewById<View>(R.id.recyclerview_filter_title) as RecyclerView
         val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
         recyclerviewExperience.layoutManager = LinearLayoutManager(context)
-        val adapter = AdapterFilterTitle(requireActivity(), dataList,filterDataList)
+        val adapter = AdapterFilterTitle(requireActivity(), dataList, filterDataList)
         recyclerviewExperience.layoutManager = gridLayout
         recyclerviewExperience.adapter = adapter
 
@@ -527,15 +553,24 @@ class MoviesFragment : DaggerFragment(),AdapterFilterCategory.RecycleViewItemCli
             isChecked = false
             imageView33.setImageResource(R.drawable.ic_icon_awesome_filter)
             binding?.recyclerviewCategory?.hide()
-            updateFilterData(dataList,"")
+            updateFilterData(dataList, "")
             mAlertDialog.dismiss()
         }
     }
 
-    private fun updateFilterData(dataList: ArrayList<FilterModel>,crossItem:String) {
-        filterDataList = getFinalFilterList(dataList,crossItem)
-        movesData(MovieRequest(cinema_data, exp_data, genre_data, language_data, rating_data, timing_data))
-        if (filterDataList.size>0){
+    private fun updateFilterData(dataList: ArrayList<FilterModel>, crossItem: String) {
+        filterDataList = getFinalFilterList(dataList, crossItem)
+        movesData(
+            MovieRequest(
+                cinema_data,
+                exp_data,
+                genre_data,
+                language_data,
+                rating_data,
+                timing_data
+            )
+        )
+        if (filterDataList.size > 0) {
             binding?.recyclerviewCategory?.show()
             updateFilterView(filterDataList)
         }
@@ -543,21 +578,24 @@ class MoviesFragment : DaggerFragment(),AdapterFilterCategory.RecycleViewItemCli
 
     private fun updateFilterView(filterDataList: ArrayList<FilterTypeModel>) {
         val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.HORIZONTAL, false)
-        val adapter = AdapterFilterCategory(requireActivity(), getList(filterDataList),this)
+        val adapter = AdapterFilterCategory(requireActivity(), getList(filterDataList), this)
         binding?.recyclerviewCategory?.layoutManager = gridLayout
         binding?.recyclerviewCategory?.adapter = adapter
     }
 
     private fun getList(filterDataList: ArrayList<FilterTypeModel>): ArrayList<String> {
         val list = ArrayList<String>()
-        for (data in filterDataList){
+        for (data in filterDataList) {
             list.addAll(data.selectedList)
         }
 
         return list
     }
 
-    private fun getFinalFilterList(dataList: ArrayList<FilterModel>,crossItem:String): ArrayList<FilterTypeModel> {
+    private fun getFinalFilterList(
+        dataList: ArrayList<FilterModel>,
+        crossItem: String
+    ): ArrayList<FilterTypeModel> {
         val list = ArrayList<FilterTypeModel>()
         val list1 = ArrayList<String>()
         val list11 = ArrayList<String>()
@@ -569,7 +607,7 @@ class MoviesFragment : DaggerFragment(),AdapterFilterCategory.RecycleViewItemCli
                     if (data.selectedList.contains(crossItem.split("-")[0]))
                         data.selectedList.remove(crossItem.split("-")[0])
                     list.add(FilterTypeModel(1, data.selectedList))
-                    exp_data = if (data.selectedList.size==0)
+                    exp_data = if (data.selectedList.size == 0)
                         "ALL"
                     else TextUtils.join(",", data.selectedList)
                 }
@@ -582,7 +620,7 @@ class MoviesFragment : DaggerFragment(),AdapterFilterCategory.RecycleViewItemCli
                         list11.add(item)
                     }
                     list.add(FilterTypeModel(2, list11))
-                    cinema_data = if (list1.size==0)
+                    cinema_data = if (list1.size == 0)
                         "ALL"
                     else TextUtils.join(",", list1)
                 }
@@ -594,7 +632,7 @@ class MoviesFragment : DaggerFragment(),AdapterFilterCategory.RecycleViewItemCli
                         list22.add(item)
                     }
                     list.add(FilterTypeModel(3, list22))
-                    timing_data = if (list2.size==0)
+                    timing_data = if (list2.size == 0)
                         "ALL"
                     else TextUtils.join(",", list2)
                 }
@@ -602,7 +640,7 @@ class MoviesFragment : DaggerFragment(),AdapterFilterCategory.RecycleViewItemCli
                     if (data.selectedList.contains(crossItem.split("-")[0]))
                         data.selectedList.remove(crossItem.split("-")[0])
                     list.add(FilterTypeModel(4, data.selectedList))
-                    rating_data = if (data.selectedList.size==0)
+                    rating_data = if (data.selectedList.size == 0)
                         "ALL"
                     else TextUtils.join(",", data.selectedList)
                 }
@@ -610,7 +648,7 @@ class MoviesFragment : DaggerFragment(),AdapterFilterCategory.RecycleViewItemCli
                     if (data.selectedList.contains(crossItem.split("-")[0]))
                         data.selectedList.remove(crossItem.split("-")[0])
                     list.add(FilterTypeModel(5, data.selectedList))
-                    genre_data = if (data.selectedList.size==0)
+                    genre_data = if (data.selectedList.size == 0)
                         "ALL"
                     else TextUtils.join(",", data.selectedList)
                 }
@@ -618,7 +656,7 @@ class MoviesFragment : DaggerFragment(),AdapterFilterCategory.RecycleViewItemCli
                     if (data.selectedList.contains(crossItem.split("-")[0]))
                         data.selectedList.remove(crossItem.split("-")[0])
                     list.add(FilterTypeModel(6, data.selectedList))
-                    language_data = if (data.selectedList.size==0)
+                    language_data = if (data.selectedList.size == 0)
                         "ALL"
                     else TextUtils.join(",", data.selectedList)
                 }
@@ -629,7 +667,7 @@ class MoviesFragment : DaggerFragment(),AdapterFilterCategory.RecycleViewItemCli
     }
 
     override fun onCrossClick(item: String) {
-        updateFilterData(dataList,item)
+        updateFilterData(dataList, item)
     }
 
 }

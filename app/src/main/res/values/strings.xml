@@ -308,6 +308,9 @@
     <string name="network_error">Network Error</string>
     <string name="settings">Settings</string>
     <string name="try_again">Try Again</string>
+    <string name="nowSowing">NOW SHOWING</string>
+    <string name="commingSoon">COMING SOON</string>
+    <string name="advanceBooking">ADVANCE BOOKING</string>
     <string name="internetMsg">Your connection to the internet was lost.\n Please connect and try again</string>
 
 </resources>
