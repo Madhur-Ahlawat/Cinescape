@@ -2,7 +2,6 @@ package com.cinescape1.ui.main.views
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
-import android.app.Dialog
 import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.IntentFilter
@@ -60,7 +59,6 @@ class SignUpActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleView
     private var receiveMail: Boolean = false
     private var receiveMobileNot: Boolean = false
     private var receivedResNote: Boolean = false
-    var dialog: Dialog? = null
     private var countryCodeList = ArrayList<CountryCodeResponse.Output>()
     private var mAdapter: CountryCodeAdapter? = null
     var countryCode: String = ""
@@ -70,15 +68,15 @@ class SignUpActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleView
     private var seatCat = ""
     private var seatType = ""
     private var ttType = ""
-    private var DatePosition = ""
-    private var date_pos = 0
-    private var show_pos = 0
-    private var cinema_pos = 0
+    private var datePosition = ""
+    private var datePos = 0
+    private var showPos = 0
+    private var cinemaPos = 0
     private var seatQuanitity = 0
     private var dateTime = ""
-    private var MovieId = ""
-    private var CinemaID = ""
-    private var SessionID = ""
+    private var movieId = ""
+    private var cinemaID = ""
+    private var sessionID = ""
     private var dt = ""
     private var from = ""
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,24 +94,25 @@ class SignUpActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleView
         }
 
         if (intent.hasExtra("FROM")) {
+
             areaCode = intent.getStringExtra("AREA_CODE").toString()
             from = intent.getStringExtra("FROM").toString()
             cinemaName = intent.getStringExtra("CINEMA").toString()
             seatCat = intent.getStringExtra("SEAT_CAT").toString()
             ttType = intent.getStringExtra("TT_TYPE").toString()
             seatType = intent.getStringExtra("SEAT_TYPE").toString()
-            date_pos = intent.getIntExtra("DATE_POS", 0)
-            show_pos = intent.getIntExtra("SHOW_POS", 0)
-            cinema_pos = intent.getIntExtra("CINEMA_POS", 0)
+            datePos = intent.getIntExtra("DATE_POS", 0)
+            showPos = intent.getIntExtra("SHOW_POS", 0)
+            cinemaPos = intent.getIntExtra("CINEMA_POS", 0)
             seatQuanitity = intent.getIntExtra("SEAT_POS", 0)
 
-
             dateTime = intent.getStringExtra("DateTime").toString()
-            MovieId = intent.getStringExtra("MovieId").toString()
-            CinemaID = intent.getStringExtra("CinemaID").toString()
-            SessionID = intent.getStringExtra("SessionID").toString()
-            DatePosition = intent.getStringExtra("DatePosition").toString()
+            movieId = intent.getStringExtra("MovieId").toString()
+            cinemaID = intent.getStringExtra("CinemaID").toString()
+            sessionID = intent.getStringExtra("SessionID").toString()
+            datePosition = intent.getStringExtra("DatePosition").toString()
             dt = intent.getStringExtra("dt").toString()
+
         }
 
 
@@ -447,7 +446,7 @@ class SignUpActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleView
                         Status.SUCCESS -> {
                             loader?.dismiss()
                             if (Constant.status == it.data?.data?.result && Constant.SUCCESS_CODE == it.data.data.code) {
-                                OtpDialog(it.data.data.output.userid)
+                                otpDialog(it.data.data.output.userid)
                             } else {
                                 val dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
@@ -599,7 +598,7 @@ class SignUpActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleView
             }
     }
 
-    private fun OtpVerify(otpVerifyRequest: OtpVerifyRequest) {
+    private fun otpVerify(otpVerifyRequest: OtpVerifyRequest) {
         signupViewModel.mVerify(otpVerifyRequest)
             .observe(this) {
                 it?.let { resource ->
@@ -654,17 +653,17 @@ class SignUpActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleView
                                             .putExtra("CINEMA", cinemaName)
                                             .putExtra("SEAT_CAT", seatCat)
                                             .putExtra("SEAT_TYPE", seatType)
-                                            .putExtra("DATE_POS", date_pos)
+                                            .putExtra("DATE_POS", datePos)
                                             .putExtra("SEAT_POS", seatQuanitity)
                                             .putExtra("DateTime", dateTime)
-                                            .putExtra("MovieId", MovieId)
-                                            .putExtra("CinemaID", CinemaID)
-                                            .putExtra("DatePosition", DatePosition)
+                                            .putExtra("MovieId", movieId)
+                                            .putExtra("CinemaID", cinemaID)
+                                            .putExtra("DatePosition", datePosition)
                                             .putExtra("dt", dt)
                                             .putExtra("FROM", "seat")
-                                            .putExtra("SessionID", SessionID)
-                                            .putExtra("SHOW_POS", show_pos)
-                                            .putExtra("CINEMA_POS", cinema_pos)
+                                            .putExtra("SessionID", sessionID)
+                                            .putExtra("SHOW_POS", showPos)
+                                            .putExtra("CINEMA_POS", cinemaPos)
 
                                         intent.flags =
                                             Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -795,7 +794,7 @@ class SignUpActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleView
     }
 
     @SuppressLint("CutPasteId")
-    private fun OtpDialog(userid: String) {
+    private fun otpDialog(userid: String) {
         val mDialogView = layoutInflater.inflate(R.layout.otp_dialog, null)
         val mBuilder = AlertDialog.Builder(this, R.style.MyDialogTransparent)
             .setView(mDialogView)
@@ -821,7 +820,7 @@ class SignUpActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleView
                 else -> {
                     mAlertDialog.dismiss()
                     Constant().hideKeyboard(this)
-                    OtpVerify(OtpVerifyRequest(email, phone, userid))
+                    otpVerify(OtpVerifyRequest(email, phone, userid))
                 }
             }
         }

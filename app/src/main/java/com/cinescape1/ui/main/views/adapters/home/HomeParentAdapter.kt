@@ -2,7 +2,6 @@ package com.cinescape1.ui.main.views.adapters.home
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.ContentValues
 import android.content.Intent
 import android.os.Handler
 import android.util.Log
@@ -18,12 +17,11 @@ import com.cinescape1.data.models.responseModel.HomeDataResponse
 import com.cinescape1.ui.main.views.SeeAllActivity
 import com.cinescape1.ui.main.views.adapters.*
 import com.cinescape1.ui.main.views.adapters.sliderAdapter.HomeFrontSliderAdapter
-import com.cinescape1.utils.Animation
-import com.cinescape1.utils.hide
+ import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 import kotlinx.android.synthetic.main.home_parrent_list.view.*
 import java.util.*
-import javax.xml.transform.Transformer
+
 
 class HomeParentAdapter(
     var mContext: Activity,
@@ -38,7 +36,6 @@ class HomeParentAdapter(
     val PERIOD_MS: Long = 3000 // time in milliseconds between successive task executions.
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        Log.d(ContentValues.TAG, ".onCreateViewHolder new view requested")
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.home_parrent_list, parent, false)
         return MyViewHolder(view)
@@ -220,6 +217,10 @@ class HomeParentAdapter(
                     holder.homeList?.layoutManager = gridLayout
                     holder.homeList?.adapter = adapter
                     holder.txtSeeAll.setOnClickListener {
+
+
+
+
                         val intent = Intent(mContext, SeeAllActivity::class.java)
                         intent.putExtra("arrayList", obj.movieData)
                         mContext.startActivity(intent)

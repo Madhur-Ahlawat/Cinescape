@@ -32,7 +32,6 @@ import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import javax.inject.Inject
 
-
 @SuppressLint("CustomSplashScreen")
 @ActivityScoped
 class SplashActivity : DaggerAppCompatActivity() {

@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone">
+
         <View
             android:id="@+id/view66"
             android:layout_width="match_parent"
@@ -68,7 +69,8 @@
                     android:fontFamily="@font/sf_pro_text_heavy"
                     android:gravity="start"
                     android:letterSpacing="-0.02"
-                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size20"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -83,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:minWidth="110dp"
+                    android:minWidth="80dp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_seat_film_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/tv_seat_film_title"

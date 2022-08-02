@@ -40,7 +40,6 @@ class HomeFragment : DaggerFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = FragmentHomeBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
         when {
@@ -125,7 +124,6 @@ class HomeFragment : DaggerFragment() {
     }
 
     private fun updateUI(output: HomeDataResponse.Output) {
-        println("HomeCategory--->${output.homeOnes[0].offers}")
         try {
             val homeData: ArrayList<HomeDataResponse.HomeOne> = ArrayList()
             for (data in output.homeOnes) {
@@ -210,6 +208,5 @@ class HomeFragment : DaggerFragment() {
     override fun onPause() {
         super.onPause()
         binding?.homeShimmer?.startShimmer()
-//        requireActivity().unregisterReceiver(broadcastReceiver)
     }
 }

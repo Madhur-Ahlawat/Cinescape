@@ -29,7 +29,11 @@ class HomeFrontSliderAdapter (private val mContext:Activity,private val movies :
         if (obj.mobimgsmall.isEmpty()) {
             holder.image.setImageResource(R.drawable.bombshell)
         } else {
-            Glide.with(mContext).load(obj.mobimgsmall).placeholder(R.drawable.bombshell).into(holder.image)
+            Glide.with(mContext)
+                .load(obj.mobimgsmall)
+                .placeholder(R.drawable.bombshell)
+                .into(holder.image)
+            println("FrontData--->${obj.mobimgsmall}")
         }
 
         holder.image.setOnClickListener {

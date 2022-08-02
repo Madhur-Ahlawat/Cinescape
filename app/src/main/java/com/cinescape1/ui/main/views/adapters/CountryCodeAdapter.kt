@@ -76,7 +76,7 @@ class CountryCodeAdapter(
 
     }
     @SuppressLint("NotifyDataSetChanged")
-    public fun updateList(updatedList: java.util.ArrayList<CountryCodeResponse.Output>){
+     fun updateList(updatedList: java.util.ArrayList<CountryCodeResponse.Output>){
         recyclerDataArrayList = updatedList
         notifyDataSetChanged()
     }

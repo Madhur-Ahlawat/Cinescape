@@ -1344,7 +1344,6 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                 println("comingSoonSize--->${countryCodeList.size}")
 
                 mAdapter?.updateList(countryCodeList)
-//                field1.setText("")
             }
         })
 

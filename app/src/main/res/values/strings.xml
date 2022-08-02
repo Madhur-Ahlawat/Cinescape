@@ -105,7 +105,7 @@
     <string name="total">Total</string>
     <string name="total_price">Total Price</string>
     <string name="gift_card_value">Gift Card value</string>
-    <string name="select_payment_method">Select Payment Method</string>
+    <string name="select_payment_method">Select Payment Methods</string>
     <string name="cinema_food_text">Scan your Booking ID or QR code at any KIOSK or USHER POINT  once you reach the cinema location to start preparing your order.</string>
     <string name="amount_to_be_paid">Amount to be paid</string>
     <string name="cardholder_name">Cardholder Name</string>
@@ -248,11 +248,11 @@
     <string name="search_country">Search Country</string>
     <string name="profileUpdate">Profile Update Successfully</string>
     <string name="upload_file">Upload File</string>
-    <string name="selectAnotherSeat">Please Select Another Type</string>
-    <string name="selectOneSeat">Please Select At least One Seat</string>
-    <string name="PleaseSelect">Please Select</string>
+    <string name="selectAnotherSeat">Please select another type</string>
+    <string name="selectOneSeat">Please select at least one seat</string>
+    <string name="PleaseSelect">Please select</string>
     <string name="all_filters">all Filters</string>
-    <string name="selectPaymentMethod">Please Select Payment Method</string>
+    <string name="selectPaymentMethod">Please select payment method</string>
     <string name="timeOut">Timeout Please try again Later</string>
     <string name="password_recovery">Password Recovery</string>
     <string name="recovery_msg">No worries, just enter your registered email\n address and we will take care of it.</string>

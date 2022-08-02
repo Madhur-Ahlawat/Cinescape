@@ -75,10 +75,8 @@ class FoodActivity : DaggerAppCompatActivity(),
     private var text_total1: TextView? = null
     private var foodalterDis = ""
     private var foodalterId = "0"
-
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
     @Inject
     lateinit var preferences: AppPreferences
     private val foodViewModel: FoodViewModel by viewModels { viewModelFactory }
@@ -88,13 +86,10 @@ class FoodActivity : DaggerAppCompatActivity(),
     private var sessionId = ""
     private var booktype = ""
     private var loader: LoaderDialog? = null
-    private var concessionFoodList: ArrayList<SaveFoodRequest.ConcessionFood> = ArrayList()
-    private var modifierList: ArrayList<SaveFoodRequest.Modifier> = ArrayList()
     private var tabItem: GetFoodResponse.ConcessionTab? = null
     private var tabItemArr: List<GetFoodResponse.ConcessionTab> = ArrayList()
     private var broadcastReceiver: BroadcastReceiver? = null
     private var timeCount: Long = 0
-    private var checkPositive: Boolean = false
     private var itemCheckPrice: Int = 0
     private var itemSetPrice: String = ""
     private var itemCartPrice: Int = 0
@@ -432,7 +427,6 @@ class FoodActivity : DaggerAppCompatActivity(),
             individualAdapter?.notifyDataSetChanged()
             mFoodCartDialog?.dismiss()
         }
-
     }
 
     private fun updateFoodList() {
@@ -939,31 +933,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             }
         }
 
-//
-//        individualAdapter?.notifyDataSetChanged()
-//        foodAdapter?.notifyDataSetChanged()
-//        for (item in foodCartListNew!!) {
-//            if (item.foodId == crossinline.id) {
-//                quantity = item.foodQuan
-//                crossinline.quantityUpdate = crossinline.quantityUpdate+quantity
-//                foodid = item.foodId.toInt()
-//            }
-//        }
-//
-//        for (item in crossinline.alternateItems) {
-//            if (item.id.toInt() == foodid) {
-//                flag = true
-//                if (flag) {
-//                    individualAdapter?.notifyDataSetChanged()
-//                    foodAdapter?.notifyDataSetChanged()
-//                } else {
-//                    break
-//                }
-//            }
-//        }
-
         individualAdapter?.notifyDataSetChanged()
-       // foodAdapter?.notifyDataSetChanged()
     }
 
     override fun onDecreaseFood(foodItem: GetFoodResponse.ConcessionItem, pos: Int) {
@@ -1602,8 +1572,6 @@ class FoodActivity : DaggerAppCompatActivity(),
         } else {
             toast("add less than 20 items")
         }
-
-
     }
 
     override fun onBackPressed() {

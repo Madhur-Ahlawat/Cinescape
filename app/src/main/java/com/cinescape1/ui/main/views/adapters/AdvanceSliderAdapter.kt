@@ -27,7 +27,7 @@ class AdvanceSliderAdapter(private  val mContext: Activity,private var movieData
         val rating = sliderLayout.findViewById<TextView>(R.id.textView77)
         val ratingUi = sliderLayout.findViewById<CardView>(R.id.ratingUi)
         Glide.with(mContext)
-            .load(movieData[position].mobimgsmall)
+            .load(movieData[position].mobimgbig)
             .placeholder(R.drawable.cinema)
             .into(featured_image)
         caption_title.text= movieData[position].title
