@@ -40,7 +40,12 @@ class ShowTimesViewModel  @Inject constructor(private val repositories: Reposito
     fun getSeatLayout(context: Activity, request: SeatLayoutRequest) = liveData(Dispatchers.IO) {
         emit(Result.loading(data = null))
         try {
-            emit(Result.success(data = repositories.getSeatLayout(request)))
+            val data = repositories.getSeatLayout(request)
+            if (data.status == Status.ERROR) {
+                emit(Result.error(data.message.toString(), data))
+            } else {
+                emit(Result.success(data = data))
+            }
         } catch (exception: Exception) {
             emit(Result.error(exception.message ?: "Error Occurred!", data = null))
         }

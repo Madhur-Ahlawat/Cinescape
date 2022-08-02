@@ -116,7 +116,7 @@ class HomeActivity : DaggerAppCompatActivity() {
             setNextBooking()
         }
         if (intent.hasExtra("BOOKING")) {
-            FoodDialog()
+            foodDialog()
         }
 
         println("OpenFrom--->${OPEN_FROM}")
@@ -132,7 +132,7 @@ class HomeActivity : DaggerAppCompatActivity() {
                 }
                 R.id.foodFragment -> {
                     binding?.imageView42?.hide()
-                    FoodDialog()
+                    foodDialog()
                 }
                 R.id.accountFragment -> {
                     binding?.imageView42?.hide()
@@ -195,7 +195,7 @@ class HomeActivity : DaggerAppCompatActivity() {
             }
     }
 
-    private fun FoodDialog() {
+    private fun foodDialog() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.fragment_food)

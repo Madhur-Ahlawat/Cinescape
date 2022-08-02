@@ -63,10 +63,8 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     AdapterShowTimesCinemaTitle.CinemaAdapterListener,
     CinemaDayAdapter.RecycleViewItemClickListener, AdapterCinemaSessionScroll.LocationListener {
     private var num = 0
-
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
     @Inject
     lateinit var preferences: AppPreferences
     private val showTimeViewModel: ShowTimesViewModel by viewModels { viewModelFactory }
@@ -287,7 +285,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             imageView36.show()
         }
 
-        movieSearch.setOnTouchListener { v, event ->
+        movieSearch.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
                 if (movieSearch.compoundDrawables[2] != null) {
                     if (event.x >= movieSearch.right - movieSearch.left - movieSearch.compoundDrawables[2].bounds.width()
@@ -485,7 +483,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
-                            loader?.dismiss()
                             resource.data?.let { it ->
                                 if (it.data?.code == Constant.SUCCESS_CODE) {
                                     try {
@@ -527,6 +524,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                             dialog.show()
                         }
                         Status.LOADING -> {
+                            println("loading--->Seat")
                             loader = LoaderDialog(R.string.pleasewait)
                             loader?.show(supportFragmentManager, null)
                         }
@@ -735,6 +733,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
     @SuppressLint("CutPasteId", "SetTextI18n")
     private fun showSeatTypePopup(output: SeatLayoutResponse.Output, name: String, pos: Int) {
+        loader?.dismiss()
         val mDialogView = layoutInflater.inflate(R.layout.seat_selection_main_alert_dailog, null)
         val mBuilder = AlertDialog.Builder(this, R.style.MyDialogTransparent)
             .setView(mDialogView)

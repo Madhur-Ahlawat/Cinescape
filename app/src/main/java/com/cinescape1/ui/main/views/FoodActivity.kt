@@ -933,8 +933,8 @@ class FoodActivity : DaggerAppCompatActivity(),
     private fun updateItemUi(crossinline: GetFoodResponse.ConcessionItem) {
         for (item in foodCartListNew!!) {
             if (item.foodId == crossinline.id) {
-                println("RefreshUpdateItemUi--->${item.foodQuan}----${crossinline.quantityUpdate}")
-                crossinline.quantityUpdate = crossinline.quantityUpdate+item.foodQuan
+                println("RefreshUpdateItemUi--->${item.foodQuan}----${crossinline.quantity}")
+                crossinline.quantityUpdate = crossinline.quantityUpdate+crossinline.quantity
                 break
             }
         }
@@ -1410,7 +1410,9 @@ class FoodActivity : DaggerAppCompatActivity(),
                                 if (foodDtls.foodType=="Individual"){
                                     item.foodQuan = foodDtls.foodQuan
                                 }else {
+                                    println("foodQtCheck--->${item.foodQuan}---${foodDtls.foodQuan}")
                                     item.foodQuan = item.foodQuan + foodDtls.foodQuan
+
                                 }
                                 break
                             }
