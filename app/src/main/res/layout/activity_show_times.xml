@@ -12,7 +12,7 @@
         android:id="@+id/LayoutTime"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <View
             android:id="@+id/view66"
@@ -29,26 +29,32 @@
             android:layout_height="295dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/contentDes"
-            android:foreground="@drawable/trans_bg"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toTopOf="@+id/showTimesUi"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/bombshell_alert" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/trans_bg"
+            app:layout_constraintBottom_toTopOf="@+id/showTimesUi"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-20dp"
-            android:background="@drawable/transparent"
+            android:layout_marginBottom="8dp"
             android:paddingStart="16dp"
             android:paddingEnd="@dimen/margin20"
             app:layout_constraintBottom_toBottomOf="@+id/view66"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/bottomView"
-            app:layout_constraintTop_toBottomOf="@+id/imageView26">
+            app:layout_constraintStart_toStartOf="@+id/bottomView">
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
@@ -66,10 +72,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_weight="2"
+                    android:ellipsize="end"
                     android:fontFamily="@font/sf_pro_text_heavy"
                     android:gravity="start"
                     android:letterSpacing="-0.02"
-                    android:ellipsize="end"
                     android:maxLines="1"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size20"
@@ -278,7 +284,6 @@
                 android:id="@+id/text_movie_type"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin5"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="1sp"
@@ -376,6 +381,7 @@
             android:id="@+id/showTimesUi"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -418,11 +424,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="1dp"
+                android:layout_marginTop="@dimen/margin8"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/recylerview_show_time_date"
                 app:layout_constraintStart_toStartOf="@+id/recylerview_show_time_date"
-                app:layout_constraintTop_toBottomOf="@+id/viewpager" />
+                app:layout_constraintTop_toBottomOf="@+id/textView110" />
 
             <com.github.islamkhsh.CardSliderViewPager
                 android:id="@+id/viewpager"
@@ -430,13 +437,42 @@
                 android:layout_height="100dp"
                 android:layout_marginBottom="16dp"
                 android:minHeight="@dimen/size50"
+                android:background="@color/transparent"
                 android:visibility="visible"
-                app:cardSlider_otherPagesWidth="50dp"
-                app:cardSlider_pageMargin="@dimen/margin15"
+                app:cardSlider_otherPagesWidth="40dp"
                 app:layout_constraintBottom_toTopOf="@+id/recyclerview_cinema_title"
                 app:layout_constraintEnd_toEndOf="@+id/recyclerview_cinema_title"
                 app:layout_constraintStart_toStartOf="@+id/recyclerview_cinema_title"
                 app:layout_constraintTop_toBottomOf="@+id/recylerview_show_time_date" />
+
+            <ImageView
+                android:id="@+id/imageView48"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginEnd="80dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/cinema_back_item"
+                app:layout_constraintBottom_toTopOf="@+id/recyclerview_cinema_title"
+                app:layout_constraintEnd_toEndOf="@+id/recyclerview_cinema_title"
+                app:layout_constraintStart_toStartOf="@+id/recyclerview_cinema_title"
+                app:layout_constraintTop_toBottomOf="@+id/recylerview_show_time_date"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/textView110"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:textColor="#C1C1C1"
+                android:textSize="@dimen/size13"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewpager"
+                tools:text="Al mall" />
+
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler"
@@ -454,12 +490,14 @@
             android:id="@+id/imageView26"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="@dimen/margin5"
             app:layout_constraintBottom_toBottomOf="@+id/image_show"
             app:layout_constraintEnd_toEndOf="@+id/image_show"
             app:layout_constraintStart_toStartOf="@+id/image_show"
             app:layout_constraintTop_toTopOf="@+id/image_show"
             app:srcCompat="@drawable/ic_play"
             tools:ignore="ContentDescription" />
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

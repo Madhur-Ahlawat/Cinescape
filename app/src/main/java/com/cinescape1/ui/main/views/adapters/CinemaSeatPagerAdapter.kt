@@ -2,10 +2,12 @@ package com.cinescape1.ui.main.views.adapters
 
 import android.app.Activity
 import android.graphics.Typeface
+import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.CinemaSessionResponse
@@ -39,6 +41,7 @@ class CinemaSeatPagerAdapter(
         viewpager?.registerOnPageChangeCallback(object :
             com.github.islamkhsh.viewpager2.ViewPager2.OnPageChangeCallback() {
             
+            @RequiresApi(Build.VERSION_CODES.O)
             override fun onPageScrolled(
                 position: Int,
                 positionOffset: Float,
@@ -52,14 +55,14 @@ class CinemaSeatPagerAdapter(
                     val bold: Typeface = mContext.resources.getFont(R.font.sf_pro_text_heavy)
                     holder.cinemaName.textSize = 20f
                     holder.cinemaName.typeface = bold
-                    holder.image.show()
-                    holder.address.show()
+//                    holder.image.show()
+//                    holder.address.show()
                 } else {
                     val regular: Typeface = mContext.resources.getFont(R.font.sf_pro_text_regular)
                     holder.cinemaName.typeface = regular
                     holder.cinemaName.textSize = 13F
-                    holder.image.invisible()
-                    holder.address.hide()
+//                    holder.image.invisible()
+//                    holder.address.hide()
 
                 }
             }
@@ -67,14 +70,14 @@ class CinemaSeatPagerAdapter(
         })
 
         holder.cinemaName.text = obj.cinema.name
-        holder.address.text = obj.cinema.address1
+//        holder.address.text = obj.cinema.address1
 
     }
 
     class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var cinemaName = itemView.cinemaName!!
-        var address = itemView.textView110!!
-        var image = itemView.imageView48!!
+//        var address = itemView.textView110!!
+//        var image = itemView.imageView48!!
 
     }
 }

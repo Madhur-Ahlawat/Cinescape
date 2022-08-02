@@ -1,11 +1,14 @@
 package com.cinescape1.ui.main.views.adapters
 
 import android.app.Activity
+import android.graphics.Color
 import android.graphics.Typeface
+import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.CinemaSessionResponse
@@ -38,6 +41,7 @@ class CinemaPageAdapter(
         viewpager?.registerOnPageChangeCallback(object :
             com.github.islamkhsh.viewpager2.ViewPager2.OnPageChangeCallback() {
 
+            @RequiresApi(Build.VERSION_CODES.O)
             override fun onPageScrolled(
                 position: Int,
                 positionOffset: Float,
@@ -46,19 +50,22 @@ class CinemaPageAdapter(
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels)
 
                 rowIndex = viewpager.currentItem
+                println("viewpager.currentItem---$rowIndex----$position")
 
                 if (rowIndex == position) {
-                    val bold: Typeface = mContext.resources.getFont(R.font.sf_pro_text_heavy)
-                    holder.cinemaName.textSize = 20f
-                    holder.cinemaName.typeface = bold
-                    holder.image.show()
-                    holder.address.show()
-                } else {
-                    val regular: Typeface = mContext.resources.getFont(R.font.sf_pro_text_regular)
+                    val regular: Typeface = mContext.resources.getFont(R.font.sf_pro_text_heavy)
                     holder.cinemaName.typeface = regular
-                    holder.cinemaName.textSize = 13F
-                    holder.image.invisible()
-                    holder.address.hide()
+                    holder.cinemaName.setTextColor(mContext.getColor(R.color.white))
+                    holder.cinemaName.textSize = 20F
+//                    holder.address.show()
+                } else {
+
+
+                    val bold: Typeface = mContext.resources.getFont(R.font.sf_pro_text_regular)
+                    holder.cinemaName.textSize = 13f
+                    holder.cinemaName.setTextColor(mContext.getColor(R.color.text_color))
+                    holder.cinemaName.typeface = bold
+//                    holder.address.hide()
 
                 }
             }
@@ -66,14 +73,14 @@ class CinemaPageAdapter(
         })
 
         holder.cinemaName.text = obj.cinema.name
-        holder.address.text = obj.cinema.address1
+//        holder.address.text = obj.cinema.address1
 
     }
 
     class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var cinemaName = itemView.cinemaName!!
-        var address = itemView.textView110!!
-        var image = itemView.imageView48!!
+//        var address = itemView.textView110!!
+//        var image = itemView.imageView48!!
 
     }
 }

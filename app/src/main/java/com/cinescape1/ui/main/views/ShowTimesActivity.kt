@@ -150,6 +150,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 binding?.moviePage?.hide()
                 binding?.comingSoon?.show()
                 binding?.viewpager?.hide()
+                binding?.imageView48?.hide()
                 include.show()
                 getShowTimes()
 
@@ -167,6 +168,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
 
                 binding?.viewpager?.hide()
+                binding?.imageView48?.hide()
                 getCinemaData(CinemaSessionRequest(dateTime, movieID))
             }
             else -> {
@@ -178,6 +180,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 binding?.moviePage?.show()
                 binding?.comingSoon?.hide()
                 binding?.viewpager?.show()
+                binding?.imageView48?.show()
                 include.hide()
                 getShowTimes()
             }
@@ -638,7 +641,9 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 println("position----123>${position}")
-
+                binding?.textView110?.show()
+                binding?.textView110?.text = daySessionResponse[position].cinema.address1
+//                binding?.viewpager?.adapter?.notifyDataSetChanged()
             }
 
             override fun onPageScrolled(

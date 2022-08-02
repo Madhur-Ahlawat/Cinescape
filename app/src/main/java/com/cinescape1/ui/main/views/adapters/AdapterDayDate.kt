@@ -38,8 +38,9 @@ class AdapterDayDate(var context: Activity, private var dayDateList: ArrayList<C
             holder.date.text = dayDateItem.d
 
             if (rowIndex == position){
-                holder.consBackground.background = ContextCompat.getDrawable(context, R.drawable.red_rectangle)
+                holder.consBackground.setBackgroundResource(R.drawable.red_rectangle)
                 holder.day.setTextColor(ContextCompat.getColor(context, R.color.white))
+                holder.date.setTextColor(ContextCompat.getColor(context, R.color.white))
                 val heavy: Typeface = context.resources.getFont(R.font.sf_pro_text_heavy)
                 val bold: Typeface = context.resources.getFont(R.font.sf_pro_text_semibold)
                 holder.day.textSize = 13f
@@ -49,8 +50,9 @@ class AdapterDayDate(var context: Activity, private var dayDateList: ArrayList<C
             }
             else {
                 holder.views1.show()
-                holder.consBackground.background = ContextCompat.getDrawable(context, R.drawable.primarydark_rectangle)
-                holder.day.setTextColor(ContextCompat.getColor(context, R.color.text_color))
+                holder.consBackground.setBackgroundResource(R.drawable.primarydark_rectangle)
+                holder.day.setTextColor(ContextCompat.getColor(context, R.color.hint_color))
+                holder.day.setTextColor(ContextCompat.getColor(context, R.color.hint_color))
                 val regular: Typeface = context.resources.getFont(R.font.sf_pro_text_regular)
                 holder.day.typeface = regular
                 holder.date.typeface = regular
