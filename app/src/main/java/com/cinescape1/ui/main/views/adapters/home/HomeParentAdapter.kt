@@ -17,7 +17,9 @@ import com.cinescape1.data.models.responseModel.HomeDataResponse
 import com.cinescape1.ui.main.views.SeeAllActivity
 import com.cinescape1.ui.main.views.adapters.*
 import com.cinescape1.ui.main.views.adapters.sliderAdapter.HomeFrontSliderAdapter
- import com.cinescape1.utils.hide
+import com.cinescape1.ui.main.views.fragments.MoviesFragment
+import com.cinescape1.utils.Constant.Companion.SEE_ALL_TYPE
+import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 import kotlinx.android.synthetic.main.home_parrent_list.view.*
 import java.util.*
@@ -25,7 +27,7 @@ import java.util.*
 
 class HomeParentAdapter(
     var mContext: Activity,
-    var homeDataList: ArrayList<HomeDataResponse.HomeOne>
+    var homeDataList: ArrayList<HomeDataResponse.HomeOne>,var listener:RecycleViewItemClickListener
 ) :
     RecyclerView.Adapter<HomeParentAdapter.MyViewHolder>() {
     var adapter: HomeChildAdapter? = null
@@ -44,7 +46,7 @@ class HomeParentAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val obj = homeDataList[position]
-        println("HomeCategory--->${homeDataList.size}")
+        println("HomeCategory123--->${obj.name}")
         holder.home_title.text = obj.name
         holder.txtSeeAll.text = mContext.getText(R.string.view_all)
         holder.search?.setOnFocusChangeListener { _, hasFocus ->
@@ -217,13 +219,13 @@ class HomeParentAdapter(
                     holder.homeList?.layoutManager = gridLayout
                     holder.homeList?.adapter = adapter
                     holder.txtSeeAll.setOnClickListener {
-
-
-
-
-                        val intent = Intent(mContext, SeeAllActivity::class.java)
-                        intent.putExtra("arrayList", obj.movieData)
-                        mContext.startActivity(intent)
+                        if (obj.name == mContext.getString(R.string.commingSoon)) {
+                            SEE_ALL_TYPE = 1
+                            listener.onSeeAllClick(1)
+                        }else{
+                            listener.onSeeAllClick(0)
+                            SEE_ALL_TYPE = 0
+                        }
                     }
                 } else {
                     holder.itemView.hide()
@@ -248,5 +250,9 @@ class HomeParentAdapter(
         var consAdvance = itemView.consAdvance
         var sliderAdvance = itemView.sliderAdvance
         var mytablayout = itemView.my_tablayout
+    }
+
+    interface RecycleViewItemClickListener {
+        fun onSeeAllClick(type:Int)
     }
 }

@@ -453,7 +453,7 @@
                     android:paddingStart="@dimen/margin10"
                     android:paddingEnd="@dimen/margin10"
                     android:text="Under 18 needs to be accompanied by parents or any adult age 18 and over."
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/size14"
                     android:textStyle="normal"
                     android:visibility="visible"

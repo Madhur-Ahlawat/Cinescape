@@ -221,6 +221,7 @@ import java.util.ArrayList
         const val version = "1.5"
         const val status = "success"
         const val SUCCESS_CODE = 10001
+         var SEE_ALL_TYPE = 0
         const val TITLE = "title"
         const val IS_FROM = "isFrom"
         const val ENABLE_GPS_LOCATION_REQUEST = 2
@@ -266,6 +267,7 @@ import java.util.ArrayList
         const val BOOKING_FIRST_INDEX = "booking_first_index"
         const val LOYALITY_POINT = "loyality_point"
         const val IS_LOGIN = "is_login"
+        var select_pos = 0
         const val TYPE_LOGIN = "type_login"
         const val ID_TOKEN = "id_token"
         const val IS_FOOD = "is_food"

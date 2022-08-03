@@ -49,6 +49,7 @@ import com.cinescape1.ui.main.views.adapters.cinemaSessionAdapters.AdapterCinema
 import com.cinescape1.ui.main.views.adapters.showTimesAdapters.AdapterShowTimesCinemaTitle
 import com.cinescape1.ui.main.views.adapters.showTimesAdapters.AdpaterShowTimesCast
 import com.cinescape1.utils.*
+import com.cinescape1.utils.Constant.Companion.select_pos
 import com.google.android.flexbox.FlexboxLayout
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_show_times.*
@@ -150,6 +151,9 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 binding?.moviePage?.hide()
                 binding?.comingSoon?.show()
                 binding?.viewpager?.hide()
+                binding?.centerView?.hide()
+                binding?.imageView48?.hide()
+//                binding?.textView110?.hide()
                 include.show()
                 getShowTimes()
 
@@ -167,6 +171,10 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
 
                 binding?.viewpager?.hide()
+                binding?.imageView48?.hide()
+//                binding?.textView110?.hide()
+                binding?.centerView?.hide()
+
                 getCinemaData(CinemaSessionRequest(dateTime, movieID))
             }
             else -> {
@@ -178,6 +186,9 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 binding?.moviePage?.show()
                 binding?.comingSoon?.hide()
                 binding?.viewpager?.show()
+                binding?.imageView48?.show()
+//                binding?.textView110?.show()
+                binding?.centerView?.show()
                 include.hide()
                 getShowTimes()
             }
@@ -629,40 +640,46 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     //Cinema All Cinema and Show
     private fun setTitleAdapter() {
 
-//        binding?.viewpager?.adapter =
-//            CinemaPageAdapter(this, daySessionResponse, binding?.viewpager)
-//
-//        binding?.viewpager?.registerOnPageChangeCallback(object :
-//            com.github.islamkhsh.viewpager2.ViewPager2.OnPageChangeCallback() {
-//
-//            override fun onPageSelected(position: Int) {
-//                super.onPageSelected(position)
-//                println("position----123>${position}")
-//                binding?.textView110?.show()
-//                binding?.textView110?.text = daySessionResponse[position].cinema.address1
-////                binding?.viewpager?.adapter?.notifyDataSetChanged()
-//            }
-//
-//            override fun onPageScrolled(
-//                position: Int,
-//                positionOffset: Float,
-//                positionOffsetPixels: Int
-//            ) {
-//                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-//                val gridLayout =
-//                    GridLayoutManager(this@ShowTimesActivity, 1, GridLayoutManager.VERTICAL, false)
-//                binding?.recyclerviewCinemaTitle?.layoutManager =
-//                    LinearLayoutManager(this@ShowTimesActivity)
-//                adapterShowTimesCinemaTitle = AdapterShowTimesCinemaTitle(
-//                    this@ShowTimesActivity,
-//                    daySessionResponse[position].experienceSessions,
-//                    this@ShowTimesActivity
-//                )
-//                binding?.recyclerviewCinemaTitle?.layoutManager = gridLayout
-//                binding?.recyclerviewCinemaTitle?.adapter = adapterShowTimesCinemaTitle
-//            }
-//
-//        })
+        binding?.viewpager?.adapter =
+            CinemaPageAdapter(this, daySessionResponse, binding?.viewpager)
+
+        binding?.textView110?.show()
+        binding?.textView110?.text = daySessionResponse[0].cinema.address1
+
+        binding?.viewpager?.registerOnPageChangeCallback(object :
+            com.github.islamkhsh.viewpager2.ViewPager2.OnPageChangeCallback() {
+
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+
+                println("position----123>${position}---${daySessionResponse[position].cinema.address1}")
+                select_pos = position
+                binding?.textView110?.show()
+                binding?.textView110?.text = daySessionResponse[position].cinema.address1
+//                binding?.viewpager?.adapter?.notifyDataSetChanged()
+            }
+
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+                binding?.textView110?.show()
+                val gridLayout =
+                    GridLayoutManager(this@ShowTimesActivity, 1, GridLayoutManager.VERTICAL, false)
+                binding?.recyclerviewCinemaTitle?.layoutManager =
+                    LinearLayoutManager(this@ShowTimesActivity)
+                adapterShowTimesCinemaTitle = AdapterShowTimesCinemaTitle(
+                    this@ShowTimesActivity,
+                    daySessionResponse[position].experienceSessions,
+                    this@ShowTimesActivity
+                )
+                binding?.recyclerviewCinemaTitle?.layoutManager = gridLayout
+                binding?.recyclerviewCinemaTitle?.adapter = adapterShowTimesCinemaTitle
+            }
+
+        })
 
     }
 
@@ -694,6 +711,10 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         showPose = cinemaPos
         CinemaID = show.cinemaId
         SessionID = show.sessionId
+        println("Checkides--->$CinemaID},Movieid--->${movieID}")
+
+
+
 
         if (!preferences.getBoolean(Constant.IS_LOGIN)) {
             type
@@ -731,7 +752,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
     @SuppressLint("CutPasteId", "SetTextI18n")
     private fun showSeatTypePopup(output: SeatLayoutResponse.Output, name: String, pos: Int) {
-        loader?.dismiss()
         val mDialogView = layoutInflater.inflate(R.layout.seat_selection_main_alert_dailog, null)
         val mBuilder = AlertDialog.Builder(this, R.style.MyDialogTransparent)
             .setView(mDialogView)
@@ -905,8 +925,15 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         }
 
         val selectSeatCategory = mDialogView.findViewById<FlexboxLayout>(R.id.select_seat_category)
+        val textView5 = mDialogView.findViewById<TextView>(R.id.textView5)
         selectSeatCategory.removeAllViews()
         totalPrice.text = getString(R.string.price_kd) + " 0"
+
+        if (output.seatTypes[0].seatTypes.size==0){
+            textView5.text = getString(R.string.select_seat_type)
+        }else{
+            textView5.text = getString(R.string.select_seat_category)
+        }
 
         val viewListForDates = ArrayList<View>()
         for (item in output.seatTypes) {
@@ -1303,7 +1330,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         } catch (e: Exception) {
             println("ErrorData--->${e.message}")
         }
-
+        loader?.dismiss()
     }
 
     override fun onResume() {

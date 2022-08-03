@@ -128,7 +128,8 @@ class HomeActivity : DaggerAppCompatActivity() {
                 }
                 R.id.movieFragment -> {
                     binding?.imageView42?.hide()
-                    setCurrentFragment(MoviesFragment())
+                    //Constant.SEE_ALL_TYPE = 0
+                    setCurrentFragment(MoviesFragment(0))
                 }
                 R.id.foodFragment -> {
                     binding?.imageView42?.hide()

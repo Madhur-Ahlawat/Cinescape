@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
 import com.cinescape1.data.models.MovieTypeModel
+import com.cinescape1.utils.Constant
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 
@@ -20,7 +21,7 @@ class MovieTypeAdapter(
     private var listener: RecycleViewItemClickListener
 ) :
     RecyclerView.Adapter<MovieTypeAdapter.ViewHolder>() {
-    private var rowIndex = 0
+    private var rowIndex =  Constant.SEE_ALL_TYPE
 
     @SuppressLint("InflateParams")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

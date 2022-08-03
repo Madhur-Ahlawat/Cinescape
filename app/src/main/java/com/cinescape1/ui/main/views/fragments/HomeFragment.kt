@@ -22,11 +22,14 @@ import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.viewModels.HomeViewModel
 import com.cinescape1.ui.main.views.adapters.home.HomeParentAdapter
 import com.cinescape1.utils.*
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
-class HomeFragment : DaggerFragment() {
+class HomeFragment : DaggerFragment(),HomeParentAdapter.RecycleViewItemClickListener {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject
@@ -183,7 +186,7 @@ class HomeFragment : DaggerFragment() {
             val gridLayout =
                 GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
             mainList?.layoutManager = LinearLayoutManager(context)
-            val adapter = HomeParentAdapter(requireActivity(), homeData)
+            val adapter = HomeParentAdapter(requireActivity(), homeData,this)
             mainList?.layoutManager = gridLayout
             mainList?.adapter = adapter
             binding?.homeShimmer?.hide()
@@ -208,5 +211,16 @@ class HomeFragment : DaggerFragment() {
     override fun onPause() {
         super.onPause()
         binding?.homeShimmer?.startShimmer()
+    }
+
+    override fun onSeeAllClick(type:Int) {
+        val navView = requireActivity().findViewById(R.id.navigationView) as BottomNavigationView
+        val item = navView.getChildAt(0) as BottomNavigationMenuView
+        val itemView = item.getChildAt(1)
+        itemView.performClick()
+//        requireActivity().supportFragmentManager.beginTransaction().apply {
+//            replace(R.id.container, MoviesFragment(type))
+//            commit()
+//        }
     }
 }

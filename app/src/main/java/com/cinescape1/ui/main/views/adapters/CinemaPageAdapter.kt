@@ -12,11 +12,13 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.CinemaSessionResponse
+import com.cinescape1.utils.Constant
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.invisible
 import com.cinescape1.utils.show
 import com.github.islamkhsh.CardSliderAdapter
 import com.github.islamkhsh.CardSliderViewPager
+import kotlinx.android.synthetic.main.activity_show_times.view.*
 import kotlinx.android.synthetic.main.item_cinematxt.view.*
 
 
@@ -52,20 +54,16 @@ class CinemaPageAdapter(
                 rowIndex = viewpager.currentItem
                 println("viewpager.currentItem---$rowIndex----$position")
 
-                if (rowIndex == position) {
+                if (rowIndex == Constant.select_pos) {
                     val regular: Typeface = mContext.resources.getFont(R.font.sf_pro_text_heavy)
                     holder.cinemaName.typeface = regular
-                    holder.cinemaName.setTextColor(mContext.getColor(R.color.white))
                     holder.cinemaName.textSize = 20F
-//                    holder.address.show()
+//                    holder.image.show()
                 } else {
-
-
                     val bold: Typeface = mContext.resources.getFont(R.font.sf_pro_text_regular)
                     holder.cinemaName.textSize = 13f
-                    holder.cinemaName.setTextColor(mContext.getColor(R.color.text_color))
                     holder.cinemaName.typeface = bold
-//                    holder.address.hide()
+//                    holder.image.hide()
 
                 }
             }

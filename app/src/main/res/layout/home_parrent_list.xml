@@ -76,10 +76,10 @@
     <com.github.islamkhsh.CardSliderViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="380dp"
         android:layout_marginTop="@dimen/dimen30"
         android:visibility="visible"
-        app:cardSlider_otherPagesWidth="62.2dp"
+        app:cardSlider_otherPagesWidth="58.2dp"
         app:cardSlider_pageMargin="@dimen/margin15"
         app:cardSlider_smallScaleFactor="0.6"
         app:layout_constraintBottom_toBottomOf="@+id/viewpagerBack"
