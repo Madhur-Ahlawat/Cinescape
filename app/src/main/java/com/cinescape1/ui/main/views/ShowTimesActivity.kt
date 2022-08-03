@@ -30,6 +30,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.requestModel.CinemaSessionRequest
@@ -58,6 +61,7 @@ import kotlinx.android.synthetic.main.search_ui.*
 import kotlinx.android.synthetic.main.seat_selection_bank_offer_alert.*
 import kotlinx.android.synthetic.main.show_times_layout_include.*
 import javax.inject.Inject
+import kotlin.math.abs
 
 
 class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewItemClickListener,
@@ -641,19 +645,34 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     private fun setTitleAdapter() {
 
         binding?.viewpager?.adapter =
-            CinemaPageAdapter(this, daySessionResponse, binding?.viewpager)
+            CinemaPageAdapter(this, daySessionResponse,binding?.viewpager)
+        binding?.viewpager?.offscreenPageLimit = 3
+        binding?.viewpager?.clipChildren = false
+        binding?.viewpager?.clipToPadding = false
+        binding?.viewpager?.getChildAt(0)?.overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+        val transfer = CompositePageTransformer()
+        transfer.addTransformer(MarginPageTransformer(40))
+        transfer.addTransformer(object : com.github.islamkhsh.viewpager2.ViewPager2.PageTransformer,
+            androidx.viewpager2.widget.ViewPager2.PageTransformer {
+            override fun transformPage(page: View, position: Float) {
+               // println("rowIndex---->1-$position")
+                select_pos = position.toInt()
+                val r = 1- abs(position)
+                page.scaleY = (0.85f+ r*0.14f)
+            }
 
+        })
+        binding?.viewpager?.setPageTransformer(transfer)
         binding?.textView110?.show()
         binding?.textView110?.text = daySessionResponse[0].cinema.address1
 
-        binding?.viewpager?.registerOnPageChangeCallback(object :
-            com.github.islamkhsh.viewpager2.ViewPager2.OnPageChangeCallback() {
+        binding?.viewpager?.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
 
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
 
                 println("position----123>${position}---${daySessionResponse[position].cinema.address1}")
-                select_pos = position
+                //select_pos = position
                 binding?.textView110?.show()
                 binding?.textView110?.text = daySessionResponse[position].cinema.address1
 //                binding?.viewpager?.adapter?.notifyDataSetChanged()

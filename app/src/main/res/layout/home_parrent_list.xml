@@ -49,7 +49,7 @@
         tools:itemCount="3"
         tools:listitem="@layout/recommended_item" />
 
-    <androidx.viewpager.widget.ViewPager
+    <com.cinescape1.utils.CustomViewPager
         android:id="@+id/viewpagerBack"
         android:layout_width="match_parent"
         android:layout_height="430dp"
@@ -73,15 +73,14 @@
         app:layout_constraintTop_toTopOf="@+id/viewpagerBack"
         tools:ignore="ContentDescription" />
 
-    <com.github.islamkhsh.CardSliderViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="380dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen30"
         android:visibility="visible"
-        app:cardSlider_otherPagesWidth="58.2dp"
-        app:cardSlider_pageMargin="@dimen/margin15"
-        app:cardSlider_smallScaleFactor="0.6"
+        android:paddingEnd="80dp"
+        android:paddingStart="80dp"
         app:layout_constraintBottom_toBottomOf="@+id/viewpagerBack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

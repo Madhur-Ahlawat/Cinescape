@@ -129,5 +129,6 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
     implementation 'com.onesignal:OneSignal:[4.0.0, 4.99.99]'
     implementation 'com.joooonho:selectableroundedimageview:1.0.1'
-
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.github.GoodieBag:CarouselPicker:v1.1'
 }

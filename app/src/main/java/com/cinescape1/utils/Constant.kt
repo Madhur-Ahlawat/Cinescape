@@ -571,5 +571,6 @@ import java.util.ArrayList
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
     }
 
+
 }
 

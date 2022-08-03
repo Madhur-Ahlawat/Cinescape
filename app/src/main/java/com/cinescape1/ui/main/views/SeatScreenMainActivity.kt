@@ -499,7 +499,8 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                     this,
                     R.anim.zoom_out
                 )
-//                binding?.innerView?.startAnimation(animZoomOut)
+                binding?.seatTable?.startAnimation(animZoomOut)
+
             }
         } catch (e: Exception) {
             println("CheckException--->${e.message}")

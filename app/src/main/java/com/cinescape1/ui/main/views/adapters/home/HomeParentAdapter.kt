@@ -9,20 +9,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
+import androidx.core.util.forEach
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.HomeDataResponse
 import com.cinescape1.ui.main.views.SeeAllActivity
 import com.cinescape1.ui.main.views.adapters.*
 import com.cinescape1.ui.main.views.adapters.sliderAdapter.HomeFrontSliderAdapter
-import com.cinescape1.ui.main.views.fragments.MoviesFragment
+import com.cinescape1.utils.Constant
 import com.cinescape1.utils.Constant.Companion.SEE_ALL_TYPE
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
+import com.github.islamkhsh.CardSliderAdapter
+import com.github.islamkhsh.viewpager2.ViewPager2
 import kotlinx.android.synthetic.main.home_parrent_list.view.*
 import java.util.*
+import kotlin.math.abs
 
 
 class HomeParentAdapter(
@@ -83,7 +89,22 @@ class HomeParentAdapter(
                 holder.viewpagerBack.layoutDirection = View.LAYOUT_DIRECTION_RTL
                 val sliderbackAdapter = SliderBackAdapter(mContext, obj.movieData)
                 holder.viewpagerBack.adapter = sliderbackAdapter
-                holder.viewpager.adapter = HomeFrontSliderAdapter(mContext, obj.movieData)
+                holder.viewpager.adapter = HomeFrontSliderAdapter(mContext, obj.movieData,holder.viewpager)
+                holder.viewpager.offscreenPageLimit = 3
+                holder.viewpager.clipChildren = false
+                holder.viewpager.clipToPadding = false
+                holder.viewpager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+                val transfer = CompositePageTransformer()
+                transfer.addTransformer(MarginPageTransformer(40))
+                transfer.addTransformer(object : ViewPager2.PageTransformer,
+                    androidx.viewpager2.widget.ViewPager2.PageTransformer {
+                    override fun transformPage(page: View, position: Float) {
+                        val r = 1- abs(position)
+                        page.scaleY = (0.85f+ r*0.14f)
+                    }
+
+                })
+                holder.viewpager.setPageTransformer(transfer)
               val  NUM_PAGES=obj.movieData.size
                 val handler = Handler()
                 val Update = Runnable {
@@ -99,13 +120,15 @@ class HomeParentAdapter(
 //                    }
 //                }, 3000, 3000)
 
-                holder.viewpager.registerOnPageChangeCallback(object :
-                    com.github.islamkhsh.viewpager2.ViewPager2.OnPageChangeCallback() {
+
+                holder.viewpager.registerOnPageChangeCallback(object : androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback() {
 
                     override fun onPageSelected(position: Int) {
                         super.onPageSelected(position)
                         Log.e("Selected_Page", position.toString())
+                        Constant.select_pos = position;
                         holder.viewpagerBack.currentItem = position
+
                     }
 
                     override fun onPageScrollStateChanged(state: Int) {
