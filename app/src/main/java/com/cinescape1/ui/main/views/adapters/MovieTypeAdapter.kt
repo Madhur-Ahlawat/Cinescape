@@ -43,7 +43,7 @@ class MovieTypeAdapter(
         if (rowIndex == position) {
             holder.view.show()
             holder.text.setTextColor(ContextCompat.getColor(context, R.color.white))
-            holder.text.textSize = 18f
+            holder.text.textSize = 17f
             holder.text.typeface = heavy
         } else {
             holder.view.hide()

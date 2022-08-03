@@ -64,7 +64,6 @@ class CinemaPageAdapter(
                     holder.cinemaName.textSize = 13f
                     holder.cinemaName.typeface = bold
 //                    holder.image.hide()
-
                 }
             }
 

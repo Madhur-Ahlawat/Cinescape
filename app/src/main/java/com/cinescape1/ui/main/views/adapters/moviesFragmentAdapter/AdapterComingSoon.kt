@@ -27,7 +27,6 @@ class AdapterComingSoon(private var nowShowingList: ArrayList<MoviesResponse.Com
     }
 
     override fun onBindViewHolder(holder: MyViewHolderNowShowing, position: Int) {
-
         val comingSoonItem = nowShowingList[position]
 
         Glide.with(mContext)
