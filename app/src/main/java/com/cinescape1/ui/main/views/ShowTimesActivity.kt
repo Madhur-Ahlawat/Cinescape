@@ -150,7 +150,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 binding?.moviePage?.hide()
                 binding?.comingSoon?.show()
                 binding?.viewpager?.hide()
-                binding?.imageView48?.hide()
                 include.show()
                 getShowTimes()
 
@@ -168,7 +167,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
 
                 binding?.viewpager?.hide()
-                binding?.imageView48?.hide()
                 getCinemaData(CinemaSessionRequest(dateTime, movieID))
             }
             else -> {
@@ -180,7 +178,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 binding?.moviePage?.show()
                 binding?.comingSoon?.hide()
                 binding?.viewpager?.show()
-                binding?.imageView48?.show()
                 include.hide()
                 getShowTimes()
             }
@@ -632,40 +629,40 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     //Cinema All Cinema and Show
     private fun setTitleAdapter() {
 
-        binding?.viewpager?.adapter =
-            CinemaPageAdapter(this, daySessionResponse, binding?.viewpager)
-
-        binding?.viewpager?.registerOnPageChangeCallback(object :
-            com.github.islamkhsh.viewpager2.ViewPager2.OnPageChangeCallback() {
-
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                println("position----123>${position}")
-                binding?.textView110?.show()
-                binding?.textView110?.text = daySessionResponse[position].cinema.address1
-//                binding?.viewpager?.adapter?.notifyDataSetChanged()
-            }
-
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-                val gridLayout =
-                    GridLayoutManager(this@ShowTimesActivity, 1, GridLayoutManager.VERTICAL, false)
-                binding?.recyclerviewCinemaTitle?.layoutManager =
-                    LinearLayoutManager(this@ShowTimesActivity)
-                adapterShowTimesCinemaTitle = AdapterShowTimesCinemaTitle(
-                    this@ShowTimesActivity,
-                    daySessionResponse[position].experienceSessions,
-                    this@ShowTimesActivity
-                )
-                binding?.recyclerviewCinemaTitle?.layoutManager = gridLayout
-                binding?.recyclerviewCinemaTitle?.adapter = adapterShowTimesCinemaTitle
-            }
-
-        })
+//        binding?.viewpager?.adapter =
+//            CinemaPageAdapter(this, daySessionResponse, binding?.viewpager)
+//
+//        binding?.viewpager?.registerOnPageChangeCallback(object :
+//            com.github.islamkhsh.viewpager2.ViewPager2.OnPageChangeCallback() {
+//
+//            override fun onPageSelected(position: Int) {
+//                super.onPageSelected(position)
+//                println("position----123>${position}")
+//                binding?.textView110?.show()
+//                binding?.textView110?.text = daySessionResponse[position].cinema.address1
+////                binding?.viewpager?.adapter?.notifyDataSetChanged()
+//            }
+//
+//            override fun onPageScrolled(
+//                position: Int,
+//                positionOffset: Float,
+//                positionOffsetPixels: Int
+//            ) {
+//                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+//                val gridLayout =
+//                    GridLayoutManager(this@ShowTimesActivity, 1, GridLayoutManager.VERTICAL, false)
+//                binding?.recyclerviewCinemaTitle?.layoutManager =
+//                    LinearLayoutManager(this@ShowTimesActivity)
+//                adapterShowTimesCinemaTitle = AdapterShowTimesCinemaTitle(
+//                    this@ShowTimesActivity,
+//                    daySessionResponse[position].experienceSessions,
+//                    this@ShowTimesActivity
+//                )
+//                binding?.recyclerviewCinemaTitle?.layoutManager = gridLayout
+//                binding?.recyclerviewCinemaTitle?.adapter = adapterShowTimesCinemaTitle
+//            }
+//
+//        })
 
     }
 
@@ -697,10 +694,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         showPose = cinemaPos
         CinemaID = show.cinemaId
         SessionID = show.sessionId
-        println("Checkides--->$CinemaID},Movieid--->${movieID}")
-
-
-
 
         if (!preferences.getBoolean(Constant.IS_LOGIN)) {
             type

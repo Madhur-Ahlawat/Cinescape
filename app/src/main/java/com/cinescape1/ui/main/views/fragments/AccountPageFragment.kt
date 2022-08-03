@@ -51,7 +51,6 @@ import com.cinescape1.data.models.requestModel.*
 import com.cinescape1.data.models.responseModel.*
 import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.databinding.FragmentAccountPageBinding
-import com.cinescape1.ui.main.FinalTicketActivity
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.viewModels.fragmentsViewModels.AccountFragViewModel
@@ -111,6 +110,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         ModelPreferenceExperience(R.drawable.img_2d, 0),
         ModelPreferenceExperience(R.drawable.img_screenx, 0)
     )
+
     private var userName: String = ""
     private var firstName: String = ""
     private var lastName: String = ""
@@ -126,13 +126,12 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     private var countryCodeList = ArrayList<CountryCodeResponse.Output>()
     private var getAmountList = ArrayList<String>()
     private var mAdapter: CountryCodeAdapter? = null
-    var seatAbility: Int = 0
-    var bookingText: String = ""
+    private var seatAbility: Int = 0
+    private var bookingText: String = ""
     private var broadcastReceiver: BroadcastReceiver? = null
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
     private var latitude: String = ""
     private var longitude: String = ""
-
 
     private var cinema: String = ""
     private var arbic: Boolean = false
@@ -140,11 +139,10 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     private var cinemaId = ""
     private var rechargeType = ""
 
-    private var seatCateogry: String = ""
+    private var seatCategory: String = ""
     private var seatType: String = ""
     private val experience: ArrayList<String> = ArrayList()
     private var ageRating: ArrayList<String> = ArrayList()
-
 
     private var locationlist = ArrayList<FoodResponse.Output.Cinema>()
 
@@ -870,7 +868,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     cinema,
                     experience.toString(),
                     ageRating.toString(),
-                    seatCateogry,
+                    seatCategory,
                     seatType,
                     preferences.getString(Constant.USER_ID).toString()
                 )
@@ -1984,7 +1982,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     categoryImage1.setColorFilter(getColor(requireContext(), R.color.hint_color))
                     categoryName1.setTextColor(getColor(requireContext(), R.color.hint_color))
                 }
-                seatCateogry = categoryName.text.toString()
+                this.seatCategory = categoryName.text.toString()
                 categoryImage.setColorFilter(resources.getColor(R.color.text_alert_color_red))
                 categoryName.setTextColor(getColor(requireContext(), R.color.text_alert_color_red))
             }
@@ -2259,6 +2257,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     }
 
     private fun setBookingHistoryAdapter(output: ArrayList<HistoryResponse.Output>) {
+        binding?.nestedUi?.show()
         val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
         binding?.recyclerviewBooking?.layoutManager = LinearLayoutManager(context)
         val adapter = AdapterBookingHistory(requireActivity(), output)
@@ -2672,10 +2671,10 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                             dialog.show()
                         }
                         Status.LOADING -> {
-//                            if (isAdded) {
-//                                loader = LoaderDialog(R.string.pleasewait)
-//                                loader?.show(requireActivity().supportFragmentManager, null)
-//                            }
+                            if (isAdded) {
+                                loader = LoaderDialog(R.string.pleasewait)
+                                loader?.show(requireActivity().supportFragmentManager, null)
+                            }
                         }
                     }
                 }
