@@ -37,6 +37,7 @@ class MovieTypeAdapter(
         holder.text.text = list.name
 
         val heavy: Typeface = context.resources.getFont(R.font.sf_pro_text_heavy)
+        val regular: Typeface = context.resources.getFont(R.font.sf_pro_text_regular)
 
         if (rowIndex == position) {
             holder.view.show()
@@ -46,7 +47,7 @@ class MovieTypeAdapter(
         } else {
             holder.view.hide()
             holder.text.setTextColor(ContextCompat.getColor(context, R.color.text_color))
-            holder.text.typeface = heavy
+            holder.text.typeface = regular
             holder.text.textSize = 14F
         }
         holder.itemView.setOnClickListener {

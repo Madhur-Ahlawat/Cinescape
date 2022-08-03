@@ -429,9 +429,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/recylerview_show_time_date"
                 app:layout_constraintStart_toStartOf="@+id/recylerview_show_time_date"
-                app:layout_constraintTop_toBottomOf="@+id/textView110" />
+/>
 
-            <com.github.islamkhsh.CardSliderViewPager
+            <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewpager"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
@@ -439,39 +439,10 @@
                 android:minHeight="@dimen/size50"
                 android:background="@color/transparent"
                 android:visibility="visible"
-                app:cardSlider_otherPagesWidth="40dp"
                 app:layout_constraintBottom_toTopOf="@+id/recyclerview_cinema_title"
                 app:layout_constraintEnd_toEndOf="@+id/recyclerview_cinema_title"
                 app:layout_constraintStart_toStartOf="@+id/recyclerview_cinema_title"
                 app:layout_constraintTop_toBottomOf="@+id/recylerview_show_time_date" />
-
-            <ImageView
-                android:id="@+id/imageView48"
-                android:layout_width="0dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="80dp"
-                android:layout_marginEnd="80dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/cinema_back_item"
-                app:layout_constraintBottom_toTopOf="@+id/recyclerview_cinema_title"
-                app:layout_constraintEnd_toEndOf="@+id/recyclerview_cinema_title"
-                app:layout_constraintStart_toStartOf="@+id/recyclerview_cinema_title"
-                app:layout_constraintTop_toBottomOf="@+id/recylerview_show_time_date"
-                tools:ignore="ContentDescription" />
-
-            <TextView
-                android:id="@+id/textView110"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:textColor="#C1C1C1"
-                android:textSize="@dimen/size13"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/viewpager"
-                tools:text="Al mall" />
-
 
 
             <androidx.recyclerview.widget.RecyclerView

@@ -238,8 +238,8 @@ class HomeActivity : DaggerAppCompatActivity() {
             this,
             locationlist
         )
-        dialog.cinescape_ai_kout?.adapter = customAdapter
-        dialog.cinescape_ai_kout?.onItemSelectedListener = object :
+        dialog.spinner?.adapter = customAdapter
+        dialog.spinner?.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,

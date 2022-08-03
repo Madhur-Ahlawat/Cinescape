@@ -1,38 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:background="@color/black"
+    app:cardBackgroundColor="@color/black"
+    app:cardUseCompatPadding="true"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:layout_gravity="center">
 
-        <TextView
-            android:id="@+id/cinemaName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin10"
-            android:layout_marginBottom="@dimen/margin10"
-            android:gravity="center"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            tools:text="Cinescape\n dsfsafdfsf Kout" />
+    <ImageView
+        android:id="@+id/imageView48"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:visibility="gone"
+        android:src="@drawable/cinema_back_item"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/cinemaName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView48"
+        app:layout_constraintEnd_toEndOf="@+id/imageView48"
+        app:layout_constraintStart_toStartOf="@+id/imageView48"
+        app:layout_constraintTop_toTopOf="@+id/imageView48"
+        tools:text="Cinescape dsfsafdfsf Kout" />
 
 
     <TextView
         android:id="@+id/textView110"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/size13"
-        android:textColor="#C1C1C1"
-        android:visibility="gone"
         android:fontFamily="@font/sf_pro_text_regular"
-        tools:text="Al mall"
-        app:layout_constraintEnd_toEndOf="@+id/constraintLayout21"
-        app:layout_constraintStart_toStartOf="@+id/constraintLayout21"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout21" />
+        android:textColor="#C1C1C1"
+        android:textSize="@dimen/size13"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/cinemaName"
+        app:layout_constraintStart_toStartOf="@+id/cinemaName"
+        app:layout_constraintTop_toBottomOf="@+id/imageView48"
+        tools:text="Al mall" />
+    </LinearLayout>
 
-</LinearLayout>
+</androidx.cardview.widget.CardView>

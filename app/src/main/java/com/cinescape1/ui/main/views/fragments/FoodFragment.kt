@@ -109,12 +109,12 @@ class FoodFragment : DaggerFragment(), AdapterView.OnItemSelectedListener {
                                     if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                         binding?.foodLayout?.show()
                                         locationlist = it.data.output.cinemas
-                                        binding?.cinescapeAiKout?.onItemSelectedListener = this
+                                        binding?.spinner?.onItemSelectedListener = this
                                         val customAdapter = CustomSpinnerAdapter(
                                             requireActivity(),
                                             it.data.output.cinemas
                                         )
-                                        binding?.cinescapeAiKout?.adapter = customAdapter
+                                        binding?.spinner?.adapter = customAdapter
 
                                         println("foodCinemas--->${it.data.output.cinemas}")
                                     }

@@ -10,7 +10,7 @@
         android:id="@+id/textView21"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/size18"
+        android:textSize="@dimen/size14"
         android:textColor="@color/white"
         android:fontFamily="@font/sf_pro_text_regular"
         android:text="TextView"
