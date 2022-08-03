@@ -51,6 +51,7 @@
     <string name="seat_type">Seat Type</string>
     <string name="experience">Experience</string>
     <string name="age_rating">Age Rating</string>
+    <string name="rating">Rating</string>
     <string name="skip_and_proceed">  and proceed</string>
     <string name="done">Done</string>
     <string name="home">HOME</string>

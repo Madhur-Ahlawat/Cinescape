@@ -50,7 +50,7 @@ import kotlinx.android.synthetic.main.search_ui.*
 import javax.inject.Inject
 
 
-class MoviesFragment : DaggerFragment(), AdapterFilterCategory.RecycleViewItemClickListener,
+class MoviesFragment(val type:Int) : DaggerFragment(), AdapterFilterCategory.RecycleViewItemClickListener,
     MovieTypeAdapter.RecycleViewItemClickListener {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -123,6 +123,13 @@ class MoviesFragment : DaggerFragment(), AdapterFilterCategory.RecycleViewItemCl
         val adapter = MovieTypeAdapter(list, requireActivity(), this)
         binding?.recyclerType?.layoutManager = gridLayout
         binding?.recyclerType?.adapter = adapter
+        println("MovieException----${Constant.SEE_ALL_TYPE}")
+
+        if (Constant.SEE_ALL_TYPE==0){
+            binding?.recyclerType?.scrollToPosition(0)
+        }else{
+            binding?.recyclerType?.scrollToPosition(1)
+        }
 
         //AppBar Hide
 // Show status bar
@@ -180,7 +187,7 @@ class MoviesFragment : DaggerFragment(), AdapterFilterCategory.RecycleViewItemCl
         //filter
         imageView33.setOnClickListener {
             isChecked
-            imageView33.setImageResource(R.drawable.ic_filter_select)
+            imageView33.setImageResource(R.drawable.ic_icon_awesome_filter)
             setFilterAlertDialog(moviesResponse?.output!!)
         }
 
@@ -231,7 +238,11 @@ class MoviesFragment : DaggerFragment(), AdapterFilterCategory.RecycleViewItemCl
                                 try {
                                     moviesResponse = it.data.data
                                     comingSoonFilter = it.data.data.output.comingsoon
-                                    nowSowing(it.data.data.output.nowshowing)
+                                    if (Constant.SEE_ALL_TYPE==0) {
+                                        nowSowing(it.data.data.output.nowshowing)
+                                    }else{
+                                        comingSoon(it.data.data.output.comingsoon)
+                                    }
                                 } catch (e: Exception) {
                                     println("MovieException----${e.message}")
                                 }
@@ -363,8 +374,8 @@ class MoviesFragment : DaggerFragment(), AdapterFilterCategory.RecycleViewItemCl
         val mAlertDialog = mBuilder.show()
 
 //Outside Clickable  False
-        mAlertDialog.setCancelable(false)
-        mAlertDialog.setCanceledOnTouchOutside(false)
+        mAlertDialog.setCancelable(true)
+        mAlertDialog.setCanceledOnTouchOutside(true)
         mAlertDialog.show()
         val selectedList = arrayListOf<String>()
         val selectedList1 = arrayListOf<String>()
@@ -378,7 +389,7 @@ class MoviesFragment : DaggerFragment(), AdapterFilterCategory.RecycleViewItemCl
         if (output.cinemas?.size!! > 0) {
             dataList.add(
                 FilterModel(
-                    "Location",
+                    getString(R.string.location),
                     2,
                     output.experiences,
                     selectedList4,
@@ -392,7 +403,7 @@ class MoviesFragment : DaggerFragment(), AdapterFilterCategory.RecycleViewItemCl
         if (output.experiences.size > 0) {
             dataList.add(
                 FilterModel(
-                    "Experience",
+                    getString(R.string.experience),
                     1,
                     output.experiences,
                     selectedList,
@@ -406,7 +417,7 @@ class MoviesFragment : DaggerFragment(), AdapterFilterCategory.RecycleViewItemCl
         if (output.movieTimings.size > 0) {
             dataList.add(
                 FilterModel(
-                    "Time",
+                    getString(R.string.time),
                     3,
                     output.experiences,
                     selectedList5,
@@ -420,7 +431,7 @@ class MoviesFragment : DaggerFragment(), AdapterFilterCategory.RecycleViewItemCl
         if (output.ratings.size > 0) {
             dataList.add(
                 FilterModel(
-                    "Rating",
+                    getString(R.string.rating),
                     4,
                     output.ratings,
                     selectedList1,
@@ -434,7 +445,7 @@ class MoviesFragment : DaggerFragment(), AdapterFilterCategory.RecycleViewItemCl
         if (output.genreList.size > 0) {
             dataList.add(
                 FilterModel(
-                    "Genre",
+                    getString(R.string.genre),
                     5,
                     output.genreList,
                     selectedList2,
@@ -449,7 +460,7 @@ class MoviesFragment : DaggerFragment(), AdapterFilterCategory.RecycleViewItemCl
         if (output.alllanguages.size > 0) {
             dataList.add(
                 FilterModel(
-                    "Language",
+                    getString(R.string.languange),
                     6,
                     output.alllanguages,
                     selectedList3,
@@ -480,10 +491,12 @@ class MoviesFragment : DaggerFragment(), AdapterFilterCategory.RecycleViewItemCl
 
         textViewDone.setOnClickListener {
             isChecked = false
+            if (dataList.size>0){
             imageView33.setImageResource(R.drawable.ic_icon_awesome_filter)
             binding?.recyclerviewCategory?.hide()
             updateFilterData(dataList, "")
             mAlertDialog.dismiss()
+           }
         }
     }
 

@@ -164,7 +164,7 @@
             android:layout_width="@dimen/size50"
             android:layout_height="@dimen/size50"
             android:layout_marginEnd="28dp"
-            android:layout_marginBottom="100dp"
+            android:layout_marginBottom="30dp"
             android:background="@drawable/circle_red"
             app:layout_constraintBottom_toBottomOf="@+id/movieLayout"
             app:layout_constraintEnd_toEndOf="@+id/fragmentMovie"
@@ -178,7 +178,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_icon_awesome_filter" />
+                android:src="@drawable/ic_icon_awesome_filter" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -135,10 +135,10 @@ class AdapterFilterTitle(context: Activity, private var filterTitleList: ArrayLi
             notifyDataSetChanged()
         }
         if (rowIndex == position) {
-            holder.imageArrowDrop.setImageResource(R.drawable.arrow_drop_up)
+            holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
             holder.filterExpand.show()
         }else {
-            holder.imageArrowDrop.setImageResource(R.drawable.ic_arrow_down)
+            holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
             holder.filterExpand.hide()
         }
 

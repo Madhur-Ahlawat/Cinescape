@@ -5,20 +5,19 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@color/black"
+    android:background="@color/transparent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
         <TextView
             android:id="@+id/cinemaName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin10"
-            android:layout_marginBottom="@dimen/margin10"
-            android:gravity="center"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/sf_pro_text_heavy"
             android:textAlignment="center"
+            android:gravity="center"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="25sp"
             tools:text="Cinescape\n dsfsafdfsf Kout" />
 
 

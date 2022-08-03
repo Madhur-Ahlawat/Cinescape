@@ -52,6 +52,7 @@
     <string name="seat_type">نوع المقعد</string>
     <string name="experience">التجربة</string>
     <string name="age_rating">الفئة العمرية</string>
+    <string name="rating">الفئة</string>
     <string name="skip_and_proceed">تخطي والمضي قدما</string>
     <string name="done">اعتمد</string>
     <string name="home">الصفحة الرئيسية</string>

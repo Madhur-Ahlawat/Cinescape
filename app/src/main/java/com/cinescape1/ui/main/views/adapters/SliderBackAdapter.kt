@@ -25,7 +25,7 @@ class SliderBackAdapter(private  val mContext: Activity, private var movieData: 
 
         Glide.with(mContext)
             .load(movieData[position].sliderimgurl)
-            .placeholder(R.drawable.app_icon)
+            .placeholder(R.drawable.pos_not_avilbale)
             .into(featured_image)
 
         featured_image.setOnClickListener {
