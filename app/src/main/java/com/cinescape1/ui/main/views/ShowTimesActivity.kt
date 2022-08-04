@@ -657,11 +657,19 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         binding?.viewpager?.clipToPadding = false
         binding?.viewpager?.getChildAt(0)?.overScrollMode = RecyclerView.OVER_SCROLL_NEVER
         val transfer = CompositePageTransformer()
+
+        val nextItemVisiblePx =resources.getDimension(R.dimen.viewpager_next_item_visible)
+        val currentItemHorizontalMarginPx =resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
+        val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
+
+
         transfer.addTransformer(MarginPageTransformer(40))
         transfer.addTransformer(object : com.github.islamkhsh.viewpager2.ViewPager2.PageTransformer,
-            androidx.viewpager2.widget.ViewPager2.PageTransformer {
+            ViewPager2.PageTransformer {
             override fun transformPage(page: View, position: Float) {
                // println("rowIndex---->1-$position")
+                page.translationX = -pageTranslationX * position
+
                 select_pos = position.toInt()
                 val r = 1- abs(position)
                 page.scaleY = (0.85f+ r*0.14f)

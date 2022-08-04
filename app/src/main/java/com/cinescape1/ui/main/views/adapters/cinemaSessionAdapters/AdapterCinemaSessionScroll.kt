@@ -74,12 +74,11 @@ class AdapterCinemaSessionScroll(
             }
         }
 
-
-
         Glide.with(context)
             .load(showtimeListItem.movie.mobimgsmall)
             .error(R.drawable.pos_not_avilbale)
             .into(holder.image)
+
         holder.name.isSelected = true
         val gridLayout = GridLayoutManager(context, 1, GridLayoutManager.HORIZONTAL, false)
         holder.recyclerView.layoutManager = LinearLayoutManager(context)

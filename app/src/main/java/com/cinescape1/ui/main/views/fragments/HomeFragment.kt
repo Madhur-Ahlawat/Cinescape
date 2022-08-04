@@ -120,6 +120,10 @@ class HomeFragment : DaggerFragment(),HomeParentAdapter.RecycleViewItemClickList
                             dialog.show()
                         }
                         Status.LOADING -> {
+                            if (isAdded) {
+                            loader = LoaderDialog(R.string.pleasewait)
+                            loader?.show(requireActivity().supportFragmentManager, null)
+                        }
                         }
                     }
                 }
@@ -203,15 +207,7 @@ class HomeFragment : DaggerFragment(),HomeParentAdapter.RecycleViewItemClickList
         )
     }
 
-    override fun onResume() {
-        super.onResume()
-        binding?.homeShimmer?.startShimmer()
-    }
 
-    override fun onPause() {
-        super.onPause()
-        binding?.homeShimmer?.startShimmer()
-    }
 
     override fun onSeeAllClick(type:Int) {
         val navView = requireActivity().findViewById(R.id.navigationView) as BottomNavigationView

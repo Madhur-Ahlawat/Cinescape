@@ -151,6 +151,8 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
             false
         }
 
+
+        binding?.tvSeatFilmTitle?.show()
         getSeatLayout(SeatLayoutRequest(CinemaID, dateTime, MovieId, SessionID))
         broadcastReceiver = MyReceiver()
         broadcastIntent()

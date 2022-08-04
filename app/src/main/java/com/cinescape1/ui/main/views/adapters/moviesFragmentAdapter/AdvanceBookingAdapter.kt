@@ -29,6 +29,8 @@ class AdvanceBookingAdapter(private var nowShowingList: List<MoviesResponse.Adva
 
     override fun onBindViewHolder(holder: MyViewHolderNowShowing, position: Int) {
         val comingSoonItem = nowShowingList[position]
+        holder.movieTitle.isSelected=true
+        holder.movieCategory.isSelected=true
 
         Glide.with(mContext)
             .load(comingSoonItem.mobimgsmall)

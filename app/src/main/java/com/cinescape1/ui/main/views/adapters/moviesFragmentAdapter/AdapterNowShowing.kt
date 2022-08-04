@@ -29,9 +29,12 @@ class AdapterNowShowing(private var nowShowingList: ArrayList<MoviesResponse.Now
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolderNowShowing, position: Int) {
         val comingSoonItem = nowShowingList[position]
+
+        holder.movieTitle.isSelected=true
+        holder.movieCategory.isSelected=true
         Glide.with(mContext)
             .load(comingSoonItem.mobimgsmall)
-            .error(R.drawable.pos_not_avilbale)
+            .error(R.drawable.app_icon)
             .into(holder.thumbnail)
 
         holder.movieTitle.text = comingSoonItem.title

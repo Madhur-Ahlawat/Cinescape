@@ -22,117 +22,123 @@ import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 
 
-class UpcomingBookingAdapter(private val context: Context, private var upcomingBookingList: ArrayList<NextBookingResponse.Current>) :
+class UpcomingBookingAdapter(
+    private val context: Context,
+    private var upcomingBookingList: ArrayList<NextBookingResponse.Current>
+) :
     RecyclerView.Adapter<UpcomingBookingAdapter.MyViewHolderUpcomingBooking>() {
     private var mContext = context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderUpcomingBooking {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.account_booking_item, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.account_booking_item, parent, false)
         return MyViewHolderUpcomingBooking(view)
     }
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolderUpcomingBooking, position: Int) {
-        if (upcomingBookingList.isEmpty()) {
-            holder.thumbnail.setImageResource(R.drawable.img_demo)
+        val foodSelctedItem = upcomingBookingList[position]
+
+        holder.textNameMovie.isSelected = true
+        Glide.with(mContext)
+            .load(foodSelctedItem.posterhori)
+            .placeholder(R.drawable.pos_not_avilbale)
+            .into(holder.thumbnail)
+
+        holder.textNameMovie.text = foodSelctedItem.moviename
+        holder.textTypes.text = foodSelctedItem.mcensor
+
+        holder.adressName.text = foodSelctedItem.cinemaname
+        holder.screenNumber.text = foodSelctedItem.screenId.toString()
+        holder.cinemaName.text = foodSelctedItem.experience
+        holder.date.text = foodSelctedItem.showDate
+        holder.times.text = foodSelctedItem.showTime
+
+        if (foodSelctedItem.mcensor.isNullOrEmpty()) {
+            holder.cardView.hide()
         } else {
+            holder.cardView.show()
+            when (foodSelctedItem.mcensor) {
+                "PG" -> {
+                    holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.grey))
 
-            val foodSelctedItem = upcomingBookingList[position]
-            Glide.with(mContext).load(foodSelctedItem.posterhori).placeholder(R.drawable.movie_default).into(holder.thumbnail)
-            holder.textNameMovie.text = foodSelctedItem.moviename
-            holder.textTypes.text = foodSelctedItem.mcensor
-
-            holder.adressName.text = foodSelctedItem.cinemaname
-            holder.screenNumber.text = foodSelctedItem.screenId.toString()
-            holder.cinemaName.text = foodSelctedItem.experience
-            holder.date.text = foodSelctedItem.showDate
-            holder.times.text = foodSelctedItem.showTime
-
-            if (foodSelctedItem.mcensor.isNullOrEmpty()){
-                holder.cardView.hide()
-            }else{
-                holder.cardView.show()
-                when (foodSelctedItem.mcensor) {
-                    "PG" -> {
-                        holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.grey))
-
-                    }
-                    "G" -> {
-                        holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.green))
-
-                    }
-                    "18+" -> {
-                        holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.red))
-
-                    }
-                    "13+" -> {
-                        holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.yellow))
-
-                    }
-                    "E" -> {
-                        holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.wowOrange))
-
-                    }
-                    "T" -> {
-                        holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.tabIndicater))
-
-                    }
-                    else -> {
-                        holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.blue))
-
-                    }
                 }
+                "G" -> {
+                    holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.green))
 
-            }
-
-            if (!foodSelctedItem.addFood){
-                holder.btClick.text=mContext.resources.getString(R.string.addFoodMsg)
-                holder.btClick.setOnClickListener {
-                    val intent = Intent(mContext, FoodActivity::class.java)
-                        .putExtra("CINEMA_ID", foodSelctedItem.cinemacode)
-                        .putExtra("BOOKING", "FOOD")
-                        .putExtra("type", "0")
-                    mContext.startActivity(intent)
                 }
+                "18+" -> {
+                    holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.red))
 
-            }else{
-                holder.btClick.text=mContext.resources.getString(R.string.food_pickup_info)
-
-                holder.btClick.setOnClickListener {
-                    val mDialogView =
-                        LayoutInflater.from(context).inflate(R.layout.food_pickup_dialog, null)
-                    val mBuilder = AlertDialog.Builder(context,R.style.NewDialog).setView(mDialogView)
-                    val mAlertDialog = mBuilder.show()
-                    mAlertDialog.show()
-                    mAlertDialog.window?.setBackgroundDrawableResource(R.color.black70)
-                    val close_dialog = mDialogView.findViewById<TextView>(R.id.close_dialog)
-
-                    close_dialog.setOnClickListener {
-                        mAlertDialog.dismiss()
-                    }
                 }
+                "13+" -> {
+                    holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.yellow))
 
-            }
-            if (foodSelctedItem.trailerUrl==""){
-                holder.trailer.hide()
-            }else{
-                holder.trailer.show()
-            }
-            holder.trailer.setOnClickListener {
-                val intent = Intent(mContext, PlayerActivity::class.java)
-                intent.putExtra("trailerUrl", foodSelctedItem.trailerUrl)
-                mContext.startActivity(intent)
-            }
-            holder.thumbnail.setOnClickListener {
-                val intent = Intent(mContext, FinalTicketActivity::class.java)
-                intent.putExtra(Constant.IntentKey.BOOKING_ID, foodSelctedItem.bookingId)
-                intent.putExtra(Constant.IntentKey.TRANSACTION_ID, foodSelctedItem.transId.toString())
-                intent.putExtra(Constant.IntentKey.BOOK_TYPE, foodSelctedItem.bookingType)
-                intent.putExtra("FROM", "MTicket")
-                mContext.startActivity(intent)
+                }
+                "E" -> {
+                    holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.wowOrange))
+
+                }
+                "T" -> {
+                    holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.tabIndicater))
+
+                }
+                else -> {
+                    holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.blue))
+
+                }
             }
 
         }
+
+        if (!foodSelctedItem.addFood) {
+            holder.btClick.text = mContext.resources.getString(R.string.addFoodMsg)
+            holder.btClick.setOnClickListener {
+                val intent = Intent(mContext, FoodActivity::class.java)
+                    .putExtra("CINEMA_ID", foodSelctedItem.cinemacode)
+                    .putExtra("BOOKING", "FOOD")
+                    .putExtra("type", "0")
+                mContext.startActivity(intent)
+            }
+
+        } else {
+            holder.btClick.text = mContext.resources.getString(R.string.food_pickup_info)
+
+            holder.btClick.setOnClickListener {
+                val mDialogView =
+                    LayoutInflater.from(context).inflate(R.layout.food_pickup_dialog, null)
+                val mBuilder = AlertDialog.Builder(context, R.style.NewDialog).setView(mDialogView)
+                val mAlertDialog = mBuilder.show()
+                mAlertDialog.show()
+                mAlertDialog.window?.setBackgroundDrawableResource(R.color.black70)
+                val close_dialog = mDialogView.findViewById<TextView>(R.id.close_dialog)
+
+                close_dialog.setOnClickListener {
+                    mAlertDialog.dismiss()
+                }
+            }
+
+        }
+        if (foodSelctedItem.trailerUrl == "") {
+            holder.trailer.hide()
+        } else {
+            holder.trailer.show()
+        }
+        holder.trailer.setOnClickListener {
+            val intent = Intent(mContext, PlayerActivity::class.java)
+            intent.putExtra("trailerUrl", foodSelctedItem.trailerUrl)
+            mContext.startActivity(intent)
+        }
+        holder.thumbnail.setOnClickListener {
+            val intent = Intent(mContext, FinalTicketActivity::class.java)
+            intent.putExtra(Constant.IntentKey.BOOKING_ID, foodSelctedItem.bookingId)
+            intent.putExtra(Constant.IntentKey.TRANSACTION_ID, foodSelctedItem.transId.toString())
+            intent.putExtra(Constant.IntentKey.BOOK_TYPE, foodSelctedItem.bookingType)
+            intent.putExtra("FROM", "MTicket")
+            mContext.startActivity(intent)
+        }
+
+
     }
 
     override fun getItemCount(): Int {
@@ -144,6 +150,7 @@ class UpcomingBookingAdapter(private val context: Context, private var upcomingB
         upcomingBookingList = newFoodSelectedlist as ArrayList<NextBookingResponse.Current>
         notifyDataSetChanged()
     }
+
     class MyViewHolderUpcomingBooking(view: View) : RecyclerView.ViewHolder(view) {
         var adressName: TextView = view.findViewById(R.id.text_location_names)
         var screenNumber: TextView = view.findViewById(R.id.tv_no_of_screen)

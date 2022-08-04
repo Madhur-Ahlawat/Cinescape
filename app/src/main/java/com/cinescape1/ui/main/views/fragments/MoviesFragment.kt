@@ -236,6 +236,8 @@ class MoviesFragment(val type:Int) : DaggerFragment(), AdapterFilterCategory.Rec
                             loader?.dismiss()
                             if (Constant.SUCCESS_CODE == it.data?.data?.code && Constant.status == it.data.data.result) {
                                 try {
+                                    binding?.recyclerType?.show()
+                                    binding?.filterUi?.show()
                                     moviesResponse = it.data.data
                                     comingSoonFilter = it.data.data.output.comingsoon
                                     if (Constant.SEE_ALL_TYPE==0) {
@@ -302,7 +304,6 @@ class MoviesFragment(val type:Int) : DaggerFragment(), AdapterFilterCategory.Rec
 
     private fun comingSoon(comingSoon: ArrayList<MoviesResponse.Comingsoon>) {
         val gridLayout = GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false)
-
         val adapter = AdapterComingSoon(comingSoon, requireActivity())
         binding?.fragmentMovie?.layoutManager = gridLayout
         binding?.fragmentMovie?.adapter = adapter

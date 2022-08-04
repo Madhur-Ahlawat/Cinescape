@@ -12,7 +12,7 @@
         android:id="@+id/LayoutTime"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <View
             android:id="@+id/view66"
@@ -467,6 +467,8 @@
                     android:id="@+id/viewpager"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:paddingEnd="80dp"
+                    android:paddingStart="80dp"
                     android:background="@color/transparent"
                     android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView48"

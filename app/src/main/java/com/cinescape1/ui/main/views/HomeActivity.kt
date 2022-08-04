@@ -27,6 +27,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cinescape1.R
@@ -55,6 +56,7 @@ import kotlinx.android.synthetic.main.alert_booking.view.*
 import kotlinx.android.synthetic.main.alert_booking2.view.*
 import kotlinx.android.synthetic.main.fragment_food.*
 import javax.inject.Inject
+
 
 class HomeActivity : DaggerAppCompatActivity() {
     @Inject
@@ -341,6 +343,7 @@ class HomeActivity : DaggerAppCompatActivity() {
                     mDialogView.text_time_visible.text = output.output[0].showTime
                     mDialogView.text_bombshell.text = output.output[0].moviename
                     mDialogView.text13.text = output.output[0].mcensor
+
                     when (output.output[0].mcensor) {
                         "PG" -> {
                             mDialogView.text13.setBackgroundResource(R.color.grey)
@@ -435,8 +438,19 @@ class HomeActivity : DaggerAppCompatActivity() {
                     val recyclerViewAlertBooking =
                         mDialogView.findViewById<View>(R.id.recyclerViewAlertBooking) as RecyclerView
                     val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
-                    recyclerViewAlertBooking.layoutManager = LinearLayoutManager(this)
+//                    recyclerViewAlertBooking.layoutManager = LinearLayoutManager(this)
                     val adapter = AdapterMultiMovieAlertBooking(this, output.output)
+
+                    recyclerViewAlertBooking.setLayoutManager(
+                        LinearLayoutManager(
+                            this,
+                            LinearLayoutManager.HORIZONTAL,
+                            false
+                        )
+                    )
+                    val snapHelper = PagerSnapHelper()
+
+                    snapHelper.attachToRecyclerView(recyclerViewAlertBooking)
                     recyclerViewAlertBooking.layoutManager = gridLayout
                     recyclerViewAlertBooking.adapter = adapter
                     adapter.renewItems(output.output)
