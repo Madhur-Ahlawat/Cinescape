@@ -90,7 +90,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:minWidth="80dp"
+                    android:minWidth="120dp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_seat_film_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/tv_seat_film_title"
@@ -450,16 +450,18 @@
                     android:src="@drawable/cinema_back_item"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
 
-                <androidx.viewpager2.widget.ViewPager2
+                <com.github.islamkhsh.CardSliderViewPager
                     android:id="@+id/viewpager"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:background="@color/transparent"
                     android:visibility="visible"
-                    android:paddingStart="80dp"
-                    android:paddingEnd="80dp"
+                    app:cardSlider_otherPagesWidth="64dp"
+                    app:cardSlider_smallAlphaFactor="0.5"
+                    app:cardSlider_pageMargin="5dp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView48"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

@@ -114,11 +114,9 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(this, "en")
                 languageCheck = "en"
-
             }
             else -> {
                 languageCheck = "en"
-
                 LocaleHelper.setLocale(this, "en")
             }
         }
@@ -909,7 +907,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         val btnDecrease: TextView = mDialogView.findViewById(R.id.text_decrease)
         val txtNumber: TextView = mDialogView.findViewById(R.id.text_number)
         val btnIncrease: TextView = mDialogView.findViewById(R.id.text_increase)
-        val textCancelGoback = mDialogView.findViewById<TextView>(R.id.text_cancel_goback)
+//        val textCancelGoback = mDialogView.findViewById<TextView>(R.id.text_cancel_goback)
         val textProceeds = mDialogView.findViewById<TextView>(R.id.text_proceeds)
         try {
             val cancelGoBack = TextUtils.concat(
@@ -931,22 +929,17 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 )
             )
 
-            textCancelGoback.text = cancelGoBack
 
         } catch (e: Exception) {
             println("SeatCatogry--->${e.message}")
         }
 
-        textCancelGoback.setOnClickListener {
-//            cancelDialog()
-            mAlertDialog?.dismiss()
 
-        }
 
         val selectSeatCategory = mDialogView.findViewById<FlexboxLayout>(R.id.select_seat_category)
         val textView5 = mDialogView.findViewById<TextView>(R.id.textView5)
         selectSeatCategory.removeAllViews()
-        totalPrice.text = getString(R.string.price_kd) + " 0"
+        totalPrice.text = getString(R.string.price_kd) + " 0.000"
 
         if (output.seatTypes[0].seatTypes.size==0){
             textView5.text = getString(R.string.select_seat_type)
@@ -1037,7 +1030,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 seatCat = item.seatType
 //                println("seatTypeCheck--->${ttType+"areaCode-->${areaCode}"}")
                 totalPriceResponse = item.priceInt
-                totalPrice.text = getString(R.string.price_kd) + " 0"
+                totalPrice.text = getString(R.string.price_kd) + " 0.000"
                 num = 0
                 txtNumber.text = "0"
                 var imageSeatSelection1: ImageView?
@@ -1158,7 +1151,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                         selectSeatType.addView(v)
 
                         v.setOnClickListener {
-                            totalPrice.text = getString(R.string.price_kd) + " 0"
+                            totalPrice.text = getString(R.string.price_kd) + " 0.000"
                             num = 0
                             txtNumber.text = "0"
                             var imageSeatSelection1: ImageView?

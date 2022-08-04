@@ -409,6 +409,7 @@
                     android:layout_height="@dimen/margin36"
                     android:minHeight="@dimen/margin36"
                     android:minWidth="44dp"
+                    app:cardCornerRadius="@dimen/margin3"
                     android:layout_marginEnd="2dp"
                     app:cardUseCompatPadding="true"
                     app:layout_constraintBottom_toBottomOf="@+id/vw_category"

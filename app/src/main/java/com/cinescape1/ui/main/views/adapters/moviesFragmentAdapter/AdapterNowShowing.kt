@@ -36,6 +36,7 @@ class AdapterNowShowing(private var nowShowingList: ArrayList<MoviesResponse.Now
 
         holder.movieTitle.text = comingSoonItem.title
         holder.type.text=comingSoonItem.rating
+
         when (comingSoonItem.rating) {
             "PG" -> {
                 holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.grey))
@@ -67,13 +68,14 @@ class AdapterNowShowing(private var nowShowingList: ArrayList<MoviesResponse.Now
             }
         }
 
-
         holder.movieCategory.text = comingSoonItem.language+" | "+comingSoonItem.genre
+
         holder.thumbnail.setOnClickListener {
             val intent = Intent(holder.thumbnail.context, ShowTimesActivity::class.java)
             intent.putExtra(Constant.IntentKey.MOVIE_ID, comingSoonItem.id)
             holder.thumbnail.context.startActivity(intent)
         }
+
     }
 
     override fun getItemCount(): Int {

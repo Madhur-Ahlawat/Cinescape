@@ -64,23 +64,24 @@ class AdvanceBookingAdapter(private var nowShowingList: List<MoviesResponse.Adva
             }
             else -> {
                 holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.blue))
-
             }
         }
 
-
         holder.movieCategory.text = comingSoonItem.language+" | "+comingSoonItem.genre
+
         holder.thumbnail.setOnClickListener {
             val intent = Intent(holder.thumbnail.context, ShowTimesActivity::class.java)
             intent.putExtra(Constant.IntentKey.MOVIE_ID, comingSoonItem.id)
             holder.thumbnail.context.startActivity(intent)
         }
+
         holder.thumbnail.setOnClickListener {
             val intent = Intent(holder.thumbnail.context, ShowTimesActivity::class.java)
             intent.putExtra(Constant.IntentKey.MOVIE_ID, comingSoonItem.id)
             intent.putExtra("type", "comingSoon")
             holder.thumbnail.context.startActivity(intent)
         }
+
     }
 
     override fun getItemCount(): Int {

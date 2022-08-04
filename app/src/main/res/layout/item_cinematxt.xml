@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
     android:background="@color/transparent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:gravity="center"
+    android:orientation="vertical">
 
 
-        <TextView
-            android:id="@+id/cinemaName"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/sf_pro_text_heavy"
-            android:textAlignment="center"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            tools:text="Cinescape\n dsfsafdfsf Kout" />
+    <TextView
+        android:id="@+id/cinemaName"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fontFamily="@font/sf_pro_text_heavy"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        tools:text="Cinescape\n dsfsafdfsf Kout" />
 
 
     <TextView
         android:id="@+id/textView110"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/size13"
-        android:textColor="#C1C1C1"
-        android:visibility="gone"
         android:fontFamily="@font/sf_pro_text_regular"
-        tools:text="Al mall"
+        android:textColor="#C1C1C1"
+        android:textSize="@dimen/size13"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/constraintLayout21"
         app:layout_constraintStart_toStartOf="@+id/constraintLayout21"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout21" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout21"
+        tools:text="Al mall" />
 
 </LinearLayout>
