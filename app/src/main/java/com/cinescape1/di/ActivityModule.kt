@@ -49,7 +49,7 @@ abstract class ActivityModule {
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = [CheckoutWithFoodModule::class])
-    abstract fun  checkoutWithFoodActivity(): CheckoutWithFoodActivity
+    abstract fun  checkoutWithFoodActivity(): SummeryActivity
 
 
     @ActivityScoped

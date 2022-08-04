@@ -72,17 +72,16 @@ class CinemaPageAdapter(
 
         println("rowIndex---->123$rowIndex----$position----$select_pos")
         if (rowIndex == position) {
-            val regular: Typeface = mContext.resources.getFont(R.font.sf_pro_text_heavy)
+            val regular: Typeface = mContext.resources.getFont(R.font.sf_pro_text_bold)
             holder.cinemaName.typeface = regular
-            holder.cinemaName.textSize = 17F
+            holder.cinemaName.textSize = 18F
             holder.cinemaName.setTextColor(mContext.getColor(R.color.white))
 //                    holder.image.show()
         } else {
             val bold: Typeface = mContext.resources.getFont(R.font.sf_pro_text_regular)
-            holder.cinemaName.textSize = 11f
+            holder.cinemaName.textSize = 18f
             holder.cinemaName.typeface = bold
             holder.cinemaName.setTextColor(mContext.getColor(R.color.text_color))
-
 //                    holder.image.hide()
 
         }

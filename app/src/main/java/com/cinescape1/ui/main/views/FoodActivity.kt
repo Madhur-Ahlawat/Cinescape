@@ -174,7 +174,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                         e.printStackTrace()
                     }
                 } else {
-                    val intent = Intent(this, CheckoutWithFoodActivity::class.java)
+                    val intent = Intent(this, SummeryActivity::class.java)
                     intent.putExtra("CINEMA_ID", cinemaId)
                     intent.putExtra("SESSION_ID", sessionId)
                     intent.putExtra("TRANS_ID", transId)
@@ -231,7 +231,7 @@ class FoodActivity : DaggerAppCompatActivity(),
         }
 
         binding?.txtSkipProceed?.setOnClickListener {
-            val intent = Intent(this, CheckoutWithFoodActivity::class.java)
+            val intent = Intent(this, SummeryActivity::class.java)
             intent.putExtra("CINEMA_ID", cinemaId)
             intent.putExtra("SESSION_ID", sessionId)
             intent.putExtra("TRANS_ID", transId)
@@ -538,7 +538,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                                     try {
                                         mFoodCartDialog?.dismiss()
                                         val intent =
-                                            Intent(this, CheckoutWithFoodActivity::class.java)
+                                            Intent(this, SummeryActivity::class.java)
                                         intent.putExtra("CINEMA_ID", cinemaId)
                                         intent.putExtra("SESSION_ID", sessionId)
                                         intent.putExtra("TRANS_ID", it.data.output.transid)

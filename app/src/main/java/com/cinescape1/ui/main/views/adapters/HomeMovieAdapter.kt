@@ -33,6 +33,7 @@ class HomeMovieAdapter(private  val mContext: Activity, private  val cinemas: Ar
         val obj = cinemas[position]
         print("offerData123--->${cinemas}")
         holder.title.text=obj.name
+
         Glide.with(mContext)
             .load(obj.icon)
             .error(R.drawable.cinema)

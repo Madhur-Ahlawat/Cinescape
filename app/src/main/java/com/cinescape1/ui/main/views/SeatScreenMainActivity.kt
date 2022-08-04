@@ -117,7 +117,6 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
         SessionID = intent.getStringExtra("SessionID").toString()
         DatePosition = intent.getStringExtra("DatePosition").toString()
         dt = intent.getStringExtra("dt").toString()
-        println("CheckDate--->${dt}")
 
         if (!preferences.getBoolean(Constant.IS_LOGIN)) {
             val intent = Intent(this, LoginActivity::class.java).putExtra("AREA_CODE", areaCode)
@@ -246,14 +245,11 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                     binding?.tvSeatFilmTitle1?.show()
                     binding?.tvSeatFilmType1?.show()
                     binding?.tvSeatFilmUi?.show()
-                    binding?.viewpager?.show()
+                    binding?.viewpager?.hide()
                     movedBottom()
-
-
                     binding?.recyclerviewCinemasName?.show()
                 }
             }
-
 
             binding?.textSeatTypes?.setOnClickListener {
                 val dialog = Dialog(this)
@@ -291,7 +287,6 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                 }
 
             }
-
 
             binding?.tvSeatFilmTitle?.text = output.movie.title
             binding?.tvSeatFilmTitle1?.text = output.movie.title
@@ -339,35 +334,10 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
             CinemaID = output.daySessions[cinema_pos].shows[show_pos].cinemaId
             MovieId = output.movie.id
             SessionID = output.daySessions[cinema_pos].shows[show_pos].sessionId
-            binding?.tvCinemaName?.text = cinemaName
+            binding?.tvCinemaName?.text = output.cinema.name
             binding?.tvSeatTimingDate?.text =
-                "${output.daySessions[cinema_pos].shows[show_pos].showTime} | ${DatePosition} | ${dt}"
-            binding?.textType?.text = "$seatType | $seatCat"
-
-//            binding?.viewpager?.registerOnPageChangeCallback(object :
-//                com.github.islamkhsh.viewpager2.ViewPager2.OnPageChangeCallback() {
-//
-//                override fun onPageSelected(position: Int) {
-//                    super.onPageSelected(position)
-//                    println("position----123>${position}")
-//
-//                }
-//
-//                override fun onPageScrolled(
-//                    position: Int,
-//                    positionOffset: Float,
-//                    positionOffsetPixels: Int
-//                ) {
-//                    super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-//                    val gridLayout = GridLayoutManager(this@SeatScreenMainActivity, 1, GridLayoutManager.VERTICAL, false)
-//                    binding?.recyclerviewCinemasName?.layoutManager = LinearLayoutManager(this@SeatScreenMainActivity)
-//                    val adapter = SeatShowTimesCinemaAdapter(this@SeatScreenMainActivity, output.daySessions[position].shows, this@SeatScreenMainActivity)
-//                    binding?.recyclerviewCinemasName?.layoutManager = gridLayout
-//                    binding?.recyclerviewCinemasName?.adapter = adapter
-//                }
-//
-//            })
-//
+                "${output.daySessions[cinema_pos].shows[show_pos].showTime} | $DatePosition | ${dt}"
+            binding?.textType?.text =  "${output.daySessions[cinema_pos].shows[show_pos].experience} | ${output.daySessions[cinema_pos].shows[show_pos].format} | ${seatCat}"
 
             setTitleAdapter(output.daySessions)
         } catch (e: Exception) {
@@ -594,7 +564,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                                             startActivity(
                                                 Intent(
                                                     this@SeatScreenMainActivity,
-                                                    CheckoutWithFoodActivity::class.java
+                                                    SummeryActivity::class.java
                                                 ).putExtra("CINEMA_ID", CinemaID)
                                                     .putExtra("SESSION_ID", SessionID)
                                                     .putExtra("TRANS_ID", it.data.output.transid)

@@ -35,6 +35,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/bombshell_alert" />
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -42,14 +43,15 @@
             app:layout_constraintBottom_toTopOf="@+id/showTimesUi"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="16dp"
+            android:paddingStart="20dp"
             android:paddingEnd="@dimen/margin20"
             app:layout_constraintBottom_toBottomOf="@+id/view66"
             app:layout_constraintEnd_toEndOf="parent"
@@ -71,18 +73,24 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_weight="2"
-                    android:ellipsize="end"
                     android:fontFamily="@font/sf_pro_text_heavy"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:freezesText="true"
                     android:gravity="start"
                     android:letterSpacing="-0.02"
+                    android:marqueeRepeatLimit="marquee_forever"
                     android:maxLines="1"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size20"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="HardcodedText,ObsoleteLayoutParam"
-                    tools:text="Bombshe" />
+                    tools:text="AKASH" />
 
                 <LinearLayout
                     android:id="@+id/constraintLayout18"
@@ -336,6 +344,7 @@
             android:id="@+id/view65"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="32dp"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
@@ -348,7 +357,6 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="8dp"
                 app:srcCompat="@drawable/ic_back_button"
                 tools:ignore="ContentDescription" />
 
@@ -390,8 +398,8 @@
                 android:id="@+id/view20"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -410,19 +418,22 @@
                 android:id="@+id/recylerview_show_time_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/centerView"
-                app:layout_constraintEnd_toEndOf="@+id/view20"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/view20"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/include" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_cinema_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="1dp"
+                android:layout_marginStart="13dp"
                 android:layout_marginTop="@dimen/margin8"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="1dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/recylerview_show_time_date"
@@ -430,27 +441,27 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView110" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/centerView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/centerView"
                 android:layout_gravity="center_horizontal"
                 app:layout_constraintBottom_toTopOf="@+id/recyclerview_cinema_title"
-                app:layout_constraintEnd_toEndOf="@+id/recyclerview_cinema_title"
-                app:layout_constraintStart_toStartOf="@+id/recyclerview_cinema_title"
-                app:layout_constraintTop_toBottomOf="@+id/recylerview_show_time_date"
-                >
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recylerview_show_time_date">
 
                 <ImageView
                     android:id="@+id/imageView48"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:scaleType="fitXY"
                     android:layout_marginStart="80dp"
                     android:layout_marginEnd="80dp"
+                    android:scaleType="fitXY"
                     android:src="@drawable/cinema_back_item"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription,ImageContrastCheck" />
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/viewpager"
@@ -458,8 +469,6 @@
                     android:layout_height="0dp"
                     android:background="@color/transparent"
                     android:visibility="visible"
-                    android:paddingStart="80dp"
-                    android:paddingEnd="80dp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView48"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -480,7 +489,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/centerView"
                 tools:text="Al mall" />
-
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -545,9 +553,9 @@
             android:id="@+id/imageView39"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="22dp"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout14"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/constraintLayout14"
             app:srcCompat="@drawable/ic_location"

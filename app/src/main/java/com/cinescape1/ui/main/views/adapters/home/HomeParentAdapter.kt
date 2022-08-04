@@ -89,18 +89,33 @@ class HomeParentAdapter(
                 holder.viewpagerBack.layoutDirection = View.LAYOUT_DIRECTION_RTL
                 val sliderbackAdapter = SliderBackAdapter(mContext, obj.movieData)
                 holder.viewpagerBack.adapter = sliderbackAdapter
+                holder.viewpagerBack.setPagingEnabled(false)
+
                 holder.viewpager.adapter = HomeFrontSliderAdapter(mContext, obj.movieData,holder.viewpager)
                 holder.viewpager.offscreenPageLimit = 3
                 holder.viewpager.clipChildren = false
                 holder.viewpager.clipToPadding = false
                 holder.viewpager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
                 val transfer = CompositePageTransformer()
-                transfer.addTransformer(MarginPageTransformer(40))
+                transfer.addTransformer(MarginPageTransformer(70))
+
+
+                val nextItemVisiblePx = mContext.resources.getDimension(R.dimen.viewpager_next_item_visible)
+                val currentItemHorizontalMarginPx = mContext.resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
+                val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
+
                 transfer.addTransformer(object : ViewPager2.PageTransformer,
                     androidx.viewpager2.widget.ViewPager2.PageTransformer {
                     override fun transformPage(page: View, position: Float) {
                         val r = 1- abs(position)
-                        page.scaleY = (0.85f+ r*0.14f)
+                        page.translationX = -pageTranslationX * position
+                        page.scaleY = 1 - (0.35f * abs(position))
+//                        if ((0.85f+ r*0.14f)>90.0) {
+//                            page.scaleY = (0.85f + r * 0.14f)
+//                        }else{
+//                            page.scaleY=   (0.59f)
+//                        }
+                        println("otherPage--->${(0.85f+ r*0.14f)}--->position${position}--->R${r}")
                     }
 
                 })
@@ -113,13 +128,6 @@ class HomeParentAdapter(
                     }
                     holder.viewpager.setCurrentItem(currentPage++, true)
                 }
-//                val swipeTimer = Timer()
-//                swipeTimer.schedule(object : TimerTask() {
-//                    override fun run() {
-//                        handler.post(Update)
-//                    }
-//                }, 3000, 3000)
-
 
                 holder.viewpager.registerOnPageChangeCallback(object : androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback() {
 
@@ -143,11 +151,6 @@ class HomeParentAdapter(
                         super.onPageScrolled(position, positionOffset, positionOffsetPixels)
                         println("positionOffset3--->${holder.viewpager?.getChildAt(position)?.scrollX}---->$position---->${positionOffsetPixels}")
 
-                        //holder.viewpagerBack?.getChildAt(position)?.scrollX= -positionOffsetPixels
-
-//                        holder.viewpager.getChildAt(holder.viewpager.currentItem).scrollY
-                       // holder.viewpagerBack.getChildAt(holder.viewpagerBack.currentItem).scrollY = holder.viewpager.getChildAt(holder.viewpager.currentItem).scrollY
-//                        sliderbackAdapter.updatePageWidth(positionOffset,position)
 
                     }
 

@@ -43,7 +43,7 @@
             android:theme="@style/Theme.Cinescape.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".ui.main.views.CheckoutWithFoodActivity"
+            android:name=".ui.main.views.SummeryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Cinescape.NoActionBar"
             tools:ignore="LockedOrientationActivity" />

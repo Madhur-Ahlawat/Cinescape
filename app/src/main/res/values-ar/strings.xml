@@ -96,6 +96,8 @@
     <string name="select_food">اختر المنتج</string>
     <string name="add">إضافة</string>
     <string name="minus">-</string>
+    <string name="min"> دقيقة</string>
+
     <string name="plus">+</string>
     <string name="cancel">إلغاء</string>
     <string name="time_left">الوقت المتبقي</string>

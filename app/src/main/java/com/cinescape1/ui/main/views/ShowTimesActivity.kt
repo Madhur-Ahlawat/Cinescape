@@ -7,6 +7,7 @@ import android.content.IntentFilter
 import android.graphics.Color
 import android.graphics.Paint
 import android.net.ConnectivityManager
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -165,12 +166,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                     (binding?.recylerviewShowTimeDate?.layoutParams as? ViewGroup.MarginLayoutParams)
                 layoutParams?.setMargins(0, 0, 0, 16)
                 binding?.recylerviewShowTimeDate?.layoutParams = layoutParams
-
-
-//                val layoutParams2 = (binding?.showTimesUi?.layoutParams as? ViewGroup.MarginLayoutParams)
-//                layoutParams?.setMargins(0, -50, 0, 0)
-//                binding?.showTimesUi?.layoutParams = layoutParams2
-
 
                 binding?.viewpager?.hide()
                 binding?.imageView48?.hide()
@@ -477,10 +472,23 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
         println("""updateUiCinemaSession ----> $output""")
         binding?.textFilmHouseName?.text = output.cinema.name
+        binding?.textFilmHouseName?.isSelected =true
         binding?.textMovieType?.text = output.cinema.address1 + "\n" + output.cinema.address2
         binding?.textView56?.hide()
         binding?.imageView26?.hide()
         binding?.imageView39?.show()
+        //Map From Cinema
+        binding?.imageView39?.setOnClickListener {
+            val strUri =
+                "http://maps.google.com/maps?q=loc:" + output.cinema.latitude + "," + output.cinema.longitude + " (" + "Label which you want" + ")"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(strUri))
+            intent.setClassName(
+                "com.google.android.apps.maps",
+                "com.google.android.maps.MapsActivity"
+            )
+            startActivity(intent)
+
+        }
 
         Glide
             .with(this)
@@ -501,7 +509,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                                     try {
                                         showSeatTypePopup(it.data.output, name, pos)
                                     } catch (e: Exception) {
-                                        println("updateUiCinemaSession123 ---> ${e.message + e.stackTrace}")
                                         e.printStackTrace()
                                     }
 
@@ -550,6 +557,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     private fun updateUiShowTimes(output: CinemaSessionResponse.Output) {
         println("""updateUiCinemaSession ----> $output""")
         binding?.textFilmHouseName?.text = output.movie.title
+        binding?.textFilmHouseName?.isSelected =true
         binding?.textView56?.text = output.movie.rating
 
         when (output.movie.rating) {
@@ -592,7 +600,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         }
 
         binding?.textMovieType?.text =
-            output.movie.language + " | " + output.movie.genre + " | " + output.movie.runTime + " min."
+            output.movie.language + " | " + output.movie.genre + " | " + output.movie.runTime +" "+ getString(R.string.min)
 
         if (output.movie.trailerUrl.isNullOrEmpty()) {
             binding?.imageView26?.hide()
@@ -669,11 +677,9 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
 
-                println("position----123>${position}---${daySessionResponse[position].cinema.address1}")
                 //select_pos = position
                 binding?.textView110?.show()
                 binding?.textView110?.text = daySessionResponse[position].cinema.address1
-//                binding?.viewpager?.adapter?.notifyDataSetChanged()
             }
 
             override fun onPageScrolled(
@@ -728,10 +734,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         showPose = cinemaPos
         CinemaID = show.cinemaId
         SessionID = show.sessionId
-        println("Checkides--->$CinemaID},Movieid--->${movieID}")
-
-
-
 
         if (!preferences.getBoolean(Constant.IS_LOGIN)) {
             type
@@ -935,7 +937,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         }
 
 
-
         val selectSeatCategory = mDialogView.findViewById<FlexboxLayout>(R.id.select_seat_category)
         val textView5 = mDialogView.findViewById<TextView>(R.id.textView5)
         selectSeatCategory.removeAllViews()
@@ -955,7 +956,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             val tvSeatSelectiopn: TextView = v.findViewById(R.id.tv_seat_selectiopn)
             val tv_seat_avialable: TextView = v.findViewById(R.id.tv_seat_avialable)
             val tv_kd_price: TextView = v.findViewById(R.id.tv_kd_price)
-            println("getSeatType--->${item.seatType}")
             when (item.seatType) {
                 "Family" -> {
                     Glide.with(this)
@@ -995,7 +995,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 }
             }
             viewListForDates.add(v)
-            println("SeatType--->${item.seatType}")
             if (item.seatTypes.isNullOrEmpty()) {
                 tv_seat_avialable.show()
                 tv_kd_price.show()
@@ -1265,19 +1264,33 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             }
 
             textProceeds.setOnClickListener {
-                println("seatTypeCheck--->${ttType}")
                 if (!categoryClick) {
-                    val dialog = OptionDialog(this,
-                        R.mipmap.ic_launcher,
-                        R.string.app_name,
-                        getString(R.string.selectCateogry),
-                        positiveBtnText = R.string.ok,
-                        negativeBtnText = R.string.no,
-                        positiveClick = {
-                        },
-                        negativeClick = {
-                        })
-                    dialog.show()
+                    if (output.seatTypes[0].seatTypes.size==0){
+                        val dialog = OptionDialog(this,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            getString(R.string.select_seat_type),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {
+                            },
+                            negativeClick = {
+                            })
+                        dialog.show()
+                    }else{
+                        val dialog = OptionDialog(this,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            getString(R.string.select_seat_category),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {
+                            },
+                            negativeClick = {
+                            })
+                        dialog.show()
+                    }
+
                 } else if (num == 0) {
                     val dialog = OptionDialog(this,
                         R.mipmap.ic_launcher,
@@ -1342,6 +1355,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         } catch (e: Exception) {
             println("ErrorData--->${e.message}")
         }
+
         loader?.dismiss()
     }
 
@@ -1349,26 +1363,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         super.onResume()
         if (Constant.ON_BACK_FOOD == 1) {
             mAlertDialog?.dismiss()
-        }
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun selectSeatAlert() {
-        val viewGroup = findViewById<ViewGroup>(android.R.id.content)
-        val dialogView: View =
-            LayoutInflater.from(this).inflate(R.layout.select_seat, viewGroup, false)
-        val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(this)
-        builder.setView(dialogView)
-        val alertDialog: android.app.AlertDialog = builder.create()
-        alertDialog.window?.setBackgroundDrawableResource(R.color.transparent)
-        alertDialog.show()
-        dialogView.subtitle.text = getString(R.string.selectSeat)
-        dialogView.negative_btn.text = getString(R.string.ok)
-
-
-        dialogView.negative_btn?.setOnClickListener {
-            alertDialog.dismiss()
-
         }
     }
 
@@ -1389,13 +1383,11 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         cinemaPos: Int,
         movieCinemaId: String
     ) {
-        println("ShowClicked123--->${show.sessionBusinessDate}")
         showPose = cinemaPos
         CinemaID = show.cinemaId
         SessionID = show.sessionId
         movieID = movieCinemaId
 
-        println("movieCinemaID--->$movieID},Cinemaid--->${show.cinemaId},")
         if (!preferences.getBoolean(Constant.IS_LOGIN)) {
             type
             val intent = Intent(this, LoginActivity::class.java).putExtra("AREA_CODE", areaCode)

@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/black"
-            tools:context=".ui.main.views.CheckoutWithFoodActivity">
+            tools:context=".ui.main.views.SummeryActivity">
 
             <ImageView
                 android:id="@+id/imageView6"

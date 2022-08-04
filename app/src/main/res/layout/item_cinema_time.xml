@@ -7,39 +7,67 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_scroll"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin15"
-        android:layout_marginBottom="@dimen/margin10"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="@dimen/margin10"
         android:elevation="@dimen/margin2"
-        app:cardBackgroundColor="@color/black"
+        app:cardBackgroundColor="#1C1C1C"
         app:cardCornerRadius="@dimen/margin8"
         app:cardElevation="@dimen/margin2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:background="#1C1C1C"
-            android:paddingStart="3dp"
             tools:ignore="RtlSymmetry">
+
+
+            <View
+                android:id="@+id/view92"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/text_times"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size17"
+                app:layout_constraintBottom_toBottomOf="@+id/view92"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/view92"
+                tools:text="11:30" />
+
 
             <TextView
                 android:id="@+id/text_movies_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1.75dp"
                 android:background="#e12329"
                 android:fontFamily="@font/sf_pro_text_semibold"
                 android:gravity="center"
-                android:text="P"
                 android:paddingStart="@dimen/margin3"
                 android:paddingEnd="@dimen/margin4"
+                android:text="P"
                 android:textColor="@color/white"
                 android:textSize="@dimen/size10"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/view92"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/text_dimension"
                 tools:ignore="HardcodedText" />
@@ -47,39 +75,19 @@
             <TextView
                 android:id="@+id/text_dimension"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/size18"
-                android:layout_marginTop="2.75dp"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:gravity="center"
-                android:layout_marginBottom="@dimen/margin8"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="top"
                 android:textColor="@color/white"
                 android:textSize="@dimen/size10"
                 android:textStyle="normal"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_times"
                 tools:text="3D" />
-
-            <TextView
-                android:id="@+id/text_times"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/size22"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:layout_marginBottom="2dp"
-                android:layout_marginTop="@dimen/margin8"
-                android:fontFamily="@font/sf_pro_text_semibold"
-                android:gravity="center_horizontal"
-                android:textColor="@color/white"
-                android:textSize="@dimen/size17"
-                android:textStyle="normal"
-                app:layout_constraintBottom_toTopOf="@+id/text_dimension"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="11:30" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -100,4 +108,9 @@
         app:layout_constraintStart_toStartOf="@+id/card_scroll"
         app:layout_constraintTop_toBottomOf="@+id/card_scroll"
         tools:ignore="HardcodedText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+

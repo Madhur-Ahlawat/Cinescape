@@ -145,7 +145,7 @@
             app:layout_constraintTop_toBottomOf="@+id/sliderAdvance"
             app:tabBackground="@drawable/indicator_selector"
             app:tabGravity="center"
-            app:tabIndicatorHeight="0dp"></com.google.android.material.tabs.TabLayout>
+            app:tabIndicatorHeight="0dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

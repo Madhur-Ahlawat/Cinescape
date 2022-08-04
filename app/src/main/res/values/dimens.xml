@@ -44,7 +44,7 @@
     <dimen name="margin35">35dp</dimen>
     <dimen name="margin32">32dp</dimen>
     <dimen name="dimen30">30dp</dimen>
-    <dimen name="viewpager_next_item_visible">26dp</dimen>
+    <dimen name="viewpager_next_item_visible">-90dp</dimen>
     <dimen name="viewpager_current_item_horizontal_margin">42dp</dimen>
 
 </resources>

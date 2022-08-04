@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,9 +16,9 @@ import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.CSessionResponse
 import com.cinescape1.ui.main.views.adapters.CinemaSessionMovieAdapter
-import com.cinescape1.utils.show
+
 class AdapterCinemaSessionScroll(
-   private val context: Context,
+    private val context: Context,
     private var cinemaSessionList: ArrayList<CSessionResponse.Output.DaySession>,
     val listener: LocationListener
 ) :
@@ -36,7 +35,8 @@ class AdapterCinemaSessionScroll(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val showtimeListItem = cinemaSessionList[position]
         holder.name.text = showtimeListItem.movie.title
-        holder.duration.text = showtimeListItem.movie.language+" | "+showtimeListItem.movie.runTime+"min."
+        holder.duration.text =
+            showtimeListItem.movie.language + " | " + showtimeListItem.movie.runTime + "min."
         holder.cateogry.text = showtimeListItem.movie.rating
         holder.genre.text = showtimeListItem.movie.genre
 
@@ -78,13 +78,20 @@ class AdapterCinemaSessionScroll(
 
         Glide.with(context)
             .load(showtimeListItem.movie.mobimgsmall)
-            .error(R.drawable.app_icon)
+            .error(R.drawable.pos_not_avilbale)
             .into(holder.image)
-
+        holder.name.isSelected = true
         val gridLayout = GridLayoutManager(context, 1, GridLayoutManager.HORIZONTAL, false)
         holder.recyclerView.layoutManager = LinearLayoutManager(context)
-        val movieCinemaId=showtimeListItem.movie.id.toString()
-        val adapter = CinemaSessionMovieAdapter(context,showtimeListItem.shows,this,showtimeListItem.movie.title,position, movieCinemaId.toString())
+        val movieCinemaId = showtimeListItem.movie.id.toString()
+        val adapter = CinemaSessionMovieAdapter(
+            context,
+            showtimeListItem.shows,
+            this,
+            showtimeListItem.movie.title,
+            position,
+            movieCinemaId
+        )
 
         holder.recyclerView.layoutManager = gridLayout
         holder.recyclerView.adapter = adapter
@@ -98,7 +105,7 @@ class AdapterCinemaSessionScroll(
         cinemaPos: Int,
         movieCinemaId: String
     ) {
-        listener.onShowClicked(show, name, position, cinemaPos,movieCinemaId)
+        listener.onShowClicked(show, name, position, cinemaPos, movieCinemaId)
     }
 
     interface LocationListener {
@@ -114,7 +121,6 @@ class AdapterCinemaSessionScroll(
     override fun getItemCount(): Int {
         return if (cinemaSessionList.isNotEmpty()) cinemaSessionList.size else 0
     }
-
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var image: ImageView = view.findViewById(R.id.image_showtimes)

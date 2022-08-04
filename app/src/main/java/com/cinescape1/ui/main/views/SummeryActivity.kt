@@ -54,7 +54,6 @@ import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_checkout_with_food.*
 import kotlinx.android.synthetic.main.cancel_dialog.*
 import kotlinx.android.synthetic.main.cancel_dialog.view.*
-import kotlinx.android.synthetic.main.checkout_booking_confirm_alert_include.*
 import kotlinx.android.synthetic.main.checkout_creditcart_payment_alert.*
 import kotlinx.android.synthetic.main.checkout_layout_ticket_include.*
 import kotlinx.android.synthetic.main.checkout_layout_ticket_include.text_location_names
@@ -68,7 +67,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
-class CheckoutWithFoodActivity : DaggerAppCompatActivity() {
+class SummeryActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -1278,13 +1277,13 @@ class CheckoutWithFoodActivity : DaggerAppCompatActivity() {
         } else {
             binding?.foodViewCheck?.show()
             val gridLayout = GridLayoutManager(
-                this@CheckoutWithFoodActivity,
+                this@SummeryActivity,
                 1,
                 GridLayoutManager.VERTICAL,
                 false
             )
             recyclerview_food_chekout.layoutManager = LinearLayoutManager(this)
-            val adapter = AdapterCheckoutFoodItem(this@CheckoutWithFoodActivity, concessionFoods)
+            val adapter = AdapterCheckoutFoodItem(this@SummeryActivity, concessionFoods)
             recyclerview_food_chekout.layoutManager = gridLayout
             recyclerview_food_chekout.adapter = adapter
             adapter.loadNewData(concessionFoods)
@@ -1294,9 +1293,9 @@ class CheckoutWithFoodActivity : DaggerAppCompatActivity() {
 
     private fun setCheckoutOnlyFoodItemAdapter(concessionFoods: List<TicketSummaryResponse.ConcessionFood>) {
         val gridLayout =
-            GridLayoutManager(this@CheckoutWithFoodActivity, 1, GridLayoutManager.VERTICAL, false)
+            GridLayoutManager(this@SummeryActivity, 1, GridLayoutManager.VERTICAL, false)
         recyclerview_food_preview.layoutManager = LinearLayoutManager(this)
-        val adapter = AdapterCheckoutFoodItem(this@CheckoutWithFoodActivity, concessionFoods)
+        val adapter = AdapterCheckoutFoodItem(this@SummeryActivity, concessionFoods)
         recyclerview_food_preview.layoutManager = gridLayout
         recyclerview_food_preview.adapter = adapter
         adapter.loadNewData(concessionFoods)
@@ -1327,7 +1326,7 @@ class CheckoutWithFoodActivity : DaggerAppCompatActivity() {
                         }
 
                         override fun onFinish() {
-                            val dialog = OptionDialog(this@CheckoutWithFoodActivity,
+                            val dialog = OptionDialog(this@SummeryActivity,
                                 R.mipmap.ic_launcher,
                                 R.string.app_name,
                                 getString(R.string.timeOut),
@@ -1345,7 +1344,7 @@ class CheckoutWithFoodActivity : DaggerAppCompatActivity() {
                         }
                     }.start()
                 } else if (Constant.IntentKey.TimerExtandCheck && Constant.IntentKey.TimerExtand < 0) {
-                    val dialog = OptionDialog(this@CheckoutWithFoodActivity,
+                    val dialog = OptionDialog(this@SummeryActivity,
                         R.mipmap.ic_launcher,
                         R.string.app_name,
                         getString(R.string.timeOut),
@@ -1479,7 +1478,7 @@ class CheckoutWithFoodActivity : DaggerAppCompatActivity() {
     private class CompletionNotifier : TMXEndNotifier {
         override fun complete(result: TMXProfilingHandle.Result) {
 //            m_sessionID = result.getSessionID();
-            println("SessionId-->${CheckoutWithFoodActivity().m_sessionID}")
+            println("SessionId-->${SummeryActivity().m_sessionID}")
             Log.d("ProfilingResults-", "SessionID:" + result.sessionID + "Status:" + result.status)
         }
     }
