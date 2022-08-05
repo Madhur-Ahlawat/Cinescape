@@ -40,6 +40,8 @@
             android:background="@drawable/alert_booking_bg">
 
             <ImageView
+                android:layout_marginTop="@dimen/margin4"
+                android:layout_marginStart="@dimen/margin4"
                 android:id="@+id/img_cross_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

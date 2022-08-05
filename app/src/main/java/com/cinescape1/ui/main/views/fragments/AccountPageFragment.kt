@@ -121,7 +121,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     private var gender: String = ""
     private var type: String = ""
     private var loginType: String = ""
-    var dialog: Dialog? = null
+    private var dialog: Dialog? = null
     private var rechargeAmount: String = ""
     private var countryCodeList = ArrayList<CountryCodeResponse.Output>()
     private var getAmountList = ArrayList<String>()
@@ -176,7 +176,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     ): View {
         binding = FragmentAccountPageBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
-        println("getLocalLanguageAccount--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
         return view!!
     }
 

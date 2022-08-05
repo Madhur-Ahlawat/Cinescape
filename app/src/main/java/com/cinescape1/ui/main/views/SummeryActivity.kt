@@ -129,7 +129,8 @@ class SummeryActivity : DaggerAppCompatActivity() {
         }
 
         if (type != "FOOD") {
-            binding?.textTimeLeft?.show()
+            textView111?.show()
+            textView112?.show()
             resendTimer()
         }
         if (!preferences.getBoolean(Constant.IS_LOGIN)) {
@@ -1186,7 +1187,13 @@ class SummeryActivity : DaggerAppCompatActivity() {
             text_kds.text = output.ticketPrice
             text_kd_total.text = output.totalTicketPrice
             paidPrice=output.totalPrice
-            binding?.textKdTotals?.text = output.totalPrice
+            binding?.textTimeToLeft?.text = output.totalPrice
+            if(output.totalPrice.isNullOrEmpty()){
+                binding?.textTimeLeft?.hide()
+            }else{
+                binding?.textTimeLeft?.show()
+
+            }
             binding?.textKdFood?.text = output.totalPrice
 
             text_qty_number.text = output.numofseats.toString()
@@ -1274,8 +1281,11 @@ class SummeryActivity : DaggerAppCompatActivity() {
         println("foodViewCheck----2>${concessionFoods}")
         if (concessionFoods.isNullOrEmpty()) {
             binding?.foodViewCheck?.hide()
+            binding?.view?.hide()
         } else {
             binding?.foodViewCheck?.show()
+            binding?.view?.hide()
+
             val gridLayout = GridLayoutManager(
                 this@SummeryActivity,
                 1,
@@ -1307,7 +1317,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
             override fun onTick(millisUntilFinished: Long) {
                 val second = millisUntilFinished / 1000 % 60
                 val minutes = millisUntilFinished / (1000 * 60) % 60
-                binding?.textTimeToLeft?.text = "$minutes:$second"
+                textView111?.text = "$minutes:$second"
                 timeCount = minutes * 60 + second
             }
 
@@ -1321,7 +1331,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
                         override fun onTick(millisUntilFinished: Long) {
                             val second = millisUntilFinished / 1000 % 60
                             val minutes = millisUntilFinished / (1000 * 60) % 60
-                            binding?.textTimeToLeft?.text = "$minutes:$second"
+                            textView111?.text = "$minutes:$second"
                             Constant.IntentKey.TimerExtand = minutes * 60 + second
                         }
 
@@ -1381,7 +1391,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
                 override fun onTick(millisUntilFinished: Long) {
                     val second = millisUntilFinished / 1000 % 60
                     val minutes = millisUntilFinished / (1000 * 60) % 60
-                    binding?.textTimeToLeft?.text = "$minutes:$second"
+                    textView111.text = "$minutes:$second"
                     Constant.IntentKey.TimerExtand = minutes * 60 + second
 
                 }

@@ -58,7 +58,7 @@ import kotlinx.android.synthetic.main.fragment_food.*
 import javax.inject.Inject
 
 
-class HomeActivity : DaggerAppCompatActivity() {
+class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.RecycleViewItemClickListener {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -121,7 +121,6 @@ class HomeActivity : DaggerAppCompatActivity() {
             foodDialog()
         }
 
-        println("OpenFrom--->${OPEN_FROM}")
         navigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.homeFragment -> {
@@ -335,7 +334,7 @@ class HomeActivity : DaggerAppCompatActivity() {
                     mAlertDialog = mBuilder.show()
                     mAlertDialog?.show()
                     mAlertDialog?.window?.setBackgroundDrawableResource(R.color.black70)
-
+                    mDialogView.text_bombshell.isSelected=true
                     mDialogView.text_location_name.text = output.output[0].cinemaname
                     mDialogView.text_screen_number.text = output.output[0].screenId.toString()
                     mDialogView.text_experience_name.text = output.output[0].experience
@@ -427,26 +426,16 @@ class HomeActivity : DaggerAppCompatActivity() {
                         //dismiss dialog
                         mAlertDialog?.dismiss()
                     }
-
                     mDialogView.text_have_upcoming_booking.text=getString(R.string.upcoming_booking)
-                    mDialogView.go_to_booking_btn.setOnClickListener {
-                        binding?.navigationView?.selectedItemId = R.id.accountFragment
-                        setCurrentFragment(AccountPageFragment())
-                        mAlertDialog?.dismiss()
-                    }
-
                     val recyclerViewAlertBooking =
                         mDialogView.findViewById<View>(R.id.recyclerViewAlertBooking) as RecyclerView
                     val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
-//                    recyclerViewAlertBooking.layoutManager = LinearLayoutManager(this)
-                    val adapter = AdapterMultiMovieAlertBooking(this, output.output)
+                    val adapter = AdapterMultiMovieAlertBooking(this, output.output,this)
 
-                    recyclerViewAlertBooking.setLayoutManager(
-                        LinearLayoutManager(
-                            this,
-                            LinearLayoutManager.HORIZONTAL,
-                            false
-                        )
+                    recyclerViewAlertBooking.layoutManager = LinearLayoutManager(
+                        this,
+                        LinearLayoutManager.HORIZONTAL,
+                        false
                     )
                     val snapHelper = PagerSnapHelper()
 
@@ -568,6 +557,14 @@ class HomeActivity : DaggerAppCompatActivity() {
             return
         }
         super.onBackPressed()
+    }
+
+    override fun onDateClick(showtimeListItem: NextBookingResponse.Current) {
+
+        binding?.navigationView?.selectedItemId = R.id.accountFragment
+        setCurrentFragment(AccountPageFragment())
+        mAlertDialog?.dismiss()
+
     }
 
 }

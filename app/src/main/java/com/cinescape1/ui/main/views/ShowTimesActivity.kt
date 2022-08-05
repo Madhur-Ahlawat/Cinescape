@@ -57,7 +57,6 @@ import com.cinescape1.utils.Constant.Companion.select_pos
 import com.google.android.flexbox.FlexboxLayout
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_show_times.*
-import kotlinx.android.synthetic.main.cancel_dialog.view.*
 import kotlinx.android.synthetic.main.search_ui.*
 import kotlinx.android.synthetic.main.seat_selection_bank_offer_alert.*
 import kotlinx.android.synthetic.main.show_times_layout_include.*

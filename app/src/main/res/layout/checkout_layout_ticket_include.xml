@@ -415,6 +415,36 @@
             app:layout_constraintStart_toStartOf="@+id/view_total"
             app:layout_constraintTop_toBottomOf="@+id/text_total" />
 
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/textView111"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin10"
+            android:fontFamily="@font/sf_pro_text_heavy"
+            android:gravity="center"
+            android:letterSpacing="0.05"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size16"
+            android:textStyle="bold"
+            tools:text="6:00"
+            app:layout_constraintBottom_toTopOf="@+id/view_movie_name"
+            app:layout_constraintEnd_toEndOf="@+id/view_movie_name" />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/textView112"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginEnd="@dimen/margin8"
+            android:fontFamily="@font/gibson_regular"
+            android:textSize="@dimen/size11"
+            android:text="@string/time_left"
+            app:layout_constraintBottom_toBottomOf="@+id/textView111"
+            app:layout_constraintEnd_toStartOf="@+id/textView111"
+            app:layout_constraintTop_toTopOf="@+id/textView111" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include

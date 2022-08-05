@@ -13,9 +13,8 @@
         <ImageView
             android:id="@+id/image_booking_alert"
             android:layout_width="0dp"
-            android:layout_height="263.37dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="17dp"
-            android:scaleType="fitXY"
             android:adjustViewBounds="true"
             android:contentDescription="@string/contentDes"
             app:layout_constraintBottom_toTopOf="@+id/view_location1"
@@ -42,6 +41,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginEnd="@dimen/margin20"
                 android:weightSum="7"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +70,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="HardcodedText,ObsoleteLayoutParam"
-                    tools:text="Bombshe" />
+                    tools:text="Bombs" />
 
                 <LinearLayout
                     android:id="@+id/constraintLayout18"
@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:minWidth="110dp"
+                    android:minWidth="150dp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_seat_film_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/tv_seat_film_title"

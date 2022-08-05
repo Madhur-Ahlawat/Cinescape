@@ -73,6 +73,7 @@
                     android:id="@+id/foodViewCheck"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -91,7 +92,6 @@
                         android:id="@+id/view_food"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
-                        android:layout_marginTop="16dp"
                         android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="@+id/view_mainss"
                         app:layout_constraintHorizontal_bias="0.347"
@@ -149,15 +149,30 @@
                         app:layout_constraintStart_toStartOf="@+id/view_food"
                         app:layout_constraintTop_toBottomOf="@+id/view_food" />
 
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="@color/view_bg_color_line"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="@dimen/margin25"
+                    app:layout_constraintTop_toBottomOf="@+id/foodViewCheck" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/priceView"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/foodViewCheck">
+                    app:layout_constraintTop_toBottomOf="@+id/view">
 
                     <View
                         android:id="@+id/view2_line2"
@@ -343,6 +358,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin25"
+                    android:gravity="center"
                     android:fontFamily="@font/sf_pro_text_bold"
                     android:text="@string/select_payment_method"
                     android:textColor="@color/white"
@@ -530,7 +546,7 @@
 
         <View
             android:id="@+id/view_cancel"
-            android:layout_width="0dp"
+            android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="@dimen/margin15"
@@ -573,7 +589,7 @@
             android:layout_width="0dp"
             android:layout_height="70dp"
             app:layout_constraintBottom_toBottomOf="@+id/view_cancel"
-            app:layout_constraintEnd_toStartOf="@+id/view_cart"
+            app:layout_constraintEnd_toStartOf="@+id/view_proceed"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@+id/view_cancel"
             app:layout_constraintTop_toTopOf="@+id/view_cancel"
@@ -581,16 +597,16 @@
 
         <TextView
             android:id="@+id/text_time_left"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/gibson_regular"
             android:gravity="center"
-            android:text="@string/time_left"
+            android:text="@string/ammountPaid"
             android:textColor="@color/white"
             android:textSize="@dimen/size12"
             android:textStyle="normal"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="@+id/view_time_left"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/view_time_left"
@@ -601,68 +617,26 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sf_pro_text_heavy"
-            android:gravity="center"
+            android:textAlignment="center"
             android:letterSpacing="0.05"
             android:textColor="@color/white"
             android:textSize="@dimen/size16"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/view_time_left"
-            app:layout_constraintStart_toStartOf="@+id/view_time_left"
+            app:layout_constraintEnd_toEndOf="@+id/text_time_left"
+            app:layout_constraintStart_toStartOf="@+id/text_time_left"
             app:layout_constraintTop_toBottomOf="@+id/text_time_left"
             tools:ignore="HardcodedText" />
 
 
-        <ImageView
-            android:id="@+id/image_cart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/contentDes"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/text_cart_count_notiication"
-            app:layout_constraintEnd_toEndOf="@+id/view_cart"
-            app:layout_constraintHorizontal_bias="0.529"
-            app:layout_constraintStart_toStartOf="@+id/view_cart"
-            app:layout_constraintTop_toBottomOf="@+id/text_cart_count_notiication"
-            app:srcCompat="@drawable/ic_cart" />
-
-        <TextView
-            android:id="@+id/text_cart_count_notiication"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/filter_cross"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="@+id/view_cart"
-            app:layout_constraintStart_toStartOf="@+id/image_cart"
-            app:layout_constraintTop_toTopOf="@+id/view_cart"
-            tools:text="22" />
-
-        <View
-            android:id="@+id/view_cart"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            app:layout_constraintBottom_toBottomOf="@+id/view_time_left"
-            app:layout_constraintEnd_toStartOf="@+id/view_proceed"
-            app:layout_constraintHorizontal_weight=".8"
-            app:layout_constraintStart_toEndOf="@+id/view_time_left"
-            app:layout_constraintTop_toTopOf="@+id/view_time_left"
-            app:layout_constraintVertical_bias="0.0" />
-
         <View
             android:id="@+id/view_proceed"
-            android:layout_width="0dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/view_cart"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="2"
-            app:layout_constraintStart_toEndOf="@+id/view_cart"
-            app:layout_constraintTop_toTopOf="@+id/view_cart" />
+            app:layout_constraintTop_toTopOf="@+id/view_time_left" />
 
         <TextView
             android:id="@+id/txt_proceed"

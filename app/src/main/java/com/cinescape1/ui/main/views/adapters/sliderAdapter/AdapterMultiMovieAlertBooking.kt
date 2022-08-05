@@ -19,11 +19,10 @@ import kotlinx.android.synthetic.main.alert_booking.view.*
 
 class AdapterMultiMovieAlertBooking(
     context: Context,
-    private var sliderMultiMovieItemList: ArrayList<NextBookingResponse.Current>
+    private var sliderMultiMovieItemList: ArrayList<NextBookingResponse.Current>, var listener: RecycleViewItemClickListener
 ) :
     RecyclerView.Adapter<AdapterMultiMovieAlertBooking.MyViewHolderMultiMovieAlertBooking>() {
     private var mContext = context
-
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -87,13 +86,9 @@ class AdapterMultiMovieAlertBooking(
             .placeholder(R.drawable.movie_default)
             .into(holder.image)
 
-        holder.bookings.text = mContext.getString(R.string.booking)
+        holder.bookings.text = mContext.getString(R.string.go_to_bookings)
         holder.bookings.setOnClickListener {
-            val intent = Intent(mContext, FinalTicketActivity::class.java)
-            intent.putExtra(Constant.IntentKey.BOOKING_ID, showtimeListItem.bookingId)
-            intent.putExtra(Constant.IntentKey.TRANSACTION_ID, showtimeListItem.transId.toString())
-            intent.putExtra(Constant.IntentKey.BOOK_TYPE, showtimeListItem.bookingType)
-            mContext.startActivity(intent)
+            listener.onDateClick(showtimeListItem)
         }
 
     }
@@ -120,5 +115,7 @@ class AdapterMultiMovieAlertBooking(
         var ratingUi: CardView = view.ratingUi
         var bookings: TextView = view.go_to_booking_btn1
     }
-
+    interface RecycleViewItemClickListener {
+        fun onDateClick(showtimeListItem: NextBookingResponse.Current)
+    }
 }

@@ -222,6 +222,7 @@ import java.util.ArrayList
         const val status = "success"
         const val SUCCESS_CODE = 10001
          var SEE_ALL_TYPE = 0
+         var BOOKING_TYPE = 0
         const val TITLE = "title"
         const val IS_FROM = "isFrom"
         const val ENABLE_GPS_LOCATION_REQUEST = 2
