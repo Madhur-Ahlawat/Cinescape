@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black">
+    android:background="@color/black"
+    tools:context=".ui.main.views.SummeryActivity">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/uiCheckout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/black"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,8 +21,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/black"
-            tools:context=".ui.main.views.SummeryActivity">
+            android:background="@color/black">
 
             <ImageView
                 android:id="@+id/imageView6"
@@ -42,6 +42,7 @@
                 layout="@layout/checkout_layout_ticket_include"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="@+id/imageView6"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/imageView6"
@@ -55,9 +56,10 @@
                 android:paddingEnd="@dimen/margin15"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkout_ticket_include">
+                app:layout_constraintTop_toBottomOf="@+id/checkout_ticket_include"
+                app:layout_constraintVertical_bias="0.0">
 
                 <View
                     android:id="@+id/view1_line1"
@@ -73,7 +75,7 @@
                     android:id="@+id/foodViewCheck"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="35dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -82,26 +84,26 @@
                     <View
                         android:id="@+id/view_mainss"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         tools:ignore="MissingConstraints" />
 
                     <View
                         android:id="@+id/view_food"
                         android:layout_width="0dp"
-                        android:layout_height="40dp"
+                        android:layout_height="32dp"
                         android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="@+id/view_mainss"
-                        app:layout_constraintHorizontal_bias="0.347"
                         app:layout_constraintStart_toStartOf="@+id/view_mainss"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/text_food_title"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
                         android:fontFamily="@font/sf_pro_text_bold"
                         android:text="@string/food"
                         android:textColor="@color/white"
@@ -109,7 +111,8 @@
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/view_food"
                         app:layout_constraintEnd_toStartOf="@+id/icon_down_arrow"
-                        app:layout_constraintStart_toStartOf="@+id/view_food" />
+                        app:layout_constraintStart_toStartOf="@+id/view_food"
+                        app:layout_constraintTop_toTopOf="@+id/icon_down_arrow" />
 
                     <ImageView
                         android:id="@+id/icon_down_arrow"
@@ -118,7 +121,6 @@
                         android:contentDescription="@string/contentDes"
                         app:layout_constraintBottom_toBottomOf="@+id/text_food_title"
                         app:layout_constraintEnd_toStartOf="@+id/text_kd_food"
-                        app:layout_constraintTop_toTopOf="@+id/text_food_title"
                         app:srcCompat="@drawable/ic_icons_arrow_down" />
 
                     <TextView
@@ -145,31 +147,33 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/view_food"
                         app:layout_constraintStart_toStartOf="@+id/view_food"
-                        app:layout_constraintTop_toBottomOf="@+id/view_food" />
+                        app:layout_constraintTop_toBottomOf="@+id/view_food"
+                        tools:itemCount="3"
+                        tools:listitem="@layout/checkout_food_item" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
                 <View
                     android:id="@+id/view"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
+                    android:layout_marginTop="30dp"
                     android:background="@color/view_bg_color_line"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginTop="@dimen/margin25"
                     app:layout_constraintTop_toBottomOf="@+id/foodViewCheck" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/priceView"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/view">
@@ -200,7 +204,7 @@
                         android:fontFamily="@font/sf_pro_text_regular"
                         android:letterSpacing="-0.01"
                         android:lineSpacingExtra="1sp"
-                        android:text="@string/ammountPaid"
+                        android:text=""
                         android:textColor="@color/white"
                         android:textSize="@dimen/size14"
                         android:textStyle="normal"
@@ -357,9 +361,9 @@
                     android:id="@+id/text_select_payment_method"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin25"
-                    android:gravity="center"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/sf_pro_text_bold"
+                    android:gravity="center"
                     android:text="@string/select_payment_method"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size18"
@@ -373,7 +377,7 @@
                     android:id="@+id/viewWallet"
                     android:layout_width="0dp"
                     android:layout_height="90dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="35dp"
                     app:layout_constraintEnd_toStartOf="@+id/viewKnet"
                     app:layout_constraintStart_toStartOf="@+id/text_select_payment_method"
                     app:layout_constraintTop_toBottomOf="@+id/text_select_payment_method" />
@@ -517,6 +521,99 @@
                     app:layout_constraintStart_toStartOf="@+id/textKnetName"
                     app:layout_constraintTop_toTopOf="@+id/viewWallet" />
 
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/priceUi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="24dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/text_select_payment_method"
+                    app:layout_constraintStart_toStartOf="@+id/text_select_payment_method"
+                    app:layout_constraintTop_toBottomOf="@+id/viewWallet">
+
+
+                    <View
+                        android:id="@+id/view101"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView113"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:text="@string/total_price"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size15"
+                        app:layout_constraintStart_toStartOf="@+id/view101"
+                        app:layout_constraintTop_toTopOf="@+id/view101" />
+
+                    <TextView
+                        android:id="@+id/textView114"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin15"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:text="@string/wallet_amount"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size15"
+                        app:layout_constraintStart_toStartOf="@+id/view101"
+                        app:layout_constraintTop_toBottomOf="@+id/textView113" />
+
+                    <TextView
+                        android:id="@+id/textView115"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin15"
+                        android:fontFamily="@font/sf_pro_text_bold"
+                        android:text="@string/balance_amount_to_be_paid"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size15"
+                        app:layout_constraintStart_toStartOf="@+id/view101"
+                        app:layout_constraintTop_toBottomOf="@+id/textView114" />
+
+                    <TextView
+                        android:id="@+id/textView116"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/total_price"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size15"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView113"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textView113" />
+
+                    <TextView
+                        android:id="@+id/textView117"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size15"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView114"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textView114"
+                        tools:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/textView118"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_text_bold"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size15"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView115"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textView115"
+                        tools:text="TextView" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -614,18 +711,18 @@
 
         <TextView
             android:id="@+id/text_time_to_left"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/sf_pro_text_heavy"
-            android:textAlignment="center"
+            android:fontFamily="@font/sf_pro_text_bold"
             android:letterSpacing="0.05"
+            android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="@dimen/size16"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/text_time_left"
             app:layout_constraintStart_toStartOf="@+id/text_time_left"
             app:layout_constraintTop_toBottomOf="@+id/text_time_left"
-            tools:ignore="HardcodedText" />
+            tools:ignore="HardcodedText"
+            tools:text="233" />
 
 
         <View

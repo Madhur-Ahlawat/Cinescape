@@ -320,6 +320,8 @@
     <string name="nowSowing">يعرض الآن</string>
     <string name="commingSoon">قريبا</string>
     <string name="advanceBooking">حجز مسبق</string>
+    <string name="wallet_amount">مبلغ المحفظة</string>
+    <string name="balance_amount_to_be_paid">مبلغ الرصيد الواجب دفعه</string>
 
 
 </resources>

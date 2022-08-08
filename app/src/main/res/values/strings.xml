@@ -317,5 +317,7 @@
     <string name="advanceBooking">ADVANCE BOOKING</string>
     <string name="internetMsg">Your connection to the internet was lost.\n Please connect and try again</string>
     <string name="no_movie_available">No Movie Available</string>
+    <string name="wallet_amount">Wallet amount</string>
+    <string name="balance_amount_to_be_paid">Balance amount to be paid</string>
 
 </resources>

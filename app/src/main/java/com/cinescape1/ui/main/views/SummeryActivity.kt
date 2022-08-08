@@ -801,12 +801,6 @@ class SummeryActivity : DaggerAppCompatActivity() {
                                                 println("consumerSessionId-->$consumerSessionId")
                                             }
 
-                                            /**
-                                             * If there was an error with set up, Cardinal will call this function with
-                                             * validate response and empty serverJWT
-                                             * @param validateResponse
-                                             * @param serverJwt will be an empty
-                                             */
                                             override fun onValidated(
                                                 validateResponse: ValidateResponse?,
                                                 serverJwt: String?
@@ -859,14 +853,12 @@ class SummeryActivity : DaggerAppCompatActivity() {
             }
     }
 
-
     private fun postCardData(request: PostCardRequest) {
         checkoutWithFoodViewModel.postCardData(request)
             .observe(this) {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
-//                            loader?.dismiss()
                             resource.data?.let { it ->
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                     try {
@@ -1144,7 +1136,17 @@ class SummeryActivity : DaggerAppCompatActivity() {
     private fun retrieveSummaryResponse(output: TicketSummaryResponse.Output) {
         binding?.uiCheckout?.show()
         binding?.constraintLayout6?.show()
+        println("BookingType--->${output.totalPrice}")
+        binding?.textTimeToLeft?.text = output.totalPrice
+        if(output.totalPrice.isNullOrEmpty()){
+            binding?.textTimeLeft?.hide()
+        }else{
+            binding?.textTimeLeft?.show()
+
+        }
         binding?.textWalletKd?.text = output.balance
+        binding?.textView117?.text = output.balance
+
         if (output.clubEnable) {
             binding?.viewWallet?.isEnabled = true
             binding?.viewWallet?.isClickable = true
@@ -1152,18 +1154,26 @@ class SummeryActivity : DaggerAppCompatActivity() {
             binding?.viewWallet?.isEnabled = false
             binding?.viewWallet?.isClickable = false
         }
-        println("BookingType--->${output.bookingType}")
+
         if (output.bookingType == "FOOD") {
             setCheckoutOnlyFoodItemAdapter(output.concessionFoods)
             ticketPage.hide()
             priceView.hide()
+
+            binding?.priceUi?.hide()
+            binding?.textTimeLeft?.hide()
+            binding?.textTimeToLeft?.hide()
             checkout_food_include.show()
+            binding?.view1Line1?.hide()
             foodViewCheck.hide()
             binding?.imageView6?.setImageResource(R.mipmap.food_checkout)
         } else {
+
             ticketPage.show()
             priceView.show()
             foodViewCheck.show()
+            binding?.view1Line1?.show()
+            binding?.priceUi?.show()
             checkout_food_include.hide()
             Glide.with(this).load(output.posterhori).placeholder(R.drawable.bombshell)
                 .into(binding?.imageView6!!)
@@ -1188,12 +1198,9 @@ class SummeryActivity : DaggerAppCompatActivity() {
             text_kd_total.text = output.totalTicketPrice
             paidPrice=output.totalPrice
             binding?.textTimeToLeft?.text = output.totalPrice
-            if(output.totalPrice.isNullOrEmpty()){
-                binding?.textTimeLeft?.hide()
-            }else{
-                binding?.textTimeLeft?.show()
+            binding?.textView118?.text=output.totalPrice
+            binding?.textView116?.text=output.totalPrice
 
-            }
             binding?.textKdFood?.text = output.totalPrice
 
             text_qty_number.text = output.numofseats.toString()
@@ -1284,7 +1291,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
             binding?.view?.hide()
         } else {
             binding?.foodViewCheck?.show()
-            binding?.view?.hide()
+            binding?.view?.show()
 
             val gridLayout = GridLayoutManager(
                 this@SummeryActivity,
