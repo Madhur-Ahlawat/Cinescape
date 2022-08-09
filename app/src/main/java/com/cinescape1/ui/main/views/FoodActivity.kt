@@ -119,6 +119,42 @@ class FoodActivity : DaggerAppCompatActivity(),
         type = intent.getStringExtra("type").toString()
 
         if (type == "0") {
+
+
+            binding?.txtSkipProceed?.show()
+            binding?.viewCancel?.setOnClickListener {
+                cancelDialog()
+            }
+
+            binding?.viewProceed?.setOnClickListener {
+                if (!foodCartList.isNullOrEmpty()) {
+                    try {
+                        val foodRequest = SaveFoodRequest()
+                        foodRequest.concessionFoods = foodCartList!!
+                        foodRequest.transid = transId
+                        foodRequest.cinemaId = cinemaId
+                        foodRequest.booktype = booktype
+                        foodRequest.userId = preferences.getString(Constant.USER_ID).toString()
+                        foodRequest.sessionId = sessionId
+                        saveFoods(foodRequest)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                } else {
+                    val intent = Intent(this, SummeryActivity::class.java)
+                    toast("check1")
+                    intent.putExtra("CINEMA_ID", cinemaId)
+                    intent.putExtra("SESSION_ID", sessionId)
+                    intent.putExtra("TRANS_ID", transId)
+                    intent.putExtra("TYPE", type)
+                    TimerTime = timeCount
+                    startActivity(intent)
+                    finish()
+                }
+            }
+
+
+        } else {
             binding?.txtSkipProceed?.hide()
             binding?.viewCancel?.setOnClickListener {
                 finish()
@@ -150,38 +186,6 @@ class FoodActivity : DaggerAppCompatActivity(),
                         negativeClick = {
                         })
                     dialog.show()
-                }
-            }
-
-        } else {
-            binding?.txtSkipProceed?.show()
-            binding?.viewCancel?.setOnClickListener {
-                cancelDialog()
-            }
-
-            binding?.viewProceed?.setOnClickListener {
-                if (!foodCartList.isNullOrEmpty()) {
-                    try {
-                        val foodRequest = SaveFoodRequest()
-                        foodRequest.concessionFoods = foodCartList!!
-                        foodRequest.transid = transId
-                        foodRequest.cinemaId = cinemaId
-                        foodRequest.booktype = booktype
-                        foodRequest.userId = preferences.getString(Constant.USER_ID).toString()
-                        foodRequest.sessionId = sessionId
-                        saveFoods(foodRequest)
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                } else {
-                    val intent = Intent(this, SummeryActivity::class.java)
-                    intent.putExtra("CINEMA_ID", cinemaId)
-                    intent.putExtra("SESSION_ID", sessionId)
-                    intent.putExtra("TRANS_ID", transId)
-                    intent.putExtra("TYPE", "0")
-                    TimerTime = timeCount
-                    startActivity(intent)
-                    finish()
                 }
             }
 
@@ -235,7 +239,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             intent.putExtra("CINEMA_ID", cinemaId)
             intent.putExtra("SESSION_ID", sessionId)
             intent.putExtra("TRANS_ID", transId)
-            intent.putExtra("TYPE", "0")
+            intent.putExtra("TYPE", type)
 
             TimerTime = timeCount
             startActivity(intent)
@@ -539,11 +543,13 @@ class FoodActivity : DaggerAppCompatActivity(),
                                         mFoodCartDialog?.dismiss()
                                         val intent =
                                             Intent(this, SummeryActivity::class.java)
+                                        toast("check2")
+
                                         intent.putExtra("CINEMA_ID", cinemaId)
                                         intent.putExtra("SESSION_ID", sessionId)
                                         intent.putExtra("TRANS_ID", it.data.output.transid)
                                         intent.putExtra("BOOKING", it.data.output.booktype)
-                                        intent.putExtra("TYPE", "FOOD")
+                                        intent.putExtra("TYPE", type)
 
                                         TimerTime = timeCount
                                         startActivity(intent)

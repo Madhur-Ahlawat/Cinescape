@@ -29,16 +29,27 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/cinema" />
 
-        <ImageView
-            android:id="@+id/image_qr_code"
-            android:layout_width="153dp"
-            android:layout_height="153dp"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/contentDes"
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardUi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/margin5"
+            app:cardUseCompatPadding="true"
             app:layout_constraintBottom_toBottomOf="@+id/image_head"
             app:layout_constraintEnd_toEndOf="@+id/image_head"
             app:layout_constraintStart_toStartOf="@+id/image_head"
-            app:layout_constraintTop_toTopOf="@+id/image_head" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView8">
+
+            <ImageView
+                android:id="@+id/image_qr_code"
+                android:layout_width="153dp"
+                android:layout_height="153dp"
+                android:scaleType="fitXY"
+                android:layout_margin="@dimen/margin5"
+                android:contentDescription="@string/contentDes" />
+
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/text_booking_added_wallet"
@@ -80,6 +91,7 @@
             app:layout_constraintTop_toTopOf="@+id/image_head" />
 
         <View
+            android:visibility="gone"
             android:id="@+id/view29"
             android:layout_width="100dp"
             android:layout_height="38dp"
@@ -89,6 +101,7 @@
             app:layout_constraintTop_toBottomOf="@+id/image_head" />
 
         <ImageView
+            android:visibility="gone"
             android:id="@+id/imag_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -102,6 +115,7 @@
             app:srcCompat="@drawable/ic_icon_feather_upload" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

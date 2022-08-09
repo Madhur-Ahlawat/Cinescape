@@ -56,8 +56,6 @@ import kotlinx.android.synthetic.main.cancel_dialog.*
 import kotlinx.android.synthetic.main.cancel_dialog.view.*
 import kotlinx.android.synthetic.main.checkout_creditcart_payment_alert.*
 import kotlinx.android.synthetic.main.checkout_layout_ticket_include.*
-import kotlinx.android.synthetic.main.checkout_layout_ticket_include.text_location_names
-import kotlinx.android.synthetic.main.checkout_layout_ticket_include.text_times2
 import kotlinx.android.synthetic.main.food_review_pay_include.*
 import org.json.JSONArray
 import java.text.ParseException
@@ -107,7 +105,6 @@ class SummeryActivity : DaggerAppCompatActivity() {
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
-                println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
             }
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(this, "en")
@@ -128,7 +125,8 @@ class SummeryActivity : DaggerAppCompatActivity() {
             statusBarColor = Color.TRANSPARENT
         }
 
-        if (type != "FOOD") {
+        println("bookingType---->${type}")
+        if (type == "0") {
             textView111?.show()
             textView112?.show()
             resendTimer()
@@ -219,7 +217,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
                         val proceedAlertDialog = mBuilder.show()
                         proceedAlertDialog.show()
 //                        " "+getString(R.string.price_kd)+" "+
-                        proceedAlertDialog?.kd_to_pay?.text=" "+paidPrice
+                        proceedAlertDialog?.kd_to_pay?.text = " " + paidPrice
 
                         proceedAlertDialog.cardNumberTextInputEditText.addTextChangedListener(object :
                             TextWatcher {
@@ -597,7 +595,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
 
                         proceedAlertDialog.btn_pay.setOnClickListener {
                             if (validateFields(proceedAlertDialog))
-                                try{
+                                try {
                                     postCardData(
                                         PostCardRequest(
                                             bookingId,
@@ -611,7 +609,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
                                             refId
                                         )
                                     )
-                                }catch (e:Exception){
+                                } catch (e: Exception) {
                                     println("exception--->${e.message}")
                                 }
 
@@ -875,7 +873,20 @@ class SummeryActivity : DaggerAppCompatActivity() {
                                                     toast(validateResponse.errorDescription)
                                                 } else if (validateResponse.actionCode == CardinalActionCode.SUCCESS) {
                                                     if (s != null) {
-                                                        runOnUiThread { validateJWT(ValidateJWTRequest(bookingId,request.cardNumber,request.cvNumber,request.expirationMonth,request.expirationYear,s,m_sessionID,"")) }
+                                                        runOnUiThread {
+                                                            validateJWT(
+                                                                ValidateJWTRequest(
+                                                                    bookingId,
+                                                                    request.cardNumber,
+                                                                    request.cvNumber,
+                                                                    request.expirationMonth,
+                                                                    request.expirationYear,
+                                                                    s,
+                                                                    m_sessionID,
+                                                                    ""
+                                                                )
+                                                            )
+                                                        }
                                                     } else {
                                                         toast("Transaction Failed!")
                                                     }
@@ -883,7 +894,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
                                                     toast(validateResponse.errorDescription)
                                                 }
                                             }
-                                        }else{
+                                        } else {
                                             loader?.dismiss()
                                             val dialog = OptionDialog(this,
                                                 R.mipmap.ic_launcher,
@@ -955,9 +966,18 @@ class SummeryActivity : DaggerAppCompatActivity() {
                                             Constant.IntentKey.OPEN_FROM = 1
                                             finish()
                                         } else {
-                                            val intent = Intent(applicationContext, FinalTicketActivity::class.java)
-                                            intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
-                                            intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
+                                            val intent = Intent(
+                                                applicationContext,
+                                                FinalTicketActivity::class.java
+                                            )
+                                            intent.putExtra(
+                                                Constant.IntentKey.TRANSACTION_ID,
+                                                transId
+                                            )
+                                            intent.putExtra(
+                                                Constant.IntentKey.BOOKING_ID,
+                                                bookingId
+                                            )
                                             startActivity(intent)
                                         }
                                     } catch (e: Exception) {
@@ -1138,9 +1158,9 @@ class SummeryActivity : DaggerAppCompatActivity() {
         binding?.constraintLayout6?.show()
         println("BookingType--->${output.totalPrice}")
         binding?.textTimeToLeft?.text = output.totalPrice
-        if(output.totalPrice.isNullOrEmpty()){
+        if (output.totalPrice.isNullOrEmpty()) {
             binding?.textTimeLeft?.hide()
-        }else{
+        } else {
             binding?.textTimeLeft?.show()
 
         }
@@ -1167,13 +1187,14 @@ class SummeryActivity : DaggerAppCompatActivity() {
             binding?.view1Line1?.hide()
             foodViewCheck.hide()
             binding?.imageView6?.setImageResource(R.mipmap.food_checkout)
-        } else {
 
+        } else {
+//            binding?.priceUi?.show()
             ticketPage.show()
             priceView.show()
             foodViewCheck.show()
             binding?.view1Line1?.show()
-            binding?.priceUi?.show()
+            binding?.priceUi?.hide()
             checkout_food_include.hide()
             Glide.with(this).load(output.posterhori).placeholder(R.drawable.bombshell)
                 .into(binding?.imageView6!!)
@@ -1196,14 +1217,16 @@ class SummeryActivity : DaggerAppCompatActivity() {
 
             text_kds.text = output.ticketPrice
             text_kd_total.text = output.totalTicketPrice
-            paidPrice=output.totalPrice
+            paidPrice = output.totalPrice
             binding?.textTimeToLeft?.text = output.totalPrice
-            binding?.textView118?.text=output.totalPrice
-            binding?.textView116?.text=output.totalPrice
+            binding?.textView118?.text = output.totalPrice
+            binding?.textView116?.text = output.totalPrice
 
             binding?.textKdFood?.text = output.totalPrice
 
             text_qty_number.text = output.numofseats.toString()
+            binding?.textView119?.text = output.foodTotal
+
             setCheckoutFoodItemAdapter(output.concessionFoods)
 
             if (output.mcensor == "") {
@@ -1501,7 +1524,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
     }
 
     private fun validateFields(proceedAlertDialog: AlertDialog): Boolean {
-        return  if (proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+        return if (proceedAlertDialog.cardNumberTextInputEditText.text.toString()
                 .isEmpty() && proceedAlertDialog.cardNumberTextInputEditText.text
                 .toString().length != 16 && !CreditCardUtils.isValid(
                 proceedAlertDialog.cardNumberTextInputEditText.text.toString().replace(" ", "")

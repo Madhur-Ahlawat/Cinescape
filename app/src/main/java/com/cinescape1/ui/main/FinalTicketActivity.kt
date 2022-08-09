@@ -1,11 +1,14 @@
 package com.cinescape1.ui.main
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Paint
+import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -68,10 +71,10 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
         supportActionBar?.hide()
         binding = ActivityFinalTicketBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
+
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
-                println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
             }
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(this, "en")
@@ -222,7 +225,6 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
             layouts.add(R.layout.checkout_booking_confirm_alert2_include)
         }
 
-
         val myViewPagerAdapter = SliderFoodConfirmViewPgweAdapter(layouts, this)
         viewPager.adapter = myViewPagerAdapter
 
@@ -236,6 +238,7 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
                 text_bookin_id_no.text = output.kioskId
                 text_name_movie.text = output.moviename
                 text_location_names.text = output.cinemaname
+                txt_date.isSelected= true
                 txt_date.text = output.showDate+" "+ output.showTime
                 text_wallet.text = output.payDone
 
@@ -243,10 +246,10 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
                     tv_category_title.invisible()
                 }else{
                     tv_category_title.show()
+                    categoryName.isSelected=true
                     categoryName.text=output.category
                 }
 
-                println("checkCat--->${output.category}")
                 text_kd_total_ticket_price.text = output.totalTicketPrice
                  text_types.text = output.mcensor
 
@@ -260,6 +263,27 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
                 seats_list.layoutManager = layoutManager
                 seats_list.adapter = adapter
                 text_how_picup.paintFlags = text_how_picup.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+
+                text_how_picup.setOnClickListener {
+                    val mDialogView =
+                        LayoutInflater.from(this).inflate(R.layout.food_pickup_dialog, null)
+                    val mBuilder = AlertDialog.Builder(this, R.style.NewDialog).setView(mDialogView)
+                    val mAlertDialog = mBuilder.show()
+                    mAlertDialog.show()
+                    mAlertDialog.window?.setBackgroundDrawableResource(R.color.black70)
+                    val closeDialog = mDialogView.findViewById<TextView>(R.id.close_dialog)
+                    val text=mAlertDialog.findViewById<TextView>(R.id.textView105)
+
+                    text?.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        Html.fromHtml(output.pickupInfo, Html.FROM_HTML_MODE_COMPACT)
+                    } else {
+                        Html.fromHtml(output.pickupInfo)
+                    }
+                    closeDialog.setOnClickListener {
+                        mAlertDialog.dismiss()
+                    }
+
+            }
 
                 if (!output.cancelReserve) {
                     textView48.show()
@@ -356,6 +380,26 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
             text_kd_total_ticket_price1.text = output.totalPrice
             textFoodPicUp.paintFlags = textFoodPicUp.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
+            textFoodPicUp.setOnClickListener {
+                val mDialogView =
+                    LayoutInflater.from(this).inflate(R.layout.food_pickup_dialog, null)
+                val mBuilder = AlertDialog.Builder(this, R.style.NewDialog).setView(mDialogView)
+                val mAlertDialog = mBuilder.show()
+                mAlertDialog.show()
+                mAlertDialog.window?.setBackgroundDrawableResource(R.color.black70)
+                val closeDialog = mDialogView.findViewById<TextView>(R.id.close_dialog)
+                val text=mAlertDialog.findViewById<TextView>(R.id.textView105)
+
+                text?.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Html.fromHtml(output.pickupInfo, Html.FROM_HTML_MODE_COMPACT)
+                } else {
+                    Html.fromHtml(output.pickupInfo)
+                }
+                closeDialog.setOnClickListener {
+                    mAlertDialog.dismiss()
+                }
+
+            }
 
             setFinalFoodItemAdapter(output.concessionFoods)
         }
@@ -371,6 +415,7 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
                 )
             )
         }
+
     }
 
     private fun cancelReservationDialog() {

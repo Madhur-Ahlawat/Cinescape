@@ -27,6 +27,7 @@ data class NextBookingResponse(
         val trailerUrl: String,
         val numofseats: Int,
         val payDone: String,
+        val pickupInfo: String,
         val paymodes: Paymodes,
         val poster: String,
         val posterhori: String,

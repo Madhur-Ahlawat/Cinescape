@@ -3,6 +3,8 @@ package com.cinescape1.ui.main.views.adapters.accountPageAdapters
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.os.Build
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +42,8 @@ class UpcomingBookingAdapter(
         val foodSelctedItem = upcomingBookingList[position]
 
         holder.textNameMovie.isSelected = true
+        holder.btClick.isSelected = true
+
         Glide.with(mContext)
             .load(foodSelctedItem.posterhori)
             .placeholder(R.drawable.pos_not_avilbale)
@@ -92,6 +96,7 @@ class UpcomingBookingAdapter(
         }
 
         if (!foodSelctedItem.addFood) {
+
             holder.btClick.text = mContext.resources.getString(R.string.addFoodMsg)
             holder.btClick.setOnClickListener {
                 val intent = Intent(mContext, FoodActivity::class.java)
@@ -111,9 +116,16 @@ class UpcomingBookingAdapter(
                 val mAlertDialog = mBuilder.show()
                 mAlertDialog.show()
                 mAlertDialog.window?.setBackgroundDrawableResource(R.color.black70)
-                val close_dialog = mDialogView.findViewById<TextView>(R.id.close_dialog)
+                val closeDialog = mDialogView.findViewById<TextView>(R.id.close_dialog)
+                val text=mAlertDialog.findViewById<TextView>(R.id.textView105)
 
-                close_dialog.setOnClickListener {
+                   text?.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Html.fromHtml(foodSelctedItem.pickupInfo, Html.FROM_HTML_MODE_COMPACT)
+                } else {
+                    Html.fromHtml(foodSelctedItem.pickupInfo)
+                }
+
+                closeDialog.setOnClickListener {
                     mAlertDialog.dismiss()
                 }
             }

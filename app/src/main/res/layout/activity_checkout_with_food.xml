@@ -118,9 +118,10 @@
                         android:id="@+id/icon_down_arrow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
                         android:contentDescription="@string/contentDes"
                         app:layout_constraintBottom_toBottomOf="@+id/text_food_title"
-                        app:layout_constraintEnd_toStartOf="@+id/text_kd_food"
+                        app:layout_constraintEnd_toStartOf="@+id/textView119"
                         app:srcCompat="@drawable/ic_icons_arrow_down" />
 
                     <TextView
@@ -153,6 +154,19 @@
                         app:layout_constraintTop_toBottomOf="@+id/view_food"
                         tools:itemCount="3"
                         tools:listitem="@layout/checkout_food_item" />
+
+                    <TextView
+                        android:id="@+id/textView119"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size15"
+                        tools:text="TextView"
+                        app:layout_constraintBottom_toBottomOf="@+id/view_mainss"
+                        app:layout_constraintEnd_toStartOf="@+id/text_kd_food"
+                        app:layout_constraintTop_toTopOf="@+id/view_mainss" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -624,7 +638,7 @@
         android:id="@+id/constraintLayout6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -685,6 +699,7 @@
             android:id="@+id/view_time_left"
             android:layout_width="0dp"
             android:layout_height="70dp"
+            android:layout_marginStart="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/view_cancel"
             app:layout_constraintEnd_toStartOf="@+id/view_proceed"
             app:layout_constraintHorizontal_weight="1"
@@ -696,12 +711,12 @@
             android:id="@+id/text_time_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:fontFamily="@font/gibson_regular"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/sf_pro_text_regular"
             android:gravity="center"
             android:text="@string/ammountPaid"
             android:textColor="@color/white"
-            android:textSize="@dimen/size12"
+            android:textSize="@dimen/size13"
             android:textStyle="normal"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="@+id/view_time_left"

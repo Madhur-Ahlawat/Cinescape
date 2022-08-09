@@ -81,6 +81,15 @@ class AdapterMultiMovieAlertBooking(
             }
         }
 
+        holder.image.setOnClickListener {
+            val intent = Intent(mContext, FinalTicketActivity::class.java)
+            intent.putExtra(Constant.IntentKey.BOOKING_ID, showtimeListItem.bookingId)
+            intent.putExtra(Constant.IntentKey.TRANSACTION_ID, showtimeListItem.transId.toString())
+            intent.putExtra(Constant.IntentKey.BOOK_TYPE, showtimeListItem.bookingType)
+            intent.putExtra("FROM", "MTicket")
+            mContext.startActivity(intent)
+        }
+
         Glide.with(mContext)
             .load(showtimeListItem.posterhori)
             .placeholder(R.drawable.movie_default)

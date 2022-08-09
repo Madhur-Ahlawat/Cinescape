@@ -107,6 +107,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin8"
+            android:layout_marginTop="24dp"
             android:padding="@dimen/margin2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -117,19 +118,20 @@
                 android:id="@+id/textView7"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/sf_pro_text_bold"
                 android:text="@string/food_details"
                 android:textColor="@color/black"
                 android:textSize="@dimen/size16"
                 app:layout_constraintStart_toStartOf="@+id/recyclerview_food_details"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints" />
 
             <View
                 android:id="@+id/view36"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -219,7 +221,7 @@
                 android:layout_width="0dp"
                 android:layout_height="80dp"
                 android:layout_marginTop="16dp"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@+id/view_total_tickect_price"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recyclerview_food_details" />
@@ -228,7 +230,7 @@
                 android:id="@+id/view_total_tickect_price"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
-                android:layout_marginTop="@dimen/margin10"
+                android:layout_marginTop="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/recyclerview_food_details"
@@ -254,13 +256,13 @@
                 android:fontFamily="@font/sf_pro_text_bold"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="1sp"
-                tools:text="Wallet"
                 android:textColor="@color/black"
                 android:textSize="@dimen/size14"
                 android:textStyle="normal"
                 android:visibility="visible"
                 app:layout_constraintStart_toStartOf="@+id/view_total_tickect_price"
-                app:layout_constraintTop_toBottomOf="@+id/text_payment_mode2" />
+                app:layout_constraintTop_toBottomOf="@+id/text_payment_mode2"
+                tools:text="Wallet" />
 
             <TextView
                 android:id="@+id/text_total_ticket_price2"
@@ -282,29 +284,17 @@
                 android:fontFamily="@font/sf_pro_text_bold"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="1sp"
-                tools:text="KD 30.750"
                 android:textColor="@color/black"
                 android:textSize="@dimen/size14"
                 android:textStyle="normal"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="@+id/view_total_tickect_price"
-                app:layout_constraintTop_toBottomOf="@+id/text_total_ticket_price2" />
+                app:layout_constraintTop_toBottomOf="@+id/text_total_ticket_price2"
+                tools:text="KD 30.750" />
 
 
-            <TextView
-                android:id="@+id/textView46"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_pro_text_bold"
-                android:text="@string/food_details"
-                android:textColor="@color/black"
-                android:textSize="@dimen/size16"
-                app:layout_constraintBottom_toBottomOf="@+id/textView7"
-                app:layout_constraintEnd_toEndOf="@+id/textView7"
-                app:layout_constraintTop_toTopOf="@+id/textView7" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/textView51"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -312,6 +302,7 @@
                 android:text="@string/food_details"
                 android:textColor="@color/black"
                 android:textSize="@dimen/size16"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/textView7"
                 app:layout_constraintEnd_toEndOf="@+id/recyclerview_food_details"
                 app:layout_constraintTop_toTopOf="@+id/textView7" />
@@ -319,26 +310,23 @@
 
             <TextView
                 android:id="@+id/imageView31"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/margin8"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:text="@string/cancelReservation"
                 android:textColor="@color/black"
-                android:drawablePadding="@dimen/margin8"
                 android:textSize="@dimen/size14"
-                android:visibility="visible"
+                android:visibility="gone"
+                app:drawableStartCompat="@drawable/ic_delete"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view_total_tickect_price"
                 app:srcCompat="@drawable/cancel_food_order"
-                app:drawableStartCompat="@drawable/ic_delete"
                 tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/imageView32"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view_total_tickect_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -347,9 +335,12 @@
                 android:text="@string/resendEmail"
                 android:textColor="@color/black"
                 android:textSize="@dimen/size14"
-                android:visibility="visible"
-                tools:ignore="ContentDescription"
-                app:drawableStartCompat="@drawable/email" />
+                android:visibility="gone"
+                app:drawableStartCompat="@drawable/email"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_total_tickect_price"
+                tools:ignore="ContentDescription" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1258,8 +1258,10 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                         })
                     dialog.show()
                 } else {
-                    if (num < 0 || num == 10) {
-                        //   Toast.makeText(this, "sorry", Toast.LENGTH_LONG).show()
+                    if (num < 0 || num == output.seatCount) {
+
+                    toast("${getString(R.string.seatLimit)} ${" "+output.seatCount} ${" "+getString(R.string.seat)}")
+
                     } else {
                         num += 1
                         txtNumber.text = num.toString()

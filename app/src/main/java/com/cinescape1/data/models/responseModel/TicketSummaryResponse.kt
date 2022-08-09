@@ -28,6 +28,7 @@ data class TicketSummaryResponse(
         val showDate: String,
         val showTime: String,
         val ticketPrice: String,
+        val foodTotal: String,
         val totalPrice: String,
         val totalTicketPrice: String,
         val kioskId: String,
@@ -37,6 +38,7 @@ data class TicketSummaryResponse(
         val cancelReserve: Boolean,
         val category: String,
         val payDone: String,
+        val pickupInfo: String,
         val qr: String
     )
 

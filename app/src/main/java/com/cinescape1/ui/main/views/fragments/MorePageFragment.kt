@@ -955,7 +955,6 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                             MultipartBody.Part.createFormData("file", mFileTemp.name, requestFile)
 //                        updateImage(file)
                         frontPhoto = file
-                        println("showImagePath--->${file}")
 
                     }
                 }

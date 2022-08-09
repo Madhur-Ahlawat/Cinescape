@@ -14,7 +14,7 @@ data class SeatLayoutResponse(
         val movie: Movie,
         val rows: ArrayList<Row>,
         val ratingTxt: String,
-        val seatCount: String,
+        val seatCount: Int,
         val seatTypes: ArrayList<SeatType>
     ):Serializable
     data class SeatType(

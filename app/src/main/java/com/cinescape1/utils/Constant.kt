@@ -28,7 +28,6 @@ import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
-import java.util.ArrayList
 
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "DEPRECATED_IDENTITY_EQUALS")
@@ -571,7 +570,17 @@ import java.util.ArrayList
         val imm: InputMethodManager = mContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
     }
-
+    fun trim(s: CharSequence, start: Int, end: Int): CharSequence? {
+        var start = start
+        var end = end
+        while (start < end && Character.isWhitespace(s[start])) {
+            start++
+        }
+        while (end > start && Character.isWhitespace(s[end - 1])) {
+            end--
+        }
+        return s.subSequence(start, end)
+    }
 
 }
 

@@ -229,6 +229,14 @@
                 android:id="@+id/txt_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:freezesText="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:maxLines="1"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
                 android:fontFamily="@font/sf_pro_text_bold"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="1sp"
@@ -362,6 +370,10 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/seats_list"
                 android:layout_width="0dp"
+                tools:itemCount="3"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                tools:listitem="@layout/item_seat_list"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 app:layout_constraintEnd_toEndOf="@+id/txt_seats"
@@ -457,8 +469,6 @@
                 android:id="@+id/view_payment_mode"
                 android:layout_width="0dp"
                 android:layout_height="65dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/view_total_tickect_price"
                 app:layout_constraintStart_toStartOf="@+id/seats_list"
                 app:layout_constraintTop_toBottomOf="@+id/seats_list" />
@@ -467,11 +477,9 @@
                 android:id="@+id/view_total_tickect_price"
                 android:layout_width="0dp"
                 android:layout_height="65dp"
-                app:layout_constraintBottom_toBottomOf="@+id/view_payment_mode"
                 app:layout_constraintEnd_toEndOf="@+id/seats_list"
                 app:layout_constraintStart_toEndOf="@+id/view_payment_mode"
-                app:layout_constraintTop_toTopOf="@+id/view_payment_mode"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toTopOf="@+id/view_payment_mode" />
 
             <TextView
                 android:id="@+id/text_payment_mode"
@@ -566,6 +574,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:freezesText="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:maxLines="1"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
                 android:fontFamily="@font/sf_pro_text_bold"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="1sp"
@@ -593,6 +609,7 @@
             android:id="@+id/constraintLayout10"
             android:layout_width="match_parent"
             android:layout_height="70dp"
+            android:visibility="gone"
             android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -647,6 +664,7 @@
 
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:gravity="center_vertical"

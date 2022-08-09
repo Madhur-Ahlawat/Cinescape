@@ -52,20 +52,21 @@
         <TextView
             android:id="@+id/textView105"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="21dp"
-            android:layout_marginTop="53dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="17.21dp"
+            android:layout_marginBottom="32dp"
             android:fontFamily="@font/sf_pro_text_regular"
-            android:gravity="center_horizontal|center_vertical"
+            android:gravity="top"
             android:lineSpacingExtra="0.12dp"
-            tools:text="Scan your Booking ID or QR code at any KIOSK or USHER POINT once you reach the cinema location Go to the food pickup counter as soon as you scan the Booking ID to receive your order."
-            android:textAlignment="center"
             android:textColor="@color/hint_color"
             android:textSize="@dimen/size15"
+            app:layout_constraintBottom_toTopOf="@+id/close_dialog"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/view98"
-            app:layout_constraintTop_toBottomOf="@+id/textView104" />
+            app:layout_constraintTop_toBottomOf="@+id/textView104"
+            tools:text="Scan your Booking ID or QR code at any KIOSK or USHER POINT once you reach the cinema location Go to the food pickup counter as soon as you scan the Booking ID to receive your order." />
 
 
         <TextView

@@ -560,6 +560,8 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                                                     .putExtra("BOOKING", it.data.output.booktype)
                                                     .putExtra("PRICE", it.data.output.totalPrice)
                                                     .putExtra("TRANS_ID", it.data.output.transid)
+                                                    .putExtra("type", "0")
+
                                             )
                                             finish()
                                         } else {
