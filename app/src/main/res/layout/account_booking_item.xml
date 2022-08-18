@@ -112,14 +112,11 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout11"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/account_bg_layout"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView7">
@@ -171,14 +168,14 @@
             android:fontFamily="@font/sf_pro_text_bold"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="1sp"
-            tools:text="Cinescape Al Muhallab"
             android:textColor="@color/black"
             android:textSize="@dimen/size14"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="@+id/view_locations"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/view_locations"
-            app:layout_constraintTop_toBottomOf="@+id/text_locations" />
+            app:layout_constraintTop_toBottomOf="@+id/text_locations"
+            tools:text="Cinescape Al Muhallab" />
 
         <View
             android:id="@+id/view_date"
@@ -216,14 +213,14 @@
             android:fontFamily="@font/sf_pro_text_bold"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="1sp"
-            tools:text="03 nov"
             android:textColor="@color/black"
             android:textSize="@dimen/size14"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="@+id/view_date"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/view_date"
-            app:layout_constraintTop_toBottomOf="@+id/txt_dates" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_dates"
+            tools:text="03 nov" />
 
         <View
             android:id="@+id/view_times1"
@@ -260,13 +257,13 @@
             android:fontFamily="@font/sf_pro_text_bold"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="1sp"
-            tools:text="17.45"
             android:textColor="@color/black"
             android:textSize="@dimen/size14"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="@+id/view_times1"
             app:layout_constraintStart_toStartOf="@+id/view_times1"
-            app:layout_constraintTop_toBottomOf="@+id/texts_time" />
+            app:layout_constraintTop_toBottomOf="@+id/texts_time"
+            tools:text="17.45" />
 
         <View
             android:id="@+id/views_screens"
@@ -367,24 +364,24 @@
             android:id="@+id/food_pickup_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin8"
             android:layout_marginStart="@dimen/margin8"
+            android:layout_marginEnd="@dimen/margin8"
+            android:background="@drawable/curv_bt"
             android:ellipsize="marquee"
             android:focusable="true"
             android:focusableInTouchMode="true"
+            android:fontFamily="@font/sf_pro_text_bold"
             android:freezesText="true"
+            android:gravity="center_horizontal"
             android:letterSpacing="-0.02"
             android:marqueeRepeatLimit="marquee_forever"
             android:maxLines="1"
-            android:scrollHorizontally="true"
-            android:singleLine="true"
-            android:background="@drawable/curv_bt"
-            android:fontFamily="@font/sf_pro_text_bold"
-            android:gravity="center_horizontal"
             android:paddingStart="@dimen/margin15"
             android:paddingTop="@dimen/margin8"
             android:paddingEnd="@dimen/margin15"
             android:paddingBottom="@dimen/margin8"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
             android:text="@string/food_pickup_info"
             android:textColor="@color/white"
             android:textSize="@dimen/size14"
@@ -406,5 +403,53 @@
         app:layout_constraintTop_toTopOf="@+id/imageView7"
         app:srcCompat="@drawable/ic_play"
         tools:ignore="ContentDescription" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout11">
+
+        <TextView
+            android:id="@+id/imageView31"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:drawablePadding="@dimen/margin8"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/cancelReservation"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size14"
+            android:visibility="visible"
+            app:drawableStartCompat="@drawable/ic_delete"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/cancel_food_order"
+            tools:ignore="ContentDescription" />
+
+
+        <TextView
+            android:id="@+id/imageView32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:drawablePadding="@dimen/margin8"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/resendEmail"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size14"
+            android:visibility="visible"
+            app:drawableStartCompat="@drawable/email"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

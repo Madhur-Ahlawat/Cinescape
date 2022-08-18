@@ -93,9 +93,12 @@ class FoodActivity : DaggerAppCompatActivity(),
     private var itemCheckPrice: Int = 0
     private var itemSetPrice: String = ""
     private var itemCartPrice: Int = 0
+    private var secondLeft: Long = 0
     private var itemSetCartPrice: String = ""
+    private var timeExtandClick: Boolean = false
+    private var dialogShow: Long = 60
+    private var countDownTimerPrimary : CountDownTimer ? = null
     private var comboAdapter: AdapterFoodAddComboTitle? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFoodBinding.inflate(layoutInflater, null, false)
@@ -543,7 +546,6 @@ class FoodActivity : DaggerAppCompatActivity(),
                                         mFoodCartDialog?.dismiss()
                                         val intent =
                                             Intent(this, SummeryActivity::class.java)
-                                        toast("check2")
 
                                         intent.putExtra("CINEMA_ID", cinemaId)
                                         intent.putExtra("SESSION_ID", sessionId)
@@ -600,61 +602,72 @@ class FoodActivity : DaggerAppCompatActivity(),
 
     //390
     private fun resendTimer() {
-        object : CountDownTimer((TimerTime * 1000), 1000) {
+        countDownTimerPrimary = object : CountDownTimer((TimerTime * 1000), 1000) {
             @SuppressLint("SetTextI18n")
             override fun onTick(millisUntilFinished: Long) {
                 val second = millisUntilFinished / 1000 % 60
                 val minutes = millisUntilFinished / (1000 * 60) % 60
                 binding?.textTimeToLeft?.text = "$minutes:$second"
                 timeCount = minutes * 60 + second
+                secondLeft=second
+                println("timerrr--->${second}")
+                if (timeCount==dialogShow){
+                    if (!Constant.IntentKey.TimerExtandCheck) {
+                        extendTime()
+                    } else if (Constant.IntentKey.TimerExtandCheck && TimerExtand > 0) {
+                        object : CountDownTimer((TimerExtand * 1000), 1000) {
+                            @SuppressLint("SetTextI18n")
+                            override fun onTick(millisUntilFinished: Long) {
+                                val second = millisUntilFinished / 1000 % 60
+                                val minutes = millisUntilFinished / (1000 * 60) % 60
+                                binding?.textTimeToLeft?.text = "$minutes:$second"
+                                TimerExtand = minutes * 60 + second
+                            }
+
+                            override fun onFinish() {
+                                val dialog = OptionDialog(this@FoodActivity,
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    getString(R.string.timeOut),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {
+                                        TimerTime = 360
+                                        TimerExtand = 90
+                                        finish()
+                                    },
+                                    negativeClick = {
+                                    })
+                                if (!isFinishing) {
+                                    dialog.show()
+                                }
+
+                            }
+                        }.start()
+                    } else if (Constant.IntentKey.TimerExtandCheck && TimerExtand < 0) {
+                        val dialog = OptionDialog(this@FoodActivity,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            getString(R.string.timeOut),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {
+                            },
+                            negativeClick = {
+                            })
+                        dialog.show()
+                    }
+                }
+
             }
 
             override fun onFinish() {
-                if (!Constant.IntentKey.TimerExtandCheck) {
-                    extendTime()
-                } else if (Constant.IntentKey.TimerExtandCheck && TimerExtand > 0) {
-                    object : CountDownTimer((TimerExtand * 1000), 1000) {
-                        @SuppressLint("SetTextI18n")
-                        override fun onTick(millisUntilFinished: Long) {
-                            val second = millisUntilFinished / 1000 % 60
-                            val minutes = millisUntilFinished / (1000 * 60) % 60
-                            binding?.textTimeToLeft?.text = "$minutes:$second"
-                            TimerExtand = minutes * 60 + second
-                        }
-
-                        override fun onFinish() {
-                            val dialog = OptionDialog(this@FoodActivity,
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                getString(R.string.timeOut),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {
-                                    TimerTime = 360
-                                    TimerExtand = 90
-                                    finish()
-                                },
-                                negativeClick = {
-                                })
-                            if (!isFinishing) {
-                                dialog.show()
-                            }
-
-                        }
-                    }.start()
-                } else if (Constant.IntentKey.TimerExtandCheck && TimerExtand < 0) {
-                    val dialog = OptionDialog(this@FoodActivity,
-                        R.mipmap.ic_launcher,
-                        R.string.app_name,
-                        getString(R.string.timeOut),
-                        positiveBtnText = R.string.ok,
-                        negativeBtnText = R.string.no,
-                        positiveClick = {
-                        },
-                        negativeClick = {
-                        })
-                    dialog.show()
+                if (!timeExtandClick){
+                    TimerExtand = 90
+                    TimerTime = 360
+                    finish()
                 }
+
             }
         }.start()
     }
@@ -675,6 +688,9 @@ class FoodActivity : DaggerAppCompatActivity(),
         dialogView.title.text = getString(R.string.app_name)
         dialogView.subtitle.text = getString(R.string.stillHere)
         dialogView.consSure?.setOnClickListener {
+            countDownTimerPrimary?.cancel()
+            timeExtandClick=true
+            TimerExtand=90+secondLeft
             Constant.IntentKey.TimerExtandCheck = true
             alertDialog.dismiss()
             object : CountDownTimer((TimerExtand * 1000), 1000) {
@@ -699,6 +715,8 @@ class FoodActivity : DaggerAppCompatActivity(),
             TimerTime = 360
             finish()
         }
+
+
     }
 
     //Add Food
@@ -817,7 +835,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                         }
                         if (!valflag) {
                             // message for select flavour
-                            toast("message for select flavour")
+                            toast("Please select flavour")
                         } else if (textNumber?.text.toString() == "0") {
                             // Message for min quantity
                             toast("Message for min quantity")

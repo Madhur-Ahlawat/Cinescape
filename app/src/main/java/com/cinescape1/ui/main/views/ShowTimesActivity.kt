@@ -145,17 +145,11 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 layoutParams?.setMargins(0, 0, 0, 16)
                 binding?.recylerviewShowTimeDate?.layoutParams = layoutParams
 
-//                val layoutParams2 = (binding?.showTimesUi?.layoutParams as? ViewGroup.MarginLayoutParams)
-//                layoutParams?.setMargins(0, -50, 0, 0)
-//                binding?.showTimesUi?.layoutParams = layoutParams2
-
-
                 binding?.moviePage?.hide()
                 binding?.comingSoon?.show()
                 binding?.viewpager?.hide()
                 binding?.centerView?.hide()
                 binding?.imageView48?.hide()
-//                binding?.textView110?.hide()
                 include.show()
                 getShowTimes()
 
@@ -168,7 +162,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
                 binding?.viewpager?.hide()
                 binding?.imageView48?.hide()
-//                binding?.textView110?.hide()
                 binding?.centerView?.hide()
 
                 getCinemaData(CinemaSessionRequest(dateTime, movieID))

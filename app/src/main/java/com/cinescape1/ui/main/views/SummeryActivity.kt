@@ -97,6 +97,11 @@ class SummeryActivity : DaggerAppCompatActivity() {
     private var paidPrice = ""
     private var cardinal = Cardinal.getInstance()
 
+    private var secondLeft: Long = 0
+    private var timeExtandClick: Boolean = false
+    private var dialogShow: Long = 60
+    private var countDownTimerPrimary: CountDownTimer? = null
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -1342,30 +1347,50 @@ class SummeryActivity : DaggerAppCompatActivity() {
     }
 
     private fun resendTimer() {
-        object : CountDownTimer((Constant.IntentKey.TimerTime * 1000), 1000) {
-            @SuppressLint("SetTextI18n")
-            override fun onTick(millisUntilFinished: Long) {
-                val second = millisUntilFinished / 1000 % 60
-                val minutes = millisUntilFinished / (1000 * 60) % 60
-                textView111?.text = "$minutes:$second"
-                timeCount = minutes * 60 + second
-            }
+        countDownTimerPrimary =
+            object : CountDownTimer((Constant.IntentKey.TimerTime * 1000), 1000) {
+                @SuppressLint("SetTextI18n")
+                override fun onTick(millisUntilFinished: Long) {
+                    val second = millisUntilFinished / 1000 % 60
+                    val minutes = millisUntilFinished / (1000 * 60) % 60
+                    textView111?.text = "$minutes:$second"
+                    timeCount = minutes * 60 + second
+                    secondLeft = second
 
-            override fun onFinish() {
-                println("FinishTimer-=-->${Constant.IntentKey.TimerExtandCheck},Time--->${Constant.IntentKey.TimerExtand}")
-                if (!Constant.IntentKey.TimerExtandCheck) {
-                    extendTime()
-                } else if (Constant.IntentKey.TimerExtandCheck && Constant.IntentKey.TimerExtand > 0) {
-                    object : CountDownTimer((Constant.IntentKey.TimerExtand * 1000), 1000) {
-                        @SuppressLint("SetTextI18n")
-                        override fun onTick(millisUntilFinished: Long) {
-                            val second = millisUntilFinished / 1000 % 60
-                            val minutes = millisUntilFinished / (1000 * 60) % 60
-                            textView111?.text = "$minutes:$second"
-                            Constant.IntentKey.TimerExtand = minutes * 60 + second
-                        }
+                    if (timeCount == dialogShow) {
 
-                        override fun onFinish() {
+                        println("FinishTimer-=-->${Constant.IntentKey.TimerExtandCheck},Time--->${Constant.IntentKey.TimerExtand}")
+                        if (!Constant.IntentKey.TimerExtandCheck) {
+                            extendTime()
+                        } else if (Constant.IntentKey.TimerExtandCheck && Constant.IntentKey.TimerExtand > 0) {
+                            object : CountDownTimer((Constant.IntentKey.TimerExtand * 1000), 1000) {
+                                @SuppressLint("SetTextI18n")
+                                override fun onTick(millisUntilFinished: Long) {
+                                    val second = millisUntilFinished / 1000 % 60
+                                    val minutes = millisUntilFinished / (1000 * 60) % 60
+                                    textView111?.text = "$minutes:$second"
+                                    Constant.IntentKey.TimerExtand = minutes * 60 + second
+                                }
+
+                                override fun onFinish() {
+                                    val dialog = OptionDialog(this@SummeryActivity,
+                                        R.mipmap.ic_launcher,
+                                        R.string.app_name,
+                                        getString(R.string.timeOut),
+                                        positiveBtnText = R.string.ok,
+                                        negativeBtnText = R.string.no,
+                                        positiveClick = {
+                                            Constant.IntentKey.TimerTime = 360
+                                            Constant.IntentKey.TimerExtand = 90
+                                            finish()
+                                        },
+                                        negativeClick = {
+                                        })
+                                    dialog.show()
+
+                                }
+                            }.start()
+                        } else if (Constant.IntentKey.TimerExtandCheck && Constant.IntentKey.TimerExtand < 0) {
                             val dialog = OptionDialog(this@SummeryActivity,
                                 R.mipmap.ic_launcher,
                                 R.string.app_name,
@@ -1373,31 +1398,23 @@ class SummeryActivity : DaggerAppCompatActivity() {
                                 positiveBtnText = R.string.ok,
                                 negativeBtnText = R.string.no,
                                 positiveClick = {
-                                    Constant.IntentKey.TimerTime = 360
-                                    Constant.IntentKey.TimerExtand = 90
-                                    finish()
                                 },
                                 negativeClick = {
                                 })
                             dialog.show()
-
                         }
-                    }.start()
-                } else if (Constant.IntentKey.TimerExtandCheck && Constant.IntentKey.TimerExtand < 0) {
-                    val dialog = OptionDialog(this@SummeryActivity,
-                        R.mipmap.ic_launcher,
-                        R.string.app_name,
-                        getString(R.string.timeOut),
-                        positiveBtnText = R.string.ok,
-                        negativeBtnText = R.string.no,
-                        positiveClick = {
-                        },
-                        negativeClick = {
-                        })
-                    dialog.show()
+                    }
                 }
-            }
-        }.start()
+
+                override fun onFinish() {
+                    if (!timeExtandClick){
+                        Constant.IntentKey.TimerExtand = 90
+                        Constant.IntentKey.TimerTime = 360
+                        finish()
+                    }
+
+                }
+            }.start()
     }
 
     private fun extendTime() {
@@ -1414,6 +1431,9 @@ class SummeryActivity : DaggerAppCompatActivity() {
         dialogView.title.text = getString(R.string.app_name)
         dialogView.subtitle.text = getString(R.string.stillHere)
         dialogView.consSure?.setOnClickListener {
+            countDownTimerPrimary?.cancel()
+            timeExtandClick=true
+            Constant.IntentKey.TimerExtand =90+secondLeft
             Constant.IntentKey.TimerExtandCheck = true
             alertDialog.dismiss()
             object : CountDownTimer((Constant.IntentKey.TimerExtand * 1000), 1000) {

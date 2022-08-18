@@ -1,6 +1,5 @@
 package com.cinescape1.ui.main.views.adapters
 
-import `in`.goodiebag.carouselpicker.CarouselPicker
 import android.app.Activity
 import android.graphics.Typeface
 import android.os.Build
@@ -10,14 +9,10 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
-import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.CinemaSessionResponse
 import com.cinescape1.utils.Constant.Companion.select_pos
-import com.github.islamkhsh.CardSliderAdapter
-import com.github.islamkhsh.CardSliderViewPager
-import kotlinx.android.synthetic.main.activity_show_times.view.*
 import kotlinx.android.synthetic.main.item_cinematxt.view.*
 import kotlin.math.abs
 
@@ -58,11 +53,11 @@ class CinemaPageAdapter(
             override fun transformPage(page: View, position: Float) {
                 println("rowIndex---->1->$position")
                 rowIndex = viewpager?.currentItem!!
-                val r = 1- abs(position)
+                val r = 1 - abs(position)
                 //page.scaleY = (0.85f+ r*0.14f)
                 try {
                     notifyDataSetChanged()
-                }catch (e:Exception){
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }

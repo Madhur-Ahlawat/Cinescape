@@ -8,7 +8,6 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.viewpager.widget.PagerAdapter
@@ -21,7 +20,8 @@ class CarouselPickerNew(
     var viewpager: CarouselPicker?
 ) :
     PagerAdapter() {
-    var items: ArrayList<CinemaSessionResponse.DaySession> = ArrayList<CinemaSessionResponse.DaySession>()
+    var items: ArrayList<CinemaSessionResponse.DaySession> =
+        ArrayList<CinemaSessionResponse.DaySession>()
     var textColor = 0
     var rowIndex = 0
 

@@ -50,11 +50,12 @@ import javax.inject.Inject
 
 @ActivityScoped
 class FinalTicketActivity : DaggerAppCompatActivity() {
-
     private var loader: LoaderDialog? = null
+
     @Inject
     lateinit var viewmodelFactory: ViewModelProvider.Factory
     private var binding: ActivityFinalTicketBinding? = null
+
     @Inject
     lateinit var preferences: AppPreferences
     private val finalTicketViewModel: FinalTicketViewModel by viewModels { viewmodelFactory }
@@ -207,6 +208,13 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
                 .placeholder(R.drawable.cinema)
                 .into(it)
         }
+        binding?.imageView49?.let {
+            Glide.with(this)
+                .load(output.posterhori)
+                .placeholder(R.drawable.cinema)
+                .into(it)
+
+        }
 
         binding?.uiFinalTaket?.show()
 
@@ -220,8 +228,7 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
             } else {
                 layouts.add(R.layout.checkout_booking_confirm_alert_include)
             }
-        }
-        else {
+        } else {
             layouts.add(R.layout.checkout_booking_confirm_alert2_include)
         }
 
@@ -238,20 +245,20 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
                 text_bookin_id_no.text = output.kioskId
                 text_name_movie.text = output.moviename
                 text_location_names.text = output.cinemaname
-                txt_date.isSelected= true
-                txt_date.text = output.showDate+" "+ output.showTime
+                txt_date.isSelected = true
+                txt_date.text = output.showDate + " " + output.showTime
                 text_wallet.text = output.payDone
 
-                if (output.category.isNullOrEmpty()){
+                if (output.category.isNullOrEmpty()) {
                     tv_category_title.invisible()
-                }else{
+                } else {
                     tv_category_title.show()
-                    categoryName.isSelected=true
-                    categoryName.text=output.category
+                    categoryName.isSelected = true
+                    categoryName.text = output.category
                 }
 
                 text_kd_total_ticket_price.text = output.totalTicketPrice
-                 text_types.text = output.mcensor
+                text_types.text = output.mcensor
 
                 val layoutManager = FlexboxLayoutManager(this)
                 layoutManager.flexDirection = FlexDirection.ROW
@@ -272,7 +279,7 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
                     mAlertDialog.show()
                     mAlertDialog.window?.setBackgroundDrawableResource(R.color.black70)
                     val closeDialog = mDialogView.findViewById<TextView>(R.id.close_dialog)
-                    val text=mAlertDialog.findViewById<TextView>(R.id.textView105)
+                    val text = mAlertDialog.findViewById<TextView>(R.id.textView105)
 
                     text?.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         Html.fromHtml(output.pickupInfo, Html.FROM_HTML_MODE_COMPACT)
@@ -283,10 +290,11 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
                         mAlertDialog.dismiss()
                     }
 
-            }
+                }
 
                 if (!output.cancelReserve) {
-                    textView48.show()
+//                    textView48.show()
+                    textView48.invisible()
                 } else {
                     textView48.invisible()
                 }
@@ -337,20 +345,22 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
                         )
                     )
                 }
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 println("exception---->${e.printStackTrace()}")
             }
         } else {
-            try{
-
+            try {
+//FoodCase
                 if (!output.cancelReserve) {
-                    imageView31.show()
+                    imageView31.hide()
+//                    imageView31.show()
                 } else {
                     imageView31.invisible()
                 }
 
                 if (!output.addFood) {
-                    imageView32.show()
+                    imageView32.hide()
+//                    imageView32.show()
                 } else {
                     imageView32.invisible()
                 }
@@ -360,7 +370,7 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
                     cancelReservationDialog()
                 }
 
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 println("exception2--->${e.message}")
             }
         }
@@ -388,7 +398,7 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
                 mAlertDialog.show()
                 mAlertDialog.window?.setBackgroundDrawableResource(R.color.black70)
                 val closeDialog = mDialogView.findViewById<TextView>(R.id.close_dialog)
-                val text=mAlertDialog.findViewById<TextView>(R.id.textView105)
+                val text = mAlertDialog.findViewById<TextView>(R.id.textView105)
 
                 text?.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     Html.fromHtml(output.pickupInfo, Html.FROM_HTML_MODE_COMPACT)
@@ -429,6 +439,7 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
         alertDialog.show()
 
         dialogView.consSure?.setOnClickListener {
+            alertDialog.dismiss()
             cancelReservation(FinalTicketRequest(bookingId, transId.toInt()))
         }
 

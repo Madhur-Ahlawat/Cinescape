@@ -26,8 +26,11 @@ import com.cinescape1.utils.show
 
 class UpcomingBookingAdapter(
     private val context: Context,
-    private var upcomingBookingList: ArrayList<NextBookingResponse.Current>
-) :
+    private var upcomingBookingList: ArrayList<NextBookingResponse.Current> ,
+    private var listener: RecycleViewItemClickListener,
+    private var listenerMail: ReesendMailItemClickListener,
+
+    ) :
     RecyclerView.Adapter<UpcomingBookingAdapter.MyViewHolderUpcomingBooking>() {
     private var mContext = context
 
@@ -96,13 +99,12 @@ class UpcomingBookingAdapter(
         }
 
         if (!foodSelctedItem.addFood) {
-
             holder.btClick.text = mContext.resources.getString(R.string.addFoodMsg)
             holder.btClick.setOnClickListener {
                 val intent = Intent(mContext, FoodActivity::class.java)
                     .putExtra("CINEMA_ID", foodSelctedItem.cinemacode)
                     .putExtra("BOOKING", "FOOD")
-                    .putExtra("type", "0")
+                    .putExtra("type", "FOOD")
                 mContext.startActivity(intent)
             }
 
@@ -129,18 +131,34 @@ class UpcomingBookingAdapter(
                     mAlertDialog.dismiss()
                 }
             }
-
         }
+
         if (foodSelctedItem.trailerUrl == "") {
             holder.trailer.hide()
         } else {
             holder.trailer.show()
         }
+        if (!foodSelctedItem.cancelReserve){
+            holder.cancelReservation?.hide()
+        }else{
+            holder.cancelReservation?.show()
+
+        }
+
         holder.trailer.setOnClickListener {
             val intent = Intent(mContext, PlayerActivity::class.java)
             intent.putExtra("trailerUrl", foodSelctedItem.trailerUrl)
             mContext.startActivity(intent)
         }
+        holder.cancelReservation.setOnClickListener {
+            listener.cancelReserv(foodSelctedItem)
+
+        }
+        holder.resendMail.setOnClickListener {
+            listenerMail.resenDmail(foodSelctedItem)
+
+        }
+
         holder.thumbnail.setOnClickListener {
             val intent = Intent(mContext, FinalTicketActivity::class.java)
             intent.putExtra(Constant.IntentKey.BOOKING_ID, foodSelctedItem.bookingId)
@@ -150,6 +168,13 @@ class UpcomingBookingAdapter(
             mContext.startActivity(intent)
         }
 
+    }
+    interface RecycleViewItemClickListener {
+        fun cancelReserv(foodSelctedItem: NextBookingResponse.Current)
+
+    }
+    interface ReesendMailItemClickListener {
+        fun resenDmail(foodSelctedItem: NextBookingResponse.Current)
 
     }
 
@@ -175,6 +200,8 @@ class UpcomingBookingAdapter(
         var thumbnail: ImageView = view.findViewById(R.id.imageView7)
         var trailer: ImageView = view.findViewById(R.id.imageView30)
         var btClick: TextView = view.findViewById(R.id.food_pickup_btn)
+        var cancelReservation: TextView = view.findViewById(R.id.imageView31)
+        var resendMail: TextView = view.findViewById(R.id.imageView32)
 
     }
 }

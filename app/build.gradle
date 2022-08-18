@@ -42,8 +42,6 @@ android {
         annotation("com.cinescape1.utils.NoArg")
         invokeInitializers = true
     }
-
-
 }
 
 dependencies {
@@ -131,4 +129,7 @@ dependencies {
     implementation 'com.joooonho:selectableroundedimageview:1.0.1'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.github.GoodieBag:CarouselPicker:v1.1'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+    implementation 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
+
 }

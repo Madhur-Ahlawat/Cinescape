@@ -79,6 +79,7 @@ import kotlinx.android.synthetic.main.account_preference_layout.*
 import kotlinx.android.synthetic.main.account_profile_layout.*
 import kotlinx.android.synthetic.main.account_recharge_card_layout.*
 import kotlinx.android.synthetic.main.cancel_dialog.*
+import kotlinx.android.synthetic.main.cancel_dialog.view.*
 import kotlinx.android.synthetic.main.checkout_creditcart_payment_alert.*
 import kotlinx.android.synthetic.main.fragment_account_page.*
 import java.text.SimpleDateFormat
@@ -90,7 +91,7 @@ import java.util.concurrent.TimeUnit
 
 
 class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemClickListener,
-    ExperienceAdapter.RecycleViewItemClickListener {
+    ExperienceAdapter.RecycleViewItemClickListener ,UpcomingBookingAdapter.RecycleViewItemClickListener,UpcomingBookingAdapter.ReesendMailItemClickListener{
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -2728,7 +2729,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         binding?.nestedUi?.show()
         val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
         binding?.recyclerviewBooking?.layoutManager = LinearLayoutManager(context)
-        val adapter = UpcomingBookingAdapter(requireContext(), output.output)
+        val adapter = UpcomingBookingAdapter(requireContext(), output.output,this,this)
         binding?.recyclerviewBooking?.layoutManager = gridLayout
         binding?.recyclerviewBooking?.adapter = adapter
         binding?.recyclerviewBooking?.show()
@@ -2975,6 +2976,181 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             )
 
         }
+    }
+
+    override fun cancelReserv(foodSelctedItem: NextBookingResponse.Current) {
+        cancelReservationDialog(foodSelctedItem.bookingId)
+    }
+
+    private fun cancelReservationDialog(bookingId: String) {
+        val viewGroup = requireActivity().findViewById<ViewGroup>(android.R.id.content)
+        val dialogView: View =
+            LayoutInflater.from(requireActivity()).inflate(R.layout.cancel_dialog, viewGroup, false)
+        val builder: AlertDialog.Builder = AlertDialog.Builder(requireActivity())
+        builder.setView(dialogView)
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.window?.setBackgroundDrawableResource(R.color.transparent)
+        alertDialog.show()
+
+        dialogView.consSure?.setOnClickListener {
+            alertDialog.dismiss()
+            cancelReservation(FinalTicketRequest(bookingId, 0))
+        }
+
+        dialogView.negative_btn?.setOnClickListener {
+            alertDialog.dismiss()
+        }
+    }
+
+    private fun cancelReservation(finalTicketRequest: FinalTicketRequest) {
+        accountFragViewModel.cancelReservation(finalTicketRequest)
+            .observe(this) {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            loader?.dismiss()
+                            resource.data?.let { it ->
+                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                    try {
+                                        val dialog = OptionDialog(requireActivity(),
+                                            R.mipmap.ic_launcher,
+                                            R.string.app_name,
+                                            it.data.msg,
+                                            positiveBtnText = R.string.ok,
+                                            negativeBtnText = R.string.no,
+                                            positiveClick = {
+                                            },
+                                            negativeClick = {
+                                            })
+                                        dialog.show()
+                                    } catch (e: Exception) {
+                                        val dialog = OptionDialog(requireActivity(),
+                                            R.mipmap.ic_launcher,
+                                            R.string.app_name,
+                                            it.data.msg.toString(),
+                                            positiveBtnText = R.string.ok,
+                                            negativeBtnText = R.string.no,
+                                            positiveClick = {
+                                            },
+                                            negativeClick = {
+                                            })
+                                        dialog.show()
+                                        println("updateUiCinemaSession ---> ${e.message}")
+                                    }
+
+                                } else {
+                                    loader?.dismiss()
+                                    val dialog = OptionDialog(requireActivity(),
+                                        R.mipmap.ic_launcher,
+                                        R.string.app_name,
+                                        it.data?.msg.toString(),
+                                        positiveBtnText = R.string.ok,
+                                        negativeBtnText = R.string.no,
+                                        positiveClick = {
+                                        },
+                                        negativeClick = {
+                                        })
+                                    dialog.show()
+                                }
+                            }
+                        }
+                        Status.ERROR -> {
+                            loader?.dismiss()
+                            val dialog = OptionDialog(requireActivity(),
+                                R.mipmap.ic_launcher,
+                                R.string.app_name,
+                                it.message.toString(),
+                                positiveBtnText = R.string.ok,
+                                negativeBtnText = R.string.no,
+                                positiveClick = {
+                                },
+                                negativeClick = {
+                                })
+                            dialog.show()
+                        }
+                        Status.LOADING -> {
+                            loader = LoaderDialog(R.string.pleasewait)
+                            loader?.show(requireActivity().supportFragmentManager, null)
+                        }
+                    }
+                }
+            }
+    }
+
+    override fun resenDmail(output: NextBookingResponse.Current) {
+        resendMail(
+            ResendRequest(
+                output.bookingId,
+                output.bookingType,
+                "",
+                preferences.getString(Constant.USER_ID).toString()
+            )
+        )
+    }
+
+    private fun resendMail(resendRequest: ResendRequest) {
+        accountFragViewModel.resendMail(resendRequest)
+            .observe(this) {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            loader?.dismiss()
+                            resource.data?.let { it ->
+                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                    try {
+                                        val dialog = OptionDialog(requireActivity(),
+                                            R.mipmap.ic_launcher,
+                                            R.string.app_name,
+                                            it.data.msg,
+                                            positiveBtnText = R.string.ok,
+                                            negativeBtnText = R.string.no,
+                                            positiveClick = {
+                                            },
+                                            negativeClick = {
+                                            })
+                                        dialog.show()
+                                    } catch (e: Exception) {
+                                        println("updateUiCinemaSession ---> ${e.message}")
+                                    }
+
+                                } else {
+                                    loader?.dismiss()
+                                    val dialog = OptionDialog(requireActivity(),
+                                        R.mipmap.ic_launcher,
+                                        R.string.app_name,
+                                        it.data?.msg.toString(),
+                                        positiveBtnText = R.string.ok,
+                                        negativeBtnText = R.string.no,
+                                        positiveClick = {
+                                        },
+                                        negativeClick = {
+                                        })
+                                    dialog.show()
+                                }
+
+                            }
+                        }
+                        Status.ERROR -> {
+                            loader?.dismiss()
+                            val dialog = OptionDialog(requireActivity(),
+                                R.mipmap.ic_launcher,
+                                R.string.app_name,
+                                it.message.toString(),
+                                positiveBtnText = R.string.ok,
+                                negativeBtnText = R.string.no,
+                                positiveClick = {
+                                },
+                                negativeClick = {
+                                })
+                            dialog.show()
+                        }
+                        Status.LOADING -> {
+                            loader = LoaderDialog(R.string.pleasewait)
+                            loader?.show(requireActivity().supportFragmentManager, null)
+                        }
+                    }
+                }
+            }
     }
 
 }
