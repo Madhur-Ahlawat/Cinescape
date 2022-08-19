@@ -145,7 +145,6 @@ class FoodActivity : DaggerAppCompatActivity(),
                     }
                 } else {
                     val intent = Intent(this, SummeryActivity::class.java)
-                    toast("check1")
                     intent.putExtra("CINEMA_ID", cinemaId)
                     intent.putExtra("SESSION_ID", sessionId)
                     intent.putExtra("TRANS_ID", transId)

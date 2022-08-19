@@ -38,7 +38,6 @@ class HomeParentAdapter(
     RecyclerView.Adapter<HomeParentAdapter.MyViewHolder>() {
     var adapter: HomeChildAdapter? = null
     var currentPage = 0
-    var currentPageMain = 0
     var timer: Timer? = null
     val DELAY_MS: Long = 3000 //delay in milliseconds before task is to be executed
     val PERIOD_MS: Long = 3000 // time in milliseconds between successive task executions.

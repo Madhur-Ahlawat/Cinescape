@@ -2730,6 +2730,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
         binding?.recyclerviewBooking?.layoutManager = LinearLayoutManager(context)
         val adapter = UpcomingBookingAdapter(requireContext(), output.output,this,this)
+        binding?.recyclerviewBooking?.setNestedScrollingEnabled(false)
         binding?.recyclerviewBooking?.layoutManager = gridLayout
         binding?.recyclerviewBooking?.adapter = adapter
         binding?.recyclerviewBooking?.show()
@@ -2746,7 +2747,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                             resource.data?.let { it ->
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                     profileList = it.data.output.experience
-
                                     setExperienceFlexbox(
                                         experience_list_preference!!,
                                         it.data.output.experience
