@@ -316,7 +316,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
         }
 
-
         view_knet.setOnClickListener {
             image_knet.setColorFilter(requireActivity().getColor(R.color.text_alert_color_red))
             text_kent.setTextColor(requireContext().getColor(R.color.white))
@@ -861,7 +860,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
         //Save Prefrence
         textView3.setOnClickListener {
-
             updatePreference(
                 PreferenceRequest(
                     arbic,

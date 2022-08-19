@@ -42,6 +42,7 @@ data class NextBookingResponse(
         val totalPrice: String,
         val totalTicketPrice: String,
         val addFood: Boolean,
+        val foodPickup: Boolean,
         val clubEnable: Boolean,
         val cancelReserve: Boolean,
         val transId: Int

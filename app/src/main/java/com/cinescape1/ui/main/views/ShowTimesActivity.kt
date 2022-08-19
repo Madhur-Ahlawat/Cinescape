@@ -911,31 +911,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         val btnIncrease: TextView = mDialogView.findViewById(R.id.text_increase)
 //        val textCancelGoback = mDialogView.findViewById<TextView>(R.id.text_cancel_goback)
         val textProceeds = mDialogView.findViewById<TextView>(R.id.text_proceeds)
-        try {
-            val cancelGoBack = TextUtils.concat(
-                Constant().getSpanableText(
-                    ForegroundColorSpan(ContextCompat.getColor(this, R.color.white)),
-                    ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)!!,
-                    0,
-                    7,
-                    1.3f,
-                    SpannableString(this.getString(R.string.cancels))
-                ),
-                Constant().getSpanableText(
-                    ForegroundColorSpan(ContextCompat.getColor(this, R.color.hint_color)),
-                    ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)!!,
-                    0,
-                    11,
-                    1.1f,
-                    SpannableString(this.getString(R.string.and_go_back))
-                )
-            )
-
-
-        } catch (e: Exception) {
-            println("SeatCatogry--->${e.message}")
-        }
-
 
         val selectSeatCategory = mDialogView.findViewById<FlexboxLayout>(R.id.select_seat_category)
         val textView5 = mDialogView.findViewById<TextView>(R.id.textView5)

@@ -122,8 +122,6 @@ class FoodActivity : DaggerAppCompatActivity(),
         type = intent.getStringExtra("type").toString()
 
         if (type == "0") {
-
-
             binding?.txtSkipProceed?.show()
             binding?.viewCancel?.setOnClickListener {
                 cancelDialog()

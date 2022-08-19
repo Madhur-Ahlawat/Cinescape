@@ -98,7 +98,7 @@ class UpcomingBookingAdapter(
 
         }
 
-        if (!foodSelctedItem.addFood) {
+        if (foodSelctedItem.addFood) {
             holder.btClick.text = mContext.resources.getString(R.string.addFoodMsg)
             holder.btClick.setOnClickListener {
                 val intent = Intent(mContext, FoodActivity::class.java)
@@ -108,9 +108,11 @@ class UpcomingBookingAdapter(
                 mContext.startActivity(intent)
             }
 
-        } else {
+        }else{
+            holder.btClick.hide()
+        }
+        if (foodSelctedItem.foodPickup) {
             holder.btClick.text = mContext.resources.getString(R.string.food_pickup_info)
-
             holder.btClick.setOnClickListener {
                 val mDialogView =
                     LayoutInflater.from(context).inflate(R.layout.food_pickup_dialog, null)
@@ -131,6 +133,8 @@ class UpcomingBookingAdapter(
                     mAlertDialog.dismiss()
                 }
             }
+        }else{
+            holder.btClick.hide()
         }
 
         if (foodSelctedItem.trailerUrl == "") {
@@ -139,9 +143,9 @@ class UpcomingBookingAdapter(
             holder.trailer.show()
         }
         if (!foodSelctedItem.cancelReserve){
-            holder.cancelReservation?.hide()
+            holder.cancelReservation.hide()
         }else{
-            holder.cancelReservation?.show()
+            holder.cancelReservation.show()
 
         }
 
