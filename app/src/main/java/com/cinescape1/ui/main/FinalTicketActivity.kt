@@ -266,6 +266,11 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
                 layoutManager.alignItems = AlignItems.STRETCH
                 val adapter = SeatListAdapter(output.seatsArr)
 
+                if (!output.foodPickup){
+                    text_how_picup.hide()
+                }else{
+                    text_how_picup.hide()
+                }
                 seats_list.setHasFixedSize(true)
                 seats_list.layoutManager = layoutManager
                 seats_list.adapter = adapter
@@ -387,6 +392,11 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
             text_bookin_id_no1.text = output.kioskId
             text_wallet1.text = output.payDone
 
+            if(!output.foodPickup){
+                textFoodPicUp.hide()
+            }else{
+                textFoodPicUp.show()
+            }
             text_kd_total_ticket_price1.text = output.totalPrice
             textFoodPicUp.paintFlags = textFoodPicUp.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 

@@ -294,7 +294,7 @@
     <string name="enterDob">Please enter date of birth</string>
     <string name="enterMo">Please enter mobile no.</string>
     <string name="enterName">Please enter name</string>
-    <string name="enterMSG">Please enter your msg</string>
+    <string name="enterMSG">Please enter your message</string>
     <string name="enterPhoto">Please upload image</string>
     <string name="addFoodMsg">Add Food</string>
     <string name="atleast">Atleast</string>

@@ -243,11 +243,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/bombshell_alert"
-
                     app:siSquare="true"
                     app:siArrowPosition="right"
                     app:siShape="@drawable/curve_ticket"
-
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/view103"

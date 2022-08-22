@@ -35,8 +35,6 @@ class CinemaPageAdapter(
 
     class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var cinemaName = itemView.cinemaName!!
-//        var address = itemView.textView110!!
-//        var image = itemView.imageView48!!
 
     }
 
@@ -44,7 +42,6 @@ class CinemaPageAdapter(
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val obj = movies[position]
 
-//        val textAdapter = CarouselPicker.CarouselViewAdapter(mContext, textItems, 0)
 
         val transfer = CompositePageTransformer()
         //transfer.addTransformer(MarginPageTransformer(40))
@@ -65,7 +62,6 @@ class CinemaPageAdapter(
         })
         viewpager?.setPageTransformer(transfer)
 
-        println("rowIndex---->123$rowIndex----$position----$select_pos")
         if (rowIndex == position) {
             val regular: Typeface = mContext.resources.getFont(R.font.sf_pro_text_bold)
             holder.cinemaName.typeface = regular

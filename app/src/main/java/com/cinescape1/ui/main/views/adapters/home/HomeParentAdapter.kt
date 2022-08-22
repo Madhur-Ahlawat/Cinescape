@@ -170,7 +170,6 @@ class HomeParentAdapter(
                 holder.mytablayout.setupWithViewPager(holder.sliderAdvance, true)
                 // The_slide_timer
                 /*After setting the adapter use the timer */
-                /*After setting the adapter use the timer */
                 val pagerLength = obj.movieData.size
                 val handler = Handler()
                 val Update = Runnable {

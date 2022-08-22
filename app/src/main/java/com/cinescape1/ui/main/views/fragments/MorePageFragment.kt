@@ -6,13 +6,11 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.*
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.provider.Settings
 import android.text.Editable
 import android.text.InputFilter
@@ -23,7 +21,6 @@ import android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -693,21 +690,10 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
         }
 
         imageView4.setOnClickListener {
-            val pm: PackageManager = requireActivity().packageManager
-            try {
-                val waIntent = Intent(Intent.ACTION_SEND)
-                waIntent.type = "text/plain"
-                val text = "YOUR TEXT HERE"
-                val info = pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA)
-                //Check if package exists or not. If not then code
-                //in catch block will be called
-                waIntent.setPackage("com.whatsapp")
-                waIntent.putExtra(Intent.EXTRA_TEXT, text)
-                startActivity(Intent.createChooser(waIntent, "Share with"))
-            } catch (e: PackageManager.NameNotFoundException) {
-                Toast.makeText(requireActivity(), "WhatsApp not Installed", Toast.LENGTH_SHORT)
-                    .show()
-            }
+            val url = "https://api.whatsapp.com/send?phone=7800049994"
+            val i = Intent(Intent.ACTION_VIEW)
+            i.data = Uri.parse(url)
+            startActivity(i)
         }
     }
 

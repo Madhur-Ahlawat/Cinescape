@@ -51,7 +51,7 @@ class AdapterBookingHistory(private val context: Activity, private var bookingHi
         holder.textviewScreenNumber.text = bookingHistoryItem.screenId
         holder.textviewExperienceName.text =bookingHistoryItem.experience
         holder.textviewCategoryName.text = "Bachelor"
-        val commaSeparatedString = bookingHistoryItem.seatsArr.joinToString { "$it $|" }
+        val commaSeparatedString = bookingHistoryItem.seatsArr.joinToString { "$it" }
         holder.textviewSeatName.text = commaSeparatedString
 
         holder.textKdTicketPrice.text = bookingHistoryItem.totalTicketPrice
@@ -67,10 +67,10 @@ class AdapterBookingHistory(private val context: Activity, private var bookingHi
         holder.payDone.text=bookingHistoryItem.payDone
         holder.rechargePrice.text=bookingHistoryItem.totalPrice
         if (bookingHistoryItem.showDate!=null) {
-            holder.rechargeDate.text=bookingHistoryItem.showDate.toString()
+            holder.rechargeDate.text= bookingHistoryItem.showDate
         }
         if (bookingHistoryItem.showTime!=null) {
-            holder.rechargeTime.text = bookingHistoryItem.showTime.toString()
+            holder.rechargeTime.text = bookingHistoryItem.showTime
         }
 
         //food
@@ -79,7 +79,7 @@ class AdapterBookingHistory(private val context: Activity, private var bookingHi
         holder.paidBy.text=context.resources.getString(R.string.paid_by_club_card)+" "+bookingHistoryItem.payDone
 
         if (rowIndex == position) {
-            holder.imageArrowDrop.setImageResource(R.drawable.arrow_drop_up)
+            holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
             when (bookingHistoryItem.bookingType) {
                 "CLUBRECHARGE" -> {
                     holder.rechargeUi.show()
@@ -103,7 +103,7 @@ class AdapterBookingHistory(private val context: Activity, private var bookingHi
                 }
             }
         }else {
-            holder.imageArrowDrop.setImageResource(R.drawable.ic_arrow_down)
+            holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
             holder.movieui.hide()
         }
 
