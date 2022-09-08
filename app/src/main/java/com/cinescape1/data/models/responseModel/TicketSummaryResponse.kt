@@ -23,7 +23,7 @@ data class TicketSummaryResponse(
         val paymodes: Paymodes,
         val poster: String,
         val posterhori: String,
-        val screenId: Int,
+        val screenId: String,
         val seatsArr: List<String>,
         val showDate: String,
         val showTime: String,

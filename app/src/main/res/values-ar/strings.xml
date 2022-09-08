@@ -323,6 +323,7 @@
     <string name="wallet_amount">مبلغ المحفظة</string>
     <string name="balance_amount_to_be_paid">مبلغ الرصيد الواجب دفعه</string>
     <string name="seatLimit">لا يمكنك تحديد أكثر من </string>
-
+    <string name="your_booking_was">كان حجزك </string>
+    <string name="successful">ناجح</string>
 
 </resources>

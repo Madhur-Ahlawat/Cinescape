@@ -132,7 +132,7 @@
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="-24dp"
+            android:layout_marginTop="-20dp"
             android:fillViewport="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -242,7 +242,7 @@
                     android:id="@+id/imageView49"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/bombshell_alert"
+                    android:src="@drawable/app_icon"
                     app:siSquare="true"
                     app:siArrowPosition="right"
                     app:siShape="@drawable/curve_ticket"
@@ -251,6 +251,56 @@
                     app:layout_constraintStart_toStartOf="@+id/view103"
                     app:layout_constraintTop_toTopOf="@+id/view103"
                     tools:ignore="ContentDescription" />
+
+                <LinearLayout
+                    android:id="@+id/successConstraintLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/green_curve"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.418"
+                    android:gravity="center"
+                    app:layout_constraintStart_toStartOf="@+id/view103"
+                    app:layout_constraintTop_toTopOf="@+id/view103">
+
+                    <View
+                        android:id="@+id/view104"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView46"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:textSize="@dimen/size14"
+                        android:text="@string/your_booking_was"
+                        app:layout_constraintBottom_toBottomOf="@+id/view104"
+                        app:layout_constraintStart_toStartOf="@+id/view104"
+                        app:layout_constraintTop_toTopOf="@+id/view104" />
+
+                    <TextView
+                        android:id="@+id/textView120"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/sf_pro_text_bold"
+                        android:textSize="@dimen/size16"
+                        android:text="@string/successful"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView46"
+                        app:layout_constraintStart_toEndOf="@+id/textView46"
+                        app:layout_constraintTop_toTopOf="@+id/textView46" />
+
+                </LinearLayout>
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

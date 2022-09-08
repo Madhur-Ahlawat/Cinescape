@@ -370,7 +370,7 @@ class MoviesFragment(val type:Int) : DaggerFragment(), AdapterFilterCategory.Rec
         dataList.clear()
         val mDialogView =
             LayoutInflater.from(requireContext()).inflate(R.layout.filter_alert_page_dailog, null)
-        val mBuilder = AlertDialog.Builder(requireContext())
+        val mBuilder = AlertDialog.Builder(requireContext(),R.style.CustomAlertDialogFilter)
             .setView(mDialogView)
         val mAlertDialog = mBuilder.show()
 

@@ -1024,7 +1024,6 @@ class FoodActivity : DaggerAppCompatActivity(),
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onDecreaseCart(foodItem: GetFoodResponse.FoodDtls, pos: Int) {
-//        toast("checkDECCart--->${foodItem.foodQuan}")
         foodCartListNew?.get(pos)?.foodQuan?.minus(1)
         if (foodCartListNew?.get(pos)?.foodQuan!! > 0) {
             foodCartListNew?.get(pos)?.foodQuan = foodCartListNew?.get(pos)?.foodQuan!! - 1

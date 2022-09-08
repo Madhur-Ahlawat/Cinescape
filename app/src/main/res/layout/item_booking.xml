@@ -13,9 +13,10 @@
         <ImageView
             android:id="@+id/image_booking_alert"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:layout_marginBottom="17dp"
             android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
             android:contentDescription="@string/contentDes"
             app:layout_constraintBottom_toTopOf="@+id/view_location1"
             app:layout_constraintEnd_toEndOf="parent"

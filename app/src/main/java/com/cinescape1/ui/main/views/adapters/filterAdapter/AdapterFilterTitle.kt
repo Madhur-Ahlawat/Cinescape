@@ -22,6 +22,7 @@ import com.google.android.flexbox.*
 class AdapterFilterTitle(context: Activity, private var filterTitleList: ArrayList<FilterModel>,private val dataList:ArrayList<FilterTypeModel>) :
     RecyclerView.Adapter<AdapterFilterTitle.MyViewHolderFilterTitle>() {
     private var up = true
+    private var upEnable = false
     private var rowIndex = -1
 
     private val mContext: Context = context
@@ -132,6 +133,16 @@ class AdapterFilterTitle(context: Activity, private var filterTitleList: ArrayLi
 
         holder.itemView.setOnClickListener {
             rowIndex = position
+//            holder.filterExpand.hide()
+//            if (!upEnable){
+//                upEnable=true
+//                holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
+//                holder.filterExpand.show()
+//            }else{
+//                upEnable
+//                holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
+//                holder.filterExpand.hide()
+//            }
             notifyDataSetChanged()
         }
         if (rowIndex == position) {
@@ -141,7 +152,6 @@ class AdapterFilterTitle(context: Activity, private var filterTitleList: ArrayLi
             holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
             holder.filterExpand.hide()
         }
-
     }
 
     private fun getList(i: FilterModel): ArrayList<String> {

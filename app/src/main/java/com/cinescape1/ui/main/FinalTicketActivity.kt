@@ -8,6 +8,8 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +36,7 @@ import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.viewModels.FinalTicketViewModel
 import com.cinescape1.ui.main.views.FoodActivity
 import com.cinescape1.ui.main.views.HomeActivity
+import com.cinescape1.ui.main.views.LoginActivity
 import com.cinescape1.ui.main.views.adapters.SeatListAdapter
 import com.cinescape1.ui.main.views.adapters.checkoutAdapter.AdapterCheckoutConFirmFoodDetail
 import com.cinescape1.ui.main.views.adapters.sliderAdapter.SliderFoodConfirmViewPgweAdapter
@@ -147,6 +150,7 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
                             resource.data?.let { it ->
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                     try {
+                                        binding?.uiFinalTaket?.show()
                                         retrieveBookedResponse(it.data.output)
                                     } catch (e: Exception) {
                                         println("updateUiCinemaSession ---> ${e.message}")
@@ -195,6 +199,13 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun retrieveBookedResponse(output: TicketSummaryResponse.Output) {
 
+        val runnable = Runnable {
+           binding?.successConstraintLayout?.hide()
+            binding?.imageQrCode?.show()
+            binding?.cardUi?.show()
+        }
+        val handler = Handler(Looper.getMainLooper())
+        handler.postDelayed(runnable, 3000)
         // Make Qr data
         qrData = output.qr
         qrBitmap = Constant().createQrCode(output.qr)
@@ -245,6 +256,10 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
                 text_bookin_id_no.text = output.kioskId
                 text_name_movie.text = output.moviename
                 text_location_names.text = output.cinemaname
+                txt_scrrens.text=output.screenId
+                tv_screenx.text=output.experience
+//                text_food_pickup_no
+
                 txt_date.isSelected = true
                 txt_date.text = output.showDate + " " + output.showTime
                 text_wallet.text = output.payDone
@@ -629,6 +644,7 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
                             resource.data?.let { it ->
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                     try {
+                                        binding?.uiFinalTaket?.show()
                                         retrieveBookedResponse(it.data.output)
                                     } catch (e: Exception) {
                                         println("updateUiCinemaSession ---> ${e.message}")

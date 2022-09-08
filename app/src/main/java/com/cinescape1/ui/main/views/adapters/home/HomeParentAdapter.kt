@@ -39,8 +39,8 @@ class HomeParentAdapter(
     var adapter: HomeChildAdapter? = null
     var currentPage = 0
     var timer: Timer? = null
-    val DELAY_MS: Long = 3000 //delay in milliseconds before task is to be executed
-    val PERIOD_MS: Long = 3000 // time in milliseconds between successive task executions.
+    val DELAY_MS: Long = 5000 //delay in milliseconds before task is to be executed
+    val PERIOD_MS: Long = 5000 // time in milliseconds between successive task executions.
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view =
@@ -51,11 +51,9 @@ class HomeParentAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val obj = homeDataList[position]
-        println("HomeCategory123--->${obj.name}")
         holder.home_title.text = obj.name
         holder.txtSeeAll.text = mContext.getText(R.string.view_all)
         holder.search?.setOnFocusChangeListener { _, hasFocus ->
-            println("hasFocus---$hasFocus")
             if (hasFocus) {
                 val params: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(
                     RelativeLayout.LayoutParams.MATCH_PARENT,
@@ -64,7 +62,6 @@ class HomeParentAdapter(
                 params.addRule(RelativeLayout.ALIGN_PARENT_END)
                 holder.search?.layoutParams = params
             } else {
-                println("called this----")
                 val params: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(
                     RelativeLayout.LayoutParams.WRAP_CONTENT,
                     RelativeLayout.LayoutParams.WRAP_CONTENT

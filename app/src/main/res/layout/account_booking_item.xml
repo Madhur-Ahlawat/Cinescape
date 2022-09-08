@@ -11,11 +11,10 @@
     <ImageView
         android:id="@+id/imageView7"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:adjustViewBounds="true"
-        android:contentDescription="@string/contentDes"
-        android:maxHeight="300dp"
         android:scaleType="centerCrop"
+        android:contentDescription="@string/contentDes"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout11"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -448,7 +447,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -320,5 +320,7 @@
     <string name="wallet_amount">Wallet amount</string>
     <string name="balance_amount_to_be_paid">Balance amount to be paid</string>
     <string name="seatLimit">You can not Select More Than </string>
+    <string name="your_booking_was">Your Booking was </string>
+    <string name="successful">successful</string>
 
 </resources>
