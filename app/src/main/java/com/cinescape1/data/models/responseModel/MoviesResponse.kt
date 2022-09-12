@@ -7,7 +7,7 @@ data class MoviesResponse(
     val result: String
 ) {
     data class Output(
-        val comingsoon: ArrayList<Comingsoon>,
+        var comingsoon: ArrayList<Comingsoon>,
         val nowshowing: ArrayList<Nowshowing>,
         val alllanguages: ArrayList<String>,
         val cinemas: ArrayList<Cinema>?,
@@ -17,9 +17,7 @@ data class MoviesResponse(
         val genreList: ArrayList<*>,
         val nslanguages: ArrayList<String>,
         val ratings: ArrayList<String>,
-
         val advanceBooking: List<AdvanceBooking>,
-
         val lastChance: List<LastChance>
     )
     data class AdvanceBooking(
@@ -125,6 +123,11 @@ data class MoviesResponse(
         val webimgsmall: Any
     )
     data class Comingsoon(
+        val dated: String,
+        val comingSoon: ArrayList<ComingSoons>
+    )
+
+    data class ComingSoons(
         val cast: List<CastXY>,
         val comingSoon: Boolean,
         val director: DirectorXY,

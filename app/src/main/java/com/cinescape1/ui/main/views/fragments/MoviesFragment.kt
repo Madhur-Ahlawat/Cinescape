@@ -50,7 +50,8 @@ import kotlinx.android.synthetic.main.search_ui.*
 import javax.inject.Inject
 
 
-class MoviesFragment(val type:Int) : DaggerFragment(), AdapterFilterCategory.RecycleViewItemClickListener,
+class MoviesFragment(val type: Int) : DaggerFragment(),
+    AdapterFilterCategory.RecycleViewItemClickListener,
     MovieTypeAdapter.RecycleViewItemClickListener {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -67,7 +68,7 @@ class MoviesFragment(val type:Int) : DaggerFragment(), AdapterFilterCategory.Rec
     private var isChecked = false
     private var moviesResponse: MoviesResponse? = null
 
-    private var comingSoonFilter: ArrayList<MoviesResponse.Comingsoon>? = null
+    private var comingSoonFilter = ArrayList<MoviesResponse.Comingsoon>()
     private var broadcastReceiver: BroadcastReceiver? = null
 
     //Filter Params
@@ -125,9 +126,9 @@ class MoviesFragment(val type:Int) : DaggerFragment(), AdapterFilterCategory.Rec
         binding?.recyclerType?.adapter = adapter
         println("MovieException----${Constant.SEE_ALL_TYPE}")
 
-        if (Constant.SEE_ALL_TYPE==0){
+        if (Constant.SEE_ALL_TYPE == 0) {
             binding?.recyclerType?.scrollToPosition(0)
-        }else{
+        } else {
             binding?.recyclerType?.scrollToPosition(1)
         }
 
@@ -183,12 +184,11 @@ class MoviesFragment(val type:Int) : DaggerFragment(), AdapterFilterCategory.Rec
 
     @SuppressLint("ClickableViewAccessibility")
     private fun movedNext() {
-
         //filter
         imageView33.setOnClickListener {
             isChecked
             imageView33.setImageResource(R.drawable.ic_icon_awesome_filter)
-            setFilterAlertDialog(moviesResponse?.output!!)
+            filterNowShowingDialog(moviesResponse?.output!!)
         }
 
         movieSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
@@ -240,9 +240,9 @@ class MoviesFragment(val type:Int) : DaggerFragment(), AdapterFilterCategory.Rec
                                     binding?.filterUi?.show()
                                     moviesResponse = it.data.data
                                     comingSoonFilter = it.data.data.output.comingsoon
-                                    if (Constant.SEE_ALL_TYPE==0) {
+                                    if (Constant.SEE_ALL_TYPE == 0) {
                                         nowSowing(it.data.data.output.nowshowing)
-                                    }else{
+                                    } else {
                                         comingSoon(it.data.data.output.comingsoon)
                                     }
                                 } catch (e: Exception) {
@@ -302,9 +302,9 @@ class MoviesFragment(val type:Int) : DaggerFragment(), AdapterFilterCategory.Rec
         }
     }
 
-    private fun comingSoon(comingSoon: ArrayList<MoviesResponse.Comingsoon>) {
-        val gridLayout = GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false)
-        val adapter = AdapterComingSoon(comingSoon, requireActivity())
+    private fun comingSoon(comingsoon: ArrayList<MoviesResponse.Comingsoon>) {
+        val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
+        val adapter = AdapterComingSoon(comingsoon, requireActivity())
         binding?.fragmentMovie?.layoutManager = gridLayout
         binding?.fragmentMovie?.adapter = adapter
 
@@ -366,11 +366,11 @@ class MoviesFragment(val type:Int) : DaggerFragment(), AdapterFilterCategory.Rec
         }
     }
 
-    private fun setFilterAlertDialog(output: MoviesResponse.Output) {
+    private fun filterNowShowingDialog(output: MoviesResponse.Output) {
         dataList.clear()
         val mDialogView =
             LayoutInflater.from(requireContext()).inflate(R.layout.filter_alert_page_dailog, null)
-        val mBuilder = AlertDialog.Builder(requireContext(),R.style.CustomAlertDialogFilter)
+        val mBuilder = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogFilter)
             .setView(mDialogView)
         val mAlertDialog = mBuilder.show()
 
@@ -463,7 +463,7 @@ class MoviesFragment(val type:Int) : DaggerFragment(), AdapterFilterCategory.Rec
                 FilterModel(
                     getString(R.string.languange),
                     6,
-                    output.alllanguages,
+                    output.nslanguages,
                     selectedList3,
                     null,
                     null,
@@ -492,12 +492,12 @@ class MoviesFragment(val type:Int) : DaggerFragment(), AdapterFilterCategory.Rec
 
         textViewDone.setOnClickListener {
             isChecked = false
-            if (dataList.size>0){
-            imageView33.setImageResource(R.drawable.ic_icon_awesome_filter)
-            binding?.recyclerviewCategory?.hide()
-            updateFilterData(dataList, "")
-            mAlertDialog.dismiss()
-           }
+            if (dataList.size > 0) {
+                imageView33.setImageResource(R.drawable.ic_icon_awesome_filter)
+                binding?.recyclerviewCategory?.hide()
+                updateFilterData(dataList, "")
+                mAlertDialog.dismiss()
+            }
         }
     }
 
@@ -613,6 +613,141 @@ class MoviesFragment(val type:Int) : DaggerFragment(), AdapterFilterCategory.Rec
         updateFilterData(dataList, item)
     }
 
+    private fun filterCommingSoonDialog(output: MoviesResponse.Output) {
+        dataList.clear()
+        val mDialogView =
+            LayoutInflater.from(requireContext()).inflate(R.layout.filter_alert_page_dailog, null)
+        val mBuilder = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogFilter)
+            .setView(mDialogView)
+        val mAlertDialog = mBuilder.show()
+
+//Outside Clickable  False
+        mAlertDialog.setCancelable(true)
+        mAlertDialog.setCanceledOnTouchOutside(true)
+        mAlertDialog.show()
+        val selectedList = arrayListOf<String>()
+        val selectedList1 = arrayListOf<String>()
+        val selectedList2 = arrayListOf<String>()
+        val selectedList3 = arrayListOf<String>()
+        val selectedList4 = arrayListOf<String>()
+        val selectedList5 = arrayListOf<String>()
+        val selectedCinemaList = arrayListOf<MoviesResponse.Cinema>()
+        val selectedMovieList = arrayListOf<MoviesResponse.MovieTimings>()
+
+//        if (output.cinemas?.size!! > 0) {
+//            dataList.add(
+//                FilterModel(
+//                    getString(R.string.location),
+//                    2,
+//                    output.experiences,
+//                    selectedList4,
+//                    output.cinemas,
+//                    null,
+//                    null,
+//                    selectedCinemaList
+//                )
+//            )
+//        }
+//        if (output.experiences.size > 0) {
+//            dataList.add(
+//                FilterModel(
+//                    getString(R.string.experience),
+//                    1,
+//                    output.experiences,
+//                    selectedList,
+//                    null,
+//                    null,
+//                    null,
+//                    null
+//                )
+//            )
+//        }
+//        if (output.movieTimings.size > 0) {
+//            dataList.add(
+//                FilterModel(
+//                    getString(R.string.time),
+//                    3,
+//                    output.experiences,
+//                    selectedList5,
+//                    null,
+//                    output.movieTimings,
+//                    selectedMovieList,
+//                    null
+//                )
+//            )
+//        }
+//        if (output.ratings.size > 0) {
+//            dataList.add(
+//                FilterModel(
+//                    getString(R.string.rating),
+//                    4,
+//                    output.ratings,
+//                    selectedList1,
+//                    null,
+//                    null,
+//                    null,
+//                    null
+//                )
+//            )
+//        }
+        if (output.genreList.size > 0) {
+            dataList.add(
+                FilterModel(
+                    getString(R.string.genre),
+                    5,
+                    output.genreList,
+                    selectedList2,
+                    null,
+                    null,
+                    null,
+                    null
+                )
+            )
+        }
+
+        if (output.alllanguages.size > 0) {
+            dataList.add(
+                FilterModel(
+                    getString(R.string.languange),
+                    6,
+                    output.cslanguages,
+                    selectedList3,
+                    null,
+                    null,
+                    null,
+                    null
+                )
+            )
+        }
+
+        val recyclerviewExperience =
+            mDialogView.findViewById<View>(R.id.recyclerview_filter_title) as RecyclerView
+        val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
+        recyclerviewExperience.layoutManager = LinearLayoutManager(context)
+        val adapter = AdapterFilterTitle(requireActivity(), dataList, filterDataList)
+        recyclerviewExperience.layoutManager = gridLayout
+        recyclerviewExperience.adapter = adapter
+
+        val textViewDone = mDialogView.findViewById<View>(R.id.textView_done) as CardView
+        val textReset = mDialogView.findViewById<View>(R.id.text_reset) as ConstraintLayout
+
+        textReset.setOnClickListener {
+            dataList.clear()
+            binding?.recyclerviewCategory?.hide()
+            mAlertDialog.dismiss()
+        }
+
+        textViewDone.setOnClickListener {
+            isChecked = false
+            if (dataList.size > 0) {
+                imageView33.setImageResource(R.drawable.ic_icon_awesome_filter)
+                binding?.recyclerviewCategory?.hide()
+                updateFilterData(dataList, "")
+                mAlertDialog.dismiss()
+            }
+        }
+    }
+
     override fun onMovieTypeClick(position: Int) {
         if (isAdded) {
             val smoothScroller: SmoothScroller =
@@ -629,6 +764,14 @@ class MoviesFragment(val type:Int) : DaggerFragment(), AdapterFilterCategory.Rec
         when (position) {
             0 -> {
                 try {
+                    binding?.filterUi?.show()
+                    //filter
+                    imageView33.setOnClickListener {
+                        isChecked
+                        imageView33.setImageResource(R.drawable.ic_icon_awesome_filter)
+                        filterNowShowingDialog(moviesResponse?.output!!)
+                    }
+
                     nowSowing(moviesResponse?.output?.nowshowing!!)
                 } catch (e: Exception) {
                     println("exception--->${e.message}")
@@ -636,6 +779,13 @@ class MoviesFragment(val type:Int) : DaggerFragment(), AdapterFilterCategory.Rec
             }
             1 -> {
                 try {
+                    binding?.filterUi?.show()
+                    //filter
+                    imageView33.setOnClickListener {
+                        isChecked
+                        imageView33.setImageResource(R.drawable.ic_icon_awesome_filter)
+                        filterCommingSoonDialog(moviesResponse?.output!!)
+                    }
                     comingSoon(moviesResponse?.output?.comingsoon!!)
                 } catch (e: Exception) {
                     println("Exception--->${e.message}")
@@ -643,6 +793,7 @@ class MoviesFragment(val type:Int) : DaggerFragment(), AdapterFilterCategory.Rec
             }
             2 -> {
                 try {
+                    binding?.filterUi?.hide()
                     advanceBooking(moviesResponse?.output?.advanceBooking!!)
                 } catch (e: Exception) {
                     println("Exception--->${e.message}")

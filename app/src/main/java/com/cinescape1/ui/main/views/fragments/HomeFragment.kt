@@ -213,9 +213,6 @@ class HomeFragment : DaggerFragment(),HomeParentAdapter.RecycleViewItemClickList
         val item = navView.getChildAt(0) as BottomNavigationMenuView
         val itemView = item.getChildAt(1)
         itemView.performClick()
-//        requireActivity().supportFragmentManager.beginTransaction().apply {
-//            replace(R.id.container, MoviesFragment(type))
-//            commit()
-//        }
+
     }
 }
