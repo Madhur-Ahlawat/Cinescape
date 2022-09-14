@@ -17,17 +17,17 @@
 
 
         <View
-            android:id="@+id/view_booking_id"
+            android:id="@+id/view_booking_id_one"
             android:layout_width="0dp"
             android:layout_height="65dp"
             android:layout_marginStart="4dp"
-            app:layout_constraintEnd_toStartOf="@+id/view_food_picku_no"
+            app:layout_constraintEnd_toStartOf="@+id/view_food_picku_no_one"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/text_bookig_id"
+            android:id="@+id/text_bookig_id_one"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -35,10 +35,10 @@
             android:text="@string/booking_id"
             android:textColor="@color/text_alert_color"
             android:textSize="@dimen/size15"
-            app:layout_constraintEnd_toEndOf="@+id/view_booking_id"
+            app:layout_constraintEnd_toEndOf="@+id/view_booking_id_one"
             app:layout_constraintHorizontal_bias="0.481"
-            app:layout_constraintStart_toStartOf="@+id/view_booking_id"
-            app:layout_constraintTop_toTopOf="@+id/view_booking_id"
+            app:layout_constraintStart_toStartOf="@+id/view_booking_id_one"
+            app:layout_constraintTop_toTopOf="@+id/view_booking_id_one"
             tools:ignore="TextContrastCheck" />
 
         <TextView
@@ -50,26 +50,26 @@
             android:textSize="@dimen/size15"
             android:maxLines="2"
             android:ellipsize="end"
-            app:layout_constraintEnd_toEndOf="@+id/view_booking_id"
+            app:layout_constraintEnd_toEndOf="@+id/view_booking_id_one"
             app:layout_constraintHorizontal_bias="0.487"
-            app:layout_constraintStart_toStartOf="@+id/view_booking_id"
-            app:layout_constraintTop_toBottomOf="@+id/text_bookig_id"
+            app:layout_constraintStart_toStartOf="@+id/view_booking_id_one"
+            app:layout_constraintTop_toBottomOf="@+id/text_bookig_id_one"
             tools:text="WN5H3HD" />
 
         <View
             android:visibility="gone"
-            android:id="@+id/view_food_picku_no"
+            android:id="@+id/view_food_picku_no_one"
             android:layout_width="0dp"
             android:layout_height="65dp"
             android:layout_marginEnd="4dp"
-            app:layout_constraintBottom_toBottomOf="@+id/view_booking_id"
+            app:layout_constraintBottom_toBottomOf="@+id/view_booking_id_one"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="1.2"
-            app:layout_constraintStart_toEndOf="@+id/view_booking_id"
-            app:layout_constraintTop_toTopOf="@+id/view_booking_id" />
+            app:layout_constraintStart_toEndOf="@+id/view_booking_id_one"
+            app:layout_constraintTop_toTopOf="@+id/view_booking_id_one" />
 
         <TextView
-            android:id="@+id/text_food_pickup_no"
+            android:id="@+id/text_food_pickup_no_one"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -79,9 +79,9 @@
             android:textSize="@dimen/size14"
             android:textStyle="normal"
             android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@+id/view_food_picku_no"
-            app:layout_constraintStart_toStartOf="@+id/view_food_picku_no"
-            app:layout_constraintTop_toTopOf="@+id/view_food_picku_no"
+            app:layout_constraintEnd_toEndOf="@+id/view_food_picku_no_one"
+            app:layout_constraintStart_toStartOf="@+id/view_food_picku_no_one"
+            app:layout_constraintTop_toTopOf="@+id/view_food_picku_no_one"
             tools:ignore="TextContrastCheck" />
 
         <TextView
@@ -94,18 +94,18 @@
             android:text="@string/how_to_pickup_food"
             android:textColor="@color/text_alert_color_red"
             android:textSize="@dimen/size12"
-            app:layout_constraintStart_toStartOf="@+id/view_food_picku_no"
-            app:layout_constraintTop_toBottomOf="@+id/text_bookig_id" />
+            app:layout_constraintStart_toStartOf="@+id/view_food_picku_no_one"
+            app:layout_constraintTop_toBottomOf="@+id/text_bookig_id_one" />
 
         <View
-            android:id="@+id/view_bookin_line"
+            android:id="@+id/view_bookin_line_one"
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_marginTop="8dp"
             android:background="@color/view_bg_color_line"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_booking_id" />
+            app:layout_constraintTop_toBottomOf="@+id/view_booking_id_one" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/viewUi"
@@ -114,7 +114,7 @@
             android:padding="@dimen/margin2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_bookin_line">
+            app:layout_constraintTop_toBottomOf="@+id/view_bookin_line_one">
 
             <View
                 android:id="@+id/views_main"
@@ -470,20 +470,20 @@
                 app:layout_constraintTop_toTopOf="@+id/view_resend_mail" />
 
             <View
-                android:id="@+id/view_payment_mode"
+                android:id="@+id/view_payment_mode_one"
                 android:layout_width="0dp"
                 android:layout_height="65dp"
-                app:layout_constraintEnd_toStartOf="@+id/view_total_tickect_price"
+                app:layout_constraintEnd_toStartOf="@+id/view_total_tickect_price_one"
                 app:layout_constraintStart_toStartOf="@+id/seats_list"
                 app:layout_constraintTop_toBottomOf="@+id/seats_list" />
 
             <View
-                android:id="@+id/view_total_tickect_price"
+                android:id="@+id/view_total_tickect_price_one"
                 android:layout_width="0dp"
                 android:layout_height="65dp"
                 app:layout_constraintEnd_toEndOf="@+id/seats_list"
-                app:layout_constraintStart_toEndOf="@+id/view_payment_mode"
-                app:layout_constraintTop_toTopOf="@+id/view_payment_mode" />
+                app:layout_constraintStart_toEndOf="@+id/view_payment_mode_one"
+                app:layout_constraintTop_toTopOf="@+id/view_payment_mode_one" />
 
             <TextView
                 android:id="@+id/text_payment_mode"
@@ -495,10 +495,10 @@
                 android:textColor="@color/hint_color"
                 android:textSize="@dimen/size14"
                 android:textStyle="normal"
-                app:layout_constraintEnd_toEndOf="@+id/view_payment_mode"
+                app:layout_constraintEnd_toEndOf="@+id/view_payment_mode_one"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/view_payment_mode"
-                app:layout_constraintTop_toTopOf="@+id/view_payment_mode"
+                app:layout_constraintStart_toStartOf="@+id/view_payment_mode_one"
+                app:layout_constraintTop_toTopOf="@+id/view_payment_mode_one"
                 tools:ignore="TextContrastCheck" />
 
             <TextView
@@ -510,8 +510,8 @@
                 android:lineSpacingExtra="1sp"
                 android:textColor="@color/black"
                 android:textSize="@dimen/size15"
-                app:layout_constraintEnd_toEndOf="@+id/view_payment_mode"
-                app:layout_constraintStart_toStartOf="@+id/view_payment_mode"
+                app:layout_constraintEnd_toEndOf="@+id/view_payment_mode_one"
+                app:layout_constraintStart_toStartOf="@+id/view_payment_mode_one"
                 app:layout_constraintTop_toBottomOf="@+id/text_payment_mode"
                 tools:text="Wallet" />
 
@@ -525,10 +525,10 @@
                 android:textColor="@color/hint_color"
                 android:textSize="@dimen/size14"
                 android:textStyle="normal"
-                app:layout_constraintEnd_toEndOf="@+id/view_total_tickect_price"
+                app:layout_constraintEnd_toEndOf="@+id/view_total_tickect_price_one"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/view_total_tickect_price"
-                app:layout_constraintTop_toTopOf="@+id/view_total_tickect_price"
+                app:layout_constraintStart_toStartOf="@+id/view_total_tickect_price_one"
+                app:layout_constraintTop_toTopOf="@+id/view_total_tickect_price_one"
                 tools:ignore="TextContrastCheck" />
 
             <TextView
@@ -541,8 +541,8 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/size14"
                 android:textStyle="normal"
-                app:layout_constraintEnd_toEndOf="@+id/view_total_tickect_price"
-                app:layout_constraintStart_toStartOf="@+id/view_total_tickect_price"
+                app:layout_constraintEnd_toEndOf="@+id/view_total_tickect_price_one"
+                app:layout_constraintStart_toStartOf="@+id/view_total_tickect_price_one"
                 app:layout_constraintTop_toBottomOf="@+id/text_total_ticket_price"
                 tools:text="KD 30.750" />
 

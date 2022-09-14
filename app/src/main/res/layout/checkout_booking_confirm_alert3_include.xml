@@ -14,7 +14,7 @@
         android:paddingBottom="@dimen/margin20">
 
         <View
-            android:id="@+id/view_booking_id"
+            android:id="@+id/view_booking_id_one"
             android:layout_width="0dp"
             android:layout_height="75dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -34,10 +34,10 @@
             android:textColor="@color/text_alert_color"
             android:textSize="@dimen/size14"
             android:textStyle="normal"
-            app:layout_constraintEnd_toEndOf="@+id/view_booking_id"
+            app:layout_constraintEnd_toEndOf="@+id/view_booking_id_one"
             app:layout_constraintHorizontal_bias="0.481"
-            app:layout_constraintStart_toStartOf="@+id/view_booking_id"
-            app:layout_constraintTop_toTopOf="@+id/view_booking_id"
+            app:layout_constraintStart_toStartOf="@+id/view_booking_id_one"
+            app:layout_constraintTop_toTopOf="@+id/view_booking_id_one"
             tools:ignore="TextContrastCheck" />
 
         <TextView
@@ -51,9 +51,9 @@
             android:textColor="@color/black"
             android:textSize="@dimen/size16"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/view_booking_id"
+            app:layout_constraintEnd_toEndOf="@+id/view_booking_id_one"
             app:layout_constraintHorizontal_bias="0.487"
-            app:layout_constraintStart_toStartOf="@+id/view_booking_id"
+            app:layout_constraintStart_toStartOf="@+id/view_booking_id_one"
             app:layout_constraintTop_toBottomOf="@+id/booking_id_new" />
 
 
@@ -66,7 +66,7 @@
             android:background="@color/view_bg_color_line"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_booking_id" />
+            app:layout_constraintTop_toBottomOf="@+id/view_booking_id_one" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout19"
@@ -81,10 +81,10 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/recyclerview_food_details"
+                android:id="@+id/recyclerview_food_details_three"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/view_total_ticket_price"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -140,7 +140,7 @@
                     android:id="@+id/textView127"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/sf_pro_text_regular"
                     android:text="@string/food"
                     android:textColor="@color/text_alert_color"
@@ -177,7 +177,7 @@
                     android:id="@+id/textView130"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/sf_pro_text_regular"
                     android:text="@string/reference_id"
                     android:textColor="@color/text_alert_color"
@@ -190,7 +190,7 @@
                     android:id="@+id/textView131"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/sf_pro_text_bold"
                     android:textColor="@color/black"
                     android:textSize="@dimen/size15"
@@ -206,44 +206,52 @@
                     android:text="@string/track_number"
                     android:textColor="@color/text_alert_color"
                     android:textSize="@dimen/size15"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView130"
-                    app:layout_constraintEnd_toEndOf="@+id/view106"
-                    app:layout_constraintTop_toTopOf="@+id/textView130"
+                    app:layout_constraintStart_toStartOf="@+id/textView131"
+                    app:layout_constraintTop_toBottomOf="@+id/textView131"
                     tools:ignore="TextContrastCheck" />
 
                 <TextView
                     android:id="@+id/textView133"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:ellipsize="marquee"
                     android:fontFamily="@font/sf_pro_text_bold"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:freezesText="true"
                     android:textColor="@color/black"
                     android:textSize="@dimen/size15"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView131"
-                    app:layout_constraintEnd_toEndOf="@+id/view106"
-                    app:layout_constraintTop_toTopOf="@+id/textView131"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView132"
+                    app:layout_constraintTop_toBottomOf="@+id/textView132"
                     tools:text="TextView" />
 
                 <TextView
                     android:id="@+id/textView134"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/sf_pro_text_regular"
                     android:text="@string/transaction_date_time"
                     android:textColor="@color/text_alert_color"
                     android:textSize="@dimen/size15"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView131"
+                    app:layout_constraintTop_toBottomOf="@+id/textView133"
                     tools:ignore="TextContrastCheck" />
 
                 <TextView
                     android:id="@+id/textView135"
                     android:layout_width="wrap_content"
-                    android:layout_height="19dp"
-                    android:layout_marginTop="3dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
                     android:fontFamily="@font/sf_pro_text_bold"
                     android:textColor="@color/black"
                     android:textSize="@dimen/size15"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView134"
                     tools:text="TextView" />
@@ -251,14 +259,14 @@
 
 
             <View
-                android:id="@+id/view_payment_mode"
+                android:id="@+id/view_payment_mode_one"
                 android:layout_width="0dp"
                 android:layout_height="80dp"
                 android:layout_marginTop="16dp"
                 android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@+id/view_total_ticket_price"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerview_food_details" />
+                app:layout_constraintTop_toBottomOf="@+id/recyclerview_food_details_three" />
 
             <View
                 android:id="@+id/view_total_ticket_price"
@@ -267,10 +275,10 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/recyclerview_food_details" />
+                app:layout_constraintStart_toStartOf="@+id/recyclerview_food_details_three" />
 
             <TextView
-                android:id="@+id/text_payment_mode2"
+                android:id="@+id/text_payment_mode2_three"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_text_regular"
@@ -294,11 +302,11 @@
                 android:textStyle="normal"
                 android:visibility="visible"
                 app:layout_constraintStart_toStartOf="@+id/view_total_ticket_price"
-                app:layout_constraintTop_toBottomOf="@+id/text_payment_mode2"
+                app:layout_constraintTop_toBottomOf="@+id/text_payment_mode2_three"
                 tools:text="Wallet" />
 
             <TextView
-                android:id="@+id/text_total_ticket_price2"
+                android:id="@+id/text_total_ticket_price_three"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_text_regular"
@@ -322,7 +330,7 @@
                 android:textStyle="normal"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="@+id/view_total_ticket_price"
-                app:layout_constraintTop_toBottomOf="@+id/text_total_ticket_price2"
+                app:layout_constraintTop_toBottomOf="@+id/text_total_ticket_price_three"
                 tools:text="KD 30.750" />
 
 

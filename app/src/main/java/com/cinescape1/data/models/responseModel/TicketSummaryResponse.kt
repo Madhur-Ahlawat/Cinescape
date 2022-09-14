@@ -7,9 +7,11 @@ data class TicketSummaryResponse(
     val result: String
 ){
     data class Output(
+        val key: String,
         val bookingId: String,
         val bookingType: String,
         val trackId: String,
+        val bookingTime: String,
         val referenceId: String,
         val cinemacode: String,
         val cinemaname: String,

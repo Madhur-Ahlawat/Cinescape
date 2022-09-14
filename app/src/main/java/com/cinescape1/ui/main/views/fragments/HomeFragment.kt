@@ -24,7 +24,6 @@ import com.cinescape1.ui.main.views.adapters.home.HomeParentAdapter
 import com.cinescape1.utils.*
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationView
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject

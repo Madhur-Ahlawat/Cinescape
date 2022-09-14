@@ -132,7 +132,6 @@
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="-20dp"
             android:fillViewport="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -149,6 +148,7 @@
                     android:layout_height="0dp"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
+                    android:layout_marginTop="-20dp"
                     android:src="@drawable/ic_subtraction_3_frame"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -156,9 +156,8 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ContentDescription" />
 
-
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/viewPager_slider_layout"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewFinalTicket"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="29dp"
@@ -170,13 +169,15 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="SpeakableTextPresentCheck" />
 
-                <com.google.android.material.tabs.TabLayout
+                <ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
                     android:id="@+id/layoutDots"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
                     android:layout_marginBottom="@dimen/margin15"
-                    android:background="@color/transparent"
-                    android:orientation="horizontal"
+                    android:layout_height="@dimen/margin12"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:padding="6dp"
+                    app:spi_dotSelectedColor="@color/tabIndicater"                    android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
