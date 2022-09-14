@@ -283,7 +283,7 @@
                 tools:ignore="TextContrastCheck" />
 
             <TextView
-                android:id="@+id/payMode"
+                android:id="@+id/textView136"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_text_bold"
@@ -311,7 +311,7 @@
                 tools:ignore="TextContrastCheck" />
 
             <TextView
-                android:id="@+id/total_ticket_price"
+                android:id="@+id/textView137"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_text_bold"

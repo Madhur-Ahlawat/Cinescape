@@ -48,6 +48,8 @@
             android:fontFamily="@font/sf_pro_text_bold"
             android:textColor="@color/black"
             android:textSize="@dimen/size15"
+            android:maxLines="2"
+            android:ellipsize="end"
             app:layout_constraintEnd_toEndOf="@+id/view_booking_id"
             app:layout_constraintHorizontal_bias="0.487"
             app:layout_constraintStart_toStartOf="@+id/view_booking_id"
@@ -55,6 +57,7 @@
             tools:text="WN5H3HD" />
 
         <View
+            android:visibility="gone"
             android:id="@+id/view_food_picku_no"
             android:layout_width="0dp"
             android:layout_height="65dp"
@@ -75,13 +78,14 @@
             android:textColor="@color/text_alert_color"
             android:textSize="@dimen/size14"
             android:textStyle="normal"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/view_food_picku_no"
             app:layout_constraintStart_toStartOf="@+id/view_food_picku_no"
             app:layout_constraintTop_toTopOf="@+id/view_food_picku_no"
             tools:ignore="TextContrastCheck" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/text_how_picup"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

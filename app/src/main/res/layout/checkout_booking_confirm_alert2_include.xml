@@ -47,6 +47,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/sf_pro_text_bold"
             tools:text="WN5H3HD"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:textColor="@color/black"
             android:textSize="@dimen/size16"
             android:textStyle="bold"
