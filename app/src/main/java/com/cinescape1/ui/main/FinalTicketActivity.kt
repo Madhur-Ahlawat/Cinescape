@@ -258,19 +258,26 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
                 layouts.add(R.layout.checkout_booking_confirm_alert_include)
             }
         } else {
-            layouts.add(R.layout.checkout_booking_confirm_alert3_include)
             layouts.add(R.layout.checkout_booking_confirm_alert2_include)
+            layouts.add(R.layout.checkout_booking_confirm_alert3_include)
         }
 
         val myViewPagerAdapter = SliderFoodConfirmViewPgweAdapter(layouts, this)
         viewPager.adapter = myViewPagerAdapter
 
+        if (output.bookingType == "BOOKING") {
+            if (output.concessionFoods.isNotEmpty()) {
+                binding?.layoutDots?.setupWithViewPager(binding?.viewPagerSliderLayout, true)
+            } else {
+
+            }
+        } else {
+
+        }
 
         if (output.bookingType == "BOOKING") {
                  binding?.layoutDots?.show()
-                if (output.concessionFoods.isNotEmpty()) {
-                    binding?.layoutDots?.setupWithViewPager(binding?.viewPagerSliderLayout, true)
-                }
+
 
                 println("checkCase---->1")
                 text_bookin_id_no.text = output.kioskId
