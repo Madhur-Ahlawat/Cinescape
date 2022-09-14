@@ -325,5 +325,7 @@
     <string name="seatLimit">لا يمكنك تحديد أكثر من </string>
     <string name="your_booking_was">كان حجزك </string>
     <string name="successful">ناجح</string>
+    <string name="subtitle">العنوان الفرعي</string>
+    <string name="grand_total">المبلغ الإجمالي</string>
 
 </resources>

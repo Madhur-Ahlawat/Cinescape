@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
-import androidx.core.util.forEach
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,7 +23,6 @@ import com.cinescape1.utils.Constant
 import com.cinescape1.utils.Constant.Companion.SEE_ALL_TYPE
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
-import com.github.islamkhsh.CardSliderAdapter
 import com.github.islamkhsh.viewpager2.ViewPager2
 import kotlinx.android.synthetic.main.home_parrent_list.view.*
 import java.util.*
@@ -185,7 +183,7 @@ class HomeParentAdapter(
             "homeOnes" -> {
                 val gridLayout = GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
                 holder.homeList?.layoutManager = LinearLayoutManager(mContext)
-                adapter = HomeChildAdapter(mContext, movieDataList, 1)
+                adapter = HomeChildAdapter(mContext, movieDataList, 1, true)
                 holder.homeList?.layoutManager = gridLayout
                 holder.homeList?.adapter = adapter
             }
@@ -223,6 +221,35 @@ class HomeParentAdapter(
                 holder.homeList?.layoutManager = gridLayout
                 holder.homeList?.adapter = adapter
             }
+            "comingSoon" -> {
+                if (!obj.movieData.isNullOrEmpty()) {
+                    holder.itemView.show()
+                    holder.home_title.show()
+                    holder.homeList.show()
+                    holder.viewpager.hide()
+                    holder.viewpagerBack.hide()
+                    holder.itemView.show()
+                    holder.txtSeeAll.show()
+
+                    val gridLayout =
+                        GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
+                    holder.homeList?.layoutManager = LinearLayoutManager(mContext)
+                    adapter = HomeChildAdapter(mContext, obj.movieData, 1,true)
+                    holder.homeList?.layoutManager = gridLayout
+                    holder.homeList?.adapter = adapter
+                    holder.txtSeeAll.setOnClickListener {
+                        if (obj.name == mContext.getString(R.string.commingSoon)) {
+                            SEE_ALL_TYPE = 1
+                            listener.onSeeAllClick(1)
+                        }else{
+                            listener.onSeeAllClick(0)
+                            SEE_ALL_TYPE = 0
+                        }
+                    }
+                } else {
+                    holder.itemView.hide()
+                }
+            }
             else -> {
                 if (!obj.movieData.isNullOrEmpty()) {
                     holder.itemView.show()
@@ -236,7 +263,7 @@ class HomeParentAdapter(
                     val gridLayout =
                         GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
                     holder.homeList?.layoutManager = LinearLayoutManager(mContext)
-                    adapter = HomeChildAdapter(mContext, obj.movieData, 1)
+                    adapter = HomeChildAdapter(mContext, obj.movieData, 1, false)
                     holder.homeList?.layoutManager = gridLayout
                     holder.homeList?.adapter = adapter
                     holder.txtSeeAll.setOnClickListener {

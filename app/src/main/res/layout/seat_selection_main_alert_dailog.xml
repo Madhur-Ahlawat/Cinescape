@@ -116,7 +116,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/typeView"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="@+id/view_gift"
                     app:layout_constraintStart_toStartOf="@+id/view_gift"

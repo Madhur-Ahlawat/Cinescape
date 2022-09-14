@@ -22,6 +22,15 @@ class ShowTimesViewModel  @Inject constructor(private val repositories: Reposito
         }
     }
 
+    fun movieDetails(movieId: String) = liveData(Dispatchers.IO) {
+        emit(Result.loading(data = null))
+        try {
+            emit(Result.success(data = repositories.movieDetails(movieId)))
+        } catch (exception: Exception) {
+            emit(Result.error(exception.message ?: "Error Occurred!", data = null))
+        }
+    }
+
     fun getCinemaData(context: Activity, request: CinemaSessionRequest) = liveData(Dispatchers.IO) {
         emit(Result.loading(data = null))
         try {

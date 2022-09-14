@@ -13,10 +13,7 @@ import android.os.Handler
 import android.os.Looper
 import android.text.SpannableString
 import android.text.TextUtils
-import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
-import android.text.style.UnderlineSpan
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.*
@@ -40,6 +37,7 @@ import com.cinescape1.data.models.requestModel.CinemaSessionRequest
 import com.cinescape1.data.models.requestModel.SeatLayoutRequest
 import com.cinescape1.data.models.responseModel.CSessionResponse
 import com.cinescape1.data.models.responseModel.CinemaSessionResponse
+import com.cinescape1.data.models.responseModel.GetMovieResponse
 import com.cinescape1.data.models.responseModel.SeatLayoutResponse
 import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.databinding.ActivityShowTimesBinding
@@ -151,7 +149,9 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 binding?.centerView?.hide()
                 binding?.imageView48?.hide()
                 include.show()
-                getShowTimes()
+//                getShowTimes()
+
+                movieDetails(movieID)
 
             }
             "movie" -> {
@@ -238,15 +238,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         }
 
 
-        binding?.view67?.setOnClickListener {
-            val shareIntent = Intent(Intent.ACTION_SEND)
-            shareIntent.type = "text/plain"
-            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Insert Subject here")
-            val appUrl = "https://play.google.com/store/apps/details?id=my.example.javatpoint"
-            shareIntent.putExtra(Intent.EXTRA_TEXT, appUrl)
-            startActivity(Intent.createChooser(shareIntent, "Share via"))
-        }
-
         binding?.view68?.setOnClickListener {
             Toast.makeText(
                 applicationContext,
@@ -312,6 +303,158 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
     private fun getShowTimes() {
         getShowTimes(CinemaSessionRequest(dateTime, movieID))
+    }
+
+    private fun movieDetails(movieId: String) {
+        showTimeViewModel.movieDetails(movieId)
+            .observe(this) {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            loader?.dismiss()
+                            resource.data?.let { it ->
+                                if (it.data?.code == Constant.SUCCESS_CODE) {
+                                    try {
+                                        binding?.LayoutTime?.show()
+                                        movieDetailsData(it.data.output.movie)
+                                       setTitleAdapter()
+                                    } catch (e: Exception) {
+                                        println("updateUiCinemaSession ---> ${e.message}")
+                                    }
+                                } else {
+                                    loader?.dismiss()
+                                    val dialog = OptionDialog(this,
+                                        R.mipmap.ic_launcher,
+                                        R.string.app_name,
+                                        it.data?.msg.toString(),
+                                        positiveBtnText = R.string.ok,
+                                        negativeBtnText = R.string.no,
+                                        positiveClick = {
+                                            finish()
+                                        },
+                                        negativeClick = {
+                                            finish()
+                                        })
+                                    dialog.show()
+                                }
+
+                            }
+                        }
+                        Status.ERROR -> {
+                            loader?.dismiss()
+                            val dialog = OptionDialog(this,
+                                R.mipmap.ic_launcher,
+                                R.string.app_name,
+                                it.message.toString(),
+                                positiveBtnText = R.string.ok,
+                                negativeBtnText = R.string.no,
+                                positiveClick = {
+                                },
+                                negativeClick = {
+                                })
+                            dialog.show()
+                        }
+                        Status.LOADING -> {
+                            loader = LoaderDialog(R.string.pleasewait)
+                            loader?.show(supportFragmentManager, null)
+                        }
+                    }
+                }
+            }
+    }
+
+    private fun movieDetailsData(output: GetMovieResponse.Output.Movie) {
+        println("""updateUiCinemaSession ----> $output""")
+        binding?.textFilmHouseName?.text = output.title
+        binding?.textFilmHouseName?.isSelected =true
+        binding?.textView56?.text = output.rating
+
+
+        binding?.view67?.setOnClickListener {
+            val shareIntent = Intent(Intent.ACTION_SEND)
+            shareIntent.type = "text/plain"
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Insert Subject here")
+            val appUrl = "${output.shareUrl}"
+            shareIntent.putExtra(Intent.EXTRA_TEXT, appUrl)
+            startActivity(Intent.createChooser(shareIntent, "Share via"))
+        }
+        when (output.rating) {
+            "PG" -> {
+                binding?.textView56?.setBackgroundResource(R.color.grey)
+
+            }
+            "G" -> {
+                binding?.textView56?.setBackgroundResource(R.color.green)
+
+            }
+            "18+" -> {
+                binding?.textView56?.setBackgroundResource(R.color.red)
+
+            }
+            "13+" -> {
+                binding?.textView56?.setBackgroundResource(R.color.yellow)
+
+            }
+            "15+" -> {
+                binding?.textView56?.setBackgroundResource(R.color.yellow)
+
+            }
+            "E" -> {
+                binding?.textView56?.setBackgroundResource(R.color.wowOrange)
+
+            }
+            "T" -> {
+                binding?.textView56?.setBackgroundResource(R.color.tabIndicater)
+
+            }
+            else -> {
+                binding?.textView56?.setBackgroundResource(R.color.blue)
+            }
+        }
+        if (output.rating == "") {
+            binding?.ratingUi?.hide()
+        } else {
+            binding?.ratingUi?.show()
+        }
+
+        binding?.textMovieType?.text =
+            output.language + " | " + output.genre + " | " + output.runTime +" "+ getString(R.string.min)
+
+        if (output.trailerUrl.isNullOrEmpty()) {
+            binding?.imageView26?.hide()
+        } else {
+            binding?.imageView26?.show()
+            binding?.imageView26?.setOnClickListener {
+                val intent = Intent(this, PlayerActivity::class.java)
+                intent.putExtra("trailerUrl", output.trailerUrl)
+                startActivity(intent)
+            }
+        }
+        Glide
+            .with(this)
+            .load(output.mobimgbig)
+            .placeholder(R.drawable.movie_details)
+            .into(binding?.imageShow!!)
+
+        textView6.hide()
+        text_genres.text = output.genre
+        textView10.text = output.language
+        textView123.text = output.subTitle
+        text_sysnopsis_detail.text = output.synopsis
+        text_directoe_name.text = output.director.firstName + " " + output.director.lastName
+//        recyclerview_show_times_cast.layoutManager =
+//            LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+//        val adapter = AdpaterShowTimesCast(this, output.cast)
+//        recyclerview_show_times_cast.adapter = adapter
+
+        if(output.cast.isEmpty()){
+            text_cast.hide()
+            recyclerview_show_times_cast.hide()
+        }else{
+            text_cast.show()
+            recyclerview_show_times_cast.show()
+        }
+
     }
 
     private fun getShowTimes(json: CinemaSessionRequest) {
@@ -604,8 +747,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 startActivity(intent)
             }
         }
-
-
         Glide
             .with(this)
             .load(output.movie.mobimgbig)
@@ -619,6 +760,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     private fun setShowTimesCastAdapter(movie: CinemaSessionResponse.Movie) {
         text_genres.text = movie.genre
         textView10.text = movie.language
+        textView123.text = movie.subTitle
         text_sysnopsis_detail.text = movie.synopsis
         text_directoe_name.text = movie.director.firstName + " " + movie.director.lastName
         recyclerview_show_times_cast.layoutManager =
@@ -641,7 +783,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     @SuppressLint("NotifyDataSetChanged")
     //Cinema All Cinema and Show
     private fun setTitleAdapter() {
-
         binding?.viewpager?.adapter =
             CinemaPageAdapter(this, daySessionResponse,binding?.viewpager)
         binding?.viewpager?.offscreenPageLimit = 3
@@ -852,39 +993,40 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             viewGiftCard1.visibility = View.GONE
             viewGiftVoucher.visibility = View.GONE
 
-            bankOffers.setOnClickListener {
-                val bDialogView = LayoutInflater.from(this)
-                    .inflate(R.layout.seat_selection_bank_offer_alert, null)
-                val bBuilder = AlertDialog.Builder(this, R.style.MyDialogTransparent)
-                    .setView(bDialogView)
-                val bAlertDialog = bBuilder.show()
-                bAlertDialog.show()
-                bAlertDialog.window?.setBackgroundDrawableResource(R.color.transparent)
+        }
 
-                val cancelGoBack1 = TextUtils.concat(
-                    Constant().getSpanableText(
-                        ForegroundColorSpan(ContextCompat.getColor(this, R.color.white)),
-                        ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)!!,
-                        0,
-                        7,
-                        1.3f,
-                        SpannableString(this.getString(R.string.cancels))
-                    ),
+        bankOffers.setOnClickListener {
+            val bDialogView = LayoutInflater.from(this)
+                .inflate(R.layout.seat_selection_bank_offer_alert, null)
+            val bBuilder = AlertDialog.Builder(this, R.style.MyDialogTransparent)
+                .setView(bDialogView)
+            val bAlertDialog = bBuilder.show()
+            bAlertDialog.show()
+            bAlertDialog.window?.setBackgroundDrawableResource(R.color.transparent)
 
-                    Constant().getSpanableText(
-                        ForegroundColorSpan(ContextCompat.getColor(this, R.color.text_color)),
-                        ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)!!,
-                        0,
-                        11,
-                        1.1f,
-                        SpannableString(this.getString(R.string.and_go_back))
-                    )
+            val cancelGoBack1 = TextUtils.concat(
+                Constant().getSpanableText(
+                    ForegroundColorSpan(ContextCompat.getColor(this, R.color.white)),
+                    ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)!!,
+                    0,
+                    7,
+                    1.3f,
+                    SpannableString(this.getString(R.string.cancels))
+                ),
+
+                Constant().getSpanableText(
+                    ForegroundColorSpan(ContextCompat.getColor(this, R.color.text_color)),
+                    ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)!!,
+                    0,
+                    11,
+                    1.1f,
+                    SpannableString(this.getString(R.string.and_go_back))
                 )
-                bAlertDialog.textView1_cancel_back.text = cancelGoBack1
+            )
+            bAlertDialog.textView1_cancel_back.text = cancelGoBack1
 
-                bAlertDialog.textView1_cancel_back.setOnClickListener {
-                    bAlertDialog.dismiss()
-                }
+            bAlertDialog.textView1_cancel_back.setOnClickListener {
+                bAlertDialog.dismiss()
             }
         }
 
@@ -931,44 +1073,10 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             val tvSeatSelectiopn: TextView = v.findViewById(R.id.tv_seat_selectiopn)
             val tv_seat_avialable: TextView = v.findViewById(R.id.tv_seat_avialable)
             val tv_kd_price: TextView = v.findViewById(R.id.tv_kd_price)
-            when (item.seatType) {
-                "Family" -> {
-                    Glide.with(this)
-                        .load(item.icon)
-                        .placeholder(R.drawable.family)
-                        .into(imageSeatSelection)
-                }
-                "Bachelor" -> {
-                    Glide.with(this)
-                        .load(item.icon)
-                        .placeholder(R.drawable.bachlor)
-                        .into(imageSeatSelection)
-                }
-                "Standard" -> {
-                    Glide.with(this)
-                        .load(item.icon)
-                        .placeholder(R.drawable.stander)
-                        .into(imageSeatSelection)
-                }
-                "First Row" -> {
-                    Glide.with(this)
-                        .load(item.icon)
-                        .placeholder(R.drawable.first_row)
-                        .into(imageSeatSelection)
-                }
-                "Premium" -> {
-                    Glide.with(this)
-                        .load(item.icon)
-                        .placeholder(R.drawable.premium)
-                        .into(imageSeatSelection)
-                }
-                else -> {
-                    Glide.with(this)
-                        .load(item.icon)
-                        .placeholder(R.drawable.ic_seat_icon_1_select)
-                        .into(imageSeatSelection)
-                }
-            }
+            Glide.with(this)
+                .load(item.icon)
+                .into(imageSeatSelection)
+
             viewListForDates.add(v)
             if (item.seatTypes.isNullOrEmpty()) {
                 tv_seat_avialable.show()
@@ -986,7 +1094,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 tv_seat_avialable.hide()
                 tv_kd_price.hide()
             }
-            println("LanguageCheck--->${languageCheck}")
 
             if (languageCheck == "en") {
                 println("LanguageCheck--->${languageCheck}")
@@ -1002,7 +1109,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 areaCode = item.areacode
                 ttType = item.ttypeCode
                 seatCat = item.seatType
-//                println("seatTypeCheck--->${ttType+"areaCode-->${areaCode}"}")
                 totalPriceResponse = item.priceInt
                 totalPrice.text = getString(R.string.price_kd) + " 0.000"
                 num = 0
@@ -1011,18 +1117,15 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 var tvSeatSelection1: TextView?
                 var tvSeatAvailable11: TextView?
                 var tvKdPrice11: TextView?
-                println("seatTypeArrayOne--->${item.seatTypes.size}")
                 if (item.seatTypes.isNotEmpty()) {
                     categoryClick = false
                     btnDecrease.isEnabled = false
                     btnIncrease.isEnabled = false
                     btnDecrease.isClickable = false
                     btnIncrease.isClickable = false
-
                     ClickUi.hide()
                 } else {
                     categoryClick = true
-
                     ClickUi.show()
                     btnDecrease.isEnabled = true
                     btnIncrease.isEnabled = true
@@ -1041,8 +1144,10 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                     tvSeatSelection1.setTextColor(getColor(R.color.hint_color))
                     tvSeatAvailable11.setTextColor(getColor(R.color.hint_color))
                     tvKdPrice11.setTextColor(getColor(R.color.hint_color))
-//
                 }
+                Glide.with(this)
+                    .load(item.iconActive)
+                    .into(imageSeatSelection)
                 imageSeatSelection.setColorFilter(getColor(R.color.text_alert_color_red))
                 tvSeatSelectiopn.setTextColor(getColor(R.color.text_alert_color_red))
                 tv_seat_avialable.setTextColor(getColor(R.color.text_alert_color_red))
@@ -1055,128 +1160,106 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 val view2s_line = mDialogView.findViewById<View>(R.id.view2s_line)
                 selectSeatType.removeAllViews()
                 if (item.seatTypes.isNotEmpty()) {
+
                     val viewListForDates = ArrayList<View>()
                     selectSeatType.show()
                     tv_select_seat_type.show()
                     view2s_line.show()
                     for (data in item.seatTypes) {
-                        val v: View = LayoutInflater.from(this)
-                            .inflate(R.layout.seat_selection_type_item, selectSeatType, false)
-                        viewListForDates.add(v)
-                        val imgSeatSelectionType: ImageView =
-                            v.findViewById(R.id.img_seat_selection_type)
-                        val imgMetroInfo: ImageView = v.findViewById(R.id.img_metro_info)
-                        val textseatType: TextView = v.findViewById(R.id.textseat_type)
-                        val tvSeatAvialable: TextView = v.findViewById(R.id.tv_seat_avialable)
-                        val tvKdPrice: TextView = v.findViewById(R.id.tv_kd_price)
-
-
-                        when (data.seatType) {
-                            "Family" -> {
-                                Glide.with(this)
-                                    .load(item.icon)
-                                    .placeholder(R.drawable.family)
-                                    .into(imgSeatSelectionType)
-                            }
-                            "Bachelor" -> {
-                                Glide.with(this)
-                                    .load(item.icon)
-                                    .placeholder(R.drawable.bachlor)
-                                    .into(imgSeatSelectionType)
-                            }
-                            "Standard" -> {
-                                Glide.with(this)
-                                    .load(item.icon)
-                                    .placeholder(R.drawable.stander)
-                                    .into(imgSeatSelectionType)
-                            }
-                            "First Row" -> {
-                                Glide.with(this)
-                                    .load(item.icon)
-                                    .placeholder(R.drawable.first_row)
-                                    .into(imgSeatSelectionType)
-                            }
-                            "Premium" -> {
-                                Glide.with(this)
-                                    .load(item.icon)
-                                    .placeholder(R.drawable.premium)
-                                    .into(imgSeatSelectionType)
-                            }
-                            else -> {
-                                Glide.with(this)
-                                    .load(item.icon)
-                                    .placeholder(R.drawable.ic_seat_icon_1_select)
-                                    .into(imgSeatSelectionType)
-                            }
-                        }
-
-                        if (languageCheck == "en") {
-                            textseatType.text = data.seatType
-
-                        } else {
-                            textseatType.text = data.seatTypeStr
-
-                        }
-                        imgMetroInfo.setImageResource(R.drawable.ic_icon_metro_info)
-//                        textseatType.text = data.seatType
-                        tvSeatAvialable.text = data.count
-//                        tvSeatAvialable.text = data.count.toString() + getString(R.string.available)
-                        tvKdPrice.text = data.price.toString()
-                        selectSeatType.addView(v)
-
-                        v.setOnClickListener {
-                            totalPrice.text = getString(R.string.price_kd) + " 0.000"
-                            num = 0
-                            txtNumber.text = "0"
-                            var imageSeatSelection1: ImageView?
-                            var tvSeatSelectiopn1: TextView?
-                            var tvSeatAvialable1: TextView?
-                            var tvKdPrice1: TextView?
-
-                            println("seatTypeArrayOne1--->${item.seatTypes.size}")
-                            if (item.seatTypes.isNotEmpty()) {
-
-                                categoryClick = true
-                                ClickUi.show()
-                                btnDecrease.isEnabled = true
-                                btnIncrease.isEnabled = true
-                                btnDecrease.isClickable = true
-                                btnIncrease.isClickable = true
+                        try {
+                            selectSeatType.show()
+                            val v: View = LayoutInflater.from(this)
+                                .inflate(R.layout.seat_selection_type_item, selectSeatType, false)
+                            viewListForDates.add(v)
+                            val imgSeatSelectionType: ImageView =
+                                v.findViewById(R.id.img_seat_selection_type)
+                            val imgMetroInfo: ImageView = v.findViewById(R.id.img_metro_info)
+                            val textseatType: TextView = v.findViewById(R.id.textseat_type)
+                            val tvSeatAvialable: TextView = v.findViewById(R.id.tv_seat_avialable)
+                            val tvKdPrice: TextView = v.findViewById(R.id.tv_kd_price)
+                            println("dayaCheck--->${selectSeatType.visibility}")
+                            if (languageCheck == "en") {
+                                textseatType.text = data.seatType
                             } else {
-                                categoryClick = false
-                                ClickUi.hide()
-                                btnDecrease.isEnabled = false
-                                btnIncrease.isEnabled = false
-                                btnDecrease.isClickable = false
-                                btnIncrease.isClickable = false
+                                textseatType.text = data.seatTypeStr
+                            }
+                            selectSeatType.show()
+
+                            Glide.with(this)
+                                .load(data.icon)
+                                .into(imgSeatSelectionType)
+
+                            imgMetroInfo.setImageResource(R.drawable.ic_icon_metro_info)
+                            tvKdPrice.text = data.price.toString()
+                            tvSeatAvialable.text = data.count
+                            selectSeatType.addView(v)
+
+                            v.setOnClickListener {
+                                totalPrice.text = getString(R.string.price_kd) + " 0.000"
+                                num = 0
+                                txtNumber.text = "0"
+                                var imageSeatSelection1: ImageView?
+                                var tvSeatSelectiopn1: TextView?
+                                var tvSeatAvialable1: TextView?
+                                var tvKdPrice1: TextView?
+
+                                println("seatTypeArrayOne1--->${item.seatTypes.size}")
+                                if (item.seatTypes.isNotEmpty()) {
+
+                                    categoryClick = true
+                                    ClickUi.show()
+                                    btnDecrease.isEnabled = true
+                                    btnIncrease.isEnabled = true
+                                    btnDecrease.isClickable = true
+                                    btnIncrease.isClickable = true
+                                } else {
+                                    categoryClick = false
+                                    ClickUi.hide()
+                                    btnDecrease.isEnabled = false
+                                    btnIncrease.isEnabled = false
+                                    btnDecrease.isClickable = false
+                                    btnIncrease.isClickable = false
+                                }
+
+                                for (v in viewListForDates) {
+                                    imageSeatSelection1 =
+                                        v.findViewById(R.id.img_seat_selection_type) as ImageView
+                                    tvSeatSelectiopn1 =
+                                        v.findViewById(R.id.textseat_type) as TextView
+                                    tvSeatAvialable1 =
+                                        v.findViewById(R.id.tv_seat_avialable) as TextView
+                                    tvKdPrice1 = v.findViewById(R.id.tv_kd_price) as TextView
+                                    imageSeatSelection1!!.setColorFilter(getColor(R.color.hint_color))
+                                    tvSeatSelectiopn1.setTextColor(getColor(R.color.hint_color))
+                                    tvSeatAvialable1.setTextColor(getColor(R.color.hint_color))
+                                    tvKdPrice1.setTextColor(getColor(R.color.hint_color))
+                                }
+
+                                Glide.with(this)
+                                    .load(data.iconActive)
+                                    .into(imgSeatSelectionType)
+                                println("imageActive--->${data.iconActive}")
+                                imgSeatSelectionType.setColorFilter(getColor(R.color.text_alert_color_red))
+                                textseatType.setTextColor(getColor(R.color.text_alert_color_red))
+                                tvSeatAvialable.setTextColor(getColor(R.color.text_alert_color_red))
+                                tvKdPrice.setTextColor(getColor(R.color.text_alert_color_red))
+                                areaCode = data.areacode
+                                ttType = data.ttypeCode
+                                seatType = data.seatType
+                                totalPriceResponse = data.priceInt
+                                println("seatTypeCheck--->${ttType + "areaCode-->${areaCode}"}")
+
                             }
 
-                            for (v in viewListForDates) {
-                                imageSeatSelection1 =
-                                    v.findViewById(R.id.img_seat_selection_type) as ImageView
-                                tvSeatSelectiopn1 =
-                                    v.findViewById(R.id.textseat_type) as TextView
-                                tvSeatAvialable1 =
-                                    v.findViewById(R.id.tv_seat_avialable) as TextView
-                                tvKdPrice1 = v.findViewById(R.id.tv_kd_price) as TextView
-                                imageSeatSelection1!!.setColorFilter(getColor(R.color.hint_color))
-                                tvSeatSelectiopn1.setTextColor(getColor(R.color.hint_color))
-                                tvSeatAvialable1.setTextColor(getColor(R.color.hint_color))
-                                tvKdPrice1.setTextColor(getColor(R.color.hint_color))
-                            }
-                            imgSeatSelectionType.setColorFilter(getColor(R.color.text_alert_color_red))
-                            textseatType.setTextColor(getColor(R.color.text_alert_color_red))
-                            tvSeatAvialable.setTextColor(getColor(R.color.text_alert_color_red))
-                            tvKdPrice.setTextColor(getColor(R.color.text_alert_color_red))
-                            areaCode = data.areacode
-                            ttType = data.ttypeCode
-                            seatType = data.seatType
-                            totalPriceResponse = data.priceInt
-                            println("seatTypeCheck--->${ttType + "areaCode-->${areaCode}"}")
-
+                        }catch (e:Exception){
+                            println("manageException--->${e.message}")
                         }
+
+
                     }
                 } else {
+                    println("manageException1--->$")
+
                     selectSeatType.invisible()
                     tv_select_seat_type.hide()
                     view2s_line.hide()
@@ -1315,23 +1398,23 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             }
         }
 
-        try {
-            val spanString = SpannableString(getString(R.string.termsCondition))
-
-            val termsAndCondition: ClickableSpan = object : ClickableSpan() {
-                override fun onClick(textView: View) {
-                }
-            }
-
-            spanString.setSpan(termsAndCondition, 37, 55, 0)
-            spanString.setSpan(ForegroundColorSpan(getColor(R.color.silver)), 37, 55, 0)
-            spanString.setSpan(UnderlineSpan(), 37, 55, 0)
-            terms.movementMethod = LinkMovementMethod.getInstance()
-            terms.setText(spanString, TextView.BufferType.SPANNABLE)
-            terms?.isSelected = true
-        } catch (e: Exception) {
-            println("ErrorData--->${e.message}")
-        }
+//        try {
+//            val spanString = SpannableString(getString(R.string.termsCondition))
+//
+//            val termsAndCondition: ClickableSpan = object : ClickableSpan() {
+//                override fun onClick(textView: View) {
+//                }
+//            }
+//
+//            spanString.setSpan(termsAndCondition, 37, 55, 0)
+//            spanString.setSpan(ForegroundColorSpan(getColor(R.color.silver)), 37, 55, 0)
+//            spanString.setSpan(UnderlineSpan(), 37, 55, 0)
+//            terms.movementMethod = LinkMovementMethod.getInstance()
+//            terms.setText(spanString, TextView.BufferType.SPANNABLE)
+//            terms?.isSelected = true
+//        } catch (e: Exception) {
+//            println("ErrorData--->${e.message}")
+//        }
 
         loader?.dismiss()
     }

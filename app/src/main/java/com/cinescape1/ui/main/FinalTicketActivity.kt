@@ -17,6 +17,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -48,17 +49,20 @@ import com.google.android.flexbox.JustifyContent
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.cancel_dialog.view.*
 import kotlinx.android.synthetic.main.checkout_booking_confirm_alert2_include.*
+import kotlinx.android.synthetic.main.checkout_booking_confirm_alert2_include.imageView31
+import kotlinx.android.synthetic.main.checkout_booking_confirm_alert2_include.imageView32
+import kotlinx.android.synthetic.main.checkout_booking_confirm_alert2_include.recyclerview_food_details
+import kotlinx.android.synthetic.main.checkout_booking_confirm_alert3_include.*
 import kotlinx.android.synthetic.main.checkout_booking_confirm_alert_include.*
 import javax.inject.Inject
 
 @ActivityScoped
 class FinalTicketActivity : DaggerAppCompatActivity() {
-    private var loader: LoaderDialog? = null
 
+    private var loader: LoaderDialog? = null
     @Inject
     lateinit var viewmodelFactory: ViewModelProvider.Factory
     private var binding: ActivityFinalTicketBinding? = null
-
     @Inject
     lateinit var preferences: AppPreferences
     private val finalTicketViewModel: FinalTicketViewModel by viewModels { viewmodelFactory }
@@ -151,6 +155,19 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                     try {
                                         binding?.uiFinalTaket?.show()
+
+//                                        binding?.cardUi?.show()
+                                        binding?.successConstraintLayout?.show()
+                                        binding?.uiFinalTaket?.show()
+                                        val runnable = Runnable {
+                                            binding?.successConstraintLayout?.hide()
+                                            binding?.imageQrCode?.show()
+                                            binding?.cardUi?.show()
+                                        }
+                                        val handler = Handler(Looper.getMainLooper())
+                                        handler.postDelayed(runnable, 3000)
+
+
                                         retrieveBookedResponse(it.data.output)
                                     } catch (e: Exception) {
                                         println("updateUiCinemaSession ---> ${e.message}")
@@ -236,10 +253,12 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
             if (output.concessionFoods.isNotEmpty()) {
                 layouts.add(R.layout.checkout_booking_confirm_alert_include)
                 layouts.add(R.layout.checkout_booking_confirm_alert2_include)
+                layouts.add(R.layout.checkout_booking_confirm_alert3_include)
             } else {
                 layouts.add(R.layout.checkout_booking_confirm_alert_include)
             }
         } else {
+            layouts.add(R.layout.checkout_booking_confirm_alert3_include)
             layouts.add(R.layout.checkout_booking_confirm_alert2_include)
         }
 
@@ -248,11 +267,12 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
 
 
         if (output.bookingType == "BOOKING") {
-            try {
-                binding?.layoutDots?.show()
+                 binding?.layoutDots?.show()
                 if (output.concessionFoods.isNotEmpty()) {
                     binding?.layoutDots?.setupWithViewPager(binding?.viewPagerSliderLayout, true)
                 }
+
+                println("checkCase---->1")
                 text_bookin_id_no.text = output.kioskId
                 text_name_movie.text = output.moviename
                 text_location_names.text = output.cinemaname
@@ -365,12 +385,26 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
                         )
                     )
                 }
+
+            //Include 3
+            try {
+                try{
+                    val bookingId= findViewById<TextView>(R.id.textView135)
+                    bookingId.text =output.bookingId
+                }catch (e:Exception){
+                    println("checkCase3--->${e.message}")
+                }
+
             } catch (e: Exception) {
                 println("exception---->${e.printStackTrace()}")
             }
         } else {
+
             try {
 //FoodCase
+
+                println("checkCase---->2")
+
                 if (!output.cancelReserve) {
                     imageView31.hide()
 //                    imageView31.show()
@@ -398,13 +432,14 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
 
         // Set Food
         if (output.concessionFoods.isNotEmpty()) {
+            println("checkCase---->3")
+
             if (output.bookingType == "BOOKING") {
                 binding?.layoutDots?.show()
             } else {
                 binding?.layoutDots?.hide()
             }
             textView51.text = getString(R.string.price_kd) + output.ticketPrice
-            text_bookin_id_no1.text = output.kioskId
             text_wallet1.text = output.payDone
 
             if(!output.foodPickup){
@@ -644,7 +679,17 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
                             resource.data?.let { it ->
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                     try {
+                                        binding?.imageQrCode?.show()
+                                        binding?.cardUi?.show()
                                         binding?.uiFinalTaket?.show()
+//                                        val runnable = Runnable {
+//                                            binding?.successConstraintLayout?.hide()
+//                                            binding?.imageQrCode?.show()
+//                                            binding?.cardUi?.show()
+//                                        }
+//                                        val handler = Handler(Looper.getMainLooper())
+//                                        handler.postDelayed(runnable, 3000)
+
                                         retrieveBookedResponse(it.data.output)
                                     } catch (e: Exception) {
                                         println("updateUiCinemaSession ---> ${e.message}")
@@ -696,6 +741,7 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
     }
+
 }
 
 

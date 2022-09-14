@@ -30,6 +30,10 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
         return apiRequest { api.getMsessionsNew(jsonRequest) }
     }
 
+    suspend fun movieDetails(movieId: String): Result<GetMovieResponse> {
+        return apiRequest { api.movieDetails(movieId) }
+    }
+
     suspend fun getCinemaData(jsonRequest: CinemaSessionRequest): Result<CSessionResponse> {
         return apiRequest { api.getCinemaData(jsonRequest) }
     }

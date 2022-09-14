@@ -95,6 +95,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
     private var type = ""
     private var from = ""
     private var paidPrice = ""
+    private var totalPrice = ""
     private var cardinal = Cardinal.getInstance()
 
     private var secondLeft: Long = 0
@@ -222,7 +223,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
                         val proceedAlertDialog = mBuilder.show()
                         proceedAlertDialog.show()
 //                        " "+getString(R.string.price_kd)+" "+
-                        proceedAlertDialog?.kd_to_pay?.text = " " + paidPrice
+                        proceedAlertDialog?.kd_to_pay?.text = " $totalPrice"
 
                         proceedAlertDialog.cardNumberTextInputEditText.addTextChangedListener(object :
                             TextWatcher {
@@ -1184,6 +1185,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
             setCheckoutOnlyFoodItemAdapter(output.concessionFoods)
             ticketPage.hide()
             priceView.hide()
+            totalPrice=output.totalTicketPrice
 
             binding?.priceUi?.hide()
             binding?.textTimeLeft?.hide()
@@ -1221,6 +1223,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
 
 
             text_kds.text = output.ticketPrice
+            totalPrice=output.totalTicketPrice
             text_kd_total.text = output.totalTicketPrice
             paidPrice = output.totalPrice
             binding?.textTimeToLeft?.text = output.totalPrice

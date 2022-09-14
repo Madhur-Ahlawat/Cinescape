@@ -203,7 +203,7 @@
             android:id="@+id/view102"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="#0D000000"
+            android:background="@drawable/gradient_ticket"
             app:layout_constraintBottom_toBottomOf="@+id/image_head"
             app:layout_constraintEnd_toEndOf="@+id/image_head"
             app:layout_constraintStart_toStartOf="@+id/image_head"
@@ -253,6 +253,7 @@
                     tools:ignore="ContentDescription" />
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/successConstraintLayout"
                     android:layout_width="0dp"
                     android:layout_height="50dp"

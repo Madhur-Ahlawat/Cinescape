@@ -19,10 +19,13 @@ import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 import com.google.android.flexbox.*
 
-class AdapterFilterTitle(context: Activity, private var filterTitleList: ArrayList<FilterModel>,private val dataList:ArrayList<FilterTypeModel>) :
+class AdapterFilterTitle(
+    context: Activity,
+    private var filterTitleList: ArrayList<FilterModel>,
+    private val dataList: ArrayList<FilterTypeModel>
+) :
     RecyclerView.Adapter<AdapterFilterTitle.MyViewHolderFilterTitle>() {
     private var up = true
-    private var upEnable = false
     private var rowIndex = -1
 
     private val mContext: Context = context
@@ -33,18 +36,28 @@ class AdapterFilterTitle(context: Activity, private var filterTitleList: ArrayLi
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    override fun onBindViewHolder(holder: MyViewHolderFilterTitle, @SuppressLint("RecyclerView") position: Int) {
+    override fun onBindViewHolder(
+        holder: MyViewHolderFilterTitle,
+        @SuppressLint("RecyclerView") position: Int
+    ) {
         val filterExpItem = filterTitleList[position]
         holder.textTitleFilter.text = filterExpItem.title
         try {
-            when(filterExpItem.type){
-                1 ->{
+            when (filterExpItem.type) {
+                1 -> {
                     up = false
                     holder.filterExpand.visibility = View.VISIBLE
                     holder.filterExpand.removeAllViews()
-                    val adapter = FilterChildAdapter(mContext,
-                        filterExpItem.dataList,getList(filterExpItem)
+                    if (getList(filterExpItem).size>0){
+                        holder.selectFilter.show()
+                    }else{
+                        holder.selectFilter.hide()
+                    }
+                    val adapter = FilterChildAdapter(
+                        mContext,
+                        filterExpItem.dataList, getList(filterExpItem)
                     )
+                    println("checkList--->${getList(filterExpItem)}")
                     holder.filterExpand.adapter = adapter
                     val layoutManager = FlexboxLayoutManager(mContext)
                     layoutManager.flexDirection = FlexDirection.ROW
@@ -52,40 +65,20 @@ class AdapterFilterTitle(context: Activity, private var filterTitleList: ArrayLi
                     layoutManager.alignItems = AlignItems.FLEX_START
                     layoutManager.justifyContent = JustifyContent.FLEX_START
                     holder.filterExpand.layoutManager = layoutManager
-                } 4 ->{
+                }
+                4 -> {
                     up = false
                     holder.filterExpand.visibility = View.VISIBLE
                     holder.filterExpand.removeAllViews()
-                    val adapter = FilterChildAdapter(mContext,
-                        filterExpItem.dataList,getList(filterExpItem)
-                    )
-                    holder.filterExpand.adapter = adapter
-                    val layoutManager = FlexboxLayoutManager(mContext)
-                    layoutManager.flexDirection = FlexDirection.ROW
-                    layoutManager.flexWrap = FlexWrap.WRAP
-                    layoutManager.alignItems = AlignItems.FLEX_START
-                    layoutManager.justifyContent = JustifyContent.FLEX_START
-                    holder.filterExpand.layoutManager = layoutManager
-                } 5 ->{
-                    up = false
-                    holder.filterExpand.visibility = View.VISIBLE
-                    holder.filterExpand.removeAllViews()
-                    val adapter = FilterChildAdapter(mContext,
-                        filterExpItem.dataList,getList(filterExpItem)
-                    )
-                    holder.filterExpand.adapter = adapter
-                    val layoutManager = FlexboxLayoutManager(mContext)
-                    layoutManager.flexDirection = FlexDirection.ROW
-                    layoutManager.flexWrap = FlexWrap.WRAP
-                    layoutManager.alignItems = AlignItems.FLEX_START
-                    layoutManager.justifyContent = JustifyContent.FLEX_START
-                    holder.filterExpand.layoutManager = layoutManager
-                } 6 ->{
-                    up = false
-                    holder.filterExpand.visibility = View.VISIBLE
-                    holder.filterExpand.removeAllViews()
-                    val adapter = FilterChildAdapter(mContext,
-                        filterExpItem.dataList,getList(filterExpItem)
+                    println("checkList--->${getList(filterExpItem)}")
+                    if (getList(filterExpItem).size > 0) {
+                        holder.selectFilter.show()
+                    } else {
+                        holder.selectFilter.hide()
+                    }
+                    val adapter = FilterChildAdapter(
+                        mContext,
+                        filterExpItem.dataList, getList(filterExpItem)
                     )
                     holder.filterExpand.adapter = adapter
                     val layoutManager = FlexboxLayoutManager(mContext)
@@ -95,11 +88,63 @@ class AdapterFilterTitle(context: Activity, private var filterTitleList: ArrayLi
                     layoutManager.justifyContent = JustifyContent.FLEX_START
                     holder.filterExpand.layoutManager = layoutManager
                 }
-                2->{
+                5 -> {
                     up = false
                     holder.filterExpand.visibility = View.VISIBLE
                     holder.filterExpand.removeAllViews()
-                    val adapter = FilterChildCinemaAdapter(mContext,
+                    println("checkList--->${getList(filterExpItem)}")
+                    if (getList(filterExpItem).size > 0) {
+                        holder.selectFilter.show()
+                    } else {
+                        holder.selectFilter.hide()
+                    }
+
+                    val adapter = FilterChildAdapter(
+                        mContext,
+                        filterExpItem.dataList, getList(filterExpItem)
+                    )
+                    holder.filterExpand.adapter = adapter
+                    val layoutManager = FlexboxLayoutManager(mContext)
+                    layoutManager.flexDirection = FlexDirection.ROW
+                    layoutManager.flexWrap = FlexWrap.WRAP
+                    layoutManager.alignItems = AlignItems.FLEX_START
+                    layoutManager.justifyContent = JustifyContent.FLEX_START
+                    holder.filterExpand.layoutManager = layoutManager
+                }
+                6 -> {
+                    up = false
+                    holder.filterExpand.visibility = View.VISIBLE
+                    holder.filterExpand.removeAllViews()
+                    println("checkList--->${getList(filterExpItem)}")
+                    if (getList(filterExpItem).size > 0) {
+                        holder.selectFilter.show()
+                    } else {
+                        holder.selectFilter.hide()
+                    }
+                    val adapter = FilterChildAdapter(
+                        mContext,
+                        filterExpItem.dataList, getList(filterExpItem)
+                    )
+                    holder.filterExpand.adapter = adapter
+                    val layoutManager = FlexboxLayoutManager(mContext)
+                    layoutManager.flexDirection = FlexDirection.ROW
+                    layoutManager.flexWrap = FlexWrap.WRAP
+                    layoutManager.alignItems = AlignItems.FLEX_START
+                    layoutManager.justifyContent = JustifyContent.FLEX_START
+                    holder.filterExpand.layoutManager = layoutManager
+                }
+                2 -> {
+                    up = false
+                    holder.filterExpand.visibility = View.VISIBLE
+                    holder.filterExpand.removeAllViews()
+                    println("checkList--->${getList(filterExpItem)}")
+                    if (getList(filterExpItem).size > 0) {
+                        holder.selectFilter.show()
+                    } else {
+                        holder.selectFilter.hide()
+                    }
+                    val adapter = FilterChildCinemaAdapter(
+                        mContext,
                         filterExpItem.cinemaList!!, getList(filterExpItem)
                     )
                     holder.filterExpand.adapter = adapter
@@ -110,11 +155,18 @@ class AdapterFilterTitle(context: Activity, private var filterTitleList: ArrayLi
                     layoutManager.justifyContent = JustifyContent.FLEX_START
                     holder.filterExpand.layoutManager = layoutManager
                 }
-                3->{
+                3 -> {
                     up = false
                     holder.filterExpand.visibility = View.VISIBLE
                     holder.filterExpand.removeAllViews()
-                    val adapter = FilterChildMovieAdapter(mContext,
+                    println("checkList--->${getList(filterExpItem)}")
+                    if (getList(filterExpItem).size > 0) {
+                        holder.selectFilter.show()
+                    } else {
+                        holder.selectFilter.hide()
+                    }
+                    val adapter = FilterChildMovieAdapter(
+                        mContext,
                         filterExpItem.movieTimings!!, getList(filterExpItem)
                     )
                     holder.filterExpand.adapter = adapter
@@ -126,39 +178,29 @@ class AdapterFilterTitle(context: Activity, private var filterTitleList: ArrayLi
                     holder.filterExpand.layoutManager = layoutManager
                 }
             }
-        }
-        catch (e: Exception) {
+        } catch (e: Exception) {
             println("Exception------>${e.message}")
         }
 
         holder.itemView.setOnClickListener {
             rowIndex = position
-//            holder.filterExpand.hide()
-//            if (!upEnable){
-//                upEnable=true
-//                holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-//                holder.filterExpand.show()
-//            }else{
-//                upEnable
-//                holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
-//                holder.filterExpand.hide()
-//            }
             notifyDataSetChanged()
         }
         if (rowIndex == position) {
             holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
             holder.filterExpand.show()
-        }else {
+        } else {
             holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
             holder.filterExpand.hide()
         }
     }
 
     private fun getList(i: FilterModel): ArrayList<String> {
-        for (data in dataList){
-            if (data.type == i.type){
+        for (data in dataList) {
+            if (data.type == i.type) {
                 i.selectedList = data.selectedList
-                println("data.selectedList12345---"+i.selectedList+"----")
+
+                println("data.selectedList12345---" + i.selectedList + "----")
                 break
             }
         }
@@ -172,6 +214,7 @@ class AdapterFilterTitle(context: Activity, private var filterTitleList: ArrayLi
     class MyViewHolderFilterTitle(view: View) : RecyclerView.ViewHolder(view) {
         var textTitleFilter: TextView = view.findViewById(R.id.text_title_filter)
         var imageArrowDrop: ImageView = view.findViewById(R.id.image_arrow_up)
+        var selectFilter: ImageView = view.findViewById(R.id.imageView50)
         var filterExpand: RecyclerView = view.findViewById(R.id.filter_exapands)
     }
 }

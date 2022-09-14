@@ -57,7 +57,7 @@
         android:layout_width="0dp"
         android:layout_height="70dp"
         app:layout_constraintBottom_toBottomOf="@+id/view12"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerview_show_times_cast"
+        app:layout_constraintEnd_toEndOf="@+id/view20"
         app:layout_constraintHorizontal_weight="4.3"
         app:layout_constraintStart_toEndOf="@+id/view12"
         app:layout_constraintTop_toTopOf="@+id/view12"
@@ -72,7 +72,7 @@
         android:textColor="@color/white"
         android:textSize="@dimen/size15"
         app:layout_constraintEnd_toEndOf="@+id/view12"
-        app:layout_constraintStart_toStartOf="@+id/view12"
+        app:layout_constraintStart_toStartOf="@+id/view20"
         app:layout_constraintTop_toTopOf="@+id/view12" />
 
     <TextView
@@ -81,13 +81,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/sf_pro_text_regular"
-        android:text="@string/joy_rayce"
         android:textColor="@color/text_color"
         android:textSize="@dimen/size16"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="@+id/view12"
-        app:layout_constraintStart_toStartOf="@+id/view12"
-        app:layout_constraintTop_toBottomOf="@+id/text_director" />
+        app:layout_constraintStart_toStartOf="@+id/view20"
+        app:layout_constraintTop_toBottomOf="@+id/text_director"
+        tools:text="@string/joy_rayce" />
 
     <TextView
         android:id="@+id/text_genre"
@@ -103,24 +103,23 @@
 
     <TextView
         android:id="@+id/text_genres"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/sf_pro_text_regular"
-        tools:text="Action, Adventure, Crime"
         android:textColor="@color/text_color"
         android:textSize="@dimen/size15"
-        app:layout_constraintEnd_toEndOf="@+id/view13"
         app:layout_constraintStart_toStartOf="@+id/view13"
-        app:layout_constraintTop_toBottomOf="@+id/text_genre" />
+        app:layout_constraintTop_toBottomOf="@+id/text_genre"
+        tools:text="Action, Adventure, Crime" />
 
     <View
         android:id="@+id/view21"
         android:layout_width="0dp"
         android:layout_height="65dp"
         android:layout_marginTop="30dp"
-        app:layout_constraintEnd_toEndOf="@+id/text_genres"
-        app:layout_constraintStart_toStartOf="@+id/view12"
+        app:layout_constraintEnd_toEndOf="@+id/view20"
+        app:layout_constraintStart_toStartOf="@+id/view20"
         app:layout_constraintTop_toBottomOf="@+id/view12" />
 
     <TextView
@@ -131,7 +130,6 @@
         android:text="@string/languange"
         android:textColor="@color/white"
         android:textSize="@dimen/size15"
-        app:layout_constraintEnd_toEndOf="@+id/view21"
         app:layout_constraintStart_toStartOf="@+id/view21"
         app:layout_constraintTop_toTopOf="@+id/view21" />
 
@@ -141,12 +139,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/sf_pro_text_regular"
-        tools:text="English"
         android:textColor="@color/text_color"
         android:textSize="@dimen/size15"
-        app:layout_constraintEnd_toEndOf="@+id/view21"
         app:layout_constraintStart_toStartOf="@+id/view21"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        tools:text="English" />
 
 
     <TextView
@@ -160,7 +157,7 @@
         android:textColor="@color/white"
         android:textSize="@dimen/size15"
         android:textStyle="normal"
-        app:layout_constraintEnd_toEndOf="@+id/textView10"
+        app:layout_constraintEnd_toEndOf="@+id/view20"
         app:layout_constraintStart_toStartOf="@+id/textView10"
         app:layout_constraintTop_toBottomOf="@+id/view21" />
 
@@ -192,5 +189,31 @@
         app:layout_constraintEnd_toEndOf="@+id/text_sysnopsis_detail"
         app:layout_constraintStart_toStartOf="@+id/text_sysnopsis_detail"
         app:layout_constraintTop_toBottomOf="@+id/text_sysnopsis_detail" />
+
+    <TextView
+        android:id="@+id/textView122"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_pro_text_bold"
+        android:text="@string/subtitle"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size15"
+        app:layout_constraintEnd_toEndOf="@+id/view21"
+        app:layout_constraintStart_toEndOf="@+id/text_director"
+        app:layout_constraintTop_toTopOf="@+id/view21" />
+
+    <TextView
+        android:id="@+id/textView123"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_pro_text_regular"
+        tools:text="@string/joy_rayce"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/size16"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/view21"
+        app:layout_constraintEnd_toEndOf="@+id/view21"
+        app:layout_constraintStart_toStartOf="@+id/textView122"
+        app:layout_constraintTop_toTopOf="@+id/textView10" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

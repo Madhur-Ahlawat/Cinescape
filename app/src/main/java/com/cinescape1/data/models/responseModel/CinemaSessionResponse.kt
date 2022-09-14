@@ -103,6 +103,7 @@ data class CinemaSessionResponse(
         val id: String,
         val mlanguage: String,
         val language: String,
+        val subTitle: String,
         val mobimgbig: Any,
         val mobimgsmall: Any,
         val openingDate: String,

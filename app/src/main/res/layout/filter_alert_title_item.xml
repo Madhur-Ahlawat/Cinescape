@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#1d1d1d">
@@ -20,13 +21,14 @@
         android:id="@+id/text_title_filter"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
         android:fontFamily="@font/sf_pro_text_bold"
         android:text="@string/location"
         android:textColor="@color/white"
         android:textSize="@dimen/size18"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/view_titles"
-        app:layout_constraintEnd_toStartOf="@+id/image_arrow_up"
+        app:layout_constraintEnd_toStartOf="@+id/imageView50"
         app:layout_constraintStart_toStartOf="@+id/view_titles"
         app:layout_constraintTop_toTopOf="@+id/view_titles" />
 
@@ -89,5 +91,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/filter_exapands" />
+
+    <ImageView
+        android:id="@+id/imageView50"
+        android:layout_width="@dimen/size11"
+        android:layout_height="@dimen/size11"
+        android:layout_marginEnd="33dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/image_arrow_up"
+        app:layout_constraintEnd_toStartOf="@+id/image_arrow_up"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/circle_filter"
+        tools:ignore="ContentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

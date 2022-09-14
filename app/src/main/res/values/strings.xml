@@ -322,5 +322,11 @@
     <string name="seatLimit">You can not Select More Than </string>
     <string name="your_booking_was">Your Booking was </string>
     <string name="successful">successful</string>
+    <string name="subtitle">Subtitle</string>
+    <string name="grand_total">Grand Total</string>
+    <string name="transaction_date_time"><![CDATA[Transaction Date & Time]]></string>
+    <string name="reference_id">Reference ID</string>
+    <string name="track_number">Track Number</string>
+    <string name="tickets">Tickets</string>
 
 </resources>
