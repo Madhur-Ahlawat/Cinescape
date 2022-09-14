@@ -13,7 +13,6 @@ import android.os.Looper
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -26,7 +25,6 @@ import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.requestModel.FinalTicketRequest
 import com.cinescape1.data.models.requestModel.MySingleTicketRequest
-import com.cinescape1.data.models.requestModel.ResendRequest
 import com.cinescape1.data.models.responseModel.TicketSummaryResponse
 import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.databinding.ActivityFinalTicketBinding
@@ -34,7 +32,6 @@ import com.cinescape1.di.scoped.ActivityScoped
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.viewModels.FinalTicketViewModel
-import com.cinescape1.ui.main.views.FoodActivity
 import com.cinescape1.ui.main.views.HomeActivity
 import com.cinescape1.ui.main.views.adapters.SeatListAdapter
 import com.cinescape1.ui.main.views.adapters.checkoutAdapter.AdapterCheckoutConFirmFoodDetail
@@ -47,8 +44,6 @@ import com.google.android.flexbox.JustifyContent
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.cancel_dialog.view.*
 import kotlinx.android.synthetic.main.checkout_booking_confirm_alert2_include.*
-import kotlinx.android.synthetic.main.checkout_booking_confirm_alert2_include.imageView31
-import kotlinx.android.synthetic.main.checkout_booking_confirm_alert2_include.imageView32
 import kotlinx.android.synthetic.main.checkout_booking_confirm_alert2_include.recyclerview_food_details
 import kotlinx.android.synthetic.main.checkout_booking_confirm_alert3_include.*
 import kotlinx.android.synthetic.main.checkout_booking_confirm_alert_include.*
@@ -248,13 +243,14 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
 
         val viewPager: ViewPager = findViewById(R.id.viewPager_slider_layout)
         val layouts: ArrayList<Int> = ArrayList()
-        viewPager.offscreenPageLimit = 1
+//        viewPager.offscreenPageLimit = 1
         if (output.bookingType == "BOOKING") {
             if (output.concessionFoods.isNotEmpty()) {
                 println("checkCase--->1---New")
                 layouts.add(R.layout.checkout_booking_confirm_alert_include)
                 layouts.add(R.layout.checkout_booking_confirm_alert2_include)
                 layouts.add(R.layout.checkout_booking_confirm_alert3_include)
+
             } else {
                 println("checkCase--->2---New")
                 layouts.add(R.layout.checkout_booking_confirm_alert_include)
@@ -267,145 +263,164 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
 
         val myViewPagerAdapter = SliderFoodConfirmViewPgweAdapter(layouts, this)
         viewPager.adapter = myViewPagerAdapter
+        viewPager.currentItem = 0
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {}
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+            override fun onPageSelected(position: Int) {
+                println("onPageSelected----"+position)
+                if (output.bookingType == "BOOKING") {
+                    if (output.concessionFoods.isNotEmpty()) {
+                        if (position==2) {
+                            binding?.layoutDots?.setupWithViewPager(viewPager, true)
+                            textView135.text = output.bookingId
+                            //ticket
+                            textView125.text = output.bookingId
+                            //food
+                            textView128.text =
+                                output.concessionFoods.size.toString() + getString(R.string.item)
+                            //referenceId
+                            textView131.text = output.referenceId
+                            //track No
+                            textView133.text = output.trackId
+                            //transaction Date Time
+                            textView135.text = output.showTime
+                            //payDone
+                            textView136.text = output.payDone
+                            //payTotal
+                            textView137.text = output.totalPrice
+                        }
 
+//                //include 2
+//                // Set Food
+//                    if (output.bookingType == "BOOKING") {
+//                        binding?.layoutDots?.show()
+//                    } else {
+//                        binding?.layoutDots?.hide()
+//                    }
 
-        if (output.bookingType == "BOOKING") {
-            if (output.concessionFoods.isNotEmpty()) {
-                binding?.layoutDots?.setupWithViewPager(binding?.viewPagerSliderLayout, true)
-                println("checkCase--->1")
-//                //Include 3
-                textView135.text = output.bookingId
-                //ticket
-                textView125.text = output.bookingId
-                //food
-                textView128.text = output.concessionFoods.size.toString() + getString(R.string.item)
-                //referenceId
-                textView131.text = output.referenceId
-                //track No
-                textView133.text = output.trackId
-                //transaction Date Time
-                textView135.text = output.showTime
-                //payDone
-                textView136.text = output.payDone
-                //payTotal
-                textView137.text = output.totalPrice
+                        if (position==1) {
+                            textView51.text = getString(R.string.price_kd) + output.ticketPrice
+                            text_wallet1.text = output.payDone
+                            text_bookin_id_no1.text = output.bookingId
 
-                //include 2
-                // Set Food
-                if (output.concessionFoods.isNotEmpty()) {
+                            if (!output.foodPickup) {
+                                textFoodPicUp.hide()
+                            } else {
+                                textFoodPicUp.show()
+                            }
+                            text_kd_total_ticket_price1.text = output.totalPrice
+                            textFoodPicUp.paintFlags =
+                                textFoodPicUp.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
-                    if (output.bookingType == "BOOKING") {
+                            textFoodPicUp.setOnClickListener {
+                                val mDialogView =
+                                    LayoutInflater.from(this@FinalTicketActivity)
+                                        .inflate(R.layout.food_pickup_dialog, null)
+                                val mBuilder =
+                                    AlertDialog.Builder(this@FinalTicketActivity, R.style.NewDialog)
+                                        .setView(mDialogView)
+                                val mAlertDialog = mBuilder.show()
+                                mAlertDialog.show()
+                                mAlertDialog.window?.setBackgroundDrawableResource(R.color.black70)
+                                val closeDialog =
+                                    mDialogView.findViewById<TextView>(R.id.close_dialog)
+                                val text = mAlertDialog.findViewById<TextView>(R.id.textView105)
+
+                                text?.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                    Html.fromHtml(output.pickupInfo, Html.FROM_HTML_MODE_COMPACT)
+                                } else {
+                                    Html.fromHtml(output.pickupInfo)
+                                }
+                                closeDialog.setOnClickListener {
+                                    mAlertDialog.dismiss()
+                                }
+
+                            }
+
+                            val gridLayout =
+                                GridLayoutManager(
+                                    this@FinalTicketActivity,
+                                    1,
+                                    GridLayoutManager.VERTICAL,
+                                    false
+                                )
+                            recyclerview_food_details.layoutManager = LinearLayoutManager(this@FinalTicketActivity)
+                            val adapter2 =
+                                AdapterCheckoutConFirmFoodDetail(
+                                    this@FinalTicketActivity,
+                                    output.concessionFoods
+                                )
+                            recyclerview_food_details.layoutManager = gridLayout
+                            recyclerview_food_details.adapter = adapter2
+                            adapter2.loadNewData(output.concessionFoods)
+                        }
+
+                        //include 1
+                        if (position==0) {
+                            if (!output.foodPickup) {
+                                text_how_picup.hide()
+                            } else {
+                                text_how_picup.hide()
+                            }
+                            categoryName.text = output.category
+                            binding?.layoutDots?.show()
+                            text_bookin_id_no.text = output.kioskId
+                            text_name_movie.text = output.moviename
+                            text_location_names.text = output.cinemaname
+                            text_types.text = output.mcensor
+                            txt_scrrens.text = output.screenId
+                            tv_screenx.text = output.experience
+                            txt_date.isSelected = true
+                            txt_date.text = output.showDate + " " + output.showTime
+                            text_wallet.text = output.payDone
+                            text_kd_total_ticket_price.text = output.totalTicketPrice
+                            //Recycler Seat
+                            val layoutManager = FlexboxLayoutManager(this@FinalTicketActivity)
+                            layoutManager.flexDirection = FlexDirection.ROW
+                            layoutManager.justifyContent = JustifyContent.FLEX_START
+                            layoutManager.alignItems = AlignItems.STRETCH
+                            val adapter = SeatListAdapter(output.seatsArr)
+                            seats_list.setHasFixedSize(true)
+                            seats_list.layoutManager = layoutManager
+                            seats_list.adapter = adapter
+                        }
+
+                    } else {
+
+                        println("checkCase--->2")
+                        //include 1
+                        if (!output.foodPickup) {
+                            text_how_picup.hide()
+                        } else {
+                            text_how_picup.hide()
+                        }
                         binding?.layoutDots?.show()
-                    } else {
-                        binding?.layoutDots?.hide()
-                    }
+                        text_bookin_id_no.text = output.kioskId
+                        text_name_movie.text = output.moviename
+                        text_location_names.text = output.cinemaname
+                        txt_scrrens.text = output.screenId
+                        tv_screenx.text = output.experience
+                        txt_date.isSelected = true
+                        txt_date.text = output.showDate + " " + output.showTime
+                        text_wallet.text = output.payDone
+                        text_kd_total_ticket_price.text = output.totalTicketPrice
+                        //Recycler Seat
+                        val layoutManager = FlexboxLayoutManager(this@FinalTicketActivity)
+                        layoutManager.flexDirection = FlexDirection.ROW
+                        layoutManager.justifyContent = JustifyContent.FLEX_START
+                        layoutManager.alignItems = AlignItems.STRETCH
+                        val adapter = SeatListAdapter(output.seatsArr)
+                        seats_list.setHasFixedSize(true)
+                        seats_list.layoutManager = layoutManager
+                        seats_list.adapter = adapter
 
-                    textView51.text = getString(R.string.price_kd) + output.ticketPrice
-                    text_wallet1.text = output.payDone
-                    text_bookin_id_no1.text = output.bookingId
-
-                    if (!output.foodPickup) {
-                        textFoodPicUp.hide()
-                    } else {
-                        textFoodPicUp.show()
-                    }
-                    text_kd_total_ticket_price1.text = output.totalPrice
-                    textFoodPicUp.paintFlags = textFoodPicUp.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-
-                    textFoodPicUp.setOnClickListener {
-                        val mDialogView =
-                            LayoutInflater.from(this).inflate(R.layout.food_pickup_dialog, null)
-                        val mBuilder =
-                            AlertDialog.Builder(this, R.style.NewDialog).setView(mDialogView)
-                        val mAlertDialog = mBuilder.show()
-                        mAlertDialog.show()
-                        mAlertDialog.window?.setBackgroundDrawableResource(R.color.black70)
-                        val closeDialog = mDialogView.findViewById<TextView>(R.id.close_dialog)
-                        val text = mAlertDialog.findViewById<TextView>(R.id.textView105)
-
-                        text?.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            Html.fromHtml(output.pickupInfo, Html.FROM_HTML_MODE_COMPACT)
-                        } else {
-                            Html.fromHtml(output.pickupInfo)
-                        }
-                        closeDialog.setOnClickListener {
-                            mAlertDialog.dismiss()
-                        }
+                        println("checkCase--->3")
+                        //include 2
+                        // Set Food
 
                     }
-
-                    val gridLayout =
-                        GridLayoutManager(this@FinalTicketActivity, 1, GridLayoutManager.VERTICAL, false)
-                    recyclerview_food_details.layoutManager = LinearLayoutManager(this)
-                    val adapter2 =
-                        AdapterCheckoutConFirmFoodDetail(this@FinalTicketActivity, output.concessionFoods)
-                    recyclerview_food_details.layoutManager = gridLayout
-                    recyclerview_food_details.adapter = adapter2
-                    adapter2.loadNewData(output.concessionFoods)
-
-                    //include 1
-                    if (!output.foodPickup) {
-                        text_how_picup.hide()
-                    } else {
-                        text_how_picup.hide()
-                    }
-                    categoryName.text = output.category
-                    binding?.layoutDots?.show()
-                    text_bookin_id_no.text = output.kioskId
-                    text_name_movie.text = output.moviename
-                    text_location_names.text = output.cinemaname
-                    text_types.text = output.mcensor
-                    txt_scrrens.text = output.screenId
-                    tv_screenx.text = output.experience
-                    txt_date.isSelected = true
-                    txt_date.text = output.showDate + " " + output.showTime
-                    text_wallet.text = output.payDone
-                    text_kd_total_ticket_price.text = output.totalTicketPrice
-                    //Recycler Seat
-                    val layoutManager = FlexboxLayoutManager(this)
-                    layoutManager.flexDirection = FlexDirection.ROW
-                    layoutManager.justifyContent = JustifyContent.FLEX_START
-                    layoutManager.alignItems = AlignItems.STRETCH
-                    val adapter = SeatListAdapter(output.seatsArr)
-                    seats_list.setHasFixedSize(true)
-                    seats_list.layoutManager = layoutManager
-                    seats_list.adapter = adapter
-
-                } else {
-                    println("checkCase--->2")
-                    //include 1
-                    if (!output.foodPickup) {
-                        text_how_picup.hide()
-                    } else {
-                        text_how_picup.hide()
-                    }
-                    binding?.layoutDots?.show()
-                    text_bookin_id_no.text = output.kioskId
-                    text_name_movie.text = output.moviename
-                    text_location_names.text = output.cinemaname
-                    txt_scrrens.text = output.screenId
-                    tv_screenx.text = output.experience
-                    txt_date.isSelected = true
-                    txt_date.text = output.showDate + " " + output.showTime
-                    text_wallet.text = output.payDone
-                    text_kd_total_ticket_price.text = output.totalTicketPrice
-                    //Recycler Seat
-                    val layoutManager = FlexboxLayoutManager(this)
-                    layoutManager.flexDirection = FlexDirection.ROW
-                    layoutManager.justifyContent = JustifyContent.FLEX_START
-                    layoutManager.alignItems = AlignItems.STRETCH
-                    val adapter = SeatListAdapter(output.seatsArr)
-                    seats_list.setHasFixedSize(true)
-                    seats_list.layoutManager = layoutManager
-                    seats_list.adapter = adapter
-
-                }
-            } else {
-                println("checkCase--->3")
-                //include 2
-                // Set Food
-                if (output.concessionFoods.isNotEmpty()) {
-
+                }else{
                     textView51.text = getString(R.string.price_kd) + output.ticketPrice
                     text_wallet1.text = output.payDone
 
@@ -419,9 +434,9 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
 
                     textFoodPicUp.setOnClickListener {
                         val mDialogView =
-                            LayoutInflater.from(this).inflate(R.layout.food_pickup_dialog, null)
+                            LayoutInflater.from(this@FinalTicketActivity).inflate(R.layout.food_pickup_dialog, null)
                         val mBuilder =
-                            AlertDialog.Builder(this, R.style.NewDialog).setView(mDialogView)
+                            AlertDialog.Builder(this@FinalTicketActivity, R.style.NewDialog).setView(mDialogView)
                         val mAlertDialog = mBuilder.show()
                         mAlertDialog.show()
                         mAlertDialog.window?.setBackgroundDrawableResource(R.color.black70)
@@ -440,7 +455,7 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
                     }
                     val gridLayout =
                         GridLayoutManager(this@FinalTicketActivity, 1, GridLayoutManager.VERTICAL, false)
-                    recyclerview_food_details.layoutManager = LinearLayoutManager(this)
+                    recyclerview_food_details.layoutManager = LinearLayoutManager(this@FinalTicketActivity)
                     val adapter =
                         AdapterCheckoutConFirmFoodDetail(this@FinalTicketActivity, output.concessionFoods)
                     recyclerview_food_details.layoutManager = gridLayout
@@ -463,10 +478,225 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
                     textView136.text = output.payDone
                     //payTotal
                     textView137.text = output.totalPrice
-                }
 
                 }
             }
+        })
+
+        if (output.bookingType == "BOOKING") {
+            if (output.concessionFoods.isNotEmpty()) {
+                if (viewPager.currentItem == 2) {
+                    binding?.layoutDots?.setupWithViewPager(viewPager, true)
+                    textView135.text = output.bookingId
+                    //ticket
+                    textView125.text = output.bookingId
+                    //food
+                    textView128.text =
+                        output.concessionFoods.size.toString() + getString(R.string.item)
+                    //referenceId
+                    textView131.text = output.referenceId
+                    //track No
+                    textView133.text = output.trackId
+                    //transaction Date Time
+                    textView135.text = output.showTime
+                    //payDone
+                    textView136.text = output.payDone
+                    //payTotal
+                    textView137.text = output.totalPrice
+                }
+
+//                //include 2
+//                // Set Food
+//                    if (output.bookingType == "BOOKING") {
+//                        binding?.layoutDots?.show()
+//                    } else {
+//                        binding?.layoutDots?.hide()
+//                    }
+
+                if (viewPager.currentItem==1) {
+                    textView51.text = getString(R.string.price_kd) + output.ticketPrice
+                    text_wallet1.text = output.payDone
+                    text_bookin_id_no1.text = output.bookingId
+
+                    if (!output.foodPickup) {
+                        textFoodPicUp.hide()
+                    } else {
+                        textFoodPicUp.show()
+                    }
+                    text_kd_total_ticket_price1.text = output.totalPrice
+                    textFoodPicUp.paintFlags =
+                        textFoodPicUp.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+
+                    textFoodPicUp.setOnClickListener {
+                        val mDialogView =
+                            LayoutInflater.from(this@FinalTicketActivity)
+                                .inflate(R.layout.food_pickup_dialog, null)
+                        val mBuilder =
+                            AlertDialog.Builder(this@FinalTicketActivity, R.style.NewDialog)
+                                .setView(mDialogView)
+                        val mAlertDialog = mBuilder.show()
+                        mAlertDialog.show()
+                        mAlertDialog.window?.setBackgroundDrawableResource(R.color.black70)
+                        val closeDialog =
+                            mDialogView.findViewById<TextView>(R.id.close_dialog)
+                        val text = mAlertDialog.findViewById<TextView>(R.id.textView105)
+
+                        text?.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            Html.fromHtml(output.pickupInfo, Html.FROM_HTML_MODE_COMPACT)
+                        } else {
+                            Html.fromHtml(output.pickupInfo)
+                        }
+                        closeDialog.setOnClickListener {
+                            mAlertDialog.dismiss()
+                        }
+
+                    }
+
+                    val gridLayout =
+                        GridLayoutManager(
+                            this@FinalTicketActivity,
+                            1,
+                            GridLayoutManager.VERTICAL,
+                            false
+                        )
+                    recyclerview_food_details.layoutManager = LinearLayoutManager(this@FinalTicketActivity)
+                    val adapter2 =
+                        AdapterCheckoutConFirmFoodDetail(
+                            this@FinalTicketActivity,
+                            output.concessionFoods
+                        )
+                    recyclerview_food_details.layoutManager = gridLayout
+                    recyclerview_food_details.adapter = adapter2
+                    adapter2.loadNewData(output.concessionFoods)
+                }
+
+                //include 1
+                if (viewPager.currentItem==0) {
+                    if (!output.foodPickup) {
+                        text_how_picup.hide()
+                    } else {
+                        text_how_picup.hide()
+                    }
+                    categoryName.text = output.category
+                    binding?.layoutDots?.show()
+                    text_bookin_id_no.text = output.kioskId
+                    text_name_movie.text = output.moviename
+                    text_location_names.text = output.cinemaname
+                    text_types.text = output.mcensor
+                    txt_scrrens.text = output.screenId
+                    tv_screenx.text = output.experience
+                    txt_date.isSelected = true
+                    txt_date.text = output.showDate + " " + output.showTime
+                    text_wallet.text = output.payDone
+                    text_kd_total_ticket_price.text = output.totalTicketPrice
+                    //Recycler Seat
+                    val layoutManager = FlexboxLayoutManager(this@FinalTicketActivity)
+                    layoutManager.flexDirection = FlexDirection.ROW
+                    layoutManager.justifyContent = JustifyContent.FLEX_START
+                    layoutManager.alignItems = AlignItems.STRETCH
+                    val adapter = SeatListAdapter(output.seatsArr)
+                    seats_list.setHasFixedSize(true)
+                    seats_list.layoutManager = layoutManager
+                    seats_list.adapter = adapter
+                }
+
+            } else {
+
+                println("checkCase--->2")
+                //include 1
+                if (!output.foodPickup) {
+                    text_how_picup.hide()
+                } else {
+                    text_how_picup.hide()
+                }
+                binding?.layoutDots?.show()
+                text_bookin_id_no.text = output.kioskId
+                text_name_movie.text = output.moviename
+                text_location_names.text = output.cinemaname
+                txt_scrrens.text = output.screenId
+                tv_screenx.text = output.experience
+                txt_date.isSelected = true
+                txt_date.text = output.showDate + " " + output.showTime
+                text_wallet.text = output.payDone
+                text_kd_total_ticket_price.text = output.totalTicketPrice
+                //Recycler Seat
+                val layoutManager = FlexboxLayoutManager(this@FinalTicketActivity)
+                layoutManager.flexDirection = FlexDirection.ROW
+                layoutManager.justifyContent = JustifyContent.FLEX_START
+                layoutManager.alignItems = AlignItems.STRETCH
+                val adapter = SeatListAdapter(output.seatsArr)
+                seats_list.setHasFixedSize(true)
+                seats_list.layoutManager = layoutManager
+                seats_list.adapter = adapter
+
+                println("checkCase--->3")
+                //include 2
+                // Set Food
+
+            }
+        }else{
+            textView51.text = getString(R.string.price_kd) + output.ticketPrice
+            text_wallet1.text = output.payDone
+
+            if (!output.foodPickup) {
+                textFoodPicUp.hide()
+            } else {
+                textFoodPicUp.show()
+            }
+            text_kd_total_ticket_price1.text = output.totalPrice
+            textFoodPicUp.paintFlags = textFoodPicUp.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+
+            textFoodPicUp.setOnClickListener {
+                val mDialogView =
+                    LayoutInflater.from(this@FinalTicketActivity).inflate(R.layout.food_pickup_dialog, null)
+                val mBuilder =
+                    AlertDialog.Builder(this@FinalTicketActivity, R.style.NewDialog).setView(mDialogView)
+                val mAlertDialog = mBuilder.show()
+                mAlertDialog.show()
+                mAlertDialog.window?.setBackgroundDrawableResource(R.color.black70)
+                val closeDialog = mDialogView.findViewById<TextView>(R.id.close_dialog)
+                val text = mAlertDialog.findViewById<TextView>(R.id.textView105)
+
+                text?.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Html.fromHtml(output.pickupInfo, Html.FROM_HTML_MODE_COMPACT)
+                } else {
+                    Html.fromHtml(output.pickupInfo)
+                }
+                closeDialog.setOnClickListener {
+                    mAlertDialog.dismiss()
+                }
+
+            }
+            val gridLayout =
+                GridLayoutManager(this@FinalTicketActivity, 1, GridLayoutManager.VERTICAL, false)
+            recyclerview_food_details.layoutManager = LinearLayoutManager(this@FinalTicketActivity)
+            val adapter =
+                AdapterCheckoutConFirmFoodDetail(this@FinalTicketActivity, output.concessionFoods)
+            recyclerview_food_details.layoutManager = gridLayout
+            recyclerview_food_details.adapter = adapter
+            adapter.loadNewData(output.concessionFoods)
+
+            //Include 3
+            textView135.text = output.bookingId
+            //ticket
+            textView125.text = output.bookingId
+            //food
+            textView128.text = output.concessionFoods.size.toString() + getString(R.string.item)
+            //referenceId
+            textView131.text = output.referenceId
+            //track No
+            textView133.text = output.trackId
+            //transaction Date Time
+            textView135.text = output.showTime
+            //payDone
+            textView136.text = output.payDone
+            //payTotal
+            textView137.text = output.totalPrice
+
+        }
+
+
+
         }
 
 
@@ -504,6 +734,7 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
 
                                             retrieveBookedResponse(it.data.output)
                                         } catch (e: Exception) {
+                                            e.printStackTrace()
                                             println("updateUiCinemaSession ---> ${e.message}")
                                         }
 

@@ -21,7 +21,9 @@ class SliderFoodConfirmViewPgweAdapter(var layouts: ArrayList<Int>?, var context
 
 
     override fun getCount(): Int {
-        return layouts!!.size
+        println("layouts--->3---New---${layouts?.size}")
+
+        return layouts?.size!!
     }
 
 
