@@ -2,6 +2,7 @@ package com.cinescape1.data.network
 
 import com.cinescape1.data.models.requestModel.*
 import com.cinescape1.data.models.responseModel.*
+import com.cinescape1.ui.main.views.splash.response.SplashResponse
 import javax.inject.Inject
 
 class Repositories @Inject constructor(private val api: DataServices) : SafeApiRequest() {

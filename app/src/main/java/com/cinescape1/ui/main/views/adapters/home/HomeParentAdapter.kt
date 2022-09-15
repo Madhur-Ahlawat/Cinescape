@@ -16,7 +16,7 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.HomeDataResponse
-import com.cinescape1.ui.main.views.SeeAllActivity
+import com.cinescape1.ui.main.views.home.fragments.home.seeAll.SeeAllActivity
 import com.cinescape1.ui.main.views.adapters.*
 import com.cinescape1.ui.main.views.adapters.sliderAdapter.HomeFrontSliderAdapter
 import com.cinescape1.utils.Constant

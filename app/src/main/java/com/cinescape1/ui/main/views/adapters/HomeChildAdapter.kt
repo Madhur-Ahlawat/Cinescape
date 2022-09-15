@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.HomeDataResponse
-import com.cinescape1.ui.main.views.ShowTimesActivity
+import com.cinescape1.ui.main.views.details.ShowTimesActivity
 import com.cinescape1.utils.Constant
 import kotlinx.android.synthetic.main.home_slider_item.view.*
 import kotlinx.android.synthetic.main.recommended_item.view.*

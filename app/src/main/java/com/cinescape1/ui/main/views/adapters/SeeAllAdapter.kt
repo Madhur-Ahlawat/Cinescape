@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.HomeDataResponse
 import com.cinescape1.data.models.responseModel.MoviesResponse
-import com.cinescape1.ui.main.views.ShowTimesActivity
+import com.cinescape1.ui.main.views.details.ShowTimesActivity
 import com.cinescape1.utils.Constant
 
 class SeeAllAdapter(private val context: Context, private val arrayList: ArrayList<HomeDataResponse.MovieData>) :

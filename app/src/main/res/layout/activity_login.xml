@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/black"
-        tools:context=".ui.main.views.LoginActivity"
+        tools:context=".ui.main.views.login.LoginActivity"
         tools:ignore="ExtraText">
 
         <ImageView

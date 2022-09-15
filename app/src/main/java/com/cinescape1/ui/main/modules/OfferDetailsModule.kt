@@ -2,7 +2,7 @@ package com.cinescape1.ui.main.modules
 
 import androidx.lifecycle.ViewModel
 import com.cinescape1.di.ViewModelKey
-import com.cinescape1.ui.main.viewModels.OfferDetailsViewModel
+import com.cinescape1.ui.main.views.home.fragments.home.offerDetails.viewModel.OfferDetailsViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

@@ -1,23 +1,17 @@
 package com.cinescape1.ui.main.views.adapters.sliderAdapter
 
-import android.app.ActionBar
 import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView.ScaleType
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.HomeDataResponse
-import com.cinescape1.ui.main.views.ShowTimesActivity
+import com.cinescape1.ui.main.views.details.ShowTimesActivity
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.Constant.Companion.select_pos
 import com.github.islamkhsh.CardSliderAdapter
-import com.github.islamkhsh.CardSliderViewPager
-import com.github.islamkhsh.viewpager2.ViewPager2
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.home_slider_item.view.*
 

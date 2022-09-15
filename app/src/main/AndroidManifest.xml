@@ -28,58 +28,46 @@
         tools:replace="android:supportsRtl">
 
         <activity
-            android:name=".ui.main.FinalTicketActivity"
+            android:name=".ui.main.views.finalTicket.FinalTicketActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Cinescape.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".ui.main.views.SeatScreenMainActivity"
+            android:name=".ui.main.views.seatLayout.SeatScreenMainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Cinescape.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name=".ui.main.views.summery.SummeryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Cinescape.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".ui.main.views.MoreInfoActivity"
+            android:name=".ui.main.views.food.FoodActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Cinescape.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".ui.main.views.SummeryActivity"
+            android:name=".ui.main.views.details.ShowTimesActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Cinescape.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
+
         <activity
-            android:name=".ui.main.views.FoodActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Cinescape.NoActionBar"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".ui.main.views.ShowTimesActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Cinescape.NoActionBar"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".ui.main.views.ComingSoonMovieInfoActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Cinescape.NoActionBar"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".ui.main.views.HomeActivity"
+            android:name=".ui.main.views.home.HomeActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Cinescape.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".ui.main.views.UserPreferencesActivity"
+            android:name=".ui.main.views.prefrence.UserPreferencesActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Cinescape.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
+
         <activity
-            android:name=".ui.main.views.SignUpActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Cinescape.NoActionBar"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".ui.main.views.LoginActivity"
+            android:name=".ui.main.views.login.LoginActivity"
             android:screenOrientation="portrait"
             android:exported="true"
             android:theme="@style/Theme.Cinescape.NoActionBar"
@@ -93,21 +81,17 @@
         </activity>
 
         <activity
-            android:name=".ui.main.views.CinemaSessionActivity"
+            android:name=".ui.main.views.home.fragments.home.offerDetails.OfferDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Cinescape.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".ui.main.views.OfferDetailsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Cinescape.NoActionBar"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".ui.main.views.SplashActivity"
+            android:name=".ui.main.views.splash.SplashActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Cinescape.NoActionBar">
+            android:theme="@style/Theme.Cinescape.NoActionBar"
+            tools:ignore="LockedOrientationActivity,RedundantLabel">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -117,7 +101,8 @@
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            tools:ignore="RedundantLabel" />
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
@@ -131,37 +116,33 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.main.views.PaymentWebActivity"
+            android:name=".ui.main.views.payment.PaymentWebActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
+
         <activity
-            android:name=".ui.main.views.SearchActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Cinescape.NoActionBar"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".ui.main.views.SeeAllActivity"
+            android:name="com.cinescape1.ui.main.views.home.fragments.home.seeAll.SeeAllActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Cinescape.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".ui.main.views.PlayerActivity"
+            android:name=".ui.main.views.player.PlayerActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Cinescape.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".ui.main.views.ActivateWalletActivity"
+            android:name=".ui.main.views.activeWallet.ActivateWalletActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Cinescape.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".ui.main.views.ContinueGuestActivity"
+            android:name=".ui.main.views.login.guest.ContinueGuestActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Cinescape.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name=".ui.main.views.ResetPasswordActivity"
+            android:name=".ui.main.views.login.resetPassword.ResetPasswordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Cinescape.NoActionBar"
             tools:ignore="LockedOrientationActivity" />

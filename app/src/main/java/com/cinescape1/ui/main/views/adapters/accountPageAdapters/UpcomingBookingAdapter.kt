@@ -16,9 +16,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.NextBookingResponse
-import com.cinescape1.ui.main.FinalTicketActivity
-import com.cinescape1.ui.main.views.FoodActivity
-import com.cinescape1.ui.main.views.PlayerActivity
+import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
+import com.cinescape1.ui.main.views.food.FoodActivity
+import com.cinescape1.ui.main.views.player.PlayerActivity
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show

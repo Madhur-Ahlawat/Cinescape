@@ -2,8 +2,8 @@ package com.cinescape1.data.network
 
 import com.cinescape1.data.models.requestModel.*
 import com.cinescape1.data.models.responseModel.*
+import com.cinescape1.ui.main.views.splash.response.SplashResponse
 import com.cinescape1.utils.Constant
-import com.google.android.gms.common.internal.safeparcel.SafeParcelable
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response

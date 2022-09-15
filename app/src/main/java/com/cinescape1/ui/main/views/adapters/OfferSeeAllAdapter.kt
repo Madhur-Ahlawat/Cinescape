@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.MoviesResponse
 import com.cinescape1.data.models.responseModel.OfferResponse
-import com.cinescape1.ui.main.views.OfferDetailsActivity
+import com.cinescape1.ui.main.views.home.fragments.home.offerDetails.OfferDetailsActivity
 import com.cinescape1.utils.Constant
 
 class OfferSeeAllAdapter(private val context: Context, private val items: ArrayList<OfferResponse.Output>) :

@@ -11,7 +11,7 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.FoodResponse
-import com.cinescape1.ui.main.views.HomeActivity
+import com.cinescape1.ui.main.views.home.HomeActivity
 
 class FoodLoListAdapter(var recyclerDataArrayList: ArrayList<FoodResponse.Output.Cinema>, private var listener: HomeActivity, private val context: Activity) :
     RecyclerView.Adapter<FoodLoListAdapter.RecyclerViewHolder>() {

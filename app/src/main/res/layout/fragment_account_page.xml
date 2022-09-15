@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".ui.main.views.fragments.AccountPageFragment">
+    tools:context=".ui.main.views.home.fragments.account.AccountPageFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:visibility="visible"
