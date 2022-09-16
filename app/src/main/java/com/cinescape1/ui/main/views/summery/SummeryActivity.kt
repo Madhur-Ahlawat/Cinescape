@@ -1195,7 +1195,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
             checkout_food_include.show()
             binding?.view1Line1?.hide()
             foodViewCheck.hide()
-            binding?.imageView6?.setImageResource(R.mipmap.food_checkout)
+//            binding?.imageView6?.setImageResource(R.)
 
         } else {
 //            binding?.priceUi?.show()

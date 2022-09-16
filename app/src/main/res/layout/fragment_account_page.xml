@@ -37,31 +37,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/image_sign_out"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/contentDes"
-            android:src="@drawable/ic_sign_out_icon"
-            app:layout_constraintEnd_toEndOf="@+id/view_first"
-            app:layout_constraintStart_toStartOf="@+id/view_first"
-            app:layout_constraintTop_toTopOf="@+id/view_first" />
-
-        <TextView
-            android:id="@+id/text_signout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/sf_pro_text_regular"
-            android:lineSpacingExtra="1.5sp"
-            android:text="@string/sign_out"
-            android:textColor="@color/head_title"
-            android:textSize="@dimen/size12"
-            android:textStyle="normal"
-            app:layout_constraintEnd_toEndOf="@+id/view_first"
-            app:layout_constraintStart_toStartOf="@+id/view_first"
-            app:layout_constraintTop_toBottomOf="@+id/image_sign_out" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/UiLanguage"
@@ -450,6 +425,43 @@
                     app:layout_constraintEnd_toEndOf="@+id/view_historys"
                     app:layout_constraintStart_toEndOf="@+id/view_refund"
                     app:layout_constraintTop_toBottomOf="@+id/image_recharage_wallet" />
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/view_mains1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/view_historys"
+                    app:layout_constraintTop_toBottomOf="@+id/viewLine" />
+
+
+                <ImageView
+                    android:id="@+id/image_sign_out"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/contentDes"
+                    android:src="@drawable/ic_sign_out_icon"
+                    app:layout_constraintBottom_toTopOf="@+id/text_signout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/view_historys"
+                    app:layout_constraintTop_toTopOf="@+id/view2" />
+
+                <TextView
+                    android:id="@+id/text_signout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:lineSpacingExtra="1.5sp"
+                    android:text="@string/sign_out"
+                    android:textColor="@color/head_title"
+                    android:textSize="@dimen/size12"
+                    android:textStyle="normal"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_histoery"
+                    app:layout_constraintEnd_toEndOf="@+id/view2"
+                    app:layout_constraintStart_toEndOf="@+id/view_historys"
+                    app:layout_constraintTop_toTopOf="@+id/text_histoery" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

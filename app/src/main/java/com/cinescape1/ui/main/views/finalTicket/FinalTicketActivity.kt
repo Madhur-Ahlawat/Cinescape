@@ -26,8 +26,8 @@ import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.finalTicket.viewModel.FinalTicketViewModel
 import com.cinescape1.ui.main.views.home.HomeActivity
-import com.cinescape1.ui.main.views.adapters.finalTicket.FinalTicketParentAdapter
-import com.cinescape1.ui.main.views.adapters.finalTicket.model.FinalTicketLocalModel
+import com.cinescape1.ui.main.views.finalTicket.adapter.FinalTicketParentAdapter
+import com.cinescape1.ui.main.views.finalTicket.model.FinalTicketLocalModel
 import com.cinescape1.utils.*
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
@@ -226,13 +226,14 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
         if (output.bookingType == "BOOKING") {
             if (output.concessionFoods.isNotEmpty()) {
                 println("checkCase--->1---New")
+                finalTicketLocalModel.add(FinalTicketLocalModel("BOOKING", 3))
 
             } else {
                 println("checkCase--->2---New")
-                finalTicketLocalModel.add(FinalTicketLocalModel("BOOKING", "one"))
+                finalTicketLocalModel.add(FinalTicketLocalModel("BOOKING", 1))
             }
         } else {
-            finalTicketLocalModel.add(FinalTicketLocalModel("BOOKING", "two"))
+            finalTicketLocalModel.add(FinalTicketLocalModel("BOOKING", 2))
             println("checkCase--->3---New")
         }
 

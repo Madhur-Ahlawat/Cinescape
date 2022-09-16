@@ -235,7 +235,7 @@
     <string name="continue_as_guest">الاستمرار كضيف</string>
     <string name="full_name">الاسم الكامل</string>
     <string name="view_all">اظهر الكل</string>
-    <string name="price_kd">د.ك</string>
+    <string name="price_kd">دينار كويتي</string>
     <string name="balance">الرصيد</string>
     <string name="cancelReservation">إلغاء \ الحجز</string>
     <string name="addFood">أضف / طعام</string>

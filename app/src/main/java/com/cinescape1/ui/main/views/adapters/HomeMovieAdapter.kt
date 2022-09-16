@@ -13,41 +13,40 @@ import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.HomeDataResponse
 import com.cinescape1.data.models.responseModel.MoviesResponse
-import com.cinescape1.ui.main.views.details.ShowTimesActivity
+import com.cinescape1.ui.main.views.home.fragments.home.cinemaLocation.CinemaLocationActivity
 import com.cinescape1.utils.Constant
 
 class HomeMovieAdapter(private  val mContext: Activity, private  val cinemas: ArrayList<HomeDataResponse.Cinema>) :
-    RecyclerView.Adapter<HomeMovieAdapter.TodoViewHolder>() {
+    RecyclerView.Adapter<HomeMovieAdapter.MyViewHolder>() {
 
     @SuppressLint("InflateParams")
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.cinema_layout, null)
-        return TodoViewHolder(view)
+        return MyViewHolder(view)
     }
 
     override fun getItemCount(): Int {
         return cinemas.size
     }
 
-    override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val obj = cinemas[position]
-        print("offerData123--->${cinemas}")
         holder.title.text=obj.name
 
         Glide.with(mContext)
-            .load(obj.icon)
+            .load(obj.appImageUrl)
             .error(R.drawable.cinema)
             .into(holder.todoImage)
 
         holder.todoImage.setOnClickListener {
-            val intent = Intent(mContext, ShowTimesActivity::class.java)
+            val intent = Intent(mContext, CinemaLocationActivity::class.java)
             intent.putExtra(Constant.IntentKey.MOVIE_ID, obj.id)
-            intent.putExtra("type","movie")
+            intent.putExtra("type", "movie")
             mContext.startActivity(intent)
         }
     }
 
-    inner class TodoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var todoImage: ImageView = view.findViewById(R.id.image_recommended) as ImageView
         var title: TextView = view.findViewById(R.id.textView58) as TextView
     }

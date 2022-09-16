@@ -20,7 +20,7 @@ import com.cinescape1.databinding.FragmentHomeBinding
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.home.viewModel.HomeViewModel
-import com.cinescape1.ui.main.views.adapters.home.HomeParentAdapter
+import com.cinescape1.ui.main.views.home.fragments.home.adapter.HomeParentAdapter
 import com.cinescape1.utils.*
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -28,7 +28,7 @@ import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
-class HomeFragment : DaggerFragment(),HomeParentAdapter.RecycleViewItemClickListener {
+class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickListener {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject

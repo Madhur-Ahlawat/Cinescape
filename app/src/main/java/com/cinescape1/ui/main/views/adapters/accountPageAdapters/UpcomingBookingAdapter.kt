@@ -140,7 +140,7 @@ class UpcomingBookingAdapter(
         if (foodSelctedItem.trailerUrl == "") {
             holder.trailer.hide()
         } else {
-            holder.trailer.show()
+            holder.trailer.hide()
         }
         if (!foodSelctedItem.cancelReserve){
             holder.cancelReservation.hide()
@@ -149,11 +149,11 @@ class UpcomingBookingAdapter(
 
         }
 
-        holder.trailer.setOnClickListener {
-            val intent = Intent(mContext, PlayerActivity::class.java)
-            intent.putExtra("trailerUrl", foodSelctedItem.trailerUrl)
-            mContext.startActivity(intent)
-        }
+//        holder.trailer.setOnClickListener {
+//            val intent = Intent(mContext, PlayerActivity::class.java)
+//            intent.putExtra("trailerUrl", foodSelctedItem.trailerUrl)
+//            mContext.startActivity(intent)
+//        }
         holder.cancelReservation.setOnClickListener {
             listener.cancelReserv(foodSelctedItem)
 

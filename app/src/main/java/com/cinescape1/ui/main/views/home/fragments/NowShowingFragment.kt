@@ -12,7 +12,7 @@ import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.MoviesResponse
 import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.ui.main.views.home.viewModel.HomeViewModel
-import com.cinescape1.ui.main.views.adapters.moviesFragmentAdapter.AdapterNowShowing
+import com.cinescape1.ui.main.views.home.fragments.movie.adapter.AdapterNowShowing
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 

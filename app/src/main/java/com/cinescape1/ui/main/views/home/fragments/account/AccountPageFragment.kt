@@ -311,7 +311,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }
 
         println("Mobile--->${mobile}")
-        binding?.viewFirst?.setOnClickListener {
+        binding?.view2?.setOnClickListener {
             signOut()
 
         }
@@ -2873,7 +2873,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         //Recycler
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-//        recyclerView.isNestedScrollingEnabled = true
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = layoutManager
         countryCodeList = countryList

@@ -18,6 +18,7 @@
     <color name="editColor">#66646464</color>
     <color name="head_title">#ededed</color>
     <color name="tabIndicater">#e12329</color>
+    <color name="blue">#0000FF</color>
     <color name="hint_color">#adadad</color>
     <color name="text_color">#c1c1c1</color>
     <color name="arabic_color">#696969</color>

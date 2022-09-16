@@ -108,10 +108,7 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
                 LocaleHelper.setLocale(this, "en")
             }
         }
-
-        println("CheckLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
         setContentView(view)
-
         if (OPEN_FROM == 1) {
             setCurrentFragment(AccountPageFragment())
             binding?.navigationView?.selectedItemId = R.id.accountFragment
@@ -191,8 +188,6 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
                             dialog.show()
                         }
                         Status.LOADING -> {
-//                            loader = LoaderDialog(R.string.pleasewait)
-//                            loader?.show(requireActivity().supportFragmentManager, null)
                         }
                     }
                 }
@@ -216,8 +211,6 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
             dialog.dismiss()
         }
         dialog.text_proceeds?.setOnClickListener {
-
-
             if (!preferences.getBoolean(Constant.IS_LOGIN)) {
                 dialog.dismiss()
                 startActivity(

@@ -60,6 +60,7 @@ data class HomeDataResponse(
         val emailAddress: String,
         val giftStore: Boolean,
         val icon: String,
+        val appImageUrl: String,
         val id: String,
         val latitude: String,
         val longitude: String,

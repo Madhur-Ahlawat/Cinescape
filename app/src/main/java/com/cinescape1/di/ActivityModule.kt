@@ -7,11 +7,13 @@ import com.cinescape1.ui.main.views.*
 import com.cinescape1.ui.main.views.activeWallet.ActivateWalletActivity
 import com.cinescape1.ui.main.views.activeWallet.module.ActivateWalletModule
 import com.cinescape1.ui.main.views.details.ShowTimesActivity
+import com.cinescape1.ui.main.views.details.module.CinemaLocationModule
 import com.cinescape1.ui.main.views.details.module.ShowTimesModule
 import com.cinescape1.ui.main.views.finalTicket.module.FinalTicketModule
 import com.cinescape1.ui.main.views.food.FoodActivity
 import com.cinescape1.ui.main.views.food.module.FoodModule
 import com.cinescape1.ui.main.views.home.HomeActivity
+import com.cinescape1.ui.main.views.home.fragments.home.cinemaLocation.CinemaLocationActivity
 import com.cinescape1.ui.main.views.home.fragments.home.offerDetails.OfferDetailsActivity
 import com.cinescape1.ui.main.views.login.LoginActivity
 import com.cinescape1.ui.main.views.login.resetPassword.ResetPasswordActivity
@@ -103,5 +105,9 @@ abstract class ActivityModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [ResetPasswordModule::class])
     abstract fun resetPasswordActivity(): ResetPasswordActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [CinemaLocationModule::class])
+    abstract fun cinemaLocationActivity(): CinemaLocationActivity
 
 }
