@@ -28,7 +28,6 @@
             android:textColor="@color/white"
             android:textSize="@dimen/size14"
             android:text="@string/item"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
