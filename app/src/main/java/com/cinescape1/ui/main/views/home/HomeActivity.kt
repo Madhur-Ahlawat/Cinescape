@@ -63,7 +63,6 @@ import javax.inject.Inject
 class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.RecycleViewItemClickListener {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
     @Inject
     lateinit var preferences: AppPreferences
     private val homeViewModel: HomeViewModel by viewModels { viewModelFactory }
