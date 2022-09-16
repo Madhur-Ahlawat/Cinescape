@@ -149,11 +149,6 @@ class UpcomingBookingAdapter(
 
         }
 
-//        holder.trailer.setOnClickListener {
-//            val intent = Intent(mContext, PlayerActivity::class.java)
-//            intent.putExtra("trailerUrl", foodSelctedItem.trailerUrl)
-//            mContext.startActivity(intent)
-//        }
         holder.cancelReservation.setOnClickListener {
             listener.cancelReserv(foodSelctedItem)
 
