@@ -3,6 +3,7 @@ package com.cinescape1.ui.main.views.adapters.cinemaSessionAdapters
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,8 @@ import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.CSessionResponse
 import com.cinescape1.ui.main.views.adapters.CinemaSessionMovieAdapter
+import com.cinescape1.ui.main.views.details.ShowTimesActivity
+import com.cinescape1.utils.Constant
 
 class AdapterCinemaSessionScroll(
     private val context: Context,
@@ -79,6 +82,11 @@ class AdapterCinemaSessionScroll(
             .error(R.drawable.pos_not_avilbale)
             .into(holder.image)
 
+        holder.image.setOnClickListener {
+            val intent = Intent(context, ShowTimesActivity::class.java)
+            intent.putExtra(Constant.IntentKey.MOVIE_ID, showtimeListItem.movie.id)
+            holder.image.context.startActivity(intent)
+        }
         holder.name.isSelected = true
         val gridLayout = GridLayoutManager(context, 1, GridLayoutManager.HORIZONTAL, false)
         holder.recyclerView.layoutManager = LinearLayoutManager(context)

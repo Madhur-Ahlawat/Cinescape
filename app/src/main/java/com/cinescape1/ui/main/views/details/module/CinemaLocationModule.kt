@@ -13,7 +13,7 @@ abstract class CinemaLocationModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(ShowTimesViewModel::class)
+    @ViewModelKey(CinemaLocationViewModel::class)
     abstract fun showTimesModule(viewModel: CinemaLocationViewModel) : ViewModel
 
 //    @ContributesAndroidInjector

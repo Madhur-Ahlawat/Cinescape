@@ -99,7 +99,6 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
     var seatAbility: Int = 0
     private var categoryClick: Boolean = false
     private var mAlertDialog: AlertDialog? = null
-    var adapterShowTimesCinemaTitle: AdapterShowTimesCinemaTitle? = null
     private var languageCheck: String = "en"
     private var broadcastReceiver: BroadcastReceiver? = null
 
@@ -111,7 +110,6 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
                 languageCheck = "ar"
-                println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
             }
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(this, "en")

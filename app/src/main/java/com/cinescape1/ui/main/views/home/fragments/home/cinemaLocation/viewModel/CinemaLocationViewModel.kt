@@ -12,25 +12,6 @@ import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 class CinemaLocationViewModel  @Inject constructor(private val repositories: Repositories) : ViewModel() {
-
-    fun getMsessionsNew(context: Activity, request: CinemaSessionRequest) = liveData(Dispatchers.IO) {
-        emit(Result.loading(data = null))
-        try {
-            emit(Result.success(data = repositories.getMsessionsNew(request)))
-        } catch (exception: Exception) {
-            emit(Result.error(exception.message ?: "Error Occurred!", data = null))
-        }
-    }
-
-    fun movieDetails(movieId: String) = liveData(Dispatchers.IO) {
-        emit(Result.loading(data = null))
-        try {
-            emit(Result.success(data = repositories.movieDetails(movieId)))
-        } catch (exception: Exception) {
-            emit(Result.error(exception.message ?: "Error Occurred!", data = null))
-        }
-    }
-
     fun getCinemaData(context: Activity, request: CinemaSessionRequest) = liveData(Dispatchers.IO) {
         emit(Result.loading(data = null))
         try {
@@ -59,6 +40,4 @@ class CinemaLocationViewModel  @Inject constructor(private val repositories: Rep
             emit(Result.error(exception.message ?: "Error Occurred!", data = null))
         }
     }
-
-
 }
