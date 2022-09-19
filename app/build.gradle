@@ -43,6 +43,7 @@ android {
         annotation("com.cinescape1.utils.NoArg")
         invokeInitializers = true
     }
+    namespace 'com.cinescape1'
 
 }
 
