@@ -42,6 +42,7 @@ import com.cinescape1.ui.main.views.adapters.CountryCodeAdapter
 import com.cinescape1.ui.main.views.details.ShowTimesActivity
 import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.ui.main.views.login.guest.ContinueGuestActivity
+import com.cinescape1.ui.main.views.login.otpVerification.OtpVerificationActivity
 import com.cinescape1.ui.main.views.login.resetPassword.ResetPasswordActivity
 import com.cinescape1.ui.main.views.payment.PaymentWebActivity
 import com.cinescape1.ui.main.views.prefrence.UserPreferencesActivity
@@ -984,7 +985,15 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                         Status.SUCCESS -> {
                             loader?.dismiss()
                             if (Constant.status == it.data?.data?.result && Constant.SUCCESS_CODE == it.data.data.code) {
-                                OtpDialog(it.data.data.output.userid)
+                                val intent =
+                                    Intent(this@LoginActivity, OtpVerificationActivity::class.java)
+                                        .putExtra("userId", it.data.data.output.userid)
+                                intent.flags =
+                                    Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                                startActivity(intent)
+                                finish()
+
+//                                OtpDialog(it.data.data.output.userid)
                             } else {
                                 val dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
@@ -1335,37 +1344,37 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
         }
     }
 
-    @SuppressLint("CutPasteId")
-    private fun OtpDialog(userid: String) {
-        val mDialogView = layoutInflater.inflate(R.layout.otp_dialog, null)
-        val mBuilder = AlertDialog.Builder(this, R.style.MyDialogTransparent)
-            .setView(mDialogView)
-        val mAlertDialog = mBuilder.show()
-        mAlertDialog.setCancelable(false)
-        mAlertDialog.setCanceledOnTouchOutside(false)
-        mAlertDialog.window?.setBackgroundDrawableResource(R.color.transparent)
-        val back = mDialogView.findViewById<ImageView>(R.id.imageView43)
-        val submit = mDialogView.findViewById<TextView>(R.id.button2)
-        back.setOnClickListener {
-            mAlertDialog.dismiss()
-        }
-        submit.setOnClickListener {
-            val phone = mDialogView.findViewById<TextInputEditText>(R.id.mobileCode).text.toString()
-            val email = mDialogView.findViewById<TextInputEditText>(R.id.emailCode).text.toString()
-            when {
-                phone.trim() == "" -> {
-                    mDialogView.findViewById<TextInputEditText>(R.id.mobileCode)?.error = ""
-                }
-                email.trim() == "" -> {
-                    mDialogView.findViewById<TextInputEditText>(R.id.emailCode)?.error = ""
-                }
-                else -> {
-                    mAlertDialog.dismiss()
-                    Constant().hideKeyboard(this)
-                    OtpVerify(OtpVerifyRequest(email, phone, userid))
-                }
-            }
-        }
-    }
+//    @SuppressLint("CutPasteId")
+//    private fun OtpDialog(userid: String) {
+//        val mDialogView = layoutInflater.inflate(R.layout.otp_dialog, null)
+//        val mBuilder = AlertDialog.Builder(this, R.style.MyDialogTransparent)
+//            .setView(mDialogView)
+//        val mAlertDialog = mBuilder.show()
+//        mAlertDialog.setCancelable(false)
+//        mAlertDialog.setCanceledOnTouchOutside(false)
+//        mAlertDialog.window?.setBackgroundDrawableResource(R.color.transparent)
+//        val back = mDialogView.findViewById<ImageView>(R.id.imageView43)
+//        val submit = mDialogView.findViewById<TextView>(R.id.button2)
+//        back.setOnClickListener {
+//            mAlertDialog.dismiss()
+//        }
+//        submit.setOnClickListener {
+//            val phone = mDialogView.findViewById<TextInputEditText>(R.id.mobileCode).text.toString()
+//            val email = mDialogView.findViewById<TextInputEditText>(R.id.emailCode).text.toString()
+//            when {
+//                phone.trim() == "" -> {
+//                    mDialogView.findViewById<TextInputEditText>(R.id.mobileCode)?.error = ""
+//                }
+//                email.trim() == "" -> {
+//                    mDialogView.findViewById<TextInputEditText>(R.id.emailCode)?.error = ""
+//                }
+//                else -> {
+//                    mAlertDialog.dismiss()
+//                    Constant().hideKeyboard(this)
+//                    OtpVerify(OtpVerifyRequest(email, phone, userid))
+//                }
+//            }
+//        }
+//    }
 
 }

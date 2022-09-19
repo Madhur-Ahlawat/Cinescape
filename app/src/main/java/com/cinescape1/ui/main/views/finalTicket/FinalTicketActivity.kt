@@ -83,7 +83,6 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
         transId = intent.getStringExtra(Constant.IntentKey.TRANSACTION_ID).toString()
         bookType = intent.getStringExtra(Constant.IntentKey.BOOK_TYPE).toString()
 
-        println("TransactionId--->${transId}")
         if (transId.isBlank() ||
             transId.isEmpty() ||
             transId.isEmpty() ||

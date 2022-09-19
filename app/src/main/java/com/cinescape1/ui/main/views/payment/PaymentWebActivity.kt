@@ -16,6 +16,7 @@ import com.cinescape1.databinding.ActivityPaymentWebBinding
 import com.cinescape1.di.scoped.ActivityScoped
 import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
 import com.cinescape1.ui.main.dailogs.OptionDialog
+import com.cinescape1.ui.main.views.payment.paymentFaield.PaymentFailedActivity
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
@@ -119,6 +120,10 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
 //                        finish()
                         }
                     } else {
+                        val intent = Intent(applicationContext, PaymentFailedActivity::class.java)
+                        intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
+                        intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
+                        startActivity(intent)
                         val dialog = OptionDialog(this@PaymentWebActivity,
                             R.mipmap.ic_launcher,
                             R.string.app_name,

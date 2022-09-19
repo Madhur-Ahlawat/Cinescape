@@ -43,6 +43,7 @@ android {
         annotation("com.cinescape1.utils.NoArg")
         invokeInitializers = true
     }
+
 }
 
 dependencies {
@@ -132,5 +133,6 @@ dependencies {
     implementation 'com.github.GoodieBag:CarouselPicker:v1.1'
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
-
+//Otp View
+    implementation 'com.github.KevinSchildhorn:OTPView:0.2.2'
 }

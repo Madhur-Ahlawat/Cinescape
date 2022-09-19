@@ -317,9 +317,6 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
         mAlertDialog?.show()
 
         when (output.output.size) {
-            0 -> {
-                println("Nothing------->${output.output.size}")
-            }
             1 -> {
                 val runnable = Runnable {
                     val mDialogView =

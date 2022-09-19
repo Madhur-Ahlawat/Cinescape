@@ -225,7 +225,7 @@
                 android:id="@+id/expireDateTextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:hint="@string/expiry_date"
+                android:hint="@string/expiry_dateMM"
                 android:inputType="number"
                 android:maxLength="5"
                 android:maxLines="1"
@@ -338,6 +338,38 @@
             app:layout_constraintEnd_toEndOf="@+id/view_cancel_back"
             app:layout_constraintStart_toEndOf="@+id/text_cancel_go_back"
             app:layout_constraintTop_toTopOf="@+id/text_cancel_go_back" />
+
+        <ImageView
+            android:id="@+id/imageView44"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="9dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view_atm_card"
+            app:layout_constraintEnd_toStartOf="@+id/imageView51"
+            app:layout_constraintTop_toTopOf="@+id/view_atm_card"
+            app:srcCompat="@drawable/american_express_normal"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/imageView51"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="9dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView44"
+            app:layout_constraintEnd_toStartOf="@+id/imageView52"
+            app:layout_constraintTop_toTopOf="@+id/imageView44"
+            app:srcCompat="@drawable/ic_icon_awesome_cc_mastercard"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/imageView52"
+            android:layout_width="30.84dp"
+            android:layout_height="21dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView51"
+            app:layout_constraintEnd_toStartOf="@+id/image_visa_card"
+            app:layout_constraintTop_toTopOf="@+id/imageView51"
+            app:srcCompat="@drawable/ic_icon_metro_visa"
+            tools:ignore="ContentDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -33,9 +33,9 @@ import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.databinding.ActivityFoodBinding
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
+import com.cinescape1.ui.main.views.adapters.foodAdapters.*
 import com.cinescape1.ui.main.views.food.viewModel.FoodViewModel
 import com.cinescape1.ui.main.views.summery.SummeryActivity
-import com.cinescape1.ui.main.views.adapters.foodAdapters.*
 import com.cinescape1.utils.*
 import com.cinescape1.utils.Constant.Companion.ON_BACK_FOOD
 import com.cinescape1.utils.Constant.IntentKey.Companion.TimerExtand
@@ -605,7 +605,9 @@ class FoodActivity : DaggerAppCompatActivity(),
             override fun onTick(millisUntilFinished: Long) {
                 val second = millisUntilFinished / 1000 % 60
                 val minutes = millisUntilFinished / (1000 * 60) % 60
-                binding?.textTimeToLeft?.text = "$minutes:$second"
+                val display = java.lang.String.format("%02d:%02d", minutes, second)
+
+                binding?.textTimeToLeft?.text = display
                 timeCount = minutes * 60 + second
                 secondLeft=second
                 println("timerrr--->${second}")
@@ -618,7 +620,9 @@ class FoodActivity : DaggerAppCompatActivity(),
                             override fun onTick(millisUntilFinished: Long) {
                                 val second = millisUntilFinished / 1000 % 60
                                 val minutes = millisUntilFinished / (1000 * 60) % 60
-                                binding?.textTimeToLeft?.text = "$minutes:$second"
+                                val display = java.lang.String.format("%02d:%02d", minutes, second)
+
+                                binding?.textTimeToLeft?.text = display
                                 TimerExtand = minutes * 60 + second
                             }
 

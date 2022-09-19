@@ -121,6 +121,10 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
         return apiRequest { api.tckBooked(request) }
     }
 
+    suspend fun tckFailed(request: FinalTicketRequest): Result<TicketSummaryResponse> {
+        return apiRequest { api.tckFailed(request) }
+    }
+
     suspend fun myBooking(request: MyBookingRequest): Result<HistoryResponse> {
         return apiRequest { api.myBooking(request) }
     }

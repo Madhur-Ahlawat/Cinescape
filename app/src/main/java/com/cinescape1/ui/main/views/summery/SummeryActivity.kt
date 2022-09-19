@@ -139,6 +139,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
             textView112?.show()
             resendTimer()
         }
+
         if (!preferences.getBoolean(Constant.IS_LOGIN)) {
             val intent = Intent(this, LoginActivity::class.java)
                 .putExtra("BOOKING", bookType)
@@ -170,7 +171,6 @@ class SummeryActivity : DaggerAppCompatActivity() {
             if (click) {
                 when (payType) {
                     "WALLET" -> {
-
                         walletPay(
                             HmacKnetRequest(
                                 bookingId,
@@ -179,12 +179,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
                                 preferences.getString(Constant.USER_ID).toString()
                             )
                         )
-//                        startActivity(
-//                            Intent(
-//                                this,
-//                                PaymentWebActivity::class.java
-//                            ).putExtra("PAY_URL", "")
-//                        )
+
                     }
                     "KNET" -> {
                         paymentHmac(
@@ -224,7 +219,6 @@ class SummeryActivity : DaggerAppCompatActivity() {
                             .setView(mDialogView)
                         val proceedAlertDialog = mBuilder.show()
                         proceedAlertDialog.show()
-//                        " "+getString(R.string.price_kd)+" "+
                         proceedAlertDialog?.kd_to_pay?.text = " $totalPrice"
 
                         proceedAlertDialog.cardNumberTextInputEditText.addTextChangedListener(object :
@@ -442,7 +436,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
                                     if (!proceedAlertDialog.cardNumberTextInputEditText.text
                                             .toString().isEmpty()
                                     ) {
-                                        proceedAlertDialog.image_american_express_card.visibility =
+                                        proceedAlertDialog.imageView52.visibility =
                                             View.VISIBLE
                                         if (VISA_PREFIX.contains(
                                                 proceedAlertDialog.cardNumberTextInputEditText.text
@@ -450,7 +444,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
                                             ) && !proceedAlertDialog.cardNumberTextInputEditText.text
                                                 .toString().isEmpty()
                                         ) {
-                                            proceedAlertDialog.image_american_express_card.setImageDrawable(
+                                            proceedAlertDialog.imageView52.setImageDrawable(
                                                 ContextCompat.getDrawable(
                                                     mContext,
                                                     R.drawable.visa_card
@@ -463,7 +457,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
                                             ) && !proceedAlertDialog.cardNumberTextInputEditText.text
                                                 .toString().isEmpty()
                                         ) {
-                                            proceedAlertDialog.image_american_express_card.setImageDrawable(
+                                            proceedAlertDialog.imageView52.setImageDrawable(
                                                 ContextCompat.getDrawable(
                                                     mContext,
                                                     R.drawable.mastercard_card
@@ -476,7 +470,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
                                             ) && !proceedAlertDialog.cardNumberTextInputEditText.text
                                                 .toString().isEmpty()
                                         ) {
-                                            proceedAlertDialog.image_american_express_card.setImageDrawable(
+                                            proceedAlertDialog.imageView52.setImageDrawable(
                                                 ContextCompat.getDrawable(
                                                     mContext,
                                                     R.drawable.amerian_card
@@ -488,7 +482,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
                                             ) && !proceedAlertDialog.cardNumberTextInputEditText.text
                                                 .toString().isEmpty()
                                         ) {
-                                            proceedAlertDialog.image_american_express_card.setImageDrawable(
+                                            proceedAlertDialog.imageView52.setImageDrawable(
                                                 ContextCompat.getDrawable(
                                                     mContext,
                                                     R.drawable.disover_card
@@ -500,7 +494,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
                                             ) && !proceedAlertDialog.cardNumberTextInputEditText.text
                                                 .toString().isEmpty()
                                         ) {
-                                            proceedAlertDialog.image_american_express_card.setImageDrawable(
+                                            proceedAlertDialog.imageView52.setImageDrawable(
                                                 ContextCompat.getDrawable(
                                                     mContext,
                                                     R.drawable.jcb_card
@@ -512,7 +506,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
                                             ) && !proceedAlertDialog.cardNumberTextInputEditText.text
                                                 .toString().isEmpty()
                                         ) {
-                                            proceedAlertDialog.image_american_express_card.setImageDrawable(
+                                            proceedAlertDialog.imageView52.setImageDrawable(
                                                 ContextCompat.getDrawable(
                                                     mContext,
                                                     R.drawable.maestro_card
@@ -524,19 +518,19 @@ class SummeryActivity : DaggerAppCompatActivity() {
                                             ) && !proceedAlertDialog.cardNumberTextInputEditText.text
                                                 .toString().isEmpty()
                                         ) {
-                                            proceedAlertDialog.image_american_express_card.setImageDrawable(
+                                            proceedAlertDialog.imageView52.setImageDrawable(
                                                 ContextCompat.getDrawable(
                                                     mContext,
                                                     R.drawable.uatp
                                                 )
                                             )
                                         } else {
-                                            proceedAlertDialog.image_american_express_card.visibility =
-                                                View.GONE
+//                                            proceedAlertDialogtDialog.imageView52.visibility =
+//                                                View.GONE
                                         }
                                     } else {
-                                        proceedAlertDialog.image_american_express_card.visibility =
-                                            View.GONE
+//                                        proceedAlertDialogtDialogialog.imageView52.visibility =
+//                                            View.GONE
                                     }
                                 } catch (e: java.lang.Exception) {
                                 }
@@ -569,7 +563,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
                                 added: Int
                             ) {
                                 val input = p0.toString()
-                                val formatter = SimpleDateFormat("MM/yy", Locale.GERMANY)
+                                val formatter = SimpleDateFormat("MM/YY", Locale.GERMANY)
                                 val expiryDateDate = Calendar.getInstance()
                                 try {
                                     expiryDateDate.time = formatter.parse(input)
@@ -1091,7 +1085,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
             }
     }
 
-    // Hmac Request
+    // hmac Request
     private fun paymentHmac(request: HmacKnetRequest) {
         summeryViewModel.paymentKnetHmac(request)
             .observe(this) {
@@ -1218,7 +1212,6 @@ class SummeryActivity : DaggerAppCompatActivity() {
             layoutManager.flexDirection = FlexDirection.ROW
             layoutManager.justifyContent = JustifyContent.FLEX_START
             layoutManager.alignItems = AlignItems.STRETCH
-//            val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
             val adapter = SummerySeatListAdapter(output.seatsArr)
             seatList.layoutManager = layoutManager
             seatList.adapter = adapter
@@ -1358,7 +1351,9 @@ class SummeryActivity : DaggerAppCompatActivity() {
                 override fun onTick(millisUntilFinished: Long) {
                     val second = millisUntilFinished / 1000 % 60
                     val minutes = millisUntilFinished / (1000 * 60) % 60
-                    textView111?.text = "$minutes:$second"
+                    val display = java.lang.String.format("%02d:%02d", minutes, second)
+
+                    textView111?.text = display
                     timeCount = minutes * 60 + second
                     secondLeft = second
 
@@ -1373,7 +1368,9 @@ class SummeryActivity : DaggerAppCompatActivity() {
                                 override fun onTick(millisUntilFinished: Long) {
                                     val second = millisUntilFinished / 1000 % 60
                                     val minutes = millisUntilFinished / (1000 * 60) % 60
-                                    textView111?.text = "$minutes:$second"
+                                    val display = java.lang.String.format("%02d:%02d", minutes, second)
+
+                                    textView111?.text = display
                                     Constant.IntentKey.TimerExtand = minutes * 60 + second
                                 }
 
@@ -1468,7 +1465,6 @@ class SummeryActivity : DaggerAppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         cancelDialog()
-
     }
 
     private fun cancelTrans(cancelTransRequest: CancelTransRequest) {
@@ -1524,10 +1520,8 @@ class SummeryActivity : DaggerAppCompatActivity() {
             }
     }
 
-    fun doProfile(sessions1: String, merchent: String) {
+    private fun doProfile(sessions1: String, merchent: String) {
         val list: List<String> = ArrayList()
-        //        list.add("attribute 1");
-//        list.add("attribute 2");
         val options =
             TMXProfilingOptions().setCustomAttributes(list) // Fire off the profiling request. We could use a more complex request,
         options.setSessionID(merchent + sessions1)

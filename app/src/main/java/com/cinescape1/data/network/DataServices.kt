@@ -95,6 +95,9 @@ interface DataServices {
     @POST("content/trans/tckbooked")
     suspend fun tckBooked(@Body request: FinalTicketRequest): Response<TicketSummaryResponse>
 
+    @POST("content/trans/tckfailed")
+    suspend fun tckFailed(@Body request: FinalTicketRequest): Response<TicketSummaryResponse>
+
 
     @POST("history/mybookings")
     suspend fun myBooking(@Body request: MyBookingRequest): Response<HistoryResponse>

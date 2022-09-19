@@ -114,6 +114,7 @@
     <string name="card_number">Card Number</string>
     <string name="credit_card_payment">CREDIT CARD PAYMENT</string>
     <string name="expiry_date">Expiry Date</string>
+    <string name="expiry_dateMM">MM/YY</string>
     <string name="ccv">CCV</string>
     <string name="pay">Pay</string>
     <string name="cancels">Cancel" "</string>
@@ -328,5 +329,14 @@
     <string name="reference_id">Reference ID</string>
     <string name="track_number">Track Number</string>
     <string name="tickets">Tickets</string>
+    <string name="sorry_your_transaction">Sorry, Your transaction</string>
+    <string name="failed">FAILED!</string>
+    <string name="payment_fail">Your reservation was unsuccessful, Kindly contact your bank.</string>
+    <string name="email_verification_code">Email Verification Code</string>
+    <string name="please_enter_your_email_verification_code_sent_to_your_email">Please enter your email verification code sent to your email</string>
+    <string name="mobile_verification_code">Mobile Verification Code</string>
+    <string name="please_enter_mobile_verification_code_sent_to_your_mobile">Please enter mobile verification code sent to your mobile.</string>
+    <string name="enterEmailOtp">Please Enter Your Email Otp</string>
+    <string name="enterMobileOtp">Please Enter Your Mobile Otp</string>
 
 </resources>

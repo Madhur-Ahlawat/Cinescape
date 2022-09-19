@@ -33,10 +33,16 @@
         tools:ignore="AllowBackup,UnusedAttribute"
         tools:replace="android:supportsRtl">
         <activity
-            android:name=".ui.main.views.home.fragments.home.cinemaLocation.CinemaLocationActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Cinescape.NoActionBar"
+            android:name=".ui.main.views.login.otpVerification.OtpVerificationActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.main.views.payment.paymentFaield.PaymentFailedActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.views.home.fragments.home.cinemaLocation.CinemaLocationActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Cinescape.NoActionBar" />
         <activity
             android:name=".ui.main.views.finalTicket.FinalTicketActivity"
             android:screenOrientation="portrait"
