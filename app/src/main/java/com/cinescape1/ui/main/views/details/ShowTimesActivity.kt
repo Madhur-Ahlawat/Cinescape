@@ -13,8 +13,11 @@ import android.os.Looper
 import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
-import android.view.*
+import android.view.LayoutInflater
 import android.view.MotionEvent.ACTION_UP
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import android.widget.TextView.OnEditorActionListener
@@ -43,12 +46,12 @@ import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.databinding.ActivityShowTimesBinding
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
-import com.cinescape1.ui.main.views.details.viewModel.ShowTimesViewModel
 import com.cinescape1.ui.main.views.adapters.AdapterDayDate
 import com.cinescape1.ui.main.views.adapters.CinemaPageAdapter
 import com.cinescape1.ui.main.views.adapters.cinemaSessionAdapters.AdapterCinemaSessionScroll
 import com.cinescape1.ui.main.views.adapters.showTimesAdapters.AdapterShowTimesCinemaTitle
 import com.cinescape1.ui.main.views.adapters.showTimesAdapters.AdpaterShowTimesCast
+import com.cinescape1.ui.main.views.details.viewModel.ShowTimesViewModel
 import com.cinescape1.ui.main.views.login.LoginActivity
 import com.cinescape1.ui.main.views.player.PlayerActivity
 import com.cinescape1.ui.main.views.seatLayout.SeatScreenMainActivity
@@ -66,10 +69,12 @@ import kotlin.math.abs
 
 @Suppress("DEPRECATION", "NAME_SHADOWING")
 class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewItemClickListener,
-    AdapterShowTimesCinemaTitle.CinemaAdapterListener,AdapterCinemaSessionScroll.LocationListener {
+    AdapterShowTimesCinemaTitle.CinemaAdapterListener, AdapterCinemaSessionScroll.LocationListener {
     private var num = 0
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
     @Inject
     lateinit var preferences: AppPreferences
     private val showTimeViewModel: ShowTimesViewModel by viewModels { viewModelFactory }
@@ -94,8 +99,8 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     private var showData: CinemaSessionResponse.Output? = null
     private var daySessionResponse: ArrayList<CinemaSessionResponse.DaySession> = ArrayList()
     private var totalPriceResponse: Double = 0.0
-    private  var selectSeatClick: Int = 0
-    private  var seatAbility: Int = 0
+    private var selectSeatClick: Int = 0
+    private var seatAbility: Int = 0
     private var categoryClick: Boolean = false
     private var mAlertDialog: AlertDialog? = null
     var adapterShowTimesCinemaTitle: AdapterShowTimesCinemaTitle? = null
@@ -307,7 +312,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                                     try {
                                         binding?.LayoutTime?.show()
                                         movieDetailsData(it.data.output.movie)
-                                       setTitleAdapter()
+                                        setTitleAdapter()
                                     } catch (e: Exception) {
                                         println("updateUiCinemaSession ---> ${e.message}")
                                     }
@@ -356,7 +361,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     private fun movieDetailsData(output: GetMovieResponse.Output.Movie) {
         println("""updateUiCinemaSession ----> $output""")
         binding?.textFilmHouseName?.text = output.title
-        binding?.textFilmHouseName?.isSelected =true
+        binding?.textFilmHouseName?.isSelected = true
         binding?.textView56?.text = output.rating
 
 
@@ -409,7 +414,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         }
 
         binding?.textMovieType?.text =
-            output.language + " | " + output.genre + " | " + output.runTime +" "+ getString(R.string.min)
+            output.language + " | " + output.genre + " | " + output.runTime + " " + getString(R.string.min)
 
         if (output.trailerUrl.isEmpty()) {
             binding?.imageView26?.hide()
@@ -434,10 +439,10 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         text_sysnopsis_detail.text = output.synopsis
         text_directoe_name.text = output.director.firstName + " " + output.director.lastName
 
-        if(output.cast.isEmpty()){
+        if (output.cast.isEmpty()) {
             text_cast.hide()
             recyclerview_show_times_cast.hide()
-        }else{
+        } else {
             text_cast.show()
             recyclerview_show_times_cast.show()
         }
@@ -570,7 +575,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     private fun updateUiShowTimes(output: CinemaSessionResponse.Output) {
         println("""updateUiCinemaSession ----> $output""")
         binding?.textFilmHouseName?.text = output.movie.title
-        binding?.textFilmHouseName?.isSelected =true
+        binding?.textFilmHouseName?.isSelected = true
         binding?.textView56?.text = output.movie.rating
 
         when (output.movie.rating) {
@@ -613,7 +618,9 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         }
 
         binding?.textMovieType?.text =
-            output.movie.language + " | " + output.movie.genre + " | " + output.movie.runTime +" "+ getString(R.string.min)
+            output.movie.language + " | " + output.movie.genre + " | " + output.movie.runTime + " " + getString(
+                R.string.min
+            )
 
         if (output.movie.trailerUrl.isEmpty()) {
             binding?.imageView26?.hide()
@@ -662,15 +669,16 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     //Cinema All Cinema and Show
     private fun setTitleAdapter() {
         binding?.viewpager?.adapter =
-            CinemaPageAdapter(this, daySessionResponse,binding?.viewpager)
+            CinemaPageAdapter(this, daySessionResponse, binding?.viewpager)
         binding?.viewpager?.offscreenPageLimit = 3
         binding?.viewpager?.clipChildren = false
         binding?.viewpager?.clipToPadding = false
         binding?.viewpager?.getChildAt(0)?.overScrollMode = RecyclerView.OVER_SCROLL_NEVER
         val transfer = CompositePageTransformer()
 
-        val nextItemVisiblePx =resources.getDimension(R.dimen.viewpager_next_item_visible)
-        val currentItemHorizontalMarginPx =resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
+        val nextItemVisiblePx = resources.getDimension(R.dimen.viewpager_next_item_visible)
+        val currentItemHorizontalMarginPx =
+            resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
         val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
 
 
@@ -678,12 +686,12 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         transfer.addTransformer(object : com.github.islamkhsh.viewpager2.ViewPager2.PageTransformer,
             ViewPager2.PageTransformer {
             override fun transformPage(page: View, position: Float) {
-               // println("rowIndex---->1-$position")
+                // println("rowIndex---->1-$position")
                 page.translationX = -pageTranslationX * position
 
                 select_pos = position.toInt()
-                val r = 1- abs(position)
-                page.scaleY = (0.85f+ r*0.14f)
+                val r = 1 - abs(position)
+                page.scaleY = (0.85f + r * 0.14f)
             }
 
         })
@@ -691,7 +699,8 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         binding?.textView110?.show()
         binding?.textView110?.text = daySessionResponse[0].cinema.address1
 
-        binding?.viewpager?.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        binding?.viewpager?.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
 
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
@@ -936,9 +945,9 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         selectSeatCategory.removeAllViews()
         totalPrice.text = getString(R.string.price_kd) + " 0.000"
 
-        if (output.seatTypes[0].seatTypes.size==0){
+        if (output.seatTypes[0].seatTypes.size == 0) {
             textView5.text = getString(R.string.select_seat_type)
-        }else{
+        } else {
             textView5.text = getString(R.string.select_seat_category)
         }
 
@@ -1078,9 +1087,12 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 //                                totalPrice.text = getString(R.string.price_kd) + " 0.000"
                                 num = 1
                                 txtNumber.text = "1"
-                                Toast.makeText(this, "2--->$totalPriceResponse", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this, "2--->$totalPriceResponse", Toast.LENGTH_SHORT)
+                                    .show()
                                 totalPrice.text =
-                                    getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format((totalPriceResponse * num) / 100)
+                                    getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format(
+                                        (totalPriceResponse * num) / 100
+                                    )
 
                                 var imageSeatSelection1: ImageView?
                                 var tvSeatSelection1: TextView?
@@ -1135,7 +1147,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
                             }
 
-                        }catch (e:Exception){
+                        } catch (e: Exception) {
                             println("manageException--->${e.message}")
                         }
 
@@ -1190,8 +1202,19 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                     dialog.show()
                 } else {
                     if (num < 0 || num == output.seatCount) {
+                        if (num == 1) {
+                            btnDecrease.hide()
+                        } else {
+                            btnDecrease.show()
 
-                    toast("${getString(R.string.seatLimit)} ${" "+output.seatCount} ${" "+getString(R.string.seat)}")
+                        }
+                        toast(
+                            "${getString(R.string.seatLimit)} ${" " + output.seatCount} ${
+                                " " + getString(
+                                    R.string.seat
+                                )
+                            }"
+                        )
 
                     } else {
                         num += 1
@@ -1205,7 +1228,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
             textProceeds.setOnClickListener {
                 if (!categoryClick) {
-                    if (output.seatTypes[0].seatTypes.size==0){
+                    if (output.seatTypes[0].seatTypes.size == 0) {
                         val dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
@@ -1217,7 +1240,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                             negativeClick = {
                             })
                         dialog.show()
-                    }else{
+                    } else {
                         val dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
