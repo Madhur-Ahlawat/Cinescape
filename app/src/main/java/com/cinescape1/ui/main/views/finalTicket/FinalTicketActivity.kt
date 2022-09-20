@@ -14,6 +14,7 @@ import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.requestModel.FinalTicketRequest
@@ -32,15 +33,13 @@ import com.cinescape1.utils.*
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
+@Suppress("DEPRECATION")
 @ActivityScoped
 class FinalTicketActivity : DaggerAppCompatActivity() {
-
     private var loader: LoaderDialog? = null
-
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private var binding: ActivityFinalTicketBinding? = null
-
     @Inject
     lateinit var preferences: AppPreferences
     private val finalTicketViewModel: FinalTicketViewModel by viewModels { viewModelFactory }
@@ -192,7 +191,6 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun retrieveBookedResponse(output: TicketSummaryResponse.Output) {
-
         val runnable = Runnable {
             binding?.successConstraintLayout?.hide()
             binding?.imageQrCode?.show()
@@ -225,22 +223,27 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
         if (output.bookingType == "BOOKING") {
             if (output.concessionFoods.isNotEmpty()) {
                 println("checkCase--->1---New")
-                finalTicketLocalModel.add(FinalTicketLocalModel("BOOKING", 3))
+                finalTicketLocalModel.add(FinalTicketLocalModel(output.bookingType, 1))
+                finalTicketLocalModel.add(FinalTicketLocalModel(output.bookingType, 2))
+                finalTicketLocalModel.add(FinalTicketLocalModel(output.bookingType, 3))
 
             } else {
                 println("checkCase--->2---New")
-                finalTicketLocalModel.add(FinalTicketLocalModel("BOOKING", 1))
+                finalTicketLocalModel.add(FinalTicketLocalModel(output.bookingType, 1))
             }
         } else {
-            finalTicketLocalModel.add(FinalTicketLocalModel("BOOKING", 2))
+            finalTicketLocalModel.add(FinalTicketLocalModel(output.bookingType, 1))
+            finalTicketLocalModel.add(FinalTicketLocalModel(output.bookingType, 2))
             println("checkCase--->3---New")
         }
-
 
         val gridLayout =
             GridLayoutManager(this@FinalTicketActivity, 1, GridLayoutManager.HORIZONTAL, false)
         binding?.recyclerViewFinalTicket?.layoutManager =
             LinearLayoutManager(this@FinalTicketActivity)
+
+        val snapHelper = PagerSnapHelper()
+        snapHelper.attachToRecyclerView(binding?.recyclerViewFinalTicket)
         val finalTicketParentAdapter =
             FinalTicketParentAdapter(this@FinalTicketActivity, finalTicketLocalModel, output)
         binding?.recyclerViewFinalTicket?.layoutManager = gridLayout
@@ -248,7 +251,6 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
         binding?.layoutDots?.attachToRecyclerView( binding?.recyclerViewFinalTicket!!)
 
     }
-
 
     private fun setMySingleTicket() {
         mySingleTicket(

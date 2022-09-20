@@ -36,21 +36,21 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
     lateinit var preferences: AppPreferences
 
     //    private val splashViewModel: SplashViewModel by viewModels { viewModelFactory }
-    private var pay_url = ""
+    private var payUrl = ""
     var bookingId = ""
     var transId = ""
-    var From = ""
+    var from = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         binding = ActivityPaymentWebBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
         setContentView(view)
-        pay_url = intent.getStringExtra("PAY_URL").toString()
+        payUrl = intent.getStringExtra("PAY_URL").toString()
         bookingId = intent.getStringExtra(Constant.IntentKey.BOOKING_ID).toString()
         transId = intent.getStringExtra(Constant.IntentKey.TRANSACTION_ID).toString()
-        From = intent.getStringExtra("From").toString()
-        if (From == "login") {
+        from = intent.getStringExtra("From").toString()
+        if (from == "login") {
             binding?.textView109?.text = ""
             binding?.viewBack?.show()
             binding?.textView109?.show()
@@ -65,10 +65,10 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
             finish()
         }
 
-        println("pay_url--->$pay_url")
+        println("pay_url--->$payUrl")
         println("transId--->$transId")
         println("bookingId--->$bookingId")
-        loadWebView(pay_url)
+        loadWebView(payUrl)
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -90,6 +90,7 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
         }
         binding?.paymentView?.webViewClient = object : WebViewClient() {
 
+            @Deprecated("Deprecated in Java")
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
                 println("url response123--->$url")
 
@@ -107,7 +108,7 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
                     println("args---$args")
                     if (uri.getQueryParameter("result") == "success") {
 
-                        if (From == "recharge") {
+                        if (from == "recharge") {
                             Constant.IntentKey.OPEN_FROM = 1
 
                             finish()
@@ -173,7 +174,7 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
     }
 
     class JavaScriptInterface internal constructor(var mContext: Activity) {
-        @android.webkit.JavascriptInterface
+        @JavascriptInterface
         fun paymentResponse(response: String, pagename: String) {
 //            timer.cancel()
             Log.e("Tag", "Payment Complete=$response-pagename-$pagename")
@@ -187,7 +188,7 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (From == "login") {
+        if (from == "login") {
             finish()
         } else {
             if (fnb == Constant.FNB) {
@@ -209,7 +210,7 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
 //                paymentType,
 //                paymentIntentData.bookingID.toString(),
 //                paymentViewModel,
-//                prefrences.getString(Constant.USER_ID).toString()
+//                preferences.getString(Constant.USER_ID).toString()
 //            )
             }
         }

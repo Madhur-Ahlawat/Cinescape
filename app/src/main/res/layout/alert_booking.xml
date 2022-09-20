@@ -103,6 +103,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/upcoming_booking"
                 tools:srcCompat="@drawable/bombshell_alert" />
 
+            <View
+                android:id="@+id/view107"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="17dp"
+                android:background="@drawable/booking_alert_gradient"
+                app:layout_constraintBottom_toTopOf="@+id/view_location1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/upcoming_booking" />
+
 
 
             <androidx.constraintlayout.widget.ConstraintLayout

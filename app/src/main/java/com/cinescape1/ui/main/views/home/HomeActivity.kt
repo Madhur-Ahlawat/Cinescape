@@ -43,7 +43,7 @@ import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.home.viewModel.HomeViewModel
 import com.cinescape1.ui.main.views.food.FoodActivity
 import com.cinescape1.ui.main.views.login.LoginActivity
-import com.cinescape1.ui.main.views.adapters.foodAdapters.CustomSpinnerAdapter
+import com.cinescape1.ui.main.views.home.adapter.CustomSpinnerAdapter
 import com.cinescape1.ui.main.views.adapters.sliderAdapter.AdapterMultiMovieAlertBooking
 import com.cinescape1.ui.main.views.home.fragments.account.AccountPageFragment
 import com.cinescape1.ui.main.views.home.fragments.home.HomeFragment
@@ -74,7 +74,6 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
     private var timeback: Long = 0
     var mAlertDialog: AlertDialog? = null
     private var cinemaId = ""
-    private var openFromFood = ""
     private var loader: LoaderDialog? = null
     private var locationlist = ArrayList<FoodResponse.Output.Cinema>()
 
@@ -98,7 +97,6 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
-                println("getLocalLanguageMore--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
             }
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(this, "en")
@@ -164,9 +162,20 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
                                         locationlist = it.data.output.cinemas
                                         cinemaId = it.data.output.cinemas[0].id
 
-                                        println("CinemaId--->${cinemaId}")
                                     }
                                 } catch (e: Exception) {
+                                    val dialog = OptionDialog(this,
+                                        R.mipmap.ic_launcher,
+                                        R.string.app_name,
+                                        it.data?.msg.toString(),
+                                        positiveBtnText = R.string.ok,
+                                        negativeBtnText = R.string.no,
+                                        positiveClick = {
+
+                                        },
+                                        negativeClick = {
+                                        })
+                                    dialog.show()
 
                                 }
                             }
@@ -429,14 +438,13 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
                         false
                     )
                     val snapHelper = PagerSnapHelper()
-
                     snapHelper.attachToRecyclerView(recyclerViewAlertBooking)
                     recyclerViewAlertBooking.layoutManager = gridLayout
                     recyclerViewAlertBooking.adapter = adapter
                     adapter.renewItems(output.output)
                     mDialogView.textView_dots.attachToRecyclerView(recyclerViewAlertBooking)
-                }
 
+                }
                 val handler = Handler(Looper.getMainLooper())
                 handler.postDelayed(runnable, 2000)
 

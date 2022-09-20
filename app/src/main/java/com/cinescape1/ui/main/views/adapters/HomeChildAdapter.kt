@@ -50,14 +50,14 @@ class HomeChildAdapter(
                 val holder = holder as MyViewHolderSlider
                 Glide.with(context)
                     .load(photoItem.mobimgsmall)
-                    .error(R.drawable.pos_not_avilbale)
+                    .error(R.drawable.placeholder_home_small_poster)
                     .into(holder.image)
 
             } else {
                 val holder = holder as MyViewHolderRecommended
                 Glide.with(context)
                     .load(photoItem.mobimgsmall)
-                    .error(R.drawable.pos_not_avilbale)
+                    .error(R.drawable.placeholder_home_small_poster)
                     .into(holder.thumbnail)
 
                 if (comingSoon) {

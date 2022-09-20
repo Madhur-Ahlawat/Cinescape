@@ -21,8 +21,6 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private var loader: LoaderDialog? = null
-
-
     @Inject
     lateinit var preferences: AppPreferences
     private val otpVerificationViewModel: OtpVerificationViewModel by viewModels { viewModelFactory }
@@ -128,6 +126,18 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
                                     startActivity(intent)
                                     finish()
 
+                                }else{
+                                    val dialog = OptionDialog(this,
+                                        R.mipmap.ic_launcher,
+                                        R.string.app_name,
+                                        it.data?.msg.toString(),
+                                        positiveBtnText = R.string.ok,
+                                        negativeBtnText = R.string.no,
+                                        positiveClick = {
+                                        },
+                                        negativeClick = {
+                                        })
+                                    dialog.show()
                                 }
 
 

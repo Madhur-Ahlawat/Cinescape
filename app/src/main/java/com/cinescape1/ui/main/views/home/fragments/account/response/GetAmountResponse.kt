@@ -1,4 +1,4 @@
-package com.cinescape1.data.models.responseModel
+package com.cinescape1.ui.main.views.home.fragments.account.response
 
 data class GetAmountResponse(
     val code: Int,

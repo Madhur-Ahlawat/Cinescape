@@ -21,7 +21,7 @@ import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.home.viewModel.HomeViewModel
 import com.cinescape1.ui.main.views.food.FoodActivity
 import com.cinescape1.ui.main.views.home.HomeActivity
-import com.cinescape1.ui.main.views.adapters.foodAdapters.CustomSpinnerAdapter
+import com.cinescape1.ui.main.views.home.adapter.CustomSpinnerAdapter
 import com.cinescape1.utils.*
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject

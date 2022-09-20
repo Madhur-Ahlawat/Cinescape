@@ -33,6 +33,7 @@
         tools:replace="android:supportsRtl">
         <activity
             android:name=".ui.main.views.login.otpVerification.OtpVerificationActivity"
+            android:theme="@style/Theme.Cinescape.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".ui.main.views.payment.paymentFaield.PaymentFailedActivity"
@@ -41,7 +42,8 @@
             android:name=".ui.main.views.home.fragments.home.cinemaLocation.CinemaLocationActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Cinescape.NoActionBar" />
+            android:theme="@style/Theme.Cinescape.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.main.views.finalTicket.FinalTicketActivity"
             android:screenOrientation="portrait"

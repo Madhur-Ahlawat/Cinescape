@@ -338,5 +338,6 @@
     <string name="please_enter_mobile_verification_code_sent_to_your_mobile">Please enter mobile verification code sent to your mobile.</string>
     <string name="enterEmailOtp">Please Enter Your Email Otp</string>
     <string name="enterMobileOtp">Please Enter Your Mobile Otp</string>
+    <string name="enter_verification_codes_sent_to_your_email_n_and_mobile">Enter verification codes sent to your email\n and mobile.</string>
 
 </resources>

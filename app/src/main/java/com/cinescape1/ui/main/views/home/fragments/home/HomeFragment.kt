@@ -28,6 +28,7 @@ import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
+@Suppress("DEPRECATION")
 class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickListener {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory

@@ -70,19 +70,7 @@ class AccountFragViewModel @Inject constructor(private val repositories: Reposit
         }
     }
 
-    fun getClubAmounts(context: Activity) = liveData(Dispatchers.IO) {
-        emit(Result.loading(data = null))
-        try {
-            val data = repositories.getClubAmounts(Constant.version, Constant.platform)
-            if (data.status == Status.ERROR){
-                emit(Result.error(data.message.toString(),data))
-            }else{
-                emit(Result.success(data = data))
-            }
-        } catch (exception: Exception) {
-            emit(Result.error(exception.message ?: "Error Occurred!",data = null))
-        }
-    }
+
 
     fun countryCode( context: Activity ) = liveData(Dispatchers.IO) {
         emit(Result.loading(data = null))

@@ -171,6 +171,7 @@ class UpcomingBookingAdapter(
     interface RecycleViewItemClickListener {
         fun cancelReserv(foodSelctedItem: NextBookingResponse.Current)
 
+
     }
     interface ReesendMailItemClickListener {
         fun resenDmail(foodSelctedItem: NextBookingResponse.Current)

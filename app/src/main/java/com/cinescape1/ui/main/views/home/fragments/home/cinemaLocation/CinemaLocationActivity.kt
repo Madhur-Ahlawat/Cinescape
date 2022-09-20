@@ -6,7 +6,6 @@ import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
-import android.graphics.Color.blue
 import android.graphics.Paint
 import android.net.ConnectivityManager
 import android.net.Uri
@@ -16,8 +15,10 @@ import android.os.Looper
 import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
-import android.view.*
-import android.view.inputmethod.EditorInfo
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.*
 import androidx.activity.viewModels
 import androidx.cardview.widget.CardView
@@ -28,40 +29,32 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.CompositePageTransformer
 import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.requestModel.CinemaSessionRequest
 import com.cinescape1.data.models.requestModel.SeatLayoutRequest
 import com.cinescape1.data.models.responseModel.CSessionResponse
 import com.cinescape1.data.models.responseModel.CinemaSessionResponse
-import com.cinescape1.data.models.responseModel.GetMovieResponse
 import com.cinescape1.data.models.responseModel.SeatLayoutResponse
 import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.databinding.ActivityCinemaLocationBinding
-import com.cinescape1.di.scoped.ActivityScoped
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.adapters.AdapterDayDate
 import com.cinescape1.ui.main.views.adapters.CinemaDayAdapter
-import com.cinescape1.ui.main.views.adapters.CinemaPageAdapter
 import com.cinescape1.ui.main.views.adapters.cinemaSessionAdapters.AdapterCinemaSessionScroll
 import com.cinescape1.ui.main.views.adapters.showTimesAdapters.AdapterShowTimesCinemaTitle
-import com.cinescape1.ui.main.views.adapters.showTimesAdapters.AdpaterShowTimesCast
-
 import com.cinescape1.ui.main.views.home.fragments.home.cinemaLocation.viewModel.CinemaLocationViewModel
 import com.cinescape1.ui.main.views.login.LoginActivity
-import com.cinescape1.ui.main.views.player.PlayerActivity
 import com.cinescape1.ui.main.views.seatLayout.SeatScreenMainActivity
 import com.cinescape1.utils.*
 import com.google.android.flexbox.FlexboxLayout
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.activity_cinema_location.*
 import kotlinx.android.synthetic.main.search_ui.*
 import kotlinx.android.synthetic.main.seat_selection_bank_offer_alert.*
-import kotlinx.android.synthetic.main.show_times_layout_include.*
 import javax.inject.Inject
 
+@Suppress("DEPRECATION", "NAME_SHADOWING")
 class CinemaLocationActivity : DaggerAppCompatActivity(),
     AdapterDayDate.RecycleViewItemClickListener,
     AdapterShowTimesCinemaTitle.CinemaAdapterListener,
@@ -75,7 +68,6 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
     lateinit var preferences: AppPreferences
     private val showTimeViewModel: CinemaLocationViewModel by viewModels { viewModelFactory }
     private var binding: ActivityCinemaLocationBinding? = null
-    private var up = true
     private var count = 0
     private var datePos = 0
     private var showPose = 0
@@ -85,18 +77,17 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
     private var seatCat = ""
     private var seatType = ""
     private var movieID = ""
-    private var CinemaID = ""
-    private var SessionID = ""
+    private var cinemaID = ""
+    private var sessionID = ""
     private var type = ""
-    var datePosition = ""
-    var dt = ""
+    private var datePosition = ""
+    private var dt = ""
     private var loader: LoaderDialog? = null
     private var showDataCSessionResponse: CSessionResponse.Output? = null
     private var showData: CinemaSessionResponse.Output? = null
-    private var daySessionResponse: ArrayList<CinemaSessionResponse.DaySession> = ArrayList()
-    var totalPriceResponse: Double = 0.0
-    var selectSeatClick: Int = 0
-    var seatAbility: Int = 0
+    private var totalPriceResponse: Double = 0.0
+    private var selectSeatClick: Int = 0
+    private var seatAbility: Int = 0
     private var categoryClick: Boolean = false
     private var mAlertDialog: AlertDialog? = null
     private var languageCheck: String = "en"
@@ -150,20 +141,6 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                 binding?.centerView?.hide()
 
                 getCinemaData(CinemaSessionRequest(dateTime, movieID))
-            }
-            else -> {
-                val layoutParams =
-                    (binding?.recylerviewShowTimeDate?.layoutParams as? ViewGroup.MarginLayoutParams)
-                layoutParams?.setMargins(0, 24, 0, 8)
-                binding?.recylerviewShowTimeDate?.layoutParams = layoutParams
-
-                binding?.moviePage?.show()
-                binding?.comingSoon?.hide()
-                binding?.viewpager?.show()
-                binding?.imageView48?.show()
-//                binding?.textView110?.show()
-                binding?.centerView?.show()
-                include.hide()
             }
         }
         movedNext()
@@ -225,7 +202,7 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
         binding?.view68?.setOnClickListener {
             Toast.makeText(
                 applicationContext,
-                "This Feeture Will Avilable Soon",
+                "This Feature Will Available Soon",
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -416,122 +393,10 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
             }
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun updateUiShowTimes(output: CinemaSessionResponse.Output) {
-        println("""updateUiCinemaSession ----> $output""")
-        binding?.textFilmHouseName?.text = output.movie.title
-        binding?.textFilmHouseName?.isSelected = true
-        binding?.textView56?.text = output.movie.rating
-
-        when (output.movie.rating) {
-            "PG" -> {
-                binding?.textView56?.setBackgroundResource(R.color.grey)
-
-            }
-            "G" -> {
-                binding?.textView56?.setBackgroundResource(R.color.green)
-
-            }
-            "18+" -> {
-                binding?.textView56?.setBackgroundResource(R.color.red)
-
-            }
-            "13+" -> {
-                binding?.textView56?.setBackgroundResource(R.color.yellow)
-
-            }
-            "15+" -> {
-                binding?.textView56?.setBackgroundResource(R.color.yellow)
-
-            }
-            "E" -> {
-                binding?.textView56?.setBackgroundResource(R.color.wowOrange)
-
-            }
-            "T" -> {
-                binding?.textView56?.setBackgroundResource(R.color.tabIndicater)
-
-            }
-            else -> {
-                binding?.textView56?.setBackgroundResource(R.color.blue)
-            }
-        }
-        if (output.movie.rating == "") {
-            binding?.ratingUi?.hide()
-        } else {
-            binding?.ratingUi?.show()
-        }
-
-        binding?.textMovieType?.text =
-            output.movie.language + " | " + output.movie.genre + " | " + output.movie.runTime + " " + getString(
-                R.string.min
-            )
-
-        if (output.movie.trailerUrl.isNullOrEmpty()) {
-            binding?.imageView26?.hide()
-        } else {
-            binding?.imageView26?.show()
-            binding?.imageView26?.setOnClickListener {
-                val intent = Intent(this, PlayerActivity::class.java)
-                intent.putExtra("trailerUrl", output.movie.trailerUrl)
-                startActivity(intent)
-            }
-        }
-        Glide
-            .with(this)
-            .load(output.movie.mobimgbig)
-            .placeholder(R.drawable.movie_details)
-            .into(binding?.imageShow!!)
-
-        setShowTimesCastAdapter(output.movie)
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun setShowTimesCastAdapter(movie: CinemaSessionResponse.Movie) {
-        text_genres.text = movie.genre
-        textView10.text = movie.language
-        textView123.text = movie.subTitle
-        text_sysnopsis_detail.text = movie.synopsis
-        text_directoe_name.text = movie.director.firstName + " " + movie.director.lastName
-        recyclerview_show_times_cast.layoutManager =
-            LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        val adapter = AdpaterShowTimesCast(this, movie.cast)
-        recyclerview_show_times_cast.adapter = adapter
-    }
-
-    private fun setShowTimesDayDateAdapter(days: ArrayList<CinemaSessionResponse.Days>) {
-        if (count == 0) {
-            val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
-            binding?.recylerviewShowTimeDate?.layoutManager = LinearLayoutManager(this)
-            val adapter = AdapterDayDate(this, days, this)
-            binding?.recylerviewShowTimeDate?.layoutManager = gridLayout
-            binding?.recylerviewShowTimeDate?.adapter = adapter
-            count = 1
-        }
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    //Cinema All Cinema and Show
-    private fun setTitleAdapter() {
-        binding?.viewpager?.adapter =
-            CinemaPageAdapter(this, daySessionResponse, binding?.viewpager)
-        binding?.viewpager?.offscreenPageLimit = 3
-        binding?.viewpager?.clipChildren = false
-        binding?.viewpager?.clipToPadding = false
-        binding?.viewpager?.getChildAt(0)?.overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-        val transfer = CompositePageTransformer()
-
-
-        binding?.viewpager?.setPageTransformer(transfer)
-        binding?.textView110?.show()
-        binding?.textView110?.text = daySessionResponse[0].cinema.address1
-
-    }
-
     override fun onDateClick(city: CinemaSessionResponse.Days, view: View, pos: Int) {
         datePos = pos
         binding?.recylerviewShowTimeDate?.let { focusOnView(view, it) }
-        dateTime = city.dt.toString()
+        dateTime = city.dt
         println("ShowClicked--->${dateTime}")
         datePosition = city.wdf
         dt = city.dt
@@ -553,8 +418,8 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
         cinemaPos: Int
     ) {
         showPose = cinemaPos
-        CinemaID = show.cinemaId
-        SessionID = show.sessionId
+        cinemaID = show.cinemaId
+        sessionID = show.sessionId
 
         if (!preferences.getBoolean(Constant.IS_LOGIN)) {
             type
@@ -605,11 +470,11 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
         val ratingDesc = mDialogView.findViewById<TextView>(R.id.text_category_decription)
         val ratingUi = mDialogView.findViewById<CardView>(R.id.rating_ui)
         val rating = mDialogView.findViewById<TextView>(R.id.text_age_category)
-        val terms = mDialogView.findViewById<TextView>(R.id.text_agree)
+//        val terms = mDialogView.findViewById<TextView>(R.id.text_agree)
         val tvGiftCard = mDialogView.findViewById<TextView>(R.id.tv_gift_card)
         val tvGiftVoucher = mDialogView.findViewById<TextView>(R.id.tv_gift_voucher)
         val textBankOffer = mDialogView.findViewById<TextView>(R.id.text_bank_offer)
-        val ClickUi = mDialogView.findViewById<ConstraintLayout>(R.id.vw_ticket_qtyUi)
+        val clickUi = mDialogView.findViewById<ConstraintLayout>(R.id.vw_ticket_qtyUi)
         val cancelDialog = mDialogView.findViewById<ConstraintLayout>(R.id.cancelDialog)
 
         val viewGift = mDialogView.findViewById<View>(R.id.view_gift)
@@ -624,7 +489,7 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
         textBankOffer.paintFlags = textBankOffer.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
         ratingDesc.text = output.movie.ratingDescription
-        if (output.movie.rating.isNullOrEmpty()) {
+        if (output.movie.rating.isEmpty()) {
             rating.hide()
         } else {
             rating.show()
@@ -749,20 +614,19 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
             val v: View = LayoutInflater.from(this)
                 .inflate(R.layout.seat_selection_category_item, selectSeatCategory, false)
             val imageSeatSelection: ImageView = v.findViewById(R.id.image_seat_selection)
-            val tvSeatSelectiopn: TextView = v.findViewById(R.id.tv_seat_selectiopn)
-            val tv_seat_avialable: TextView = v.findViewById(R.id.tv_seat_avialable)
-            val tv_kd_price: TextView = v.findViewById(R.id.tv_kd_price)
+            val tvSeatSelection: TextView = v.findViewById(R.id.tv_seat_selectiopn)
+            val tvSeatAvailable: TextView = v.findViewById(R.id.tv_seat_avialable)
+            val tvKdPrice2: TextView = v.findViewById(R.id.tv_kd_price)
             Glide.with(this)
                 .load(item.icon)
                 .into(imageSeatSelection)
 
             viewListForDates.add(v)
-            if (item.seatTypes.isNullOrEmpty()) {
-                tv_seat_avialable.show()
-                tv_kd_price.show()
-                tv_seat_avialable.text = item.count
-//                tv_seat_avialable.text = item.count.toString() + " Available"
-                tv_kd_price.text = item.price.toString()
+            if (item.seatTypes.isEmpty()) {
+                tvSeatAvailable.show()
+                tvKdPrice2.show()
+                tvSeatAvailable.text = item.count
+                tvKdPrice2.text = item.price.toString()
 
                 seatAbility = if (item.count > "") {
                     1
@@ -770,19 +634,18 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                     0
                 }
             } else {
-                tv_seat_avialable.hide()
-                tv_kd_price.hide()
+                tvSeatAvailable.hide()
+                tvKdPrice2.hide()
             }
 
             if (languageCheck == "en") {
                 println("LanguageCheck--->${languageCheck}")
-                tvSeatSelectiopn.text = item.seatType
+                tvSeatSelection.text = item.seatType
 
             } else {
-                tvSeatSelectiopn.text = item.seatTypeStr
+                tvSeatSelection.text = item.seatTypeStr
 
             }
-//            tvSeatSelectiopn.text = item.seatType
             selectSeatCategory.addView(v)
             v.setOnClickListener {
                 areaCode = item.areacode
@@ -807,10 +670,10 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                     btnIncrease.isEnabled = false
                     btnDecrease.isClickable = false
                     btnIncrease.isClickable = false
-                    ClickUi.hide()
+                    clickUi.hide()
                 } else {
                     categoryClick = true
-                    ClickUi.show()
+                    clickUi.show()
                     btnDecrease.isEnabled = true
                     btnIncrease.isEnabled = true
                     btnDecrease.isClickable = true
@@ -833,22 +696,22 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                     .load(item.iconActive)
                     .into(imageSeatSelection)
                 imageSeatSelection.setColorFilter(getColor(R.color.text_alert_color_red))
-                tvSeatSelectiopn.setTextColor(getColor(R.color.text_alert_color_red))
-                tv_seat_avialable.setTextColor(getColor(R.color.text_alert_color_red))
-                tv_kd_price.setTextColor(getColor(R.color.text_alert_color_red))
+                tvSeatSelection.setTextColor(getColor(R.color.text_alert_color_red))
+                tvSeatAvailable.setTextColor(getColor(R.color.text_alert_color_red))
+                tvKdPrice2.setTextColor(getColor(R.color.text_alert_color_red))
 
                 selectSeatClick + 1
                 val selectSeatType = mDialogView.findViewById<FlexboxLayout>(R.id.select_seat_type)
-                val tv_select_seat_type =
+                val tvSelectSeatType =
                     mDialogView.findViewById<TextView>(R.id.tv_select_seat_type)
-                val view2s_line = mDialogView.findViewById<View>(R.id.view2s_line)
+                val view2sLine = mDialogView.findViewById<View>(R.id.view2s_line)
                 selectSeatType.removeAllViews()
                 if (item.seatTypes.isNotEmpty()) {
 
                     val viewListForDates = ArrayList<View>()
                     selectSeatType.show()
-                    tv_select_seat_type.show()
-                    view2s_line.show()
+                    tvSelectSeatType.show()
+                    view2sLine.show()
                     for (data in item.seatTypes) {
                         try {
                             selectSeatType.show()
@@ -858,14 +721,14 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                             val imgSeatSelectionType: ImageView =
                                 v.findViewById(R.id.img_seat_selection_type)
                             val imgMetroInfo: ImageView = v.findViewById(R.id.img_metro_info)
-                            val textseatType: TextView = v.findViewById(R.id.textseat_type)
-                            val tvSeatAvialable: TextView = v.findViewById(R.id.tv_seat_avialable)
+                            val textSeatType: TextView = v.findViewById(R.id.textseat_type)
+                            val tvSeatAvailable: TextView = v.findViewById(R.id.tv_seat_avialable)
                             val tvKdPrice: TextView = v.findViewById(R.id.tv_kd_price)
                             println("dayaCheck--->${selectSeatType.visibility}")
                             if (languageCheck == "en") {
-                                textseatType.text = data.seatType
+                                textSeatType.text = data.seatType
                             } else {
-                                textseatType.text = data.seatTypeStr
+                                textSeatType.text = data.seatTypeStr
                             }
                             selectSeatType.show()
 
@@ -875,7 +738,7 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
 
                             imgMetroInfo.setImageResource(R.drawable.ic_icon_metro_info)
                             tvKdPrice.text = data.price.toString()
-                            tvSeatAvialable.text = data.count
+                            tvSeatAvailable.text = data.count
                             selectSeatType.addView(v)
 
                             v.setOnClickListener {
@@ -890,22 +753,20 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                                     )
 
                                 var imageSeatSelection1: ImageView?
-                                var tvSeatSelectiopn1: TextView?
-                                var tvSeatAvialable1: TextView?
+                                var tvSeatSelection1: TextView?
+                                var tvSeatAvailable1: TextView?
                                 var tvKdPrice1: TextView?
 
-                                println("seatTypeArrayOne1--->${item.seatTypes.size}")
                                 if (item.seatTypes.isNotEmpty()) {
-
                                     categoryClick = true
-                                    ClickUi.show()
+                                    clickUi.show()
                                     btnDecrease.isEnabled = true
                                     btnIncrease.isEnabled = true
                                     btnDecrease.isClickable = true
                                     btnIncrease.isClickable = true
                                 } else {
                                     categoryClick = false
-                                    ClickUi.hide()
+                                    clickUi.hide()
                                     btnDecrease.isEnabled = false
                                     btnIncrease.isEnabled = false
                                     btnDecrease.isClickable = false
@@ -915,14 +776,14 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                                 for (v in viewListForDates) {
                                     imageSeatSelection1 =
                                         v.findViewById(R.id.img_seat_selection_type) as ImageView
-                                    tvSeatSelectiopn1 =
+                                    tvSeatSelection1 =
                                         v.findViewById(R.id.textseat_type) as TextView
-                                    tvSeatAvialable1 =
+                                    tvSeatAvailable1 =
                                         v.findViewById(R.id.tv_seat_avialable) as TextView
                                     tvKdPrice1 = v.findViewById(R.id.tv_kd_price) as TextView
                                     imageSeatSelection1!!.setColorFilter(getColor(R.color.hint_color))
-                                    tvSeatSelectiopn1.setTextColor(getColor(R.color.hint_color))
-                                    tvSeatAvialable1.setTextColor(getColor(R.color.hint_color))
+                                    tvSeatSelection1!!.setTextColor(getColor(R.color.hint_color))
+                                    tvSeatAvailable1.setTextColor(getColor(R.color.hint_color))
                                     tvKdPrice1.setTextColor(getColor(R.color.hint_color))
                                 }
 
@@ -931,8 +792,8 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                                     .into(imgSeatSelectionType)
                                 println("imageActive--->${data.iconActive}")
                                 imgSeatSelectionType.setColorFilter(getColor(R.color.text_alert_color_red))
-                                textseatType.setTextColor(getColor(R.color.text_alert_color_red))
-                                tvSeatAvialable.setTextColor(getColor(R.color.text_alert_color_red))
+                                textSeatType.setTextColor(getColor(R.color.text_alert_color_red))
+                                tvSeatAvailable.setTextColor(getColor(R.color.text_alert_color_red))
                                 tvKdPrice.setTextColor(getColor(R.color.text_alert_color_red))
                                 areaCode = data.areacode
                                 ttType = data.ttypeCode
@@ -952,8 +813,8 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                     println("manageException1--->$")
 
                     selectSeatType.invisible()
-                    tv_select_seat_type.hide()
-                    view2s_line.hide()
+                    tvSelectSeatType.hide()
+                    view2sLine.hide()
                 }
             }
 
@@ -1073,10 +934,10 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                             .putExtra("SEAT_POS", num)
                             .putExtra("DateTime", dateTime)
                             .putExtra("MovieId", movieID)
-                            .putExtra("CinemaID", CinemaID)
+                            .putExtra("CinemaID", cinemaID)
                             .putExtra("DatePosition", datePosition)
                             .putExtra("dt", dt)
-                            .putExtra("SessionID", SessionID)
+                            .putExtra("SessionID", sessionID)
                             .putExtra("SHOW_POS", pos)
                             .putExtra("CINEMA_POS", showPose), 50
                     )
@@ -1084,7 +945,7 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                     categoryClick = false
                     num = 0
                     mAlertDialog?.dismiss()
-                    println("dateCheck--->${dateTime},  Movieid--->${movieID},CinemaId--->${CinemaID} ,SessionID--->${SessionID}")
+                    println("dateCheck--->${dateTime},  movieId--->${movieID},CinemaId--->${cinemaID} ,SessionID--->${sessionID}")
                 }
             }
         }
@@ -1117,8 +978,8 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
         movieCinemaId: String
     ) {
         showPose = cinemaPos
-        CinemaID = show.cinemaId
-        SessionID = show.sessionId
+        cinemaID = show.cinemaId
+        sessionID = show.sessionId
         movieID = movieCinemaId
 
         if (!preferences.getBoolean(Constant.IS_LOGIN)) {

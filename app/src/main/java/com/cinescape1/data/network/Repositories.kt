@@ -2,6 +2,9 @@ package com.cinescape1.data.network
 
 import com.cinescape1.data.models.requestModel.*
 import com.cinescape1.data.models.responseModel.*
+import com.cinescape1.ui.main.views.home.fragments.account.response.GetAmountResponse
+import com.cinescape1.ui.main.views.home.fragments.account.response.RechargeAmountResponse
+import com.cinescape1.ui.main.views.payment.paymentFaield.reponse.PaymentFailedResponse
 import com.cinescape1.ui.main.views.splash.response.SplashResponse
 import javax.inject.Inject
 
@@ -121,7 +124,7 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
         return apiRequest { api.tckBooked(request) }
     }
 
-    suspend fun tckFailed(request: FinalTicketRequest): Result<TicketSummaryResponse> {
+    suspend fun tckFailed(request: FinalTicketRequest): Result<PaymentFailedResponse> {
         return apiRequest { api.tckFailed(request) }
     }
 
@@ -151,9 +154,7 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
         return apiRequest { api.addRechargeCard(request) }
     }
 
-    suspend fun getClubAmounts(av: String = "", pt: String = ""): Result<GetAmountResponse> {
-        return apiRequest { api.getAmounts(av, pt) }
-    }
+
 
     suspend fun foodResponse(): Result<FoodResponse> {
         return apiRequest { api.foodResponse() }
@@ -166,7 +167,7 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
         return apiRequest { api.updateAccount(request) }
     }
 
-    suspend fun getAmount(): Result<GetAmmountResponse> {
+    suspend fun getAmount(): Result<RechargeAmountResponse> {
         return apiRequest { api.getAmount() }
     }
     suspend fun getProfile(request: ProfileRequest): Result<ProfileResponse> {

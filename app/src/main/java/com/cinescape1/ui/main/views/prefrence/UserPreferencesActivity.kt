@@ -35,7 +35,7 @@ import com.cinescape1.databinding.ActivityUserPreferencesBinding
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.prefrence.viewModel.UserPreferencesViewModel
-import com.cinescape1.ui.main.views.adapters.foodAdapters.CustomSpinnerAdapter
+import com.cinescape1.ui.main.views.home.adapter.CustomSpinnerAdapter
 import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.utils.*
 import com.google.android.flexbox.FlexboxLayout

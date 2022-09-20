@@ -60,7 +60,9 @@ import com.cinescape1.ui.main.views.adapters.CountryCodeAdapter
 import com.cinescape1.ui.main.views.adapters.ExperienceAdapter
 import com.cinescape1.ui.main.views.adapters.accountPageAdapters.AdapterBookingHistory
 import com.cinescape1.ui.main.views.adapters.accountPageAdapters.UpcomingBookingAdapter
-import com.cinescape1.ui.main.views.adapters.foodAdapters.CustomSpinnerAdapter
+import com.cinescape1.ui.main.views.home.adapter.CustomSpinnerAdapter
+import com.cinescape1.ui.main.views.home.fragments.account.adapter.RechargeSpinnerAdapter
+import com.cinescape1.ui.main.views.home.fragments.account.response.RechargeAmountResponse
 import com.cinescape1.utils.*
 import com.cinescape1.utils.Constant.IntentKey.Companion.OPEN_FROM
 import com.google.android.flexbox.FlexboxLayout
@@ -77,6 +79,7 @@ import com.threatmetrix.TrustDefender.TMXProfilingOptions
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.account_preference_layout.*
 import kotlinx.android.synthetic.main.account_profile_layout.*
+import kotlinx.android.synthetic.main.account_profile_layout.view19
 import kotlinx.android.synthetic.main.account_recharge_card_layout.*
 import kotlinx.android.synthetic.main.cancel_dialog.*
 import kotlinx.android.synthetic.main.cancel_dialog.view.*
@@ -125,7 +128,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     private var dialog: Dialog? = null
     private var rechargeAmount: String = ""
     private var countryCodeList = ArrayList<CountryCodeResponse.Output>()
-    private var getAmountList = ArrayList<String>()
+    private var getAmountList = ArrayList<RechargeAmountResponse.Output.Amount>()
     private var mAdapter: CountryCodeAdapter? = null
     private var seatAbility: Int = 0
     private var bookingText: String = ""
@@ -2220,38 +2223,33 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
                 }
                 ageRating.add(age_rating_item.seatAgeRating)
-
             }
-
         }
-
     }
 
-    private fun setupSpinner() {
-        // Create an ArrayAdapter using a simple spinner layout and languages array
-        val aa =
-            ArrayAdapter(requireActivity(), android.R.layout.simple_spinner_item, getAmountList)
-        // Set layout to use when the list of choices appear
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        // Set Adapter to Spinner
-//        val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_gallery_item, getAmountList)
-        text_select_amount.adapter = aa
-        text_select_amount.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+    //Recharge Spinner
+    private fun rechargeAmount  (output: RechargeAmountResponse.Output) {
+        val customAdapter = RechargeSpinnerAdapter(
+            requireActivity(),
+            output.amounts
+        )
+        text_select_amount.adapter = customAdapter
+        text_select_amount.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
                 view: View,
                 position: Int,
                 id: Long
             ) {
-                (parent.getChildAt(0) as TextView).setTextColor(Color.WHITE)
-                rechargeAmount = (getAmountList[position])
-//                /**/Toast.makeText( requireContext(), " " + getAmountList[position],Toast.LENGTH_SHORT).show()
+                rechargeAmount=getAmountList[position].amount.toString()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
-                // Code to perform some action when nothing is selected
+
             }
         }
+
     }
 
     private fun setBookingHistoryAdapter(output: ArrayList<HistoryResponse.Output>) {
@@ -2603,12 +2601,20 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                             loader?.dismiss()
                             resource.data?.let { it ->
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    println("AmountResponse--->${it.data.output}")
                                     getAmountList = it.data.output.amounts
-                                    setupSpinner()
+                                    rechargeAmount(it.data.output)
                                 } else {
-                                    println("Something Wrong")
-                                }
+                                    val dialog = OptionDialog(requireActivity(),
+                                        R.mipmap.ic_launcher,
+                                        R.string.app_name,
+                                        it.data?.msg.toString(),
+                                        positiveBtnText = R.string.ok,
+                                        negativeBtnText = R.string.no,
+                                        positiveClick = {
+                                        },
+                                        negativeClick = {
+                                        })
+                                    dialog.show()                                }
                             }
                         }
                         Status.ERROR -> {
@@ -2728,7 +2734,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
         binding?.recyclerviewBooking?.layoutManager = LinearLayoutManager(context)
         val adapter = UpcomingBookingAdapter(requireContext(), output.output,this,this)
-        binding?.recyclerviewBooking?.setNestedScrollingEnabled(false)
+        binding?.recyclerviewBooking?.isNestedScrollingEnabled = false
         binding?.recyclerviewBooking?.layoutManager = gridLayout
         binding?.recyclerviewBooking?.adapter = adapter
         binding?.recyclerviewBooking?.show()

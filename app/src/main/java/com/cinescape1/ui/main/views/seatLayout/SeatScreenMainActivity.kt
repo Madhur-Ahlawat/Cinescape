@@ -14,7 +14,6 @@ import android.view.*
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -44,12 +43,12 @@ import kotlinx.android.synthetic.main.cancel_dialog.*
 import javax.inject.Inject
 
 
+@Suppress("DEPRECATION")
 class SeatScreenMainActivity : DaggerAppCompatActivity(),
     SeatShowTimesCinemaAdapter.SeatCinemaAdapterListener,
     AdapterCinemaSessionScroll.LocationListener {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
     @Inject
     lateinit var preferences: AppPreferences
     private val seatScreenMainViewModel: SeatScreenMainViewModel by viewModels { viewModelFactory }
@@ -59,28 +58,22 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
     private var seatCat = ""
     private var seatType = ""
     private var ttType = ""
-    private var DatePosition = ""
-    private var date_pos = 0
-    private var show_pos = 0
-    private var cinema_pos = 0
-    private var seatQuanitity = 0
+    private var datePosition = ""
+    private var datePos = 0
+    private var showPos = 0
+    private var cinemaPos1 = 0
+    private var seatQuantity = 0
     private var seatQt = 0
     private var loader: LoaderDialog? = null
     private var passingValArrayList: ArrayList<ReserveSeatRequest.ReseveSeatVO> = ArrayList()
     private var dateTime = ""
-    private var MovieId = ""
-    private var CinemaID = ""
-    private var SessionID = ""
+    private var movieId = ""
+    private var cinemaID = ""
+    private var sessionID = ""
     private var dt = ""
     private var broadcastReceiver: BroadcastReceiver? = null
-    private var mAlertDialog: AlertDialog? = null
     private var num = 0
     private var cinemaSessionResponse: SeatLayoutResponse.Output? = null
-    private var seatAbility: Int = 0
-    private var languageCheck: String = "en"
-    private var totalPriceResponse: Double = 0.0
-    private var selectSeatClick: Int = 0
-    private var showDataCSessionResponse: CSessionResponse.Output? = null
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,23 +82,23 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
         val view = binding?.root
         setContentView(view)
         text_seat_types.paintFlags = text_seat_types.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-        setCinemasTitleAdapter(view!!)
+        setCinemasTitleAdapter()
 
         areaCode = intent.getStringExtra("AREA_CODE").toString()
         cinemaName = intent.getStringExtra("CINEMA").toString()
         seatCat = intent.getStringExtra("SEAT_CAT").toString()
         ttType = intent.getStringExtra("TT_TYPE").toString()
         seatType = intent.getStringExtra("SEAT_TYPE").toString()
-        date_pos = intent.getIntExtra("DATE_POS", 0)
-        show_pos = intent.getIntExtra("SHOW_POS", 0)
-        cinema_pos = intent.getIntExtra("CINEMA_POS", 0)
-        seatQuanitity = intent.getIntExtra("SEAT_POS", 0)
+        datePos = intent.getIntExtra("DATE_POS", 0)
+        showPos = intent.getIntExtra("SHOW_POS", 0)
+        cinemaPos1 = intent.getIntExtra("CINEMA_POS", 0)
+        seatQuantity = intent.getIntExtra("SEAT_POS", 0)
 
         dateTime = intent.getStringExtra("DateTime").toString()
-        MovieId = intent.getStringExtra("MovieId").toString()
-        CinemaID = intent.getStringExtra("CinemaID").toString()
-        SessionID = intent.getStringExtra("SessionID").toString()
-        DatePosition = intent.getStringExtra("DatePosition").toString()
+        movieId = intent.getStringExtra("MovieId").toString()
+        cinemaID = intent.getStringExtra("CinemaID").toString()
+        sessionID = intent.getStringExtra("SessionID").toString()
+        datePosition = intent.getStringExtra("DatePosition").toString()
         dt = intent.getStringExtra("dt").toString()
 
         if (!preferences.getBoolean(Constant.IS_LOGIN)) {
@@ -114,17 +107,17 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                 .putExtra("CINEMA", cinemaName)
                 .putExtra("SEAT_CAT", seatCat)
                 .putExtra("SEAT_TYPE", seatType)
-                .putExtra("DATE_POS", date_pos)
+                .putExtra("DATE_POS", datePos)
                 .putExtra("SEAT_POS", num)
                 .putExtra("DateTime", dateTime)
-                .putExtra("MovieId", MovieId)
-                .putExtra("CinemaID", CinemaID)
-                .putExtra("DatePosition", DatePosition)
+                .putExtra("MovieId", movieId)
+                .putExtra("CinemaID", cinemaID)
+                .putExtra("DatePosition", datePosition)
                 .putExtra("dt", dt)
                 .putExtra("FROM", "seat")
-                .putExtra("SessionID", SessionID)
-                .putExtra("SHOW_POS", show_pos)
-                .putExtra("CINEMA_POS", cinema_pos)
+                .putExtra("SessionID", sessionID)
+                .putExtra("SHOW_POS", showPos)
+                .putExtra("CINEMA_POS", cinemaPos1)
 
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
@@ -136,14 +129,14 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
             cancelDialog()
         }
 
-        binding?.zoomLinearLayout?.setOnTouchListener { v, event ->
+        binding?.zoomLinearLayout?.setOnTouchListener { _, _ ->
             binding?.zoomLinearLayout?.init(this@SeatScreenMainActivity)
             false
         }
 
 
         binding?.tvSeatFilmTitle?.show()
-        getSeatLayout(SeatLayoutRequest(CinemaID, dateTime, MovieId, SessionID))
+        getSeatLayout(SeatLayoutRequest(cinemaID, dateTime, movieId, sessionID))
         broadcastReceiver = MyReceiver()
         broadcastIntent()
 
@@ -217,7 +210,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
             CinemaSeatPagerAdapter(this, output.daySessions, binding?.viewpager)
 
         try {
-            if (output.daySessions.isNullOrEmpty()) {
+            if (output.daySessions.isEmpty()) {
                 binding?.textOtherShowtimes?.hide()
             } else {
                 binding?.textOtherShowtimes?.show()
@@ -270,10 +263,10 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                     val intent = Intent(this, ShowTimesActivity::class.java)
                     intent
                         .putExtra("NAME", cinemaName)
-                        .putExtra("CINEMAID", CinemaID)
-                        .putExtra("SESSIONID", SessionID)
-                        .putExtra("SHOW_POS", show_pos)
-                        .putExtra("CINEMA_POS", cinema_pos)
+                        .putExtra("CINEMAID", cinemaID)
+                        .putExtra("SESSIONID", sessionID)
+                        .putExtra("SHOW_POS", showPos)
+                        .putExtra("CINEMA_POS", cinemaPos1)
                     setResult(50, intent)
                     finish()
                 }
@@ -323,13 +316,13 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                 }
             }
 
-            CinemaID = output.daySessions[cinema_pos].shows[show_pos].cinemaId
-            MovieId = output.movie.id
-            SessionID = output.daySessions[cinema_pos].shows[show_pos].sessionId
+            cinemaID = output.daySessions[cinemaPos1].shows[showPos].cinemaId
+            movieId = output.movie.id
+            sessionID = output.daySessions[cinemaPos1].shows[showPos].sessionId
             binding?.tvCinemaName?.text = output.cinema.name
             binding?.tvSeatTimingDate?.text =
-                "${output.daySessions[cinema_pos].shows[show_pos].showTime} | $DatePosition | ${dt}"
-            binding?.textType?.text =  "${output.daySessions[cinema_pos].shows[show_pos].experience} | ${output.daySessions[cinema_pos].shows[show_pos].format} | ${seatCat}"
+                "${output.daySessions[cinemaPos1].shows[showPos].showTime} | $datePosition | $dt"
+            binding?.textType?.text =  "${output.daySessions[cinemaPos1].shows[showPos].experience} | ${output.daySessions[cinemaPos1].shows[showPos].format} | $seatCat"
 
             setTitleAdapter(output.daySessions)
         } catch (e: Exception) {
@@ -353,19 +346,18 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
         binding?.SeatnestedScroll?.show()
         binding?.constraintLayout4?.show()
         try {
-            val btnFont = resources.getDimension(R.dimen.size12).toInt()
             for (row in output.rows) {
                 println("CheckRows--->${row}")
                 val trow = TableRow(this)
                 val lp = TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT)
                 trow.layoutParams = lp
                 trow.gravity = Gravity.CENTER_VERTICAL
-                val mtext1 = TextView(this)
-                mtext1.setTextColor(ContextCompat.getColor(this, R.color.text_color))
-                mtext1.gravity = Gravity.FILL_VERTICAL
-                mtext1.setPadding(5, 5, 5, 5)
-                mtext1.text = row.name
-                mtext1.textSize = 18f
+                val text1 = TextView(this)
+                text1.setTextColor(ContextCompat.getColor(this, R.color.text_color))
+                text1.gravity = Gravity.FILL_VERTICAL
+                text1.setPadding(5, 5, 5, 5)
+                text1.text = row.name
+                text1.textSize = 18f
 
                 val lp1 = TableRow.LayoutParams(
                     TableRow.LayoutParams.WRAP_CONTENT,
@@ -373,55 +365,55 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                 )
                 // LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams((int) getResources().getDimension(R.dimen._30sdp), LinearLayout.LayoutParams.WRAP_CONTENT);
                 lp1.setMargins(10, 15, 10, 10)
-                mtext1.layoutParams = lp1
-                trow.addView(mtext1)
-                var seatbtn: TextView
+                text1.layoutParams = lp1
+                trow.addView(text1)
+                var seatBtn: TextView
 
-                for (seatitem in row.seats) {
-                    seatbtn = TextView(this)
-                    seatbtn.tag = seatitem
-                    val lp1 = TableRow.LayoutParams(
+                for (seatItem in row.seats) {
+                    seatBtn = TextView(this)
+                    seatBtn.tag = seatItem
+                    val layoutParams = TableRow.LayoutParams(
                         TableRow.LayoutParams.WRAP_CONTENT,
                         TableRow.LayoutParams.WRAP_CONTENT
                     )
                     // LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams((int) getResources().getDimension(R.dimen._30sdp), LinearLayout.LayoutParams.WRAP_CONTENT);
-                    lp1.setMargins(10, 10, 10, 10)
-                    seatbtn.textSize = 12f
-                    seatbtn.layoutParams = lp1
-                    seatbtn.gravity = Gravity.CENTER_HORIZONTAL
-                    seatbtn.setTextColor(Color.BLACK)
-                    seatbtn.text = seatitem.seatnumber
-                    seatbtn.setBackgroundResource(R.drawable.ic_available)
-                    if (areaCode == seatitem.areacode) {
-                        seatbtn.show()
+                    layoutParams.setMargins(10, 10, 10, 10)
+                    seatBtn.textSize = 12f
+                    seatBtn.layoutParams = layoutParams
+                    seatBtn.gravity = Gravity.CENTER_HORIZONTAL
+                    seatBtn.setTextColor(Color.BLACK)
+                    seatBtn.text = seatItem.seatnumber
+                    seatBtn.setBackgroundResource(R.drawable.ic_available)
+                    if (areaCode == seatItem.areacode) {
+                        seatBtn.show()
                     } else {
-                        seatbtn.hide()
+                        seatBtn.hide()
                     }
-                    if (seatitem.display) {
-                        seatbtn.show()
-                        when (seatitem.status) {
+                    if (seatItem.display) {
+                        seatBtn.show()
+                        when (seatItem.status) {
                             "SOLD" -> {
-                                seatbtn.setBackgroundResource(R.drawable.ic_not_available)
-                                seatbtn.isEnabled = false
-                                seatbtn.isClickable = false
+                                seatBtn.setBackgroundResource(R.drawable.ic_not_available)
+                                seatBtn.isEnabled = false
+                                seatBtn.isClickable = false
                             }
                             "EMPTY" -> {
-                                if (areaCode == seatitem.areacode) {
-                                    seatbtn.setBackgroundResource(R.drawable.ic_available)
-                                    seatbtn.isEnabled = true
-                                    seatbtn.isClickable = true
+                                if (areaCode == seatItem.areacode) {
+                                    seatBtn.setBackgroundResource(R.drawable.ic_available)
+                                    seatBtn.isEnabled = true
+                                    seatBtn.isClickable = true
                                 } else {
-                                    seatbtn.setBackgroundResource(R.drawable.ic_not_available)
-                                    seatbtn.isEnabled = false
-                                    seatbtn.isClickable = false
+                                    seatBtn.setBackgroundResource(R.drawable.ic_not_available)
+                                    seatBtn.isEnabled = false
+                                    seatBtn.isClickable = false
                                 }
                             }
                         }
                     } else {
-                        seatbtn.invisible()
+                        seatBtn.invisible()
                     }
-                    trow.addView(seatbtn)
-                    seatbtn.setOnClickListener {
+                    trow.addView(seatBtn)
+                    seatBtn.setOnClickListener {
                         val seatData = it.tag as SeatLayoutResponse.SeatVO
                         val image = it as TextView
                         if (seatData.selected) {
@@ -433,11 +425,11 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                             seatQt -= 1
                         } else {
                             val seatSize = passingValArrayList.size
-                            if (seatQuanitity == seatSize) {
+                            if (seatQuantity == seatSize) {
                                 val dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
                                     R.string.app_name,
-                                    getString(R.string.selectSeatQt) + " " + seatQuanitity,
+                                    getString(R.string.selectSeatQt) + " " + seatQuantity,
                                     positiveBtnText = R.string.ok,
                                     negativeBtnText = R.string.no,
                                     positiveClick = {
@@ -457,11 +449,6 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                 }
 
                 binding?.seatTable?.addView(trow)
-//                val animZoomOut = AnimationUtils.loadAnimation(
-//                    this,
-//                    R.anim.zoom_out
-//                )
-//                binding?.seatTable?.startAnimation(animZoomOut)
 
             }
         } catch (e: Exception) {
@@ -493,9 +480,9 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
 
     }
 
-    private fun setCinemasTitleAdapter(view: View) {
+    private fun setCinemasTitleAdapter() {
         view_proceed.setOnClickListener {
-            println("SeatQuantity--->${seatQt},--->${seatQuanitity}")
+            println("SeatQuantity--->${seatQt},--->${seatQuantity}")
             if (seatQt < 1) {
                 val dialog = OptionDialog(this,
                     R.mipmap.ic_launcher,
@@ -508,11 +495,11 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                     negativeClick = {
                     })
                 dialog.show()
-            } else if (seatQt != seatQuanitity) {
+            } else if (seatQt != seatQuantity) {
                 val dialog = OptionDialog(this,
                     R.mipmap.ic_launcher,
                     R.string.app_name,
-                    getString(R.string.PleaseSelect) + " ${seatQuanitity} " + getString(R.string.seat),
+                    getString(R.string.PleaseSelect) + " $seatQuantity " + getString(R.string.seat),
                     positiveBtnText = R.string.ok,
                     negativeBtnText = R.string.no,
                     positiveClick = {
@@ -530,7 +517,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
     private fun reserveSeat() {
         seatScreenMainViewModel.reserveSeat(
             this,
-            ReserveSeatRequest(CinemaID, passingValArrayList, SessionID, MovieId, ttType)
+            ReserveSeatRequest(cinemaID, passingValArrayList, sessionID, movieId, ttType)
         )
             .observe(this) {
                 it?.let { resource ->
@@ -545,8 +532,8 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                                                 Intent(
                                                     this@SeatScreenMainActivity,
                                                     FoodActivity::class.java
-                                                ).putExtra("CINEMA_ID", CinemaID)
-                                                    .putExtra("SESSION_ID", SessionID)
+                                                ).putExtra("CINEMA_ID", cinemaID)
+                                                    .putExtra("SESSION_ID", sessionID)
                                                     .putExtra("BOOKING", it.data.output.booktype)
                                                     .putExtra("PRICE", it.data.output.totalPrice)
                                                     .putExtra("TRANS_ID", it.data.output.transid)
@@ -559,8 +546,8 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                                                 Intent(
                                                     this@SeatScreenMainActivity,
                                                     SummeryActivity::class.java
-                                                ).putExtra("CINEMA_ID", CinemaID)
-                                                    .putExtra("SESSION_ID", SessionID)
+                                                ).putExtra("CINEMA_ID", cinemaID)
+                                                    .putExtra("SESSION_ID", sessionID)
                                                     .putExtra("TRANS_ID", it.data.output.transid)
                                             )
                                             finish()
@@ -624,10 +611,10 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
         position: Int,
         cinemaPos: Int
     ) {
-        cinema_pos = cinemaPos
-        CinemaID = show.cinemaId
-        SessionID = show.sessionId
-        show_pos = position
+        cinemaPos1 = cinemaPos
+        cinemaID = show.cinemaId
+        sessionID = show.sessionId
+        showPos = position
 
         SEAT_SESSION_CLICK = 1
         val intent = Intent(this, ShowTimesActivity::class.java)

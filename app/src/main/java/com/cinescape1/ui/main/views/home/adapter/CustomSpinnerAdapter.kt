@@ -1,4 +1,4 @@
-package com.cinescape1.ui.main.views.adapters.foodAdapters
+package com.cinescape1.ui.main.views.home.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

@@ -27,6 +27,7 @@ import com.cinescape1.utils.show
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
+@Suppress("UNCHECKED_CAST", "DEPRECATION")
 class SeeAllActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -69,11 +70,6 @@ class SeeAllActivity : DaggerAppCompatActivity() {
 
     private fun broadcastIntent() {
         registerReceiver(broadcastReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
-    }
-
-    override fun onPause() {
-        super.onPause()
-//        unregisterReceiver(broadcastReceiver)
     }
 
     private fun offers() {

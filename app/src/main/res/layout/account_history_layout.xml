@@ -31,27 +31,27 @@
         android:id="@+id/textHistory"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:visibility="visible"
         android:fontFamily="@font/sf_pro_text_bold"
         android:gravity="center_horizontal"
         android:lineSpacingExtra="5.5sp"
         android:text="History"
         android:textColor="@color/white"
         android:textSize="@dimen/size18"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textBooking"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textBooking"
         tools:ignore="HardcodedText" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_booking_history"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textBooking"
-        app:layout_constraintTop_toBottomOf="@+id/textBooking" />
+        app:layout_constraintTop_toBottomOf="@+id/textHistory" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.core.widget.NestedScrollView>

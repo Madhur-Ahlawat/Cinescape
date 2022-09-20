@@ -45,9 +45,6 @@ class FinalTicketParentAdapter(
                     LayoutInflater.from(parent.context)
                         .inflate(R.layout.final_ticket_item_two, parent, false)
                 MyViewHolderTwo(headerLayout)
-//                 view =
-//                    LayoutInflater.from(parent.context).inflate(R.layout.final_ticket_item_two, parent, false)
-
             }
             else -> {
                 val headerLayout =
@@ -60,12 +57,12 @@ class FinalTicketParentAdapter(
 
 
     override fun getItemCount(): Int {
+        println("homeDataList---"+homeDataList.size)
         return homeDataList.size
     }
 
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
         //One
         var oneBookingId = itemView.text_bookin_id_no!!
         var oneTitle = itemView.text_name_movie!!
@@ -90,7 +87,6 @@ class FinalTicketParentAdapter(
     }
 
     class MyViewHolderThree(view: View) : RecyclerView.ViewHolder(view) {
-
         //three
         var threeBookingId = itemView.text_booking_id_no1!!
         var threeTicket = itemView.textView125!!
@@ -98,6 +94,7 @@ class FinalTicketParentAdapter(
         var threeFood = itemView.textView128!!
         var threeFoodPrice = itemView.textView129!!
         var threeReferenceId = itemView.textView131!!
+        var threeReferenceTxt = itemView.textView130!!
         var threeTrackId = itemView.textView133!!
         var threeDateTime = itemView.textView135!!
         var threePayMode = itemView.textView136!!
@@ -136,7 +133,7 @@ class FinalTicketParentAdapter(
         val obj = homeDataList[position]
         print("TypeKeyParent--->${obj.value}")
 
-        when (obj.value) {
+        when (getItemViewType(position)) {
             1 -> {
                 val holder = holder as MyViewHolder
                 holder.oneBookingId.text = output.kioskId
@@ -161,28 +158,7 @@ class FinalTicketParentAdapter(
                 holder.onePrice.text= output.totalTicketPrice
             }
             2 -> {
-//One
-                val holderOne = holder as MyViewHolder
-                holderOne.oneBookingId.text = output.kioskId
-                holderOne.oneTitle.text = output.moviename
-                holderOne.oneRating.text = output.mcensor
-                holderOne.oneRating.text = output.mcensor
-                holderOne.oneLocation.text = output.cinemaname
-                holderOne.oneDateTime.text = output.showDate + " " + output.showTime
-                holderOne.oneScreen.text = output.screenId
-                holderOne.oneType.text = output.experience
-                holderOne.oneCategoryName.text = output.category
 
-                val layoutManager = FlexboxLayoutManager(mContext)
-                layoutManager.flexDirection = FlexDirection.ROW
-                layoutManager.justifyContent = JustifyContent.FLEX_START
-                layoutManager.alignItems = AlignItems.STRETCH
-                val adapter = SeatListAdapter(output.seatsArr)
-                holderOne.oneSeatList.setHasFixedSize(true)
-                holderOne.oneSeatList.layoutManager = layoutManager
-                holderOne.oneSeatList.adapter = adapter
-                holderOne.onePayMode.text= output.payDone
-                holderOne.onePrice.text= output.totalTicketPrice
 //Two
                 val holderTwo = holder as MyViewHolderTwo
                 holderTwo.twoBookingId.text= output.kioskId
@@ -207,52 +183,19 @@ class FinalTicketParentAdapter(
                 holderThree.threeTicket.text= output.category + " " + output.ticketPrice + " x " + output.numofseats
                 holderThree.threeFood.text= output.concessionFoods.size.toString() + mContext.getString(R.string.item)
                 holderThree.threeReferenceId.isSelected= true
-                holderThree.threeReferenceId.text= output.referenceId
+                if(output.referenceId.isNotEmpty()){
+                    holderThree.threeReferenceTxt.show()
+                    holderThree.threeReferenceId.show()
+                    holderThree.threeReferenceId.text= output.referenceId
+                }else{
+                    holderThree.threeReferenceId.hide()
+                    holderThree.threeReferenceTxt.hide()
+                }
                 holderThree.threeTrackId.text= output.trackId
                 holderThree.threeDateTime.text= output.bookingTime
                 holderThree.threePayMode.text= output.payDone
                 holderThree.threeTotalPrice.text= output.totalPrice
-//Two
-                val holderTwo = holder as MyViewHolderTwo
-                holderTwo.twoBookingId.text= output.kioskId
-                if (!output.foodPickup) {
-                    holderTwo.twoPickupInfo.hide()
-                } else {
-                    holderTwo.twoPickupInfo.show()
-                }
-                val gridLayout = GridLayoutManager(mContext,1, GridLayoutManager.VERTICAL,false)
-                holderTwo.twoFood.layoutManager = LinearLayoutManager(mContext)
-                val adapter2 = AdapterCheckoutConFirmFoodDetail(mContext, output.concessionFoods )
-                holderTwo.twoFood.layoutManager = gridLayout
-                holderTwo.twoFood.adapter = adapter2
-                holderTwo.twoPayMode.text = output.payDone
-                holderTwo.twoPayPrice.text = output.foodTotal
-
-
-                //One
-                val holderOne = holder as MyViewHolder
-                holderOne.oneBookingId.text = output.kioskId
-                holderOne.oneTitle.text = output.moviename
-                holderOne.oneRating.text = output.mcensor
-                holderOne.oneRating.text = output.mcensor
-                holderOne.oneLocation.text = output.cinemaname
-                holderOne.oneDateTime.text = output.showDate + " " + output.showTime
-                holderOne.oneScreen.text = output.screenId
-                holderOne.oneType.text = output.experience
-                holderOne.oneCategoryName.text = output.category
-                val layoutManager = FlexboxLayoutManager(mContext)
-                layoutManager.flexDirection = FlexDirection.ROW
-                layoutManager.justifyContent = JustifyContent.FLEX_START
-                layoutManager.alignItems = AlignItems.STRETCH
-                val adapter = SeatListAdapter(output.seatsArr)
-                holderOne.oneSeatList.setHasFixedSize(true)
-                holderOne.oneSeatList.layoutManager = layoutManager
-                holderOne.oneSeatList.adapter = adapter
-                holderOne.onePayMode.text= output.payDone
-                holderOne.onePrice.text= output.totalTicketPrice
             }
         }
     }
-
-
 }

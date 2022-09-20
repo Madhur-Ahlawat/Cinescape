@@ -22,6 +22,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/bombshell_alert" />
 
+    <View
+        android:id="@+id/view108"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/cinema_location_gradient"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/textUi"
         android:layout_width="0dp"

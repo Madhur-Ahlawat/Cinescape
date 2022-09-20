@@ -28,6 +28,7 @@ import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
 
+@Suppress("DEPRECATION")
 @SuppressLint("CustomSplashScreen")
 @ActivityScoped
 class OfferDetailsActivity : DaggerAppCompatActivity() {
@@ -85,7 +86,7 @@ class OfferDetailsActivity : DaggerAppCompatActivity() {
                             resource.data?.let { it ->
                                 if (it.data?.code == Constant.SUCCESS_CODE) {
                                     try {
-                                        retriveData(it.data.output)
+                                        retrieveData(it.data.output)
                                     } catch (e: Exception) {
                                         println("exception--->${e.message}")
                                     }
@@ -118,7 +119,7 @@ class OfferDetailsActivity : DaggerAppCompatActivity() {
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    private fun retriveData(output: OfferDetailsResponse.Output) {
+    private fun retrieveData(output: OfferDetailsResponse.Output) {
         binding?.offerDetailsUi?.show()
         Glide.with(this)
             .load(output.appImageUrl)

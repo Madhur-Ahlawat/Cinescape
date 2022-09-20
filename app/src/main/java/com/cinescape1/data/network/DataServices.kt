@@ -2,6 +2,9 @@ package com.cinescape1.data.network
 
 import com.cinescape1.data.models.requestModel.*
 import com.cinescape1.data.models.responseModel.*
+import com.cinescape1.ui.main.views.home.fragments.account.response.GetAmountResponse
+import com.cinescape1.ui.main.views.home.fragments.account.response.RechargeAmountResponse
+import com.cinescape1.ui.main.views.payment.paymentFaield.reponse.PaymentFailedResponse
 import com.cinescape1.ui.main.views.splash.response.SplashResponse
 import com.cinescape1.utils.Constant
 import okhttp3.*
@@ -96,7 +99,7 @@ interface DataServices {
     suspend fun tckBooked(@Body request: FinalTicketRequest): Response<TicketSummaryResponse>
 
     @POST("content/trans/tckfailed")
-    suspend fun tckFailed(@Body request: FinalTicketRequest): Response<TicketSummaryResponse>
+    suspend fun tckFailed(@Body request: FinalTicketRequest): Response<PaymentFailedResponse>
 
 
     @POST("history/mybookings")
@@ -118,9 +121,6 @@ interface DataServices {
     @POST("clubcard/addRechargeCard")
     suspend fun addRechargeCard(@Body request: AddClubRechargeRequest): Response<RechargeCardResponse>
 
-    @GET("clubcard/getamounts")
-    suspend fun getAmounts(@Query("av") av: String, @Query("pt") pt: String): Response<GetAmountResponse>
-
     @GET("content/cinemas")
     suspend fun foodResponse(): Response<FoodResponse>
 
@@ -131,7 +131,7 @@ interface DataServices {
     suspend fun updateAccount(@Body request: UpdateAccountRequest): Response<UpdateAccountResponse>
 
     @GET("clubcard/getamounts")
-    suspend fun getAmount(): Response<GetAmmountResponse>
+    suspend fun getAmount(): Response<RechargeAmountResponse>
 
     @POST("more/tabs")
     suspend fun moreTabs(): Response<MoreTabResponse>

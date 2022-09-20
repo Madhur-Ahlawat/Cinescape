@@ -7,162 +7,175 @@
     android:background="@color/black"
     tools:context=".ui.main.views.payment.paymentFaield.PaymentFailedActivity">
 
-    <View
-        android:id="@+id/view10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ui"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/imageView53"
-        android:layout_width="60dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="38dp"
-        android:scaleType="fitXY"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view10"
-        app:srcCompat="@drawable/ic_icons_light_close"
-        app:tint="@color/red"
-        tools:ignore="ContentDescription" />
+        <View
+            android:id="@+id/view10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="0dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="38dp"
-        android:layout_marginEnd="44dp"
-        android:background="@drawable/curv_bt"
-        android:backgroundTint="#FF0000"
-        android:gravity="center"
-        android:orientation="horizontal"
-        tools:ignore="UselessParent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView53">
-
+        <ImageView
+            android:id="@+id/imageView53"
+            android:layout_width="60dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="38dp"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view10"
+            app:srcCompat="@drawable/ic_icons_light_close"
+            app:tint="@color/red"
+            tools:ignore="ContentDescription" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:id="@+id/linearLayout4"
+            android:layout_width="0dp"
+            android:layout_height="54dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="38dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/curv_bt"
+            android:backgroundTint="#FF0000"
             android:gravity="center"
             android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView53"
             tools:ignore="UselessParent">
 
-            <TextView
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:text="@string/sorry_your_transaction"
-                android:textColor="@color/white"
-                android:textSize="@dimen/size18"
-                tools:ignore="TextContrastCheck" />
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                tools:ignore="UselessParent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:text="@string/sorry_your_transaction"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size18"
+                    tools:ignore="TextContrastCheck" />
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:fontFamily="@font/sf_pro_text_bold"
-                android:text="@string/failed"
-                android:textColor="@color/white"
-                android:textSize="@dimen/size18" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/sf_pro_text_bold"
+                    android:text="@string/failed"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size18" />
 
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView61"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
-        android:fontFamily="@font/sf_pro_text_regular"
-        android:gravity="center"
-        android:text="@string/payment_fail"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_16"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout4"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout4"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+        <TextView
+            android:id="@+id/textView61"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="33dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:gravity="center"
+            android:text="@string/payment_fail"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_16"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout4"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout4"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
-    <TextView
-        android:id="@+id/textView138"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:textSize="@dimen/size15"
-        android:fontFamily="@font/sf_pro_text_regular"
-        android:textColor="@color/text_alert_color"
-        android:text="@string/reference_id"
-        app:layout_constraintStart_toStartOf="@+id/textView61"
-        app:layout_constraintTop_toBottomOf="@+id/textView61" />
+        <TextView
+            android:id="@+id/textView138"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/reference_id"
+            android:textColor="@color/text_alert_color"
+            android:textSize="@dimen/size15"
+            app:layout_constraintStart_toStartOf="@+id/textView61"
+            app:layout_constraintTop_toBottomOf="@+id/textView61" />
 
-    <TextView
-        android:id="@+id/textView139"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:textSize="@dimen/size15"
-        android:fontFamily="@font/sf_pro_text_regular"
-        android:textColor="@color/text_alert_color"
-        android:text="@string/track_number"
-        app:layout_constraintStart_toStartOf="@+id/textView138"
-        app:layout_constraintTop_toBottomOf="@+id/textView138" />
+        <TextView
+            android:id="@+id/textView139"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/track_number"
+            android:textColor="@color/text_alert_color"
+            android:textSize="@dimen/size15"
+            app:layout_constraintStart_toStartOf="@+id/textView138"
+            app:layout_constraintTop_toBottomOf="@+id/textView138" />
 
-    <TextView
-        android:id="@+id/textView140"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:textSize="@dimen/size15"
-        android:fontFamily="@font/sf_pro_text_regular"
-        android:textColor="@color/text_alert_color"
-        android:text="@string/transaction_date_time"
-        app:layout_constraintStart_toStartOf="@+id/textView139"
-        app:layout_constraintTop_toBottomOf="@+id/textView139" />
+        <TextView
+            android:id="@+id/textView140"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/transaction_date_time"
+            android:textColor="@color/text_alert_color"
+            android:textSize="@dimen/size15"
+            app:layout_constraintStart_toStartOf="@+id/textView139"
+            app:layout_constraintTop_toBottomOf="@+id/textView139" />
 
-    <TextView
-        android:id="@+id/textView141"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:textSize="@dimen/size15"
-        android:fontFamily="@font/sf_pro_text_bold"
-        android:textColor="@color/white"
-        tools:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/textView138"
-        app:layout_constraintEnd_toEndOf="@+id/textView61"
-        app:layout_constraintStart_toEndOf="@+id/textView138"
-        app:layout_constraintTop_toTopOf="@+id/textView138" />
+        <TextView
+            android:id="@+id/textView141"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:fontFamily="@font/sf_pro_text_bold"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size15"
+            app:layout_constraintBottom_toBottomOf="@+id/textView138"
+            app:layout_constraintEnd_toEndOf="@+id/textView61"
+            app:layout_constraintStart_toEndOf="@+id/textView138"
+            app:layout_constraintTop_toTopOf="@+id/textView138"
+            tools:text="TextView" />
 
-    <TextView
-        android:id="@+id/textView142"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:textSize="@dimen/size15"
-        android:fontFamily="@font/sf_pro_text_bold"
-        android:textColor="@color/white"
-        tools:text="TextView"        app:layout_constraintBottom_toBottomOf="@+id/textView139"
-        app:layout_constraintEnd_toEndOf="@+id/textView141"
-        app:layout_constraintStart_toEndOf="@+id/textView139"
-        app:layout_constraintTop_toTopOf="@+id/textView139" />
+        <TextView
+            android:id="@+id/textView142"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:fontFamily="@font/sf_pro_text_bold"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size15"
+            app:layout_constraintBottom_toBottomOf="@+id/textView139"
+            app:layout_constraintEnd_toEndOf="@+id/textView141"
+            app:layout_constraintStart_toEndOf="@+id/textView139"
+            app:layout_constraintTop_toTopOf="@+id/textView139"
+            tools:text="TextView" />
 
-    <TextView
-        android:id="@+id/textView143"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
+        <TextView
+            android:id="@+id/textView143"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
 
-        android:textSize="@dimen/size15"
-        android:fontFamily="@font/sf_pro_text_bold"
-        android:textColor="@color/white"
-        tools:text="TextView"        app:layout_constraintBottom_toBottomOf="@+id/textView140"
-        app:layout_constraintEnd_toEndOf="@+id/textView142"
-        app:layout_constraintStart_toEndOf="@+id/textView140"
-        app:layout_constraintTop_toTopOf="@+id/textView140" />
+            android:fontFamily="@font/sf_pro_text_bold"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size15"
+            app:layout_constraintBottom_toBottomOf="@+id/textView140"
+            app:layout_constraintEnd_toEndOf="@+id/textView142"
+            app:layout_constraintStart_toEndOf="@+id/textView140"
+            app:layout_constraintTop_toTopOf="@+id/textView140"
+            tools:text="TextView" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
