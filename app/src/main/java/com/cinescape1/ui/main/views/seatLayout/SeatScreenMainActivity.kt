@@ -73,6 +73,12 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
     private var dt = ""
     private var broadcastReceiver: BroadcastReceiver? = null
     private var num = 0
+    private var movieTitle = ""
+    private var movieImage = ""
+    private var movieRating = ""
+    private var movieCinemaName = ""
+    private var movieTimeDate = ""
+    private var movieType = ""
     private var cinemaSessionResponse: SeatLayoutResponse.Output? = null
 
     @SuppressLint("ClickableViewAccessibility")
@@ -273,6 +279,9 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
 
             }
 
+            movieTitle= output.movie.title
+            movieRating= output.movie.rating
+
             binding?.tvSeatFilmTitle?.text = output.movie.title
             binding?.tvSeatFilmTitle1?.text = output.movie.title
 
@@ -320,8 +329,12 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
             movieId = output.movie.id
             sessionID = output.daySessions[cinemaPos1].shows[showPos].sessionId
             binding?.tvCinemaName?.text = output.cinema.name
+            movieCinemaName= output.cinema.name
+            movieTimeDate = "${output.daySessions[cinemaPos1].shows[showPos].showTime} | $datePosition | $dt"
+            movieImage = output.movie.mobimgbig
             binding?.tvSeatTimingDate?.text =
                 "${output.daySessions[cinemaPos1].shows[showPos].showTime} | $datePosition | $dt"
+           movieType =  "${output.daySessions[cinemaPos1].shows[showPos].experience} | ${output.daySessions[cinemaPos1].shows[showPos].format} | $seatCat"
             binding?.textType?.text =  "${output.daySessions[cinemaPos1].shows[showPos].experience} | ${output.daySessions[cinemaPos1].shows[showPos].format} | $seatCat"
 
             setTitleAdapter(output.daySessions)
@@ -538,6 +551,14 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                                                     .putExtra("PRICE", it.data.output.totalPrice)
                                                     .putExtra("TRANS_ID", it.data.output.transid)
                                                     .putExtra("type", "0")
+                                                    .putExtra("movieTitle", movieTitle)
+                                                    .putExtra("movieRating", movieRating)
+                                                    .putExtra("movieCinemaName", movieCinemaName)
+                                                    .putExtra("movieTimeDate", movieTimeDate)
+                                                    .putExtra("movieImage", movieImage)
+                                                    .putExtra("movieType", movieType
+
+                                                    )
 
                                             )
                                             finish()

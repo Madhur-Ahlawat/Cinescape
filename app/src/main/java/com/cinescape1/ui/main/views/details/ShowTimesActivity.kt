@@ -812,7 +812,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         val ratingDesc = mDialogView.findViewById<TextView>(R.id.text_category_decription)
         val ratingUi = mDialogView.findViewById<CardView>(R.id.rating_ui)
         val rating = mDialogView.findViewById<TextView>(R.id.text_age_category)
-//        val terms = mDialogView.findViewById<TextView>(R.id.text_agree)
         val tvGiftCard = mDialogView.findViewById<TextView>(R.id.tv_gift_card)
         val tvGiftVoucher = mDialogView.findViewById<TextView>(R.id.tv_gift_voucher)
         val textBankOffer = mDialogView.findViewById<TextView>(R.id.text_bank_offer)
@@ -868,73 +867,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             }
         }
 
-        cancelDialog.setOnClickListener {
-            mAlertDialog?.dismiss()
-        }
-
-        textBankOffer.setOnClickListener {
-            textBankOffer.setTextColor(ContextCompat.getColor(this, R.color.text_alert_color_red))
-            tvGiftCard.setTextColor(ContextCompat.getColor(this, R.color.white))
-            tvGiftVoucher.setTextColor(ContextCompat.getColor(this, R.color.white))
-            viewGift.visibility = View.VISIBLE
-            viewGiftCard1.visibility = View.GONE
-            viewGiftVoucher.visibility = View.GONE
-
-        }
-
-        bankOffers.setOnClickListener {
-            val bDialogView = LayoutInflater.from(this)
-                .inflate(R.layout.seat_selection_bank_offer_alert, null)
-            val bBuilder = AlertDialog.Builder(this, R.style.MyDialogTransparent)
-                .setView(bDialogView)
-            val bAlertDialog = bBuilder.show()
-            bAlertDialog.show()
-            bAlertDialog.window?.setBackgroundDrawableResource(R.color.transparent)
-
-            val cancelGoBack1 = TextUtils.concat(
-                Constant().getSpanableText(
-                    ForegroundColorSpan(ContextCompat.getColor(this, R.color.white)),
-                    ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)!!,
-                    0,
-                    7,
-                    1.3f,
-                    SpannableString(this.getString(R.string.cancels))
-                ),
-
-                Constant().getSpanableText(
-                    ForegroundColorSpan(ContextCompat.getColor(this, R.color.text_color)),
-                    ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)!!,
-                    0,
-                    11,
-                    1.1f,
-                    SpannableString(this.getString(R.string.and_go_back))
-                )
-            )
-            bAlertDialog.textView1_cancel_back.text = cancelGoBack1
-
-            bAlertDialog.textView1_cancel_back.setOnClickListener {
-                bAlertDialog.dismiss()
-            }
-        }
-
-        tvGiftVoucher.setOnClickListener {
-            textBankOffer.setTextColor(ContextCompat.getColor(this, R.color.white))
-            tvGiftCard.setTextColor(ContextCompat.getColor(this, R.color.white))
-            tvGiftVoucher.setTextColor(ContextCompat.getColor(this, R.color.text_alert_color_red))
-            viewGift.visibility = View.GONE
-            viewGiftCard1.visibility = View.GONE
-            viewGiftVoucher.visibility = View.VISIBLE
-        }
-
-        tvGiftCard.setOnClickListener {
-            textBankOffer.setTextColor(ContextCompat.getColor(this, R.color.white))
-            tvGiftVoucher.setTextColor(ContextCompat.getColor(this, R.color.white))
-            tvGiftCard.setTextColor(ContextCompat.getColor(this, R.color.text_alert_color_red))
-            viewGift.visibility = View.GONE
-            viewGiftVoucher.visibility = View.GONE
-            viewGiftCard1.visibility = View.VISIBLE
-        }
-
         val btnDecrease: TextView = mDialogView.findViewById(R.id.text_decrease)
         val txtNumber: TextView = mDialogView.findViewById(R.id.text_number)
         val btnIncrease: TextView = mDialogView.findViewById(R.id.text_increase)
@@ -959,7 +891,8 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             val tvSeatSelection: TextView = v.findViewById(R.id.tv_seat_selectiopn)
             val tvSeatAvailable2: TextView = v.findViewById(R.id.tv_seat_avialable)
             val tvKdPrice2: TextView = v.findViewById(R.id.tv_kd_price)
-            Glide.with(this)
+            Glide
+                .with(this)
                 .load(item.icon)
                 .into(imageSeatSelection)
 
@@ -969,35 +902,27 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 tvKdPrice2.show()
                 tvSeatAvailable2.text = item.count
                 tvKdPrice2.text = item.price.toString()
-
                 seatAbility = if (item.count > "") {
                     1
                 } else {
                     0
                 }
+
             } else {
                 tvSeatAvailable2.hide()
                 tvKdPrice2.hide()
             }
 
-            if (languageCheck == "en") {
-                println("LanguageCheck--->${languageCheck}")
-                tvSeatSelection.text = item.seatType
-
-            } else {
-                tvSeatSelection.text = item.seatTypeStr
-
-            }
+            tvSeatSelection.text = item.seatType
             selectSeatCategory.addView(v)
             v.setOnClickListener {
                 areaCode = item.areacode
                 ttType = item.ttypeCode
                 seatCat = item.seatType
                 totalPriceResponse = item.priceInt
-//                totalPrice.text = getString(R.string.price_kd) + " 0.000"
                 num = 1
-                txtNumber.text = "1"
-                Toast.makeText(this, "1--->$totalPriceResponse", Toast.LENGTH_SHORT).show()
+                txtNumber.text = num.toString()
+                btnDecrease.invisible()
 
                 totalPrice.text =
                     getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format((totalPriceResponse * num) / 100)
@@ -1049,7 +974,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 val view2sLine = mDialogView.findViewById<View>(R.id.view2s_line)
                 selectSeatType.removeAllViews()
                 if (item.seatTypes.isNotEmpty()) {
-
                     val viewListForDates = ArrayList<View>()
                     selectSeatType.show()
                     tvSelectSeatType.show()
@@ -1066,7 +990,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                             val textSeatType: TextView = v.findViewById(R.id.textseat_type)
                             val tvSeatAvailable: TextView = v.findViewById(R.id.tv_seat_avialable)
                             val tvKdPrice: TextView = v.findViewById(R.id.tv_kd_price)
-                            println("dayaCheck--->${selectSeatType.visibility}")
                             if (languageCheck == "en") {
                                 textSeatType.text = data.seatType
                             } else {
@@ -1077,33 +1000,33 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                             Glide.with(this)
                                 .load(data.icon)
                                 .into(imgSeatSelectionType)
-
                             imgMetroInfo.setImageResource(R.drawable.ic_icon_metro_info)
                             tvKdPrice.text = data.price.toString()
                             tvSeatAvailable.text = data.count
                             selectSeatType.addView(v)
 
                             v.setOnClickListener {
-//                                totalPrice.text = getString(R.string.price_kd) + " 0.000"
-                                num = 1
-                                txtNumber.text = "1"
-                                Toast.makeText(this, "2--->$totalPriceResponse", Toast.LENGTH_SHORT)
-                                    .show()
-                                totalPrice.text =
-                                    getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format(
-                                        (totalPriceResponse * num) / 100
-                                    )
-
                                 var imageSeatSelection1: ImageView?
                                 var tvSeatSelection1: TextView?
                                 var tvSeatAvailable1: TextView?
                                 var tvKdPrice1: TextView?
 
-                                println("seatTypeArrayOne1--->${item.seatTypes.size}")
-                                if (item.seatTypes.isNotEmpty()) {
+                                areaCode = data.areacode
+                                ttType = data.ttypeCode
+                                seatType = data.seatType
+                                totalPriceResponse = data.priceInt
 
+                                if (item.seatTypes.isNotEmpty()) {
                                     categoryClick = true
                                     clickUi.show()
+                                    num = 1
+                                    txtNumber.text = num.toString()
+                                    btnDecrease.invisible()
+
+                                    totalPrice.text =
+                                        getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format(
+                                            (totalPriceResponse * num) / 100
+                                        )
                                     btnDecrease.isEnabled = true
                                     btnIncrease.isEnabled = true
                                     btnDecrease.isClickable = true
@@ -1134,28 +1057,19 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                                 Glide.with(this)
                                     .load(data.iconActive)
                                     .into(imgSeatSelectionType)
-                                println("imageActive--->${data.iconActive}")
                                 imgSeatSelectionType.setColorFilter(getColor(R.color.text_alert_color_red))
                                 textSeatType.setTextColor(getColor(R.color.text_alert_color_red))
                                 tvSeatAvailable.setTextColor(getColor(R.color.text_alert_color_red))
                                 tvKdPrice.setTextColor(getColor(R.color.text_alert_color_red))
-                                areaCode = data.areacode
-                                ttType = data.ttypeCode
-                                seatType = data.seatType
-                                totalPriceResponse = data.priceInt
-                                println("seatTypeCheck--->${ttType + "areaCode-->${areaCode}"}")
-
                             }
 
                         } catch (e: Exception) {
-                            println("manageException--->${e.message}")
+                           e.printStackTrace()
                         }
 
 
                     }
                 } else {
-                    println("manageException1--->$")
-
                     selectSeatType.invisible()
                     tvSelectSeatType.hide()
                     view2sLine.hide()
@@ -1180,6 +1094,12 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                         Toast.makeText(this, "sorry", Toast.LENGTH_LONG).show()
                     } else {
                         num -= 1
+                        if (num<2){
+                            btnDecrease.invisible()
+                        }else{
+                            btnDecrease.show()
+
+                        }
                         txtNumber.text = num.toString()
                         totalPrice.text =
                             getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format((totalPriceResponse * num) / 100)
@@ -1218,6 +1138,12 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
                     } else {
                         num += 1
+                        if (num<2){
+                            btnDecrease.invisible()
+                        }else{
+                            btnDecrease.show()
+
+                        }
                         txtNumber.text = num.toString()
                         totalPrice.text =
                             getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format((totalPriceResponse * num) / 100)
@@ -1297,6 +1223,73 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                     println("dateCheck--->${dateTime},  MovieId--->${movieID},CinemaId--->${cinemaID} ,SessionID--->${sessionID}")
                 }
             }
+        }
+
+        cancelDialog.setOnClickListener {
+            mAlertDialog?.dismiss()
+        }
+
+        textBankOffer.setOnClickListener {
+            textBankOffer.setTextColor(ContextCompat.getColor(this, R.color.text_alert_color_red))
+            tvGiftCard.setTextColor(ContextCompat.getColor(this, R.color.white))
+            tvGiftVoucher.setTextColor(ContextCompat.getColor(this, R.color.white))
+            viewGift.visibility = View.VISIBLE
+            viewGiftCard1.visibility = View.GONE
+            viewGiftVoucher.visibility = View.GONE
+
+        }
+
+        bankOffers.setOnClickListener {
+            val bDialogView = LayoutInflater.from(this)
+                .inflate(R.layout.seat_selection_bank_offer_alert, null)
+            val bBuilder = AlertDialog.Builder(this, R.style.MyDialogTransparent)
+                .setView(bDialogView)
+            val bAlertDialog = bBuilder.show()
+            bAlertDialog.show()
+            bAlertDialog.window?.setBackgroundDrawableResource(R.color.transparent)
+
+            val cancelGoBack1 = TextUtils.concat(
+                Constant().getSpanableText(
+                    ForegroundColorSpan(ContextCompat.getColor(this, R.color.white)),
+                    ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)!!,
+                    0,
+                    7,
+                    1.3f,
+                    SpannableString(this.getString(R.string.cancels))
+                ),
+
+                Constant().getSpanableText(
+                    ForegroundColorSpan(ContextCompat.getColor(this, R.color.text_color)),
+                    ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)!!,
+                    0,
+                    11,
+                    1.1f,
+                    SpannableString(this.getString(R.string.and_go_back))
+                )
+            )
+            bAlertDialog.textView1_cancel_back.text = cancelGoBack1
+
+            bAlertDialog.textView1_cancel_back.setOnClickListener {
+                bAlertDialog.dismiss()
+            }
+        }
+
+        tvGiftVoucher.setOnClickListener {
+            textBankOffer.setTextColor(ContextCompat.getColor(this, R.color.white))
+            tvGiftCard.setTextColor(ContextCompat.getColor(this, R.color.white))
+            tvGiftVoucher.setTextColor(ContextCompat.getColor(this, R.color.text_alert_color_red))
+            viewGift.visibility = View.GONE
+            viewGiftCard1.visibility = View.GONE
+            viewGiftVoucher.visibility = View.VISIBLE
+        }
+
+        tvGiftCard.setOnClickListener {
+            textBankOffer.setTextColor(ContextCompat.getColor(this, R.color.white))
+            tvGiftVoucher.setTextColor(ContextCompat.getColor(this, R.color.white))
+            tvGiftCard.setTextColor(ContextCompat.getColor(this, R.color.text_alert_color_red))
+            viewGift.visibility = View.GONE
+            viewGiftVoucher.visibility = View.GONE
+            viewGiftCard1.visibility = View.VISIBLE
         }
 
         loader?.dismiss()
