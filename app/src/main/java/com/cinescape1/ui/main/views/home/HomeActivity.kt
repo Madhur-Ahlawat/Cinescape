@@ -294,8 +294,10 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                     try {
                                         if (it.data.output.isEmpty()) {
+                                            println("bookings---->${it.data.output.size}")
                                             binding?.imageView42?.hide()
                                         } else {
+                                            println("bookings----2>${it.data.output.size}")
                                             binding?.imageView42?.show()
                                         }
                                         retrieveNextBookedResponse(it.data)

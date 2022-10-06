@@ -106,6 +106,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     var adapterShowTimesCinemaTitle: AdapterShowTimesCinemaTitle? = null
     private var languageCheck: String = "en"
     private var broadcastReceiver: BroadcastReceiver? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityShowTimesBinding.inflate(layoutInflater, null, false)
@@ -153,6 +154,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 binding?.moviePage?.hide()
                 binding?.comingSoon?.show()
                 binding?.viewpager?.hide()
+                binding?.constraintLayout18?.hide()
                 binding?.centerView?.hide()
                 binding?.imageView48?.hide()
                 include.show()
@@ -413,8 +415,19 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             binding?.ratingUi?.show()
         }
 
-        binding?.textMovieType?.text =
-            output.language + " | " + output.genre + " | " + output.runTime + " " + getString(R.string.min)
+
+        when (type) {
+            "comingSoon" -> {
+                "Coming soon -"
+                binding?.textMovieType?.text =
+                   getString(R.string.commingSoonNew)+" "+ output.openingDate
+
+            }else -> {
+            binding?.textMovieType?.text =
+                output.language + " | " + output.genre + " | " + output.runTime + " " + getString(R.string.min)
+
+        }
+        }
 
         if (output.trailerUrl.isEmpty()) {
             binding?.imageView26?.hide()

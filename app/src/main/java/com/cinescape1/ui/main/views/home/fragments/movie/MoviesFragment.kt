@@ -67,6 +67,8 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
     private var loader: LoaderDialog? = null
     private var isChecked = false
     private var commingSoonClick = false
+    private var advanceClick = false
+    private var nowShowingClick = false
     private var moviesResponse: MoviesResponse? = null
     private var adapterFilterCategory: AdapterFilterCategory? = null
     private var adapterFilterTitle: AdapterFilterTitle? = null
@@ -127,7 +129,6 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
         val adapter = MovieTypeAdapter(list, requireActivity(), this)
         binding?.recyclerType?.layoutManager = gridLayout
         binding?.recyclerType?.adapter = adapter
-        println("MovieException----${Constant.SEE_ALL_TYPE}")
 
         if (Constant.SEE_ALL_TYPE == 0) {
             binding?.recyclerType?.scrollToPosition(0)
@@ -243,10 +244,19 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
                                     binding?.filterUi?.show()
                                     moviesResponse = it.data.data
                                     comingSoonFilter = it.data.data.output.comingsoon
-                                    if (Constant.SEE_ALL_TYPE == 0) {
-                                        nowSowing(it.data.data.output.nowshowing)
-                                    } else {
+                                    println("now--->${nowShowingClick}--->Com--->${commingSoonClick}--->Adv--->${advanceClick}")
+                                    if (commingSoonClick){
                                         comingSoon(it.data.data.output.comingsoon)
+                                    }else if (advanceClick) {
+                                        advanceBooking(moviesResponse?.output?.advanceBooking!!)
+                                    }else if (nowShowingClick){
+                                        nowSowing(it.data.data.output.nowshowing)
+                                    }else{
+                                        if (Constant.SEE_ALL_TYPE == 0) {
+                                            nowSowing(it.data.data.output.nowshowing)
+                                        } else {
+                                            comingSoon(it.data.data.output.comingsoon)
+                                        }
                                     }
                                 } catch (e: Exception) {
                                     println("MovieException----${e.message}")
@@ -306,6 +316,8 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
     }
 
     private fun comingSoon(comings: ArrayList<MoviesResponse.Comingsoon>) {
+        commingSoonClick= true
+
         val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
         binding?.fragmentMovie?.layoutManager = gridLayout
 
@@ -327,6 +339,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
     }
 
     private fun nowSowing(nowShowing: ArrayList<MoviesResponse.Nowshowing>) {
+        commingSoonClick= false
         val gridLayout =
             GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
         binding?.fragmentMovie?.setHasFixedSize(true)
@@ -682,9 +695,9 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             mDialogView.findViewById<View>(R.id.recyclerview_filter_title) as RecyclerView
         val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
         recyclerviewExperience.layoutManager = LinearLayoutManager(context)
-        val adapter = AdapterFilterTitle(requireActivity(), dataList, filterDataList)
+        adapterFilterTitle = AdapterFilterTitle(requireActivity(), dataList, filterDataList)
         recyclerviewExperience.layoutManager = gridLayout
-        recyclerviewExperience.adapter = adapter
+        recyclerviewExperience.adapter = adapterFilterTitle
 
         val textViewDone = mDialogView.findViewById<View>(R.id.textView_done) as CardView
         val textReset = mDialogView.findViewById<View>(R.id.text_reset) as ConstraintLayout
@@ -708,6 +721,12 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
     }
 
     override fun onMovieTypeClick(position: Int) {
+        dataList.clear()
+        filterDataList.clear()
+        adapterFilterCategory?.notifyDataSetChanged()
+        adapterFilterTitle?.notifyDataSetChanged()
+        binding?.recyclerviewCategory?.hide()
+
         if (isAdded) {
             val smoothScroller: SmoothScroller =
                 object : LinearSmoothScroller(this.requireActivity()) {
@@ -724,6 +743,9 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             0 -> {
                 try {
                     binding?.filterUi?.show()
+                    nowShowingClick=true
+                    commingSoonClick= false
+                    advanceClick=false
                     //filter
                     imageView33.setOnClickListener {
                         isChecked
@@ -731,7 +753,17 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
                         filterNowShowingDialog(moviesResponse?.output!!)
                     }
 
-                    nowSowing(moviesResponse?.output?.nowshowing!!)
+                    movesData(
+                        MovieRequest(
+                            cinema_data,
+                            exp_data,
+                            genre_data,
+                            language_data,
+                            rating_data,
+                            timing_data
+                        )
+                    )
+//                    nowSowing(moviesResponse?.output?.nowshowing!!)
                 } catch (e: Exception) {
                     println("exception--->${e.message}")
                 }
@@ -745,7 +777,21 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
                         imageView33.setImageResource(R.drawable.ic_icon_awesome_filter)
                         filterComingSoonDialog(moviesResponse?.output!!)
                     }
-                    comingSoon(moviesResponse?.output?.comingsoon!!)
+                    nowShowingClick=false
+                    commingSoonClick= true
+                    advanceClick=false
+
+                    movesData(
+                        MovieRequest(
+                            cinema_data,
+                            exp_data,
+                            genre_data,
+                            language_data,
+                            rating_data,
+                            timing_data
+                        )
+                    )
+//                    comingSoon(moviesResponse?.output?.comingsoon!!)
                 } catch (e: Exception) {
                     println("Exception--->${e.message}")
                 }
@@ -753,7 +799,21 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             2 -> {
                 try {
                     binding?.filterUi?.hide()
-                    advanceBooking(moviesResponse?.output?.advanceBooking!!)
+                    nowShowingClick=false
+                    commingSoonClick= false
+                    advanceClick=true
+
+                    movesData(
+                        MovieRequest(
+                            cinema_data,
+                            exp_data,
+                            genre_data,
+                            language_data,
+                            rating_data,
+                            timing_data
+                        )
+                    )
+//                    advanceBooking(moviesResponse?.output?.advanceBooking!!)
                 } catch (e: Exception) {
                     println("Exception--->${e.message}")
                 }

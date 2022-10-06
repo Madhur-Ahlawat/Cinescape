@@ -10,7 +10,10 @@ import android.graphics.Paint
 import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.view.*
+import android.view.Gravity
+import android.view.View
+import android.view.ViewGroup
+import android.view.Window
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -27,13 +30,13 @@ import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.databinding.ActivitySeatScreenMainBinding
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
-import com.cinescape1.ui.main.views.seatLayout.viewModel.SeatScreenMainViewModel
-import com.cinescape1.ui.main.views.details.ShowTimesActivity
 import com.cinescape1.ui.main.views.adapters.CinemaSeatPagerAdapter
 import com.cinescape1.ui.main.views.adapters.cinemaSessionAdapters.AdapterCinemaSessionScroll
 import com.cinescape1.ui.main.views.adapters.seatlayout.SeatShowTimesCinemaAdapter
+import com.cinescape1.ui.main.views.details.ShowTimesActivity
 import com.cinescape1.ui.main.views.food.FoodActivity
 import com.cinescape1.ui.main.views.login.LoginActivity
+import com.cinescape1.ui.main.views.seatLayout.viewModel.SeatScreenMainViewModel
 import com.cinescape1.ui.main.views.summery.SummeryActivity
 import com.cinescape1.utils.*
 import com.cinescape1.utils.Constant.Companion.SEAT_SESSION_CLICK
@@ -49,6 +52,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
     AdapterCinemaSessionScroll.LocationListener {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
     @Inject
     lateinit var preferences: AppPreferences
     private val seatScreenMainViewModel: SeatScreenMainViewModel by viewModels { viewModelFactory }
@@ -279,8 +283,8 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
 
             }
 
-            movieTitle= output.movie.title
-            movieRating= output.movie.rating
+            movieTitle = output.movie.title
+            movieRating = output.movie.rating
 
             binding?.tvSeatFilmTitle?.text = output.movie.title
             binding?.tvSeatFilmTitle1?.text = output.movie.title
@@ -329,13 +333,16 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
             movieId = output.movie.id
             sessionID = output.daySessions[cinemaPos1].shows[showPos].sessionId
             binding?.tvCinemaName?.text = output.cinema.name
-            movieCinemaName= output.cinema.name
-            movieTimeDate = "${output.daySessions[cinemaPos1].shows[showPos].showTime} | $datePosition | $dt"
+            movieCinemaName = output.cinema.name
+            movieTimeDate =
+                "${output.daySessions[cinemaPos1].shows[showPos].showTime} | $datePosition | $dt"
             movieImage = output.movie.mobimgbig
             binding?.tvSeatTimingDate?.text =
                 "${output.daySessions[cinemaPos1].shows[showPos].showTime} | $datePosition | $dt"
-           movieType =  "${output.daySessions[cinemaPos1].shows[showPos].experience} | ${output.daySessions[cinemaPos1].shows[showPos].format} | $seatCat"
-            binding?.textType?.text =  "${output.daySessions[cinemaPos1].shows[showPos].experience} | ${output.daySessions[cinemaPos1].shows[showPos].format} | $seatCat"
+            movieType =
+                "${output.daySessions[cinemaPos1].shows[showPos].experience} | ${output.daySessions[cinemaPos1].shows[showPos].format} | $seatCat"
+            binding?.textType?.text =
+                "${output.daySessions[cinemaPos1].shows[showPos].experience} | ${output.daySessions[cinemaPos1].shows[showPos].format} | $seatCat"
 
             setTitleAdapter(output.daySessions)
         } catch (e: Exception) {
@@ -360,7 +367,6 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
         binding?.constraintLayout4?.show()
         try {
             for (row in output.rows) {
-                println("CheckRows--->${row}")
                 val trow = TableRow(this)
                 val lp = TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT)
                 trow.layoutParams = lp
@@ -556,7 +562,8 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                                                     .putExtra("movieCinemaName", movieCinemaName)
                                                     .putExtra("movieTimeDate", movieTimeDate)
                                                     .putExtra("movieImage", movieImage)
-                                                    .putExtra("movieType", movieType
+                                                    .putExtra(
+                                                        "movieType", movieType
 
                                                     )
 

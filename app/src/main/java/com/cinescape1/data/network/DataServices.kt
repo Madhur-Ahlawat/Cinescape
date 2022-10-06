@@ -171,8 +171,8 @@ interface DataServices {
         operator fun invoke(string: String?,lanuage:String): DataServices {
             println("LanguageString::=> ${lanuage}")
 //            val baseUrl = "http://192.168.1.7:8084/api/"
-            val baseUrl = "https://cinescapeapi.wemonde.co/api/"
-//            val baseUrl = "https://cinescapeapi.wemonde.com/api/"
+//            val baseUrl = "https://cinescapeapi.wemonde.co/api/"
+            val baseUrl = "https://uatapi.cinescape.com.kw/api/"
             val client = OkHttpClient.Builder()
             client.readTimeout(600, TimeUnit.SECONDS)
             client.connectTimeout(600, TimeUnit.SECONDS)
