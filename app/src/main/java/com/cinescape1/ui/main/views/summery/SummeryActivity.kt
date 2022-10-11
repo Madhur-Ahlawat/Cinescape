@@ -36,14 +36,14 @@ import com.cinescape1.data.models.requestModel.*
 import com.cinescape1.data.models.responseModel.TicketSummaryResponse
 import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.databinding.ActivityCheckoutWithFoodBinding
-import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
-import com.cinescape1.ui.main.views.summery.viewModel.SummeryViewModel
-import com.cinescape1.ui.main.views.login.LoginActivity
-import com.cinescape1.ui.main.views.payment.PaymentWebActivity
 import com.cinescape1.ui.main.views.adapters.SummerySeatListAdapter
 import com.cinescape1.ui.main.views.adapters.checkoutAdapter.AdapterCheckoutFoodItem
+import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
+import com.cinescape1.ui.main.views.login.LoginActivity
+import com.cinescape1.ui.main.views.payment.PaymentWebActivity
+import com.cinescape1.ui.main.views.summery.viewModel.SummeryViewModel
 import com.cinescape1.utils.*
 import com.cinescape1.utils.Constant.IntentKey.Companion.USER_ID
 import com.google.android.flexbox.AlignItems
@@ -100,6 +100,8 @@ class SummeryActivity : DaggerAppCompatActivity() {
     private var totalPrice = ""
     private var cardinal = Cardinal.getInstance()
 
+    private var giftCard: Boolean = false
+    private var voucher: Boolean = false
     private var secondLeft: Long = 0
     private var timeExtandClick: Boolean = false
     private var dialogShow: Long = 60
@@ -646,11 +648,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
         binding?.viewCancel?.setOnClickListener {
             cancelDialog()
         }
-        imgs_back.setOnClickListener {
-//            onBackPressed()
-            cancelDialog()
-
-        }
+        imgs_back.setOnClickListener { cancelDialog() }
 
         binding?.viewFood?.setOnClickListener {
             if (!up) {
@@ -663,6 +661,219 @@ class SummeryActivity : DaggerAppCompatActivity() {
                 recyclerview_food_chekout.visibility = View.VISIBLE
             }
         }
+
+        //GiftCard
+        binding?.giftCardClick?.setOnClickListener {
+            giftCard
+            voucher = false
+
+
+            //giftCard
+            binding?.imageView55?.setImageResource(R.drawable.gift_card__active)
+            binding?.textView152?.setTextColor(this.getColor(R.color.white))
+            //voucher
+            binding?.imageView56?.setImageResource(R.drawable.gift_voucher_normal)
+            binding?.textView153?.setTextColor(this.getColor(R.color.hint_color))
+            //promo
+            binding?.imageView57?.setImageResource(R.drawable.promocode_normal)
+            binding?.textView154?.setTextColor(this.getColor(R.color.hint_color))
+
+            binding?.enterCode?.hint = getString(R.string.enter_gift_card)
+
+        }
+
+        //Voucher
+        binding?.voucherClick?.setOnClickListener {
+            //giftCard
+            binding?.imageView55?.setImageResource(R.drawable.gift_card_normal)
+            binding?.textView152?.setTextColor(this.getColor(R.color.hint_color))
+            //voucher
+            binding?.imageView56?.setImageResource(R.drawable.gift_voucher_active)
+            binding?.textView153?.setTextColor(this.getColor(R.color.white))
+            //promo
+            binding?.imageView57?.setImageResource(R.drawable.promocode_normal)
+            binding?.textView154?.setTextColor(this.getColor(R.color.hint_color))
+            binding?.enterCode?.hint = getString(R.string.enter_voucher_code)
+
+            giftCard = false
+            voucher
+        }
+        //promoClick
+        binding?.promoClick?.setOnClickListener {
+            //giftCard
+            binding?.imageView55?.setImageResource(R.drawable.gift_card_normal)
+            binding?.textView152?.setTextColor(this.getColor(R.color.hint_color))
+            //voucher
+            binding?.imageView56?.setImageResource(R.drawable.gift_voucher_normal)
+            binding?.textView153?.setTextColor(this.getColor(R.color.hint_color))
+            //promo
+            binding?.imageView57?.setImageResource(R.drawable.promocode_active)
+            binding?.textView154?.setTextColor(this.getColor(R.color.white))
+            binding?.enterCode?.hint = getString(R.string.enter_promo_code)
+
+
+        }
+
+        //Apply Coupon
+        binding?.textView151?.setOnClickListener {
+//            giftCardApply(GiftCardRequest(USER_ID,bookType,"",intent.getStringExtra("TRANS_ID").toString(),preferences.getString(Constant.USER_ID).toString()))
+
+            if (giftCard){
+            giftCardApply(
+                GiftCardRequest(
+                    USER_ID,
+                    bookType,
+                    "",
+                    intent.getStringExtra("TRANS_ID").toString(),
+                    preferences.getString(Constant.USER_ID).toString()
+                )
+            )
+            }else if (!giftCard && voucher){
+                promoApply(
+                    GiftCardRequest(
+                        USER_ID,
+                        bookType,
+                        "",
+                        intent.getStringExtra("TRANS_ID").toString(),
+                        preferences.getString(Constant.USER_ID).toString()
+                    )
+                )
+            }else {
+
+            }
+
+        }
+
+    }
+
+    private fun giftCardApply(request: GiftCardRequest) {
+        summeryViewModel.giftCardApply(request)
+            .observe(this) {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            loader?.dismiss()
+                            resource.data?.let { it ->
+                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                    try {
+                                        Constant.IntentKey.TimerExtandCheck = true
+                                        Constant.IntentKey.TimerExtand = 90
+                                        Constant.IntentKey.TimerTime = 360
+                                        val intent = Intent(
+                                            applicationContext,
+                                            FinalTicketActivity::class.java
+                                        )
+                                        intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
+                                        intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
+                                        startActivity(intent)
+                                    } catch (e: Exception) {
+                                        println("updateUiCinemaSession ---> ${e.message}")
+                                    }
+
+                                } else {
+                                    loader?.dismiss()
+                                    val dialog = OptionDialog(this,
+                                        R.mipmap.ic_launcher,
+                                        R.string.app_name,
+                                        it.data?.msg.toString(),
+                                        positiveBtnText = R.string.ok,
+                                        negativeBtnText = R.string.no,
+                                        positiveClick = {
+                                        },
+                                        negativeClick = {
+                                        })
+                                    dialog.show()
+                                }
+
+                            }
+                        }
+                        Status.ERROR -> {
+                            loader?.dismiss()
+                            val dialog = OptionDialog(this,
+                                R.mipmap.ic_launcher,
+                                R.string.app_name,
+                                it.message.toString(),
+                                positiveBtnText = R.string.ok,
+                                negativeBtnText = R.string.no,
+                                positiveClick = {
+                                },
+                                negativeClick = {
+                                })
+                            dialog.show()
+                        }
+                        Status.LOADING -> {
+                            loader = LoaderDialog(R.string.pleasewait)
+                            loader?.show(supportFragmentManager, null)
+                        }
+                    }
+                }
+            }
+
+    }
+
+    private fun promoApply(request: GiftCardRequest) {
+        summeryViewModel.giftCardApply(request)
+            .observe(this) {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            loader?.dismiss()
+                            resource.data?.let { it ->
+                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                    try {
+                                        Constant.IntentKey.TimerExtandCheck = true
+                                        Constant.IntentKey.TimerExtand = 90
+                                        Constant.IntentKey.TimerTime = 360
+                                        val intent = Intent(
+                                            applicationContext,
+                                            FinalTicketActivity::class.java
+                                        )
+                                        intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
+                                        intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
+                                        startActivity(intent)
+                                    } catch (e: Exception) {
+                                        println("updateUiCinemaSession ---> ${e.message}")
+                                    }
+
+                                } else {
+                                    loader?.dismiss()
+                                    val dialog = OptionDialog(this,
+                                        R.mipmap.ic_launcher,
+                                        R.string.app_name,
+                                        it.data?.msg.toString(),
+                                        positiveBtnText = R.string.ok,
+                                        negativeBtnText = R.string.no,
+                                        positiveClick = {
+                                        },
+                                        negativeClick = {
+                                        })
+                                    dialog.show()
+                                }
+
+                            }
+                        }
+                        Status.ERROR -> {
+                            loader?.dismiss()
+                            val dialog = OptionDialog(this,
+                                R.mipmap.ic_launcher,
+                                R.string.app_name,
+                                it.message.toString(),
+                                positiveBtnText = R.string.ok,
+                                negativeBtnText = R.string.no,
+                                positiveClick = {
+                                },
+                                negativeClick = {
+                                })
+                            dialog.show()
+                        }
+                        Status.LOADING -> {
+                            loader = LoaderDialog(R.string.pleasewait)
+                            loader?.show(supportFragmentManager, null)
+                        }
+                    }
+                }
+            }
+
     }
 
     private fun walletPay(request: HmacKnetRequest) {
@@ -1181,7 +1392,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
             setCheckoutOnlyFoodItemAdapter(output.concessionFoods)
             ticketPage.hide()
             priceView.hide()
-            totalPrice=output.totalTicketPrice
+            totalPrice = output.totalTicketPrice
 
             binding?.priceUi?.hide()
             binding?.textTimeLeft?.hide()
@@ -1218,7 +1429,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
 
 
             text_kds.text = output.ticketPrice
-            totalPrice=output.totalTicketPrice
+            totalPrice = output.totalTicketPrice
             text_kd_total.text = output.totalTicketPrice
             paidPrice = output.totalPrice
             binding?.textTimeToLeft?.text = output.totalPrice
@@ -1368,7 +1579,8 @@ class SummeryActivity : DaggerAppCompatActivity() {
                                 override fun onTick(millisUntilFinished: Long) {
                                     val second = millisUntilFinished / 1000 % 60
                                     val minutes = millisUntilFinished / (1000 * 60) % 60
-                                    val display = java.lang.String.format("%02d:%02d", minutes, second)
+                                    val display =
+                                        java.lang.String.format("%02d:%02d", minutes, second)
 
                                     textView111?.text = display
                                     Constant.IntentKey.TimerExtand = minutes * 60 + second
@@ -1409,7 +1621,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
                 }
 
                 override fun onFinish() {
-                    if (!timeExtandClick){
+                    if (!timeExtandClick) {
                         Constant.IntentKey.TimerExtand = 90
                         Constant.IntentKey.TimerTime = 360
                         finish()
@@ -1434,8 +1646,8 @@ class SummeryActivity : DaggerAppCompatActivity() {
         dialogView.subtitle.text = getString(R.string.stillHere)
         dialogView.consSure?.setOnClickListener {
             countDownTimerPrimary?.cancel()
-            timeExtandClick=true
-            Constant.IntentKey.TimerExtand =90+secondLeft
+            timeExtandClick = true
+            Constant.IntentKey.TimerExtand = 90 + secondLeft
             Constant.IntentKey.TimerExtandCheck = true
             alertDialog.dismiss()
             object : CountDownTimer((Constant.IntentKey.TimerExtand * 1000), 1000) {

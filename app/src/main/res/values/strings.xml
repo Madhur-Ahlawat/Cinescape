@@ -340,5 +340,10 @@
     <string name="enterMobileOtp">Please Enter Your Mobile Otp</string>
     <string name="enter_verification_codes_sent_to_your_email_n_and_mobile">Enter verification codes sent to your email\n and mobile.</string>
     <string name="commingSoonNew">Coming soon -</string>
+    <string name="voucher">Voucher</string>
+    <string name="promo">Promo</string>
+    <string name="enter_voucher_code">Enter voucher number</string>
+    <string name="enter_gift_card">Enter gift card number</string>
+    <string name="enter_promo_code">Enter promo code</string>
 
 </resources>

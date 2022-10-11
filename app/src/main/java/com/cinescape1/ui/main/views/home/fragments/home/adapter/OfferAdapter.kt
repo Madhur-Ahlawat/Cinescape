@@ -1,4 +1,4 @@
-package com.cinescape1.ui.main.views.adapters
+package com.cinescape1.ui.main.views.home.fragments.home.adapter
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -30,9 +30,10 @@ class OfferAdapter(val mContext: Activity, val movieDataList: ArrayList<HomeData
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val obj = movieDataList[position]
-        print("offerData123--->${movieDataList}")
+        print("offerData123--->${movieDataList.size}")
         Glide.with(mContext)
             .load(obj.appImageUrl)
+            .error(R.drawable.placeholder_home_small_poster)
             .into(holder.todoImage)
 
         holder.todoImage.setOnClickListener {
@@ -47,7 +48,4 @@ class OfferAdapter(val mContext: Activity, val movieDataList: ArrayList<HomeData
         var todoImage: ImageView = view.findViewById(R.id.imageView16) as ImageView
     }
 
-    interface RecycleViewItemClickListener {
-        fun onItemClick(view: MoviesResponse.Output, title: String)
-    }
 }

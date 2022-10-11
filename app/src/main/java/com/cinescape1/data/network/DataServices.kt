@@ -80,6 +80,9 @@ interface DataServices {
     @POST("clubcard/clubPayment")
     suspend fun paymentWallet(@Body request: HmacKnetRequest): Response<WalletResponse>
 
+    @POST("giftcard/apply")
+    suspend fun giftCardApply(@Body request: GiftCardRequest): Response<WalletResponse>
+
     @POST("payment/cybersource/initiate")
     suspend fun creditCardInit(@Body request: HmacKnetRequest): Response<PaymentTokenResponse>
 

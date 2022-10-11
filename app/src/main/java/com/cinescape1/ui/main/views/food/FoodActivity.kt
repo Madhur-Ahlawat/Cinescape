@@ -344,12 +344,9 @@ class FoodActivity : DaggerAppCompatActivity(),
             textTicket1Price.hide()
             movieDetails.hide()
             viewFood.show()
-            Toast.makeText(this, "show", Toast.LENGTH_SHORT).show()
             tvFoodPrice?.text = getAllFoodPrice()
         } else {
             viewFood.hide()
-            Toast.makeText(this, "hide", Toast.LENGTH_SHORT).show()
-
             titleTicketPrice.show()
             totals1.show()
             textTotal1?.show()
@@ -370,7 +367,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             val cinemaName = mDialogView.findViewById<TextView>(R.id.tv_cinema_name)
             val timing = mDialogView.findViewById<TextView>(R.id.tv_seat_timing_date)
             val type = mDialogView.findViewById<TextView>(R.id.text_type)
-            val ratingUi = mDialogView.findViewById<CardView>(R.id.ratingUi)
+            val ratingUi = mDialogView.findViewById<CardView>(R.id.ratingUiFOod)
             val image = mDialogView.findViewById<ImageView>(R.id.imageView54)
 
             //Cinema

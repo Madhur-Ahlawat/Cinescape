@@ -31,59 +31,46 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-
             app:layout_constraintBottom_toBottomOf="@+id/image_booking_alert"
             app:layout_constraintStart_toStartOf="@+id/image_booking_alert"
             app:layout_constraintTop_toTopOf="@+id/image_booking_alert"
             app:layout_constraintVertical_bias="0.956">
 
-            <LinearLayout
+            <com.google.android.flexbox.FlexboxLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginEnd="@dimen/margin20"
-                android:weightSum="7"
+                app:alignContent="flex_start"
+                app:alignItems="flex_start"
+                app:flexWrap="nowrap"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:showDivider="middle">
 
                 <TextView
                     android:id="@+id/text_bombshell"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_weight="2"
-                    android:ellipsize="marquee"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:freezesText="true"
-                    android:gravity="start"
-                    android:letterSpacing="-0.02"
-                    android:marqueeRepeatLimit="marquee_forever"
-                    android:maxLines="1"
-                    android:scrollHorizontally="true"
-                    android:singleLine="true"
+                    android:ellipsize="end"
                     android:fontFamily="@font/sf_pro_text_heavy"
+                    android:gravity="start"
+                    android:maxLines="2"
+                    tools:text="klkllkm "
                     android:textColor="@color/white"
                     android:textSize="@dimen/size20"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="HardcodedText,ObsoleteLayoutParam"
-                    tools:text="Bombs" />
+                    app:layout_minWidth="50dp" />
 
                 <LinearLayout
                     android:id="@+id/constraintLayout18"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:minWidth="150dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_seat_film_title"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tv_seat_film_title"
-                    app:layout_constraintTop_toTopOf="@+id/tv_seat_film_title">
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="@dimen/margin5"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:minWidth="50dp"
+                    app:layout_minWidth="50dp">
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/ratingUi"
@@ -110,9 +97,11 @@
 
                     </androidx.cardview.widget.CardView>
 
+
                 </LinearLayout>
 
-            </LinearLayout>
+
+            </com.google.android.flexbox.FlexboxLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

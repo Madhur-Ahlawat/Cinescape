@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/black"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,9 +41,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:adjustViewBounds="true"
+                android:background="@drawable/movie_info_page_gradient"
                 android:contentDescription="@string/contentDes"
                 android:rotation="180"
-                android:background="@drawable/movie_info_page_gradient"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -364,6 +364,159 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/voucherUi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/priceView"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/priceView"
+                    app:layout_constraintTop_toBottomOf="@+id/priceView">
+
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/couponUi"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <LinearLayout
+                            android:id="@+id/giftCardClick"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:id="@+id/imageView55"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/gift_card_normal"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:id="@+id/textView152"
+                                android:layout_marginStart="@dimen/margin8"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/gift_card"
+                                android:textSize="@dimen/size15"
+                                android:textColor="@color/hint_color"
+                                android:fontFamily="@font/sf_pro_text_regular" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/voucherClick"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:id="@+id/imageView56"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/gift_voucher_normal"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:id="@+id/textView153"
+                                android:layout_marginStart="@dimen/margin8"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/voucher"
+                                android:textSize="@dimen/size15"
+                                android:textColor="@color/hint_color"
+                                android:fontFamily="@font/sf_pro_text_regular"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/promoClick"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:id="@+id/imageView57"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/promocode_normal"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:id="@+id/textView154"
+                                android:layout_marginStart="@dimen/margin8"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/promo"
+                                android:textSize="@dimen/size15"
+                                android:textColor="@color/hint_color"
+                                android:fontFamily="@font/sf_pro_text_regular" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        app:layout_constraintEnd_toEndOf="@+id/couponUi"
+                        app:layout_constraintStart_toStartOf="@+id/couponUi"
+                        app:layout_constraintTop_toBottomOf="@+id/couponUi">
+
+
+                        <EditText
+                            android:id="@+id/enterCode"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="32dp"
+                            android:background="@drawable/curve_offer"
+                            android:textSize="@dimen/size15"
+                            android:paddingStart="@dimen/margin18"
+                            android:paddingEnd="@dimen/margin8"
+                            android:paddingTop="@dimen/margin5"
+                            android:paddingBottom="@dimen/margin5"
+                            android:textColorHint="@color/text_alert_color"
+                            android:textColor="@color/text_alert_color"
+                            android:fontFamily="@font/sf_pro_text_regular"
+                            android:hint="@string/enter_voucher_code"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/textView151"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textView151"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="64dp"
+                            android:fontFamily="@font/sf_pro_text_regular"
+                            android:text="@string/apply"
+                            android:textColor="@color/hint_color"
+                            android:textSize="@dimen/size15"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:id="@+id/text_food"
@@ -379,10 +532,10 @@
                     android:textSize="@dimen/size15"
                     android:textStyle="bold"
                     android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="@+id/priceView"
+                    app:layout_constraintEnd_toEndOf="@+id/voucherUi"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/priceView"
-                    app:layout_constraintTop_toBottomOf="@+id/priceView" />
+                    app:layout_constraintStart_toStartOf="@+id/voucherUi"
+                    app:layout_constraintTop_toBottomOf="@+id/voucherUi" />
 
                 <TextView
                     android:id="@+id/text_select_payment_method"

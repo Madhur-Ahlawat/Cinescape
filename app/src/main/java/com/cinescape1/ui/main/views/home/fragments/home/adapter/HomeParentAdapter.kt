@@ -158,24 +158,37 @@ class HomeParentAdapter(
                 holder.homeList.adapter = adapter
             }
             "offers" -> {
-                holder.txtSeeAll.hide()
-                holder.itemView.show()
-                holder.homeTitle.show()
-                holder.homeList.show()
-                holder.viewpager.hide()
-                holder.viewpagerBack.hide()
-                holder.itemView.show()
-                val gridLayout = GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
-                holder.homeList.layoutManager = LinearLayoutManager(mContext)
-                val adapter = OfferAdapter(mContext, obj.offers)
-                holder.homeList.layoutManager = gridLayout
-                holder.homeList.adapter = adapter
-                holder.txtSeeAll.setOnClickListener {
-                    val intent = Intent(mContext, SeeAllActivity::class.java)
-                    intent.putExtra("type", "offer")
-                    intent.putExtra("arrayList", obj.movieData)
-                    mContext.startActivity(intent)
+                try {
+                    holder.txtSeeAll.hide()
+                    holder.itemView.show()
+                    holder.homeTitle.show()
+                    holder.homeList.show()
+                    holder.viewpager.hide()
+                    holder.viewpagerBack.hide()
+
+                    val gridLayout = GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
+                    holder.homeList.layoutManager = LinearLayoutManager(mContext)
+                   val  adapter = OfferAdapter(mContext, obj.offers)
+                    holder.homeList.adapter = adapter
+                    println("errorOffer---123>${obj.offers.size}")
+                    holder.homeList.layoutManager = gridLayout
+
+//                    val gridLayout = GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
+//                    holder.homeList.layoutManager = LinearLayoutManager(mContext)
+//                    val adapter = OfferAdapter(mContext, obj.offers)
+//                    holder.homeList.layoutManager = gridLayout
+//                    holder.homeList.adapter = adapter
+//                    holder.txtSeeAll.setOnClickListener {
+//                        val intent = Intent(mContext, SeeAllActivity::class.java)
+//                        intent.putExtra("type", "offer")
+//                        intent.putExtra("arrayList", obj.movieData)
+//                        mContext.startActivity(intent)
+//                    }
+
+                } catch (e:Exception){
+                    println("errorOffer--->${e.message}")
                 }
+
             }
             "cinemas" -> {
                 holder.itemView.show()

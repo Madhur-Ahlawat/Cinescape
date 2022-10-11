@@ -108,6 +108,12 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
         return apiRequest { api.paymentWallet(request) }
     }
 
+    suspend fun giftCardRequest(
+        request: GiftCardRequest
+    ): Result<WalletResponse> {
+        return apiRequest { api.giftCardApply(request) }
+    }
+
     suspend fun creditCardInit(request: HmacKnetRequest): Result<PaymentTokenResponse> {
         return apiRequest { api.creditCardInit(request) }
     }

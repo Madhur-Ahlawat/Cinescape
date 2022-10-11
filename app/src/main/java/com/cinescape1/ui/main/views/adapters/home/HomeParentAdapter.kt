@@ -19,6 +19,7 @@ import com.cinescape1.data.models.responseModel.HomeDataResponse
 import com.cinescape1.ui.main.views.home.fragments.home.seeAll.SeeAllActivity
 import com.cinescape1.ui.main.views.adapters.*
 import com.cinescape1.ui.main.views.adapters.sliderAdapter.HomeFrontSliderAdapter
+import com.cinescape1.ui.main.views.home.fragments.home.adapter.OfferAdapter
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.Constant.Companion.SEE_ALL_TYPE
 import com.cinescape1.utils.hide

@@ -67,6 +67,20 @@ class SummeryViewModel @Inject constructor(private val repositories: Repositorie
         }
     }
 
+   fun giftCardApply(request: GiftCardRequest) = liveData(Dispatchers.IO) {
+        emit(Result.loading(data = null))
+        try {
+            val data = repositories.giftCardRequest(request)
+            if (data.status == Status.ERROR) {
+                emit(Result.error(data.message.toString(), data))
+            } else {
+                emit(Result.success(data = data))
+            }
+        } catch (exception: Exception) {
+            emit(Result.error(exception.message ?: "Error Occurred!", data = null))
+        }
+    }
+
     fun creditCardInit(request: HmacKnetRequest) = liveData(Dispatchers.IO) {
         emit(Result.loading(data = null))
         try {

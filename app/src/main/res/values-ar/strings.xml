@@ -2,6 +2,10 @@
 <resources>
 
     <string name="app_name">سينسكيب</string>
+    <string name="facebook_app_id">1138366336951245</string>
+    <string name="fb_login_protocol_scheme">fb1138366336951245</string>
+    <string name="facebook_client_token">ee8c03752ee252fb0434fa5ec8599cf8</string>
+
     <!-- Strings used for fragments for navigation -->
     <string name="modifi_seat">بالضغط على نعم، سيتم إعادة ضبط كافة اختياراتك</string>
     <string name="username">اسم المستخدم / البريد الالكتروني</string>
@@ -338,5 +342,16 @@
     <string name="enterMobileOtp">Please Enter Your Mobile Otp</string>
     <string name="enter_verification_codes_sent_to_your_email_n_and_mobile">Enter verification codes sent to your email\n and mobile.</string>
     <string name="commingSoonNew">قريبا -</string>
+    <string name="voucher">Voucher</string>
+    <string name="promo">Promo</string>
+    <string name="enter_voucher_code">Enter voucher number</string>
+    <string name="enter_gift_card">Enter gift card number</string>
+    <string name="enter_promo_code">Enter promo code</string>
+    <string name="transaction_date_time"><![CDATA[Transaction Date & Time]]></string>
+    <string name="reference_id">Reference ID</string>
+    <string name="track_number">Track Number</string>
+    <string name="tickets">Tickets</string>
+    <string name="sorry_your_transaction">Sorry, Your transaction</string>
+
 
 </resources>

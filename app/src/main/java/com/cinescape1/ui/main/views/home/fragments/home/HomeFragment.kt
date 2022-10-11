@@ -181,6 +181,7 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
                     }
                     "offers" -> {
                         if (data.offers.isNotEmpty()) {
+                            println("offer123--->${data.offers.size}")
                             homeData.add(data)
                         }
                     }
