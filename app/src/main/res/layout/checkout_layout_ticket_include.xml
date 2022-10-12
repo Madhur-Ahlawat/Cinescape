@@ -32,24 +32,24 @@
             android:id="@+id/view_movie_name"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="@+id/view_mains"
             app:layout_constraintStart_toStartOf="@+id/view_mains"
-            app:layout_constraintTop_toTopOf="@+id/view_mains" />
+            app:layout_constraintTop_toBottomOf="@+id/textView111" />
 
 
         <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/linearLayout2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             app:alignContent="flex_start"
             app:alignItems="flex_start"
             app:flexWrap="nowrap"
             app:layout_constraintBottom_toBottomOf="@+id/view_movie_name"
             app:layout_constraintEnd_toEndOf="@+id/view_times"
             app:layout_constraintStart_toStartOf="@+id/text_date_name"
-            app:layout_constraintTop_toTopOf="@+id/view_movie_name"
-            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintTop_toBottomOf="@+id/textView111"
             app:showDivider="middle">
 
             <TextView
@@ -58,11 +58,12 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:fontFamily="@font/sf_pro_text_heavy"
-                android:textColor="@color/white"
-                android:textSize="@dimen/size20"                android:gravity="start"
+                android:gravity="start"
                 android:maxLines="2"
-                tools:text="klkllkm "
-                app:layout_minWidth="50dp" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/size20"
+                app:layout_minWidth="50dp"
+                tools:text="klkllkm " />
 
             <LinearLayout
                 android:id="@+id/constraintLayout18"
@@ -91,8 +92,8 @@
                         android:layout_height="@dimen/size22"
                         android:fontFamily="@font/sf_pro_text_heavy"
                         android:gravity="center"
-                        android:paddingStart="@dimen/margin6"
-                        android:paddingEnd="@dimen/margin6"
+                        android:paddingStart="@dimen/margin12"
+                        android:paddingEnd="@dimen/margin12"
                         android:textColor="@color/white"
                         android:textSize="@dimen/size11"
                         tools:ignore="HardcodedText,TextContrastCheck"
@@ -441,20 +442,20 @@
             app:layout_constraintTop_toBottomOf="@+id/text_total" />
 
         <TextView
-            android:visibility="visible"
             android:id="@+id/textView111"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin10"
+            android:layout_marginTop="50dp"
             android:fontFamily="@font/sf_pro_text_heavy"
             android:gravity="center"
             android:letterSpacing="0.05"
             android:textColor="@color/white"
             android:textSize="@dimen/size16"
             android:textStyle="bold"
-            tools:text="6:00"
-            app:layout_constraintBottom_toTopOf="@+id/view_movie_name"
-            app:layout_constraintEnd_toEndOf="@+id/view_movie_name" />
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="@+id/view_movie_name"
+            app:layout_constraintTop_toTopOf="@+id/view_mains"
+            tools:text="6:00" />
 
         <TextView
             android:visibility="visible"

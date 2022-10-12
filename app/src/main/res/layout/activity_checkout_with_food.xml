@@ -387,7 +387,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:weightSum="3">
+                        android:weightSum="3"
+                        android:baselineAligned="false">
 
                         <LinearLayout
                             android:id="@+id/giftCardClick"
@@ -489,19 +490,22 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="32dp"
                             android:background="@drawable/curve_offer"
-                            android:textSize="@dimen/size15"
-                            android:paddingStart="@dimen/margin18"
-                            android:paddingEnd="@dimen/margin8"
-                            android:paddingTop="@dimen/margin5"
-                            android:paddingBottom="@dimen/margin5"
-                            android:textColorHint="@color/text_alert_color"
-                            android:textColor="@color/text_alert_color"
                             android:fontFamily="@font/sf_pro_text_regular"
                             android:hint="@string/enter_voucher_code"
+                            android:importantForAutofill="no"
+                            android:paddingStart="@dimen/margin18"
+                            android:paddingTop="@dimen/margin5"
+                            android:paddingEnd="@dimen/margin8"
+                            android:paddingBottom="@dimen/margin5"
+                            android:textColor="@color/text_alert_color"
+                            android:textColorHint="@color/text_alert_color"
+                            android:textCursorDrawable="@color/white"
+                            android:textSize="@dimen/size15"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/textView151"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="TouchTargetSizeCheck" />
 
                         <TextView
                             android:id="@+id/textView151"
@@ -860,7 +864,6 @@
             app:layout_constraintStart_toStartOf="@+id/view_cancel"
             app:layout_constraintTop_toBottomOf="@+id/imag_cross" />
 
-
         <View
             android:id="@+id/view_time_left"
             android:layout_width="0dp"
@@ -904,7 +907,6 @@
             app:layout_constraintTop_toBottomOf="@+id/text_time_left"
             tools:ignore="HardcodedText"
             tools:text="233" />
-
 
         <View
             android:id="@+id/view_proceed"

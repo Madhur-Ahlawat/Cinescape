@@ -300,7 +300,7 @@
     <string name="addFoodMsg">Add Food</string>
     <string name="atleast">Atleast</string>
     <string name="selectSeatQt">You can\'t select seat more than </string>
-    <string name="no_items_added_to_cart">No Items added to cart</string>
+    <string name="no_items_added_to_cart">No Food Items added to cart</string>
     <string name="userNameEmpty">Please enter your user name</string>
     <string name="countryEmpty">Please select your country</string>
     <string name="selectCateogry">Please select your category</string>

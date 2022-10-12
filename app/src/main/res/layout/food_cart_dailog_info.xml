@@ -40,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginBottom="@dimen/margin15"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -79,8 +79,40 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <TextView
+                    android:id="@+id/cartTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/sf_pro_text_heavy"
+                    android:gravity="center"
+                    android:letterSpacing="0.05"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size16"
+                    android:textStyle="bold"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="6:00" />
+
+                <TextView
+                    android:visibility="visible"
+                    android:id="@+id/textView112"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_marginEnd="@dimen/margin8"
+                    android:fontFamily="@font/gibson_regular"
+                    android:textSize="@dimen/size11"
+                    android:text="@string/time_left"
+                    app:layout_constraintBottom_toBottomOf="@+id/cartTime"
+                    app:layout_constraintEnd_toStartOf="@+id/cartTime"
+                    app:layout_constraintTop_toTopOf="@+id/cartTime" />
 
                 <LinearLayout
+                    android:id="@+id/linearLayout5"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="75dp"
@@ -111,20 +143,20 @@
                             android:fontFamily="@font/sf_pro_text_heavy"
                             android:gravity="start"
                             android:maxLines="2"
-                            tools:text="klkllkm "
                             android:textColor="@color/white"
                             android:textSize="@dimen/size20"
-                            app:layout_minWidth="50dp" />
+                            app:layout_minWidth="50dp"
+                            tools:text="klkllkm " />
 
                         <LinearLayout
                             android:id="@+id/constraintLayout18"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:maxLines="1"
+                            android:layout_marginStart="8dp"
                             android:layout_marginTop="@dimen/margin5"
                             android:ellipsize="end"
+                            android:maxLines="1"
                             android:minWidth="50dp"
-                            android:layout_marginStart="8dp"
                             app:layout_minWidth="50dp">
 
                             <androidx.cardview.widget.CardView
@@ -143,8 +175,8 @@
                                     android:layout_height="@dimen/size22"
                                     android:fontFamily="@font/sf_pro_text_heavy"
                                     android:gravity="center"
-                                    android:paddingStart="@dimen/margin6"
-                                    android:paddingEnd="@dimen/margin6"
+                                    android:paddingStart="@dimen/margin12"
+                                    android:paddingEnd="@dimen/margin12"
                                     android:textColor="@color/white"
                                     android:textSize="@dimen/size11"
                                     tools:ignore="HardcodedText,TextContrastCheck"
@@ -420,9 +452,9 @@
                         android:gravity="center"
                         android:lineSpacingExtra="1.3sp"
                         android:paddingStart="28.3dp"
-                        android:paddingTop="8.8dp"
+                        android:paddingTop="3dp"
                         android:paddingEnd="27.66dp"
-                        android:paddingBottom="10.2dp"
+                        android:paddingBottom="3dp"
                         android:text="@string/proceed"
                         android:textColor="@color/white"
                         android:textSize="@dimen/size16"

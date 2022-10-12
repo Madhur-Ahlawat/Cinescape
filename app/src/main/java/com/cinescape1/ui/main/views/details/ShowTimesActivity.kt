@@ -418,7 +418,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
         when (type) {
             "comingSoon" -> {
-                "Coming soon -"
                 binding?.textMovieType?.text =
                    getString(R.string.commingSoonNew)+" "+ output.openingDate
 
@@ -427,6 +426,14 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 output.language + " | " + output.genre + " | " + output.runTime + " " + getString(R.string.min)
 
         }
+        }
+        println("CastCheck--->${output.cast.size}")
+        if (output.cast.isNotEmpty()) {
+            text_cast.show()
+            recyclerview_show_times_cast.show()
+        } else {
+            text_cast.hide()
+            recyclerview_show_times_cast.hide()
         }
 
         if (output.trailerUrl.isEmpty()) {
@@ -452,13 +459,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         text_sysnopsis_detail.text = output.synopsis
         text_directoe_name.text = output.director.firstName + " " + output.director.lastName
 
-        if (output.cast.isEmpty()) {
-            text_cast.hide()
-            recyclerview_show_times_cast.hide()
-        } else {
-            text_cast.show()
-            recyclerview_show_times_cast.show()
-        }
+
 
     }
 
@@ -661,6 +662,13 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         textView123.text = movie.subTitle
         text_sysnopsis_detail.text = movie.synopsis
         text_directoe_name.text = movie.director.firstName + " " + movie.director.lastName
+        if (movie.cast.isNotEmpty()) {
+            text_cast.show()
+            recyclerview_show_times_cast.show()
+        } else {
+            text_cast.hide()
+            recyclerview_show_times_cast.hide()
+        }
         recyclerview_show_times_cast.layoutManager =
             LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         val adapter = AdpaterShowTimesCast(this, movie.cast)

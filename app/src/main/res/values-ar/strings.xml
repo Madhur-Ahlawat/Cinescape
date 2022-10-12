@@ -301,7 +301,7 @@
     <string name="cancelComma">يلغي،</string>
     <string name="enterPhoto">يرجى اختيار الصورة</string>
     <string name="selectSeatQt">لا يمكنك اختيار اكثر من</string>
-    <string name="no_items_added_to_cart">السلة فارغة</string>
+    <string name="no_items_added_to_cart">لا توجد مواد غذائية مضافة إلى سلة التسوق</string>
     <string name="cardNoEmpty">الرجاء إدخال رقم بطاقتك.</string>
     <string name="userNameEmpty">الرجاء إدخال اسم المستخدم</string>
     <string name="countryEmpty">يرجى تحديد بلدك</string>

@@ -79,19 +79,19 @@
                         android:textColor="@color/text_color"
                         android:textSize="@dimen/size12"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"/>
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:textSize="@dimen/size14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:fontFamily="@font/sf_pro_text_bold"
-                        android:textColor="#ADADAD"
                         android:text="@string/today"
-                        app:layout_constraintTop_toTopOf="parent"
+                        android:textColor="#ADADAD"
+                        android:textSize="@dimen/size14"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/text_order_info"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -122,10 +122,10 @@
 
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/spinner"
-                        android:minHeight="@dimen/size50"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
+                        android:minHeight="@dimen/size50"
                         android:visibility="visible"
                         app:backgroundTint="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -208,6 +208,15 @@
                     app:layout_constraintEnd_toStartOf="@+id/text_proceeds"
                     app:layout_constraintTop_toTopOf="@+id/text_proceeds">
 
+
+                    <View
+                        android:id="@+id/viewCancel"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
