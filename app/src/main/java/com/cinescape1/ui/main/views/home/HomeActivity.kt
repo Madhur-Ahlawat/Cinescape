@@ -344,40 +344,11 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
                     mDialogView.text_time_visible.text = output.output[0].showTime
                     mDialogView.text_bombshell.text = output.output[0].moviename
                     mDialogView.text13.text = output.output[0].mcensor
-
-                    when (output.output[0].mcensor) {
-                        "PG" -> {
-                            mDialogView.text13.setBackgroundResource(R.color.grey)
-
-                        }
-                        "G" -> {
-                            mDialogView.text13.setBackgroundResource(R.color.green)
-
-                        }
-                        "18+" -> {
-                            mDialogView.text13.setBackgroundResource(R.color.red)
-
-                        }
-                        "13+" -> {
-                            mDialogView.text13.setBackgroundResource(R.color.yellow)
-
-                        }
-                        "15+" -> {
-                            mDialogView.text13.setBackgroundResource(R.color.yellow)
-
-                        }
-                        "E" -> {
-                            mDialogView.text13.setBackgroundResource(R.color.wowOrange)
-
-                        }
-                        "T" -> {
-                            mDialogView.text13.setBackgroundResource(R.color.tabIndicater)
-
-                        }
-                        else -> {
-                            mDialogView.text13.setBackgroundResource(R.color.blue)
-
-                        }
+                    val ratingColor=output.output[0].ratingColor
+                    try {
+                        mDialogView.text13.setBackgroundColor(Color.parseColor(ratingColor))
+                    }catch (e:Exception){
+                        e.printStackTrace()
                     }
 
                     Glide.with(this)

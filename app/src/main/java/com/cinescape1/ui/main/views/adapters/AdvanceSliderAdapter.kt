@@ -3,6 +3,7 @@ package com.cinescape1.ui.main.views.adapters
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import com.cinescape1.utils.Constant
 
 class AdvanceSliderAdapter(private  val mContext: Activity,private var movieData: ArrayList<HomeDataResponse.MovieData>) :
     PagerAdapter() {
+    var ratingColor:String=""
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val inflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val sliderLayout: View = inflater.inflate(R.layout.slider_advance, null)
@@ -31,51 +33,8 @@ class AdvanceSliderAdapter(private  val mContext: Activity,private var movieData
             .into(featured_image)
         caption_title.text= movieData[position].title
         rating.text= movieData[position].rating
-        when (movieData[position].rating) {
-            "PG" -> {
-                rating.setBackgroundResource(R.color.grey)
-//                ratingUi.setBackgroundColor(ContextCompat.getColor(mContext, R.color.grey))
-
-            }
-            "G" -> {
-                rating.setBackgroundResource(R.color.green)
-//                ratingUi.setBackgroundColor(ContextCompat.getColor(mContext, R.color.green))
-
-            }
-            "18+" -> {
-                rating.setBackgroundResource(R.color.red)
-//                ratingUi.setBackgroundColor(ContextCompat.getColor(mContext, R.color.red))
-
-            }
-            "13+" -> {
-                rating.setBackgroundResource(R.color.yellow)
-//                ratingUi.setBackgroundColor(ContextCompat.getColor(mContext, R.color.yellow))
-
-            }
-            "15+" -> {
-                rating.setBackgroundResource(R.color.yellow)
-//                ratingUi.setBackgroundColor(ContextCompat.getColor(mContext, R.color.yellow))
-
-            }
-            "E" -> {
-                rating.setBackgroundResource(R.color.wowOrange)
-//                ratingUi.setBackgroundColor(ContextCompat.getColor(mContext, R.color.wowOrange))
-
-            }
-            "T" -> {
-                rating.setBackgroundResource(R.color.tabIndicater)
-//                ratingUi.setBackgroundColor(ContextCompat.getColor(mContext, R.color.tabIndicater))
-
-            }
-            else -> {
-                rating.setBackgroundResource(R.color.blue)
-
-//                ratingUi.setBackgroundColor(ContextCompat.getColor(mContext, R.color.blue))
-//                cardView.setBackgroundColor(con.getColor(this, R.color.my_color));
-
-            }
-        }
-
+        ratingColor=movieData[position].ratingColor
+        rating.setBackgroundColor(Color.parseColor(ratingColor))
         featured_image.setOnClickListener {
             val intent = Intent(mContext, ShowTimesActivity::class.java)
             intent.putExtra(Constant.IntentKey.MOVIE_ID,movieData[position].id)

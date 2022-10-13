@@ -89,6 +89,7 @@ data class HomeDataResponse(
         val openingDate: String,
         val producer: Any,
         val rating: String,
+        val ratingColor: String,
         val ratingDescription: String,
         val runTime: Int,
         val scheduledAtCinema: Boolean,

@@ -3,6 +3,7 @@ package com.cinescape1.ui.main.views.adapters.sliderAdapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,41 +46,8 @@ class AdapterMultiMovieAlertBooking(
         holder.time.text = showtimeListItem.showTime
         holder.rating.text = showtimeListItem.mcensor
         holder.experience.text = showtimeListItem.experience
-
-        when (showtimeListItem.mcensor) {
-            "PG" -> {
-                holder.ratingUi.setCardBackgroundColor(mContext.getColor(R.color.grey))
-
-            }
-            "G" -> {
-                holder.ratingUi.setCardBackgroundColor(mContext.getColor(R.color.green))
-
-            }
-            "18+" -> {
-                holder.ratingUi.setCardBackgroundColor(mContext.getColor(R.color.red))
-
-            }
-            "13+" -> {
-                holder.ratingUi.setCardBackgroundColor(mContext.getColor(R.color.yellow))
-
-            }
-            "15+" -> {
-                holder.ratingUi.setCardBackgroundColor(mContext.getColor(R.color.yellow))
-
-            }
-            "E" -> {
-                holder.ratingUi.setCardBackgroundColor(mContext.getColor(R.color.wowOrange))
-
-            }
-            "T" -> {
-                holder.ratingUi.setCardBackgroundColor(mContext.getColor(R.color.tabIndicater))
-
-            }
-            else -> {
-                holder.ratingUi.setCardBackgroundColor(mContext.getColor(R.color.blue))
-
-            }
-        }
+        val ratingColor=showtimeListItem.ratingColor
+        holder.rating.setBackgroundColor(Color.parseColor(ratingColor))
 
         holder.image.setOnClickListener {
             val intent = Intent(mContext, FinalTicketActivity::class.java)

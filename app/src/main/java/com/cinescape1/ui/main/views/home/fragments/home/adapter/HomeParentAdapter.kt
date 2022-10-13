@@ -117,23 +117,7 @@ class HomeParentAdapter(
                         Log.e("Selected_Page", position.toString())
                         Constant.select_pos = position
                         holder.viewpagerBack.currentItem = position
-
                     }
-
-//                    override fun onPageScrollStateChanged(state: Int) {
-//                        super.onPageScrollStateChanged(state)
-//                    }
-//
-//                    override fun onPageScrolled(
-//                        position: Int,
-//                        positionOffset: Float,
-//                        positionOffsetPixels: Int
-//                    ) {
-//                        super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-//
-//
-//                    }
-//
                 })
 
 
