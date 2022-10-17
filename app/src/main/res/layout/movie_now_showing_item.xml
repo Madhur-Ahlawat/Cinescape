@@ -94,6 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="2dp"
                 app:cardUseCompatPadding="true"
+                app:cardBackgroundColor="@color/transparent"
                 app:layout_constraintBottom_toBottomOf="@+id/text_movie_category"
                 app:layout_constraintEnd_toEndOf="@+id/view9"
                 app:layout_constraintStart_toEndOf="@+id/text_movie_category"

@@ -52,7 +52,7 @@ class AdapterDayDate(var context: Activity, private var dayDateList: ArrayList<C
                 holder.views1.show()
                 holder.consBackground.setBackgroundResource(R.drawable.primarydark_rectangle)
                 holder.day.setTextColor(ContextCompat.getColor(context, R.color.hint_color))
-                holder.day.setTextColor(ContextCompat.getColor(context, R.color.hint_color))
+                holder.date.setTextColor(ContextCompat.getColor(context, R.color.hint_color))
                 val regular: Typeface = context.resources.getFont(R.font.sf_pro_text_regular)
                 holder.day.typeface = regular
                 holder.date.typeface = regular
@@ -72,12 +72,25 @@ class AdapterDayDate(var context: Activity, private var dayDateList: ArrayList<C
             }
         }
 
+        if (dayDateItem.enable){
             holder.itemView.setOnClickListener {
                 listener.onDateClick(dayDateItem,holder.itemView,position)
                 rowIndex = position
                 backIndex = position
                 notifyDataSetChanged()
             }
+        }else{
+            holder.views1.show()
+            holder.consBackground.setBackgroundResource(R.drawable.primarydark_rectangle)
+            holder.day.setTextColor(ContextCompat.getColor(context, R.color.countrySearch))
+            holder.date.setTextColor(ContextCompat.getColor(context, R.color.countrySearch))
+            val regular: Typeface = context.resources.getFont(R.font.sf_pro_text_regular)
+            holder.day.typeface = regular
+            holder.date.typeface = regular
+            holder.day.textSize = 13F
+            holder.date.textSize = 16F
+        }
+
 
 
     }

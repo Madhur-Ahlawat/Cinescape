@@ -120,7 +120,6 @@ class HomeParentAdapter(
                     }
                 })
 
-
             }
             "advance" -> {
                 holder.homeTitle.show()

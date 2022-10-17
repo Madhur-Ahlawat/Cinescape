@@ -414,7 +414,6 @@ import java.text.SimpleDateFormat
             var OPEN_FROM :Int=0
             var USER_ID :String=""
             var LANGUAGE_SELECT = "en"
-//            var TimerTime :Long=90
             var TimerTime :Long=360
             var TimerExtand :Long=90
             var TOTAL_PRICE :Long=0

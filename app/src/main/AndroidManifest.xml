@@ -56,7 +56,9 @@
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.main.views.summery.SummeryActivity"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
+
             android:theme="@style/Theme.Cinescape.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity

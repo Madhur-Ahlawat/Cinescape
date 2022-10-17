@@ -22,6 +22,7 @@ data class TicketSummaryResponse(
         val experience: String,
         val language: String,
         val mcensor: String,
+        val ratingColor: String,
         val moviename: String,
         val numofseats: Int,
         val paymodes: Paymodes,

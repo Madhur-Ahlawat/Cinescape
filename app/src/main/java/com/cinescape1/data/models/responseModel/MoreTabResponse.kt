@@ -73,6 +73,7 @@ data class MoreTabResponse(
         val id: Int,
         val moreType: String,
         val more_key: String,
+        val ratingColor: String,
         val name: String,
         val nameAlt: String
     )

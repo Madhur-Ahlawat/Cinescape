@@ -31,6 +31,7 @@ data class GetMovieResponse(
             val openingDate: String,
             val producer: Any,
             val rating: String,
+            val ratingColor: String,
             val ratingDescription: String,
             val ratingDescriptionAlt: Any,
             val runTime: Int,

@@ -375,40 +375,9 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             shareIntent.putExtra(Intent.EXTRA_TEXT, appUrl)
             startActivity(Intent.createChooser(shareIntent, "Share via"))
         }
+        val ratingColor=output.ratingColor
+        binding?.textView56?.setBackgroundColor(Color.parseColor(ratingColor))
 
-        when (output.rating) {
-            "PG" -> {
-                binding?.textView56?.setBackgroundResource(R.color.grey)
-
-            }
-            "G" -> {
-                binding?.textView56?.setBackgroundResource(R.color.green)
-
-            }
-            "18+" -> {
-                binding?.textView56?.setBackgroundResource(R.color.red)
-
-            }
-            "13+" -> {
-                binding?.textView56?.setBackgroundResource(R.color.yellow)
-
-            }
-            "15+" -> {
-                binding?.textView56?.setBackgroundResource(R.color.yellow)
-
-            }
-            "E" -> {
-                binding?.textView56?.setBackgroundResource(R.color.wowOrange)
-
-            }
-            "T" -> {
-                binding?.textView56?.setBackgroundResource(R.color.tabIndicater)
-
-            }
-            else -> {
-                binding?.textView56?.setBackgroundResource(R.color.blue)
-            }
-        }
         if (output.rating == "") {
             binding?.ratingUi?.hide()
         } else {
@@ -484,7 +453,8 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                                         showData = it.data.output
                                         setTitleAdapter()
                                     } catch (e: Exception) {
-                                        println("updateUiCinemaSession ---> ${e.message}")
+                                        e.printStackTrace()
+                                        println("updateUiCinemaSession123 ---> ${e.message}")
                                     }
                                 } else {
                                     loader?.dismiss()
@@ -591,40 +561,8 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         binding?.textFilmHouseName?.text = output.movie.title
         binding?.textFilmHouseName?.isSelected = true
         binding?.textView56?.text = output.movie.rating
-
-        when (output.movie.rating) {
-            "PG" -> {
-                binding?.textView56?.setBackgroundResource(R.color.grey)
-
-            }
-            "G" -> {
-                binding?.textView56?.setBackgroundResource(R.color.green)
-
-            }
-            "18+" -> {
-                binding?.textView56?.setBackgroundResource(R.color.red)
-
-            }
-            "13+" -> {
-                binding?.textView56?.setBackgroundResource(R.color.yellow)
-
-            }
-            "15+" -> {
-                binding?.textView56?.setBackgroundResource(R.color.yellow)
-
-            }
-            "E" -> {
-                binding?.textView56?.setBackgroundResource(R.color.wowOrange)
-
-            }
-            "T" -> {
-                binding?.textView56?.setBackgroundResource(R.color.tabIndicater)
-
-            }
-            else -> {
-                binding?.textView56?.setBackgroundResource(R.color.blue)
-            }
-        }
+        val ratingColor=output.movie.ratingColor
+        binding?.textView56?.setBackgroundColor(Color.parseColor(ratingColor))
         if (output.movie.rating == "") {
             binding?.ratingUi?.hide()
         } else {
@@ -676,14 +614,12 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     }
 
     private fun setShowTimesDayDateAdapter(days: ArrayList<CinemaSessionResponse.Days>) {
-        if (count == 0) {
             val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
             binding?.recylerviewShowTimeDate?.layoutManager = LinearLayoutManager(this)
             val adapter = AdapterDayDate(this, days, this)
             binding?.recylerviewShowTimeDate?.layoutManager = gridLayout
             binding?.recylerviewShowTimeDate?.adapter = adapter
-            count = 1
-        }
+
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -831,7 +767,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         val totalPrice = mDialogView.findViewById<TextView>(R.id.text_total_t_kd)
         val termsCond = mDialogView.findViewById<TextView>(R.id.textView103)
         val ratingDesc = mDialogView.findViewById<TextView>(R.id.text_category_decription)
-        val ratingUi = mDialogView.findViewById<CardView>(R.id.rating_ui)
         val rating = mDialogView.findViewById<TextView>(R.id.text_age_category)
         val tvGiftCard = mDialogView.findViewById<TextView>(R.id.tv_gift_card)
         val tvGiftVoucher = mDialogView.findViewById<TextView>(R.id.tv_gift_voucher)
@@ -857,37 +792,9 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             rating.show()
             rating.text = output.movie.rating
         }
-        when (output.movie.rating) {
-            "PG" -> {
-                ratingUi.setCardBackgroundColor(this.resources.getColor(R.color.grey))
 
-            }
-            "G" -> {
-                ratingUi.setCardBackgroundColor(this.resources.getColor(R.color.green))
-
-            }
-            "18+" -> {
-                ratingUi.setCardBackgroundColor(this.resources.getColor(R.color.red))
-
-            }
-            "13+" -> {
-                ratingUi.setCardBackgroundColor(this.resources.getColor(R.color.yellow))
-
-            }
-            "E" -> {
-                ratingUi.setCardBackgroundColor(this.resources.getColor(R.color.wowOrange))
-
-            }
-            "T" -> {
-                ratingUi.setCardBackgroundColor(this.resources.getColor(R.color.tabIndicater))
-
-            }
-            else -> {
-                ratingUi.setCardBackgroundColor(this.resources.getColor(R.color.blue))
-
-            }
-        }
-
+        val ratingColor=output.movie.ratingColor
+        rating.setBackgroundColor(Color.parseColor(ratingColor))
         val btnDecrease: TextView = mDialogView.findViewById(R.id.text_decrease)
         val txtNumber: TextView = mDialogView.findViewById(R.id.text_number)
         val btnIncrease: TextView = mDialogView.findViewById(R.id.text_increase)

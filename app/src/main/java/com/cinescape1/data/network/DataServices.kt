@@ -6,6 +6,7 @@ import com.cinescape1.ui.main.views.home.fragments.account.response.GetAmountRes
 import com.cinescape1.ui.main.views.home.fragments.account.response.RechargeAmountResponse
 import com.cinescape1.ui.main.views.payment.paymentFaield.reponse.PaymentFailedResponse
 import com.cinescape1.ui.main.views.splash.response.SplashResponse
+import com.cinescape1.ui.main.views.summery.response.GiftCardResponse
 import com.cinescape1.utils.Constant
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
@@ -81,7 +82,10 @@ interface DataServices {
     suspend fun paymentWallet(@Body request: HmacKnetRequest): Response<WalletResponse>
 
     @POST("giftcard/apply")
-    suspend fun giftCardApply(@Body request: GiftCardRequest): Response<WalletResponse>
+    suspend fun giftCardApply(@Body request: GiftCardRequest): Response<GiftCardResponse>
+
+    @POST("voucher/payment/apply")
+    suspend fun voucherApply(@Body request: GiftCardRequest): Response<GiftCardResponse>
 
     @POST("payment/cybersource/initiate")
     suspend fun creditCardInit(@Body request: HmacKnetRequest): Response<PaymentTokenResponse>
@@ -174,8 +178,8 @@ interface DataServices {
         operator fun invoke(string: String?,lanuage:String): DataServices {
             println("LanguageString::=> ${lanuage}")
 //            val baseUrl = "http://192.168.1.7:8084/api/"
-//            val baseUrl = "https://cinescapeapi.wemonde.co/api/"
-            val baseUrl = "https://uatapi.cinescape.com.kw/api/"
+            val baseUrl = "https://cinescapeapi.wemonde.co/api/"
+//            val baseUrl = "https://uatapi.cinescape.com.kw/api/"
             val client = OkHttpClient.Builder()
             client.readTimeout(600, TimeUnit.SECONDS)
             client.connectTimeout(600, TimeUnit.SECONDS)

@@ -67,6 +67,7 @@ class FoodActivity : DaggerAppCompatActivity(),
     private var foodCartAdapter: AdapterCart? = null
     private var mFoodCartDialog: AlertDialog? = null
     private var type = ""
+    private var movieRatingColor = ""
     private var seatPrice = "0.0"
     private var textNumber: TextView? = null
     private var addBtn: TextView? = null
@@ -125,6 +126,7 @@ class FoodActivity : DaggerAppCompatActivity(),
         transId = intent.getStringExtra("TRANS_ID").toString()
         type = intent.getStringExtra("type").toString()
 
+        movieRatingColor= intent.getStringExtra("movieRatingColor").toString()
         if (type == "0") {
             binding?.txtSkipProceed?.show()
             binding?.viewCancel?.setOnClickListener {
@@ -385,36 +387,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             cinemaName.text=intent.getStringExtra("movieCinemaName").toString()
             timing.text= intent.getStringExtra("movieTimeDate").toString()
             type.text= intent.getStringExtra("movieType").toString()
-            when (intent.getStringExtra("movieRating").toString()) {
-                "PG" -> {
-                    rating.setBackgroundResource(R.color.grey)
-
-                }
-                "G" -> {
-                    rating.setBackgroundResource(R.color.green)
-
-                }
-                "18+" -> {
-                    rating.setBackgroundResource(R.color.red)
-
-                }
-                "13+" -> {
-                    rating.setBackgroundResource(R.color.yellow)
-
-                }
-                "E" -> {
-                    rating.setBackgroundResource(R.color.wowOrange)
-
-                }
-                "T" -> {
-                    rating.setBackgroundResource(R.color.tabIndicater)
-
-                }
-                else -> {
-                    rating?.setBackgroundResource(R.color.blue)
-
-                }
-            }
+            rating.setBackgroundColor(Color.parseColor(movieRatingColor))
 
         }
 

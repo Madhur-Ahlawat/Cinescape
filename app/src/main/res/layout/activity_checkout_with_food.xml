@@ -483,29 +483,41 @@
                         app:layout_constraintStart_toStartOf="@+id/couponUi"
                         app:layout_constraintTop_toBottomOf="@+id/couponUi">
 
-
-                        <EditText
-                            android:id="@+id/enterCode"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="32dp"
-                            android:background="@drawable/curve_offer"
-                            android:fontFamily="@font/sf_pro_text_regular"
-                            android:hint="@string/enter_voucher_code"
-                            android:importantForAutofill="no"
-                            android:paddingStart="@dimen/margin18"
-                            android:paddingTop="@dimen/margin5"
-                            android:paddingEnd="@dimen/margin8"
-                            android:paddingBottom="@dimen/margin5"
-                            android:textColor="@color/text_alert_color"
-                            android:textColorHint="@color/text_alert_color"
-                            android:textCursorDrawable="@color/white"
-                            android:textSize="@dimen/size15"
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/textView151"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            tools:ignore="TouchTargetSizeCheck" />
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/curve_offer"
+                            android:layout_marginEnd="32dp">
+
+                            <EditText
+                                android:id="@+id/enterCode"
+                                android:maxLength="16"
+                                android:textAllCaps="true"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@null"
+                                android:fontFamily="@font/sf_pro_text_regular"
+                                android:inputType="textCapCharacters"
+                                android:hint="@string/enter_voucher_code"
+                                android:importantForAutofill="no"
+                                android:paddingStart="@dimen/margin18"
+                                android:paddingTop="@dimen/margin5"
+                                android:paddingEnd="@dimen/margin8"
+                                android:paddingBottom="@dimen/margin5"
+                                android:textColor="@color/white"
+                                android:textColorHint="@color/white"
+                                android:textSize="@dimen/size15"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <TextView
                             android:id="@+id/textView151"

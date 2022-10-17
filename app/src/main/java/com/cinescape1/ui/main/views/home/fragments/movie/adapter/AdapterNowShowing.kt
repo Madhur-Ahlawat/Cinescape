@@ -3,6 +3,7 @@ package com.cinescape1.ui.main.views.home.fragments.movie.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,37 +40,8 @@ class AdapterNowShowing(private var nowShowingList: ArrayList<MoviesResponse.Now
 
         holder.movieTitle.text = comingSoonItem.title
         holder.type.text=comingSoonItem.rating
-
-        when (comingSoonItem.rating) {
-            "PG" -> {
-                holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.grey))
-
-            }
-            "G" -> {
-                holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.green))
-
-            }
-            "18+" -> {
-                holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.red))
-
-            }
-            "13+" -> {
-                holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.yellow))
-
-            }
-            "E" -> {
-                holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.wowOrange))
-
-            }
-            "T" -> {
-                holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.tabIndicater))
-
-            }
-            else -> {
-                holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.blue))
-
-            }
-        }
+        val ratingColor=comingSoonItem.ratingColor
+        holder.type.setBackgroundColor(Color.parseColor(ratingColor))
 
         holder.movieCategory.text = comingSoonItem.language+" | "+comingSoonItem.genre
 

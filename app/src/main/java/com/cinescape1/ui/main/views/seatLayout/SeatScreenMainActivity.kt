@@ -80,6 +80,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
     private var movieTitle = ""
     private var movieImage = ""
     private var movieRating = ""
+    private var movieRatingColor = ""
     private var movieCinemaName = ""
     private var movieTimeDate = ""
     private var movieType = ""
@@ -285,49 +286,17 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
 
             movieTitle = output.movie.title
             movieRating = output.movie.rating
+            movieRatingColor= output.movie.ratingColor
 
             binding?.tvSeatFilmTitle?.text = output.movie.title
             binding?.tvSeatFilmTitle1?.text = output.movie.title
 
             binding?.tvSeatFilmType?.text = output.movie.rating
             binding?.tvSeatFilmType1?.text = output.movie.rating
-            when (output.movie.rating) {
-                "PG" -> {
-                    binding?.tvSeatFilmType?.setBackgroundResource(R.color.grey)
-                    binding?.tvSeatFilmType1?.setBackgroundResource(R.color.grey)
+            val ratingColor=output.movie.ratingColor
 
-                }
-                "G" -> {
-                    binding?.tvSeatFilmType?.setBackgroundResource(R.color.green)
-                    binding?.tvSeatFilmType1?.setBackgroundResource(R.color.green)
-
-                }
-                "18+" -> {
-                    binding?.tvSeatFilmType?.setBackgroundResource(R.color.red)
-                    binding?.tvSeatFilmType1?.setBackgroundResource(R.color.red)
-
-                }
-                "13+" -> {
-                    binding?.tvSeatFilmType?.setBackgroundResource(R.color.yellow)
-                    binding?.tvSeatFilmType1?.setBackgroundResource(R.color.yellow)
-
-                }
-                "E" -> {
-                    binding?.tvSeatFilmType?.setBackgroundResource(R.color.wowOrange)
-                    binding?.tvSeatFilmType1?.setBackgroundResource(R.color.wowOrange)
-
-                }
-                "T" -> {
-                    binding?.tvSeatFilmType?.setBackgroundResource(R.color.tabIndicater)
-                    binding?.tvSeatFilmType1?.setBackgroundResource(R.color.tabIndicater)
-
-                }
-                else -> {
-                    binding?.tvSeatFilmType?.setBackgroundResource(R.color.blue)
-                    binding?.tvSeatFilmType1?.setBackgroundResource(R.color.blue)
-
-                }
-            }
+            binding?.tvSeatFilmType?.setBackgroundColor(Color.parseColor(ratingColor))
+            binding?.tvSeatFilmType1?.setBackgroundColor(Color.parseColor(ratingColor))
 
             cinemaID = output.daySessions[cinemaPos1].shows[showPos].cinemaId
             movieId = output.movie.id
@@ -559,6 +528,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                                                     .putExtra("type", "0")
                                                     .putExtra("movieTitle", movieTitle)
                                                     .putExtra("movieRating", movieRating)
+                                                    .putExtra("movieRatingColor", movieRatingColor)
                                                     .putExtra("movieCinemaName", movieCinemaName)
                                                     .putExtra("movieTimeDate", movieTimeDate)
                                                     .putExtra("movieImage", movieImage)

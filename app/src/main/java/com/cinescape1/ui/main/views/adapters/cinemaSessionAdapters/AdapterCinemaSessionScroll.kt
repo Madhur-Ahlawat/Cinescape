@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -43,39 +44,9 @@ class AdapterCinemaSessionScroll(
         holder.cateogry.text = showtimeListItem.movie.rating
         holder.genre.text = showtimeListItem.movie.genre
 
-        when (showtimeListItem.movie.rating) {
-            "PG" -> {
-                holder.cateogry.setBackgroundResource(R.color.grey)
 
-            }
-            "G" -> {
-                holder.cateogry.setBackgroundResource(R.color.green)
-
-            }
-            "18+" -> {
-                holder.cateogry.setBackgroundResource(R.color.red)
-
-            }
-            "13+" -> {
-                holder.cateogry.setBackgroundResource(R.color.yellow)
-
-            }
-            "15+" -> {
-                holder.cateogry.setBackgroundResource(R.color.yellow)
-
-            }
-            "E" -> {
-                holder.cateogry.setBackgroundResource(R.color.wowOrange)
-
-            }
-            "T" -> {
-                holder.cateogry.setBackgroundResource(R.color.tabIndicater)
-
-            }
-            else -> {
-                holder.cateogry.setBackgroundResource(R.color.blue)
-            }
-        }
+        val ratingColor=showtimeListItem.movie.ratingColor
+        holder.cateogry.setBackgroundColor(Color.parseColor(ratingColor))
 
         Glide.with(context)
             .load(showtimeListItem.movie.mobimgsmall)

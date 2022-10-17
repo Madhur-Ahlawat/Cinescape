@@ -42,36 +42,39 @@ class AgeRatingAdapter(private val ratingList: ArrayList<MoreTabResponse.Rating>
             holder.cardView.show()
             holder.type.text = obj.more_key
             holder.type.show()
+            val ratingColor=obj.ratingColor
+            holder.type.setBackgroundColor(Color.parseColor(ratingColor))
 
-            when (obj.more_key) {
-                "PG" -> {
-                    holder.type.setBackgroundResource(R.color.grey)
-                }
-                "G" -> {
-                    holder.type.setBackgroundResource(R.color.green)
-                }
-                "18+" -> {
-                    holder.type.setBackgroundResource(R.color.red)
-                }
-                "13+" -> {
-                    holder.type.setBackgroundResource(R.color.yellow)
-                }
-                "15+" -> {
-                    holder.type.setBackgroundResource(R.color.yellow)
-                }
-                "E" -> {
-                    holder.type.setBackgroundResource(R.color.wowOrange)
 
-                }
-                "T" -> {
-                    holder.type.setBackgroundResource(R.color.tabIndicater)
-
-                }
-                else -> {
-                    holder.type.setBackgroundResource(R.color.blue)
-
-                }
-            }
+//            when (obj.more_key) {
+//                "PG" -> {
+//                    holder.type.setBackgroundResource(R.color.grey)
+//                }
+//                "G" -> {
+//                    holder.type.setBackgroundResource(R.color.green)
+//                }
+//                "18+" -> {
+//                    holder.type.setBackgroundResource(R.color.red)
+//                }
+//                "13+" -> {
+//                    holder.type.setBackgroundResource(R.color.yellow)
+//                }
+//                "15+" -> {
+//                    holder.type.setBackgroundResource(R.color.yellow)
+//                }
+//                "E" -> {
+//                    holder.type.setBackgroundResource(R.color.wowOrange)
+//
+//                }
+//                "T" -> {
+//                    holder.type.setBackgroundResource(R.color.tabIndicater)
+//
+//                }
+//                else -> {
+//                    holder.type.setBackgroundResource(R.color.blue)
+//
+//                }
+//            }
 
             holder.cardView.setCardBackgroundColor(Color.parseColor(obj.colorCode))
 

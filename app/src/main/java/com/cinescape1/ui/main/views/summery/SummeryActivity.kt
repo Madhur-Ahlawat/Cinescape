@@ -43,6 +43,7 @@ import com.cinescape1.ui.main.views.adapters.checkoutAdapter.AdapterCheckoutFood
 import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
 import com.cinescape1.ui.main.views.login.LoginActivity
 import com.cinescape1.ui.main.views.payment.PaymentWebActivity
+import com.cinescape1.ui.main.views.summery.response.GiftCardResponse
 import com.cinescape1.ui.main.views.summery.viewModel.SummeryViewModel
 import com.cinescape1.utils.*
 import com.cinescape1.utils.Constant.IntentKey.Companion.USER_ID
@@ -66,7 +67,6 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-
 class SummeryActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -80,6 +80,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
     private var click = false
     private var payType = ""
     private var bookingId = ""
+    private var bookingIdNEw = ""
     private var bookType = ""
     private var transId = ""
     private var broadcastReceiver: BroadcastReceiver? = null
@@ -99,7 +100,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
     private var paidPrice = ""
     private var totalPrice = ""
     private var cardinal = Cardinal.getInstance()
-
+    private var clickOffer=1
     private var giftCard: Boolean = false
     private var voucher: Boolean = false
     private var secondLeft: Long = 0
@@ -664,9 +665,8 @@ class SummeryActivity : DaggerAppCompatActivity() {
 
         //GiftCard
         binding?.giftCardClick?.setOnClickListener {
-            giftCard
-            voucher = false
-
+            clickOffer=1
+            binding?.enterCode?.text?.clear()
 
             //giftCard
             binding?.imageView55?.setImageResource(R.drawable.gift_card__active)
@@ -684,6 +684,9 @@ class SummeryActivity : DaggerAppCompatActivity() {
 
         //Voucher
         binding?.voucherClick?.setOnClickListener {
+            clickOffer=2
+            binding?.enterCode?.text?.clear()
+
             //giftCard
             binding?.imageView55?.setImageResource(R.drawable.gift_card_normal)
             binding?.textView152?.setTextColor(this.getColor(R.color.hint_color))
@@ -695,11 +698,12 @@ class SummeryActivity : DaggerAppCompatActivity() {
             binding?.textView154?.setTextColor(this.getColor(R.color.hint_color))
             binding?.enterCode?.hint = getString(R.string.enter_voucher_code)
 
-            giftCard = false
-            voucher
         }
         //promoClick
         binding?.promoClick?.setOnClickListener {
+            clickOffer=3
+            binding?.enterCode?.text?.clear()
+
             //giftCard
             binding?.imageView55?.setImageResource(R.drawable.gift_card_normal)
             binding?.textView152?.setTextColor(this.getColor(R.color.hint_color))
@@ -716,30 +720,41 @@ class SummeryActivity : DaggerAppCompatActivity() {
 
         //Apply Coupon
         binding?.textView151?.setOnClickListener {
-//            giftCardApply(GiftCardRequest(USER_ID,bookType,"",intent.getStringExtra("TRANS_ID").toString(),preferences.getString(Constant.USER_ID).toString()))
-
-            if (giftCard){
-            giftCardApply(
-                GiftCardRequest(
-                    USER_ID,
-                    bookType,
-                    "",
-                    intent.getStringExtra("TRANS_ID").toString(),
-                    preferences.getString(Constant.USER_ID).toString()
-                )
-            )
-            }else if (!giftCard && voucher){
-                promoApply(
-                    GiftCardRequest(
-                        USER_ID,
-                        bookType,
-                        "",
-                        intent.getStringExtra("TRANS_ID").toString(),
-                        preferences.getString(Constant.USER_ID).toString()
+            val cardNumber = binding?.enterCode?.text.toString()
+            when (clickOffer) {
+                1 -> {
+                    giftCardApply(
+                        GiftCardRequest(
+                            bookingId,
+                            bookType,
+                            cardNumber,
+                            intent.getStringExtra("TRANS_ID").toString(),
+                            preferences.getString(Constant.USER_ID).toString()
+                        )
                     )
-                )
-            }else {
-
+                }
+                2 -> {
+                    promoApply(
+                        GiftCardRequest(
+                            bookingId,
+                            bookType,
+                            cardNumber,
+                            intent.getStringExtra("TRANS_ID").toString(),
+                            preferences.getString(Constant.USER_ID).toString()
+                        )
+                    )
+                }
+                3 -> {
+                    giftCardApply(
+                        GiftCardRequest(
+                            bookingId,
+                            bookType,
+                            cardNumber,
+                            intent.getStringExtra("TRANS_ID").toString(),
+                            preferences.getString(Constant.USER_ID).toString()
+                        )
+                    )
+                }
             }
 
         }
@@ -756,16 +771,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
                             resource.data?.let { it ->
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                     try {
-                                        Constant.IntentKey.TimerExtandCheck = true
-                                        Constant.IntentKey.TimerExtand = 90
-                                        Constant.IntentKey.TimerTime = 360
-                                        val intent = Intent(
-                                            applicationContext,
-                                            FinalTicketActivity::class.java
-                                        )
-                                        intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
-                                        intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
-                                        startActivity(intent)
+                                        retrieveDataGiftCard(it.data.output)
                                     } catch (e: Exception) {
                                         println("updateUiCinemaSession ---> ${e.message}")
                                     }
@@ -811,8 +817,32 @@ class SummeryActivity : DaggerAppCompatActivity() {
 
     }
 
+    private fun retrieveDataGiftCard(output: GiftCardResponse.Output) {
+        binding?.enterCode?.text?.clear()
+        if (output.PAID == "NO") {
+            tckSummary(
+                TicketSummaryRequest(
+                    transId,
+                    bookingId,
+                    preferences.getString(Constant.USER_ID).toString()
+                )
+            )
+        } else {
+            Constant.IntentKey.TimerExtandCheck = true
+            Constant.IntentKey.TimerExtand = 90
+            Constant.IntentKey.TimerTime = 360
+            val intent = Intent(
+                applicationContext,
+                FinalTicketActivity::class.java
+            )
+            intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
+            intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingIdNEw)
+            startActivity(intent)
+        }
+    }
+
     private fun promoApply(request: GiftCardRequest) {
-        summeryViewModel.giftCardApply(request)
+        summeryViewModel.voucherApply(request)
             .observe(this) {
                 it?.let { resource ->
                     when (resource.status) {
@@ -1249,7 +1279,8 @@ class SummeryActivity : DaggerAppCompatActivity() {
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                     try {
                                         bookType = it.data.output.bookingType
-                                        bookingId = it.data.output.bookingId
+                                        bookingId = it.data.output.bookingId.toString()
+                                        bookingIdNEw = it.data.output.bookingId.toString()
                                         transId = request.transid
                                         retrieveSummaryResponse(it.data.output)
                                     } catch (e: Exception) {
@@ -1367,6 +1398,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun retrieveSummaryResponse(output: TicketSummaryResponse.Output) {
+        payModeList()
         binding?.uiCheckout?.show()
         binding?.constraintLayout6?.show()
         println("BookingType--->${output.totalPrice}")
@@ -1449,31 +1481,11 @@ class SummeryActivity : DaggerAppCompatActivity() {
                 summary_censor.show()
                 summary_censor.text = output.mcensor
             }
-            when (output.mcensor) {
-                "PG" -> {
-                    summary_censor.setBackgroundResource(R.color.grey)
-                }
-                "G" -> {
-                    summary_censor.setBackgroundResource(R.color.green)
-                }
-                "18+" -> {
-                    summary_censor.setBackgroundResource(R.color.red)
-                }
-                "13+" -> {
-                    summary_censor.setBackgroundResource(R.color.yellow)
-                }
-                "E" -> {
-                    summary_censor.setBackgroundResource(R.color.wowOrange)
-                }
-                "T" -> {
-                    summary_censor.setBackgroundResource(R.color.tabIndicater)
-                }
-                else -> {
-                    summary_censor.setBackgroundResource(R.color.blue)
-                }
-            }
+
+            val ratingColor = output.ratingColor
+            summary_censor.setBackgroundColor(Color.parseColor(ratingColor))
         }
-        payModeList()
+
     }
 
     private fun payModeList() {

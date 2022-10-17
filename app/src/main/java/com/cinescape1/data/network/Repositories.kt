@@ -6,6 +6,7 @@ import com.cinescape1.ui.main.views.home.fragments.account.response.GetAmountRes
 import com.cinescape1.ui.main.views.home.fragments.account.response.RechargeAmountResponse
 import com.cinescape1.ui.main.views.payment.paymentFaield.reponse.PaymentFailedResponse
 import com.cinescape1.ui.main.views.splash.response.SplashResponse
+import com.cinescape1.ui.main.views.summery.response.GiftCardResponse
 import javax.inject.Inject
 
 class Repositories @Inject constructor(private val api: DataServices) : SafeApiRequest() {
@@ -110,8 +111,13 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
 
     suspend fun giftCardRequest(
         request: GiftCardRequest
-    ): Result<WalletResponse> {
+    ): Result<GiftCardResponse> {
         return apiRequest { api.giftCardApply(request) }
+    }
+   suspend fun voucherApply(
+        request: GiftCardRequest
+    ): Result<GiftCardResponse> {
+        return apiRequest { api.voucherApply(request) }
     }
 
     suspend fun creditCardInit(request: HmacKnetRequest): Result<PaymentTokenResponse> {

@@ -34,7 +34,11 @@ class AdvanceSliderAdapter(private  val mContext: Activity,private var movieData
         caption_title.text= movieData[position].title
         rating.text= movieData[position].rating
         ratingColor=movieData[position].ratingColor
-        rating.setBackgroundColor(Color.parseColor(ratingColor))
+        try {
+            rating.setBackgroundColor(Color.parseColor(ratingColor))
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
         featured_image.setOnClickListener {
             val intent = Intent(mContext, ShowTimesActivity::class.java)
             intent.putExtra(Constant.IntentKey.MOVIE_ID,movieData[position].id)

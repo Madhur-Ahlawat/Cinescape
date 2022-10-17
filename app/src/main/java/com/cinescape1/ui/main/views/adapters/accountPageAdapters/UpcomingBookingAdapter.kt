@@ -3,6 +3,7 @@ package com.cinescape1.ui.main.views.adapters.accountPageAdapters
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.text.Html
 import android.view.LayoutInflater
@@ -18,7 +19,6 @@ import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.NextBookingResponse
 import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
 import com.cinescape1.ui.main.views.food.FoodActivity
-import com.cinescape1.ui.main.views.player.PlayerActivity
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
@@ -53,7 +53,7 @@ class UpcomingBookingAdapter(
             .into(holder.thumbnail)
 
         holder.textNameMovie.text = foodSelctedItem.moviename
-        holder.textTypes.text = foodSelctedItem.mcensor
+        holder.rating.text = foodSelctedItem.mcensor
 
         holder.adressName.text = foodSelctedItem.cinemaname
         holder.screenNumber.text = foodSelctedItem.screenId.toString()
@@ -61,40 +61,13 @@ class UpcomingBookingAdapter(
         holder.date.text = foodSelctedItem.showDate
         holder.times.text = foodSelctedItem.showTime
 
+
+        val ratingColor=foodSelctedItem.ratingColor
+        holder.rating.setBackgroundColor(Color.parseColor(ratingColor))
         if (foodSelctedItem.mcensor.isNullOrEmpty()) {
             holder.cardView.hide()
         } else {
             holder.cardView.show()
-            when (foodSelctedItem.mcensor) {
-                "PG" -> {
-                    holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.grey))
-
-                }
-                "G" -> {
-                    holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.green))
-
-                }
-                "18+" -> {
-                    holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.red))
-
-                }
-                "13+" -> {
-                    holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.yellow))
-
-                }
-                "E" -> {
-                    holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.wowOrange))
-
-                }
-                "T" -> {
-                    holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.tabIndicater))
-
-                }
-                else -> {
-                    holder.cardView.setCardBackgroundColor(mContext.resources.getColor(R.color.blue))
-
-                }
-            }
 
         }
 
@@ -195,7 +168,7 @@ class UpcomingBookingAdapter(
         var date: TextView = view.findViewById(R.id.txt_date)
         var times: TextView = view.findViewById(R.id.text_times2)
         var textNameMovie: TextView = view.findViewById(R.id.text_name_movie)
-        var textTypes: TextView = view.findViewById(R.id.text_types)
+        var rating: TextView = view.findViewById(R.id.text_types)
         var cardView: CardView = view.findViewById(R.id.ratingUi)
         var thumbnail: ImageView = view.findViewById(R.id.imageView7)
         var trailer: ImageView = view.findViewById(R.id.imageView30)

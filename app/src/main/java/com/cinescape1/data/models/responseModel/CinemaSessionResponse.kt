@@ -87,7 +87,8 @@ data class CinemaSessionResponse(
         val wd:String,
         val wdf:String,
         val dt:String,
-        val showdate:String
+        val showdate:String,
+        val enable:Boolean,
         ):Serializable
 
     data class Movie(
@@ -109,6 +110,7 @@ data class CinemaSessionResponse(
         val openingDate: String,
         val producer: Any,
         val rating: String,
+        val ratingColor: String,
         val ratingDescription: String,
         val runTime: Int,
         val scheduledAtCinema: Boolean,

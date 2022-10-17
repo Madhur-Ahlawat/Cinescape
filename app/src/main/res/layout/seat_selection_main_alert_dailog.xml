@@ -410,6 +410,7 @@
                     app:cardCornerRadius="@dimen/margin3"
                     android:layout_marginEnd="2dp"
                     app:cardUseCompatPadding="true"
+                    app:cardBackgroundColor="@color/transparent"
                     app:layout_constraintBottom_toBottomOf="@+id/vw_category"
                     app:layout_constraintEnd_toStartOf="@+id/text_category_decription"
                     app:layout_constraintStart_toStartOf="@+id/vw_category"
@@ -421,7 +422,7 @@
 
                         <TextView
                             android:id="@+id/text_age_category"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/sf_pro_text_semibold"
                             android:gravity="center_horizontal|center_vertical"
