@@ -63,7 +63,11 @@ class UpcomingBookingAdapter(
 
 
         val ratingColor=foodSelctedItem.ratingColor
-        holder.rating.setBackgroundColor(Color.parseColor(ratingColor))
+        try {
+            holder.rating.setBackgroundColor(Color.parseColor(ratingColor))
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
         if (foodSelctedItem.mcensor.isNullOrEmpty()) {
             holder.cardView.hide()
         } else {

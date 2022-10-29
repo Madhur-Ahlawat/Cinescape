@@ -35,8 +35,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginTop="56.5dp"
-        android:layout_marginBottom="69.5dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,11 +48,11 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="42dp"
             android:fontFamily="@font/sf_pro_text_heavy"
-            tools:text="TextView"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="TextView" />
 
         <TextView
             android:id="@+id/textView97"
@@ -74,11 +73,11 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="4dp"
             android:fontFamily="@font/sf_pro_text_regular"
-            tools:text="Paid by Club Card"
             android:textColor="@color/hint_color"
             android:textSize="@dimen/size14"
             app:layout_constraintEnd_toStartOf="@+id/textView96"
-            app:layout_constraintTop_toBottomOf="@+id/textView97" />
+            app:layout_constraintTop_toBottomOf="@+id/textView97"
+            tools:text="Paid by Club Card" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

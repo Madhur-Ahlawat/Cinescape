@@ -139,7 +139,7 @@ class AdapterBookingHistory(private val context: Activity, private var bookingHi
 
         var textviewSeatName: TextView = view.findViewById(R.id.textView_seat_name)
         var textKdTicketPrice: TextView = view.findViewById(R.id.text_kd_ticket_price)
-        var movieui: ConstraintLayout = view.findViewById(R.id.movieui)
+        var movieui: ConstraintLayout = view.findViewById(R.id.movieUi)
         var rechargeUi: ConstraintLayout = view.findViewById(R.id.rechargeUi)
         var foodUi: ConstraintLayout = view.findViewById(R.id.foodUi)
         var foodMUi: ConstraintLayout = view.findViewById(R.id.foodMUi)

@@ -495,26 +495,27 @@
 
                             <EditText
                                 android:id="@+id/enterCode"
-                                android:maxLength="16"
-                                android:textAllCaps="true"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="@null"
                                 android:fontFamily="@font/sf_pro_text_regular"
-                                android:inputType="textCapCharacters"
                                 android:hint="@string/enter_voucher_code"
                                 android:importantForAutofill="no"
+                                android:inputType="textCapCharacters"
+                                android:maxLength="16"
                                 android:paddingStart="@dimen/margin18"
                                 android:paddingTop="@dimen/margin5"
                                 android:paddingEnd="@dimen/margin8"
                                 android:paddingBottom="@dimen/margin5"
+                                android:textAllCaps="true"
                                 android:textColor="@color/white"
                                 android:textColorHint="@color/white"
                                 android:textSize="@dimen/size15"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toStartOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:ignore="TouchTargetSizeCheck" />
 
 
                         </androidx.constraintlayout.widget.ConstraintLayout>

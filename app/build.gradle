@@ -23,11 +23,16 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            buildConfigField "String", "API_URL", "\"https://url/pre/\""
+        }
         release {
+            buildConfigField "String", "API_URL", "\"https://url/pro/\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -48,7 +53,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar','*.aar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -136,4 +141,6 @@ dependencies {
     implementation 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
 //Otp View
     implementation 'com.github.KevinSchildhorn:OTPView:0.2.2'
+    implementation 'com.otaliastudios:zoomlayout:1.6.1'
+
 }

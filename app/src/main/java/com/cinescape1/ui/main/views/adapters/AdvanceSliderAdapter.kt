@@ -28,7 +28,7 @@ class AdvanceSliderAdapter(private  val mContext: Activity,private var movieData
         val caption_title = sliderLayout.findViewById<TextView>(R.id.my_caption_title)
         val rating = sliderLayout.findViewById<TextView>(R.id.textView77)
         Glide.with(mContext)
-            .load(movieData[position].mobimgbig)
+            .load(movieData[position].mobadvance)
             .placeholder(R.drawable.placeholder_advance_booking_banner)
             .into(featured_image)
         caption_title.text= movieData[position].title

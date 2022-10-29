@@ -33,7 +33,6 @@ class AdapterCart(
     override fun onBindViewHolder(holder: MyViewHolderCart, position: Int) {
         val cartSelctedItem = cartComboList[position]
         holder.cartFoodTitleName.text = cartSelctedItem.foodName+" ( "+cartSelctedItem.foodModifiers+" ) "
-        val quantity=cartSelctedItem.foodQuan
         holder.cartKdPrice.text = mContext.getString(R.string.price_kd)+" ${Constant.DECIFORMAT.format((cartSelctedItem.foodAmount / 100.0))}"
         holder.textNumber.text = cartSelctedItem.foodQuan.toString()
 

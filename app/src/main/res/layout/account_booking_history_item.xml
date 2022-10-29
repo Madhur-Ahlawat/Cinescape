@@ -6,157 +6,184 @@
     android:layout_height="wrap_content"
     android:background="@color/black">
 
-    <View
-        android:id="@+id/view_booking_history"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/view32s_lines"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutDes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/text_booking_history_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:fontFamily="@font/sf_pro_text_bold"
-        android:lineSpacingExtra="5.5sp"
-        tools:text="Avengers End Game"
-        android:textColor="@color/white"
-        android:textSize="@dimen/size14"
-        app:layout_constraintEnd_toStartOf="@+id/image_arrow_drop"
-        app:layout_constraintStart_toStartOf="@+id/view_booking_history"
-        app:layout_constraintTop_toTopOf="@+id/view_booking_history" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/image_arrow_drop"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/size25"
-        android:layout_margin="@dimen/margin10"
-        android:layout_marginEnd="24dp"
-        android:src="@drawable/ic_arrow_right"
-        android:contentDescription="@string/contentDes"
-        app:layout_constraintBottom_toBottomOf="@+id/text_booking_history_title"
-        app:layout_constraintEnd_toEndOf="@+id/view_booking_history"
-        app:layout_constraintStart_toEndOf="@+id/text_booking_history_title"
-        app:layout_constraintTop_toTopOf="@+id/text_booking_history_title"/>
+            <View
+                android:id="@+id/view_booking_history"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/text_booking_history_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/sf_pro_text_regular"
-        android:letterSpacing="-0.01"
-        android:lineSpacingExtra="2sp"
-        android:paddingStart="0dp"
-        android:paddingEnd="@dimen/margin10"
-        android:textColor="#6f6f6f"
-        android:textSize="@dimen/size12"
-        android:textStyle="normal"
-        app:layout_constraintEnd_toStartOf="@+id/text_booking_history_time"
-        app:layout_constraintStart_toStartOf="@+id/view_booking_history"
-        app:layout_constraintTop_toBottomOf="@+id/text_booking_history_title"
-        tools:ignore="TextContrastCheck"
-        tools:text="25 Apr 2019" />
+            <TextView
+                android:id="@+id/text_booking_history_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/sf_pro_text_bold"
+                android:lineSpacingExtra="5.5sp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size14"
+                app:layout_constraintEnd_toStartOf="@+id/image_arrow_drop"
+                app:layout_constraintStart_toStartOf="@+id/view_booking_history"
+                app:layout_constraintTop_toTopOf="@+id/view_booking_history"
+                tools:text="Avengers End Game" />
 
-    <TextView
-        android:id="@+id/text_booking_history_time"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/sf_pro_text_regular"
-        android:letterSpacing="-0.01"
-        android:lineSpacingExtra="2sp"
-        android:textColor="#6f6f6f"
-        android:textSize="@dimen/size12"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="@+id/text_booking_history_date"
-        app:layout_constraintEnd_toEndOf="@+id/view_booking_history"
-        app:layout_constraintStart_toEndOf="@+id/text_booking_history_date"
-        app:layout_constraintTop_toTopOf="@+id/text_booking_history_date"
-        tools:ignore="TextContrastCheck"
-        tools:text=" 19:15" />
+            <ImageView
+                android:id="@+id/image_arrow_drop"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size25"
+                android:layout_margin="@dimen/margin10"
+                android:layout_marginEnd="24dp"
+                android:contentDescription="@string/contentDes"
+                android:src="@drawable/ic_arrow_right"
+                app:layout_constraintBottom_toBottomOf="@+id/text_booking_history_title"
+                app:layout_constraintEnd_toEndOf="@+id/view_booking_history"
+                app:layout_constraintStart_toEndOf="@+id/text_booking_history_title"
+                app:layout_constraintTop_toTopOf="@+id/text_booking_history_title" />
+
+            <TextView
+                android:id="@+id/text_booking_history_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="2sp"
+                android:paddingStart="0dp"
+                android:paddingEnd="@dimen/margin10"
+                android:textColor="#6f6f6f"
+                android:textSize="@dimen/size12"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toStartOf="@+id/text_booking_history_time"
+                app:layout_constraintStart_toStartOf="@+id/view_booking_history"
+                app:layout_constraintTop_toBottomOf="@+id/text_booking_history_title"
+                tools:ignore="TextContrastCheck"
+                tools:text="25 Apr 2019" />
+
+            <TextView
+                android:id="@+id/text_booking_history_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="2sp"
+                android:textColor="#6f6f6f"
+                android:textSize="@dimen/size12"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toBottomOf="@+id/text_booking_history_date"
+                app:layout_constraintEnd_toEndOf="@+id/view_booking_history"
+                app:layout_constraintStart_toEndOf="@+id/text_booking_history_date"
+                app:layout_constraintTop_toTopOf="@+id/text_booking_history_date"
+                tools:ignore="TextContrastCheck"
+                tools:text=" 19:15" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/movieUi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout">
+
+            <include
+                layout="@layout/movie_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/rechargeUi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout">
+
+            <include
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                layout="@layout/history_recarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/foodUi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout">
+
+            <include
+                layout="@layout/food_list_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_history_expand"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:itemCount="1"
+            tools:listitem="@layout/account_history_expand_item" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:id="@+id/view32s_lines"
         android:layout_width="wrap_content"
         android:layout_height="1dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
         android:background="@color/view_bg_color_line"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_booking_history" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/movieui"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/view32s_lines"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="@+id/view32s_lines"
-        app:layout_constraintTop_toBottomOf="@+id/view32s_lines">
-
-        <include
-            layout="@layout/movie_history"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/rechargeUi"
-        app:layout_constraintEnd_toEndOf="@+id/view32s_lines"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="@+id/view32s_lines"
-        app:layout_constraintTop_toBottomOf="@+id/view32s_lines"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <include
-            layout="@layout/history_recarge"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/foodUi"
-        app:layout_constraintEnd_toEndOf="@+id/view32s_lines"
-        app:layout_constraintStart_toStartOf="@+id/view32s_lines"
-        app:layout_constraintTop_toBottomOf="@+id/view32s_lines"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <include
-            layout="@layout/food_list_history"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_history_expand"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:visibility="gone"
-        android:orientation="vertical"
-        tools:itemCount="1"
-        tools:listitem="@layout/account_history_expand_item"
-        app:layout_constraintEnd_toEndOf="@+id/view32s_lines"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="@+id/view32s_lines"
-        app:layout_constraintTop_toBottomOf="@+id/view32s_lines" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutDes" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

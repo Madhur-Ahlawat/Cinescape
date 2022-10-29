@@ -6,10 +6,13 @@ import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
+import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +43,7 @@ import com.cinescape1.ui.main.views.seatLayout.viewModel.SeatScreenMainViewModel
 import com.cinescape1.ui.main.views.summery.SummeryActivity
 import com.cinescape1.utils.*
 import com.cinescape1.utils.Constant.Companion.SEAT_SESSION_CLICK
+import com.otaliastudios.zoom.ZoomEngine
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_seat_screen_main.*
 import kotlinx.android.synthetic.main.cancel_dialog.*
@@ -85,6 +89,8 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
     private var movieTimeDate = ""
     private var movieType = ""
     private var cinemaSessionResponse: SeatLayoutResponse.Output? = null
+    private lateinit var zllib: com.otaliastudios.zoom.ZoomLayout
+    private var counter = 0
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,6 +101,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
         text_seat_types.paintFlags = text_seat_types.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         setCinemasTitleAdapter()
 
+        binding?.zllib?.engine?.addListener(blistering)
         areaCode = intent.getStringExtra("AREA_CODE").toString()
         cinemaName = intent.getStringExtra("CINEMA").toString()
         seatCat = intent.getStringExtra("SEAT_CAT").toString()
@@ -140,11 +147,6 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
             cancelDialog()
         }
 
-        binding?.zoomLinearLayout?.setOnTouchListener { _, _ ->
-            binding?.zoomLinearLayout?.init(this@SeatScreenMainActivity)
-            false
-        }
-
 
         binding?.tvSeatFilmTitle?.show()
         getSeatLayout(SeatLayoutRequest(cinemaID, dateTime, movieId, sessionID))
@@ -153,6 +155,103 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
 
     }
 
+    private var blistering: ZoomEngine.Listener = object : ZoomEngine.Listener {
+        override fun onIdle(engine: ZoomEngine) {
+
+        }
+
+        override fun onUpdate(engine: ZoomEngine, matrix: Matrix) {
+            counter++
+            if (counter > 1000) {
+                counter = 0
+                return
+            }
+            if (counter % 3 == 0) {
+                return
+            }
+
+
+            val calculatedHeight = binding?.seatTable?.height!! / 4
+            val calculatedWidth =  binding?.seatTable?.width!! / 4
+            val rectOfTbl = HelperUtils.locateViewWithZoom( binding?.seatTable!!, engine.realZoom)
+            val rectVisibleArea = HelperUtils.locateView(binding?.zllib!!)
+
+            // this comments are for understanding purpose only
+            Log.d("CustomListener", "loc left  ${rectOfTbl.left} loc right ${rectOfTbl.right}")
+            Log.d("CustomListener", "loc top  ${rectOfTbl.top} loc bottom ${rectOfTbl.bottom}")
+            Log.d(
+                "CustomListener",
+                " loc zl left ${rectVisibleArea.left}  loc zl right ${rectVisibleArea.right}"
+            )
+            Log.d(
+                "CustomListener",
+                " loc zl top ${rectVisibleArea.top}  loc zl bottom ${rectVisibleArea.bottom}"
+            )
+
+
+            var leftDif = 0
+            var topDif = 0
+            var rightDif = 0
+            var bottomDif = 0
+
+            leftDif = if (rectOfTbl.left < rectVisibleArea.left) {
+                rectVisibleArea.left - rectOfTbl.left
+            } else {
+                0
+            }
+
+            if (rectOfTbl.top < rectVisibleArea.top) {
+                topDif = rectVisibleArea.top - rectOfTbl.top
+            } else {
+                topDif = 0
+            }
+
+            rightDif = if (rectOfTbl.right > rectVisibleArea.right) {
+                rectOfTbl.right - rectVisibleArea.right
+            } else {
+                0
+            }
+
+            if (rectOfTbl.bottom > rectVisibleArea.bottom) {
+                bottomDif = rectOfTbl.bottom - rectVisibleArea.bottom
+            } else {
+                bottomDif = 0
+            }
+
+            //scale back to original values
+            if (engine.realZoom > 1.0) {
+                if (leftDif != 0) leftDif = Math.round(leftDif / engine.realZoom)
+                if (topDif != 0) topDif = Math.round(topDif / engine.realZoom)
+                if (rightDif != 0) rightDif = Math.round(rightDif / engine.realZoom)
+                if (bottomDif != 0) bottomDif = Math.round(bottomDif / engine.realZoom)
+            }
+
+            // genarate bitmap image of layout with rectangle
+//            val bitmap = HelperUtils.getBitmapFromView(
+//                binding?.seatTable!!,
+//                leftDif, topDif, rightDif, bottomDif
+//            )
+
+//            ivPreview.layoutParams.height = calculatedHeight
+//            ivPreview.layoutParams.width = calculatedWidth
+//            ivGradientBg.layoutParams.height = calculatedHeight
+//            ivGradientBg.layoutParams.width = calculatedWidth
+//            ivPreview.setImageBitmap(bitmap)
+//            ivGradientBg.visibility = View.VISIBLE
+//            ivPreview.visibility = View.VISIBLE
+            hidePreviewLayoutsAfterSometime()
+        }
+    }
+
+    /**
+     * This method will hide preview layout after specified time
+     */
+    private fun hidePreviewLayoutsAfterSometime() {
+        Handler().postDelayed({
+//            ivGradientBg.visibility = View.GONE
+//            ivPreview.visibility = View.GONE
+        }, 900)
+    }
     //GetSeatLayout
     private fun getSeatLayout(request: SeatLayoutRequest) {
         seatScreenMainViewModel.getSeatLayout(request)

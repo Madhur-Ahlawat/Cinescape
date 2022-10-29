@@ -734,7 +734,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
                     )
                 }
                 2 -> {
-                    promoApply(
+                    voucherApply(
                         GiftCardRequest(
                             bookingId,
                             bookType,
@@ -841,7 +841,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
         }
     }
 
-    private fun promoApply(request: GiftCardRequest) {
+    private fun voucherApply(request: GiftCardRequest) {
         summeryViewModel.voucherApply(request)
             .observe(this) {
                 it?.let { resource ->

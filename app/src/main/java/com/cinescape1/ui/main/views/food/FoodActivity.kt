@@ -1121,7 +1121,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             }
             //foodCartListNew?.get(position)?.foodQuan!! + 1
             totalFoodAmt += foodCartListNew?.get(position)?.itemPrice!!
-
+            updateCartPrice()
         } else {
             if (foodItem.foodType == "INDIVIDUAL") {
                 for (item in concessionItems) {
@@ -1131,6 +1131,8 @@ class FoodActivity : DaggerAppCompatActivity(),
                 }
             }
             //foodCartListNew?.get(position)?.foodQuan!! - 1
+
+            updateCartPrice()
             totalFoodAmt -= foodCartListNew?.get(position)?.itemPrice!!
             if (foodCartListNew?.get(position)?.foodQuan == 0) {
                 foodCartListNew?.removeAt(position)
@@ -1696,4 +1698,13 @@ class FoodActivity : DaggerAppCompatActivity(),
             }
     }
 
+  private fun updateCartPrice(){
+      textTotal1?.text = getString(R.string.price_kd) + " ${
+          Constant.DECIFORMAT.format(
+              getAllFoodPrice().replace("KWD ", "").toDouble() + seatPrice.replace(
+                  "KWD ", ""
+              ).toDouble()
+          )
+      }"
+    }
 }

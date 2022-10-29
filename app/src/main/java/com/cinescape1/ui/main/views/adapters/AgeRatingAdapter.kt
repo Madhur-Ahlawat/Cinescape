@@ -43,7 +43,11 @@ class AgeRatingAdapter(private val ratingList: ArrayList<MoreTabResponse.Rating>
             holder.type.text = obj.more_key
             holder.type.show()
             val ratingColor=obj.ratingColor
-            holder.type.setBackgroundColor(Color.parseColor(ratingColor))
+            try {
+                holder.type.setBackgroundColor(Color.parseColor(ratingColor))
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
 
 
 //            when (obj.more_key) {

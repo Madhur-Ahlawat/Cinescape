@@ -34,7 +34,7 @@ class HomeMovieAdapter(private  val mContext: Activity, private  val cinemas: Ar
         holder.title.text=obj.name
 
         Glide.with(mContext)
-            .load(obj.appImageUrl)
+            .load(obj.appThumbImageUrl)
             .error(R.drawable.placeholder_home_locations)
             .into(holder.todoImage)
 

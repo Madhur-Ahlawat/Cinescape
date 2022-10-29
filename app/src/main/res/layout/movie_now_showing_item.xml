@@ -23,24 +23,60 @@
             android:layout_height="match_parent">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/image_now_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/image_now_card"
                 app:cardBackgroundColor="@color/black"
                 app:cardCornerRadius="@dimen/margin8"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/image_now_showing"
-                android:layout_width="160dp"
-                android:layout_height="237.4dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                app:layout_constraintDimensionRatio="H,2:1"
-                app:srcCompat="@drawable/img_coming_soon"
-                tools:ignore="ContentDescription" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/image_now_showing"
+                        android:layout_width="160dp"
+                        android:layout_height="237.4dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="H,2:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/img_coming_soon"
+                        tools:ignore="ContentDescription" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                      android:id="@+id/background"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/yellow"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/tag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="@dimen/margin8"
+                            android:paddingEnd="@dimen/margin8"
+                            android:fontFamily="@font/sf_pro_text_regular"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/size14"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:text="ADVANCE" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             </androidx.cardview.widget.CardView>
 
@@ -52,13 +88,13 @@
                 android:ellipsize="end"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
+                android:fontFamily="@font/sf_pro_text_heavy"
                 android:freezesText="true"
+                android:gravity="center_horizontal"
                 android:letterSpacing="-0.02"
                 android:maxLines="1"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
-                android:fontFamily="@font/sf_pro_text_heavy"
-                android:gravity="center_horizontal"
                 android:textColor="@color/white"
                 android:textSize="@dimen/size13"
                 app:layout_constraintEnd_toEndOf="@+id/image_now_card"
@@ -70,10 +106,10 @@
                 android:id="@+id/text_movie_category"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_pro_text_regular"
                 android:ellipsize="end"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
+                android:fontFamily="@font/sf_pro_text_regular"
                 android:freezesText="true"
                 android:letterSpacing="-0.02"
                 android:maxLines="1"
@@ -93,26 +129,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="2dp"
-                app:cardUseCompatPadding="true"
                 app:cardBackgroundColor="@color/transparent"
+                app:cardUseCompatPadding="true"
                 app:layout_constraintBottom_toBottomOf="@+id/text_movie_category"
                 app:layout_constraintEnd_toEndOf="@+id/view9"
                 app:layout_constraintStart_toEndOf="@+id/text_movie_category"
                 app:layout_constraintTop_toTopOf="@+id/text_movie_category">
 
-                    <TextView
-                        android:textAlignment="center"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:id="@+id/movieRating"
-                        android:minWidth="@dimen/margin35"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingStart="@dimen/margin3"
-                        android:paddingEnd="@dimen/margin3"
-                        android:fontFamily="@font/sf_pro_text_semibold"
-                        tools:text="18+"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/size10"/>
+                <TextView
+                    android:id="@+id/movieRating"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/sf_pro_text_semibold"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:minWidth="@dimen/margin35"
+                    android:paddingStart="@dimen/margin3"
+                    android:paddingEnd="@dimen/margin3"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size10"
+                    tools:text="18+" />
 
 
             </androidx.cardview.widget.CardView>
