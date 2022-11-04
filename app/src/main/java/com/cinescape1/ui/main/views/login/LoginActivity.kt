@@ -13,14 +13,10 @@ import android.net.ConnectivityManager.CONNECTIVITY_ACTION
 import android.os.Bundle
 import android.text.*
 import android.text.InputFilter.LengthFilter
-import android.text.style.ForegroundColorSpan
-import android.text.style.UnderlineSpan
 import android.util.Log
 import android.view.View
 import android.view.WindowManager.LayoutParams
 import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -29,13 +25,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
-import com.cinescape1.data.models.requestModel.OtpVerifyRequest
 import com.cinescape1.data.models.responseModel.CountryCodeResponse
 import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.databinding.ActivityLoginBinding
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
-import com.cinescape1.ui.main.views.login.viewModel.LoginViewModel
 import com.cinescape1.ui.main.views.*
 import com.cinescape1.ui.main.views.activeWallet.ActivateWalletActivity
 import com.cinescape1.ui.main.views.adapters.CountryCodeAdapter
@@ -44,8 +38,8 @@ import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.ui.main.views.login.guest.ContinueGuestActivity
 import com.cinescape1.ui.main.views.login.otpVerification.OtpVerificationActivity
 import com.cinescape1.ui.main.views.login.resetPassword.ResetPasswordActivity
+import com.cinescape1.ui.main.views.login.viewModel.LoginViewModel
 import com.cinescape1.ui.main.views.payment.PaymentWebActivity
-import com.cinescape1.ui.main.views.prefrence.UserPreferencesActivity
 import com.cinescape1.ui.main.views.seatLayout.SeatScreenMainActivity
 import com.cinescape1.utils.*
 import com.cinescape1.utils.Constant.Companion.SUCCESS_CODE
@@ -60,7 +54,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -74,6 +67,7 @@ import javax.inject.Inject
 import android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS as FLAG_TRANSLUCENT_STATUS1
 
 
+@Suppress("DEPRECATION")
 class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewItemClickListener {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -88,22 +82,21 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
     private var seatCat = ""
     private var seatType = ""
     private var ttType = ""
-    private var DatePosition = ""
-    private var date_pos = 0
-    private var show_pos = 0
-    private var cinema_pos = 0
-    private var seatQuanitity = 0
+    private var datePosition = ""
+    private var datePos = 0
+    private var showPos = 0
+    private var cinemaPos = 0
+    private var seatQuantity = 0
     private var dateTime = ""
-    private var MovieId = ""
-    private var CinemaID = ""
-    private var SessionID = ""
+    private var movieId = ""
+    private var cinemaID = ""
+    private var sessionID = ""
     private var dt = ""
     private var email: String? = null
-    private var facebook_uid: String? = null
-    private var id: String? = null
-    private var first_name: String? = null
-    private var last_name: String? = null
-    private var social_id: String? = null
+    private var facebookUid: String? = null
+    private var firstName: String? = null
+    private var lastName: String? = null
+    private var socialId: String? = null
     private var name: String? = null
     private var picture: String? = null
 
@@ -117,9 +110,9 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
     private var callbackManager: CallbackManager? = null
 
     private var from = ""
-    private var BOOKING = ""
+    private var booking = ""
 
-    var access_token: AccessToken? = null
+    var accessToken: AccessToken? = null
     var request: GraphRequest? = null
 
     private var gender: String = ""
@@ -162,17 +155,17 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
             seatCat = intent.getStringExtra("SEAT_CAT").toString()
             ttType = intent.getStringExtra("TT_TYPE").toString()
             seatType = intent.getStringExtra("SEAT_TYPE").toString()
-            date_pos = intent.getIntExtra("DATE_POS", 0)
-            show_pos = intent.getIntExtra("SHOW_POS", 0)
-            cinema_pos = intent.getIntExtra("CINEMA_POS", 0)
-            seatQuanitity = intent.getIntExtra("SEAT_POS", 0)
+            datePos = intent.getIntExtra("DATE_POS", 0)
+            showPos = intent.getIntExtra("SHOW_POS", 0)
+            cinemaPos = intent.getIntExtra("CINEMA_POS", 0)
+            seatQuantity = intent.getIntExtra("SEAT_POS", 0)
 
 
             dateTime = intent.getStringExtra("DateTime").toString()
-            MovieId = intent.getStringExtra("MovieId").toString()
-            CinemaID = intent.getStringExtra("CinemaID").toString()
-            SessionID = intent.getStringExtra("SessionID").toString()
-            DatePosition = intent.getStringExtra("DatePosition").toString()
+            movieId = intent.getStringExtra("MovieId").toString()
+            cinemaID = intent.getStringExtra("CinemaID").toString()
+            sessionID = intent.getStringExtra("SessionID").toString()
+            datePosition = intent.getStringExtra("DatePosition").toString()
             dt = intent.getStringExtra("dt").toString()
         }
 
@@ -180,18 +173,18 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
             println("Details--->1231")
 
             ttType = intent.getStringExtra("type").toString()
-            MovieId = intent.getStringExtra("movieId").toString()
+            movieId = intent.getStringExtra("movieId").toString()
             from = intent.getStringExtra("from").toString()
 
         }
         if (intent.hasExtra("Payment")) {
-            BOOKING = intent.getStringExtra("BOOKING").toString()
+            booking = intent.getStringExtra("BOOKING").toString()
             from = intent.getStringExtra("FROM").toString()
 
         }
         if (intent.hasExtra("BOOKING")) {
-            BOOKING = intent.getStringExtra("BOOKING").toString()
-            println("FromCome--->${BOOKING}")
+            booking = intent.getStringExtra("BOOKING").toString()
+            println("FromCome--->${booking}")
         }
 
         //AppBar Hide
@@ -217,15 +210,13 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
 
         movedNext()
         countryCodeLoad()
-        conditionals()
     }
 
     private fun continueGuest(
         email: String,
         name: String,
         socialId: String,
-        type: String,
-        idToken: String
+        type: String
     ) {
         preferences.putBoolean(Constant.IS_LOGIN, true)
         preferences.putString(Constant.FIRST_NAME, name)
@@ -304,7 +295,7 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
             googleSignIn()
         }
 
-        binding?.imageSwitcher?.setOnCheckedChangeListener { compoundButton, b ->
+        binding?.imageSwitcher?.setOnCheckedChangeListener { _, b ->
             println("compoundButton---$b")
             if (b) {
                 Constant.IntentKey.LANGUAGE_SELECT = "en"
@@ -399,10 +390,10 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
         //SignUp Clicks
 
         binding?.enterDateBirths?.setOnClickListener {
-            val mcurrentDate = Calendar.getInstance()
-            var mYear = mcurrentDate[Calendar.YEAR]
-            var mMonth = mcurrentDate[Calendar.MONTH]
-            var mDay = mcurrentDate[Calendar.DAY_OF_MONTH]
+            val mCurrentDate = Calendar.getInstance()
+            var mYear = mCurrentDate[Calendar.YEAR]
+            var mMonth = mCurrentDate[Calendar.MONTH]
+            var mDay = mCurrentDate[Calendar.DAY_OF_MONTH]
             val mDatePicker = DatePickerDialog(
                 this,
                 { _, selectedYear, selectedMonth, selectedDay ->
@@ -665,20 +656,19 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
         }
         LoginManager.getInstance().logInWithReadPermissions(
             (this@LoginActivity as Activity?)!!,
-            Arrays.asList("email", "public_profile")
+            listOf("email", "public_profile")
         )
         callbackManager = create()
         LoginManager.getInstance().registerCallback(callbackManager,
             object : FacebookCallback<LoginResult> {
-                override fun onSuccess(loginResult: LoginResult) {
-                    Log.d("response Success", "Login")
-                    access_token = loginResult.accessToken
-                    Log.d("response access_token", access_token.toString())
+                override fun onSuccess(result: LoginResult) {
+                    accessToken = result.accessToken
+                    println("access_token---->${accessToken}")
                     request =
                         GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), object :
                             GraphRequest.GraphJSONObjectCallback {
                             override fun onCompleted(
-                                `object`: JSONObject?,
+                                obj: JSONObject?,
                                 response: GraphResponse?
                             ) {
                                 val json = response!!.getJSONObject()
@@ -695,23 +685,22 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                                             ).show()
                                             return
                                         }
-                                        facebook_uid = json.getString("id")
-                                        social_id = json.getString("id")
-                                        first_name = json.getString("first_name")
-                                        last_name = json.getString("last_name")
+                                        facebookUid = json.getString("id")
+                                        socialId = json.getString("id")
+                                        firstName = json.getString("first_name")
+                                        lastName = json.getString("last_name")
                                         name = json.getString("name")
                                         picture =
-                                            "https://graph.facebook.com/$facebook_uid/picture?type=large"
+                                            "https://graph.facebook.com/$facebookUid/picture?type=large"
                                         Log.d("response", " picture$picture")
 //                                        Picasso.with(context).load(picture)
 //                                            .placeholder(R.mipmap.ic_launcher).into(userIv)
 //                                        mPb.setVisibility(View.GONE)
                                         continueGuest(
                                             email.toString(),
-                                            first_name.toString() + " " + last_name,
-                                            social_id.toString(),
-                                            "Google",
-                                            facebook_uid.toString()
+                                            firstName.toString() + " " + lastName,
+                                            socialId.toString(),
+                                            "Google"
                                         )
                                     }
                                 } catch (e: JSONException) {
@@ -794,23 +783,23 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                                         .putExtra("CINEMA", cinemaName)
                                         .putExtra("SEAT_CAT", seatCat)
                                         .putExtra("SEAT_TYPE", seatType)
-                                        .putExtra("DATE_POS", date_pos)
-                                        .putExtra("SEAT_POS", seatQuanitity)
+                                        .putExtra("DATE_POS", datePos)
+                                        .putExtra("SEAT_POS", seatQuantity)
                                         .putExtra("DateTime", dateTime)
-                                        .putExtra("MovieId", MovieId)
-                                        .putExtra("CinemaID", CinemaID)
-                                        .putExtra("DatePosition", DatePosition)
+                                        .putExtra("MovieId", movieId)
+                                        .putExtra("CinemaID", cinemaID)
+                                        .putExtra("DatePosition", datePosition)
                                         .putExtra("dt", dt)
                                         .putExtra("FROM", "seat")
-                                        .putExtra("SessionID", SessionID)
-                                        .putExtra("SHOW_POS", show_pos)
-                                        .putExtra("CINEMA_POS", cinema_pos)
+                                        .putExtra("SessionID", sessionID)
+                                        .putExtra("SHOW_POS", showPos)
+                                        .putExtra("CINEMA_POS", cinemaPos)
 
                                     intent.flags =
                                         Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
                                     startActivity(intent)
                                     finish()
-                                } else if (BOOKING == "FOOD") {
+                                } else if (booking == "FOOD") {
                                     val intent = Intent(
                                         this,
                                         HomeActivity::class.java
@@ -824,8 +813,8 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                                     val intent =
                                         Intent(this@LoginActivity, ShowTimesActivity::class.java)
                                             .putExtra("type", ttType)
-                                            .putExtra("from", show_pos)
-                                            .putExtra("movieId", MovieId)
+                                            .putExtra("from", showPos)
+                                            .putExtra("movieId", movieId)
 
                                     intent.flags =
                                         Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
@@ -914,9 +903,9 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                     // Google Sign In was successful, authenticate with Firebase
                     val account = task.getResult(ApiException::class.java)!!
                     Log.d("Login", "firebaseAuthWithGoogle:" + account.id)
-                    first_name = account.displayName
+                    firstName = account.displayName
                     email = account.email
-                    social_id = account.id
+                    socialId = account.id
 //                    id=account.idToken
                     firebaseAuthWithGoogle(account.idToken!!)
                 } catch (e: ApiException) {
@@ -940,14 +929,12 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                     // Sign in success, update UI with the signed-in user's information
                     continueGuest(
                         email.toString(),
-                        first_name.toString(),
-                        social_id.toString(),
-                        "Google",
-                        idToken
+                        firstName.toString(),
+                        socialId.toString(),
+                        "Google"
                     )
                 } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w("Login", "signInWithCredential:failure", task.exception)
+                    println("login--->${task.exception}")
                 }
             }
     }
@@ -984,7 +971,7 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                     when (resource.status) {
                         Status.SUCCESS -> {
                             loader?.dismiss()
-                            if (Constant.status == it.data?.data?.result && Constant.SUCCESS_CODE == it.data.data.code) {
+                            if (Constant.status == it.data?.data?.result && SUCCESS_CODE == it.data.data.code) {
                                 val intent =
                                     Intent(this@LoginActivity, OtpVerificationActivity::class.java)
                                         .putExtra("userId", it.data.data.output.userid)
@@ -1032,9 +1019,6 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
             }
     }
 
-    private fun conditionals() {
-
-    }
 
     @SuppressLint("SimpleDateFormat")
     fun data(date: String): Int {
@@ -1083,148 +1067,16 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                         Status.SUCCESS -> {
                             loader?.dismiss()
                             resource.data?.let { it ->
-                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    println("LocationResponse--->${it.data.output}")
+                                if (it.data?.result == Constant.status && it.data.code == SUCCESS_CODE) {
                                     countryCodeList = it.data.output
                                     binding?.mobileCode?.setText(resources.getString(R.string.mobile) + "    " + it.data.output[0].isdCode)
                                     countryCode = it.data.output[0].isdCode
 
                                     val maxLengthEditText = it.data.output[0].phoneLength
-                                    binding?.editTextPhone?.filters = arrayOf<InputFilter>(LengthFilter(maxLengthEditText))
+                                    binding?.editTextPhone?.filters =
+                                        arrayOf<InputFilter>(LengthFilter(maxLengthEditText))
 
-                                    retriveCountryList(it.data.output)
-                                } else {
-                                    println("Something Wrong")
-                                }
-                            }
-                        }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(this,
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {
-                                },
-                                negativeClick = {
-                                })
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
-                        }
-                    }
-                }
-            }
-    }
-
-    private fun OtpVerify(otpVerifyRequest: OtpVerifyRequest) {
-        loginViewModel.mVerify(otpVerifyRequest)
-            .observe(this) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    preferences.putString(Constant.USER_ID, it.data.output.userId)
-                                    preferences.putBoolean(
-                                        Constant.IS_LOGIN, true
-                                    )
-                                    preferences.putString(
-                                        Constant.USER_NAME,
-                                        it.data.output.userName
-                                    )
-                                    preferences.putString(
-                                        Constant.FIRST_NAME,
-                                        it.data.output.firstName
-                                    )
-                                    preferences.putString(
-                                        Constant.LAST_NAME,
-                                        it.data.output.lastName
-                                    )
-                                    preferences.putString(Constant.USER_DOB, it.data.output.dob)
-                                    preferences.putString(
-                                        Constant.MOBILE,
-                                        it.data.output.mobilePhone
-                                    )
-                                    preferences.putString(
-                                        Constant.USER_EMAIL,
-                                        it.data.output.email
-                                    )
-                                    preferences.putString(
-                                        Constant.USER_GENDER,
-                                        it.data.output.gender
-                                    )
-                                    preferences.putString(
-                                        Constant.USER_CITY,
-                                        it.data.output.mobilePhone
-                                    )
-                                    preferences.putString(
-                                        Constant.COUNTRY_CODE,
-                                        it.data.output.countryCode
-                                    )
-                                    if (from == "Details") {
-                                        println("Details--->1234")
-
-                                        val intent =
-                                            Intent(
-                                                this@LoginActivity,
-                                                ShowTimesActivity::class.java
-                                            )
-                                                .putExtra("type", ttType)
-                                                .putExtra("from", show_pos)
-                                                .putExtra("movieId", MovieId)
-
-                                        intent.flags =
-                                            Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-                                        startActivity(intent)
-                                        finish()
-
-                                    }
-
-
-
-
-                                    if (from == "seat") {
-                                        val intent = Intent(
-                                            this,
-                                            SeatScreenMainActivity::class.java
-                                        ).putExtra("AREA_CODE", areaCode)
-                                            .putExtra("TT_TYPE", ttType)
-                                            .putExtra("CINEMA", cinemaName)
-                                            .putExtra("SEAT_CAT", seatCat)
-                                            .putExtra("SEAT_TYPE", seatType)
-                                            .putExtra("DATE_POS", date_pos)
-                                            .putExtra("SEAT_POS", seatQuanitity)
-                                            .putExtra("DateTime", dateTime)
-                                            .putExtra("MovieId", MovieId)
-                                            .putExtra("CinemaID", CinemaID)
-                                            .putExtra("DatePosition", DatePosition)
-                                            .putExtra("dt", dt)
-                                            .putExtra("FROM", "seat")
-                                            .putExtra("SessionID", SessionID)
-                                            .putExtra("SHOW_POS", show_pos)
-                                            .putExtra("CINEMA_POS", cinema_pos)
-
-                                        intent.flags =
-                                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                                        startActivity(intent)
-                                        finish()
-                                    } else {
-//                                        val intent =Intent(this@SignUpActivity, HomeActivity::class.java)
-                                        val intent = Intent(
-                                            this@LoginActivity,
-                                            UserPreferencesActivity::class.java
-                                        )
-                                        intent.flags =
-                                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                                        startActivity(intent)
-                                        finish()
-                                    }
+                                    retrieveCountryList(it.data.output)
                                 } else {
                                     val dialog = OptionDialog(this,
                                         R.mipmap.ic_launcher,
@@ -1237,7 +1089,6 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                                         negativeClick = {
                                         })
                                     dialog.show()
-
                                 }
                             }
                         }
@@ -1264,18 +1115,17 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
             }
     }
 
-    private fun retriveCountryList(output: ArrayList<CountryCodeResponse.Output>) {
+
+    private fun retrieveCountryList(output: ArrayList<CountryCodeResponse.Output>) {
         binding?.mobileCode?.setOnClickListener {
             bottomDialog(output)
         }
     }
 
     override fun onItemClick(view: CountryCodeResponse.Output) {
-        println("PhoneLength--->${view.phoneLength}")
         countryCode = view.isdCode
         val maxLengthEditText = view.phoneLength
         binding?.editTextPhone?.filters = arrayOf<InputFilter>(LengthFilter(maxLengthEditText))
-
     }
 
     private fun bottomDialog(countryList: ArrayList<CountryCodeResponse.Output>) {
@@ -1343,38 +1193,5 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
             binding?.mobileCode?.setText(resources.getString(R.string.mobile) + " " + countryCode)
         }
     }
-
-//    @SuppressLint("CutPasteId")
-//    private fun OtpDialog(userid: String) {
-//        val mDialogView = layoutInflater.inflate(R.layout.otp_dialog, null)
-//        val mBuilder = AlertDialog.Builder(this, R.style.MyDialogTransparent)
-//            .setView(mDialogView)
-//        val mAlertDialog = mBuilder.show()
-//        mAlertDialog.setCancelable(false)
-//        mAlertDialog.setCanceledOnTouchOutside(false)
-//        mAlertDialog.window?.setBackgroundDrawableResource(R.color.transparent)
-//        val back = mDialogView.findViewById<ImageView>(R.id.imageView43)
-//        val submit = mDialogView.findViewById<TextView>(R.id.button2)
-//        back.setOnClickListener {
-//            mAlertDialog.dismiss()
-//        }
-//        submit.setOnClickListener {
-//            val phone = mDialogView.findViewById<TextInputEditText>(R.id.mobileCode).text.toString()
-//            val email = mDialogView.findViewById<TextInputEditText>(R.id.emailCode).text.toString()
-//            when {
-//                phone.trim() == "" -> {
-//                    mDialogView.findViewById<TextInputEditText>(R.id.mobileCode)?.error = ""
-//                }
-//                email.trim() == "" -> {
-//                    mDialogView.findViewById<TextInputEditText>(R.id.emailCode)?.error = ""
-//                }
-//                else -> {
-//                    mAlertDialog.dismiss()
-//                    Constant().hideKeyboard(this)
-//                    OtpVerify(OtpVerifyRequest(email, phone, userid))
-//                }
-//            }
-//        }
-//    }
 
 }

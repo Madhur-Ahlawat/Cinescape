@@ -29,7 +29,7 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="37dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/signin_bt_ui"
             android:fontFamily="@font/sf_pro_text_bold"
             android:text="@string/sign_in"
@@ -39,11 +39,12 @@
             app:layout_constraintStart_toStartOf="@+id/imageView" />
 
         //signIn
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/signInUi"
             android:layout_width="0dp"
+            android:visibility="visible"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -411,6 +412,7 @@
             android:id="@+id/signupUi"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="10dp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -689,7 +691,7 @@
                 app:layout_constraintHorizontal_weight="4"
                 app:layout_constraintStart_toEndOf="@+id/mobile_code"
                 app:layout_constraintTop_toBottomOf="@+id/enter_confirm_password"
-                tools:ignore="Autofill,LabelFor" />
+                tools:ignore="Autofill,LabelFor,SpeakableTextPresentCheck" />
 
             <View
                 android:id="@+id/view_line5"
@@ -974,8 +976,10 @@
             android:id="@+id/textView81"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:paddingStart="@dimen/margin5"
+            android:paddingEnd="@dimen/margin15"
             android:layout_marginTop="47dp"
-            android:layout_marginEnd="15dp"
             android:fontFamily="@font/sf_pro_text_bold"
             android:text="@string/skip"
             android:textColor="@color/white"
@@ -987,7 +991,7 @@
             android:id="@+id/textView108"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="17dp"
+            android:layout_marginStart="24dp"
             android:text="@string/sign_up"
             android:textColor="@color/white"
             android:textSize="20sp"

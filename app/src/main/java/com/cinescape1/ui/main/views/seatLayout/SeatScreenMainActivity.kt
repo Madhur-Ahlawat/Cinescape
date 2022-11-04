@@ -162,11 +162,11 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
 
         override fun onUpdate(engine: ZoomEngine, matrix: Matrix) {
             counter++
-            if (counter > 1000) {
+            if (counter > 8000) {
                 counter = 0
                 return
             }
-            if (counter % 3 == 0) {
+            if (counter % 3 ==5) {
                 return
             }
 

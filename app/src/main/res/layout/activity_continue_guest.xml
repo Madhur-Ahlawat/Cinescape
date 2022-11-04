@@ -196,7 +196,7 @@
     <TextView
         android:id="@+id/textView73"
         android:layout_width="184dp"
-        android:layout_height="36dp"
+        android:layout_height="40dp"
         android:layout_marginTop="92.5dp"
         android:paddingEnd="@dimen/size15"
         android:paddingStart="@dimen/size15"
@@ -204,11 +204,22 @@
         android:textSize="@dimen/size16"
         android:lineSpacingExtra="1.8sp"
         android:fontFamily="@font/sf_pro_text_bold"
-        android:background="@drawable/red_rectangle"
+        android:background="@drawable/btn_corner_bg_red"
         android:textColor="@color/white"
         android:text="@string/Continue"
         app:layout_constraintEnd_toEndOf="@+id/view86"
         app:layout_constraintStart_toStartOf="@+id/view86"
         app:layout_constraintTop_toBottomOf="@+id/view_line5" />
-    
+
+    <ImageView
+        android:id="@+id/imageView58"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view87"
+        app:layout_constraintStart_toStartOf="@+id/text_signup"
+        app:layout_constraintTop_toBottomOf="@+id/view87"
+        app:srcCompat="@drawable/ic_back_button"
+        tools:ignore="ContentDescription" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

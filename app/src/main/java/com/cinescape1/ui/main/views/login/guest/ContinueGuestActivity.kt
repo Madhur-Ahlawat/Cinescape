@@ -34,6 +34,7 @@ import com.cinescape1.utils.Status
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
+@Suppress("DEPRECATION")
 @SuppressLint("CustomSplashScreen")
 @ActivityScoped
 class ContinueGuestActivity : DaggerAppCompatActivity(),
@@ -86,9 +87,15 @@ class ContinueGuestActivity : DaggerAppCompatActivity(),
         binding?.GuestEmail?.setText(email)
 
 
+        countryCodeLoad()
+        movedNext()
+    }
+
+    private fun movedNext() {
+        binding?.imageView58?.setOnClickListener {
+            onBackPressed()
+        }
         binding?.textView73?.setOnClickListener {
-
-
             val username = binding?.GuestName?.text.toString()
             val password = binding?.GuestEmail?.text.toString()
             val mobile = binding?.editTextPhone?.text.toString()
@@ -159,7 +166,7 @@ class ContinueGuestActivity : DaggerAppCompatActivity(),
                     dialog.show()
                 }
                 else{
-                    ContinueGuest(
+                    continueGuest(
                         GuestRequest(
                             countryCode,
                             "",
@@ -169,12 +176,12 @@ class ContinueGuestActivity : DaggerAppCompatActivity(),
                             "",
                             binding?.editTextPhone?.text.toString(),
                             "",
-                            true,
-                            true,
-                            "",
-                            "",
-                            "",
-                            ""
+                            promoEmail = true,
+                            promoMobile = true,
+                            reserveNotification = "",
+                            socialId = "",
+                            socialType = "",
+                            userName = ""
                         )
                     )
                     Constant().hideKeyboard(this)
@@ -184,11 +191,10 @@ class ContinueGuestActivity : DaggerAppCompatActivity(),
 
 
         }
-        countryCodeLoad()
 
     }
 
-    private fun ContinueGuest(guestRequest: GuestRequest) {
+    private fun continueGuest(guestRequest: GuestRequest) {
         continueGuestActivity.continueGuest(guestRequest)
             .observe(this) {
                 it?.let { resource ->
@@ -336,6 +342,8 @@ class ContinueGuestActivity : DaggerAppCompatActivity(),
                             dialog.show()
                         }
                         Status.LOADING -> {
+                            loader = LoaderDialog(R.string.pleasewait)
+                            loader?.show(supportFragmentManager, null)
                         }
                     }
                 }

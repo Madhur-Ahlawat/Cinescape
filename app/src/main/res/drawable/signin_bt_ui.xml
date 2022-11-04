@@ -16,7 +16,7 @@
 
     <corners
         android:bottomLeftRadius="0dp"
-        android:bottomRightRadius="@dimen/margin16"
+        android:bottomRightRadius="@dimen/margin8"
         android:topLeftRadius="0dp"
-        android:topRightRadius="@dimen/margin16" />
+        android:topRightRadius="@dimen/margin8" />
 </shape>

@@ -47,7 +47,11 @@ class AdapterMultiMovieAlertBooking(
         holder.rating.text = showtimeListItem.mcensor
         holder.experience.text = showtimeListItem.experience
         val ratingColor=showtimeListItem.ratingColor
-        holder.rating.setBackgroundColor(Color.parseColor(ratingColor))
+        try {
+            holder.rating.setBackgroundColor(Color.parseColor(ratingColor))
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         holder.image.setOnClickListener {
             val intent = Intent(mContext, FinalTicketActivity::class.java)
