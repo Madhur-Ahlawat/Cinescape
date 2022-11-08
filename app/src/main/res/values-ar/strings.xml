@@ -352,6 +352,7 @@
     <string name="track_number">Track Number</string>
     <string name="tickets">Tickets</string>
     <string name="sorry_your_transaction">Sorry, Your transaction</string>
+    <string name="advanceBookingTxt">You are booking for an advance date.</string>
 
 
 </resources>

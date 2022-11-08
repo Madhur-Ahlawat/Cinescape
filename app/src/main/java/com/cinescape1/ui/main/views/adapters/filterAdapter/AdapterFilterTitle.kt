@@ -159,7 +159,6 @@ class AdapterFilterTitle(
                     up = false
                     holder.filterExpand.visibility = View.VISIBLE
                     holder.filterExpand.removeAllViews()
-                    println("checkList--->${getList(filterExpItem)}")
                     if (getList(filterExpItem).size > 0) {
                         holder.selectFilter.show()
                     } else {
@@ -186,11 +185,14 @@ class AdapterFilterTitle(
             rowIndex = position
             notifyDataSetChanged()
         }
+
         if (rowIndex == position) {
             holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
+            holder.viewSpace.show()
             holder.filterExpand.show()
         } else {
             holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
+            holder.viewSpace.hide()
             holder.filterExpand.hide()
         }
     }
@@ -216,5 +218,6 @@ class AdapterFilterTitle(
         var imageArrowDrop: ImageView = view.findViewById(R.id.image_arrow_up)
         var selectFilter: ImageView = view.findViewById(R.id.imageView50)
         var filterExpand: RecyclerView = view.findViewById(R.id.filter_exapands)
+        var viewSpace: View = view.findViewById(R.id.viewSpace)
     }
 }

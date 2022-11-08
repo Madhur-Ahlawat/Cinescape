@@ -228,6 +228,7 @@
     <string name="selectSeat">Please Select At least One Seat</string>
     <string name="amSure">I’m Sure</string>
     <string name="stillHere">Are you still here?</string>
+    <string name="advanceBookingTxt">You are booking for an advance date.</string>
     <string name="go_back">go back</string>
     <string name="verify_code">VERIFY CODE</string>
     <string name="email_code">EMAIL CODE</string>

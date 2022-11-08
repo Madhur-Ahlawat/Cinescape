@@ -1,11 +1,13 @@
 package com.cinescape1.ui.main.views.details
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Handler
@@ -13,17 +15,13 @@ import android.os.Looper
 import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
-import android.view.LayoutInflater
+import android.view.*
 import android.view.MotionEvent.ACTION_UP
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import android.widget.TextView.OnEditorActionListener
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -60,6 +58,9 @@ import com.cinescape1.utils.Constant.Companion.select_pos
 import com.google.android.flexbox.FlexboxLayout
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_show_times.*
+import kotlinx.android.synthetic.main.cancel_dialog.*
+import kotlinx.android.synthetic.main.cancel_dialog.view.*
+import kotlinx.android.synthetic.main.checkout_layout_ticket_include.*
 import kotlinx.android.synthetic.main.search_ui.*
 import kotlinx.android.synthetic.main.seat_selection_bank_offer_alert.*
 import kotlinx.android.synthetic.main.show_times_layout_include.*
@@ -71,16 +72,13 @@ import kotlin.math.abs
 class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewItemClickListener,
     AdapterShowTimesCinemaTitle.CinemaAdapterListener, AdapterCinemaSessionScroll.LocationListener {
     private var num = 0
-
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
     @Inject
     lateinit var preferences: AppPreferences
     private val showTimeViewModel: ShowTimesViewModel by viewModels { viewModelFactory }
     private var binding: ActivityShowTimesBinding? = null
     private var up = true
-    private var count = 0
     private var datePos = 0
     private var showPose = 0
     private var dateTime = ""
@@ -178,9 +176,43 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 getShowTimes()
             }
         }
+        if (type == "advance") {
+            advanceBooking()
+        }
         movedNext()
         broadcastReceiver = MyReceiver()
         broadcastIntent()
+    }
+
+    //advance booking Dialog
+    private fun advanceBooking() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.cancel_dialog)
+        dialog.window!!.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
+        dialog.window!!.setGravity(Gravity.BOTTOM)
+        dialog.show()
+
+
+        dialog.title.text = getString(R.string.advanceBooking)
+        dialog.txtSureNew.text = getString(R.string.cancelComma)
+        dialog.txtGoBack.text = getString(R.string.and_go_back)
+        dialog.negative_btn.text = getString(R.string.ok)
+        dialog.subtitle.text = getString(R.string.advanceBookingTxt)
+
+        dialog.consSure?.setOnClickListener {
+            finish()
+
+        }
+
+        dialog.negative_btn?.setOnClickListener {
+            dialog.dismiss()
+        }
     }
 
     override fun onBackPressed() {
@@ -212,7 +244,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
     @SuppressLint("ClickableViewAccessibility")
     private fun movedNext() {
-
         binding?.search?.setOnQueryTextFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 binding?.imageView25?.hide()
@@ -375,7 +406,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             shareIntent.putExtra(Intent.EXTRA_TEXT, appUrl)
             startActivity(Intent.createChooser(shareIntent, "Share via"))
         }
-        val ratingColor=output.ratingColor
+        val ratingColor = output.ratingColor
         binding?.textView56?.setBackgroundColor(Color.parseColor(ratingColor))
 
         if (output.rating == "") {
@@ -388,13 +419,16 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         when (type) {
             "comingSoon" -> {
                 binding?.textMovieType?.text =
-                   getString(R.string.commingSoonNew)+" "+ output.openingDate
+                    getString(R.string.commingSoonNew) + " " + output.openingDate
 
-            }else -> {
-            binding?.textMovieType?.text =
-                output.language + " | " + output.genre + " | " + output.runTime + " " + getString(R.string.min)
+            }
+            else -> {
+                binding?.textMovieType?.text =
+                    output.language + " | " + output.genre + " | " + output.runTime + " " + getString(
+                        R.string.min
+                    )
 
-        }
+            }
         }
         println("CastCheck--->${output.cast.size}")
         if (output.cast.isNotEmpty()) {
@@ -427,7 +461,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         textView123.text = output.subTitle
         text_sysnopsis_detail.text = output.synopsis
         text_directoe_name.text = output.director.firstName + " " + output.director.lastName
-
 
 
     }
@@ -498,7 +531,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             }
     }
 
-
     //GetSeatLayout
     private fun getSeatLayout(request: SeatLayoutRequest, name: String, pos: Int) {
         showTimeViewModel.getSeatLayout(this, request)
@@ -561,7 +593,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         binding?.textFilmHouseName?.text = output.movie.title
         binding?.textFilmHouseName?.isSelected = true
         binding?.textView56?.text = output.movie.rating
-        val ratingColor=output.movie.ratingColor
+        val ratingColor = output.movie.ratingColor
         binding?.textView56?.setBackgroundColor(Color.parseColor(ratingColor))
         if (output.movie.rating == "") {
             binding?.ratingUi?.hide()
@@ -614,11 +646,11 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     }
 
     private fun setShowTimesDayDateAdapter(days: ArrayList<CinemaSessionResponse.Days>) {
-            val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
-            binding?.recylerviewShowTimeDate?.layoutManager = LinearLayoutManager(this)
-            val adapter = AdapterDayDate(this, days, this)
-            binding?.recylerviewShowTimeDate?.layoutManager = gridLayout
-            binding?.recylerviewShowTimeDate?.adapter = adapter
+        val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
+        binding?.recylerviewShowTimeDate?.layoutManager = LinearLayoutManager(this)
+        val adapter = AdapterDayDate(this, days, this)
+        binding?.recylerviewShowTimeDate?.layoutManager = gridLayout
+        binding?.recylerviewShowTimeDate?.adapter = adapter
 
     }
 
@@ -793,11 +825,11 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             rating.text = output.movie.rating
         }
 
-        val ratingColor=output.movie.ratingColor
+        val ratingColor = output.movie.ratingColor
         rating.setBackgroundColor(Color.parseColor(ratingColor))
-        val btnDecrease: TextView = mDialogView.findViewById(R.id.text_decrease)
+        val btnDecrease: ImageView = mDialogView.findViewById(R.id.text_decrease)
         val txtNumber: TextView = mDialogView.findViewById(R.id.text_number)
-        val btnIncrease: TextView = mDialogView.findViewById(R.id.text_increase)
+        val btnIncrease: ImageView = mDialogView.findViewById(R.id.text_increase)
         val textProceeds = mDialogView.findViewById<TextView>(R.id.text_proceeds)
 
         val selectSeatCategory = mDialogView.findViewById<FlexboxLayout>(R.id.select_seat_category)
@@ -835,7 +867,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 } else {
                     0
                 }
-
             } else {
                 tvSeatAvailable2.hide()
                 tvKdPrice2.hide()
@@ -874,6 +905,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                     btnDecrease.isClickable = true
                     btnIncrease.isClickable = true
                 }
+
                 for (v in viewListForDates) {
                     imageSeatSelection1 =
                         v.findViewById(R.id.image_seat_selection) as ImageView
@@ -887,9 +919,12 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                     tvSeatAvailable11.setTextColor(getColor(R.color.hint_color))
                     tvKdPrice11.setTextColor(getColor(R.color.hint_color))
                 }
+
+                println("item.iconActive--->${item.iconActive}")
                 Glide.with(this)
                     .load(item.iconActive)
                     .into(imageSeatSelection)
+
                 imageSeatSelection.setColorFilter(getColor(R.color.text_alert_color_red))
                 tvSeatSelection.setTextColor(getColor(R.color.text_alert_color_red))
                 tvSeatAvailable2.setTextColor(getColor(R.color.text_alert_color_red))
@@ -928,6 +963,8 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                             Glide.with(this)
                                 .load(data.icon)
                                 .into(imgSeatSelectionType)
+
+
                             imgMetroInfo.setImageResource(R.drawable.ic_icon_metro_info)
                             tvKdPrice.text = data.price.toString()
                             tvSeatAvailable.text = data.count
@@ -976,7 +1013,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                                     tvSeatAvailable1 =
                                         v.findViewById(R.id.tv_seat_avialable) as TextView
                                     tvKdPrice1 = v.findViewById(R.id.tv_kd_price) as TextView
-                                    imageSeatSelection1!!.setColorFilter(getColor(R.color.hint_color))
+//                                    imageSeatSelection1!!.setColorFilter(getColor(R.color.hint_color))
                                     tvSeatSelection1!!.setTextColor(getColor(R.color.hint_color))
                                     tvSeatAvailable1.setTextColor(getColor(R.color.hint_color))
                                     tvKdPrice1.setTextColor(getColor(R.color.hint_color))
@@ -985,14 +1022,14 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                                 Glide.with(this)
                                     .load(data.iconActive)
                                     .into(imgSeatSelectionType)
-                                imgSeatSelectionType.setColorFilter(getColor(R.color.text_alert_color_red))
+//                                imgSeatSelectionType.setColorFilter(getColor(R.color.text_alert_color_red))
                                 textSeatType.setTextColor(getColor(R.color.text_alert_color_red))
                                 tvSeatAvailable.setTextColor(getColor(R.color.text_alert_color_red))
                                 tvKdPrice.setTextColor(getColor(R.color.text_alert_color_red))
                             }
 
                         } catch (e: Exception) {
-                           e.printStackTrace()
+                            e.printStackTrace()
                         }
 
 
@@ -1022,9 +1059,9 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                         Toast.makeText(this, "sorry", Toast.LENGTH_LONG).show()
                     } else {
                         num -= 1
-                        if (num<2){
+                        if (num < 2) {
                             btnDecrease.invisible()
-                        }else{
+                        } else {
                             btnDecrease.show()
 
                         }
@@ -1066,9 +1103,9 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
                     } else {
                         num += 1
-                        if (num<2){
+                        if (num < 2) {
                             btnDecrease.invisible()
-                        }else{
+                        } else {
                             btnDecrease.show()
 
                         }

@@ -164,16 +164,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
                 binding?.searchMovie?.layoutParams = params
             }
         }
-        movesData(
-            MovieRequest(
-                cinema_data,
-                exp_data,
-                genre_data,
-                language_data,
-                rating_data,
-                timing_data
-            )
-        )
+        movesData(MovieRequest(cinema_data,exp_data,genre_data,language_data,rating_data, timing_data))
         movedNext()
         broadcastReceiver = MyReceiver()
         broadcastIntent()

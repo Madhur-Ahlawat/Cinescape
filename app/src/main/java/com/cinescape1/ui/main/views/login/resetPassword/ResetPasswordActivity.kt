@@ -28,6 +28,7 @@ import kotlinx.android.synthetic.main.set_password.*
 import javax.inject.Inject
 
 
+@Suppress("DEPRECATION")
 @SuppressLint("CustomSplashScreen")
 @ActivityScoped
 class ResetPasswordActivity : DaggerAppCompatActivity() {

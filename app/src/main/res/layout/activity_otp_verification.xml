@@ -2,7 +2,7 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
     android:fillViewport="true">
@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +35,6 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/contentDes"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/signin_bg"
@@ -72,24 +71,22 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ForgotOtpVerify"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
                 android:layout_marginTop="4dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="32dp"
+                android:layout_marginBottom="@dimen/margin32"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_cinema"
-                app:layout_constraintVertical_bias="1.0">
+                app:layout_constraintTop_toBottomOf="@+id/image_cinema">
 
                 <View
                     android:id="@+id/view14"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/margin4"
+                    android:layout_marginStart="@dimen/margin32"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -104,30 +101,31 @@
                     android:text="@string/email_verification_code"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size20"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/view14"
                     app:layout_constraintTop_toTopOf="@+id/view14" />
 
                 <TextView
                     android:id="@+id/textView145"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="19dp"
                     android:fontFamily="@font/sf_pro_text_regular"
                     android:text="@string/please_enter_your_email_verification_code_sent_to_your_email"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/size15"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/view14"
+                    app:layout_constraintStart_toStartOf="@+id/view14"
                     app:layout_constraintTop_toBottomOf="@+id/textView144" />
 
                 <com.kevinschildhorn.otpview.OTPView
                     android:id="@+id/textView146"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:clipToPadding="true"
                     android:inputType="number"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/view14"
                     app:layout_constraintTop_toBottomOf="@+id/textView145"
                     app:otp_backgroundImage="@drawable/background"
                     app:otp_filledBackgroundImage="@drawable/background"
@@ -135,7 +133,8 @@
                     app:otp_itemCount="6"
                     app:otp_itemHeight="42dp"
                     app:otp_itemWidth="42dp"
-                    app:otp_showCursor="false" />
+                    app:otp_showCursor="false"
+                    app:otp_textColor="@color/colorWhite" />
 
                 <TextView
                     android:id="@+id/textView147"
@@ -146,17 +145,18 @@
                     android:text="@string/mobile_verification_code"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size20"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView148"
                     app:layout_constraintTop_toBottomOf="@+id/textView146" />
 
                 <TextView
                     android:id="@+id/textView148"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/sf_pro_text_regular"
                     android:text="@string/please_enter_your_email_verification_code_sent_to_your_email"
                     android:textColor="@color/text_color"
+                    app:layout_constraintEnd_toEndOf="@+id/view14"
                     app:layout_constraintStart_toStartOf="@+id/view14"
                     app:layout_constraintTop_toBottomOf="@+id/textView147" />
 
@@ -168,6 +168,7 @@
                     android:clipToPadding="true"
                     android:inputType="number"
                     android:textSize="@dimen/size15"
+                    app:otp_textColor="@color/colorWhite"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/view14"
                     app:layout_constraintTop_toBottomOf="@+id/textView148"
@@ -195,6 +196,15 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView149" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/imageView59"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="42dp"
+                app:layout_constraintStart_toStartOf="@+id/text_signup"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_back_button" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

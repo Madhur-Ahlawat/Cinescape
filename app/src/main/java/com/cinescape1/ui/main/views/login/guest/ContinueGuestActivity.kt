@@ -354,7 +354,6 @@ class ContinueGuestActivity : DaggerAppCompatActivity(),
         binding?.mobileCode?.setOnClickListener {
             bottomDialog(output)
         }
-
     }
 
     private fun bottomDialog(countryList: ArrayList<CountryCodeResponse.Output>) {

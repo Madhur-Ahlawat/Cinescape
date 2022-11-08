@@ -111,20 +111,23 @@
 
         <com.kevinschildhorn.otpview.OTPView
             android:id="@+id/otpView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView80"
             android:layout_marginTop="13dp"
             android:clipToPadding="true"
             android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView80"
             app:otp_backgroundImage="@drawable/background"
             app:otp_filledBackgroundImage="@drawable/background"
             app:otp_highlightedBackgroundImage="@drawable/background_highlighted"
             app:otp_itemCount="6"
             app:otp_itemHeight="42dp"
             app:otp_itemWidth="42dp"
-            app:otp_showCursor="false"/>
+            app:otp_showCursor="false"
+            app:otp_textColor="@color/colorWhite" />
 
         <TextView
             android:id="@+id/verifyOtpForgot"

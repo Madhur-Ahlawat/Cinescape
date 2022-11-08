@@ -50,11 +50,15 @@
                         app:srcCompat="@drawable/img_coming_soon"
                         tools:ignore="ContentDescription" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <androidx.cardview.widget.CardView
                       android:id="@+id/background"
+                        android:rotation="135"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/yellow"
+                        android:layout_marginTop="@dimen/dimen30"
+                        android:layout_marginEnd="-55dp"
+                        android:layout_marginStart="-17dp"
+                        app:cardBackgroundColor="@color/yellow"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
@@ -62,18 +66,22 @@
                             android:id="@+id/tag"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:rotation="360"
                             android:paddingStart="@dimen/margin8"
                             android:paddingEnd="@dimen/margin8"
+                            android:layout_marginEnd="@dimen/margin5"
+                            android:layout_marginStart="@dimen/margin5"
                             android:fontFamily="@font/sf_pro_text_regular"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/size14"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/size11"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            android:text="ADVANCE" />
+                            tools:text="ADVANCE" />
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.cardview.widget.CardView>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -158,6 +166,7 @@
                 android:layout_width="0dp"
                 android:layout_height="37dp"
                 android:layout_marginTop="3dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/image_now_card"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/image_now_card"

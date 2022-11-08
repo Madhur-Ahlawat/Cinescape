@@ -26,6 +26,7 @@ import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.splash.viewModel.SplashViewModel
 import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.ui.main.views.login.LoginActivity
+import com.cinescape1.ui.main.views.login.otpVerification.OtpVerificationActivity
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.LocaleHelper
 import com.cinescape1.utils.Status

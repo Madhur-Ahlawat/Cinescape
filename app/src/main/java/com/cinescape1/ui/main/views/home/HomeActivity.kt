@@ -60,6 +60,7 @@ import kotlinx.android.synthetic.main.fragment_food.*
 import javax.inject.Inject
 
 
+@Suppress("DEPRECATION")
 class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.RecycleViewItemClickListener {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory

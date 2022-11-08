@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
@@ -33,18 +34,24 @@ class FilterChildAdapter(private val mContext: Context, private val items: Array
     ) {
         val obj = items[position]
         holder.todoTitle.text = obj.toString()
-        holder.todoTitle.setOnClickListener {
+        holder.layoutFilterBg.setOnClickListener {
             if (selected.contains(obj)){
                 selected.remove(obj)
+                holder.layoutFilterBg.setBackgroundDrawable(mContext.getDrawable(R.drawable.filter_unselect))
+
                 holder.todoTitle.setTextColor(ContextCompat.getColor(mContext, R.color.hint_color))
+
             }else {
                 selected.add(obj.toString())
+
                 holder.todoTitle.setTextColor(
                     ContextCompat.getColor(
                         mContext,
-                        R.color.text_alert_color_red
+                        R.color.white
                     )
                 )
+                holder.layoutFilterBg.setBackgroundDrawable(mContext.getDrawable(R.drawable.filter_select))
+
             }
         }
 
@@ -52,16 +59,20 @@ class FilterChildAdapter(private val mContext: Context, private val items: Array
             holder.todoTitle.setTextColor(
                 ContextCompat.getColor(
                     mContext,
-                    R.color.text_alert_color_red
+                    R.color.white
                 )
             )
+            holder.layoutFilterBg.setBackgroundDrawable(mContext.getDrawable(R.drawable.filter_select))
         } else {
+            holder.layoutFilterBg.setBackgroundDrawable(mContext.getDrawable(R.drawable.filter_unselect))
+
             holder.todoTitle.setTextColor(ContextCompat.getColor(mContext, R.color.hint_color))
         }
     }
 
     inner class TodoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var todoTitle: TextView = view.findViewById(R.id.text_exp_title) as TextView
+        var layoutFilterBg: ConstraintLayout = view.findViewById(R.id.layoutFilterBg) as ConstraintLayout
     }
 
     interface RecycleViewItemClickListener {

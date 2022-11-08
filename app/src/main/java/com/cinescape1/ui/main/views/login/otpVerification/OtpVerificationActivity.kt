@@ -1,7 +1,10 @@
 package com.cinescape1.ui.main.views.login.otpVerification
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.view.View
+import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.cinescape1.R
@@ -17,6 +20,7 @@ import com.cinescape1.utils.Status
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
+@Suppress("DEPRECATION")
 class OtpVerificationActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -31,10 +35,21 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
         binding = ActivityOtpVerificationBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
         setContentView(view)
+        //AppBar Hide
+        window.apply {
+            clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            statusBarColor = Color.TRANSPARENT
+        }
+
         movedNext()
     }
 
     private fun movedNext() {
+        binding?.imageView59?.setOnClickListener {
+            onBackPressed()
+        }
 
         binding?.textView150?.setOnClickListener {
             val otpEmail = binding?.textView146?.getStringFromFields()

@@ -83,14 +83,22 @@
         app:layout_constraintTop_toBottomOf="@+id/view17_lines11" />
 
     <View
+        android:id="@+id/viewSpace"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/filter_exapands"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin30"/>
+    <View
         android:id="@+id/view17"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:background="@color/view_bg_color_line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filter_exapands" />
+        app:layout_constraintTop_toBottomOf="@+id/viewSpace" />
 
     <ImageView
         android:id="@+id/imageView50"

@@ -45,12 +45,12 @@ class AdapterNowShowing(
         holder.type.text = comingSoonItem.rating
 
         if (comingSoonItem.tag == "") {
-            holder.background.hide()
+//            holder.background.hide()
         } else {
-            holder.background.show()
-            holder.tag.text = comingSoonItem.tag
-            val tagColor = comingSoonItem.tagColor
-            holder.background.setBackgroundColor(Color.parseColor(tagColor))
+//            holder.background.show()
+//            holder.tag.text = comingSoonItem.tag
+//            val tagColor = comingSoonItem.tagColor
+//            holder.background.setBackgroundColor(Color.parseColor(tagColor))
         }
         val ratingColor = comingSoonItem.ratingColor
         holder.type.setBackgroundColor(Color.parseColor(ratingColor))
@@ -74,7 +74,7 @@ class AdapterNowShowing(
         var movieTitle: TextView = view.findViewById(R.id.text_movie_title)
         var movieCategory: TextView = view.findViewById(R.id.text_movie_category)
         var type: TextView = view.findViewById(R.id.movieRating)
-        var background: ConstraintLayout = view.findViewById(R.id.background)
+        var background: CardView = view.findViewById(R.id.background)
         var tag: TextView = view.findViewById(R.id.tag)
         var cardView: CardView = view.findViewById(R.id.rating_ui)
     }

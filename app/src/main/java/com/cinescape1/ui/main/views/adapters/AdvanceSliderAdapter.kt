@@ -42,7 +42,7 @@ class AdvanceSliderAdapter(private  val mContext: Activity,private var movieData
         featured_image.setOnClickListener {
             val intent = Intent(mContext, ShowTimesActivity::class.java)
             intent.putExtra(Constant.IntentKey.MOVIE_ID,movieData[position].id)
-//            intent.putExtra("type","movie")
+            intent.putExtra("type","advance")
             mContext.startActivity(intent)
         }
 
