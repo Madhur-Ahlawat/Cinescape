@@ -6,18 +6,14 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:paddingBottom="@dimen/margin20"
-    android:paddingEnd="@dimen/margin15"
-    android:paddingStart="@dimen/margin15"
+    android:paddingEnd="@dimen/margin5"
+    android:paddingStart="@dimen/margin5"
     android:paddingTop="@dimen/margin20">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:paddingBottom="@dimen/margin20"
-        android:paddingEnd="@dimen/margin10"
-        android:paddingStart="@dimen/margin10"
-        android:paddingTop="@dimen/margin10"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +23,6 @@
         <View
             android:id="@+id/view_booking_id_one"
             android:layout_height="65dp"
-            android:layout_marginStart="4dp"
             android:layout_width="0dp"
             app:layout_constraintEnd_toStartOf="@+id/view_food_picku_no_one"
             app:layout_constraintHorizontal_weight="1"
@@ -119,7 +114,6 @@
             android:id="@+id/viewUi"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:padding="@dimen/margin2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_bookin_line_one">
@@ -127,8 +121,6 @@
             <View
                 android:id="@+id/views_main"
                 android:layout_height="0dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginStart="4dp"
                 android:layout_width="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -169,83 +161,79 @@
                 tools:ignore="TextContrastCheck"
                 tools:text="13+" />
 
-            <View
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/view_locations"
+                android:layout_width="@dimen/margin10"
                 android:layout_height="70dp"
                 android:layout_marginTop="12dp"
-                android:layout_width="0dp"
-                app:layout_constraintEnd_toStartOf="@+id/view_date"
                 app:layout_constraintHorizontal_weight="2.3"
                 app:layout_constraintStart_toStartOf="@+id/views_main"
                 app:layout_constraintTop_toBottomOf="@+id/text_name_movie" />
 
             <TextView
-                android:fontFamily="@font/sf_pro_text_regular"
                 android:id="@+id/text_locations"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_width="0dp"
+                android:fontFamily="@font/sf_pro_text_regular"
                 android:letterSpacing="-0.01"
                 android:text="@string/location"
                 android:textColor="@color/hint_color"
                 android:textSize="@dimen/size14"
                 android:textStyle="normal"
-                app:layout_constraintEnd_toEndOf="@+id/view_locations"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintEnd_toEndOf="@+id/text_location_names"
                 app:layout_constraintStart_toStartOf="@+id/view_locations"
                 app:layout_constraintTop_toTopOf="@+id/view_locations"
                 tools:ignore="TextContrastCheck" />
 
             <TextView
-                android:fontFamily="@font/sf_pro_text_bold"
                 android:id="@+id/text_location_names"
-                android:layout_height="wrap_content"
                 android:layout_width="0dp"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="1sp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/sf_pro_text_bold"
                 android:textColor="@color/black"
                 android:textSize="@dimen/size14"
                 android:textStyle="normal"
-                app:layout_constraintEnd_toEndOf="@+id/view_locations"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintEnd_toStartOf="@+id/txt_date"
                 app:layout_constraintStart_toStartOf="@+id/view_locations"
                 app:layout_constraintTop_toBottomOf="@+id/text_locations"
                 tools:text="Cinescape Al Muhallab" />
 
             <View
                 android:id="@+id/view_date"
-                android:layout_height="70dp"
                 android:layout_width="0dp"
+                android:layout_height="70dp"
                 app:layout_constraintBottom_toBottomOf="@+id/view_locations"
                 app:layout_constraintEnd_toStartOf="@+id/view_times1"
                 app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintStart_toEndOf="@+id/view_locations"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/view_locations" />
 
             <TextView
-                android:fontFamily="@font/sf_pro_text_regular"
                 android:id="@+id/txt_dates"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_width="0dp"
+                android:fontFamily="@font/sf_pro_text_regular"
                 android:text="@string/dateTime"
                 android:textColor="@color/hint_color"
                 android:textSize="@dimen/size14"
                 android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="@+id/view_times1"
-                app:layout_constraintStart_toStartOf="@+id/view_date"
+                app:layout_constraintStart_toStartOf="@+id/txt_date"
                 app:layout_constraintTop_toTopOf="@+id/view_date"
                 tools:ignore="TextContrastCheck" />
 
             <TextView
+                android:id="@+id/txt_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:ellipsize="marquee"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:fontFamily="@font/sf_pro_text_bold"
                 android:freezesText="true"
-                android:id="@+id/txt_date"
-                android:layout_height="wrap_content"
-                android:layout_width="0dp"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="1sp"
                 android:marqueeRepeatLimit="marquee_forever"
@@ -256,7 +244,6 @@
                 android:textSize="@dimen/size14"
                 android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="@+id/view_times1"
-                app:layout_constraintStart_toStartOf="@+id/view_date"
                 app:layout_constraintTop_toBottomOf="@+id/txt_dates"
                 tools:text="01 Aug 2022  03 nov" />
 
@@ -479,8 +466,9 @@
 
             <View
                 android:id="@+id/view_payment_mode_one"
-                android:layout_height="65dp"
                 android:layout_width="0dp"
+                android:layout_height="65dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/view_total_tickect_price_one"
                 app:layout_constraintStart_toStartOf="@+id/seats_list"
                 app:layout_constraintTop_toBottomOf="@+id/seats_list" />

@@ -55,7 +55,6 @@ class FinalTicketParentAdapter(
         }
     }
 
-
     override fun getItemCount(): Int {
         println("homeDataList---"+homeDataList.size)
         return homeDataList.size
@@ -102,6 +101,8 @@ class FinalTicketParentAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
+        println("outputBookingType--->${output.bookingType}--->position--->${position}")
+
         if (output.bookingType == "BOOKING") {
             return if (output.concessionFoods.isEmpty()) {
                 1
@@ -158,7 +159,6 @@ class FinalTicketParentAdapter(
                 holder.onePrice.text= output.totalTicketPrice
             }
             2 -> {
-
 //Two
                 val holderTwo = holder as MyViewHolderTwo
                 holderTwo.twoBookingId.text= output.kioskId

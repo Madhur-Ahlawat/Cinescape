@@ -10,7 +10,7 @@
         android:id="@+id/SeatnestedScroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -225,16 +225,16 @@
                         android:scrollbars="horizontal"
                         tools:ignore="SpeakableTextPresentCheck">
 
-                        <com.cinescape1.utils.ZoomLinearLayout
-                            android:id="@+id/zoom_linear_layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            tools:ignore="ScrollViewSize">
+<!--                        <com.cinescape1.utils.ZoomLinearLayout-->
+<!--                            android:id="@+id/zoom_linear_layout"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:gravity="center"-->
+<!--                            tools:ignore="ScrollViewSize">-->
 
 
-                            <RelativeLayout
+                            <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:id="@+id/innerView"
@@ -243,12 +243,16 @@
 
                                 <TableLayout
                                     android:id="@+id/seat_table"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent" />
 
-                            </RelativeLayout>
+                            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        </com.cinescape1.utils.ZoomLinearLayout>
+<!--                        </com.cinescape1.utils.ZoomLinearLayout>-->
 
                     </HorizontalScrollView>
 

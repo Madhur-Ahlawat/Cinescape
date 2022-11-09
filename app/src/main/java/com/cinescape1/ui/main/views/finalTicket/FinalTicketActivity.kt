@@ -219,6 +219,7 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
 
         binding?.uiFinalTaket?.show()
 
+//        println("output.bookingType--->${output.bookingType}")
         if (output.bookingType == "BOOKING") {
             if (output.concessionFoods.isNotEmpty()) {
                 println("checkCase--->1---New")
@@ -229,10 +230,13 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
             } else {
                 println("checkCase--->2---New")
                 finalTicketLocalModel.add(FinalTicketLocalModel(output.bookingType, 1))
+                finalTicketLocalModel.add(FinalTicketLocalModel(output.bookingType, 3))
+
             }
         } else {
             finalTicketLocalModel.add(FinalTicketLocalModel(output.bookingType, 1))
             finalTicketLocalModel.add(FinalTicketLocalModel(output.bookingType, 2))
+
             println("checkCase--->3---New")
         }
 

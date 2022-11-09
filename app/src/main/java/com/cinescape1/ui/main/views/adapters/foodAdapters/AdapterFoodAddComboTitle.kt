@@ -15,6 +15,7 @@ import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.GetFoodResponse
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
+import com.cinescape1.utils.toast
 import com.google.android.flexbox.FlexboxLayout
 
 class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitleList: List<GetFoodResponse.ComboItem>,
@@ -78,7 +79,7 @@ class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitle
         } else {
             val itemPadding = 2
             //here you may change the divide amount from 2.5 to whatever you need
-            val itemWidth = (screenWidth - itemPadding).div(1.2)
+            val itemWidth = (screenWidth - itemPadding).div(0.5)
             val layoutParams = holder.itemView.layoutParams
             layoutParams.height = layoutParams.height
             layoutParams.width = itemWidth.toInt()
@@ -116,6 +117,8 @@ class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitle
                 textSubAddFoodName.text = item.description
                 holder.foodComboSubtitleList.addView(v)
                 v.setOnClickListener {
+//                    mContext.toast("hell3o")
+
                     val data = it.tag as GetFoodResponse.Item
                     println("foodSelectedItem----"+data.description)
 

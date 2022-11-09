@@ -121,6 +121,7 @@
                 android:id="@+id/view27"
                 android:layout_width="0dp"
                 android:layout_height="75dp"
+                android:layout_marginEnd="8dp"
                 app:layout_constraintBottom_toBottomOf="@+id/view25"
                 app:layout_constraintEnd_toEndOf="@+id/view24"
                 app:layout_constraintHorizontal_weight="2.4"
@@ -140,7 +141,7 @@
                 android:layout_height="33dp">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="104dp"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/sf_pro_text_regular"
                     android:gravity="center"
@@ -166,7 +167,7 @@
                 android:layout_width="106dp"
                 android:layout_height="33dp"
                 android:background="@drawable/card_curv"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/view27"
                 app:layout_constraintEnd_toEndOf="@+id/view27"
                 app:layout_constraintStart_toEndOf="@+id/view25"

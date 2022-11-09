@@ -112,7 +112,7 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:gravity="start"
-                android:maxLines="2"
+                android:maxLines="3"
                 android:textColor="@color/white"
                 android:textSize="@dimen/size14"
                 app:layout_constraintEnd_toStartOf="@+id/viewKd_inc_dec_btn"

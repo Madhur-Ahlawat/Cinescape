@@ -10,7 +10,7 @@
         android:id="@+id/uiFinalTaket"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -140,6 +140,7 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:background="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -147,6 +148,8 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:adjustViewBounds="true"
+                    android:layout_marginEnd="4.5dp"
+                    android:layout_marginStart="4.5dp"
                     android:scaleType="fitXY"
                     android:layout_marginTop="-20dp"
                     android:src="@drawable/ic_subtraction_3_frame"
@@ -172,15 +175,17 @@
                 <ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
                     android:id="@+id/layoutDots"
                     android:layout_width="wrap_content"
-                    android:layout_marginBottom="@dimen/margin15"
                     android:layout_height="@dimen/margin12"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="@dimen/margin15"
                     android:gravity="center"
+                    android:orientation="horizontal"
                     android:padding="6dp"
-                    app:spi_dotSelectedColor="@color/tabIndicater"                    android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerViewFinalTicket"
+                    app:spi_dotSelectedColor="@color/tabIndicater"
                     app:tabBackground="@drawable/indicator_selector"
                     app:tabGravity="center"
                     app:tabIndicatorHeight="0dp"
@@ -204,6 +209,7 @@
             android:id="@+id/view102"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:rotation="180"
             android:background="@drawable/ticket_confirmation_background_image_gradient"
             app:layout_constraintBottom_toBottomOf="@+id/image_head"
             app:layout_constraintEnd_toEndOf="@+id/image_head"
@@ -244,13 +250,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/app_icon"
-                    app:siSquare="true"
-                    app:siArrowPosition="right"
-                    app:siShape="@drawable/curve_ticket"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/view103"
                     app:layout_constraintTop_toTopOf="@+id/view103"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:siArrowPosition="right"
+                    app:siShape="@drawable/curve_ticket"
+                    app:siSquare="true"
                     tools:ignore="ContentDescription" />
 
                 <LinearLayout
