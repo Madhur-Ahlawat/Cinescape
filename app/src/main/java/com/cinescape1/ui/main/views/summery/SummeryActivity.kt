@@ -67,6 +67,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
+@Suppress("DEPRECATION")
 class SummeryActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -85,7 +86,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
     private var transId = ""
     private var broadcastReceiver: BroadcastReceiver? = null
     private var timeCount: Long = 0
-    private var m_sessionID = ""
+    private var mSessionid = ""
     private var refId = ""
     private var VISA_PREFIX = "4"
     private var mContext: Activity = this
@@ -101,10 +102,8 @@ class SummeryActivity : DaggerAppCompatActivity() {
     private var totalPrice = ""
     private var cardinal = Cardinal.getInstance()
     private var clickOffer=1
-    private var giftCard: Boolean = false
-    private var voucher: Boolean = false
     private var secondLeft: Long = 0
-    private var timeExtandClick: Boolean = false
+    private var timeExtendClick: Boolean = false
     private var dialogShow: Long = 60
     private var countDownTimerPrimary: CountDownTimer? = null
 
@@ -136,11 +135,15 @@ class SummeryActivity : DaggerAppCompatActivity() {
             statusBarColor = Color.TRANSPARENT
         }
 
-        println("bookingType---->${type}")
         if (type == "0") {
             textView111?.show()
             textView112?.show()
+
+
             resendTimer()
+        }else{
+            textView111?.invisible()
+            textView112?.invisible()
         }
 
         if (!preferences.getBoolean(Constant.IS_LOGIN)) {
@@ -1125,7 +1128,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
                                                                     request.expirationMonth,
                                                                     request.expirationYear,
                                                                     s,
-                                                                    m_sessionID,
+                                                                    mSessionid,
                                                                     ""
                                                                 )
                                                             )
@@ -1633,7 +1636,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
                 }
 
                 override fun onFinish() {
-                    if (!timeExtandClick) {
+                    if (!timeExtendClick) {
                         Constant.IntentKey.TimerExtand = 90
                         Constant.IntentKey.TimerTime = 360
                         finish()
@@ -1658,7 +1661,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
         dialogView.subtitle.text = getString(R.string.stillHere)
         dialogView.consSure?.setOnClickListener {
             countDownTimerPrimary?.cancel()
-            timeExtandClick = true
+            timeExtendClick = true
             Constant.IntentKey.TimerExtand = 90 + secondLeft
             Constant.IntentKey.TimerExtandCheck = true
             alertDialog.dismiss()
@@ -1755,13 +1758,13 @@ class SummeryActivity : DaggerAppCompatActivity() {
         /*
          * profilingHandle can also be used to cancel this profile if needed *
          * profilingHandle.cancel();
-         * */m_sessionID = sessions1
+         * */mSessionid = sessions1
     }
 
     private class CompletionNotifier : TMXEndNotifier {
         override fun complete(result: TMXProfilingHandle.Result) {
 //            m_sessionID = result.getSessionID();
-            println("SessionId-->${SummeryActivity().m_sessionID}")
+            println("SessionId-->${SummeryActivity().mSessionid}")
             Log.d("ProfilingResults-", "SessionID:" + result.sessionID + "Status:" + result.status)
         }
     }

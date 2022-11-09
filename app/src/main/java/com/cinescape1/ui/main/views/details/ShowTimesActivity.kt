@@ -878,6 +878,8 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 areaCode = item.areacode
                 ttType = item.ttypeCode
                 seatCat = item.seatType
+//                toast("type--2->${seatCat}")
+
                 totalPriceResponse = item.priceInt
                 num = 1
                 txtNumber.text = num.toString()
@@ -979,6 +981,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                                 areaCode = data.areacode
                                 ttType = data.ttypeCode
                                 seatType = data.seatType
+//                                toast("type--1->${seatType}")
                                 totalPriceResponse = data.priceInt
 
                                 if (item.seatTypes.isNotEmpty()) {
