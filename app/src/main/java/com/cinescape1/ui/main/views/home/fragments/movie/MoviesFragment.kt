@@ -294,12 +294,14 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
     }
 
     private fun advanceBooking(advanceBooking: List<MoviesResponse.AdvanceBooking>) {
+        binding?.filterUi?.hide()
         if (advanceBooking.isNullOrEmpty()) {
+            binding?.fragmentMovie?.hide()
             binding?.noData?.show()
         } else {
             binding?.noData?.hide()
-            val gridLayout =
-                GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+            binding?.fragmentMovie?.show()
+            val gridLayout = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
             val adapter = AdvanceBookingAdapter(advanceBooking, requireActivity())
             binding?.fragmentMovie?.layoutManager = gridLayout
             binding?.fragmentMovie?.adapter = adapter
@@ -315,6 +317,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
         val comingSoonList: ArrayList<MoviesResponse.Comingsoon>
         if (comings.size > 0) {
             binding?.noData?.hide()
+            binding?.fragmentMovie?.show()
             binding?.movieLayout?.show()
             comingSoonList = comings
             val adapter = AdapterComingSoon(comings, requireActivity())
@@ -325,6 +328,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             binding?.fragmentMovie?.layoutManager = gridLayout
             binding?.fragmentMovie?.adapter = adapter
             binding?.noData?.show()
+            binding?.fragmentMovie?.hide()
             toast("No movie available!")
         }
     }
@@ -337,6 +341,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
         var comingSoonList: ArrayList<MoviesResponse.Nowshowing>
         if (nowShowing.size > 0) {
             binding?.noData?.hide()
+            binding?.fragmentMovie?.show()
             binding?.movieLayout?.show()
             comingSoonList = nowShowing
             val adapter = AdapterNowShowing(nowShowing, requireActivity())
@@ -382,6 +387,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             binding?.fragmentMovie?.layoutManager = gridLayout
             binding?.fragmentMovie?.adapter = adapter
             binding?.noData?.show()
+            binding?.fragmentMovie?.hide()
             toast("No movie available!")
         }
     }

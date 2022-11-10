@@ -88,7 +88,8 @@
     <string name="similar_movies_now_showing">Similar movies now showing</string>
     <string name="filters">FILTERS</string>
     <string name="showtimes">ShowTimes</string>
-    <string name="choose_your_preferred_location">CHOOSE YOUR PREFERRED LOCATION</string>
+    <string name="movieShowing">Similar movies now showing</string>
+    <string name="choose_your_preferred_location">CHOOSE PREFERRED LOCATION</string>
     <string name="you_can_order_only_for">You can order only for" "</string>
     <string name="today">Today</string>
     <string name="proceed">Proceed</string>

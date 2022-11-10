@@ -353,6 +353,7 @@
     <string name="tickets">Tickets</string>
     <string name="sorry_your_transaction">Sorry, Your transaction</string>
     <string name="advanceBookingTxt">You are booking for an advance date.</string>
+    <string name="movieShowing">Similar movies now showing</string>
 
 
 </resources>

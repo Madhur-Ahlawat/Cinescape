@@ -234,8 +234,8 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
 
             }
         } else {
-            finalTicketLocalModel.add(FinalTicketLocalModel(output.bookingType, 1))
             finalTicketLocalModel.add(FinalTicketLocalModel(output.bookingType, 2))
+            finalTicketLocalModel.add(FinalTicketLocalModel(output.bookingType, 3))
 
             println("checkCase--->3---New")
         }

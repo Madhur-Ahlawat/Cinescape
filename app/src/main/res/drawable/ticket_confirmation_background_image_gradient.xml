@@ -9,11 +9,11 @@
         android:pathData="M0,0h414v310h-414z"/>
     <path
         android:pathData="M0,0h414v310h-414z"
-        android:fillColor="#fff"/>
+        android:fillColor="#00000000"/>
     <path
         android:pathData="M312.79,186.38 L311.13,188.03 316.45,193.35 328.24,181.55 326.6,179.89 316.45,189.98ZM327.07,188.63a9.4,9.4 0,1 1,-6.85 -9.09l1.83,-1.83a10.98,10.98 0,0 0,-4.43 -0.88,11.8 11.8,0 1,0 11.8,11.8Z"
         android:strokeAlpha="0"
-        android:fillColor="#fff"
+        android:fillColor="#00000000"
         android:fillAlpha="0"/>
     <path
         android:pathData="M414,308.44L0,308.44L0,-1.56L414,-1.56Z">

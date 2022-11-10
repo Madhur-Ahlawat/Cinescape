@@ -10,7 +10,7 @@ data class GetMovieResponse(
 ):Serializable{
     data class Output(
         val movie: Movie,
-        val similar: List<Similar>
+        val similar: ArrayList<Similar>
     ):Serializable{
         data class Movie(
             val cast: List<Any>,

@@ -50,6 +50,7 @@ import com.cinescape1.ui.main.views.home.fragments.home.HomeFragment
 import com.cinescape1.ui.main.views.home.fragments.more.MorePageFragment
 import com.cinescape1.ui.main.views.home.fragments.movie.MoviesFragment
 import com.cinescape1.utils.*
+import com.cinescape1.utils.Constant.IntentKey.Companion.DialogShow
 import com.cinescape1.utils.Constant.IntentKey.Companion.OPEN_FROM
 import com.google.android.gms.location.*
 import dagger.android.support.DaggerAppCompatActivity
@@ -301,7 +302,9 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
                                             println("bookings----2>${it.data.output.size}")
                                             binding?.imageView42?.show()
                                         }
-                                        retrieveNextBookedResponse(it.data)
+                                        if (DialogShow){
+                                            retrieveNextBookedResponse(it.data)
+                                        }
                                     } catch (e: Exception) {
                                         println("updateUiCinemaSession ---> ${e.message}")
                                     }
@@ -327,6 +330,7 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
         }
 
         mAlertDialog?.show()
+        DialogShow=false
 
         when (output.output.size) {
             1 -> {

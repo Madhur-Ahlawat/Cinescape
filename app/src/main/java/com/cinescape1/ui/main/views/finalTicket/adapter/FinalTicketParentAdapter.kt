@@ -1,6 +1,7 @@
 package com.cinescape1.ui.main.views.finalTicket.adapter
 
 import android.app.Activity
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,7 +65,7 @@ class FinalTicketParentAdapter(
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         //One
         var oneBookingId = itemView.text_bookin_id_no!!
-        var oneTitle = itemView.text_name_movie!!
+        var oneTitle = itemView.text_film_house_name!!
         var oneRating = itemView.text_types!!
         var oneLocation = itemView.text_location_names!!
         var oneDateTime = itemView.txt_date!!
@@ -105,7 +106,11 @@ class FinalTicketParentAdapter(
 
         if (output.bookingType == "BOOKING") {
             return if (output.concessionFoods.isEmpty()) {
-                1
+                return if (position == 0) {
+                    1
+                } else {
+                    3
+                }
             } else {
                 when (position) {
                     0 -> {
@@ -122,9 +127,9 @@ class FinalTicketParentAdapter(
         } else {
 
             return if (position == 0) {
-                1
-            } else {
                 2
+            } else {
+                3
             }
         }
         return super.getItemViewType(position)
@@ -140,7 +145,8 @@ class FinalTicketParentAdapter(
                 holder.oneBookingId.text = output.kioskId
                 holder.oneTitle.text = output.moviename
                 holder.oneRating.text = output.mcensor
-                holder.oneRating.text = output.mcensor
+                holder.oneRating.setBackgroundColor(Color.parseColor(output.ratingColor))
+
                 holder.oneLocation.text = output.cinemaname
                 holder.oneDateTime.text = output.showDate + " " + output.showTime
                 holder.oneScreen.text = output.screenId

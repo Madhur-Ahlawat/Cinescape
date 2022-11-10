@@ -8,213 +8,236 @@
     android:visibility="visible"
     android:background="@color/black">
 
-    <View
-        android:id="@+id/view20"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/text_cast"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:fontFamily="@font/sf_pro_text_bold"
-        android:text="@string/cast"
-        android:textColor="@color/white"
-        android:textSize="@dimen/size15"
-        app:layout_constraintStart_toStartOf="@+id/view20"
-        app:layout_constraintTop_toTopOf="@+id/view20" />
+    <androidx.core.widget.NestedScrollView
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_show_times_cast"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/text_cast"
-        app:layout_constraintTop_toBottomOf="@+id/text_cast" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <View
+                android:id="@+id/view20"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/view12"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="31dp"
-        app:layout_constraintEnd_toStartOf="@+id/view13"
-        app:layout_constraintHorizontal_weight="3"
-        app:layout_constraintStart_toStartOf="@+id/recyclerview_show_times_cast"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerview_show_times_cast" />
+            <TextView
+                android:id="@+id/text_cast"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/sf_pro_text_bold"
+                android:text="@string/cast"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size15"
+                app:layout_constraintStart_toStartOf="@+id/view20"
+                app:layout_constraintTop_toTopOf="@+id/view20" />
 
-    <View
-        android:id="@+id/view13"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view12"
-        app:layout_constraintEnd_toEndOf="@+id/view20"
-        app:layout_constraintHorizontal_weight="4.3"
-        app:layout_constraintStart_toEndOf="@+id/view12"
-        app:layout_constraintTop_toTopOf="@+id/view12"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/text_director"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/sf_pro_text_bold"
-        android:text="@string/director"
-        android:textColor="@color/white"
-        android:textSize="@dimen/size15"
-        app:layout_constraintEnd_toEndOf="@+id/view12"
-        app:layout_constraintStart_toStartOf="@+id/view20"
-        app:layout_constraintTop_toTopOf="@+id/view12" />
-
-    <TextView
-        android:id="@+id/text_directoe_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/sf_pro_text_regular"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/size16"
-        android:textStyle="normal"
-        app:layout_constraintEnd_toEndOf="@+id/view12"
-        app:layout_constraintStart_toStartOf="@+id/view20"
-        app:layout_constraintTop_toBottomOf="@+id/text_director"
-        tools:text="@string/joy_rayce" />
-
-    <TextView
-        android:id="@+id/text_genre"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/sf_pro_text_bold"
-        android:text="@string/genre"
-        android:textColor="@color/white"
-        android:textSize="@dimen/size15"
-        app:layout_constraintEnd_toEndOf="@+id/view13"
-        app:layout_constraintStart_toStartOf="@+id/view13"
-        app:layout_constraintTop_toTopOf="@+id/view13" />
-
-    <TextView
-        android:id="@+id/text_genres"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/sf_pro_text_regular"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/size15"
-        app:layout_constraintStart_toStartOf="@+id/view13"
-        app:layout_constraintTop_toBottomOf="@+id/text_genre"
-        tools:text="Action, Adventure, Crime" />
-
-    <View
-        android:id="@+id/view21"
-        android:layout_width="0dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="30dp"
-        app:layout_constraintEnd_toEndOf="@+id/view20"
-        app:layout_constraintStart_toStartOf="@+id/view20"
-        app:layout_constraintTop_toBottomOf="@+id/view12" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/sf_pro_text_bold"
-        android:text="@string/languange"
-        android:textColor="@color/white"
-        android:textSize="@dimen/size15"
-        app:layout_constraintStart_toStartOf="@+id/view21"
-        app:layout_constraintTop_toTopOf="@+id/view21" />
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/sf_pro_text_regular"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/size15"
-        app:layout_constraintStart_toStartOf="@+id/view21"
-        app:layout_constraintTop_toBottomOf="@+id/textView8"
-        tools:text="English" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_show_times_cast"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/text_cast"
+                app:layout_constraintTop_toBottomOf="@+id/text_cast" />
 
 
-    <TextView
-        android:id="@+id/text_synopsis"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/sf_pro_text_heavy"
-        android:letterSpacing="-0.01"
-        android:text="@string/synopsis"
-        android:textColor="@color/white"
-        android:textSize="@dimen/size15"
-        android:textStyle="normal"
-        app:layout_constraintEnd_toEndOf="@+id/view20"
-        app:layout_constraintStart_toStartOf="@+id/textView10"
-        app:layout_constraintTop_toBottomOf="@+id/view21" />
+            <View
+                android:id="@+id/view12"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="31dp"
+                app:layout_constraintEnd_toStartOf="@+id/view13"
+                app:layout_constraintHorizontal_weight="3"
+                app:layout_constraintStart_toStartOf="@+id/recyclerview_show_times_cast"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerview_show_times_cast" />
 
-    <TextView
-        android:id="@+id/text_sysnopsis_detail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/sf_pro_text_regular"
-        android:lineSpacingExtra="1.3sp"
-        tools:text="James Bond has left active service. His peace is short-lived when Felix Leiter, an old friend from the CIA, turns up asking for help, leading Bond onto the trail of a mysterious villain armed with dangerous new technology. "
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/size15"
-        app:layout_constraintEnd_toEndOf="@+id/text_synopsis"
-        app:layout_constraintStart_toStartOf="@+id/text_synopsis"
-        app:layout_constraintTop_toBottomOf="@+id/text_synopsis" />
+            <View
+                android:id="@+id/view13"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                app:layout_constraintBottom_toBottomOf="@+id/view12"
+                app:layout_constraintEnd_toEndOf="@+id/view20"
+                app:layout_constraintHorizontal_weight="4.3"
+                app:layout_constraintStart_toEndOf="@+id/view12"
+                app:layout_constraintTop_toTopOf="@+id/view12"
+                app:layout_constraintVertical_bias="1.0" />
 
-    <TextView
-        android:visibility="gone"
-        android:id="@+id/textView6"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:fontFamily="@font/sf_pro_text_heavy"
-        android:letterSpacing="-0.01"
-        android:text="@string/showtimes"
-        android:textColor="@color/white"
-        android:textSize="@dimen/size16"
-        android:textStyle="normal"
-        app:layout_constraintEnd_toEndOf="@+id/text_sysnopsis_detail"
-        app:layout_constraintStart_toStartOf="@+id/text_sysnopsis_detail"
-        app:layout_constraintTop_toBottomOf="@+id/text_sysnopsis_detail" />
+            <TextView
+                android:id="@+id/text_director"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_bold"
+                android:text="@string/director"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size15"
+                app:layout_constraintEnd_toEndOf="@+id/view12"
+                app:layout_constraintStart_toStartOf="@+id/view20"
+                app:layout_constraintTop_toTopOf="@+id/view12" />
 
-    <TextView
-        android:id="@+id/textView122"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/sf_pro_text_bold"
-        android:text="@string/subtitle"
-        android:textColor="@color/white"
-        android:textSize="@dimen/size15"
-        app:layout_constraintEnd_toEndOf="@+id/view21"
-        app:layout_constraintStart_toEndOf="@+id/text_director"
-        app:layout_constraintTop_toTopOf="@+id/view21" />
+            <TextView
+                android:id="@+id/text_directoe_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/size16"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="@+id/view12"
+                app:layout_constraintStart_toStartOf="@+id/view20"
+                app:layout_constraintTop_toBottomOf="@+id/text_director"
+                tools:text="@string/joy_rayce" />
 
-    <TextView
-        android:id="@+id/textView123"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/sf_pro_text_regular"
-        tools:text="@string/joy_rayce"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/size16"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="@+id/view21"
-        app:layout_constraintEnd_toEndOf="@+id/view21"
-        app:layout_constraintStart_toStartOf="@+id/textView122"
-        app:layout_constraintTop_toTopOf="@+id/textView10" />
+            <TextView
+                android:id="@+id/text_genre"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_bold"
+                android:text="@string/genre"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size15"
+                app:layout_constraintEnd_toEndOf="@+id/view13"
+                app:layout_constraintStart_toStartOf="@+id/view13"
+                app:layout_constraintTop_toTopOf="@+id/view13" />
+
+            <TextView
+                android:id="@+id/text_genres"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/size15"
+                app:layout_constraintStart_toStartOf="@+id/view13"
+                app:layout_constraintTop_toBottomOf="@+id/text_genre"
+                tools:text="Action, Adventure, Crime" />
+
+            <View
+                android:id="@+id/view21"
+                android:layout_width="0dp"
+                android:layout_height="65dp"
+                android:layout_marginTop="30dp"
+                app:layout_constraintEnd_toEndOf="@+id/view20"
+                app:layout_constraintStart_toStartOf="@+id/view20"
+                app:layout_constraintTop_toBottomOf="@+id/view12" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_bold"
+                android:text="@string/languange"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size15"
+                app:layout_constraintStart_toStartOf="@+id/view21"
+                app:layout_constraintTop_toTopOf="@+id/view21" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/size15"
+                app:layout_constraintStart_toStartOf="@+id/view21"
+                app:layout_constraintTop_toBottomOf="@+id/textView8"
+                tools:text="English" />
+
+
+            <TextView
+                android:id="@+id/text_synopsis"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/sf_pro_text_heavy"
+                android:letterSpacing="-0.01"
+                android:text="@string/synopsis"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size15"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="@+id/view20"
+                app:layout_constraintStart_toStartOf="@+id/textView10"
+                app:layout_constraintTop_toBottomOf="@+id/view21" />
+
+            <TextView
+                android:id="@+id/text_sysnopsis_detail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:lineSpacingExtra="1.3sp"
+                tools:text="James Bond has left active service. His peace is short-lived when Felix Leiter, an old friend from the CIA, turns up asking for help, leading Bond onto the trail of a mysterious villain armed with dangerous new technology. "
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/size15"
+                app:layout_constraintEnd_toEndOf="@+id/text_synopsis"
+                app:layout_constraintStart_toStartOf="@+id/text_synopsis"
+                app:layout_constraintTop_toBottomOf="@+id/text_synopsis" />
+
+            <TextView
+                android:visibility="visible"
+                android:id="@+id/textView6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/sf_pro_text_heavy"
+                android:letterSpacing="-0.01"
+                android:text="@string/movieShowing"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size16"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="@+id/text_sysnopsis_detail"
+                app:layout_constraintStart_toStartOf="@+id/text_sysnopsis_detail"
+                app:layout_constraintTop_toBottomOf="@+id/text_sysnopsis_detail" />
+
+            <TextView
+                android:id="@+id/textView122"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_bold"
+                android:text="@string/subtitle"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size15"
+                app:layout_constraintEnd_toEndOf="@+id/view21"
+                app:layout_constraintStart_toEndOf="@+id/text_director"
+                app:layout_constraintTop_toTopOf="@+id/view21" />
+
+            <TextView
+                android:id="@+id/textView123"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_regular"
+                tools:text="@string/joy_rayce"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/size16"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toBottomOf="@+id/view21"
+                app:layout_constraintEnd_toEndOf="@+id/view21"
+                app:layout_constraintStart_toStartOf="@+id/textView122"
+                app:layout_constraintTop_toTopOf="@+id/textView10" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/similarShowing"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/text_sysnopsis_detail"
+                app:layout_constraintStart_toStartOf="@+id/text_sysnopsis_detail"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

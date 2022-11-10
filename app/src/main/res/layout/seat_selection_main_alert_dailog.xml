@@ -59,94 +59,99 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0">
-
-                <com.google.android.flexbox.FlexboxLayout
-                    android:id="@+id/select_seat_category"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin15"
-                    android:foregroundGravity="center"
-                    app:alignContent="flex_start"
-                    app:alignItems="flex_start"
-                    app:flexWrap="wrap"
-                    app:flow_horizontalAlign="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/view30" />
-
-                <View
-                    android:id="@+id/view30"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <View
-                    android:id="@+id/view2s_line"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@color/view_bg_color_line"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/select_seat_category" />
-
-                <TextView
-                    android:id="@+id/tv_select_seat_type"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen30"
-                    android:fontFamily="@font/sf_pro_text_bold"
-                    android:gravity="center_horizontal"
-                    android:letterSpacing="-0.01"
-                    android:text="@string/select_seat_type"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/size15"
-                    android:textStyle="bold"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/view2s_line" />
+                app:layout_constraintVertical_bias="1.0"
+                tools:ignore="ExtraText">
+<!--//topCat-->
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/typeView"
+                    android:id="@+id/view2s_line"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:id="@+id/select_seat_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin15"
+                        android:foregroundGravity="center"
+                        app:alignContent="flex_start"
+                        app:alignItems="flex_start"
+                        app:flexWrap="wrap"
+                        app:flow_horizontalAlign="center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/view_bg_color_line"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/select_seat_category" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--//BottomCat-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/bottomCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/dimen30"
                     app:layout_constraintEnd_toEndOf="@+id/view_gift"
                     app:layout_constraintStart_toStartOf="@+id/view_gift"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_select_seat_type">
+                    app:layout_constraintTop_toBottomOf="@+id/view2s_line">
+
+                    <TextView
+                        android:id="@+id/tv_select_seat_type"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen30"
+                        android:fontFamily="@font/sf_pro_text_bold"
+                        android:gravity="center_horizontal"
+                        android:letterSpacing="-0.01"
+                        android:text="@string/select_seat_type"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size15"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
 
                     <com.google.android.flexbox.FlexboxLayout
                         android:id="@+id/select_seat_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen30"
                         android:foregroundGravity="center"
                         app:alignContent="center"
                         app:alignItems="center"
                         app:flexWrap="wrap"
                         app:flow_horizontalAlign="center"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_select_seat_type" />
+
+                    <View
+                        android:id="@+id/vw_line2"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/view_bg_color_line"
+                        android:visibility="visible"
+                        app:layout_constraintTop_toBottomOf="@+id/select_seat_type"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <View
-                    android:id="@+id/vw_line2"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="50dp"
-                    android:background="@color/view_bg_color_line"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/typeView" />
-
+<!--//Seat Qt-->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/vw_ticket_qtyUi"
                     android:layout_width="match_parent"
@@ -155,7 +160,7 @@
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/vw_line2">
+                    app:layout_constraintTop_toBottomOf="@+id/bottomCategory">
 
                     <View
                         android:id="@+id/vw_ticket_qty"
@@ -187,10 +192,10 @@
 
                     <View
                         android:id="@+id/view_increase_decrease"
-                        android:layout_width="140dp"
+                        android:layout_width="120dp"
                         android:layout_height="40dp"
                         android:layout_marginEnd="23dp"
-                        android:background="@drawable/food_item_bg"
+                        android:background="@drawable/seat_cat_item_bg"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_ticket_qty"
                         app:layout_constraintEnd_toEndOf="@+id/vw_ticket_qty"
                         app:layout_constraintTop_toTopOf="@+id/tv_ticket_qty" />
@@ -199,7 +204,7 @@
                         android:id="@+id/text_decrease"
                         android:layout_width="30dp"
                         android:layout_height="32dp"
-                        android:layout_marginStart="5dp"
+                        android:layout_marginStart="0dp"
                         android:adjustViewBounds="true"
                         android:clickable="false"
                         android:enabled="false"
@@ -235,7 +240,7 @@
                         android:padding="@dimen/margin8"
                         android:layout_width="30dp"
                         android:layout_height="32dp"
-                        android:layout_marginEnd="5dp"
+                        android:layout_marginEnd="0dp"
                         android:adjustViewBounds="true"
                         android:backgroundTint="@color/white"
                         android:clickable="false"
@@ -245,7 +250,8 @@
                         app:layout_constraintBottom_toBottomOf="@+id/text_number"
                         app:layout_constraintEnd_toEndOf="@+id/view_increase_decrease"
                         app:layout_constraintStart_toEndOf="@+id/text_number"
-                        app:layout_constraintTop_toTopOf="@+id/text_number" />
+                        app:layout_constraintTop_toTopOf="@+id/text_number"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/tv_total_ticket_price_title"
@@ -396,15 +402,15 @@
                     app:layout_constraintStart_toStartOf="@+id/view38"
                     app:layout_constraintTop_toBottomOf="@+id/view38" />
 
+<!--            Age Rating Condition    -->
                 <View
                     android:id="@+id/vw_category"
                     android:layout_width="0dp"
                     android:layout_height="80dp"
-                    android:layout_marginTop="8dp"
                     android:visibility="visible"
-                    app:layout_constraintEnd_toEndOf="@+id/view30"
-                    app:layout_constraintStart_toStartOf="@+id/view30"
-                    app:layout_constraintTop_toBottomOf="@+id/view39lines" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view_gift" />
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -491,7 +497,7 @@
                     android:textStyle="normal"
                     android:visibility="gone"
                     app:layout_constraintHorizontal_weight=".7"
-                    app:layout_constraintStart_toStartOf="@+id/view30"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/view42lines" />
 
 
