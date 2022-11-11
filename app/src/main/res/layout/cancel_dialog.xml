@@ -8,24 +8,26 @@
 
     <ImageView
         android:id="@+id/imageBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:rotation="180"
         android:src="@drawable/cancel_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/transparent"
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageBackground"
+        app:layout_constraintStart_toStartOf="@+id/imageBackground"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -43,7 +45,7 @@
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="18dp"
             android:gravity="center_horizontal"
             android:text="@string/are_you_sure"
             android:textColor="@color/white"
@@ -58,7 +60,6 @@
             android:id="@+id/subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin8"
             android:gravity="center"
             android:lineSpacingExtra="@dimen/size1"
             android:padding="@dimen/margin10"
@@ -69,21 +70,21 @@
             app:layout_constraintTop_toBottomOf="@id/title" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="45dp"
-            android:layout_marginTop="@dimen/margin8"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="@dimen/margin25"
-            android:orientation="vertical"
             android:gravity="center"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/subtitle">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:orientation="horizontal"
                 tools:ignore="UselessParent">
 
@@ -129,14 +130,13 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/negative_btn"
-                    android:layout_width="87dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="120dp"
+                    android:layout_height="38dp"
                     android:layout_gravity="end"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginEnd="@dimen/margin25"
-                    android:layout_weight="1"
                     android:background="@drawable/btn_corner_bg_red"
                     android:fontFamily="@font/sf_pro_text_bold"
+                    android:paddingStart="30dp"
+                    android:paddingEnd="30dp"
                     android:text="@string/no"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size16"

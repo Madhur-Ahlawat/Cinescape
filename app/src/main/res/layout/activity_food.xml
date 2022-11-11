@@ -140,6 +140,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:gravity="center_horizontal"
+                android:textAllCaps="true"
                 android:text="@string/cancel"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/size12"

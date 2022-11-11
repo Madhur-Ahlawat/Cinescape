@@ -42,8 +42,8 @@ abstract class HomeModule{
     @ContributesAndroidInjector
     abstract fun moreFragment(): MorePageFragment
 
-    @ContributesAndroidInjector
-    abstract fun nowSowingFragment(): NowShowingFragment
+//    @ContributesAndroidInjector
+//    abstract fun nowSowingFragment(): NowShowingFragment
 
 //   @ContributesAndroidInjector
 //    abstract fun comingsoonFragment(): ComingSoonFragment

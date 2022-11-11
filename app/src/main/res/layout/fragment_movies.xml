@@ -8,10 +8,12 @@
     android:background="@color/black">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/movieLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
         android:visibility="visible"
-        android:id="@+id/movieLayout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,32 +30,32 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_marginTop="@dimen/margin5"
                 android:layout_width="match_parent"
-                android:layout_height="60dp">
+                android:layout_height="60dp"
+                android:layout_marginTop="@dimen/margin5">
 
                 <include
-                    android:visibility="gone"
                     android:id="@+id/searchMovieUi"
                     layout="@layout/search_ui"
                     android:layout_width="0dp"
                     android:layout_height="45dp"
                     android:layout_marginStart="@dimen/margin10"
                     android:layout_marginEnd="@dimen/margin10"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:visibility="gone"
                     android:id="@+id/recyclerType"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -140,6 +142,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragmentMovie"
             android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/margin_16"
             android:layout_height="0dp"
             android:animateLayoutChanges="false"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -148,18 +151,18 @@
             app:layout_constraintTop_toBottomOf="@+id/appbar" />
 
         <TextView
+            android:id="@+id/no_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/size20"
-            android:textColor="@color/white"
-            android:id="@+id/no_data"
-            android:visibility="gone"
             android:fontFamily="@font/sfprodisplay_bold"
             android:text="@string/no_movie_available"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size20"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appbar"/>
+            app:layout_constraintTop_toBottomOf="@+id/appbar" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/filterUi"
@@ -167,8 +170,8 @@
             android:layout_height="@dimen/size50"
             android:layout_marginEnd="28dp"
             android:layout_marginBottom="30dp"
-            android:visibility="gone"
             android:background="@drawable/circle_red"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/movieLayout"
             app:layout_constraintEnd_toEndOf="@+id/fragmentMovie"
             tools:ignore="ContentDescription">
@@ -177,11 +180,11 @@
                 android:id="@+id/imageView33"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:src="@drawable/ic_icon_awesome_filter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/ic_icon_awesome_filter" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -463,6 +463,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         text_directoe_name.text = output.movie.director.firstName + " " + output.movie.director.lastName
 
         //Similer Movie
+        similarShowing?.show()
         val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
         similarShowing.layoutManager = LinearLayoutManager(this)
         val adapter = SimilarMovieAdapter(this, output.similar, this)

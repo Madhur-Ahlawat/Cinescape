@@ -11,7 +11,4 @@
         android:bottomRightRadius="@dimen/margin6"
         android:topLeftRadius="@dimen/margin6"
         android:topRightRadius="@dimen/margin6" />
-<!--    <padding-->
-<!--        android:top="@dimen/margin4"-->
-<!--        android:bottom="@dimen/margin4"/>-->
 </shape>

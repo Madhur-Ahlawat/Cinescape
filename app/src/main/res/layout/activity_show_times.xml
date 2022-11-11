@@ -12,7 +12,7 @@
         android:id="@+id/LayoutTime"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <View
             android:id="@+id/view66"
@@ -476,6 +476,7 @@
                 android:textColor="#C1C1C1"
                 android:textSize="@dimen/size13"
                 android:visibility="gone"
+                android:layout_marginTop="@dimen/margin8"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/centerView"

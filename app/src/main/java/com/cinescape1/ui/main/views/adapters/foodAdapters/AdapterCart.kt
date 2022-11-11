@@ -37,10 +37,10 @@ class AdapterCart(
         holder.textNumber.text = cartSelctedItem.foodQuan.toString()
 
         if (cartSelctedItem.title==""){
-            holder.cartComboName.text = cartSelctedItem.title
+            holder.cartComboName.text = cartSelctedItem.title+ " "+cartSelctedItem.foodName+" ( "+cartSelctedItem.foodModifiers+" ) "
             holder.cartComboName.hide()
         }else{
-            holder.cartComboName.text = cartSelctedItem.title
+            holder.cartComboName.text = cartSelctedItem.title + " "+cartSelctedItem.foodName+" ( "+cartSelctedItem.foodModifiers+" ) "
             holder.cartComboName.show()
         }
         Glide.with(mContext)

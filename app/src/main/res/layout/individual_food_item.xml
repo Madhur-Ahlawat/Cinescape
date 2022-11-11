@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/black"
     android:layout_marginTop="@dimen/margin15"
-    android:layout_marginBottom="@dimen/margin15">
+    android:layout_marginBottom="@dimen/margin15"
+    android:background="@color/black">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_now_showing"
@@ -16,6 +16,7 @@
         android:elevation="@dimen/margin2"
         app:cardBackgroundColor="@color/black"
         app:cardElevation="@dimen/margin2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -53,7 +54,7 @@
                 app:layout_constraintHorizontal_weight="4"
                 app:layout_constraintStart_toEndOf="@+id/view26"
                 app:layout_constraintTop_toTopOf="@+id/view26"
-                app:layout_constraintVertical_bias="0.0" >
+                app:layout_constraintVertical_bias="0.0">
 
                 <TextView
                     android:id="@+id/text_combo"
@@ -107,7 +108,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
             <View
                 android:id="@+id/view26"
                 android:layout_width="0dp"
@@ -129,16 +129,16 @@
                 app:layout_constraintTop_toTopOf="@+id/view25" />
 
             <androidx.cardview.widget.CardView
-                app:cardCornerRadius="5dp"
-                android:layout_marginEnd="5dp"
                 android:id="@+id/text_add_btn"
+                android:layout_width="106dp"
+                android:layout_height="33dp"
+                android:layout_marginEnd="5dp"
                 app:cardBackgroundColor="#AD696969"
+                app:cardCornerRadius="5dp"
                 app:layout_constraintBottom_toBottomOf="@+id/view27"
                 app:layout_constraintEnd_toEndOf="@+id/view27"
                 app:layout_constraintStart_toStartOf="@+id/view27"
-                app:layout_constraintTop_toTopOf="@+id/view27"
-                android:layout_width="106dp"
-                android:layout_height="33dp">
+                app:layout_constraintTop_toTopOf="@+id/view27">
 
                 <TextView
                     android:layout_width="104dp"
@@ -152,15 +152,6 @@
 
             </androidx.cardview.widget.CardView>
 
-            <View
-                android:id="@+id/view_lines"
-                android:layout_width="wrap_content"
-                android:layout_height="1dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/view_bg_color_line"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view25" />
 
             <View
                 android:id="@+id/view_increase_decrease"
@@ -222,19 +213,32 @@
                 android:id="@+id/text_item_added"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:gravity="center"
-                android:text=""
                 android:textColor="@color/white"
-                android:layout_marginTop="@dimen/margin15"
                 android:textSize="@dimen/size12"
                 android:textStyle="normal"
                 android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/view27"
                 app:layout_constraintEnd_toEndOf="@+id/view27"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/view25" />
+                app:layout_constraintStart_toEndOf="@+id/view25"
+                app:layout_constraintTop_toBottomOf="@+id/text_add_btn"
+                tools:text="1 item added" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
+    <View
+        android:id="@+id/view_lines"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin10"
+        android:background="@color/view_bg_color_line"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_now_showing" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -47,7 +47,6 @@
                     android:gravity="start"
                     android:letterSpacing="-0.02"
                     android:marqueeRepeatLimit="marquee_forever"
-                    android:maxLines="1"
                     android:scrollHorizontally="true"
                     android:singleLine="true"
                     android:textColor="@color/white"
@@ -382,7 +381,7 @@
                     android:id="@+id/vws_seat_type"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="12dp"
                     app:layout_constraintEnd_toEndOf="@+id/view_selected"
                     app:layout_constraintStart_toStartOf="@+id/view_available"
                     app:layout_constraintTop_toBottomOf="@+id/view_unavailable" />

@@ -20,7 +20,7 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="34dp"
         android:fontFamily="@font/sf_pro_text_bold"
         android:gravity="center_horizontal"
         android:letterSpacing="-0.01"
@@ -75,7 +75,6 @@
                         android:id="@+id/select_seat_category"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin15"
                         android:foregroundGravity="center"
                         app:alignContent="flex_start"
                         app:alignItems="flex_start"
@@ -89,7 +88,7 @@
                     <View
                         android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="24dp"
                         android:background="@color/view_bg_color_line"
                         android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -104,7 +103,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
-                    android:layout_marginTop="@dimen/dimen30"
                     app:layout_constraintEnd_toEndOf="@+id/view_gift"
                     app:layout_constraintStart_toStartOf="@+id/view_gift"
                     app:layout_constraintTop_toBottomOf="@+id/view2s_line">
@@ -131,6 +129,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:foregroundGravity="center"
+                        android:layout_marginTop="@dimen/margin8"
                         app:alignContent="center"
                         app:alignItems="center"
                         app:flexWrap="wrap"
@@ -143,7 +142,7 @@
                         android:id="@+id/vw_line2"
                         android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="24dp"
                         android:background="@color/view_bg_color_line"
                         android:visibility="visible"
                         app:layout_constraintTop_toBottomOf="@+id/select_seat_type"
@@ -155,7 +154,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/vw_ticket_qtyUi"
                     android:layout_width="match_parent"
-                    android:layout_height="106dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -164,8 +163,8 @@
 
                     <View
                         android:id="@+id/vw_ticket_qty"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
                         app:layout_constraintBottom_toTopOf="@+id/view37lines"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -184,21 +183,20 @@
                         android:text="@string/ticket_quantity"
                         android:textColor="@color/white"
                         android:textSize="@dimen/size14"
-                        app:layout_constraintBottom_toBottomOf="@+id/vw_ticket_qty"
+                        app:layout_constraintBottom_toBottomOf="@+id/view_increase_decrease"
                         app:layout_constraintEnd_toStartOf="@+id/view_increase_decrease"
                         app:layout_constraintStart_toStartOf="@+id/vw_ticket_qty"
-                        app:layout_constraintTop_toTopOf="@+id/vw_ticket_qty"
-                        app:layout_constraintVertical_bias="0.233" />
+                        app:layout_constraintTop_toTopOf="@+id/view_increase_decrease" />
 
                     <View
                         android:id="@+id/view_increase_decrease"
-                        android:layout_width="120dp"
-                        android:layout_height="40dp"
+                        android:layout_width="119dp"
+                        android:layout_height="38dp"
+                        android:layout_marginTop="16dp"
                         android:layout_marginEnd="23dp"
                         android:background="@drawable/seat_cat_item_bg"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_ticket_qty"
                         app:layout_constraintEnd_toEndOf="@+id/vw_ticket_qty"
-                        app:layout_constraintTop_toTopOf="@+id/tv_ticket_qty" />
+                        app:layout_constraintTop_toTopOf="@+id/vw_ticket_qty" />
 
                     <ImageView
                         android:id="@+id/text_decrease"
@@ -257,8 +255,9 @@
                         android:id="@+id/tv_total_ticket_price_title"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="24dp"
                         android:layout_marginEnd="12dp"
+                        android:layout_marginBottom="40dp"
                         android:fontFamily="@font/sf_pro_text_regular"
                         android:gravity="center_horizontal"
                         android:letterSpacing="-0.01"
@@ -266,6 +265,7 @@
                         android:textColor="@color/text_color"
                         android:textSize="@dimen/size10"
                         android:textStyle="normal"
+                        app:layout_constraintBottom_toBottomOf="@+id/view37lines"
                         app:layout_constraintEnd_toStartOf="@+id/text_total_t_kd"
                         app:layout_constraintTop_toBottomOf="@+id/view_increase_decrease" />
 
@@ -273,7 +273,7 @@
                         android:id="@+id/text_total_t_kd"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="-8dp"
+                        android:layout_marginEnd="8dp"
                         android:fontFamily="@font/sf_pro_text_bold"
                         android:letterSpacing="-0.02"
                         android:lineSpacingExtra="4.5sp"
@@ -289,11 +289,12 @@
                         android:id="@+id/view37lines"
                         android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="8dp"
                         android:background="@color/view_bg_color_line"
                         android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/vw_ticket_qtyUi"
+                        app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="@+id/vw_ticket_qtyUi" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -416,6 +417,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
                     app:cardBackgroundColor="@color/transparent"
                     app:layout_constraintBottom_toBottomOf="@+id/vw_category"
                     app:layout_constraintEnd_toEndOf="@+id/vw_category"
@@ -765,6 +767,7 @@
             android:id="@+id/text_proceeds"
             android:layout_width="110dp"
             android:layout_height="36dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/btn_corner_bg_red"
             android:fontFamily="@font/sf_pro_text_bold"

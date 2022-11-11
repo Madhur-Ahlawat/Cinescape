@@ -388,7 +388,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             binding?.fragmentMovie?.adapter = adapter
             binding?.noData?.show()
             binding?.fragmentMovie?.hide()
-            toast("No movie available!")
+//            toast("No movie available!")
         }
     }
 

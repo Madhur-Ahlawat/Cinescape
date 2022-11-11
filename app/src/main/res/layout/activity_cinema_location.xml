@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/LayoutTime"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <View
             android:id="@+id/view66"
@@ -428,9 +429,7 @@
                 android:id="@+id/recyclerview_cinema_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="13dp"
                 android:layout_marginTop="@dimen/margin8"
-                android:layout_marginEnd="20dp"
                 android:layout_marginBottom="1dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"

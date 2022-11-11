@@ -12,7 +12,7 @@
         android:layout_width="109dp"
         android:layout_height="155dp"
         android:background="@color/transparent"
-        android:layout_marginBottom="@dimen/margin36"
+        android:layout_marginBottom="14dp"
         app:cardBackgroundColor="@color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

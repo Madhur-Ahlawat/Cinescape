@@ -90,7 +90,7 @@
     <string name="showtimes">ShowTimes</string>
     <string name="movieShowing">Similar movies now showing</string>
     <string name="choose_your_preferred_location">CHOOSE PREFERRED LOCATION</string>
-    <string name="you_can_order_only_for">You can order only for" "</string>
+    <string name="you_can_order_only_for">You can order food only for" "</string>
     <string name="today">Today</string>
     <string name="proceed">Proceed</string>
     <string name="cancel_and_go_back">Cancel and go back</string>
@@ -192,7 +192,7 @@
     <string name="close_">Close" "</string>
     <string name="apply">Apply</string>
     <string name="checkout">Checkout</string>
-    <string name="cart">CART</string>
+    <string name="cart">Cart</string>
     <string name="clear_all_items">Clear All Items</string>
     <string name="food_price">Food price</string>
     <string name="remove">Remove</string>
@@ -204,7 +204,7 @@
     <string name="user_name">User Name</string>
     <string name="wallet">Wallet</string>
     <string name="english">English</string>
-    <string name="cancel_msg">Cancelling will restart the booking process</string>
+    <string name="cancel_msg">Cancelling will reset the booking process</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="emp" />
     <string name="total_food_price">Total Food Price</string>

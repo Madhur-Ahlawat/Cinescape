@@ -582,6 +582,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
         dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
         dialog.window!!.setGravity(Gravity.BOTTOM)
 
+        dialog.subtitle.text= getString(R.string.cancel_msg)
         dialog.show()
 
         dialog.consSure?.setOnClickListener {
