@@ -32,7 +32,7 @@ class OfferAdapter(val mContext: Activity, val movieDataList: ArrayList<HomeData
         val obj = movieDataList[position]
         print("offerData123--->${movieDataList.size}")
         Glide.with(mContext)
-            .load(obj.appImageUrl)
+            .load(obj.appThumbImageUrl)
             .error(R.drawable.placeholder_home_small_poster)
             .into(holder.todoImage)
 

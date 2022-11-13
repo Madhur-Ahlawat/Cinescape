@@ -17,6 +17,9 @@
         app:cardBackgroundColor="@color/black"
         app:cardCornerRadius="@dimen/margin10"
         app:cardElevation="@dimen/margin2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="@dimen/margin20"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -26,8 +29,8 @@
 
             <ImageView
                 android:id="@+id/image_now_showing"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:adjustViewBounds="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -104,7 +104,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:layout_marginEnd="@dimen/margin8"
-                    android:fontFamily="@font/gibson_regular"
+                    android:fontFamily="@font/sf_pro_text_regular"
                     android:textSize="@dimen/size11"
                     android:text="@string/time_left"
                     app:layout_constraintBottom_toBottomOf="@+id/cartTime"

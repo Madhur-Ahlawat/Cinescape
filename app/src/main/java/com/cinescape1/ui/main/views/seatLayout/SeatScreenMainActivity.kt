@@ -658,19 +658,14 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                                                     .putExtra("movieCinemaName", movieCinemaName)
                                                     .putExtra("movieTimeDate", movieTimeDate)
                                                     .putExtra("movieImage", movieImage)
-                                                    .putExtra(
-                                                        "movieType", movieType
-
-                                                    )
-
-                                            )
+                                                    .putExtra("movieType", movieType))
                                             finish()
                                         } else {
                                             startActivity(
                                                 Intent(
                                                     this@SeatScreenMainActivity,
                                                     SummeryActivity::class.java
-                                                ).putExtra("CINEMA_ID", cinemaID)
+                                                     ).putExtra("CINEMA_ID", cinemaID)
                                                     .putExtra("SESSION_ID", sessionID)
                                                     .putExtra("TRANS_ID", it.data.output.transid)
                                             )

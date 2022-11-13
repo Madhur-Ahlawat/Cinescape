@@ -47,7 +47,6 @@
             android:id="@+id/textView81"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/black"
             android:paddingStart="@dimen/margin5"
             android:paddingEnd="@dimen/margin15"
             android:layout_marginTop="47dp"
@@ -297,16 +296,16 @@
                     android:id="@+id/text_switcher"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
                     android:fontFamily="@font/sf_pro_text_regular"
                     android:gravity="center"
                     android:text="English"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size15"
+                    app:layout_constraintBottom_toBottomOf="@+id/image_switcher"
                     app:layout_constraintEnd_toEndOf="@+id/text_club_activate"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/image_switcher"
-                    app:layout_constraintTop_toBottomOf="@+id/text_club_activate"
+                    app:layout_constraintTop_toTopOf="@+id/image_switcher"
                     tools:ignore="HardcodedText" />
 
                 <androidx.appcompat.widget.SwitchCompat
@@ -327,18 +326,16 @@
                     android:id="@+id/text_arabic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginBottom="10dp"
                     android:fontFamily="@font/sf_pro_text_medium"
                     android:gravity="center"
                     android:text="إنجليزي"
                     android:textColor="@color/arabic_color"
                     android:textSize="@dimen/size15"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/image_switcher"
                     app:layout_constraintEnd_toStartOf="@+id/image_switcher"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="@+id/text_club_activate"
-                    app:layout_constraintTop_toBottomOf="@+id/text_club_activate"
+                    app:layout_constraintTop_toTopOf="@+id/image_switcher"
                     tools:ignore="HardcodedText,TextContrastCheck" />
 
                 <TextView
@@ -1019,7 +1016,6 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

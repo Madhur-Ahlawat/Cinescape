@@ -58,7 +58,8 @@ class AdapterCinemaSessionScroll(
             intent.putExtra(Constant.IntentKey.MOVIE_ID, showtimeListItem.movie.id)
             holder.image.context.startActivity(intent)
         }
-        holder.name.isSelected = true
+
+//        holder.name.isSelected = true
         val gridLayout = GridLayoutManager(context, 1, GridLayoutManager.HORIZONTAL, false)
         holder.recyclerView.layoutManager = LinearLayoutManager(context)
         val movieCinemaId = showtimeListItem.movie.id.toString()

@@ -21,7 +21,7 @@ class ComingSoonChildAdapter(val comingSoon: ArrayList<MoviesResponse.ComingSoon
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderNowShowing {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.comming_soon_list, parent, false)
+            .inflate(R.layout.com_soon_item, parent, false)
         return MyViewHolderNowShowing(view)
     }
 
@@ -33,11 +33,6 @@ class ComingSoonChildAdapter(val comingSoon: ArrayList<MoviesResponse.ComingSoon
             .error(R.drawable.pos_not_avilbale)
             .into(holder.thumbnail)
 
-        holder.movieCategory.hide()
-        holder.type.hide()
-        holder.movieTitle.hide()
-        holder.movieTitle.text = comingSoonItem.title
-        holder.movieCategory.text = comingSoonItem.distributorName
 
         holder.thumbnail.setOnClickListener {
             val intent = Intent(holder.thumbnail.context, ShowTimesActivity::class.java)
@@ -52,10 +47,7 @@ class ComingSoonChildAdapter(val comingSoon: ArrayList<MoviesResponse.ComingSoon
     }
 
     class MyViewHolderNowShowing(view: View) : RecyclerView.ViewHolder(view) {
-        var thumbnail: ImageView = view.findViewById(R.id.image_now_showing)
-        var movieTitle: TextView = view.findViewById(R.id.text_movie_title)
-        var movieCategory: TextView = view.findViewById(R.id.text_movie_category)
-        var type: TextView = view.findViewById(R.id.text_movie_type)
+        var thumbnail: ImageView = view.findViewById(R.id.imageView62)
     }
 
     @SuppressLint("NotifyDataSetChanged")

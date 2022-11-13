@@ -46,23 +46,6 @@ class HomeParentAdapter(
         val obj = homeDataList[position]
         holder.homeTitle.text = obj.name
         holder.txtSeeAll.text = mContext.getText(R.string.view_all)
-        holder.search.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                val params: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.MATCH_PARENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT
-                )
-                params.addRule(RelativeLayout.ALIGN_PARENT_END)
-                holder.search.layoutParams = params
-            } else {
-                val params: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.WRAP_CONTENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT
-                )
-                params.addRule(RelativeLayout.ALIGN_PARENT_END)
-                holder.search.layoutParams = params
-            }
-        }
         val movieDataList: ArrayList<HomeDataResponse.MovieData> = obj.movieData
 
 

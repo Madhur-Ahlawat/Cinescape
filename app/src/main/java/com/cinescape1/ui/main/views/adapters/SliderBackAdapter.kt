@@ -17,7 +17,6 @@ import com.cinescape1.utils.Constant
 
 class SliderBackAdapter(private  val mContext: Activity, private var movieData: ArrayList<HomeDataResponse.MovieData>) :
     PagerAdapter() {
-    var pageWidth = 0f
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val inflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val sliderLayout: View = inflater.inflate(R.layout.slider_back, null)
@@ -49,16 +48,6 @@ class SliderBackAdapter(private  val mContext: Activity, private var movieData: 
     override fun isViewFromObject(view: View, o: Any): Boolean {
         return view === o
     }
-
-//    override fun getPageWidth(position: Int): Float {
-//        println("position987--->$position---->$pageWidth")
-//        return pageWidth
-//    }
-//
-//    public fun updatePageWidth(page:Float,position: Int){
-//        pageWidth = page
-//        getPageWidth(position)
-//    }
 
     init {
         this.movieData = movieData

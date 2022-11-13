@@ -13,14 +13,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <View
-            android:id="@+id/view105"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView121"
@@ -32,19 +24,22 @@
             android:fontFamily="@font/sf_pro_text_bold"
             android:textSize="@dimen/size14"
             tools:text="TextView"
-            app:layout_constraintStart_toStartOf="@+id/view105"
-            app:layout_constraintTop_toTopOf="@+id/view105" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerComParent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin16"
+            android:layout_marginBottom="36dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:listitem="@layout/comming_soon_list"
-            android:layout_marginTop="@dimen/margin16"
+            app:layout_constraintTop_toBottomOf="@+id/textView121"
             tools:itemCount="3"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/textView121" />
+            tools:listitem="@layout/com_soon_item" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

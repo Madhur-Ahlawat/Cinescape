@@ -97,7 +97,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     ExperienceAdapter.RecycleViewItemClickListener ,UpcomingBookingAdapter.RecycleViewItemClickListener,UpcomingBookingAdapter.ReesendMailItemClickListener{
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
     @Inject
     lateinit var preferences: AppPreferences
     private var binding: FragmentAccountPageBinding? = null
