@@ -2261,34 +2261,33 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     }
 
     private fun setCancelBackSpan(view: View) {
-        try {
-            val tvCancelBack = view.findViewById<TextView>(R.id.tv_cancel_back)
-            val cancelGoBack = TextUtils.concat(
-                Constant().getSpanableText(
-                    ForegroundColorSpan(getColor(requireContext(), R.color.white)),
-                    ResourcesCompat.getFont(requireContext(), R.font.sf_pro_text_bold)!!,
-                    0,
-                    7,
-                    1.0f,
-                    SpannableString(getString(R.string.cancels))
-                ),
-
-                Constant().getSpanableText(
-                    ForegroundColorSpan(getColor(requireContext(), R.color.hint_color)),
-                    ResourcesCompat.getFont(requireContext(), R.font.sf_pro_text_regular)!!,
-                    0,
-                    11,
-                    .8f,
-                    SpannableString(getString(R.string.and_go_back))
-                )
-
-            )
-
-            tvCancelBack.text = cancelGoBack
-        } catch (e: Exception) {
-
-        }
-
+//        try {
+//            val tvCancelBack = view.findViewById<TextView>(R.id.tv_cancel_back)
+//            val cancelGoBack = TextUtils.concat(
+//                Constant().getSpanableText(
+//                    ForegroundColorSpan(getColor(requireContext(), R.color.white)),
+//                    ResourcesCompat.getFont(requireContext(), R.font.sf_pro_text_bold)!!,
+//                    0,
+//                    7,
+//                    1.0f,
+//                    SpannableString(getString(R.string.cancels))
+//                ),
+//
+//                Constant().getSpanableText(
+//                    ForegroundColorSpan(getColor(requireContext(), R.color.hint_color)),
+//                    ResourcesCompat.getFont(requireContext(), R.font.sf_pro_text_regular)!!,
+//                    0,
+//                    11,
+//                    .8f,
+//                    SpannableString(getString(R.string.and_go_back))
+//                )
+//
+//            )
+//
+//            tvCancelBack.text = cancelGoBack
+//        } catch (e: Exception) {
+//
+//        }
     }
 
     private fun rechargeCard(addClubRechargeRequest: AddClubRechargeRequest) {
@@ -2301,7 +2300,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                             resource.data?.let { it ->
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                     try {
-                                        println("updateUiCinemaSession ---> ${it.data.output}")
                                         if (rechargeType == "cc") {
                                             creditCardInit(
                                                 HmacKnetRequest(

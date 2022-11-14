@@ -14,8 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context=".ui.main.views.login.LoginActivity"
-        tools:ignore="ExtraText">
+        tools:context=".ui.main.views.login.LoginActivity">
 
         <ImageView
             android:id="@+id/imageView"

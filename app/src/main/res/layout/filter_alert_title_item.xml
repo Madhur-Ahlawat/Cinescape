@@ -37,14 +37,13 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:adjustViewBounds="true"
-        android:rotation="180"
         android:contentDescription="@string/contentDes"
         android:paddingStart="@dimen/margin10"
         android:paddingEnd="@dimen/margin10"
         app:layout_constraintBottom_toBottomOf="@+id/text_title_filter"
         app:layout_constraintEnd_toEndOf="@+id/view_titles"
         app:layout_constraintTop_toTopOf="@+id/text_title_filter"
-        app:srcCompat="@drawable/arrow_drop_up" />
+        app:srcCompat="@drawable/arrow_down" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_filter_expand"
@@ -72,6 +71,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/filter_exapands"
+        android:visibility="gone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"

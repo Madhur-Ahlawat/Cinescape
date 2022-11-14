@@ -206,10 +206,11 @@
 
     <ImageView
         android:id="@+id/image_knet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="44dp"
+        android:layout_height="33dp"
         android:layout_marginTop="4dp"
         android:adjustViewBounds="true"
+        android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="@+id/view_knet"
         app:layout_constraintStart_toStartOf="@+id/view_knet"
         app:layout_constraintTop_toTopOf="@+id/view_knet"
@@ -292,46 +293,22 @@
         app:layout_constraintEnd_toEndOf="@+id/view_knet"
         app:layout_constraintTop_toTopOf="@+id/view_knet" />
 
-    <View
-        android:id="@+id/view_cancel_proceed"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="@+id/view30_credit_card"
-        app:layout_constraintStart_toStartOf="@+id/view_gift_cards"
-        app:layout_constraintTop_toBottomOf="@+id/view3_lines" />
-
-    <TextView
-        android:visibility="invisible"
-        android:id="@+id/tv_cancel_back"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/sf_pro_text_regular"
-        android:textColor="@color/text_color"
-        android:text="@string/cancel_and_go_back"
-        android:textSize="@dimen/size16"
-        android:gravity="center"
-        app:layout_constraintHorizontal_weight="2"
-        app:layout_constraintBottom_toBottomOf="@+id/view_cancel_proceed"
-        app:layout_constraintEnd_toStartOf="@+id/Proceed_btnUi"
-        app:layout_constraintStart_toStartOf="@+id/view_cancel_proceed"
-        app:layout_constraintTop_toTopOf="@+id/view_cancel_proceed" />
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/Proceed_btnUi"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="1.6"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_cancel_back"
-        app:layout_constraintEnd_toEndOf="@+id/view_cancel_proceed"
-        app:layout_constraintStart_toEndOf="@+id/tv_cancel_back"
-        app:layout_constraintTop_toTopOf="@+id/tv_cancel_back">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view33_liness">
 
         <TextView
             android:id="@+id/tv_proceed_btn"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin45"
+            android:layout_margin="@dimen/size14"
             android:background="@drawable/curv_bt"
             android:fontFamily="@font/sf_pro_text_bold"
             android:gravity="center"
@@ -339,11 +316,10 @@
             android:text="@string/proceed"
             android:textColor="@color/white"
             android:textSize="@dimen/size16"
-            android:layout_margin="@dimen/size14"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

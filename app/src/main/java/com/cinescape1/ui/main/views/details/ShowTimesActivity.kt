@@ -462,6 +462,16 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         text_sysnopsis_detail.text = output.movie.synopsis
         text_directoe_name.text = output.movie.director.firstName + " " + output.movie.director.lastName
 
+
+        if(type=="comingSoon"){
+            if (output.similar.isEmpty()){
+                textView6.hide()
+            }else{
+                textView6.show()
+            }
+        }else{
+            textView6.hide()
+        }
         //Similer Movie
         similarShowing?.show()
         val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)

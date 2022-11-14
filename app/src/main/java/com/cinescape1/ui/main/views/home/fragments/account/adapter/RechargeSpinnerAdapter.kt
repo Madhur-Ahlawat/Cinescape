@@ -19,7 +19,7 @@ class RechargeSpinnerAdapter(context: Context, private val locationList: List<Re
         val view: View
         val vh: ItemHolder
         if (convertView == null) {
-            view = inflater.inflate(R.layout.food_location, parent, false)
+            view = inflater.inflate(R.layout.recharge_item, parent, false)
             vh = ItemHolder(view)
             view?.tag = vh
         } else {
@@ -27,11 +27,10 @@ class RechargeSpinnerAdapter(context: Context, private val locationList: List<Re
             vh = view.tag as ItemHolder
         }
         vh.label.text = locationList[position].amountStr
-        println("foodAdapter--->${locationList}")
         return view
     }
 
-    override fun getItem(position: Int): Any? {
+    override fun getItem(position: Int): Any {
         return locationList[position]
     }
 

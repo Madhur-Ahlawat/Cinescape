@@ -78,35 +78,6 @@ class AdapterBookingHistory(private val context: Activity, private var bookingHi
         holder.foodPaidby.text=context.resources.getString(R.string.paid_by_club_card)+" "+bookingHistoryItem.payDone
         holder.paidBy.text=context.resources.getString(R.string.paid_by_club_card)+" "+bookingHistoryItem.payDone
 
-//        if (rowIndex == position) {
-//            holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
-//            when (bookingHistoryItem.bookingType) {
-//                "CLUBRECHARGE" -> {
-//                    holder.rechargeUi.show()
-//                    holder.foodUi.hide()
-//                    holder.movieui.hide()
-//                }
-//                "FOOD" -> {
-//                    holder.foodUi.show()
-//                    holder.rechargeUi.hide()
-//                    holder.movieui.hide()
-//                }
-//                "BOOKING" -> {
-//                    holder.foodUi.hide()
-//                    holder.rechargeUi.hide()
-//                    holder.movieui.show()
-//                    if (bookingHistoryItem.concessionFoods.isNotEmpty()){
-//                        holder.foodMUi.show()
-//                    }else{
-//                        holder.foodMUi.hide()
-//                    }
-//                }
-//            }
-//        }else {
-//            holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-//            holder.movieui.hide()
-//        }
-
         holder.itemView.setOnClickListener {
             rowIndex = position
             when (bookingHistoryItem.bookingType) {

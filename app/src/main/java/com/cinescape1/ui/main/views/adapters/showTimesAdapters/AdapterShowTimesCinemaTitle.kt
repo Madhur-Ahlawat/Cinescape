@@ -12,24 +12,44 @@ import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.CinemaSessionResponse
 import com.cinescape1.ui.main.views.adapters.cinemaSessionAdapters.AdapterCinemaSessionDimension
+import com.cinescape1.utils.hide
+import com.cinescape1.utils.show
 
 class AdapterShowTimesCinemaTitle(
-    private var context: Context, private var showTimeTitleList: List<CinemaSessionResponse.ExperienceSession>,
-    val listener: CinemaAdapterListener) : RecyclerView.Adapter<AdapterShowTimesCinemaTitle.MyViewHolderShowTimesTitle>(),
+    private var context: Context,
+    private var showTimeTitleList: List<CinemaSessionResponse.ExperienceSession>,
+    val listener: CinemaAdapterListener
+) : RecyclerView.Adapter<AdapterShowTimesCinemaTitle.MyViewHolderShowTimesTitle>(),
     AdapterCinemaSessionDimension.SessionAdapterListener {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderShowTimesTitle {
         val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.show_times_title_item, parent, false)
+            .inflate(R.layout.show_times_title_item, parent, false)
         return MyViewHolderShowTimesTitle(view)
     }
 
     override fun onBindViewHolder(holder: MyViewHolderShowTimesTitle, position: Int) {
         val showtimeListItem = showTimeTitleList[position]
         holder.textTitle.text = showtimeListItem.experience
+        holder.textTitle.hide()
+        holder.imageCinema.show()
+        println("image--->${showtimeListItem.experienceIcon}")
+        try {
+            Glide.with(context)
+                .load(showtimeListItem.experienceIcon)
+                .into(holder.imageCinema)
+        } catch (e: Exception) {
+            println("exception--->${e.message}")
+        }
 
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL ,false)
+        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         holder.recyclerShowTimeDimensions.layoutManager = layoutManager
-        val adapter = AdapterCinemaSessionDimension(context,showtimeListItem.shows,this,showtimeListItem.experience,position)
+        val adapter = AdapterCinemaSessionDimension(
+            context,
+            showtimeListItem.shows,
+            this,
+            showtimeListItem.experience,
+            position
+        )
         holder.recyclerShowTimeDimensions.adapter = adapter
     }
 
@@ -58,6 +78,7 @@ class AdapterShowTimesCinemaTitle(
     class MyViewHolderShowTimesTitle(view: View) : RecyclerView.ViewHolder(view) {
         var textTitle: TextView = view.findViewById(R.id.txt_title)
         var imageCinema: ImageView = view.findViewById(R.id.imageCinema)
-        val recyclerShowTimeDimensions = view.findViewById<View>(R.id.recyler_time_dimension) as RecyclerView
+        val recyclerShowTimeDimensions =
+            view.findViewById<View>(R.id.recyler_time_dimension) as RecyclerView
     }
 }

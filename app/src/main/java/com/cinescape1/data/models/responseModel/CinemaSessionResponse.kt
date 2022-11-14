@@ -22,6 +22,7 @@ data class CinemaSessionResponse(
 
     data class ExperienceSession(
         val experience: String,
+        val experienceIcon: String,
         val experienceAlt: String,
         val showCount: Int,
         val shows: ArrayList<Show>

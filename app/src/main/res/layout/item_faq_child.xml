@@ -31,7 +31,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="How early can I book a ticket?"/>
+            tools:text="How early can I book a ticket?"
+            app:drawableEndCompat="@drawable/arrow_down" />
 
     </LinearLayout>
 

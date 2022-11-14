@@ -12,8 +12,10 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,19 +24,19 @@
 
         <View
             android:id="@+id/view_booking_id_one"
-            android:layout_height="65dp"
             android:layout_width="0dp"
+            android:layout_height="65dp"
             app:layout_constraintEnd_toStartOf="@+id/view_food_picku_no_one"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:fontFamily="@font/sf_pro_text_regular"
             android:id="@+id/text_bookig_id_one"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_width="0dp"
+            android:fontFamily="@font/sf_pro_text_regular"
             android:text="@string/booking_id"
             android:textColor="@color/text_alert_color"
             android:textSize="@dimen/size15"
@@ -45,11 +47,11 @@
             tools:ignore="TextContrastCheck" />
 
         <TextView
+            android:id="@+id/text_bookin_id_no"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:ellipsize="end"
             android:fontFamily="@font/sf_pro_text_bold"
-            android:id="@+id/text_bookin_id_no"
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
             android:maxLines="2"
             android:textColor="@color/black"
             android:textSize="@dimen/size15"
@@ -61,9 +63,9 @@
 
         <View
             android:id="@+id/view_food_picku_no_one"
+            android:layout_width="0dp"
             android:layout_height="65dp"
             android:layout_marginEnd="4dp"
-            android:layout_width="0dp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/view_booking_id_one"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,11 +74,11 @@
             app:layout_constraintTop_toTopOf="@+id/view_booking_id_one" />
 
         <TextView
-            android:fontFamily="@font/sf_pro_text_regular"
             android:id="@+id/text_food_pickup_no_one"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_width="0dp"
+            android:fontFamily="@font/sf_pro_text_regular"
             android:text="@string/food_pickup_number"
             android:textColor="@color/text_alert_color"
             android:textSize="@dimen/size14"
@@ -88,10 +90,10 @@
             tools:ignore="TextContrastCheck" />
 
         <TextView
-            android:fontFamily="@font/sf_pro_text_bold"
             android:id="@+id/text_how_picup"
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_bold"
             android:letterSpacing="-0.01"
             android:text="@string/how_to_pickup_food"
             android:textColor="@color/text_alert_color_red"
@@ -101,79 +103,79 @@
             app:layout_constraintTop_toBottomOf="@+id/text_bookig_id_one" />
 
         <View
-            android:background="@color/view_bg_color_line"
             android:id="@+id/view_bookin_line_one"
+            android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_marginTop="8dp"
-            android:layout_width="wrap_content"
+            android:background="@color/view_bg_color_line"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_booking_id_one" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/viewUi"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_bookin_line_one">
 
             <View
                 android:id="@+id/views_main"
-                android:layout_height="0dp"
                 android:layout_width="0dp"
+                android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:fontFamily="@font/sf_pro_text_bold"
                 android:id="@+id/text_name_movie"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin8"
-                android:layout_marginTop="12dp"
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="@dimen/margin8"
+                android:fontFamily="@font/sf_pro_text_bold"
                 android:textColor="@color/black"
                 android:textSize="@dimen/size18"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/txt_screen1"
                 app:layout_constraintTop_toTopOf="@+id/views_main"
-                tools:text="Bombshell" >
+                tools:text="Bombshell">
 
                 <com.google.android.flexbox.FlexboxLayout
                     android:id="@+id/linearLayout2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:alignContent="flex_start"
                     app:alignItems="flex_start"
                     app:flexWrap="nowrap"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:showDivider="middle">
 
                     <TextView
                         android:id="@+id/text_film_house_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_minWidth="50dp"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/size18"
                         android:ellipsize="end"
                         android:fontFamily="@font/sf_pro_text_heavy"
                         android:gravity="start"
-                        tools:text="klkllkm "/>
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size18"
+                        app:layout_minWidth="50dp"
+                        tools:text="klkllkm " />
 
                     <LinearLayout
                         android:id="@+id/constraintLayout18"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:maxLines="1"
+                        android:layout_marginStart="8dp"
                         android:layout_marginTop="@dimen/margin5"
                         android:ellipsize="end"
+                        android:maxLines="1"
                         android:minWidth="50dp"
-                        android:layout_marginStart="8dp"
                         app:layout_minWidth="50dp">
 
                         <androidx.cardview.widget.CardView
@@ -298,8 +300,8 @@
 
             <View
                 android:id="@+id/view_times1"
-                android:layout_height="70dp"
                 android:layout_width="0dp"
+                android:layout_height="70dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/view_date"
                 app:layout_constraintEnd_toEndOf="@+id/views_main"
@@ -310,11 +312,11 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:fontFamily="@font/sf_pro_text_regular"
                 android:id="@+id/texts_time"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_width="0dp"
+                android:fontFamily="@font/sf_pro_text_regular"
                 android:text="@string/time"
                 android:textColor="@color/hint_color"
                 android:textSize="@dimen/size14"
@@ -326,10 +328,10 @@
                 app:layout_constraintTop_toTopOf="@+id/view_times1" />
 
             <TextView
-                android:fontFamily="@font/sf_pro_text_bold"
                 android:id="@+id/text_times2"
-                android:layout_height="wrap_content"
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_bold"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="1sp"
                 android:textColor="@color/black"
@@ -343,20 +345,20 @@
 
             <View
                 android:id="@+id/views_screen"
+                android:layout_width="0dp"
                 android:layout_height="75dp"
                 android:layout_marginTop="8dp"
-                android:layout_width="0dp"
                 app:layout_constraintEnd_toStartOf="@+id/view_category"
                 app:layout_constraintHorizontal_weight="3"
                 app:layout_constraintStart_toStartOf="@+id/view_locations"
                 app:layout_constraintTop_toBottomOf="@+id/view_locations" />
 
             <TextView
-                android:fontFamily="@font/sf_pro_text_regular"
                 android:id="@+id/txt_screen1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_width="0dp"
+                android:fontFamily="@font/sf_pro_text_regular"
                 android:text="@string/screen"
                 android:textColor="@color/hint_color"
                 android:textSize="@dimen/size14"
@@ -367,14 +369,14 @@
                 tools:ignore="TextContrastCheck" />
 
             <TextView
-                android:fontFamily="@font/sf_pro_text_bold"
                 android:id="@+id/txt_scrrens"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_bold"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="1sp"
-                android:paddingEnd="@dimen/margin30"
                 android:paddingStart="0dp"
+                android:paddingEnd="@dimen/margin30"
                 android:textColor="@color/black"
                 android:textSize="@dimen/size15"
                 app:layout_constraintEnd_toStartOf="@+id/tv_screenx"
@@ -383,10 +385,10 @@
                 tools:text="@string/_9" />
 
             <TextView
-                android:fontFamily="@font/sf_pro_text_bold"
                 android:id="@+id/tv_screenx"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_bold"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="1sp"
                 android:textColor="@color/black"
@@ -400,11 +402,11 @@
                 tools:text="@string/screenx" />
 
             <TextView
-                android:fontFamily="@font/sf_pro_text_regular"
                 android:id="@+id/txt_seats"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_width="0dp"
+                android:fontFamily="@font/sf_pro_text_regular"
                 android:text="@string/seats"
                 android:textColor="@color/hint_color"
                 android:textSize="@dimen/size14"
@@ -417,9 +419,9 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/seats_list"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:layout_width="0dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="@+id/txt_seats"
@@ -430,20 +432,20 @@
 
             <View
                 android:id="@+id/view_cancel_resevation"
+                android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="8dp"
-                android:layout_width="0dp"
                 android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@+id/view_resend_mail"
                 app:layout_constraintStart_toStartOf="@+id/seats_list"
                 app:layout_constraintTop_toBottomOf="@+id/seats_list" />
 
             <ImageView
+                android:id="@+id/image_trash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/contentDes"
-                android:id="@+id/image_trash"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/view_cancel_resevation"
                 app:layout_constraintEnd_toStartOf="@+id/text_cancel_reserve"
@@ -452,11 +454,11 @@
                 app:srcCompat="@drawable/ic_icon_feather_trash_2" />
 
             <TextView
-                android:fontFamily="@font/sf_pro_text_regular"
                 android:id="@+id/text_cancel_reserve"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_width="wrap_content"
+                android:fontFamily="@font/sf_pro_text_regular"
                 android:lineSpacingExtra="0sp"
                 android:shadowColor="#14455b63"
                 android:shadowDx="0"
@@ -473,8 +475,8 @@
 
             <View
                 android:id="@+id/view_resend_mail"
-                android:layout_height="60dp"
                 android:layout_width="0dp"
+                android:layout_height="60dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/view_cancel_resevation"
                 app:layout_constraintEnd_toEndOf="@+id/seats_list"
@@ -483,12 +485,12 @@
                 app:layout_constraintVertical_bias="1.0" />
 
             <ImageView
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/contentDes"
                 android:id="@+id/image_mail"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:layout_width="wrap_content"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/contentDes"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/text_resent_mail"
                 app:layout_constraintEnd_toStartOf="@+id/text_resent_mail"
@@ -496,10 +498,10 @@
                 app:srcCompat="@drawable/ic_icon_feather_mail" />
 
             <TextView
-                android:fontFamily="@font/sf_pro_text_regular"
                 android:id="@+id/text_resent_mail"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_regular"
                 android:lineSpacingExtra="0sp"
                 android:shadowColor="#14455b63"
                 android:shadowDx="0"
@@ -524,18 +526,18 @@
 
             <View
                 android:id="@+id/view_total_tickect_price_one"
-                android:layout_height="65dp"
                 android:layout_width="0dp"
+                android:layout_height="65dp"
                 app:layout_constraintEnd_toEndOf="@+id/seats_list"
                 app:layout_constraintStart_toEndOf="@+id/view_payment_mode_one"
                 app:layout_constraintTop_toTopOf="@+id/view_payment_mode_one" />
 
             <TextView
-                android:fontFamily="@font/sf_pro_text_regular"
                 android:id="@+id/text_payment_mode"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_width="0dp"
+                android:fontFamily="@font/sf_pro_text_regular"
                 android:text="@string/payment_mode"
                 android:textColor="@color/hint_color"
                 android:textSize="@dimen/size14"
@@ -547,10 +549,10 @@
                 tools:ignore="TextContrastCheck" />
 
             <TextView
-                android:fontFamily="@font/sf_pro_text_bold"
                 android:id="@+id/text_wallet"
-                android:layout_height="wrap_content"
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_bold"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="1sp"
                 android:textColor="@color/black"
@@ -561,11 +563,11 @@
                 tools:text="Wallet" />
 
             <TextView
-                android:fontFamily="@font/sf_pro_text_regular"
                 android:id="@+id/text_total_ticket_price"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_width="0dp"
+                android:fontFamily="@font/sf_pro_text_regular"
                 android:text="@string/total_ticket_price"
                 android:textColor="@color/hint_color"
                 android:textSize="@dimen/size14"
@@ -577,10 +579,10 @@
                 tools:ignore="TextContrastCheck" />
 
             <TextView
-                android:fontFamily="@font/sf_pro_text_bold"
                 android:id="@+id/text_kd_total_ticket_price"
-                android:layout_height="wrap_content"
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_bold"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="1sp"
                 android:textColor="@color/black"
@@ -593,8 +595,8 @@
 
             <View
                 android:id="@+id/view_category"
-                android:layout_height="75dp"
                 android:layout_width="0dp"
+                android:layout_height="75dp"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@+id/views_screen"
                 app:layout_constraintEnd_toEndOf="@+id/view_times1"
@@ -603,11 +605,11 @@
                 app:layout_constraintTop_toTopOf="@+id/views_screen" />
 
             <TextView
-                android:fontFamily="@font/sf_pro_text_regular"
                 android:id="@+id/tv_category_title"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_width="0dp"
+                android:fontFamily="@font/sf_pro_text_regular"
                 android:text="@string/category"
                 android:textColor="@color/hint_color"
                 android:textSize="@dimen/size14"
@@ -619,15 +621,15 @@
                 tools:ignore="TextContrastCheck" />
 
             <TextView
+                android:id="@+id/categoryName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:ellipsize="marquee"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:fontFamily="@font/sf_pro_text_bold"
                 android:freezesText="true"
-                android:id="@+id/categoryName"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_width="0dp"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="1sp"
                 android:marqueeRepeatLimit="marquee_forever"
@@ -645,8 +647,8 @@
 
             <View
                 android:id="@+id/view93"
-                android:layout_height="0dp"
                 android:layout_width="0dp"
+                android:layout_height="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -656,9 +658,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout10"
+            android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_marginBottom="10dp"
-            android:layout_width="match_parent"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -667,8 +669,8 @@
 
             <View
                 android:id="@+id/view8"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -679,8 +681,8 @@
 
             <ImageView
                 android:id="@+id/imageView27"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/view8"
@@ -690,9 +692,9 @@
 
             <ImageView
                 android:id="@+id/imageView28"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
-                android:layout_width="wrap_content"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/view8"
                 app:layout_constraintTop_toTopOf="@+id/view8"
@@ -701,8 +703,8 @@
 
             <ImageView
                 android:id="@+id/imageView29"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/view8"
                 app:layout_constraintEnd_toStartOf="@+id/imageView28"
@@ -713,9 +715,9 @@
 
 
             <LinearLayout
-                android:gravity="center_vertical"
-                android:layout_height="0dp"
                 android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:visibility="gone"
                 android:weightSum="3"
@@ -725,13 +727,13 @@
                 app:layout_constraintTop_toTopOf="@+id/view8">
 
                 <TextView
-                    android:drawablePadding="@dimen/margin8"
-                    android:fontFamily="@font/sf_pro_text_regular"
                     android:id="@+id/textView48"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1.05"
-                    android:layout_width="0dp"
+                    android:drawablePadding="@dimen/margin8"
+                    android:fontFamily="@font/sf_pro_text_regular"
                     android:text="@string/cancelReservation"
                     android:textColor="@color/black"
                     android:textSize="@dimen/size14"
@@ -739,13 +741,13 @@
                     app:drawableStartCompat="@drawable/ic_delete" />
 
                 <TextView
-                    android:drawablePadding="@dimen/margin8"
-                    android:fontFamily="@font/sf_pro_text_regular"
                     android:id="@+id/textView49"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_weight="0.9"
-                    android:layout_width="0dp"
+                    android:drawablePadding="@dimen/margin8"
+                    android:fontFamily="@font/sf_pro_text_regular"
                     android:text="@string/addFood"
                     android:textColor="@color/black"
                     android:textSize="@dimen/size14"
@@ -753,13 +755,13 @@
                     app:drawableStartCompat="@drawable/food" />
 
                 <TextView
-                    android:drawablePadding="@dimen/margin8"
-                    android:fontFamily="@font/sf_pro_text_regular"
                     android:id="@+id/textView50"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
-                    android:layout_width="0dp"
+                    android:drawablePadding="@dimen/margin8"
+                    android:fontFamily="@font/sf_pro_text_regular"
                     android:text="@string/resendEmail"
                     android:textColor="@color/black"
                     android:textSize="@dimen/size14"
@@ -773,10 +775,10 @@
 
 
         <View
-            android:background="@color/text_alert_color_red"
+            android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="-3dp"
-            android:layout_width="0dp"
+            android:background="@color/text_alert_color_red"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="@+id/text_how_picup"
             app:layout_constraintStart_toEndOf="@+id/text_bookin_id_no"

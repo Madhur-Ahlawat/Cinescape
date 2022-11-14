@@ -23,18 +23,18 @@
             android:textColor="@color/head_title"
             android:textSize="@dimen/size18"
             android:textStyle="normal"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Cinescape 360" />
 
         <ImageView
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/imageCinema"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_title"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/margin35"
             android:src="@drawable/img_4dx"
             android:adjustViewBounds="true"
             tools:ignore="ContentDescription" />
@@ -43,13 +43,13 @@
             android:id="@+id/recyler_time_dimension"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_title" />
+            app:layout_constraintTop_toBottomOf="@+id/imageCinema" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

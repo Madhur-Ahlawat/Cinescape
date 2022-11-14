@@ -66,31 +66,48 @@ class FaqChildAdapter(
 
 
 
-        if(rowIndex==position){
-            holder.todoTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                0,
-                0,
-                R.drawable.arrow_up,
-                0
-            )
-            holder.desc.show()
-
-        }else{
-            holder.todoTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                0,
-                0,
-                R.drawable.arrow_down,
-                0
-            )
-            holder.desc.hide()
-        }
+//        if(rowIndex==position){
+//            holder.todoTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(
+//                0,
+//                0,
+//                R.drawable.arrow_up,
+//                0
+//            )
+//            holder.desc.show()
+//
+//        }else{
+//            holder.todoTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(
+//                0,
+//                0,
+//                R.drawable.arrow_down,
+//                0
+//            )
+//            holder.desc.hide()
+//        }
         holder.todoTitle.setOnClickListener {
-            rowIndex = if (position==rowIndex){
-                -1
-            }else {
-                position
+            if (holder.desc.visibility==View.GONE){
+                holder.todoTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.arrow_up,
+                    0
+                )
+                holder.desc.show()
+            }else{
+                holder.todoTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.arrow_down,
+                    0
+                )
+                holder.desc.hide()
             }
-            notifyDataSetChanged()
+//            rowIndex = if (position==rowIndex){
+//                -1
+//            }else {
+//                position
+//            }
+//            notifyDataSetChanged()
         }
     }
 

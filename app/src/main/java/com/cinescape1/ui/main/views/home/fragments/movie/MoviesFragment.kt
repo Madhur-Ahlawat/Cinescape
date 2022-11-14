@@ -450,7 +450,6 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
                     if (data.selectedList.contains(crossItem))
                         data.selectedList.remove(crossItem)
                     for (item in data.selectedList) {
-                        println("hhhhhhh---$item")
                         list1.add(item.split("-")[1])
                         list11.add(item)
                     }
@@ -810,7 +809,6 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
                             timing_data
                         )
                     )
-//                    advanceBooking(moviesResponse?.output?.advanceBooking!!)
                 } catch (e: Exception) {
                     println("Exception--->${e.message}")
                 }
