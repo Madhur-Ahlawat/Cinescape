@@ -28,11 +28,11 @@ class ZoomLinearLayout : LinearLayout, OnScaleGestureListener {
     private var prevDy = 0f
 
     constructor(context: Context?) : super(context) {
-        init(context)
+        init(context!!)
     }
 
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
-        init(context)
+        init(context!!)
     }
 
     constructor(context: Context?, attrs: AttributeSet?, defStyle: Int) : super(
@@ -40,11 +40,11 @@ class ZoomLinearLayout : LinearLayout, OnScaleGestureListener {
         attrs,
         defStyle
     ) {
-        init(context)
+        init(context!!)
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    fun init(context: Context?) {
+    fun init(context: Context) {
         val scaleDetector = ScaleGestureDetector(context, this)
         setOnTouchListener { _: View?, motionEvent: MotionEvent ->
             when (motionEvent.action and MotionEvent.ACTION_MASK) {

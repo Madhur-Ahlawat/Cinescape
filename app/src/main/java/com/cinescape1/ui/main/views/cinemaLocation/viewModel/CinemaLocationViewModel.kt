@@ -1,4 +1,4 @@
-package com.cinescape1.ui.main.views.home.fragments.home.cinemaLocation.viewModel
+package com.cinescape1.ui.main.views.cinemaLocation.viewModel
 
 import android.app.Activity
 import androidx.lifecycle.ViewModel

@@ -13,7 +13,7 @@ import com.cinescape1.ui.main.views.finalTicket.module.FinalTicketModule
 import com.cinescape1.ui.main.views.food.FoodActivity
 import com.cinescape1.ui.main.views.food.module.FoodModule
 import com.cinescape1.ui.main.views.home.HomeActivity
-import com.cinescape1.ui.main.views.home.fragments.home.cinemaLocation.CinemaLocationActivity
+import com.cinescape1.ui.main.views.cinemaLocation.CinemaLocationActivity
 import com.cinescape1.ui.main.views.home.fragments.home.offerDetails.OfferDetailsActivity
 import com.cinescape1.ui.main.views.login.LoginActivity
 import com.cinescape1.ui.main.views.login.resetPassword.ResetPasswordActivity

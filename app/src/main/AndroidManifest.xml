@@ -39,7 +39,7 @@
             android:name=".ui.main.views.payment.paymentFaield.PaymentFailedActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.main.views.home.fragments.home.cinemaLocation.CinemaLocationActivity"
+            android:name=".ui.main.views.cinemaLocation.CinemaLocationActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Cinescape.NoActionBar"

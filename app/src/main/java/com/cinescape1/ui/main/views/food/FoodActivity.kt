@@ -217,10 +217,12 @@ class FoodActivity : DaggerAppCompatActivity(),
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.cancel_dialog)
+
         dialog.window!!.setLayout(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
+
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
         dialog.window!!.setGravity(Gravity.BOTTOM)

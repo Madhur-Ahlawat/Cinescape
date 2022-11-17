@@ -347,5 +347,8 @@
     <string name="enter_voucher_code">Enter voucher number</string>
     <string name="enter_gift_card">Enter gift card number</string>
     <string name="enter_promo_code">Enter promo code</string>
+    <string name="edit_password">Edit Password</string>
+    <string name="change_password">Change Password</string>
+    <string name="old_password">Old Password</string>
 
 </resources>

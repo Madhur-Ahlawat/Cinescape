@@ -456,120 +456,6 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
         }
     }
 
-//    private fun createRows(output: SeatLayoutResponse.Output) {
-//        binding?.SeatnestedScroll?.show()
-//        binding?.constraintLayout4?.show()
-//        try {
-//            for (row in output.rows) {
-//                val trow = TableRow(this)
-//                val lp = TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT)
-//                trow.layoutParams = lp
-//                trow.gravity = Gravity.CENTER_VERTICAL
-//                val text1 = TextView(this)
-//                text1.setTextColor(ContextCompat.getColor(this, R.color.text_color))
-//                text1.gravity = Gravity.FILL_VERTICAL
-//                text1.setPadding(5, 5, 5, 5)
-//                text1.text = row.name
-//                text1.textSize = 18f
-//
-//                val lp1 = TableRow.LayoutParams(
-//                    TableRow.LayoutParams.WRAP_CONTENT,
-//                    TableRow.LayoutParams.WRAP_CONTENT
-//                )
-//                // LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams((int) getResources().getDimension(R.dimen._30sdp), LinearLayout.LayoutParams.WRAP_CONTENT);
-//                lp1.setMargins(10, 15, 10, 10)
-//                text1.layoutParams = lp1
-//                trow.addView(text1)
-//                var seatBtn: TextView
-//
-//                for (seatItem in row.seats) {
-//                    seatBtn = TextView(this)
-//                    seatBtn.tag = seatItem
-//                    val layoutParams = TableRow.LayoutParams(
-//                        TableRow.LayoutParams.WRAP_CONTENT,
-//                        TableRow.LayoutParams.WRAP_CONTENT
-//                    )
-//                    // LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams((int) getResources().getDimension(R.dimen._30sdp), LinearLayout.LayoutParams.WRAP_CONTENT);
-//                    layoutParams.setMargins(10, 10, 10, 10)
-//                    seatBtn.textSize = 12f
-//                    seatBtn.layoutParams = layoutParams
-//                    seatBtn.gravity = Gravity.CENTER_HORIZONTAL
-//                    seatBtn.setTextColor(Color.BLACK)
-//                    seatBtn.text = seatItem.seatnumber
-//                    seatBtn.setBackgroundResource(R.drawable.ic_available)
-//                    if (areaCode == seatItem.areacode) {
-//                        seatBtn.show()
-//                    } else {
-//                        seatBtn.hide()
-//                    }
-//                    if (seatItem.display) {
-//                        seatBtn.show()
-//                        when (seatItem.status) {
-//                            "SOLD" -> {
-//                                seatBtn.setBackgroundResource(R.drawable.ic_not_available)
-//                                seatBtn.isEnabled = false
-//                                seatBtn.isClickable = false
-//                            }
-//                            "EMPTY" -> {
-//                                if (areaCode == seatItem.areacode) {
-//                                    seatBtn.setBackgroundResource(R.drawable.ic_available)
-//                                    seatBtn.isEnabled = true
-//                                    seatBtn.isClickable = true
-//                                } else {
-//                                    seatBtn.setBackgroundResource(R.drawable.ic_not_available)
-//                                    seatBtn.isEnabled = false
-//                                    seatBtn.isClickable = false
-//                                }
-//                            }
-//                        }
-//                    } else {
-//                        seatBtn.invisible()
-//                    }
-//                    trow.addView(seatBtn)
-//                    seatBtn.setOnClickListener {
-//                        val seatData = it.tag as SeatLayoutResponse.SeatVO
-//                        val image = it as TextView
-//                        if (seatData.selected) {
-//                            image.setBackgroundResource(R.drawable.ic_available)
-//                            image.setTextColor(getColor(R.color.black))
-//                            seatData.selected = false
-//                            passingValArrayList.remove(ReserveSeatRequest.ReseveSeatVO(seatData.passingValue))
-//
-//                            seatQt -= 1
-//                        } else {
-//                            val seatSize = passingValArrayList.size
-//                            if (seatQuantity == seatSize) {
-//                                val dialog = OptionDialog(this,
-//                                    R.mipmap.ic_launcher,
-//                                    R.string.app_name,
-//                                    getString(R.string.selectSeatQt) + " " + seatQuantity,
-//                                    positiveBtnText = R.string.ok,
-//                                    negativeBtnText = R.string.no,
-//                                    positiveClick = {
-//                                    },
-//                                    negativeClick = {
-//                                    })
-//                                dialog.show()
-//                            } else {
-//                                image.setBackgroundResource(R.drawable.ic_selected)
-//                                seatData.selected = true
-//                                passingValArrayList.add(ReserveSeatRequest.ReseveSeatVO(seatData.passingValue))
-//                                seatQt += 1
-//                                image.setTextColor(getColor(R.color.white))
-//                            }
-//                        }
-//                    }
-//                }
-//
-//                binding?.seatTable?.addView(trow)
-//
-//            }
-//        } catch (e: Exception) {
-//            println("CheckException--->${e.message}")
-//            e.printStackTrace()
-//        }
-//    }
-
     private fun cancelDialog() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -745,7 +631,6 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
     }
 
     @SuppressLint("CutPasteId")
-
     private fun broadcastIntent() {
         registerReceiver(broadcastReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
     }

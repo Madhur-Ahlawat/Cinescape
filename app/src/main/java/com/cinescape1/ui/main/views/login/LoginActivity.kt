@@ -132,18 +132,96 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
-//                preferences.putString(Constant.IntentKey.LANGUAGE, "ar")
-
                 binding?.imageSwitcher?.isChecked = false
+                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
+                val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
+                val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
+                //skip
+                binding?.textView81?.typeface = bold
+                //sign in
+                binding?.textView2?.typeface = bold
+                //sign up
+                binding?.textView108?.typeface = regular
+                //forgot password
+                binding?.txtForgotPassword?.typeface = bold
+                //btn Sign in
+                binding?.btnSignIn?.typeface = bold
+                //Continue in
+                binding?.txtContinueGuest?.typeface = regular
+                //guest
+                binding?.guest?.typeface = bold
+                //or
+                binding?.textOr?.typeface = regular
+                // club Card
+                binding?.clubCard?.typeface = regular
+                //Activate
+                binding?.activate?.typeface = bold
+                //English
+                binding?.textSwitcher?.typeface = regular
                 println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
             }
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(this, "en")
-//                preferences.putString(Constant.IntentKey.LANGUAGE, "en")
                 binding?.imageSwitcher?.isChecked = true
+
+                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+
+                //skip
+                binding?.textView81?.typeface = bold
+                //sign in
+                binding?.textView2?.typeface = bold
+                //sign up
+                binding?.textView108?.typeface = regular
+                //forgot password
+                binding?.txtForgotPassword?.typeface = bold
+                //btn Sign in
+                binding?.btnSignIn?.typeface = bold
+                //Continue in
+                binding?.txtContinueGuest?.typeface = regular
+                //guest
+                binding?.guest?.typeface = bold
+                //or
+                binding?.textOr?.typeface = regular
+                // club Card
+                binding?.clubCard?.typeface = regular
+                //Activate
+                binding?.activate?.typeface = bold
+                //English
+                binding?.textSwitcher?.typeface = regular
+
             }
             else -> {
                 binding?.imageSwitcher?.isChecked = true
+
+                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+
+                //skip
+                binding?.textView81?.typeface = bold
+                //sign in
+                binding?.textView2?.typeface = bold
+                //sign up
+                binding?.textView108?.typeface = regular
+                //forgot password
+                binding?.txtForgotPassword?.typeface = bold
+                //btn Sign in
+                binding?.btnSignIn?.typeface = bold
+                //Continue in
+                binding?.txtContinueGuest?.typeface = regular
+                //guest
+                binding?.guest?.typeface = bold
+                //or
+                binding?.textOr?.typeface = regular
+                // club Card
+                binding?.clubCard?.typeface = regular
+                //Activate
+                binding?.activate?.typeface = bold
+                //English
+                binding?.textSwitcher?.typeface = regular
+
             }
         }
         setContentView(view)

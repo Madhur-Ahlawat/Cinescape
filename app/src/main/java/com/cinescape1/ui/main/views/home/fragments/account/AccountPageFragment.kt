@@ -16,17 +16,13 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Looper
 import android.text.Editable
-import android.text.SpannableString
-import android.text.TextUtils
 import android.text.TextWatcher
-import android.text.style.ForegroundColorSpan
 import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -53,9 +49,6 @@ import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.databinding.FragmentAccountPageBinding
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
-import com.cinescape1.ui.main.views.home.fragments.account.viewModel.AccountFragViewModel
-import com.cinescape1.ui.main.views.login.LoginActivity
-import com.cinescape1.ui.main.views.payment.PaymentWebActivity
 import com.cinescape1.ui.main.views.adapters.CountryCodeAdapter
 import com.cinescape1.ui.main.views.adapters.ExperienceAdapter
 import com.cinescape1.ui.main.views.adapters.accountPageAdapters.AdapterBookingHistory
@@ -63,6 +56,9 @@ import com.cinescape1.ui.main.views.adapters.accountPageAdapters.UpcomingBooking
 import com.cinescape1.ui.main.views.home.adapter.CustomSpinnerAdapter
 import com.cinescape1.ui.main.views.home.fragments.account.adapter.RechargeSpinnerAdapter
 import com.cinescape1.ui.main.views.home.fragments.account.response.RechargeAmountResponse
+import com.cinescape1.ui.main.views.home.fragments.account.viewModel.AccountFragViewModel
+import com.cinescape1.ui.main.views.login.LoginActivity
+import com.cinescape1.ui.main.views.payment.PaymentWebActivity
 import com.cinescape1.utils.*
 import com.cinescape1.utils.Constant.IntentKey.Companion.OPEN_FROM
 import com.google.android.flexbox.FlexboxLayout
@@ -79,24 +75,26 @@ import com.threatmetrix.TrustDefender.TMXProfilingOptions
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.account_preference_layout.*
 import kotlinx.android.synthetic.main.account_profile_layout.*
-import kotlinx.android.synthetic.main.account_profile_layout.view19
 import kotlinx.android.synthetic.main.account_recharge_card_layout.*
 import kotlinx.android.synthetic.main.cancel_dialog.*
 import kotlinx.android.synthetic.main.cancel_dialog.view.*
 import kotlinx.android.synthetic.main.checkout_creditcart_payment_alert.*
 import kotlinx.android.synthetic.main.fragment_account_page.*
-import java.text.SimpleDateFormat
-import java.util.*
-import javax.inject.Inject
 import org.json.JSONArray
 import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 
 class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemClickListener,
-    ExperienceAdapter.RecycleViewItemClickListener ,UpcomingBookingAdapter.RecycleViewItemClickListener,UpcomingBookingAdapter.ReesendMailItemClickListener{
+    ExperienceAdapter.RecycleViewItemClickListener,
+    UpcomingBookingAdapter.RecycleViewItemClickListener,
+    UpcomingBookingAdapter.ReesendMailItemClickListener {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
     @Inject
     lateinit var preferences: AppPreferences
     private var binding: FragmentAccountPageBinding? = null
@@ -123,8 +121,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     private var dob: String = ""
     private var gender: String = ""
     private var type: String = ""
-    private var loginType: String = ""
-    private var dialog: Dialog? = null
     private var rechargeAmount: String = ""
     private var countryCodeList = ArrayList<CountryCodeResponse.Output>()
     private var getAmountList = ArrayList<RechargeAmountResponse.Output.Amount>()
@@ -152,7 +148,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     private var clickEnable: Int = 0
 
     //CC
-    private var timeCount: Long = 0
     private var m_sessionID = ""
     private var refId = ""
     private var VISA_PREFIX = "4"
@@ -382,121 +377,47 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             include_history.hide()
         }
 
-        text_make_editable.setOnClickListener {
-            view39_line.show()
-            view_ConfPassword.show()
-            textConfPassword.show()
-            enter_ConfPassword.show()
-            enter_first_name.isClickable = true
-            enter_first_name.isFocusable = true
-            enter_first_name.isFocusableInTouchMode = true
-            enter_first_name.isCursorVisible = true
-            enter_first_name.requestFocus()
+        radioGroup.setOnCheckedChangeListener { _, _ ->
+            if (male.isChecked) {
 
-            enter_mobile_numbers.isClickable = true
-            enter_mobile_numbers.isFocusable = true
-            enter_mobile_numbers.isFocusableInTouchMode = true
-            enter_mobile_numbers.isCursorVisible = true
-            enter_mobile_numbers.requestFocus()
-
-            enter_last_name.isClickable = true
-            enter_last_name.isFocusable = true
-            enter_last_name.isFocusableInTouchMode = true
-            enter_last_name.isCursorVisible = true
-            enter_last_name.requestFocus()
-
-            enter_mobile_numbers.isEnabled = true
-            enter_mobile_numbers.isClickable = true
-            enter_mobile_numbers.isFocusable = true
-            enter_mobile_numbers.isCursorVisible = true
-            enter_mobile_numbers.isFocusableInTouchMode = true
-
-            enter_emails.isClickable = true
-            enter_emails.isFocusable = true
-            enter_emails.isFocusableInTouchMode = true
-            enter_emails.isCursorVisible = true
-            enter_emails.requestFocus()
-
-            enter_passwords.isClickable = true
-            enter_passwords.isFocusable = true
-            enter_passwords.isFocusableInTouchMode = true
-            enter_passwords.isCursorVisible = true
-            enter_passwords.requestFocus()
-
-            enter_date_births.isClickable = true
-            enter_date_births.isFocusable = true
-            enter_date_births.isEnabled = true
-
-            enterConfPasswords.isClickable = true
-            enterConfPasswords.isFocusable = true
-            enterConfPasswords.isFocusableInTouchMode = true
-            enterConfPasswords.isCursorVisible = true
-            enterConfPasswords.requestFocus()
-
-            enter_city.isClickable = true
-            enter_city.isFocusable = true
-            enter_city.isFocusableInTouchMode = true
-            enter_city.isCursorVisible = true
-            enter_city.requestFocus()
-
-
-            mobile_code.isClickable = true
-            mobile_code.isClickable = true
-            mobile_code.isEnabled = true
-            mobile_code.isFocusableInTouchMode = true
-
-            image_receive_switcher_email.isClickable = true
-            imageMoNotification.isClickable = true
-            male.isEnabled = true
-            female.isEnabled = true
-
-            radioGroup.setOnCheckedChangeListener { _, _ ->
-                if (male.isChecked) {
-
-                    male.buttonTintList =
-                        ColorStateList.valueOf(
-                            getColor(
-                                requireContext(),
-                                R.color.text_alert_color_red
-                            )
-                        )
-                    female.buttonTintList =
-                        ColorStateList.valueOf(getColor(requireContext(), R.color.text_color))
-                    female.setTextColor(
-                        ContextCompat.getColorStateList(
+                male.buttonTintList =
+                    ColorStateList.valueOf(
+                        getColor(
                             requireContext(),
-                            R.color.text_color
+                            R.color.text_alert_color_red
                         )
                     )
-                    gender = "Male"
-                } else if (female.isChecked) {
-                    male.setTextColor(
-                        ContextCompat.getColorStateList(
+                female.buttonTintList =
+                    ColorStateList.valueOf(getColor(requireContext(), R.color.text_color))
+                female.setTextColor(
+                    ContextCompat.getColorStateList(
+                        requireContext(),
+                        R.color.text_color
+                    )
+                )
+                gender = "Male"
+            } else if (female.isChecked) {
+                male.setTextColor(
+                    ContextCompat.getColorStateList(
+                        requireContext(),
+                        R.color.text_color
+                    )
+                )
+                male.buttonTintList =
+                    ColorStateList.valueOf(getColor(requireContext(), R.color.text_color))
+                female.buttonTintList =
+                    ColorStateList.valueOf(
+                        getColor(
                             requireContext(),
-                            R.color.text_color
+                            R.color.text_alert_color_red
                         )
                     )
-                    male.buttonTintList =
-                        ColorStateList.valueOf(getColor(requireContext(), R.color.text_color))
-                    female.buttonTintList =
-                        ColorStateList.valueOf(
-                            getColor(
-                                requireContext(),
-                                R.color.text_alert_color_red
-                            )
-                        )
-                    gender = "Female"
-                }
+                gender = "Female"
             }
+        }
 
-            text_make_editable.hide()
-            view_ConfPassword.show()
-            textConfPassword.show()
-            view39_line.show()
-            enter_ConfPassword.show()
-            view19.show()
-            UpdateAccount.show()
-            text_skip_proceed.show()
+        text_make_editable.setOnClickListener {
+            accountChangePasswordDialog()
         }
 
         binding?.viewProfile?.setOnClickListener {
@@ -774,67 +695,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             }
         }
 
-        text_skip_proceed.setOnClickListener {
-            enter_first_name.isClickable = false
-            enter_first_name.isFocusable = false
-            enter_first_name.isFocusableInTouchMode = false
-
-            enter_last_name.isClickable = false
-            enter_last_name.isFocusable = false
-            enter_last_name.isFocusableInTouchMode = false
-
-            enter_passwords.isClickable = false
-            enter_passwords.isFocusable = false
-            enter_passwords.isFocusableInTouchMode = false
-
-            enter_date_births.isClickable = false
-            enter_date_births.isFocusable = false
-            enter_date_births.isEnabled = false
-            enter_date_births.isFocusableInTouchMode = false
-
-            enterConfPasswords.isClickable = false
-            enterConfPasswords.isFocusable = false
-            enterConfPasswords.isFocusableInTouchMode = false
-
-            enter_city.isClickable = false
-            enter_city.isFocusable = false
-            enter_city.isFocusableInTouchMode = false
-
-            mobile_code.isClickable = false
-            mobile_code.isFocusable = false
-            mobile_code.isFocusableInTouchMode = false
-
-            enter_emails.isClickable = false
-            enter_emails.isFocusable = false
-            enter_emails.isFocusableInTouchMode = false
-            enter_emails.isCursorVisible = false
-
-            enter_mobile_numbers.isClickable = false
-            enter_mobile_numbers.isFocusable = false
-            enter_mobile_numbers.isFocusableInTouchMode = false
-            enter_mobile_numbers.isCursorVisible = false
-
-            if (gender == "Male") {
-                male.isChecked = true
-                female.isChecked = false
-                male.isEnabled = true
-                female.isEnabled = false
-            } else {
-                male.isChecked = false
-                female.isChecked = true
-                male.isEnabled = false
-                female.isEnabled = true
-            }
-
-            text_make_editable.show()
-            view_ConfPassword.hide()
-            textConfPassword.hide()
-            view39_line.hide()
-            enter_ConfPassword.hide()
-            view19.hide()
-            UpdateAccount.hide()
-            text_skip_proceed.hide()
-        }
 
         enter_date_births.setOnClickListener {
             val mcurrentDate = Calendar.getInstance()
@@ -878,7 +738,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
         broadcastReceiver = MyReceiver()
         broadcastIntent()
-        setCancelBackSpan(view)
         getAmountLoad()
         loadLocation()
         CinemaResponse()
@@ -887,6 +746,30 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         view_ConfPassword.hide()
         textConfPassword.hide()
         enter_ConfPassword.hide()
+    }
+
+    private fun accountChangePasswordDialog() {
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.change_password)
+        dialog.window!!.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
+        dialog.window!!.setGravity(Gravity.BOTTOM)
+        if (isAdded) {
+            dialog.show()
+        }
+        dialog.negative_btn.text = getString(R.string.proceed)
+        dialog.consSure?.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.negative_btn?.setOnClickListener {
+            dialog.dismiss()
+        }
     }
 
     private fun creditCardDialog() {
@@ -917,7 +800,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         proceedAlertDialog = mBuilder.show()
         proceedAlertDialog?.show()
 
-        proceedAlertDialog?.kd_to_pay?.text=" "+getString(R.string.price_kd)+" "+rechargeAmount
+        proceedAlertDialog?.kd_to_pay?.text =
+            " " + getString(R.string.price_kd) + " " + rechargeAmount
         proceedAlertDialog?.cardNumberTextInputEditText?.addTextChangedListener(object :
             TextWatcher {
             override fun beforeTextChanged(
@@ -1230,6 +1114,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                             View.GONE
                     }
                 } catch (e: Exception) {
+                    e.printStackTrace()
                 }
             }
         })
@@ -1299,10 +1184,12 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     ccCardNo = proceedAlertDialog?.cardNumberTextInputEditText?.text.toString()
                         .replace(" ".toRegex(), "").trim()
                     ccCardCvv = proceedAlertDialog?.ccvTextInputEditText?.text.toString()
-                    ccCardExpiryMonth = proceedAlertDialog?.expireDateTextInputEditText?.text?.toString()
-                        ?.split("/")!![0]
-                    ccCardExpiryYear = proceedAlertDialog?.expireDateTextInputEditText?.text?.toString()
-                        ?.split("/")!![1]
+                    ccCardExpiryMonth =
+                        proceedAlertDialog?.expireDateTextInputEditText?.text?.toString()
+                            ?.split("/")!![0]
+                    ccCardExpiryYear =
+                        proceedAlertDialog?.expireDateTextInputEditText?.text?.toString()
+                            ?.split("/")!![1]
 
                     rechargeCard(
                         AddClubRechargeRequest(
@@ -1310,7 +1197,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                             preferences.getString(Constant.USER_ID).toString()
                         )
                     )
-                }catch (e:Exception){
+                } catch (e: Exception) {
                     println("exception--->${e.message}")
                 }
 
@@ -1319,7 +1206,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     }
 
     private fun validateFields(proceedAlertDialog: AlertDialog): Boolean {
-        return  if (proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+        return if (proceedAlertDialog.cardNumberTextInputEditText.text.toString()
                 .isEmpty() && proceedAlertDialog.cardNumberTextInputEditText.text
                 .toString().length != 16 && !CreditCardUtils.isValid(
                 proceedAlertDialog.cardNumberTextInputEditText.text.toString().replace(" ", "")
@@ -1507,7 +1394,11 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                                         image_knet.setColorFilter(requireActivity().getColor(R.color.hint_color))
                                         text_kent.setTextColor(requireContext().getColor(R.color.hint_color))
 
-                                        image_credit_card.setColorFilter(requireActivity().getColor(R.color.hint_color))
+                                        image_credit_card.setColorFilter(
+                                            requireActivity().getColor(
+                                                R.color.hint_color
+                                            )
+                                        )
                                         text_credit_card.setTextColor(requireContext().getColor(R.color.hint_color))
 
                                         clickEnable = 0
@@ -1519,25 +1410,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                                             )
                                         )
 
-//
-//                                        if (from == "recharge") {
-//                                            Constant.IntentKey.OPEN_FROM = 1
-////                                            finish()
-//                                        } else {
-//                                            val intent = Intent(
-//                                                requireActivity(),
-//                                                FinalTicketActivity::class.java
-//                                            )
-//                                            intent.putExtra(
-//                                                Constant.IntentKey.TRANSACTION_ID,
-//                                                "transId"
-//                                            )
-//                                            intent.putExtra(
-//                                                Constant.IntentKey.BOOKING_ID,
-//                                                "bookingId"
-//                                            )
-//                                            startActivity(intent)
-//                                        }
                                     } catch (e: Exception) {
                                         println("updateUiCinemaSession ---> ${e.message}")
                                     }
@@ -1581,7 +1453,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     }
 
     private fun creditCardInit(request: HmacKnetRequest, bookinId: String) {
-        println("InitBookingId--->${bookinId}")
         accountFragViewModel.creditCardInit(request)
             .observe(requireActivity()) {
                 it?.let { resource ->
@@ -1711,7 +1582,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             }
     }
 
-    fun doProfile(sessions1: String, merchent: String) {
+    private fun doProfile(sessions1: String, merchent: String) {
         val list: List<String> = ArrayList()
         //        list.add("attribute 1");
 //        list.add("attribute 2");
@@ -1745,7 +1616,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                                         setSpinner(it.data.output.cinemas)
                                     }
                                 } catch (e: Exception) {
-
+                                    e.printStackTrace()
                                 }
                             }
                         }
@@ -2227,7 +2098,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     }
 
     //Recharge Spinner
-    private fun rechargeAmount  (output: RechargeAmountResponse.Output) {
+    private fun rechargeAmount(output: RechargeAmountResponse.Output) {
         val customAdapter = RechargeSpinnerAdapter(
             requireActivity(),
             output.amounts
@@ -2241,7 +2112,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                 position: Int,
                 id: Long
             ) {
-                rechargeAmount=getAmountList[position].amount.toString()
+                rechargeAmount = getAmountList[position].amount.toString()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
@@ -2308,7 +2179,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                                                     it.data.output.transid,
                                                     preferences.getString(Constant.USER_ID)
                                                         .toString()
-                                                ),it.data.output.bookingid.toString()
+                                                ), it.data.output.bookingid.toString()
                                             )
                                         } else {
                                             loader?.dismiss()
@@ -2536,49 +2407,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             negativeClick = {
             })
         dialog.show()
-        enter_first_name.isClickable = false
-        enter_first_name.isFocusable = false
-        enter_first_name.isFocusableInTouchMode = false
-
-        enter_last_name.isClickable = false
-        enter_last_name.isFocusable = false
-        enter_last_name.isFocusableInTouchMode = false
-
-        enter_emails.isClickable = false
-        enter_emails.isFocusable = false
-        enter_emails.isFocusableInTouchMode = false
-
-        enter_passwords.isClickable = false
-        enter_passwords.isFocusable = false
-        enter_passwords.isFocusableInTouchMode = false
-
-
-        enter_date_births.isEnabled = false
-        enter_date_births.isClickable = false
-        enter_date_births.isFocusable = false
-        enter_date_births.isFocusableInTouchMode = false
-
-        enter_mobile_numbers.isEnabled = false
-        enter_mobile_numbers.isClickable = false
-        enter_mobile_numbers.isFocusable = false
-        enter_mobile_numbers.isCursorVisible = false
-        enter_mobile_numbers.isFocusableInTouchMode = false
-
-        enterConfPasswords.isClickable = false
-        enterConfPasswords.isFocusable = false
-        enterConfPasswords.isFocusableInTouchMode = false
-
-        enter_city.isClickable = false
-        enter_city.isFocusable = false
-        enter_city.isFocusableInTouchMode = false
-
-
-        image_receive_switcher_email.isClickable = false
-        imageMoNotification.isClickable = false
-
-        male.isEnabled = false
-        female.isEnabled = false
-
         text_make_editable.show()
         view_ConfPassword.hide()
         textConfPassword.hide()
@@ -2586,7 +2414,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         enter_ConfPassword.hide()
         view19.hide()
         UpdateAccount.hide()
-        text_skip_proceed.hide()
     }
 
     private fun getAmountLoad() {
@@ -2611,7 +2438,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                                         },
                                         negativeClick = {
                                         })
-                                    dialog.show()                                }
+                                    dialog.show()
+                                }
                             }
                         }
                         Status.ERROR -> {
@@ -2730,7 +2558,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         binding?.nestedUi?.show()
         val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
         binding?.recyclerviewBooking?.layoutManager = LinearLayoutManager(context)
-        val adapter = UpcomingBookingAdapter(requireContext(), output.output,this,this)
+        val adapter = UpcomingBookingAdapter(requireContext(), output.output, this, this)
         binding?.recyclerviewBooking?.isNestedScrollingEnabled = false
         binding?.recyclerviewBooking?.layoutManager = gridLayout
         binding?.recyclerviewBooking?.adapter = adapter

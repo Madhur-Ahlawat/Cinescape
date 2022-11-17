@@ -354,6 +354,7 @@
     <string name="sorry_your_transaction">Sorry, Your transaction</string>
     <string name="advanceBookingTxt">You are booking for an advance date.</string>
     <string name="movieShowing">Similar movies now showing</string>
+    <string name="change_password">Change Password</string>
 
 
 </resources>

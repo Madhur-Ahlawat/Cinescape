@@ -3,7 +3,7 @@ package com.cinescape1.ui.main.views.details.module
 import androidx.lifecycle.ViewModel
 import com.cinescape1.di.ViewModelKey
 import com.cinescape1.ui.main.views.details.viewModel.ShowTimesViewModel
-import com.cinescape1.ui.main.views.home.fragments.home.cinemaLocation.viewModel.CinemaLocationViewModel
+import com.cinescape1.ui.main.views.cinemaLocation.viewModel.CinemaLocationViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

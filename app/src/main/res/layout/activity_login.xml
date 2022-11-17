@@ -46,10 +46,10 @@
             android:id="@+id/textView81"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/sf_pro_text_bold"
             android:paddingStart="@dimen/margin5"
             android:paddingEnd="@dimen/margin15"
-            android:layout_marginTop="47dp"
-            android:fontFamily="@font/sf_pro_text_bold"
             android:text="@string/skip"
             android:textColor="@color/white"
             android:textSize="20sp"
@@ -85,7 +85,7 @@
             android:layout_height="match_parent"
             tools:ignore="ExtraText">
 
-            //signIn
+<!--            //signIn-->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/signInUi"
                 android:layout_width="0dp"
@@ -159,6 +159,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/guest"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sf_pro_text_bold"
@@ -275,6 +276,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/text_proceedUi">
 
                     <TextView
+                        android:id="@+id/clubCard"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sf_pro_text_regular"
@@ -282,6 +284,7 @@
                         android:textColor="@color/text_color" />
 
                     <TextView
+                        android:id="@+id/activate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sf_pro_text_bold"
@@ -325,7 +328,7 @@
                     android:id="@+id/text_arabic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sf_pro_text_medium"
+                    android:fontFamily="@font/gess_medium"
                     android:gravity="center"
                     android:text="إنجليزي"
                     android:textColor="@color/arabic_color"
@@ -451,7 +454,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            //signup
+<!--            //signup-->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/signupUi"
                 android:layout_width="0dp"

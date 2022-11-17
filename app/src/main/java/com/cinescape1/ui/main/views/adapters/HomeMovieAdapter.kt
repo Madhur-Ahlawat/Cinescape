@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.HomeDataResponse
 import com.cinescape1.data.models.responseModel.MoviesResponse
-import com.cinescape1.ui.main.views.home.fragments.home.cinemaLocation.CinemaLocationActivity
+import com.cinescape1.ui.main.views.cinemaLocation.CinemaLocationActivity
 import com.cinescape1.utils.Constant
 
 class HomeMovieAdapter(private  val mContext: Activity, private  val cinemas: ArrayList<HomeDataResponse.Cinema>) :

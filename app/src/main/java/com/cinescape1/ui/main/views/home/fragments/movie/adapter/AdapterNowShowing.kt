@@ -32,7 +32,6 @@ class AdapterNowShowing(
             .inflate(R.layout.movie_now_showing_item, parent, false)
         return MyViewHolderNowShowing(view)
     }
-
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolderNowShowing, position: Int) {
         val comingSoonItem = nowShowingList[position]

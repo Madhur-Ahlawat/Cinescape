@@ -20,6 +20,8 @@ import com.cinescape1.data.models.responseModel.CSessionResponse
 import com.cinescape1.ui.main.views.adapters.CinemaSessionMovieAdapter
 import com.cinescape1.ui.main.views.details.ShowTimesActivity
 import com.cinescape1.utils.Constant
+import com.cinescape1.utils.hide
+import com.cinescape1.utils.show
 
 class AdapterCinemaSessionScroll(
     private val context: Context,
@@ -52,6 +54,18 @@ class AdapterCinemaSessionScroll(
             .load(showtimeListItem.movie.mobimgsmall)
             .error(R.drawable.pos_not_avilbale)
             .into(holder.image)
+
+
+        if (showtimeListItem.movie.tag == "") {
+            holder.background.hide()
+            holder.tag.hide()
+        } else {
+            holder.background.show()
+            holder.tag.show()
+            holder.tag.text = showtimeListItem.movie.tag+"           "
+            val tagColor = showtimeListItem.movie.tagColor
+            holder.background.setColorFilter(Color.parseColor(tagColor))
+        }
 
         holder.image.setOnClickListener {
             val intent = Intent(context, ShowTimesActivity::class.java)
@@ -107,6 +121,9 @@ class AdapterCinemaSessionScroll(
         var genre: TextView = view.findViewById(R.id.genre)
         var cateogry: TextView = view.findViewById(R.id.text_category)
         var duration: TextView = view.findViewById(R.id.text_film_types_duration)
+        var background: ImageView = view.findViewById(R.id.imageView60)
+        var tag: TextView = view.findViewById(R.id.tag)
+
         val recyclerView =
             view.findViewById(R.id.recylerview_cinema_session_timing_dimension) as RecyclerView
     }

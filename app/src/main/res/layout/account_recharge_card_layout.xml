@@ -231,7 +231,6 @@
         android:textSize="@dimen/size12"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="@+id/view_knet"
-        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="@+id/view_knet"
         app:layout_constraintTop_toBottomOf="@+id/image_knet" />
 
@@ -306,9 +305,11 @@
 
         <TextView
             android:id="@+id/tv_proceed_btn"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/margin45"
             android:layout_margin="@dimen/size14"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
             android:background="@drawable/curv_bt"
             android:fontFamily="@font/sf_pro_text_bold"
             android:gravity="center"

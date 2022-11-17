@@ -102,6 +102,8 @@ data class CSessionResponse(
                 val producer: Any,
                 val rating: String,
                 val ratingColor: String,
+                val tag: String,
+                val tagColor: String,
                 val ratingDescription: String,
                 val runTime: Int,
                 val scheduledAtCinema: Boolean,

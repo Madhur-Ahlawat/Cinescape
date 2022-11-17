@@ -12,7 +12,7 @@
         android:id="@+id/LayoutTime"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <View
             android:id="@+id/view66"
@@ -53,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="20dp"
-            android:paddingEnd="@dimen/margin20"
+            android:paddingEnd="1dp"
             app:layout_constraintBottom_toBottomOf="@+id/view66"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/bottomView">
@@ -80,7 +80,7 @@
                     android:textSize="@dimen/size20"
                     android:fontFamily="@font/sf_pro_text_heavy"
                     android:gravity="start"
-                    tools:text="klkllkm "/>
+                    tools:text="Akash "/>
 
                 <LinearLayout
                     android:id="@+id/constraintLayout18"

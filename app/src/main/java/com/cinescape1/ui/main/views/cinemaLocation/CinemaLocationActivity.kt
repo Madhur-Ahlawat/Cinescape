@@ -1,4 +1,4 @@
-package com.cinescape1.ui.main.views.home.fragments.home.cinemaLocation
+package com.cinescape1.ui.main.views.cinemaLocation
 
 import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
@@ -16,11 +16,10 @@ import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.*
-import androidx.appcompat.app.AlertDialog
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -44,7 +43,7 @@ import com.cinescape1.ui.main.views.adapters.AdapterDayDate
 import com.cinescape1.ui.main.views.adapters.CinemaDayAdapter
 import com.cinescape1.ui.main.views.adapters.cinemaSessionAdapters.AdapterCinemaSessionScroll
 import com.cinescape1.ui.main.views.adapters.showTimesAdapters.AdapterShowTimesCinemaTitle
-import com.cinescape1.ui.main.views.home.fragments.home.cinemaLocation.viewModel.CinemaLocationViewModel
+import com.cinescape1.ui.main.views.cinemaLocation.viewModel.CinemaLocationViewModel
 import com.cinescape1.ui.main.views.login.LoginActivity
 import com.cinescape1.ui.main.views.seatLayout.SeatScreenMainActivity
 import com.cinescape1.utils.*
@@ -59,11 +58,8 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
     AdapterDayDate.RecycleViewItemClickListener,
     AdapterShowTimesCinemaTitle.CinemaAdapterListener,
     CinemaDayAdapter.RecycleViewItemClickListener, AdapterCinemaSessionScroll.LocationListener {
-    private var num = 0
-
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
     @Inject
     lateinit var preferences: AppPreferences
     private val showTimeViewModel: CinemaLocationViewModel by viewModels { viewModelFactory }
@@ -71,6 +67,7 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
     private var count = 0
     private var datePos = 0
     private var showPose = 0
+    private var num = 0
     private var dateTime = ""
     private var areaCode = ""
     private var ttType = ""
@@ -112,14 +109,6 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
             }
         }
         setContentView(view)
-
-        //ScreenClick
-        view?.setOnClickListener {
-            binding?.imageView25?.show()
-            searchUi.hide()
-            imageView36.show()
-        }
-
         //AppBar Hide
         window.apply {
             clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
@@ -129,100 +118,20 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
         }
         type = intent.getStringExtra("type").toString()
         movieID = intent.getStringExtra(Constant.IntentKey.MOVIE_ID)!!
-        when (type) {
-            "movie" -> {
-                val layoutParams =
-                    (binding?.recylerviewShowTimeDate?.layoutParams as? ViewGroup.MarginLayoutParams)
-                layoutParams?.setMargins(0, 0, 0, 16)
-                binding?.recylerviewShowTimeDate?.layoutParams = layoutParams
-
-                binding?.viewpager?.hide()
-                binding?.imageView48?.hide()
-                binding?.centerView?.hide()
-
-                getCinemaData(CinemaSessionRequest(dateTime, movieID))
-            }
-        }
+        getCinemaData(CinemaSessionRequest(dateTime, movieID))
         movedNext()
         broadcastReceiver = MyReceiver()
         broadcastIntent()
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        val hasFocus = false
-        if (hasFocus) {
-            binding?.imageView25?.hide()
-            val params: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT
-            )
-            params.addRule(RelativeLayout.ALIGN_PARENT_END)
-            binding?.search?.layoutParams = params
-
-        } else {
-            binding?.imageView25?.show()
-            val params: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT
-            )
-            params.addRule(RelativeLayout.ALIGN_PARENT_END)
-            binding?.search?.layoutParams = params
-        }
-    }
 
     private fun broadcastIntent() {
         registerReceiver(broadcastReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
     }
 
     private fun movedNext() {
-
-        binding?.search?.setOnQueryTextFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                binding?.imageView25?.hide()
-                val params: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.MATCH_PARENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT
-                )
-                params.addRule(RelativeLayout.ALIGN_PARENT_END)
-                binding?.search?.layoutParams = params
-
-            } else {
-                binding?.imageView25?.show()
-                val params: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.WRAP_CONTENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT
-                )
-                params.addRule(RelativeLayout.ALIGN_PARENT_END)
-                binding?.search?.layoutParams = params
-            }
-        }
-
-
-        binding?.view68?.setOnClickListener {
-            Toast.makeText(
-                applicationContext,
-                "This Feature Will Available Soon",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-
-
         binding?.imageView25?.setOnClickListener {
             onBackPressed()
-        }
-
-        //Search Show
-        imageView36.setOnClickListener {
-            binding?.imageView25?.hide()
-            searchUi.show()
-            imageView36.hide()
-        }
-        //Search Hide
-        imageView35.setOnClickListener {
-            binding?.imageView25?.show()
-            searchUi.hide()
-            imageView36.show()
         }
     }
 
@@ -244,40 +153,40 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                                     }
                                 } else {
                                     loader?.dismiss()
-//                                    val dialog = OptionDialog(this,
-//                                        R.mipmap.ic_launcher,
-//                                        R.string.app_name,
-//                                        it.data?.msg.toString(),
-//                                        positiveBtnText = R.string.ok,
-//                                        negativeBtnText = R.string.no,
-//                                        positiveClick = {
-//                                            finish()
-//                                        },
-//                                        negativeClick = {
-//                                            finish()
-//                                        })
-//                                    dialog.show()
+                                    val dialog = OptionDialog(this,
+                                        R.mipmap.ic_launcher,
+                                        R.string.app_name,
+                                        it.data?.msg.toString(),
+                                        positiveBtnText = R.string.ok,
+                                        negativeBtnText = R.string.no,
+                                        positiveClick = {
+                                            finish()
+                                        },
+                                        negativeClick = {
+                                            finish()
+                                        })
+                                    dialog.show()
                                 }
 
                             }
                         }
                         Status.ERROR -> {
                             loader?.dismiss()
-//                            val dialog = OptionDialog(this,
-//                                R.mipmap.ic_launcher,
-//                                R.string.app_name,
-//                                it.message.toString(),
-//                                positiveBtnText = R.string.ok,
-//                                negativeBtnText = R.string.no,
-//                                positiveClick = {
-//                                },
-//                                negativeClick = {
-//                                })
-//                            dialog.show()
+                            val dialog = OptionDialog(this,
+                                R.mipmap.ic_launcher,
+                                R.string.app_name,
+                                it.message.toString(),
+                                positiveBtnText = R.string.ok,
+                                negativeBtnText = R.string.no,
+                                positiveClick = {
+                                },
+                                negativeClick = {
+                                })
+                            dialog.show()
                         }
                         Status.LOADING -> {
-//                            loader = LoaderDialog(R.string.pleasewait)
-//                            loader?.show(supportFragmentManager, null)
+                            loader = LoaderDialog(R.string.pleasewait)
+                            loader?.show(supportFragmentManager, null)
                         }
                     }
                 }
@@ -287,7 +196,6 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
     @SuppressLint("SetTextI18n")
     private fun retrieveMovieData(output: CSessionResponse.Output) {
         println("MovieData--->${output}")
-        binding?.moviePage?.hide()
         binding?.LayoutTime?.show()
 
         //Day Data
@@ -301,7 +209,6 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
         }
 
         //From Cinema Session
-        println("output.daySessions--->${output.daySessions}")
         binding?.recyclerviewCinemaTitle?.show()
         val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
         binding?.recyclerviewCinemaTitle?.layoutManager = LinearLayoutManager(this)
@@ -310,12 +217,9 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
         binding?.recyclerviewCinemaTitle?.adapter = adapter
         count = 1
 
-        println("""updateUiCinemaSession ----> $output""")
         binding?.textFilmHouseName?.text = output.cinema.name
         binding?.textFilmHouseName?.isSelected = true
         binding?.textMovieType?.text = output.cinema.address1 + "\n" + output.cinema.address2
-        binding?.textView56?.hide()
-        binding?.imageView26?.hide()
         binding?.imageView39?.show()
         //Map From Cinema
         binding?.imageView39?.setOnClickListener {
@@ -753,9 +657,9 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                         Toast.makeText(this, "sorry", Toast.LENGTH_LONG).show()
                     } else {
                         num -= 1
-                        if (num<2){
+                        if (num < 2) {
                             btnDecrease.invisible()
-                        }else{
+                        } else {
                             btnDecrease.show()
 
                         }
@@ -797,9 +701,9 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
 
                     } else {
                         num += 1
-                        if (num<2){
+                        if (num < 2) {
                             btnDecrease.invisible()
-                        }else{
+                        } else {
                             btnDecrease.show()
 
                         }

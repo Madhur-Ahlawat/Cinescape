@@ -60,7 +60,6 @@ import kotlinx.android.synthetic.main.alert_booking2.view.*
 import kotlinx.android.synthetic.main.fragment_food.*
 import javax.inject.Inject
 
-
 @Suppress("DEPRECATION")
 class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.RecycleViewItemClickListener {
     @Inject
@@ -122,7 +121,7 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
         navigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.homeFragment -> {
-                    binding?.imageView42?.show()
+//                    binding?.imageView42?.show()
                     setCurrentFragment(HomeFragment())
                 }
                 R.id.movieFragment -> {
@@ -296,10 +295,8 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                     try {
                                         if (it.data.output.isEmpty()) {
-                                            println("bookings---->${it.data.output.size}")
                                             binding?.imageView42?.hide()
                                         } else {
-                                            println("bookings----2>${it.data.output.size}")
                                             binding?.imageView42?.show()
                                         }
                                         if (DialogShow){
@@ -401,7 +398,6 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
                     mAlertDialog?.setCanceledOnTouchOutside(false)
                     mAlertDialog?.window?.setBackgroundDrawableResource(R.color.black70)
                     mDialogView.img_cross_icon.setOnClickListener {
-                        //dismiss dialog
                         mAlertDialog?.dismiss()
                     }
                     mDialogView.text_have_upcoming_booking.text=getString(R.string.upcoming_booking)
@@ -475,7 +471,7 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
 
     private val mLocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
-            val mLastLocation: Location = locationResult.lastLocation
+//            val mLastLocation: Location = locationResult.lastLocation
 
         }
     }

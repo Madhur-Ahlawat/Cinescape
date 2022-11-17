@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.CSessionResponse
+import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 import kotlinx.android.synthetic.main.showtime_day_date_item.view.*
 
@@ -26,6 +27,7 @@ class CinemaDayAdapter(
     var mContext: Activity = context
     private var rowIndex = 0
     private var backIndex = 0
+    private var viewHide = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderDayDate {
         Log.d(ContentValues.TAG, ".onCreateViewHolder new view requested")
@@ -37,12 +39,21 @@ class CinemaDayAdapter(
     @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolderDayDate, @SuppressLint("RecyclerView") position: Int) {
         val dayDateItem = dayDateList[position]
+        viewHide = dayDateList.size-1
+
+        if (position ==viewHide) {
+            holder.views1.hide()
+        }else{
+            holder.views1.show()
+        }
+
 
         holder.day.text = dayDateItem.wd
         holder.date.text = dayDateItem.d
         if (rowIndex == position){
-            holder.consBackground.background = ContextCompat.getDrawable(context, R.drawable.red_rectangle)
+            holder.consBackground.background = ContextCompat.getDrawable(context, R.drawable.day_rectangle)
             holder.day.setTextColor(ContextCompat.getColor(context, R.color.white))
+            holder.date.setTextColor(ContextCompat.getColor(context, R.color.white))
             val heavy: Typeface = context.resources.getFont(R.font.sf_pro_text_heavy)
             val bold: Typeface = context.resources.getFont(R.font.sf_pro_text_semibold)
             holder.day.textSize = 13f
@@ -51,8 +62,8 @@ class CinemaDayAdapter(
             holder.date.typeface = heavy
         }
         else {
-            holder.views1.show()
-            holder.consBackground.background = ContextCompat.getDrawable(context, R.drawable.primarydark_rectangle)
+//            holder.views1.show()
+            holder.consBackground.background = ContextCompat.getDrawable(context, R.drawable.day_un_select_rectangle)
             holder.day.setTextColor(ContextCompat.getColor(context, R.color.text_color))
             val regular: Typeface = context.resources.getFont(R.font.sf_pro_text_regular)
             holder.day.typeface = regular
@@ -69,7 +80,7 @@ class CinemaDayAdapter(
                 holder.views1.visibility = View.INVISIBLE
             }
             else -> {
-                holder.views1.visibility = View.VISIBLE
+//                holder.views1.visibility = View.VISIBLE
             }
         }
 
@@ -93,7 +104,7 @@ class CinemaDayAdapter(
     class MyViewHolderDayDate(view: View) : RecyclerView.ViewHolder(view) {
         var day: TextView = view.text_day
         var date: TextView = view.text_date
-        var views1: View = view.view
+        var views1: View = view.viewLine
         var consBackground: View = view.consBackground
     }
 

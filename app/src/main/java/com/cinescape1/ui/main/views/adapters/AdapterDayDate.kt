@@ -44,10 +44,15 @@ class AdapterDayDate(
         val dayDateItem = dayDateList[position]
         holder.day.text = dayDateItem.wd
         holder.date.text = dayDateItem.d
-        viewHide = dayDateList.size
-        if (viewHide < 0) {
+        viewHide = dayDateList.size-1
+
+        if (position ==viewHide) {
             holder.views1.hide()
+        }else{
+            holder.views1.show()
         }
+
+
         if (rowIndex == position) {
             holder.consBackground.setBackgroundResource(R.drawable.day_rectangle)
             holder.day.setTextColor(ContextCompat.getColor(context, R.color.white))
@@ -59,7 +64,6 @@ class AdapterDayDate(
             holder.day.typeface = bold
             holder.date.typeface = heavy
         } else {
-            holder.views1.show()
             holder.consBackground.setBackgroundResource(R.drawable.day_un_select_rectangle)
             holder.day.setTextColor(ContextCompat.getColor(context, R.color.hint_color))
             holder.date.setTextColor(ContextCompat.getColor(context, R.color.hint_color))
@@ -77,9 +81,6 @@ class AdapterDayDate(
             position -> {
                 holder.views1.visibility = View.INVISIBLE
             }
-            else -> {
-                holder.views1.visibility = View.VISIBLE
-            }
         }
 
         if (dayDateItem.enable) {
@@ -90,7 +91,7 @@ class AdapterDayDate(
                 notifyDataSetChanged()
             }
         } else {
-            holder.views1.show()
+//            holder.views1.show()
             holder.consBackground.setBackgroundResource(R.drawable.primarydark_rectangle)
             holder.day.setTextColor(ContextCompat.getColor(context, R.color.countrySearch))
             holder.date.setTextColor(ContextCompat.getColor(context, R.color.countrySearch))
@@ -115,7 +116,7 @@ class AdapterDayDate(
     class MyViewHolderDayDate(view: View) : RecyclerView.ViewHolder(view) {
         var day: TextView = view.text_day
         var date: TextView = view.text_date
-        var views1: View = view.view
+        var views1: View = view.viewLine
         var consBackground: View = view.consBackground
     }
 

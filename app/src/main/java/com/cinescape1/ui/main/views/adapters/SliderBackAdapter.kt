@@ -22,6 +22,7 @@ class SliderBackAdapter(private  val mContext: Activity, private var movieData: 
         val sliderLayout: View = inflater.inflate(R.layout.slider_back, null)
         val featured_image = sliderLayout.findViewById<ImageView>(R.id.sliderBack)
 
+        println("sliderImage---->${(movieData[position].sliderimgurl)}")
         Glide.with(mContext)
             .load(movieData[position].sliderimgurl)
             .placeholder(R.drawable.pos_not_avilbale)

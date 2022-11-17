@@ -144,6 +144,9 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                 startActivity(intent)
             }
         }
+//
+        binding?.imageUserProfile?.setColorFilter(requireActivity().getColor(R.color.white))
+        binding?.textProfileTitle?.setTextColor(requireActivity().getColor(R.color.white))
 
         //location
         binding?.viewProfile?.setOnClickListener {
@@ -195,7 +198,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
             binding?.textView35?.hide()
             binding?.scrollNested?.hide()
             binding?.recyclerMore?.show()
-            faq(responseData?.output?.faqs!!)
+            responseData?.output?.faqs?.let { it1 -> faq(it1) }
         }
 
         //contact
