@@ -1,4 +1,4 @@
-package com.cinescape1.ui.main.views.home.module
+package com.cinescape1.ui.main.views.home.fragments.home.seeAll.module
 
 import androidx.lifecycle.ViewModel
 import com.cinescape1.di.ViewModelKey

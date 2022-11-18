@@ -22,7 +22,7 @@ import com.cinescape1.ui.main.views.prefrence.UserPreferencesActivity
 import com.cinescape1.ui.main.views.seatLayout.SeatScreenMainActivity
 import com.cinescape1.ui.main.views.home.fragments.home.seeAll.SeeAllActivity
 import com.cinescape1.ui.main.views.home.fragments.home.seeAll.module.SeeAllModule
-import com.cinescape1.ui.main.views.home.module.HomeModule
+import com.cinescape1.ui.main.views.home.fragments.home.seeAll.module.HomeModule
 import com.cinescape1.ui.main.views.login.guest.ContinueGuestActivity
 import com.cinescape1.ui.main.views.login.guest.module.ContinueGuestModule
 import com.cinescape1.ui.main.views.login.module.LoginModule
