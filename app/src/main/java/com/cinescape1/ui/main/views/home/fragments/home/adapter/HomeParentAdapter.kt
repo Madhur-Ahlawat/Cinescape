@@ -27,7 +27,6 @@ import kotlinx.android.synthetic.main.home_parrent_list.view.*
 import java.util.*
 import kotlin.math.abs
 
-
 class HomeParentAdapter(
     private var mContext: Activity,
     private var homeDataList: ArrayList<HomeDataResponse.HomeOne>, var listener: RecycleViewItemClickListener

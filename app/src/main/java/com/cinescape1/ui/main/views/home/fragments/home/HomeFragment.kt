@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -48,12 +49,33 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(requireActivity(), "ar")
+                val regular = ResourcesCompat.getFont(requireActivity(), R.font.gess_light)
+                val bold = ResourcesCompat.getFont(requireActivity(), R.font.gess_bold)
+                val medium = ResourcesCompat.getFont(requireActivity(), R.font.gess_medium)
+
+                binding?.textSwitcher?.typeface = regular
+                binding?.textArabic?.typeface = medium
+
             }
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(requireActivity(), "en")
+                val regular = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_medium)
+                binding?.textSwitcher?.typeface = regular
+                binding?.textArabic?.typeface = medium
             }
             else -> {
                 LocaleHelper.setLocale(requireActivity(), "en")
+                val regular = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_medium)
+
+                binding?.textSwitcher?.typeface = regular
+                binding?.textArabic?.typeface = medium
+
             }
         }
         return view!!

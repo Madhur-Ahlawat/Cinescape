@@ -116,15 +116,30 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
                 languageCheck = "ar"
+                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
+                val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
+                val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
+
                 println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
             }
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(this, "en")
                 languageCheck = "en"
+                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+
             }
             else -> {
                 languageCheck = "en"
                 LocaleHelper.setLocale(this, "en")
+                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+
+
             }
         }
         setContentView(view)

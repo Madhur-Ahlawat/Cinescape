@@ -143,6 +143,7 @@ class AdapterBookingHistory(private val context: Activity, private var bookingHi
       }
 
     class MyViewHolderBookingHistory(view: View) : RecyclerView.ViewHolder(view) {
+
         var textBookingHistoryTitle: TextView = view.findViewById(R.id.text_booking_history_title)
         var textBookingHistoryDate: TextView = view.findViewById(R.id.text_booking_history_date)
         var textBookingHistoryTime: TextView = view.findViewById(R.id.text_booking_history_time)
@@ -158,11 +159,13 @@ class AdapterBookingHistory(private val context: Activity, private var bookingHi
 
         var textviewSeatName: TextView = view.findViewById(R.id.textView_seat_name)
         var textKdTicketPrice: TextView = view.findViewById(R.id.text_kd_ticket_price)
+
         var movieui: ConstraintLayout = view.findViewById(R.id.movieUi)
         var rechargeUi: ConstraintLayout = view.findViewById(R.id.rechargeUi)
         var foodUi: ConstraintLayout = view.findViewById(R.id.foodUi)
         var foodMUi: ConstraintLayout = view.findViewById(R.id.foodMUi)
         var foodList: RecyclerView = view.findViewById(R.id.recyclerView)
+
         var payDone: TextView = view.findViewById(R.id.textView85)
         var rechargeTime: TextView = view.findViewById(R.id.textView89)
         var rechargePrice: TextView = view.findViewById(R.id.textView83)
@@ -172,4 +175,16 @@ class AdapterBookingHistory(private val context: Activity, private var bookingHi
         var foodPaidby: TextView = view.findViewById(R.id.textView98)
 
     }
+
+    interface typeFaceItem{
+       fun datatypeFace(textBookingHistoryTitle: TextView, textBookingHistoryDate: TextView,
+                        textBookingHistoryTime: TextView, textAddress: TextView,
+                        textviewScreenNumber: TextView, textviewDateInfo: TextView,
+                        textviewTimeInfo: TextView,textviewExperienceName: TextView,
+                        textviewSeatName: TextView, textKdTicketPrice: TextView,
+                        payDone: TextView, rechargeTime: TextView, rechargePrice: TextView,
+                        rechargeDate: TextView, paidBy: TextView, foodTotalPrice: TextView,
+                        foodPaidby: TextView)
+    }
+
 }

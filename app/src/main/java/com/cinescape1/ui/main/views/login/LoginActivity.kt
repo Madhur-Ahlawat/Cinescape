@@ -162,6 +162,12 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                 binding?.textSwitcher?.typeface = regular
 
                 //signup
+                binding?.textReceivePromotionEmail?.typeface = regular
+                binding?.txtRNotification?.typeface = regular
+                binding?.textReservationNotification?.typeface = regular
+                binding?.textRecomNotification?.typeface = regular
+                binding?.textTermsConditions?.typeface = regular
+
 
 
                 println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
@@ -197,6 +203,13 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                 //English
                 binding?.textSwitcher?.typeface = regular
 
+                //signup
+                binding?.textReceivePromotionEmail?.typeface = regular
+                binding?.txtRNotification?.typeface = regular
+                binding?.textReservationNotification?.typeface = regular
+                binding?.textRecomNotification?.typeface = regular
+                binding?.textTermsConditions?.typeface = regular
+
             }
             else -> {
                 binding?.imageSwitcher?.isChecked = true
@@ -227,6 +240,13 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                 binding?.activate?.typeface = bold
                 //English
                 binding?.textSwitcher?.typeface = regular
+
+                //signup
+                binding?.textReceivePromotionEmail?.typeface = regular
+                binding?.txtRNotification?.typeface = regular
+                binding?.textReservationNotification?.typeface = regular
+                binding?.textRecomNotification?.typeface = regular
+                binding?.textTermsConditions?.typeface = regular
 
             }
         }
@@ -300,8 +320,7 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
         email: String,
         name: String,
         socialId: String,
-        type: String
-    ) {
+        type: String) {
         preferences.putBoolean(Constant.IS_LOGIN, true)
         preferences.putString(Constant.FIRST_NAME, name)
         preferences.putString(Constant.TYPE_LOGIN, type)

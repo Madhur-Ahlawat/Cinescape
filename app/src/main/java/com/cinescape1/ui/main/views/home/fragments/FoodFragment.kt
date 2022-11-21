@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.cinescape1.R
@@ -51,12 +52,48 @@ class FoodFragment : DaggerFragment(), AdapterView.OnItemSelectedListener {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(requireActivity(), "ar")
                 println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
+                val regular = ResourcesCompat.getFont(requireActivity(), R.font.gess_light)
+                val bold = ResourcesCompat.getFont(requireActivity(), R.font.gess_bold)
+                val medium = ResourcesCompat.getFont(requireActivity(), R.font.gess_medium)
+
+                binding?.textFoodPrefeeredLocation?.typeface = bold
+                binding?.textOrderInfo?.typeface = regular
+                binding?.textOrderInfo?.typeface = regular
+                binding?.textToday?.typeface = regular
+                binding?.textLocation?.typeface = bold
+                binding?.textFindNearLocation?.typeface = bold
+
             }
+
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(requireActivity(), "en")
+                val regular = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_medium)
+
+                binding?.textFoodPrefeeredLocation?.typeface = heavy
+                binding?.textOrderInfo?.typeface = regular
+                binding?.textOrderInfo?.typeface = regular
+                binding?.textToday?.typeface = regular
+                binding?.textLocation?.typeface = heavy
+                binding?.textFindNearLocation?.typeface = heavy
             }
+
             else -> {
                 LocaleHelper.setLocale(requireActivity(), "en")
+                val regular = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_medium)
+
+                binding?.textFoodPrefeeredLocation?.typeface = heavy
+                binding?.textOrderInfo?.typeface = regular
+                binding?.textOrderInfo?.typeface = regular
+                binding?.textToday?.typeface = regular
+                binding?.textLocation?.typeface = heavy
+                binding?.textFindNearLocation?.typeface = heavy
+
             }
         }
         if (yourLocation == "") {

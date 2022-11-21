@@ -23,6 +23,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -73,13 +74,16 @@ import com.threatmetrix.TrustDefender.TMXProfilingConnections.TMXProfilingConnec
 import com.threatmetrix.TrustDefender.TMXProfilingConnectionsInterface
 import com.threatmetrix.TrustDefender.TMXProfilingOptions
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.account_history_layout.*
 import kotlinx.android.synthetic.main.account_preference_layout.*
 import kotlinx.android.synthetic.main.account_profile_layout.*
 import kotlinx.android.synthetic.main.account_recharge_card_layout.*
+import kotlinx.android.synthetic.main.account_refund_layout.*
 import kotlinx.android.synthetic.main.cancel_dialog.*
 import kotlinx.android.synthetic.main.cancel_dialog.view.*
 import kotlinx.android.synthetic.main.checkout_creditcart_payment_alert.*
 import kotlinx.android.synthetic.main.fragment_account_page.*
+import kotlinx.android.synthetic.main.seat_category_item.*
 import org.json.JSONArray
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -87,11 +91,12 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-
+@Suppress("DEPRECATION")
 class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemClickListener,
     ExperienceAdapter.RecycleViewItemClickListener,
     UpcomingBookingAdapter.RecycleViewItemClickListener,
-    UpcomingBookingAdapter.ReesendMailItemClickListener {
+    UpcomingBookingAdapter.ReesendMailItemClickListener, AdapterBookingHistory.typeFaceItem {
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -147,6 +152,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
     private var clickEnable: Int = 0
 
+
     //CC
     private var m_sessionID = ""
     private var refId = ""
@@ -165,6 +171,30 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     private var ccCardExpiryYear = ""
     private var ccCardExpiryMonth = ""
     var proceedAlertDialog: AlertDialog? = null
+
+    // typeFace
+    var textBookingHistoryTitle1: TextView?= null
+    var textBookingHistoryDate1: TextView?= null
+    var textBookingHistoryTime1: TextView?= null
+
+    var textAddress1: TextView?= null
+    var textviewScreenNumber1: TextView?= null
+    var textviewDateInfo1: TextView?= null
+
+    var textviewTimeInfo1: TextView?= null
+    var textviewExperienceName1: TextView?= null
+    var textviewSeatName1: TextView?= null
+
+    var textKdTicketPrice1: TextView?= null
+    var payDone1: TextView?= null
+    var rechargeTime1: TextView?= null
+    var rechargePrice1: TextView?= null
+    var rechargeDate1: TextView?= null
+    var paidBy1: TextView?= null
+    var foodTotalPrice1: TextView?= null
+    var foodPaidby1: TextView?= null
+
+    var categoryName: TextView? = null
 
 
     override fun onCreateView(
@@ -193,18 +223,273 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                 arbic = true
                 println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
 
+                val regular = ResourcesCompat.getFont(requireActivity(), R.font.gess_light)
+                val bold = ResourcesCompat.getFont(requireActivity(), R.font.gess_bold)
+                val medium = ResourcesCompat.getFont(requireActivity(), R.font.gess_medium)
+
+                binding?.textSwitcher?.typeface = regular
+                binding?.textArabic?.typeface = regular
+                binding?.textUserAccountName?.typeface = bold
+                binding?.textWalletUserId?.typeface = regular
+                binding?.textUserWalletKd?.typeface = regular
+                binding?.textProfileTitle?.typeface = regular
+                binding?.textBookingTitle?.typeface = regular
+                binding?.textPreference?.typeface = regular
+                binding?.textRecharageWallet?.typeface = regular
+                binding?.textSignout?.typeface = regular
+                binding?.textUpcomingBooking?.typeface = bold
+
+                // preferences include text
+                text_preferences.typeface = bold
+                text_locations.typeface = bold
+                text_choose_preferencess.typeface = regular
+                text_find_near_location.typeface = regular
+                text_seat_category_preference.typeface = bold
+                text_seat_type_preference.typeface = bold
+                text_age_rating_preference.typeface = bold
+
+                categoryName?.typeface = regular
+
+                // include profile layout text
+                text_profile_titles.typeface = bold
+                text_make_editable.typeface = bold
+                text_user_name_title.typeface = regular
+                text_first_name.typeface = regular
+                text_last_name.typeface = regular
+                textConfPassword.typeface = regular
+                text_email.typeface = regular
+                text_mobile_title.typeface = regular
+                text_date_birth.typeface = regular
+                text_gender.typeface = regular
+                text_city.typeface = regular
+                enter_city.typeface = regular
+                text_receive_promotion_email.typeface = regular
+                txtRNotification.typeface = regular
+                textRecomNotification.typeface = regular
+                UpdateAccount.typeface = bold
+
+                // Adapter item text
+                textBookingHistoryTitle1?.typeface = bold
+                textBookingHistoryDate1?.typeface = regular
+                textBookingHistoryTime1?.typeface = regular
+
+                textAddress1?.typeface = regular
+                textviewScreenNumber1?.typeface = regular
+                textviewDateInfo1?.typeface = regular
+                textviewTimeInfo1?.typeface = regular
+                textviewExperienceName1?.typeface = regular
+                textviewSeatName1?.typeface = regular
+                textKdTicketPrice1?.typeface = regular
+                payDone1?.typeface = regular
+                rechargeTime1?.typeface = regular
+                rechargePrice1?.typeface = regular
+                rechargeDate1?.typeface = regular
+                paidBy1?.typeface = regular
+                foodTotalPrice1?.typeface = regular
+                foodPaidby1?.typeface = regular
+
+
+                //  Recharge wallet include text
+                text_recharge_wallet?.typeface = bold
+                text_amount?.typeface = bold
+                text_choose_preference_amount?.typeface = regular
+                text_payment_method?.typeface = bold
+                text_choose_payment_method?.typeface = regular
+                text_gift_card?.typeface = regular
+                text_kent?.typeface = regular
+                text_credit_card?.typeface = regular
+                tv_proceed_btn?.typeface = bold
+
+                // Refund include layout item
+                text_refunds.typeface = bold
+
+                // account history include layout item
+                textBooking.typeface = bold
+                textHistory.typeface = bold
+
+
             }
+
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(requireActivity(), "en")
                 binding?.imageSwitcherLang?.isChecked = true
                 arbic = false
+                val regular = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_medium)
+
+                binding?.textSwitcher?.typeface = regular
+                binding?.textArabic?.typeface = regular
+                binding?.textUserAccountName?.typeface = bold
+                binding?.textWalletUserId?.typeface = regular
+                binding?.textUserWalletKd?.typeface = regular
+                binding?.textProfileTitle?.typeface = regular
+                binding?.textBookingTitle?.typeface = regular
+                binding?.textPreference?.typeface = regular
+                binding?.textRecharageWallet?.typeface = regular
+                binding?.textSignout?.typeface = regular
+                binding?.textUpcomingBooking?.typeface = bold
+
+                // preferences include text
+                text_preferences.typeface = bold
+                text_locations.typeface = bold
+                text_choose_preferencess.typeface = regular
+                text_find_near_location.typeface = regular
+                text_seat_category_preference.typeface = bold
+                text_seat_type_preference.typeface = bold
+                text_age_rating_preference.typeface = bold
+
+                categoryName?.typeface = regular
+
+                // include profile layout text
+                text_profile_titles.typeface = bold
+                text_make_editable.typeface = bold
+                text_user_name_title.typeface = regular
+                text_first_name.typeface = regular
+                text_last_name.typeface = regular
+                textConfPassword.typeface = regular
+                text_email.typeface = regular
+                text_mobile_title.typeface = regular
+                text_date_birth.typeface = regular
+                text_gender.typeface = regular
+                text_city.typeface = regular
+                enter_city.typeface = regular
+                text_receive_promotion_email.typeface = regular
+                txtRNotification.typeface = regular
+                textRecomNotification.typeface = regular
+                UpdateAccount.typeface = bold
+
+                // Adapter item text
+                textBookingHistoryTitle1?.typeface = bold
+                textBookingHistoryDate1?.typeface = regular
+                textBookingHistoryTime1?.typeface = regular
+
+                textAddress1?.typeface = regular
+                textviewScreenNumber1?.typeface = regular
+                textviewDateInfo1?.typeface = regular
+                textviewTimeInfo1?.typeface = regular
+                textviewExperienceName1?.typeface = regular
+                textviewSeatName1?.typeface = regular
+                textKdTicketPrice1?.typeface = regular
+                payDone1?.typeface = regular
+                rechargeTime1?.typeface = regular
+                rechargePrice1?.typeface = regular
+                rechargeDate1?.typeface = regular
+                paidBy1?.typeface = regular
+                foodTotalPrice1?.typeface = regular
+                foodPaidby1?.typeface = regular
+
+                //  Recharge wallet include text
+                text_recharge_wallet?.typeface = bold
+                text_amount?.typeface = bold
+                text_choose_preference_amount?.typeface = regular
+                text_payment_method?.typeface = bold
+                text_choose_payment_method?.typeface = regular
+                text_gift_card?.typeface = regular
+                text_kent?.typeface = regular
+                text_credit_card?.typeface = regular
+                tv_proceed_btn?.typeface = bold
+
+                // Refund include layout item
+                text_refunds.typeface = bold
+
+                // account history include layout item
+                textBooking.typeface = bold
+                textHistory.typeface = bold
 
             }
+
             else -> {
                 image_switcher?.isChecked = true
                 arbic = false
+                val regular = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_medium)
+
+                binding?.textSwitcher?.typeface = regular
+                binding?.textArabic?.typeface = regular
+                binding?.textUserAccountName?.typeface = bold
+                binding?.textWalletUserId?.typeface = regular
+                binding?.textUserWalletKd?.typeface = regular
+                binding?.textProfileTitle?.typeface = regular
+                binding?.textBookingTitle?.typeface = regular
+                binding?.textPreference?.typeface = regular
+                binding?.textRecharageWallet?.typeface = regular
+                binding?.textSignout?.typeface = regular
+                binding?.textUpcomingBooking?.typeface = bold
+
+                // preferences include text
+                text_preferences.typeface = bold
+                text_locations.typeface = bold
+                text_choose_preferencess.typeface = regular
+                text_find_near_location.typeface = regular
+                text_seat_category_preference.typeface = bold
+                text_seat_type_preference.typeface = bold
+                text_age_rating_preference.typeface = bold
+
+                categoryName?.typeface = regular
+
+                // include profile layout text
+                text_profile_titles.typeface = bold
+                text_make_editable.typeface = bold
+                text_user_name_title.typeface = regular
+                text_first_name.typeface = regular
+                text_last_name.typeface = regular
+                textConfPassword.typeface = regular
+                text_email.typeface = regular
+                text_mobile_title.typeface = regular
+                text_date_birth.typeface = regular
+                text_gender.typeface = regular
+                text_city.typeface = regular
+                enter_city.typeface = regular
+                text_receive_promotion_email.typeface = regular
+                txtRNotification.typeface = regular
+                textRecomNotification.typeface = regular
+                UpdateAccount.typeface = bold
+
+                // Adapter item text
+                textBookingHistoryTitle1?.typeface = bold
+                textBookingHistoryDate1?.typeface = regular
+                textBookingHistoryTime1?.typeface = regular
+
+                textAddress1?.typeface = regular
+                textviewScreenNumber1?.typeface = regular
+                textviewDateInfo1?.typeface = regular
+                textviewTimeInfo1?.typeface = regular
+                textviewExperienceName1?.typeface = regular
+                textviewSeatName1?.typeface = regular
+                textKdTicketPrice1?.typeface = regular
+                payDone1?.typeface = regular
+                rechargeTime1?.typeface = regular
+                rechargePrice1?.typeface = regular
+                rechargeDate1?.typeface = regular
+                paidBy1?.typeface = regular
+                foodTotalPrice1?.typeface = regular
+                foodPaidby1?.typeface = regular
+
+
+                //  Recharge wallet include text
+                text_recharge_wallet?.typeface = bold
+                text_amount?.typeface = bold
+                text_choose_preference_amount?.typeface = regular
+                text_payment_method?.typeface = bold
+                text_choose_payment_method?.typeface = regular
+                text_gift_card?.typeface = regular
+                text_kent?.typeface = regular
+                text_credit_card?.typeface = regular
+                tv_proceed_btn?.typeface = bold
+
+                // Refund include layout item
+                text_refunds.typeface = bold
+
+                // account history include layout item
+                textBooking.typeface = bold
+                textHistory.typeface = bold
 
             }
+
         }
 
         userName = preferences.getString(Constant.USER_NAME).toString()
@@ -1205,6 +1490,46 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }
     }
 
+
+    override fun datatypeFace(
+        textBookingHistoryTitle: TextView,
+        textBookingHistoryDate: TextView,
+        textBookingHistoryTime: TextView,
+        textAddress: TextView,
+        textviewScreenNumber: TextView,
+        textviewDateInfo: TextView,
+        textviewTimeInfo: TextView,
+        textviewExperienceName: TextView,
+        textviewSeatName: TextView,
+        textKdTicketPrice: TextView,
+        payDone: TextView,
+        rechargeTime: TextView,
+        rechargePrice: TextView,
+        rechargeDate: TextView,
+        paidBy: TextView,
+        foodTotalPrice: TextView,
+        foodPaidby: TextView) {
+
+        textBookingHistoryTitle1= textBookingHistoryTitle
+        textBookingHistoryDate1 = textBookingHistoryDate
+        textBookingHistoryTime1 = textBookingHistoryTime
+        textAddress1 = textAddress
+        textviewScreenNumber1 = textviewScreenNumber
+        textviewDateInfo1 = textviewDateInfo
+        textviewTimeInfo1 = textviewTimeInfo
+        textviewExperienceName1 = textviewExperienceName
+        textviewSeatName1 = textviewSeatName
+        textKdTicketPrice1 = textKdTicketPrice
+        payDone1 = payDone
+        rechargeTime1 = rechargeTime
+        rechargePrice1 = rechargePrice
+        rechargeDate1 = rechargeDate
+        paidBy1 = paidBy
+        foodTotalPrice1 = foodTotalPrice
+        foodPaidby1 = foodPaidby
+
+    }
+
     private fun validateFields(proceedAlertDialog: AlertDialog): Boolean {
         return if (proceedAlertDialog.cardNumberTextInputEditText.text.toString()
                 .isEmpty() && proceedAlertDialog.cardNumberTextInputEditText.text
@@ -1816,14 +2141,14 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         for (item in list) {
             val v: View = layoutInflater.inflate(R.layout.seat_category_item, null)
             val categoryImage: ImageView = v.findViewById(R.id.image_family) as ImageView
-            val categoryName: TextView = v.findViewById(R.id.category_name) as TextView
+             categoryName = v.findViewById(R.id.category_name) as TextView
 
             seatAbility = if (item.count > 0) {
                 1
             } else {
                 0
             }
-            categoryName.text = item.cateTypeText
+            categoryName?.text = item.cateTypeText
             Glide.with(this)
                 .load(item.imgCate)
                 .placeholder(R.drawable.family)
@@ -1834,7 +2159,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
             if (item.cateTypeText == seatCategory) {
                 categoryImage.setColorFilter(resources.getColor(R.color.text_alert_color_red))
-                categoryName.setTextColor(
+                categoryName?.setTextColor(
                     getColor(
                         requireContext(),
                         R.color.text_alert_color_red
@@ -1843,7 +2168,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             } else {
 
                 categoryImage.setColorFilter(resources.getColor(R.color.hint_color))
-                categoryName.setTextColor(getColor(requireContext(), R.color.hint_color))
+                categoryName?.setTextColor(getColor(requireContext(), R.color.hint_color))
             }
 
             v.setOnClickListener {
@@ -1853,9 +2178,9 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     categoryImage1.setColorFilter(getColor(requireContext(), R.color.hint_color))
                     categoryName1.setTextColor(getColor(requireContext(), R.color.hint_color))
                 }
-                this.seatCategory = categoryName.text.toString()
+                this.seatCategory = categoryName?.text.toString()
                 categoryImage.setColorFilter(resources.getColor(R.color.text_alert_color_red))
-                categoryName.setTextColor(getColor(requireContext(), R.color.text_alert_color_red))
+                categoryName?.setTextColor(getColor(requireContext(), R.color.text_alert_color_red))
             }
         }
     }
@@ -2130,6 +2455,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         binding?.recyclerviewBooking?.layoutManager = gridLayout
         binding?.recyclerviewBooking?.adapter = adapter
     }
+
 
     private fun setCancelBackSpan(view: View) {
 //        try {
@@ -2980,5 +3306,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                 }
             }
     }
+
+
 
 }

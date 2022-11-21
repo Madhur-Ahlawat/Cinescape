@@ -13,6 +13,7 @@ import android.view.WindowManager
 import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -60,17 +61,48 @@ class ContinueGuestActivity : DaggerAppCompatActivity(),
         supportActionBar?.hide()
         binding = ActivityContinueGuestBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
+
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
+                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
+                val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
+                val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
+
+                // guest sign in
+                binding?.textSignup?.typeface = bold
+                // continue btn
+                binding?.textView73?.typeface = bold
+
                 println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
             }
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(this, "en")
+                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+
+                // guest sign in
+                binding?.textSignup?.typeface = heavy
+                // continue btn
+                binding?.textView73?.typeface = heavy
+
             }
             else -> {
-                LocaleHelper.setLocale(this, "en")
+//                LocaleHelper.setLocale(this, "en")
+                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+
+                // guest sign in
+                binding?.textSignup?.typeface = heavy
+                // continue btn
+                binding?.textView73?.typeface = heavy
+
             }
+
         }
         setContentView(view)
         //AppBar Hide
