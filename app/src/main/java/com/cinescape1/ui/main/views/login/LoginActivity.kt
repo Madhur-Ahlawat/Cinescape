@@ -136,6 +136,8 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                 val regular = ResourcesCompat.getFont(this, R.font.gess_light)
                 val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
                 val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
+
+                //Login
                 //skip
                 binding?.textView81?.typeface = bold
                 //sign in
@@ -158,6 +160,10 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                 binding?.activate?.typeface = bold
                 //English
                 binding?.textSwitcher?.typeface = regular
+
+                //signup
+
+
                 println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
             }
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
