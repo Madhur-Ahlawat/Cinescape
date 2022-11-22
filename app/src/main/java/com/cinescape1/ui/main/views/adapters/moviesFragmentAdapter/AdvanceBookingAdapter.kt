@@ -17,7 +17,8 @@ import com.cinescape1.data.models.responseModel.MoviesResponse
 import com.cinescape1.ui.main.views.details.ShowTimesActivity
 import com.cinescape1.utils.Constant
 
-class AdvanceBookingAdapter(private var nowShowingList: List<MoviesResponse.AdvanceBooking>, context:Context) :
+class AdvanceBookingAdapter(private var nowShowingList: List<MoviesResponse.AdvanceBooking>, context:Context,
+                           var listener : TypefaceListener1) :
     RecyclerView.Adapter<AdvanceBookingAdapter.MyViewHolderNowShowing>() {
     private var mContext = context
 
@@ -43,6 +44,8 @@ class AdvanceBookingAdapter(private var nowShowingList: List<MoviesResponse.Adva
         val ratingColor=comingSoonItem.ratingColor
         holder.type.setBackgroundColor(Color.parseColor(ratingColor))
         holder.movieCategory.text = comingSoonItem.language+" | "+comingSoonItem.genre
+
+        listener.typeFaceAdvanceBooking(holder.movieTitle,holder.movieCategory,holder.type)
 
         holder.thumbnail.setOnClickListener {
             val intent = Intent(holder.thumbnail.context, ShowTimesActivity::class.java)
@@ -75,6 +78,10 @@ class AdvanceBookingAdapter(private var nowShowingList: List<MoviesResponse.Adva
     public fun updateList(updatedList: ArrayList<MoviesResponse.AdvanceBooking>){
         nowShowingList = updatedList
         notifyDataSetChanged()
+    }
+
+    interface TypefaceListener1{
+        fun typeFaceAdvanceBooking(movieTitle: TextView,movieCategory: TextView, type: TextView)
     }
 
 }

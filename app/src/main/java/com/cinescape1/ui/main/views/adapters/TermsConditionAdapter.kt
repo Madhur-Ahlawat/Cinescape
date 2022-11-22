@@ -11,7 +11,8 @@ import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.MoreTabResponse
 import com.cinescape1.data.models.responseModel.MoviesResponse
 
-class TermsConditionAdapter(private val termsCondition: ArrayList<MoreTabResponse.Tnc>,  context: Context) :
+class TermsConditionAdapter(private val termsCondition: ArrayList<MoreTabResponse.Tnc>,
+                            context: Context, var listener: TypefaceListenerTermsCondition) :
     RecyclerView.Adapter<TermsConditionAdapter.TodoViewHolder>() {
 
     @SuppressLint("InflateParams")
@@ -30,6 +31,8 @@ class TermsConditionAdapter(private val termsCondition: ArrayList<MoreTabRespons
         holder.todoTitle.text = obj.name
         holder.todoDesc.text = obj.description
         println("termsCheck--->${termsCondition.size}")
+
+        listener.onTypefaceTermsCondition(holder.todoTitle,holder.todoDesc)
     }
 
     inner class TodoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -40,4 +43,9 @@ class TermsConditionAdapter(private val termsCondition: ArrayList<MoreTabRespons
     interface RecycleViewItemClickListener {
         fun onItemClick(view: MoviesResponse.Output, title: String)
     }
+
+    interface TypefaceListenerTermsCondition {
+        fun onTypefaceTermsCondition(todoTitle: TextView, todoDesc: TextView)
+    }
+
 }

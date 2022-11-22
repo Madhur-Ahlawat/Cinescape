@@ -18,8 +18,7 @@ import com.cinescape1.utils.show
 
 class FaqChildAdapter(
     private val faqList: ArrayList<MoreTabResponse.Faq.Faqs>,
-    private val context: Activity
-) :
+    private val context: Activity) :
     RecyclerView.Adapter<FaqChildAdapter.TodoViewHolder>() {
 
     private val dataList: ArrayList<String> = ArrayList()
@@ -48,6 +47,7 @@ class FaqChildAdapter(
         holder.todoTitle.text = obj.ques
         holder.desc.text = obj.answer
 
+        onTypefaceFaqChild(holder.todoTitle,holder.desc)
 
         val params = ConstraintLayout.LayoutParams(
             ConstraintLayout.LayoutParams.MATCH_PARENT,
@@ -84,6 +84,9 @@ class FaqChildAdapter(
         }
     }
 
+    fun onTypefaceFaqChild(todoTitle: TextView, desc: TextView) {
+    }
+
     inner class TodoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var todoTitle: TextView = view.findViewById(R.id.textView54) as TextView
         var desc: TextView = view.findViewById(R.id.textView55) as TextView
@@ -93,4 +96,9 @@ class FaqChildAdapter(
     interface RecycleViewItemClickListener {
         fun onItemClick(view: MoviesResponse.Output, title: String)
     }
+
+//    interface TypefaceListenerFaqChild {
+//        fun onTypefaceFaqChild(todoTitle: TextView, desc: TextView)
+//    }
+
 }

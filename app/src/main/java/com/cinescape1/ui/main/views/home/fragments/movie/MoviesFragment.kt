@@ -17,6 +17,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -52,7 +53,10 @@ import javax.inject.Inject
 
 class MoviesFragment(val type: Int) : DaggerFragment(),
     AdapterFilterCategory.RecycleViewItemClickListener,
-    MovieTypeAdapter.RecycleViewItemClickListener {
+    MovieTypeAdapter.RecycleViewItemClickListener,
+    MovieTypeAdapter.TypeFaceListener,
+    AdvanceBookingAdapter.TypefaceListener1,
+    AdapterComingSoon.TypefaceListener2, AdapterNowShowing.TypefaceListenerNowShowing {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -87,6 +91,18 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
 
     private val list = ArrayList<MovieTypeModel>()
 
+    var textTittle: TextView? = null
+
+    var movieTitle1: TextView? = null
+    var movieTitle2: TextView? = null
+    var movieCategory1: TextView? = null
+    var type11: TextView? = null
+
+    var movieTitle11: TextView? = null
+    var movieCategory11: TextView? = null
+    var type111: TextView? = null
+    var tag11: TextView? = null
+
     @SuppressLint("ResourceAsColor")
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -99,12 +115,65 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(requireActivity(), "ar")
                 println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
+
+                val regular = ResourcesCompat.getFont(requireActivity(), R.font.gess_light)
+                val bold = ResourcesCompat.getFont(requireActivity(), R.font.gess_bold)
+                val medium = ResourcesCompat.getFont(requireActivity(), R.font.gess_medium)
+
+                textTittle?.typeface = bold
+                // advanceBooking
+                movieTitle1?.typeface = bold
+                movieCategory1?.typeface = regular
+                type11?.typeface = medium
+                movieTitle2?.typeface = bold
+
+                // nowShowing
+                movieTitle11?.typeface = bold
+                movieCategory11?.typeface = regular
+                type111?.typeface = medium
+                tag11?.typeface = regular
+
             }
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(requireActivity(), "en")
+                val regular = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_medium)
+
+                textTittle?.typeface = heavy
+                movieTitle1?.typeface = bold
+                movieCategory1?.typeface = regular
+                type11?.typeface = medium
+                movieTitle2?.typeface = bold
+
+                // nowShowing
+                movieTitle11?.typeface = bold
+                movieCategory11?.typeface = regular
+                type111?.typeface = medium
+                tag11?.typeface = regular
+
             }
             else -> {
                 LocaleHelper.setLocale(requireActivity(), "en")
+                val regular = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_medium)
+
+                textTittle?.typeface = heavy
+                // advanceBooking
+                movieTitle1?.typeface = bold
+                movieCategory1?.typeface = regular
+                type11?.typeface = medium
+                movieTitle2?.typeface = bold
+
+                // nowShowing
+                movieTitle11?.typeface = bold
+                movieCategory11?.typeface = regular
+                type111?.typeface = medium
+                tag11?.typeface = regular
+
             }
         }
         return view!!
@@ -126,7 +195,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
 
         val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.HORIZONTAL, false)
         binding?.recyclerType?.layoutManager = LinearLayoutManager(context)
-        val adapter = MovieTypeAdapter(list, requireActivity(), this)
+        val adapter = MovieTypeAdapter(list, requireActivity(), this, this)
         binding?.recyclerType?.layoutManager = gridLayout
         binding?.recyclerType?.adapter = adapter
 
@@ -222,6 +291,10 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
         }
     }
 
+    override fun onTypeFace(text: TextView) {
+        textTittle = text
+    }
+
     private fun movesData(movieRequest: MovieRequest) {
         homeViewModel.getMoviesData(movieRequest)
             .observe(requireActivity()) {
@@ -302,7 +375,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             binding?.noData?.hide()
             binding?.fragmentMovie?.show()
             val gridLayout = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
-            val adapter = AdvanceBookingAdapter(advanceBooking, requireActivity())
+            val adapter = AdvanceBookingAdapter(advanceBooking, requireActivity(), this)
             binding?.fragmentMovie?.layoutManager = gridLayout
             binding?.fragmentMovie?.adapter = adapter
         }
@@ -320,11 +393,11 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             binding?.fragmentMovie?.show()
             binding?.movieLayout?.show()
             comingSoonList = comings
-            val adapter = AdapterComingSoon(comings, requireActivity())
+            val adapter = AdapterComingSoon(comings, requireActivity(), this)
             binding?.fragmentMovie?.layoutManager = gridLayout
             binding?.fragmentMovie?.adapter = adapter
         } else {
-            val adapter = AdapterComingSoon(comings, requireActivity())
+            val adapter = AdapterComingSoon(comings, requireActivity(), this)
             binding?.fragmentMovie?.layoutManager = gridLayout
             binding?.fragmentMovie?.adapter = adapter
             binding?.noData?.show()
@@ -344,7 +417,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             binding?.fragmentMovie?.show()
             binding?.movieLayout?.show()
             comingSoonList = nowShowing
-            val adapter = AdapterNowShowing(nowShowing, requireActivity())
+            val adapter = AdapterNowShowing(nowShowing, requireActivity(), this)
             binding?.fragmentMovie?.layoutManager = gridLayout
             binding?.fragmentMovie?.adapter = adapter
 
@@ -383,7 +456,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
                 }
             })
         } else {
-            val adapter = AdapterNowShowing(nowShowing, requireActivity())
+            val adapter = AdapterNowShowing(nowShowing, requireActivity(), this)
             binding?.fragmentMovie?.layoutManager = gridLayout
             binding?.fragmentMovie?.adapter = adapter
             binding?.noData?.show()
@@ -815,5 +888,27 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             }
         }
     }
+
+    override fun typeFaceAdvanceBooking(
+        movieTitle: TextView,
+        movieCategory: TextView,
+        type: TextView) {
+        movieTitle1 = movieTitle
+        movieCategory1 = movieCategory
+        type11 = type
+    }
+
+    override fun typeFaceComingSoon(movieTitle: TextView) {
+        movieTitle2 = movieTitle
+    }
+
+    override fun typeFaceNowShowing(
+        movieTitle: TextView,
+        movieCategory: TextView,
+        type: TextView,
+        tag: TextView) {
+
+    }
+
 
 }

@@ -15,7 +15,8 @@ import com.cinescape1.data.models.responseModel.MoviesResponse
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 
-class AgeRatingAdapter(private val ratingList: ArrayList<MoreTabResponse.Rating>, private val context: Context) :
+class AgeRatingAdapter(private val ratingList: ArrayList<MoreTabResponse.Rating>,
+                       private val context: Context, var listener: TypefaceListenerAgeRating) :
     RecyclerView.Adapter<AgeRatingAdapter.TodoViewHolder>() {
 
     private val dataList: ArrayList<String> = ArrayList()
@@ -35,6 +36,9 @@ class AgeRatingAdapter(private val ratingList: ArrayList<MoreTabResponse.Rating>
         dataList.add(obj.toString())
         holder.todoTitle.text = obj.name
         holder.todoDesc.text = obj.description
+
+        listener.onTypefaceAgeRating(holder.type,holder.todoTitle,holder.todoDesc)
+
         if (obj.more_key==""){
             holder.type.hide()
             holder.cardView.hide()
@@ -95,4 +99,9 @@ class AgeRatingAdapter(private val ratingList: ArrayList<MoreTabResponse.Rating>
     interface RecycleViewItemClickListener {
         fun onItemClick(view: MoviesResponse.Output, title: String)
     }
+
+    interface TypefaceListenerAgeRating {
+        fun onTypefaceAgeRating(type: TextView,todoTitle: TextView, todoDesc: TextView)
+    }
+
 }

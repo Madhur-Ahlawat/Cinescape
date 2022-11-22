@@ -18,10 +18,11 @@ import com.cinescape1.utils.show
 class MovieTypeAdapter(
     private val arrayList: ArrayList<MovieTypeModel>,
     private val context: Context,
-    private var listener: RecycleViewItemClickListener
+    private var listener: RecycleViewItemClickListener,
+    private var listenerTypeface: TypeFaceListener
 ) :
     RecyclerView.Adapter<MovieTypeAdapter.ViewHolder>() {
-    private var rowIndex =  Constant.SEE_ALL_TYPE
+    private var rowIndex = Constant.SEE_ALL_TYPE
 
     @SuppressLint("InflateParams")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -39,6 +40,8 @@ class MovieTypeAdapter(
 
         val heavy: Typeface = context.resources.getFont(R.font.sf_pro_text_heavy)
         val regular: Typeface = context.resources.getFont(R.font.sf_pro_text_regular)
+
+        listenerTypeface.onTypeFace(holder.text)
 
         if (rowIndex == position) {
             holder.view.show()
@@ -66,4 +69,10 @@ class MovieTypeAdapter(
     interface RecycleViewItemClickListener {
         fun onMovieTypeClick(position: Int)
     }
+
+    interface TypeFaceListener {
+        fun onTypeFace(text: TextView)
+    }
+
+
 }

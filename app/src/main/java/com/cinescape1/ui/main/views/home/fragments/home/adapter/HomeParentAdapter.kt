@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,8 +30,8 @@ import kotlin.math.abs
 
 class HomeParentAdapter(
     private var mContext: Activity,
-    private var homeDataList: ArrayList<HomeDataResponse.HomeOne>, var listener: RecycleViewItemClickListener
-) :
+    private var homeDataList: ArrayList<HomeDataResponse.HomeOne>,
+    var listener: RecycleViewItemClickListener, var listenerTypeface : TypeFaceInter) :
     RecyclerView.Adapter<HomeParentAdapter.MyViewHolder>() {
     var adapter: HomeChildAdapter? = null
 
@@ -47,6 +48,7 @@ class HomeParentAdapter(
         holder.txtSeeAll.text = mContext.getText(R.string.view_all)
         val movieDataList: ArrayList<HomeDataResponse.MovieData> = obj.movieData
 
+        listenerTypeface.typeFace(holder.homeTitle, holder.txtSeeAll)
 
         when (obj.key) {
             "slider" -> {
@@ -251,5 +253,9 @@ class HomeParentAdapter(
 
     interface RecycleViewItemClickListener {
         fun onSeeAllClick(type:Int)
+    }
+
+    interface TypeFaceInter{
+       fun typeFace(homeTitle : TextView, txtSeeAll : TextView)
     }
 }

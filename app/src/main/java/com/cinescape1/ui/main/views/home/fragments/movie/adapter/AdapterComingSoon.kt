@@ -14,7 +14,7 @@ import com.cinescape1.ui.main.views.adapters.moviesFragmentAdapter.ComingSoonChi
 
 class AdapterComingSoon(
     private var nowShowingList: ArrayList<MoviesResponse.Comingsoon>,
-    context: Context
+    context: Context, var listener: TypefaceListener2
 ) :
     RecyclerView.Adapter<AdapterComingSoon.MyViewHolderNowShowing>() {
     private var mContext = context
@@ -34,6 +34,8 @@ class AdapterComingSoon(
         holder.recycler.layoutManager = gridLayout
         holder.recycler.adapter = adapter
 
+        listener.typeFaceComingSoon(holder.movieTitle)
+
     }
 
     override fun getItemCount(): Int {
@@ -50,6 +52,10 @@ class AdapterComingSoon(
     fun updateList(updatedList: ArrayList<MoviesResponse.Comingsoon>) {
         nowShowingList = updatedList
         notifyDataSetChanged()
+    }
+
+    interface TypefaceListener2{
+        fun typeFaceComingSoon(movieTitle: TextView)
     }
 
 }

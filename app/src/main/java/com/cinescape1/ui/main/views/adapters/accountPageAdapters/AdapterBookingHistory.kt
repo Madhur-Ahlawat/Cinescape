@@ -16,7 +16,9 @@ import com.cinescape1.ui.main.views.adapters.HistoryFoodListAdapter
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 
-class AdapterBookingHistory(private val context: Activity, private var bookingHistoryList: ArrayList<HistoryResponse.Output>) :
+class AdapterBookingHistory(private val context: Activity,
+                            private var bookingHistoryList: ArrayList<HistoryResponse.Output>,
+                            var listener : typeFaceItem) :
     RecyclerView.Adapter<AdapterBookingHistory.MyViewHolderBookingHistory>() {
     private var rowIndex = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderBookingHistory {
@@ -55,6 +57,12 @@ class AdapterBookingHistory(private val context: Activity, private var bookingHi
         holder.textviewSeatName.text = commaSeparatedString
 
         holder.textKdTicketPrice.text = bookingHistoryItem.totalTicketPrice
+
+        listener.datatypeFace(holder.textBookingHistoryTitle,holder.textBookingHistoryDate,
+            holder.textBookingHistoryTime,holder.textAddress,holder.textviewScreenNumber,
+            holder.textviewDateInfo,holder.textviewTimeInfo,holder.textviewExperienceName,holder.textviewSeatName,
+            holder.textKdTicketPrice, holder.payDone, holder.rechargeTime,holder.rechargePrice,holder.rechargeDate,
+            holder.paidBy,holder.foodTotalPrice,holder.foodPaidby)
 
 
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

@@ -15,7 +15,8 @@ import com.cinescape1.data.models.responseModel.MoreTabResponse
 import com.cinescape1.data.models.responseModel.MoviesResponse
 
 
-class LocationAdapter(private val locationList: ArrayList<MoreTabResponse.Cinema>, private val context: Context) :
+class LocationAdapter(private val locationList: ArrayList<MoreTabResponse.Cinema>,
+                      private val context: Context, var listener : TypefaceListenerLocation) :
     RecyclerView.Adapter<LocationAdapter.TodoViewHolder>() {
 
     private val dataList: ArrayList<String> = ArrayList()
@@ -35,6 +36,9 @@ class LocationAdapter(private val locationList: ArrayList<MoreTabResponse.Cinema
         holder.workingHour.text = "Working hours  11:30 to 01:30"
         holder.address.text = obj.address1
         holder.title.text = obj.name
+
+        listener.onTypefaceLocation(holder.title,holder.workingHour,holder.address)
+
         holder.map.setOnClickListener {
             val strUri =
                 "http://maps.google.com/maps?q=loc:" + obj.latitude + "," + obj.longitude.toString() + " (" + "Label which you want" + ")"
@@ -57,4 +61,9 @@ class LocationAdapter(private val locationList: ArrayList<MoreTabResponse.Cinema
     interface RecycleViewItemClickListener {
         fun onItemClick(view: MoviesResponse.Output, title: String)
     }
+
+    interface TypefaceListenerLocation {
+        fun onTypefaceLocation(title: TextView, workingHour: TextView, address: TextView)
+    }
+
 }

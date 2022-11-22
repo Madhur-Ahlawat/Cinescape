@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -30,7 +31,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
 @Suppress("DEPRECATION")
-class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickListener {
+class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickListener, HomeParentAdapter.TypeFaceInter {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject
@@ -40,12 +41,15 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
     private var loader: LoaderDialog? = null
     private var broadcastReceiver: BroadcastReceiver? = null
 
+    var homeTitle1: TextView? = null
+    var txtSeeAll1: TextView? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+        savedInstanceState: Bundle?): View {
         binding = FragmentHomeBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
+
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(requireActivity(), "ar")
@@ -56,6 +60,9 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
                 binding?.textSwitcher?.typeface = regular
                 binding?.textArabic?.typeface = medium
 
+                homeTitle1?.typeface = bold
+                txtSeeAll1?.typeface = regular
+
             }
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(requireActivity(), "en")
@@ -63,8 +70,12 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
                 val bold = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_bold)
                 val heavy = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
                 val medium = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_medium)
+
                 binding?.textSwitcher?.typeface = regular
                 binding?.textArabic?.typeface = medium
+
+                homeTitle1?.typeface = bold
+                txtSeeAll1?.typeface = regular
             }
             else -> {
                 LocaleHelper.setLocale(requireActivity(), "en")
@@ -75,6 +86,9 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
 
                 binding?.textSwitcher?.typeface = regular
                 binding?.textArabic?.typeface = medium
+
+                homeTitle1?.typeface = bold
+                txtSeeAll1?.typeface = regular
 
             }
         }
@@ -212,7 +226,7 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
             val gridLayout =
                 GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
             mainList?.layoutManager = LinearLayoutManager(context)
-            val adapter = HomeParentAdapter(requireActivity(), homeData,this)
+            val adapter = HomeParentAdapter(requireActivity(), homeData,this, this)
             mainList?.layoutManager = gridLayout
             mainList?.adapter = adapter
             binding?.homeShimmer?.hide()
@@ -237,5 +251,10 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
         val itemView = item.getChildAt(1)
         itemView.performClick()
 
+    }
+
+    override fun typeFace(homeTitle: TextView, txtSeeAll: TextView) {
+        homeTitle1 = homeTitle
+        txtSeeAll1 = txtSeeAll
     }
 }

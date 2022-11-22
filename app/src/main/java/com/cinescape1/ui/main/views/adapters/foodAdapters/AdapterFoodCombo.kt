@@ -16,7 +16,8 @@ import com.cinescape1.utils.show
 
 class AdapterFoodCombo(
     context: Context, private var foodComboList: ArrayList<GetFoodResponse.ConcessionItem>,
-    private val listener: RecycleViewItemClickListener, val type: String
+    private val listener: RecycleViewItemClickListener, val type: String,
+    var listener1 : TypeFaceListenerFoodCombo
 ) :
     RecyclerView.Adapter<AdapterFoodCombo.MyViewHolderFoodCombo>() {
 
@@ -67,6 +68,9 @@ class AdapterFoodCombo(
         holder.btnDecrease.setOnClickListener {
             listener.onDecreaseFood(foodSelectedItem, position)
         }
+
+        listener1.onTypeFaceFoodCombo(holder.foodTitleName, holder.foodcomboName,
+            holder.foodKdName, holder.addBtn, holder.btnDecrease, holder.btnIncrease, holder.totalItems)
     }
 
     override fun getItemCount(): Int {
@@ -98,6 +102,12 @@ class AdapterFoodCombo(
         var totalItems: TextView = view.findViewById(R.id.textView107)
         var viewIncreaseDecrease: View = view.findViewById(R.id.view_increase_decrease)
         val imgFood = view.findViewById<View>(R.id.image_food) as ImageView
+    }
+
+    interface TypeFaceListenerFoodCombo {
+        fun onTypeFaceFoodCombo(foodTitleName: TextView, foodcomboName: TextView,
+                                     foodKdName: TextView,addBtn: TextView,btnDecrease: TextView,
+                                btnIncrease: TextView,totalItems: TextView)
     }
 
 }

@@ -20,6 +20,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -54,7 +55,10 @@ class FoodActivity : DaggerAppCompatActivity(),
     AdapterFoodCombo.RecycleViewItemClickListener,
     AdapterCart.RecycleViewItemClickListener,
     AdapterFoodAddComboTitle.RecycleViewItemClickListener,
-    AdapterIndividual.RecycleViewItemClickListener {
+    AdapterIndividual.RecycleViewItemClickListener,
+    AdapterFoodSelectedItem.TypeFaceListenerFoodItem,
+    AdapterIndividual.TypeFaceListenerFoodIndividual,
+    AdapterFoodCombo.TypeFaceListenerFoodCombo{
 
     private var itemFoodAmt: Double = 0.0
     private var itemFoodCount: Int = 0
@@ -104,6 +108,26 @@ class FoodActivity : DaggerAppCompatActivity(),
     private var dialogShow: Long = 60
     private var countDownTimerPrimary : CountDownTimer ? = null
     private var comboAdapter: AdapterFoodAddComboTitle? = null
+
+    var foodSelectItemName1: TextView? = null
+    // food Individual
+    var foodTitleName1: TextView? = null
+    var foodcomboName1: TextView? = null
+    var foodKdName1: TextView? = null
+    var btnDecrease1: TextView? = null
+    var txtNumber1: TextView? = null
+    var textItemAdded1: TextView? = null
+    var btnIncrease1: TextView? = null
+
+    // food combo
+    var foodTitleName2: TextView? = null
+    var foodcomboName2: TextView? = null
+    var foodKdName2: TextView? = null
+    var addBtn2: TextView? = null
+    var btnDecrease2: TextView? = null
+    var btnIncrease2: TextView? = null
+    var totalItems2: TextView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFoodBinding.inflate(layoutInflater, null, false)
@@ -111,14 +135,114 @@ class FoodActivity : DaggerAppCompatActivity(),
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
+                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
+                val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
+                val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
+
+                binding?.textFoodSelect?.typeface = bold   // semiBold
+                binding?.skip?.typeface = bold
+                binding?.textView47?.typeface = regular
+                binding?.textCancel?.typeface = regular
+                binding?.textTimeLeft?.typeface = regular
+                binding?.textTimeToLeft?.typeface = bold   // heavy
+                binding?.txtProceed?.typeface = bold
+
+                foodSelectItemName1?.typeface = regular
+
+                // food individual
+                foodTitleName1?.typeface = bold
+                foodcomboName1?.typeface = regular
+                foodKdName1?.typeface = regular
+                btnDecrease1?.typeface = regular
+                txtNumber1?.typeface = regular
+                textItemAdded1?.typeface = regular
+                btnIncrease1?.typeface = regular
+
+                // food combo
+                foodTitleName2?.typeface = bold
+                foodcomboName2?.typeface = regular
+                foodKdName2?.typeface = regular
+                addBtn2?.typeface = regular
+                btnDecrease2?.typeface = regular
+                btnIncrease2?.typeface = regular
+                totalItems2?.typeface = regular
+
             }
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(this, "en")
+                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+                val semiBold = ResourcesCompat.getFont(this, R.font.gibson_semibold)
+                val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+
+                binding?.textFoodSelect?.typeface = semiBold   // semiBold
+                binding?.skip?.typeface = bold
+                binding?.textView47?.typeface = regular
+                binding?.textCancel?.typeface = regular
+                binding?.textTimeLeft?.typeface = regular
+                binding?.textTimeToLeft?.typeface = heavy   // heavy
+                binding?.txtProceed?.typeface = bold
+
+                foodSelectItemName1?.typeface = regular
+                // food individual
+                foodTitleName1?.typeface = bold
+                foodcomboName1?.typeface = regular
+                foodKdName1?.typeface = regular
+                btnDecrease1?.typeface = regular
+                txtNumber1?.typeface = regular
+                textItemAdded1?.typeface = regular
+                btnIncrease1?.typeface = regular
+
+                // food combo
+                foodTitleName2?.typeface = bold
+                foodcomboName2?.typeface = regular
+                foodKdName2?.typeface = regular
+                addBtn2?.typeface = regular
+                btnDecrease2?.typeface = regular
+                btnIncrease2?.typeface = regular
+                totalItems2?.typeface = regular
+
             }
+
             else -> {
                 LocaleHelper.setLocale(this, "en")
+                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+                val semiBold = ResourcesCompat.getFont(this, R.font.gibson_semibold)
+                val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+
+                binding?.textFoodSelect?.typeface = semiBold   // semiBold
+                binding?.skip?.typeface = bold
+                binding?.textView47?.typeface = regular
+                binding?.textCancel?.typeface = regular
+                binding?.textTimeLeft?.typeface = regular
+                binding?.textTimeToLeft?.typeface = heavy   // heavy
+                binding?.txtProceed?.typeface = bold
+
+                foodSelectItemName1?.typeface = regular
+                // food individual
+                foodTitleName1?.typeface = bold
+                foodcomboName1?.typeface = regular
+                foodKdName1?.typeface = regular
+                btnDecrease1?.typeface = regular
+                txtNumber1?.typeface = regular
+                textItemAdded1?.typeface = regular
+                btnIncrease1?.typeface = regular
+
+                // food combo
+                foodTitleName2?.typeface = bold
+                foodcomboName2?.typeface = regular
+                foodKdName2?.typeface = regular
+                addBtn2?.typeface = regular
+                btnDecrease2?.typeface = regular
+                btnIncrease2?.typeface = regular
+                totalItems2?.typeface = regular
+
             }
         }
+
         setContentView(view)
         cinemaId = intent.getStringExtra("CINEMA_ID").toString()
         sessionId = intent.getStringExtra("SESSION_ID").toString()
@@ -260,7 +384,7 @@ class FoodActivity : DaggerAppCompatActivity(),
         val horizontalLayoutManagaer =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding?.recyclerFoodSelectItem?.layoutManager = LinearLayoutManager(this)
-        val adapter = AdapterFoodSelectedItem(this, concessionTabs, this)
+        val adapter = AdapterFoodSelectedItem(this, concessionTabs, this, this)
         binding?.recyclerFoodSelectItem?.layoutManager = horizontalLayoutManagaer
         binding?.uiFood?.show()
         binding?.recyclerFoodSelectItem?.adapter = adapter
@@ -270,12 +394,16 @@ class FoodActivity : DaggerAppCompatActivity(),
         setFoodComboAdapter(foodSelectedList!!)
     }
 
+    override fun onTypeFaceFoodItem(foodSelectItemName: TextView) {
+        foodSelectItemName1 = foodSelectItemName
+    }
+
     private fun setFoodComboAdapter(concessionItems: ArrayList<GetFoodResponse.ConcessionItem>) {
         if (concessionItems[0].foodtype == "Individual") {
             val gridLayout =
                 GridLayoutManager(this@FoodActivity, 1, GridLayoutManager.VERTICAL, false)
             binding?.recyclerFoodCombo?.layoutManager = LinearLayoutManager(this)
-            individualAdapter = AdapterIndividual(this@FoodActivity, concessionItems, this)
+            individualAdapter = AdapterIndividual(this@FoodActivity, concessionItems, this, this)
             binding?.recyclerFoodCombo?.layoutManager = gridLayout
             binding?.recyclerFoodCombo?.adapter = individualAdapter
             individualAdapter?.loadNewData(concessionItems)
@@ -287,12 +415,47 @@ class FoodActivity : DaggerAppCompatActivity(),
                 this@FoodActivity,
                 concessionItems,
                 this,
-                concessionItems[0].foodtype
-            )
+                concessionItems[0].foodtype, this)
             binding?.recyclerFoodCombo?.layoutManager = gridLayout
             binding?.recyclerFoodCombo?.adapter = foodAdapter
             foodAdapter?.loadNewData(concessionItems)
         }
+    }
+
+    override fun onTypeFaceFoodCombo(
+        foodTitleName: TextView,
+        foodcomboName: TextView,
+        foodKdName: TextView,
+        addBtn: TextView,
+        btnDecrease: TextView,
+        btnIncrease: TextView,
+        totalItems: TextView) {
+
+        foodTitleName2= foodTitleName
+        foodcomboName2 = foodcomboName
+        foodKdName2= foodKdName
+        addBtn2 = addBtn
+        btnDecrease2 = btnDecrease
+        btnIncrease2= btnIncrease
+        totalItems2= totalItems
+    }
+
+    override fun onTypeFaceFoodIndividual(
+        foodTitleName: TextView,
+        foodcomboName: TextView,
+        foodKdName: TextView,
+        btnDecrease: TextView,
+        txtNumber: TextView,
+        textItemAdded: TextView,
+        btnIncrease: TextView) {
+
+        foodTitleName1= foodTitleName
+        foodcomboName1= foodcomboName
+        foodKdName1= foodKdName
+        btnDecrease1 = btnDecrease
+        txtNumber1= txtNumber
+        textItemAdded1= textItemAdded
+        btnIncrease1= btnIncrease
     }
 
     override fun onFoodCatClick(foodItem: GetFoodResponse.ConcessionTab, view: View) {
@@ -1709,4 +1872,8 @@ class FoodActivity : DaggerAppCompatActivity(),
           )
       }"
     }
+
+
+
+
 }

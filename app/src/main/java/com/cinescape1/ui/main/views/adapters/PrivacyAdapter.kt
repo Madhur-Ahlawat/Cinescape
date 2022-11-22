@@ -11,7 +11,10 @@ import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.MoreTabResponse
 import com.cinescape1.data.models.responseModel.MoviesResponse
 
-class PrivacyAdapter(private val moreTabList: ArrayList<MoreTabResponse.Privacy>, context: Context) :
+class PrivacyAdapter(
+    private val moreTabList: ArrayList<MoreTabResponse.Privacy>,
+    context: Context, var listener: TypefaceListenerPrivacy
+) :
     RecyclerView.Adapter<PrivacyAdapter.TodoViewHolder>() {
 
     @SuppressLint("InflateParams")
@@ -30,6 +33,8 @@ class PrivacyAdapter(private val moreTabList: ArrayList<MoreTabResponse.Privacy>
         holder.todoTitle.text = moreListPos.name
         holder.todoDesc.text = moreListPos.description
 
+        listener.onTypefacePrivacy(holder.todoTitle,holder.todoDesc)
+
 
         println("privacyList--->${moreListPos.name}")
     }
@@ -42,4 +47,9 @@ class PrivacyAdapter(private val moreTabList: ArrayList<MoreTabResponse.Privacy>
     interface RecycleViewItemClickListener {
         fun onItemClick(view: MoviesResponse.Output, title: String)
     }
+
+    interface TypefaceListenerPrivacy {
+        fun onTypefacePrivacy(todoTitle: TextView, todoDesc: TextView)
+    }
+
 }

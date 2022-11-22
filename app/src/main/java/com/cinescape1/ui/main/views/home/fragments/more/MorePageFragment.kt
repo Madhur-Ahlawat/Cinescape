@@ -21,10 +21,12 @@ import android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -54,7 +56,10 @@ import java.io.File
 import javax.inject.Inject
 
 
-class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemClickListener {
+class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemClickListener,
+    FaqAdapter.TypefaceListenerFaq,PrivacyAdapter.TypefaceListenerPrivacy,
+    AgeRatingAdapter.TypefaceListenerAgeRating,
+    TermsConditionAdapter.TypefaceListenerTermsCondition, LocationAdapter.TypefaceListenerLocation {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -64,6 +69,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
     private var loader: LoaderDialog? = null
     private val moreInfoViewModel: MoreInfoViewModel by viewModels { viewModelFactory }
     private var responseData: MoreTabResponse? = null
+    private var responseData1: ArrayList<MoreTabResponse.Faq.Faqs>? = null
     private var twitter_user_name: String? = "Cinescapekuwait"
     private var countryCodeList = ArrayList<CountryCodeResponse.Output>()
     private var mAdapter: CountryCodeAdapter? = null
@@ -75,11 +81,29 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
 
     private val SELECT_PICTURE = 100
 
+    var todoTitle1: TextView? = null
+
+    var todoTitle11: TextView? = null
+    var todoDesc1: TextView? = null
+
+    // ageRating adapter
+    var type2: TextView? = null
+    var todoTitle2: TextView? = null
+    var todoDesc2: TextView? = null
+
+    // terms Condition
+    var todoTitle3: TextView? = null
+    var todoDesc3: TextView? = null
+
+    // location
+    var title4: TextView? = null
+    var workingHour4: TextView? = null
+    var address4: TextView? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding = FragmentMorePageBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
@@ -97,14 +121,152 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                 LocaleHelper.setLocale(requireActivity(), "ar")
                 image_switcher?.isChecked = false
                 println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
+                val regular = ResourcesCompat.getFont(requireActivity(), R.font.gess_light)
+                val bold = ResourcesCompat.getFont(requireActivity(), R.font.gess_bold)
+                val medium = ResourcesCompat.getFont(requireActivity(), R.font.gess_medium)
+
+                binding?.textProfileTitle?.typeface = regular
+                binding?.textBookingTitle?.typeface = regular
+                binding?.textPreference?.typeface = regular
+                binding?.textRecharageWallet?.typeface = regular
+                binding?.textRefund?.typeface = regular
+                binding?.textHistoery?.typeface = regular
+                binding?.textView35?.typeface = bold
+
+                // contact us
+               textView11.typeface = bold
+                text_mobile_title.typeface = regular
+                textView17.typeface = regular
+                textView29.typeface = regular
+                textView18.typeface = regular
+                textView30.typeface = medium
+                textView31.typeface = regular
+                textView32.typeface = medium
+                textView33.typeface = regular
+                textView34.typeface = medium
+
+                // faq Adapter
+                todoTitle1?.typeface = bold
+
+                // privacy adapter
+                todoTitle11?.typeface = bold
+                todoDesc1?.typeface = regular
+
+                // age rating
+                type2?.typeface = medium
+                todoTitle2?.typeface = bold
+                todoDesc2?.typeface = regular
+
+                // terms condition
+                todoTitle3?.typeface = bold
+                todoDesc3?.typeface = regular
+
+                // Location
+                title4?.typeface = regular
+                workingHour4?.typeface = regular
+                address4?.typeface = regular
 
             }
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(requireActivity(), "en")
                 image_switcher?.isChecked = true
+
+                val regular = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_bold)
+                val semiBold = ResourcesCompat.getFont(requireActivity(), R.font.gibson_semibold)
+                val heavy = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_medium)
+
+                binding?.textProfileTitle?.typeface = regular
+                binding?.textBookingTitle?.typeface = regular
+                binding?.textPreference?.typeface = regular
+                binding?.textRecharageWallet?.typeface = regular
+                binding?.textRefund?.typeface = regular
+                binding?.textHistoery?.typeface = regular
+                binding?.textView35?.typeface = bold
+
+                // contact us
+                textView11.typeface = bold
+                text_mobile_title.typeface = regular
+                textView17.typeface = regular
+                textView29.typeface = regular
+                textView18.typeface = regular
+                textView30.typeface = medium
+                textView31.typeface = regular
+                textView32.typeface = medium
+                textView33.typeface = regular
+                textView34.typeface = medium
+
+                // faq Adapter
+                todoTitle1?.typeface = bold
+
+                // privacy adapter
+                todoTitle11?.typeface = bold
+                todoDesc1?.typeface = regular
+
+                // age rating
+                type2?.typeface = medium
+                todoTitle2?.typeface = bold
+                todoDesc2?.typeface = regular
+
+                // terms condition
+                todoTitle3?.typeface = bold
+                todoDesc3?.typeface = regular
+
+                // Location
+                title4?.typeface = regular
+                workingHour4?.typeface = regular
+                address4?.typeface = regular
+
             }
             else -> {
                 image_switcher?.isChecked = true
+                val regular = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_medium)
+
+                binding?.textProfileTitle?.typeface = regular
+                binding?.textBookingTitle?.typeface = regular
+                binding?.textPreference?.typeface = regular
+                binding?.textRecharageWallet?.typeface = regular
+                binding?.textRefund?.typeface = regular
+                binding?.textHistoery?.typeface = regular
+                binding?.textView35?.typeface = bold
+
+                // contact us
+                textView11.typeface = bold
+                text_mobile_title.typeface = regular
+                textView17.typeface = regular
+                textView29.typeface = regular
+                textView18.typeface = regular
+                textView30.typeface = medium
+                textView31.typeface = regular
+                textView32.typeface = medium
+                textView33.typeface = regular
+                textView34.typeface = medium
+
+                // faq Adapter
+                todoTitle1?.typeface = bold
+
+                // privacy adapter
+                todoTitle11?.typeface = bold
+                todoDesc1?.typeface = regular
+
+                // age rating
+                type2?.typeface = medium
+                todoTitle2?.typeface = bold
+                todoDesc2?.typeface = regular
+
+                // terms condition
+                todoTitle3?.typeface = bold
+                todoDesc3?.typeface = regular
+
+                // Location
+                title4?.typeface = regular
+                workingHour4?.typeface = regular
+                address4?.typeface = regular
+
             }
         }
         mobile = preferences.getString(Constant.MOBILE).toString()
@@ -177,6 +339,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
 
         //faq
         binding?.viewBooking?.setOnClickListener {
+
             binding?.imageUserProfile?.setColorFilter(requireActivity().getColor(R.color.text_color))
             binding?.textProfileTitle?.setTextColor(requireActivity().getColor(R.color.text_color))
 
@@ -589,6 +752,12 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                                     try {
                                         binding?.moreLayout?.show()
                                         responseData = it.data
+
+                                        for (item in it.data.output.faqs){
+                                            responseData1 = item.faqs
+                                        }
+
+
                                         location(responseData?.output?.cinemas!!)
                                     } catch (e: Exception) {
                                         println("exceptionMsg--->${e.message}")
@@ -702,19 +871,28 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
 
     private fun faq(faqs: ArrayList<MoreTabResponse.Faq>) {
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        val adapter = FaqAdapter(faqs, requireActivity())
+        val adapter = FaqAdapter(faqs, requireActivity(), this)
         binding?.recyclerMore?.setHasFixedSize(true)
         binding?.recyclerMore?.layoutManager = layoutManager
         binding?.recyclerMore?.adapter = adapter
+    }
+
+    override fun onTypefaceFaq(todoTitle: TextView) {
+        todoTitle1 = todoTitle
     }
 
     private fun privacyPolicy(privacy: ArrayList<MoreTabResponse.Privacy>) {
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding?.recyclerMore?.setHasFixedSize(true)
-        val adapter = PrivacyAdapter(privacy, requireContext())
+        val adapter = PrivacyAdapter(privacy, requireContext(), this)
         binding?.recyclerMore?.layoutManager = layoutManager
         binding?.recyclerMore?.adapter = adapter
+    }
+
+    override fun onTypefacePrivacy(todoTitle: TextView, todoDesc: TextView) {
+        todoTitle11 = todoTitle
+        todoDesc1 = todoDesc
     }
 
     private fun ageRating(ratings: ArrayList<MoreTabResponse.Rating>) {
@@ -722,29 +900,44 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding?.recyclerMore?.setHasFixedSize(true)
-        val adapter = AgeRatingAdapter(ratings, requireContext())
+        val adapter = AgeRatingAdapter(ratings, requireContext(), this)
         binding?.recyclerMore?.layoutManager = layoutManager
         binding?.recyclerMore?.adapter = adapter
+    }
+
+    override fun onTypefaceAgeRating(type: TextView, todoTitle: TextView, todoDesc: TextView) {
+        type2= type
+        todoTitle2 = todoTitle
+        todoDesc2 = todoDesc
     }
 
     private fun termsAndCondition(tunics: ArrayList<MoreTabResponse.Tnc>) {
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding?.recyclerMore?.setHasFixedSize(true)
-        val adapter = TermsConditionAdapter(tunics, requireContext())
+        val adapter = TermsConditionAdapter(tunics, requireContext(), this)
         binding?.recyclerMore?.layoutManager = layoutManager
         binding?.recyclerMore?.adapter = adapter
 
+    }
+    override fun onTypefaceTermsCondition(todoTitle: TextView, todoDesc: TextView) {
+        todoTitle3= todoTitle
+        todoDesc3 = todoDesc
     }
 
     private fun location(location: ArrayList<MoreTabResponse.Cinema>) {
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding?.recyclerMore?.setHasFixedSize(true)
-        val adapter = LocationAdapter(location, requireContext())
+        val adapter = LocationAdapter(location, requireContext(), this)
         binding?.recyclerMore?.layoutManager = layoutManager
         binding?.recyclerMore?.adapter = adapter
+    }
 
+    override fun onTypefaceLocation(title: TextView, workingHour: TextView, address: TextView) {
+        title4 = title
+        workingHour4 = workingHour
+        address4 = address
     }
 
     private fun countryCodeLoad() {
@@ -966,5 +1159,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
             context.startActivity(i)
         }
     }
+
+
 
 }

@@ -16,17 +16,12 @@ import com.cinescape1.data.models.responseModel.GetFoodResponse
 class AdapterFoodSelectedItem(
     var contextS: Activity,
     private var foodSelectList: List<GetFoodResponse.ConcessionTab>,
-    var listener: RecycleViewItemClickListener
-) :
+    var listener: RecycleViewItemClickListener, var listener2 : TypeFaceListenerFoodItem) :
     RecyclerView.Adapter<AdapterFoodSelectedItem.MyViewHolderFoodSelectedItem>() {
     var mContext: Activity = contextS
     var rowIndex = 0
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): MyViewHolderFoodSelectedItem {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.food_selected_item, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderFoodSelectedItem {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.food_selected_item, parent, false)
         return MyViewHolderFoodSelectedItem(view)
     }
 
@@ -50,6 +45,9 @@ class AdapterFoodSelectedItem(
             rowIndex = position
             notifyDataSetChanged()
         }
+
+        listener2.onTypeFaceFoodItem(holder.foodSelectItemName)
+
     }
 
     override fun getItemCount(): Int {
@@ -63,7 +61,6 @@ class AdapterFoodSelectedItem(
     }
 
     interface RecycleViewItemClickListener {
-
         fun onFoodCatClick(foodItem: GetFoodResponse.ConcessionTab, view: View)
     }
 
@@ -73,4 +70,11 @@ class AdapterFoodSelectedItem(
         val imageArrowDown = view.findViewById<View>(R.id.image_arrow_down) as ImageView
 
     }
+
+
+    interface TypeFaceListenerFoodItem {
+        fun onTypeFaceFoodItem(foodSelectItemName: TextView)
+    }
+
+
 }

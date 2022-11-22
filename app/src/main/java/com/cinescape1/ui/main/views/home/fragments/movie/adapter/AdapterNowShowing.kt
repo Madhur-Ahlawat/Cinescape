@@ -22,7 +22,7 @@ import com.cinescape1.utils.show
 
 class AdapterNowShowing(
     private var nowShowingList: ArrayList<MoviesResponse.Nowshowing>,
-    context: Context
+    context: Context, var listener : TypefaceListenerNowShowing
 ) :
     RecyclerView.Adapter<AdapterNowShowing.MyViewHolderNowShowing>() {
     private var mContext = context
@@ -58,6 +58,8 @@ class AdapterNowShowing(
 
         holder.movieCategory.text = comingSoonItem.language + " | " + comingSoonItem.genre
 
+        listener.typeFaceNowShowing(holder.movieTitle, holder.movieCategory, holder.type, holder.tag)
+
         holder.thumbnail.setOnClickListener {
             val intent = Intent(holder.thumbnail.context, ShowTimesActivity::class.java)
             intent.putExtra(Constant.IntentKey.MOVIE_ID, comingSoonItem.id)
@@ -84,4 +86,9 @@ class AdapterNowShowing(
         nowShowingList = updatedList
         notifyDataSetChanged()
     }
+
+    interface TypefaceListenerNowShowing{
+        fun typeFaceNowShowing(movieTitle: TextView,movieCategory: TextView,type: TextView,tag: TextView)
+    }
+
 }
