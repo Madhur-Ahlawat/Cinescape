@@ -15,9 +15,11 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.*
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -68,7 +70,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @Suppress("DEPRECATION")
-class SummeryActivity : DaggerAppCompatActivity() {
+class SummeryActivity : DaggerAppCompatActivity(),SummerySeatListAdapter.TypeFaceSeatLists {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -107,6 +109,8 @@ class SummeryActivity : DaggerAppCompatActivity() {
     private var dialogShow: Long = 60
     private var countDownTimerPrimary: CountDownTimer? = null
 
+    var seatNumber1: TextView? = null
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,12 +119,159 @@ class SummeryActivity : DaggerAppCompatActivity() {
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
+                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
+                val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
+                val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
+
+                textView112.typeface = regular
+                textView111.typeface = bold   // heavy
+                summary_name_movie.typeface = bold   // heavy
+                summary_censor.typeface = regular
+                text_locations.typeface = regular
+                text_location_names.typeface = regular
+                txt_dates.typeface = regular
+                txt_screen.typeface = regular
+                texts_time.typeface = regular
+                text_times2.typeface = regular
+                text_Dates.typeface = regular
+                text_date_name.typeface = regular
+                text_timess.typeface = regular
+                textView19.typeface = regular
+                text_seat.typeface = regular
+                text_ticket_price.typeface = regular
+                text_kds.typeface = regular
+                text_quntity.typeface = regular
+                text_qty_number.typeface = regular
+                text_total.typeface = regular
+                text_kd_total.typeface = regular
+                seatNumber1?.typeface = regular
+
+                binding?.textFoodTitle?.typeface = bold
+                binding?.textView152?.typeface = regular
+                binding?.textView153?.typeface = regular
+                binding?.textView154?.typeface = regular
+                binding?.textView151?.typeface = regular
+                binding?.textSelectPaymentMethod?.typeface = bold
+                binding?.textCreditCardName?.typeface = regular
+                binding?.textKnetName?.typeface = regular
+                binding?.textWalletName?.typeface = regular
+                binding?.textWalletKd?.typeface = regular
+                binding?.textView113?.typeface = regular
+                binding?.textView114?.typeface = regular
+                binding?.textView115?.typeface = bold
+                binding?.textView116?.typeface = regular
+                binding?.textView118?.typeface = bold
+
+                binding?.textCancel?.typeface = regular
+                binding?.textTimeLeft?.typeface = regular
+                binding?.textTimeToLeft?.typeface = regular
+                binding?.txtProceed?.typeface = bold
+
             }
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(this, "en")
+                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+
+                textView112.typeface = regular
+                textView111.typeface = heavy   // heavy
+                summary_name_movie.typeface = heavy   // heavy
+                summary_censor.typeface = regular
+                text_locations.typeface = regular
+                text_location_names.typeface = regular
+                txt_dates.typeface = regular
+                txt_screen.typeface = regular
+                texts_time.typeface = regular
+                text_times2.typeface = regular
+                text_Dates.typeface = regular
+                text_date_name.typeface = regular
+                text_timess.typeface = regular
+                textView19.typeface = regular
+                text_seat.typeface = regular
+                text_ticket_price.typeface = regular
+                text_kds.typeface = regular
+                text_quntity.typeface = regular
+                text_qty_number.typeface = regular
+                text_total.typeface = regular
+                text_kd_total.typeface = regular
+                seatNumber1?.typeface = regular
+
+                binding?.textFoodTitle?.typeface = bold
+                binding?.textView152?.typeface = regular
+                binding?.textView153?.typeface = regular
+                binding?.textView154?.typeface = regular
+                binding?.textView151?.typeface = regular
+                binding?.textSelectPaymentMethod?.typeface = bold
+                binding?.textCreditCardName?.typeface = regular
+                binding?.textKnetName?.typeface = regular
+                binding?.textWalletName?.typeface = regular
+                binding?.textWalletKd?.typeface = regular
+                binding?.textView113?.typeface = regular
+                binding?.textView114?.typeface = regular
+                binding?.textView115?.typeface = bold
+                binding?.textView116?.typeface = regular
+                binding?.textView118?.typeface = bold
+
+                binding?.textCancel?.typeface = regular
+                binding?.textTimeLeft?.typeface = regular
+                binding?.textTimeToLeft?.typeface = regular
+                binding?.txtProceed?.typeface = bold
+
+
             }
             else -> {
                 LocaleHelper.setLocale(this, "en")
+                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+
+                textView112.typeface = regular
+                textView111.typeface = heavy   // heavy
+                summary_name_movie.typeface = heavy   // heavy
+                summary_censor.typeface = regular
+                text_locations.typeface = regular
+                text_location_names.typeface = regular
+                txt_dates.typeface = regular
+                txt_screen.typeface = regular
+                texts_time.typeface = regular
+                text_times2.typeface = regular
+                text_Dates.typeface = regular
+                text_date_name.typeface = regular
+                text_timess.typeface = regular
+                textView19.typeface = regular
+                text_seat.typeface = regular
+                text_ticket_price.typeface = regular
+                text_kds.typeface = regular
+                text_quntity.typeface = regular
+                text_qty_number.typeface = regular
+                text_total.typeface = regular
+                text_kd_total.typeface = regular
+                seatNumber1?.typeface = regular
+
+                binding?.textFoodTitle?.typeface = bold
+                binding?.textView152?.typeface = regular
+                binding?.textView153?.typeface = regular
+                binding?.textView154?.typeface = regular
+                binding?.textView151?.typeface = regular
+                binding?.textSelectPaymentMethod?.typeface = bold
+                binding?.textCreditCardName?.typeface = regular
+                binding?.textKnetName?.typeface = regular
+                binding?.textWalletName?.typeface = regular
+                binding?.textWalletKd?.typeface = regular
+                binding?.textView113?.typeface = regular
+                binding?.textView114?.typeface = regular
+                binding?.textView115?.typeface = bold
+                binding?.textView116?.typeface = regular
+                binding?.textView118?.typeface = bold
+
+                binding?.textCancel?.typeface = regular
+                binding?.textTimeLeft?.typeface = regular
+                binding?.textTimeToLeft?.typeface = regular
+                binding?.txtProceed?.typeface = bold
+
             }
         }
         setContentView(view)
@@ -1458,7 +1609,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
             layoutManager.flexDirection = FlexDirection.ROW
             layoutManager.justifyContent = JustifyContent.FLEX_START
             layoutManager.alignItems = AlignItems.STRETCH
-            val adapter = SummerySeatListAdapter(output.seatsArr)
+            val adapter = SummerySeatListAdapter(output.seatsArr, this)
             seatList.layoutManager = layoutManager
             seatList.adapter = adapter
 
@@ -1489,6 +1640,10 @@ class SummeryActivity : DaggerAppCompatActivity() {
             summary_censor.setBackgroundColor(Color.parseColor(ratingColor))
         }
 
+    }
+
+    override fun onTypeFaceSeatList(seatNumber: TextView) {
+        seatNumber1 = seatNumber
     }
 
     private fun payModeList() {
@@ -1839,5 +1994,7 @@ class SummeryActivity : DaggerAppCompatActivity() {
             true
         }
     }
+
+
 
 }

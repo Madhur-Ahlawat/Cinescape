@@ -21,6 +21,7 @@ import android.widget.TableRow
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -96,6 +97,72 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
         super.onCreate(savedInstanceState)
         binding = ActivitySeatScreenMainBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
+
+        when {
+            preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
+                LocaleHelper.setLocale(this, "ar")
+                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
+                val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
+                val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
+
+                binding?.tvSeatFilmTitle?.typeface = bold // heavy
+                binding?.tvSeatFilmType?.typeface = bold // heavy
+                binding?.tvCinemaName?.typeface = bold
+                binding?.tvSeatTimingDate?.typeface = bold
+                binding?.textType?.typeface = regular
+                binding?.textView75?.typeface = regular
+                binding?.textAvailable?.typeface = regular
+                binding?.textUnavailable?.typeface = regular
+                binding?.textSelected?.typeface = regular
+                binding?.textModify?.typeface = regular
+                binding?.textSeatTypes?.typeface = bold
+                binding?.textOtherShowtimes?.typeface = regular
+
+            }
+
+            preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
+                LocaleHelper.setLocale(this, "en")
+                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+
+                binding?.tvSeatFilmTitle?.typeface = heavy // heavy
+                binding?.tvSeatFilmType?.typeface = heavy // heavy
+                binding?.tvCinemaName?.typeface = bold
+                binding?.tvSeatTimingDate?.typeface = bold
+                binding?.textType?.typeface = regular
+                binding?.textView75?.typeface = regular
+                binding?.textAvailable?.typeface = regular
+                binding?.textUnavailable?.typeface = regular
+                binding?.textSelected?.typeface = regular
+                binding?.textModify?.typeface = regular
+                binding?.textSeatTypes?.typeface = bold
+                binding?.textOtherShowtimes?.typeface = regular
+
+
+            }else -> {
+            LocaleHelper.setLocale(this, "en")
+            val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+            val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+            val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
+            val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+
+            binding?.tvSeatFilmTitle?.typeface = heavy // heavy
+            binding?.tvSeatFilmType?.typeface = heavy // heavy
+            binding?.tvCinemaName?.typeface = bold
+            binding?.tvSeatTimingDate?.typeface = bold
+            binding?.textType?.typeface = regular
+            binding?.textView75?.typeface = regular
+            binding?.textAvailable?.typeface = regular
+            binding?.textUnavailable?.typeface = regular
+            binding?.textSelected?.typeface = regular
+            binding?.textModify?.typeface = regular
+            binding?.textSeatTypes?.typeface = bold
+            binding?.textOtherShowtimes?.typeface = regular
+        }
+
+        }
         setContentView(view)
         text_seat_types.paintFlags = text_seat_types.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         setCinemasTitleAdapter()

@@ -12,7 +12,7 @@ import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.MoreTabResponse
 import com.cinescape1.data.models.responseModel.MoviesResponse
 
-class SummerySeatListAdapter(private val faqList: List<String>) :
+class SummerySeatListAdapter(private val faqList: List<String>, var listener: TypeFaceSeatLists) :
     RecyclerView.Adapter<SummerySeatListAdapter.TodoViewHolder>() {
     @SuppressLint("InflateParams")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
@@ -28,10 +28,16 @@ class SummerySeatListAdapter(private val faqList: List<String>) :
         val obj = faqList[position]
         holder.seatNumber.text = obj
 
+        listener.onTypeFaceSeatList(holder.seatNumber)
+
     }
 
     inner class TodoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var seatNumber: TextView = view.findViewById(R.id.seatNumber)
+    }
+
+    interface TypeFaceSeatLists{
+      fun  onTypeFaceSeatList(seatNumber: TextView)
     }
 
 }

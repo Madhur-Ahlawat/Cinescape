@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,7 +29,9 @@ import kotlinx.android.synthetic.main.final_ticket_item_two.view.*
 class FinalTicketParentAdapter(
     var mContext: Activity,
     private var homeDataList: ArrayList<FinalTicketLocalModel>,
-    private var output: TicketSummaryResponse.Output
+    private var output: TicketSummaryResponse.Output,
+    var listener1 : TypeFaceFinalTicket0ne,var listener2 : TypeFaceFinalTicketTwo,
+    var listener3 : TypeFaceFinalTicketThree
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var adapter: HomeChildAdapter? = null
@@ -163,6 +166,11 @@ class FinalTicketParentAdapter(
                 holder.oneSeatList.adapter = adapter
                 holder.onePayMode.text= output.payDone
                 holder.onePrice.text= output.totalTicketPrice
+
+                listener1.onTypeFaceFinalTicketOne(holder.oneBookingId, holder.oneTitle, holder.oneRating,
+                holder.oneLocation, holder.oneDateTime, holder.oneScreen, holder.oneType,
+                holder.oneCategoryName, holder.onePayMode, holder.onePrice)
+
             }
             2 -> {
 //Two
@@ -181,6 +189,9 @@ class FinalTicketParentAdapter(
                 holderTwo.twoFood.adapter = adapter2
                 holderTwo.twoPayMode.text = output.payDone
                 holderTwo.twoPayPrice.text = output.foodTotal
+
+                listener2.onTypeFaceFinalTicketTwo(holderTwo.twoBookingId, holderTwo.twoPickupInfo,
+                holderTwo.twoPayMode, holderTwo.twoPayPrice)
             }
             3 -> {
                 //Three
@@ -201,7 +212,33 @@ class FinalTicketParentAdapter(
                 holderThree.threeDateTime.text= output.bookingTime
                 holderThree.threePayMode.text= output.payDone
                 holderThree.threeTotalPrice.text= output.totalPrice
+
+                listener3.onTypeFaceFinalTicketThree(holderThree.threeBookingId, holderThree.threeTicket,
+                holderThree.threeTicketPrice, holderThree.threeFood, holderThree.threeFoodPrice,
+                    holderThree.threeReferenceId, holderThree.threeReferenceTxt, holderThree.threeTrackId,
+                holderThree.threeDateTime, holderThree.threePayMode)
             }
         }
     }
+
+    interface TypeFaceFinalTicket0ne {
+        fun onTypeFaceFinalTicketOne(oneBookingId : TextView, oneTitle : TextView,
+                                   oneRating : TextView, oneLocation : TextView,
+                                   oneDateTime : TextView,oneScreen : TextView,
+                                   oneType : TextView,oneCategoryName : TextView,
+                                   onePayMode : TextView,onePrice:TextView)
+    }
+
+    interface TypeFaceFinalTicketTwo {
+        fun onTypeFaceFinalTicketTwo(twoBookingId : TextView,twoPickupInfo : TextView,
+                                   twoPayMode : TextView,twoPayPrice : TextView)
+    }
+
+    interface TypeFaceFinalTicketThree {
+        fun onTypeFaceFinalTicketThree(threeBookingId:TextView,
+                                   threeTicket : TextView,threeTicketPrice : TextView,threeFood:TextView,
+                                   threeFoodPrice : TextView,threeReferenceId : TextView,threeReferenceTxt:TextView,
+                                   threeTrackId : TextView,threeDateTime : TextView,threePayMode:TextView)
+    }
+
 }

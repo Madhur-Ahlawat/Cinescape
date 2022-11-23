@@ -9,7 +9,9 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.view.WindowManager
+import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -35,7 +37,8 @@ import javax.inject.Inject
 
 @Suppress("DEPRECATION")
 @ActivityScoped
-class FinalTicketActivity : DaggerAppCompatActivity() {
+class FinalTicketActivity : DaggerAppCompatActivity(), FinalTicketParentAdapter.TypeFaceFinalTicket0ne,
+    FinalTicketParentAdapter.TypeFaceFinalTicketTwo, FinalTicketParentAdapter.TypeFaceFinalTicketThree{
     private var loader: LoaderDialog? = null
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -53,6 +56,17 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
 
     private val finalTicketLocalModel = ArrayList<FinalTicketLocalModel>()
 
+    var oneBookingId1: TextView? = null
+    var oneTitle1: TextView? = null
+    var oneRating1: TextView? = null
+    var oneLocation1: TextView? = null
+    var oneDateTime1: TextView? = null
+    var oneScreen1: TextView? = null
+    var oneType1: TextView? = null
+    var oneCategoryName1: TextView? = null
+    var onePayMode1: TextView? = null
+    var onePrice1: TextView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
@@ -61,12 +75,43 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
+                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
+                val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
+                val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
+
+                binding?.textBookingAddedWallet?.typeface = regular
+                binding?.textBookingSuccess?.typeface = regular
+                binding?.tvShare?.typeface = regular
+                binding?.textView46?.typeface = regular
+                binding?.textView120?.typeface = bold
+
+                oneBookingId1?.typeface = bold
+                oneTitle1?.typeface = bold  // heavy
+                oneRating1?.typeface = bold  // heavy
+                oneLocation1?.typeface = bold
+                oneDateTime1?.typeface = bold
+                oneScreen1?.typeface = bold
+                oneType1?.typeface = bold
+                oneCategoryName1?.typeface = bold
+                onePayMode1?.typeface = bold
+                onePrice1?.typeface = bold
+
             }
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(this, "en")
+                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+
             }
             else -> {
                 LocaleHelper.setLocale(this, "en")
+                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+
             }
         }
         setContentView(view)
@@ -248,7 +293,7 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
         val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(binding?.recyclerViewFinalTicket)
         val finalTicketParentAdapter =
-            FinalTicketParentAdapter(this@FinalTicketActivity, finalTicketLocalModel, output)
+            FinalTicketParentAdapter(this@FinalTicketActivity, finalTicketLocalModel, output, this,this,this)
         binding?.recyclerViewFinalTicket?.layoutManager = gridLayout
         binding?.recyclerViewFinalTicket?.adapter = finalTicketParentAdapter
         binding?.layoutDots?.attachToRecyclerView( binding?.recyclerViewFinalTicket!!)
@@ -330,6 +375,54 @@ class FinalTicketActivity : DaggerAppCompatActivity() {
         val intent = Intent(applicationContext, HomeActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
+    }
+
+    override fun onTypeFaceFinalTicketOne(
+        oneBookingId: TextView,
+        oneTitle: TextView,
+        oneRating: TextView,
+        oneLocation: TextView,
+        oneDateTime: TextView,
+        oneScreen: TextView,
+        oneType: TextView,
+        oneCategoryName: TextView,
+        onePayMode: TextView,
+        onePrice: TextView
+    ) {
+        oneBookingId1 = oneBookingId
+        oneTitle1 = oneTitle
+        oneRating1 = oneRating
+        oneLocation1 = oneLocation
+        oneDateTime1 = oneDateTime
+        oneScreen1= oneScreen
+        oneType1 = oneType
+        oneCategoryName1 = oneCategoryName
+        onePayMode1 = onePayMode
+        onePrice1 = onePrice
+    }
+
+    override fun onTypeFaceFinalTicketTwo(
+        twoBookingId: TextView,
+        twoPickupInfo: TextView,
+        twoPayMode: TextView,
+        twoPayPrice: TextView
+    ) {
+
+    }
+
+    override fun onTypeFaceFinalTicketThree(
+        threeBookingId: TextView,
+        threeTicket: TextView,
+        threeTicketPrice: TextView,
+        threeFood: TextView,
+        threeFoodPrice: TextView,
+        threeReferenceId: TextView,
+        threeReferenceTxt: TextView,
+        threeTrackId: TextView,
+        threeDateTime: TextView,
+        threePayMode: TextView
+    ) {
+
     }
 
 }
