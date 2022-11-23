@@ -57,7 +57,9 @@ import javax.inject.Inject
 class CinemaLocationActivity : DaggerAppCompatActivity(),
     AdapterDayDate.RecycleViewItemClickListener,
     AdapterShowTimesCinemaTitle.CinemaAdapterListener,
-    CinemaDayAdapter.RecycleViewItemClickListener, AdapterCinemaSessionScroll.LocationListener {
+    CinemaDayAdapter.RecycleViewItemClickListener,
+    AdapterCinemaSessionScroll.LocationListener,
+    CinemaDayAdapter.TypeFaceDay, AdapterCinemaSessionScroll.TypeFaceSession {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject
@@ -90,6 +92,15 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
     private var languageCheck: String = "en"
     private var broadcastReceiver: BroadcastReceiver? = null
 
+    var day1: TextView? = null
+    var date1: TextView? = null
+
+    var name1: TextView? = null
+    var genre1: TextView? = null
+    var cateogry1: TextView? = null
+    var duration1: TextView? = null
+    var tag1: TextView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCinemaLocationBinding.inflate(layoutInflater, null, false)
@@ -98,14 +109,71 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
                 languageCheck = "ar"
+                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
+                val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
+                val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
+
+                binding?.textFilmHouseName?.typeface = bold // heavy
+                binding?.textMovieType?.typeface = regular
+
+                // Cinema Day Adapter
+                day1?.typeface = regular
+                date1?.typeface = regular
+
+                // session
+                name1?.typeface = bold
+                genre1?.typeface = regular
+                duration1?.typeface = regular
+                tag1?.typeface = regular
+                cateogry1?.typeface = bold // heavy
+
+
             }
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(this, "en")
                 languageCheck = "en"
+                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+
+                binding?.textFilmHouseName?.typeface = heavy // heavy
+                binding?.textMovieType?.typeface = regular
+
+                // Cinema Day Adapter
+                day1?.typeface = regular
+                date1?.typeface = regular
+
+                // session
+                name1?.typeface = bold
+                genre1?.typeface = regular
+                duration1?.typeface = regular
+                tag1?.typeface = regular
+                cateogry1?.typeface = heavy // heavy
+
             }
             else -> {
                 languageCheck = "en"
                 LocaleHelper.setLocale(this, "en")
+                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+
+                binding?.textFilmHouseName?.typeface = heavy // heavy
+                binding?.textMovieType?.typeface = regular
+
+                // Cinema Day Adapter
+                day1?.typeface = regular
+                date1?.typeface = regular
+
+                // session
+                name1?.typeface = bold
+                genre1?.typeface = regular
+                duration1?.typeface = regular
+                tag1?.typeface = regular
+                cateogry1?.typeface = heavy // heavy
+
             }
         }
         setContentView(view)
@@ -202,7 +270,7 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
         if (count == 0) {
             val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
             binding?.recylerviewShowTimeDate?.layoutManager = LinearLayoutManager(this)
-            val adapter = CinemaDayAdapter(this, output.days, this)
+            val adapter = CinemaDayAdapter(this, output.days, this, this)
             binding?.recylerviewShowTimeDate?.layoutManager = gridLayout
             binding?.recylerviewShowTimeDate?.adapter = adapter
             count = 1
@@ -212,7 +280,7 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
         binding?.recyclerviewCinemaTitle?.show()
         val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
         binding?.recyclerviewCinemaTitle?.layoutManager = LinearLayoutManager(this)
-        val adapter = AdapterCinemaSessionScroll(this, output.daySessions, this)
+        val adapter = AdapterCinemaSessionScroll(this, output.daySessions, this, this)
         binding?.recyclerviewCinemaTitle?.layoutManager = gridLayout
         binding?.recyclerviewCinemaTitle?.adapter = adapter
         count = 1
@@ -239,6 +307,26 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
             .load(output.cinema.appThumbImageUrl)
             .placeholder(R.drawable.app_icon)
             .into(binding?.imageShow!!)
+    }
+
+    override fun onTypeFaceDay(day: TextView, date: TextView) {
+        day1= day
+        date1 = date
+    }
+
+    override fun onTypeFaceSession(
+        name: TextView,
+        genre: TextView,
+        cateogry: TextView,
+        duration: TextView,
+        tag: TextView
+    ) {
+        name1 = name
+        genre1 = genre
+        cateogry1 = cateogry
+        duration1 = duration
+        tag1 = tag
+
     }
 
     //GetSeatLayout
@@ -361,6 +449,7 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
 
     @SuppressLint("CutPasteId", "SetTextI18n")
     private fun showSeatTypePopup(output: SeatLayoutResponse.Output, name: String, pos: Int) {
+
         val mDialogView = layoutInflater.inflate(R.layout.seat_selection_main_alert_dailog, null)
         val mBuilder = AlertDialog.Builder(this, R.style.MyDialogTransparent)
             .setView(mDialogView)
@@ -447,13 +536,17 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
         }
 
         val viewListForDates = ArrayList<View>()
+
+        val v: View = LayoutInflater.from(this)
+            .inflate(R.layout.seat_selection_category_item, selectSeatCategory, false)
+        val imageSeatSelection: ImageView = v.findViewById(R.id.image_seat_selection)
+        val tvSeatSelection: TextView = v.findViewById(R.id.tv_seat_selectiopn)
+        val tvSeatAvailable2: TextView = v.findViewById(R.id.tv_seat_avialable)
+        val tvKdPrice2: TextView = v.findViewById(R.id.tv_kd_price)
+
+        val tvSelectSeatType = mDialogView.findViewById<TextView>(R.id.tv_select_seat_type)
+
         for (item in output.seatTypes) {
-            val v: View = LayoutInflater.from(this)
-                .inflate(R.layout.seat_selection_category_item, selectSeatCategory, false)
-            val imageSeatSelection: ImageView = v.findViewById(R.id.image_seat_selection)
-            val tvSeatSelection: TextView = v.findViewById(R.id.tv_seat_selectiopn)
-            val tvSeatAvailable2: TextView = v.findViewById(R.id.tv_seat_avialable)
-            val tvKdPrice2: TextView = v.findViewById(R.id.tv_kd_price)
             Glide
                 .with(this)
                 .load(item.icon)
@@ -478,6 +571,7 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
 
             tvSeatSelection.text = item.seatType
             selectSeatCategory.addView(v)
+
             v.setOnClickListener {
                 areaCode = item.areacode
                 ttType = item.ttypeCode
@@ -532,8 +626,7 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
 
                 selectSeatClick + 1
                 val selectSeatType = mDialogView.findViewById<FlexboxLayout>(R.id.select_seat_type)
-                val tvSelectSeatType =
-                    mDialogView.findViewById<TextView>(R.id.tv_select_seat_type)
+//                val tvSelectSeatType = mDialogView.findViewById<TextView>(R.id.tv_select_seat_type)
                 val view2sLine = mDialogView.findViewById<View>(R.id.view2s_line)
                 selectSeatType.removeAllViews()
                 if (item.seatTypes.isNotEmpty()) {
@@ -554,8 +647,25 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                             val tvSeatAvailable: TextView = v.findViewById(R.id.tv_seat_avialable)
                             val tvKdPrice: TextView = v.findViewById(R.id.tv_kd_price)
                             if (languageCheck == "en") {
+                                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                                val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+                                val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
+                                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+
+                                textSeatType.typeface = bold
+                                tvSeatAvailable.typeface = regular
+                                tvKdPrice.typeface = regular
+
                                 textSeatType.text = data.seatType
                             } else {
+
+                                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
+                                val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
+                                val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
+
+                                textSeatType.typeface = bold
+                                tvSeatAvailable.typeface = regular
+                                tvKdPrice.typeface = regular
                                 textSeatType.text = data.seatTypeStr
                             }
                             selectSeatType.show()
@@ -856,6 +966,91 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
         }
 
         loader?.dismiss()
+
+      // language font
+        when {
+            preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
+                LocaleHelper.setLocale(this, "ar")
+                languageCheck = "ar"
+                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
+                val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
+                val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
+
+                textView5.typeface = bold
+
+                tvSeatSelection.typeface = medium // semi bold
+                tvSeatAvailable2.typeface = regular
+                tvKdPrice2.typeface = regular
+
+                tvSelectSeatType.typeface = bold
+
+                txtNumber.typeface = regular
+                totalPrice.typeface = bold
+                termsCond.typeface = medium // semi bold
+                ratingDesc.typeface = regular
+                rating.typeface = bold // heavy
+                tvGiftCard.typeface = bold
+                tvGiftVoucher.typeface = bold
+                textBankOffer.typeface = bold
+
+
+
+            }
+            preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
+                LocaleHelper.setLocale(this, "en")
+                languageCheck = "en"
+                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+                textView5.typeface = bold
+
+                tvSeatSelection.typeface = medium // semi bold
+                tvSeatAvailable2.typeface = regular
+                tvKdPrice2.typeface = regular
+
+                tvSelectSeatType.typeface = bold
+
+                txtNumber.typeface = regular
+                totalPrice.typeface = bold
+                termsCond.typeface = medium // semi bold
+                ratingDesc.typeface = regular
+                rating.typeface = heavy   // heavy
+                tvGiftCard.typeface = bold
+                tvGiftVoucher.typeface = bold
+                textBankOffer.typeface = bold
+
+
+            }
+            else -> {
+                languageCheck = "en"
+                LocaleHelper.setLocale(this, "en")
+                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+                textView5.typeface = bold
+
+                tvSeatSelection.typeface = medium // semi bold
+                tvSeatAvailable2.typeface = regular
+                tvKdPrice2.typeface = regular
+
+                tvSelectSeatType.typeface = bold
+
+                txtNumber.typeface = regular
+                totalPrice.typeface = bold
+                termsCond.typeface = medium // semi bold
+                ratingDesc.typeface = regular
+                rating.typeface = heavy // heavy
+                tvGiftCard.typeface = bold
+                tvGiftVoucher.typeface = bold
+                textBankOffer.typeface = bold
+
+
+            }
+        }
+
+
     }
 
     override fun onResume() {
@@ -903,5 +1098,8 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
         }
 
     }
+
+
+
 
 }

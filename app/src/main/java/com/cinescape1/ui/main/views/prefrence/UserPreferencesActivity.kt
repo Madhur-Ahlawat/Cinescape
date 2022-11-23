@@ -19,6 +19,7 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.cinescape1.R
@@ -82,6 +83,8 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
     private var arbic: Boolean = false
     private var locationlist = ArrayList<FoodResponse.Output.Cinema>()
 
+    private var languageCheck: String = "en"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUserPreferencesBinding.inflate(layoutInflater, null, false)
@@ -90,14 +93,68 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 arbic=true
                 LocaleHelper.setLocale(this, "ar")
+                languageCheck = "ar"
                 println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
+                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
+                val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
+                val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
+
+                binding?.btnGetPersonal?.typeface = bold
+                binding?.textChoosePreference?.typeface = regular
+                binding?.textLocation?.typeface = bold
+                binding?.textFindNearLocation?.typeface = regular
+                binding?.textSeatCategory?.typeface = bold
+                binding?.textSeatType?.typeface = bold
+                binding?.textExperience?.typeface = bold
+                binding?.textAgeRating?.typeface = bold
+                binding?.skipUi?.typeface = bold
+                binding?.doneBtn?.typeface = bold
+                binding?.andProceed?.typeface = regular
+
             }
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 arbic=false
                 LocaleHelper.setLocale(this, "en")
+                languageCheck = "en"
+                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+
+                binding?.btnGetPersonal?.typeface = bold
+                binding?.textChoosePreference?.typeface = regular
+                binding?.textLocation?.typeface = bold
+                binding?.textFindNearLocation?.typeface = regular
+                binding?.textSeatCategory?.typeface = bold
+                binding?.textSeatType?.typeface = bold
+                binding?.textExperience?.typeface = bold
+                binding?.textAgeRating?.typeface = bold
+                binding?.skipUi?.typeface = bold
+                binding?.doneBtn?.typeface = bold
+                binding?.andProceed?.typeface = regular
+
             }
             else -> {
                 LocaleHelper.setLocale(this, "en")
+                languageCheck = "en"
+
+                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+
+                binding?.btnGetPersonal?.typeface = bold
+                binding?.textChoosePreference?.typeface = regular
+                binding?.textLocation?.typeface = bold
+                binding?.textFindNearLocation?.typeface = regular
+                binding?.textSeatCategory?.typeface = bold
+                binding?.textSeatType?.typeface = bold
+                binding?.textExperience?.typeface = bold
+                binding?.textAgeRating?.typeface = bold
+                binding?.skipUi?.typeface = bold
+                binding?.doneBtn?.typeface = bold
+                binding?.andProceed?.typeface = regular
+
             }
         }
         setContentView(view)
@@ -275,6 +332,15 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
             val categoryImage: ImageView = v.findViewById(R.id.image_family) as ImageView
             val categoryName: TextView = v.findViewById(R.id.category_name) as TextView
 
+            if (languageCheck == "ar"){
+                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
+                categoryName.typeface = regular
+
+            }else{
+                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                categoryName.typeface = regular
+            }
+
             seatAbility = if (item.count > 0) {
                 1
             } else {
@@ -317,6 +383,16 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
         for (type_item in list) {
             val v: View = layoutInflater.inflate(R.layout.seat_type_item, null)
             val typeName: TextView = v.findViewById(R.id.tv_seat_selectiopn) as TextView
+
+            if (languageCheck == "ar"){
+                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
+                typeName.typeface = regular
+
+            }else{
+                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                typeName.typeface = regular
+            }
+
             seatAbility = if (type_item.count > 0) {
                 1
             } else {
@@ -350,6 +426,15 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
             val v: View = layoutInflater.inflate(R.layout.experience_item, null)
             val experienceName = v.findViewById(R.id.experience_name) as ImageView
             val experienceText = v.findViewById(R.id.experience_nametxt) as TextView
+            if (languageCheck == "ar"){
+                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
+                experienceText.typeface = regular
+
+            }else{
+                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                experienceText.typeface = regular
+            }
+
             seatAbility = if (data.count > 0) {
                 1
             } else {
@@ -410,7 +495,14 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
         for (type_item in list) {
             val v: View = layoutInflater.inflate(R.layout.age_rating_item, null)
             val ageRatingName: TextView = v.findViewById(R.id.age_rating_name) as TextView
+            if (languageCheck == "ar"){
+                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
+                ageRatingName.typeface = regular
 
+            }else{
+                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                ageRatingName.typeface = regular
+            }
             ageRatingName.text = type_item.seatAgeRating
             seatAbility = if (type_item.count > 0) {
                 1

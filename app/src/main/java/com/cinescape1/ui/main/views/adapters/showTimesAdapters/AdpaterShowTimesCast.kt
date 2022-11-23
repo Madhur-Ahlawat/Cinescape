@@ -14,8 +14,8 @@ import com.cinescape1.data.models.responseModel.CinemaSessionResponse
 
 class AdpaterShowTimesCast(
     private val mContext: Activity,
-    private var showTimesCasCastList: ArrayList<CinemaSessionResponse.Cast>
-) :
+    private var showTimesCasCastList: ArrayList<CinemaSessionResponse.Cast>,
+   var listener :TypeFaceListenerShowTime ) :
     RecyclerView.Adapter<AdpaterShowTimesCast.MyViewHolderShowTimesCast>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderShowTimesCast {
@@ -32,6 +32,8 @@ class AdpaterShowTimesCast(
                 .load(comingSoonItem.urlToPicture)
                 .placeholder(R.drawable.app_icon)
                 .into(holder.imgCast)
+
+        listener.onTypeFaceFoodShowTime(holder.movieCastName)
     }
 
     override fun getItemCount(): Int {
@@ -42,4 +44,9 @@ class AdpaterShowTimesCast(
         var movieCastName: TextView = view.findViewById(R.id.text_movie_cast_name)
         val imgCast = view.findViewById<View>(R.id.image_cast) as ImageView
     }
+
+    interface TypeFaceListenerShowTime {
+        fun onTypeFaceFoodShowTime(movieCastName: TextView)
+    }
+
 }

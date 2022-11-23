@@ -6,8 +6,10 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -46,6 +48,8 @@ class ActivateWalletActivity : DaggerAppCompatActivity(),
     var countryCode: String = ""
     private var mAdapter: CountryCodeAdapter? = null
 
+    private var languageCheck: String = "en"
+
     private var countryCodeList = ArrayList<CountryCodeResponse.Output>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,12 +62,54 @@ class ActivateWalletActivity : DaggerAppCompatActivity(),
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
                 println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
+                languageCheck = "ar"
+                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
+                val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
+                val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
+
+                binding?.textView62?.typeface = bold
+                binding?.textView63?.typeface = regular
+                binding?.textView64?.typeface = bold
+                binding?.textView68?.typeface = regular
+                binding?.textView69?.typeface = regular
+                binding?.textView65?.typeface = bold
+                binding?.textView66?.typeface = regular
+                binding?.textView67?.typeface = medium
+
             }
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(this, "en")
+                languageCheck = "en"
+                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+
+                binding?.textView62?.typeface = bold
+                binding?.textView63?.typeface = regular
+                binding?.textView64?.typeface = bold
+                binding?.textView68?.typeface = regular
+                binding?.textView69?.typeface = regular
+                binding?.textView65?.typeface = bold
+                binding?.textView66?.typeface = regular
+                binding?.textView67?.typeface = medium
             }
             else -> {
                 LocaleHelper.setLocale(this, "en")
+                languageCheck = "en"
+                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+
+                binding?.textView62?.typeface = bold
+                binding?.textView63?.typeface = regular
+                binding?.textView64?.typeface = bold
+                binding?.textView68?.typeface = regular
+                binding?.textView69?.typeface = regular
+                binding?.textView65?.typeface = bold
+                binding?.textView66?.typeface = regular
+                binding?.textView67?.typeface = medium
             }
         }
         movedNext()
@@ -305,7 +351,26 @@ class ActivateWalletActivity : DaggerAppCompatActivity(),
         val recyclerView = mDialogView.findViewById<RecyclerView>(R.id.NewCountryRecycler)
         val cancel = mDialogView.findViewById<View>(R.id.view73)
         val edSearch = mDialogView.findViewById<EditText>(R.id.searchData)
-        val proceed = mDialogView.findViewById<View>(R.id.textView57)
+        val proceed = mDialogView.findViewById<TextView>(R.id.textView57)
+        val textCancel = mDialogView.findViewById<TextView>(R.id.textView59)
+        val textGoBack = mDialogView.findViewById<TextView>(R.id.textView60)
+
+        if (languageCheck == "ar"){
+            val regular = ResourcesCompat.getFont(this, R.font.gess_light)
+            val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
+            proceed.typeface = bold
+            textCancel.typeface = bold
+            textGoBack.typeface = regular
+
+        }else{
+            val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+            val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+            proceed.typeface = bold
+            textCancel.typeface = bold
+            textGoBack.typeface = regular
+        }
+
+
         mAdapter = CountryCodeAdapter(countryCodeList, this, this)
         recyclerView.adapter = mAdapter
         //Recycler

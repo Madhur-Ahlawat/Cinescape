@@ -73,10 +73,13 @@ import kotlin.math.abs
 @Suppress("DEPRECATION", "NAME_SHADOWING")
 class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewItemClickListener,
     AdapterShowTimesCinemaTitle.CinemaAdapterListener, AdapterCinemaSessionScroll.LocationListener,
-    SimilarMovieAdapter.RecycleViewItemClickListener {
+    SimilarMovieAdapter.RecycleViewItemClickListener,
+    AdpaterShowTimesCast.TypeFaceListenerShowTime, AdapterShowTimesCinemaTitle.TypeFaceItem {
     private var num = 0
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
     @Inject
     lateinit var preferences: AppPreferences
     private val showTimeViewModel: ShowTimesViewModel by viewModels { viewModelFactory }
@@ -108,6 +111,9 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     private var languageCheck: String = "en"
     private var broadcastReceiver: BroadcastReceiver? = null
 
+    var movieCastName1: TextView? = null
+    var textTitle5: TextView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityShowTimesBinding.inflate(layoutInflater, null, false)
@@ -119,8 +125,29 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 val regular = ResourcesCompat.getFont(this, R.font.gess_light)
                 val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
                 val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
-
                 println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
+
+                binding?.textFilmHouseName?.typeface = bold // heavy
+                binding?.textView56?.typeface = bold // heavy
+                binding?.textMoreInfo?.typeface = regular
+                binding?.textShare?.typeface = regular
+                binding?.textNotify?.typeface = regular
+                binding?.textMovieType?.typeface = regular
+
+                // include layout
+                text_cast?.typeface = bold
+                movieCastName1?.typeface = regular
+                text_director?.typeface = bold
+                text_directoe_name?.typeface = regular
+                text_genre?.typeface = bold
+                text_genres?.typeface = regular
+                textView8?.typeface = bold
+                textView10?.typeface = regular
+                text_synopsis?.typeface = bold
+                text_sysnopsis_detail?.typeface = regular
+
+                textTitle5?.typeface = bold
+
             }
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(this, "en")
@@ -129,6 +156,27 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
                 val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
                 val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+
+                binding?.textFilmHouseName?.typeface = heavy // heavy
+                binding?.textView56?.typeface = heavy // heavy
+                binding?.textMoreInfo?.typeface = regular
+                binding?.textShare?.typeface = regular
+                binding?.textNotify?.typeface = regular
+                binding?.textMovieType?.typeface = regular
+
+                // include layout
+                text_cast?.typeface = bold
+                movieCastName1?.typeface = regular
+                text_director?.typeface = bold
+                text_directoe_name?.typeface = regular
+                text_genre?.typeface = bold
+                text_genres?.typeface = regular
+                textView8?.typeface = bold
+                textView10?.typeface = regular
+                text_synopsis?.typeface = bold
+                text_sysnopsis_detail?.typeface = regular
+
+                textTitle5?.typeface = bold
 
             }
             else -> {
@@ -139,6 +187,26 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
                 val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
 
+                binding?.textFilmHouseName?.typeface = heavy // heavy
+                binding?.textView56?.typeface = heavy // heavy
+                binding?.textMoreInfo?.typeface = regular
+                binding?.textShare?.typeface = regular
+                binding?.textNotify?.typeface = regular
+                binding?.textMovieType?.typeface = regular
+
+                // include layout
+                text_cast?.typeface = bold
+                movieCastName1?.typeface = regular
+                text_director?.typeface = bold
+                text_directoe_name?.typeface = regular
+                text_genre?.typeface = bold
+                text_genres?.typeface = regular
+                textView8?.typeface = bold
+                textView10?.typeface = regular
+                text_synopsis?.typeface = bold
+                text_sysnopsis_detail?.typeface = regular
+
+                textTitle5?.typeface = bold
 
             }
         }
@@ -650,8 +718,12 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         }
         recyclerview_show_times_cast.layoutManager =
             LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        val adapter = AdpaterShowTimesCast(this, movie.cast)
+        val adapter = AdpaterShowTimesCast(this, movie.cast, this)
         recyclerview_show_times_cast.adapter = adapter
+    }
+
+    override fun onTypeFaceFoodShowTime(movieCastName: TextView) {
+        movieCastName1 = movieCastName
     }
 
     private fun setShowTimesDayDateAdapter(days: ArrayList<CinemaSessionResponse.Days>) {
@@ -722,7 +794,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 adapterShowTimesCinemaTitle = AdapterShowTimesCinemaTitle(
                     this@ShowTimesActivity,
                     daySessionResponse[position].experienceSessions,
-                    this@ShowTimesActivity
+                    this@ShowTimesActivity, this@ShowTimesActivity
                 )
                 binding?.recyclerviewCinemaTitle?.layoutManager = gridLayout
                 binding?.recyclerviewCinemaTitle?.adapter = adapterShowTimesCinemaTitle
@@ -730,6 +802,10 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
         })
 
+    }
+
+    override fun onTypeFaceCinemaTittle(textTitle: TextView) {
+        textTitle5 = textTitle
     }
 
     override fun onDateClick(city: CinemaSessionResponse.Days, view: View, pos: Int) {
@@ -1307,5 +1383,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         startActivity(intent)
 
     }
+
 
 }

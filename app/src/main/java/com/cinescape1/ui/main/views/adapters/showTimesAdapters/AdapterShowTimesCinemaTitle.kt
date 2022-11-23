@@ -18,7 +18,7 @@ import com.cinescape1.utils.show
 class AdapterShowTimesCinemaTitle(
     private var context: Context,
     private var showTimeTitleList: List<CinemaSessionResponse.ExperienceSession>,
-    val listener: CinemaAdapterListener
+    val listener: CinemaAdapterListener, var typeFaceListener : TypeFaceItem
 ) : RecyclerView.Adapter<AdapterShowTimesCinemaTitle.MyViewHolderShowTimesTitle>(),
     AdapterCinemaSessionDimension.SessionAdapterListener {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderShowTimesTitle {
@@ -32,6 +32,8 @@ class AdapterShowTimesCinemaTitle(
         holder.textTitle.text = showtimeListItem.experience
         holder.textTitle.hide()
         holder.imageCinema.show()
+
+        typeFaceListener.onTypeFaceCinemaTittle(holder.textTitle)
         println("image--->${showtimeListItem.experienceIcon}")
         try {
             Glide.with(context)
@@ -81,4 +83,9 @@ class AdapterShowTimesCinemaTitle(
         val recyclerShowTimeDimensions =
             view.findViewById<View>(R.id.recyler_time_dimension) as RecyclerView
     }
+
+    interface TypeFaceItem{
+        fun onTypeFaceCinemaTittle(textTitle: TextView)
+    }
+
 }

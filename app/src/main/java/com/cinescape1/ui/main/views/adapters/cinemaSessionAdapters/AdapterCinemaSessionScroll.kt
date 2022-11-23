@@ -26,7 +26,7 @@ import com.cinescape1.utils.show
 class AdapterCinemaSessionScroll(
     private val context: Context,
     private var cinemaSessionList: ArrayList<CSessionResponse.Output.DaySession>,
-    val listener: LocationListener
+    val listener: LocationListener, var listenerSession : TypeFaceSession
 ) :
     RecyclerView.Adapter<AdapterCinemaSessionScroll.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -45,6 +45,8 @@ class AdapterCinemaSessionScroll(
             showtimeListItem.movie.language + " | " + showtimeListItem.movie.runTime + "min."
         holder.cateogry.text = showtimeListItem.movie.rating
         holder.genre.text = showtimeListItem.movie.genre
+
+        listenerSession.onTypeFaceSession(holder.name, holder.genre, holder.cateogry, holder.duration,holder.tag)
 
 
         val ratingColor=showtimeListItem.movie.ratingColor
@@ -127,4 +129,9 @@ class AdapterCinemaSessionScroll(
         val recyclerView =
             view.findViewById(R.id.recylerview_cinema_session_timing_dimension) as RecyclerView
     }
+
+    interface TypeFaceSession{
+        fun onTypeFaceSession(name: TextView,genre: TextView,cateogry: TextView, duration: TextView, tag: TextView)
+    }
+
 }

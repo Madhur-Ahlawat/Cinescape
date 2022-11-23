@@ -102,6 +102,7 @@ class AdapterDayDate(
             holder.date.textSize = 16F
         }
 
+//        listenerTypeFace.onTypeFaceFoodDayDate(holder.day, holder.date)
 
     }
 
@@ -119,5 +120,9 @@ class AdapterDayDate(
         var views1: View = view.viewLine
         var consBackground: View = view.consBackground
     }
+
+//    interface TypeFaceListenerDayDate {
+//        fun onTypeFaceFoodDayDate(day: TextView, date: TextView)
+//    }
 
 }

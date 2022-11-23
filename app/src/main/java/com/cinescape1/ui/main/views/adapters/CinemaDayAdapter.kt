@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.showtime_day_date_item.view.*
 
 class CinemaDayAdapter(
     var context: Activity, private var dayDateList: ArrayList<CSessionResponse.Output.Day>,
-    var listener: RecycleViewItemClickListener
+    var listener: RecycleViewItemClickListener, var listenerDay : TypeFaceDay
 ) : RecyclerView.Adapter<CinemaDayAdapter.MyViewHolderDayDate>() {
     var mContext: Activity = context
     private var rowIndex = 0
@@ -40,6 +40,8 @@ class CinemaDayAdapter(
     override fun onBindViewHolder(holder: MyViewHolderDayDate, @SuppressLint("RecyclerView") position: Int) {
         val dayDateItem = dayDateList[position]
         viewHide = dayDateList.size-1
+
+        listenerDay.onTypeFaceDay(holder.day, holder.date)
 
         if (position ==viewHide) {
             holder.views1.hide()
@@ -106,6 +108,10 @@ class CinemaDayAdapter(
         var date: TextView = view.text_date
         var views1: View = view.viewLine
         var consBackground: View = view.consBackground
+    }
+
+    interface TypeFaceDay{
+       fun onTypeFaceDay(day: TextView, date: TextView)
     }
 
 }
