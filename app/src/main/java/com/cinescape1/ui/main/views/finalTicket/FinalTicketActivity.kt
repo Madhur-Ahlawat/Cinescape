@@ -67,6 +67,22 @@ class FinalTicketActivity : DaggerAppCompatActivity(), FinalTicketParentAdapter.
     var onePayMode1: TextView? = null
     var onePrice1: TextView? = null
 
+    var twoBookingId1: TextView? = null
+    var twoPickupInfo1: TextView? = null
+    var twoPayMode1: TextView? = null
+    var twoPayPrice1: TextView? = null
+
+    var threeBookingId1: TextView? = null
+    var threeTicket1: TextView? = null
+    var threeTicketPrice1: TextView? = null
+    var threeFood1: TextView? = null
+    var threeFoodPrice1: TextView? = null
+    var threeReferenceId1: TextView? = null
+    var threeReferenceTxt1: TextView? = null
+    var threeTrackId1: TextView? = null
+    var threeDateTime1: TextView? = null
+    var threePayMode1: TextView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
@@ -96,6 +112,21 @@ class FinalTicketActivity : DaggerAppCompatActivity(), FinalTicketParentAdapter.
                 onePayMode1?.typeface = bold
                 onePrice1?.typeface = bold
 
+                twoBookingId1?.typeface = bold
+                twoPickupInfo1?.typeface = bold
+                twoPayMode1?.typeface = bold
+                twoPayPrice1?.typeface = bold
+
+                threeBookingId1?.typeface = bold
+                threeTicket1?.typeface = bold
+                threeTicketPrice1?.typeface = bold
+                threeFood1?.typeface = bold
+                threeFoodPrice1?.typeface = bold
+                threeReferenceId1?.typeface = bold
+                threeReferenceTxt1?.typeface = bold
+                threeTrackId1?.typeface = bold
+                threeDateTime1?.typeface = bold
+                threePayMode1?.typeface = bold
             }
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(this, "en")
@@ -104,6 +135,39 @@ class FinalTicketActivity : DaggerAppCompatActivity(), FinalTicketParentAdapter.
                 val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
                 val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
 
+                binding?.textBookingAddedWallet?.typeface = regular
+                binding?.textBookingSuccess?.typeface = regular
+                binding?.tvShare?.typeface = regular
+                binding?.textView46?.typeface = regular
+                binding?.textView120?.typeface = bold
+
+                oneBookingId1?.typeface = bold
+                oneTitle1?.typeface = heavy  // heavy
+                oneRating1?.typeface = heavy  // heavy
+                oneLocation1?.typeface = bold
+                oneDateTime1?.typeface = bold
+                oneScreen1?.typeface = bold
+                oneType1?.typeface = bold
+                oneCategoryName1?.typeface = bold
+                onePayMode1?.typeface = bold
+                onePrice1?.typeface = bold
+
+                twoBookingId1?.typeface = bold
+                twoPickupInfo1?.typeface = bold
+                twoPayMode1?.typeface = bold
+                twoPayPrice1?.typeface = bold
+
+                threeBookingId1?.typeface = bold
+                threeTicket1?.typeface = bold
+                threeTicketPrice1?.typeface = bold
+                threeFood1?.typeface = bold
+                threeFoodPrice1?.typeface = bold
+                threeReferenceId1?.typeface = bold
+                threeReferenceTxt1?.typeface = bold
+                threeTrackId1?.typeface = bold
+                threeDateTime1?.typeface = bold
+                threePayMode1?.typeface = bold
+
             }
             else -> {
                 LocaleHelper.setLocale(this, "en")
@@ -111,6 +175,39 @@ class FinalTicketActivity : DaggerAppCompatActivity(), FinalTicketParentAdapter.
                 val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
                 val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
                 val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+
+                binding?.textBookingAddedWallet?.typeface = regular
+                binding?.textBookingSuccess?.typeface = regular
+                binding?.tvShare?.typeface = regular
+                binding?.textView46?.typeface = regular
+                binding?.textView120?.typeface = bold
+
+                oneBookingId1?.typeface = bold
+                oneTitle1?.typeface = heavy  // heavy
+                oneRating1?.typeface = heavy  // heavy
+                oneLocation1?.typeface = bold
+                oneDateTime1?.typeface = bold
+                oneScreen1?.typeface = bold
+                oneType1?.typeface = bold
+                oneCategoryName1?.typeface = bold
+                onePayMode1?.typeface = bold
+                onePrice1?.typeface = bold
+
+                twoBookingId1?.typeface = bold
+                twoPickupInfo1?.typeface = bold
+                twoPayMode1?.typeface = bold
+                twoPayPrice1?.typeface = bold
+
+                threeBookingId1?.typeface = bold
+                threeTicket1?.typeface = bold
+                threeTicketPrice1?.typeface = bold
+                threeFood1?.typeface = bold
+                threeFoodPrice1?.typeface = bold
+                threeReferenceId1?.typeface = bold
+                threeReferenceTxt1?.typeface = bold
+                threeTrackId1?.typeface = bold
+                threeDateTime1?.typeface = bold
+                threePayMode1?.typeface = bold
 
             }
         }
@@ -407,6 +504,10 @@ class FinalTicketActivity : DaggerAppCompatActivity(), FinalTicketParentAdapter.
         twoPayMode: TextView,
         twoPayPrice: TextView
     ) {
+        twoBookingId1 = twoBookingId
+        twoPickupInfo1 = twoPickupInfo
+        twoPayMode1= twoPayMode
+        twoPayPrice1 = twoPayPrice
 
     }
 
@@ -422,6 +523,16 @@ class FinalTicketActivity : DaggerAppCompatActivity(), FinalTicketParentAdapter.
         threeDateTime: TextView,
         threePayMode: TextView
     ) {
+        threeBookingId1 = threeBookingId
+        threeTicket1 = threeTicket
+        threeTicketPrice1 = threeTicketPrice
+        threeFood1 = threeFood
+        threeFoodPrice1 = threeFoodPrice
+        threeReferenceId1= threeReferenceId
+        threeReferenceTxt1 = threeReferenceTxt
+        threeTrackId1 = threeTrackId
+        threeDateTime1 = threeDateTime
+        threePayMode1= threePayMode
 
     }
 
