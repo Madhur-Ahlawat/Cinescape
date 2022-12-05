@@ -356,5 +356,11 @@
     <string name="movieShowing">Similar movies now showing</string>
     <string name="change_password">Change Password</string>
 
+    <string name="edit_password">Edit Password</string>
+    <string name="old_password">Old Password</string>
+
+
+    <string name="youtube_api_key" translatable="false">AIzaSyAD0AZTCMULaXpQfulSKNWuLlLl-nbdSf0</string>
+
 
 </resources>

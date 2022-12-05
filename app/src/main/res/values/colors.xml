@@ -21,6 +21,7 @@
     <color name="blue">#0000FF</color>
     <color name="hint_color">#adadad</color>
     <color name="text_color">#c1c1c1</color>
+    <color name="text_color1">#646464</color>
     <color name="arabic_color">#696969</color>
     <color name="view_line_color">#2e2e2e</color>
     <color name="text_alert_color">#7b7a7a</color>

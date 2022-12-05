@@ -50,7 +50,6 @@ import kotlinx.android.synthetic.main.fragment_movies.*
 import kotlinx.android.synthetic.main.search_ui.*
 import javax.inject.Inject
 
-
 class MoviesFragment(val type: Int) : DaggerFragment(),
     AdapterFilterCategory.RecycleViewItemClickListener,
     MovieTypeAdapter.RecycleViewItemClickListener,

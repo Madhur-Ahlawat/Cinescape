@@ -230,8 +230,8 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         movieID = intent.getStringExtra(Constant.IntentKey.MOVIE_ID)!!
         when (type) {
             "comingSoon" -> {
-                val layoutParams =
-                    (binding?.recylerviewShowTimeDate?.layoutParams as? ViewGroup.MarginLayoutParams)
+
+                val layoutParams = (binding?.recylerviewShowTimeDate?.layoutParams as? ViewGroup.MarginLayoutParams)
                 layoutParams?.setMargins(0, 0, 0, 16)
                 binding?.recylerviewShowTimeDate?.layoutParams = layoutParams
 
@@ -242,9 +242,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 binding?.centerView?.hide()
                 binding?.imageView48?.hide()
                 include.show()
-
                 movieDetails(movieID)
-
             }
             else -> {
                 val layoutParams =
@@ -486,15 +484,18 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                     output.movie.language + " | " + output.movie.genre + " | " + output.movie.runTime + " " + getString(
                         R.string.min
                     )
-
             }
         }
-        if (output.movie.cast.isNotEmpty()) {
-            text_cast.show()
-            recyclerview_show_times_cast.show()
+
+        println("MovieCast ComingSoon----->${output.movie.cast}")
+        if (output.movie.cast.size < 0) {
+            println("MovieCast ComingSoon----->yes")
+            binding?.include?.textCast?.show()
+            binding?.include?.recyclerviewShowTimesCast?.show()
         } else {
-            text_cast.hide()
-            recyclerview_show_times_cast.hide()
+            println("MovieCast ComingSoon----->no")
+            binding?.include?.textCast?.show()
+            binding?.include?.recyclerviewShowTimesCast?.hide()
         }
 
         if (output.movie.trailerUrl.isEmpty()) {
@@ -704,6 +705,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
     @SuppressLint("SetTextI18n")
     private fun setShowTimesCastAdapter(movie: CinemaSessionResponse.Movie) {
+        println("")
         text_genres.text = movie.genre
         textView10.text = movie.language
         textView123.text = movie.subTitle
@@ -711,15 +713,20 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         text_directoe_name.text = movie.director.firstName + " " + movie.director.lastName
         if (movie.cast.isNotEmpty()) {
             text_cast.show()
-            recyclerview_show_times_cast.show()
+            binding?.include?.recyclerviewShowTimesCast?.show()
         } else {
             text_cast.hide()
-            recyclerview_show_times_cast.hide()
+            binding?.include?.recyclerviewShowTimesCast?.hide()
         }
-        recyclerview_show_times_cast.layoutManager =
-            LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        val adapter = AdpaterShowTimesCast(this, movie.cast, this)
-        recyclerview_show_times_cast.adapter = adapter
+
+        try {
+            binding?.include?.recyclerviewShowTimesCast?.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+            val adapter = AdpaterShowTimesCast(this, movie.cast, this)
+            binding?.include?.recyclerviewShowTimesCast?.adapter = adapter
+        }catch (e : Exception){
+            println("errorCast------->${e.message}")
+        }
+
     }
 
     override fun onTypeFaceFoodShowTime(movieCastName: TextView) {
@@ -902,6 +909,10 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         tvGiftVoucher.paintFlags = tvGiftVoucher.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         textBankOffer.paintFlags = textBankOffer.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
+        cancelDialog.setOnClickListener {
+            mAlertDialog?.dismiss()
+        }
+        
         ratingDesc.text = output.movie.ratingDescription
         if (output.movie.rating.isEmpty()) {
             rating.hide()
@@ -1272,9 +1283,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             }
         }
 
-        cancelDialog.setOnClickListener {
-            mAlertDialog?.dismiss()
-        }
+
 
         textBankOffer.setOnClickListener {
             textBankOffer.setTextColor(ContextCompat.getColor(this, R.color.text_alert_color_red))

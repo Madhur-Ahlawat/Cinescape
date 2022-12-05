@@ -449,7 +449,6 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
 
     @SuppressLint("CutPasteId", "SetTextI18n")
     private fun showSeatTypePopup(output: SeatLayoutResponse.Output, name: String, pos: Int) {
-
         val mDialogView = layoutInflater.inflate(R.layout.seat_selection_main_alert_dailog, null)
         val mBuilder = AlertDialog.Builder(this, R.style.MyDialogTransparent)
             .setView(mDialogView)
@@ -461,13 +460,12 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
         val totalPrice = mDialogView.findViewById<TextView>(R.id.text_total_t_kd)
         val termsCond = mDialogView.findViewById<TextView>(R.id.textView103)
         val ratingDesc = mDialogView.findViewById<TextView>(R.id.text_category_decription)
-        val ratingUi = mDialogView.findViewById<CardView>(R.id.rating_ui)
         val rating = mDialogView.findViewById<TextView>(R.id.text_age_category)
-//        val terms = mDialogView.findViewById<TextView>(R.id.text_agree)
         val tvGiftCard = mDialogView.findViewById<TextView>(R.id.tv_gift_card)
         val tvGiftVoucher = mDialogView.findViewById<TextView>(R.id.tv_gift_voucher)
         val textBankOffer = mDialogView.findViewById<TextView>(R.id.text_bank_offer)
         val clickUi = mDialogView.findViewById<ConstraintLayout>(R.id.vw_ticket_qtyUi)
+        val bottomCategory = mDialogView.findViewById<ConstraintLayout>(R.id.bottomCategory)
         val cancelDialog = mDialogView.findViewById<ConstraintLayout>(R.id.cancelDialog)
 
         val viewGift = mDialogView.findViewById<View>(R.id.view_gift)
@@ -481,6 +479,10 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
         tvGiftVoucher.paintFlags = tvGiftVoucher.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         textBankOffer.paintFlags = textBankOffer.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
+        cancelDialog.setOnClickListener {
+            mAlertDialog?.dismiss()
+        }
+
         ratingDesc.text = output.movie.ratingDescription
         if (output.movie.rating.isEmpty()) {
             rating.hide()
@@ -488,40 +490,12 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
             rating.show()
             rating.text = output.movie.rating
         }
-        when (output.movie.rating) {
-            "PG" -> {
-                ratingUi.setCardBackgroundColor(this.resources.getColor(R.color.grey))
 
-            }
-            "G" -> {
-                ratingUi.setCardBackgroundColor(this.resources.getColor(R.color.green))
-
-            }
-            "18+" -> {
-                ratingUi.setCardBackgroundColor(this.resources.getColor(R.color.red))
-
-            }
-            "13+" -> {
-                ratingUi.setCardBackgroundColor(this.resources.getColor(R.color.yellow))
-
-            }
-            "E" -> {
-                ratingUi.setCardBackgroundColor(this.resources.getColor(R.color.wowOrange))
-
-            }
-            "T" -> {
-                ratingUi.setCardBackgroundColor(this.resources.getColor(R.color.tabIndicater))
-
-            }
-            else -> {
-                ratingUi.setCardBackgroundColor(this.resources.getColor(R.color.blue))
-
-            }
-        }
-
-        val btnDecrease: TextView = mDialogView.findViewById(R.id.text_decrease)
+        val ratingColor = output.movie.ratingColor
+        rating.setBackgroundColor(Color.parseColor(ratingColor))
+        val btnDecrease: ImageView = mDialogView.findViewById(R.id.text_decrease)
         val txtNumber: TextView = mDialogView.findViewById(R.id.text_number)
-        val btnIncrease: TextView = mDialogView.findViewById(R.id.text_increase)
+        val btnIncrease: ImageView = mDialogView.findViewById(R.id.text_increase)
         val textProceeds = mDialogView.findViewById<TextView>(R.id.text_proceeds)
 
         val selectSeatCategory = mDialogView.findViewById<FlexboxLayout>(R.id.select_seat_category)
@@ -536,17 +510,13 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
         }
 
         val viewListForDates = ArrayList<View>()
-
-        val v: View = LayoutInflater.from(this)
-            .inflate(R.layout.seat_selection_category_item, selectSeatCategory, false)
-        val imageSeatSelection: ImageView = v.findViewById(R.id.image_seat_selection)
-        val tvSeatSelection: TextView = v.findViewById(R.id.tv_seat_selectiopn)
-        val tvSeatAvailable2: TextView = v.findViewById(R.id.tv_seat_avialable)
-        val tvKdPrice2: TextView = v.findViewById(R.id.tv_kd_price)
-
-        val tvSelectSeatType = mDialogView.findViewById<TextView>(R.id.tv_select_seat_type)
-
         for (item in output.seatTypes) {
+            val v: View = LayoutInflater.from(this)
+                .inflate(R.layout.seat_selection_category_item, selectSeatCategory, false)
+            val imageSeatSelection: ImageView = v.findViewById(R.id.image_seat_selection)
+            val tvSeatSelection: TextView = v.findViewById(R.id.tv_seat_selectiopn)
+            val tvSeatAvailable2: TextView = v.findViewById(R.id.tv_seat_avialable)
+            val tvKdPrice2: TextView = v.findViewById(R.id.tv_kd_price)
             Glide
                 .with(this)
                 .load(item.icon)
@@ -563,7 +533,6 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                 } else {
                     0
                 }
-
             } else {
                 tvSeatAvailable2.hide()
                 tvKdPrice2.hide()
@@ -571,11 +540,12 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
 
             tvSeatSelection.text = item.seatType
             selectSeatCategory.addView(v)
-
             v.setOnClickListener {
                 areaCode = item.areacode
                 ttType = item.ttypeCode
                 seatCat = item.seatType
+//                toast("type--2->${seatCat}")
+
                 totalPriceResponse = item.priceInt
                 num = 1
                 txtNumber.text = num.toString()
@@ -603,6 +573,7 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                     btnDecrease.isClickable = true
                     btnIncrease.isClickable = true
                 }
+
                 for (v in viewListForDates) {
                     imageSeatSelection1 =
                         v.findViewById(R.id.image_seat_selection) as ImageView
@@ -616,9 +587,12 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                     tvSeatAvailable11.setTextColor(getColor(R.color.hint_color))
                     tvKdPrice11.setTextColor(getColor(R.color.hint_color))
                 }
+
+                println("item.iconActive--->${item.iconActive}")
                 Glide.with(this)
                     .load(item.iconActive)
                     .into(imageSeatSelection)
+
                 imageSeatSelection.setColorFilter(getColor(R.color.text_alert_color_red))
                 tvSeatSelection.setTextColor(getColor(R.color.text_alert_color_red))
                 tvSeatAvailable2.setTextColor(getColor(R.color.text_alert_color_red))
@@ -626,13 +600,14 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
 
                 selectSeatClick + 1
                 val selectSeatType = mDialogView.findViewById<FlexboxLayout>(R.id.select_seat_type)
-//                val tvSelectSeatType = mDialogView.findViewById<TextView>(R.id.tv_select_seat_type)
+                val tvSelectSeatType =
+                    mDialogView.findViewById<TextView>(R.id.tv_select_seat_type)
                 val view2sLine = mDialogView.findViewById<View>(R.id.view2s_line)
                 selectSeatType.removeAllViews()
                 if (item.seatTypes.isNotEmpty()) {
                     val viewListForDates = ArrayList<View>()
                     selectSeatType.show()
-                    tvSelectSeatType.show()
+                    bottomCategory.show()
                     view2sLine.show()
                     for (data in item.seatTypes) {
                         try {
@@ -647,25 +622,8 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                             val tvSeatAvailable: TextView = v.findViewById(R.id.tv_seat_avialable)
                             val tvKdPrice: TextView = v.findViewById(R.id.tv_kd_price)
                             if (languageCheck == "en") {
-                                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
-                                val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
-                                val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
-                                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
-
-                                textSeatType.typeface = bold
-                                tvSeatAvailable.typeface = regular
-                                tvKdPrice.typeface = regular
-
                                 textSeatType.text = data.seatType
                             } else {
-
-                                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
-                                val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
-                                val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
-
-                                textSeatType.typeface = bold
-                                tvSeatAvailable.typeface = regular
-                                tvKdPrice.typeface = regular
                                 textSeatType.text = data.seatTypeStr
                             }
                             selectSeatType.show()
@@ -673,13 +631,14 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                             Glide.with(this)
                                 .load(data.icon)
                                 .into(imgSeatSelectionType)
+
+
                             imgMetroInfo.setImageResource(R.drawable.ic_icon_metro_info)
                             tvKdPrice.text = data.price.toString()
                             tvSeatAvailable.text = data.count
                             selectSeatType.addView(v)
 
                             v.setOnClickListener {
-                                var imageSeatSelection1: ImageView?
                                 var tvSeatSelection1: TextView?
                                 var tvSeatAvailable1: TextView?
                                 var tvKdPrice1: TextView?
@@ -714,14 +673,11 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                                 }
 
                                 for (v in viewListForDates) {
-                                    imageSeatSelection1 =
-                                        v.findViewById(R.id.img_seat_selection_type) as ImageView
                                     tvSeatSelection1 =
                                         v.findViewById(R.id.textseat_type) as TextView
                                     tvSeatAvailable1 =
                                         v.findViewById(R.id.tv_seat_avialable) as TextView
                                     tvKdPrice1 = v.findViewById(R.id.tv_kd_price) as TextView
-                                    imageSeatSelection1!!.setColorFilter(getColor(R.color.hint_color))
                                     tvSeatSelection1!!.setTextColor(getColor(R.color.hint_color))
                                     tvSeatAvailable1.setTextColor(getColor(R.color.hint_color))
                                     tvKdPrice1.setTextColor(getColor(R.color.hint_color))
@@ -730,7 +686,6 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                                 Glide.with(this)
                                     .load(data.iconActive)
                                     .into(imgSeatSelectionType)
-                                imgSeatSelectionType.setColorFilter(getColor(R.color.text_alert_color_red))
                                 textSeatType.setTextColor(getColor(R.color.text_alert_color_red))
                                 tvSeatAvailable.setTextColor(getColor(R.color.text_alert_color_red))
                                 tvKdPrice.setTextColor(getColor(R.color.text_alert_color_red))
@@ -898,9 +853,7 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
             }
         }
 
-        cancelDialog.setOnClickListener {
-            mAlertDialog?.dismiss()
-        }
+
 
         textBankOffer.setOnClickListener {
             textBankOffer.setTextColor(ContextCompat.getColor(this, R.color.text_alert_color_red))
@@ -966,91 +919,6 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
         }
 
         loader?.dismiss()
-
-      // language font
-        when {
-            preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
-                LocaleHelper.setLocale(this, "ar")
-                languageCheck = "ar"
-                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
-                val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
-                val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
-
-                textView5.typeface = bold
-
-                tvSeatSelection.typeface = medium // semi bold
-                tvSeatAvailable2.typeface = regular
-                tvKdPrice2.typeface = regular
-
-                tvSelectSeatType.typeface = bold
-
-                txtNumber.typeface = regular
-                totalPrice.typeface = bold
-                termsCond.typeface = medium // semi bold
-                ratingDesc.typeface = regular
-                rating.typeface = bold // heavy
-                tvGiftCard.typeface = bold
-                tvGiftVoucher.typeface = bold
-                textBankOffer.typeface = bold
-
-
-
-            }
-            preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
-                LocaleHelper.setLocale(this, "en")
-                languageCheck = "en"
-                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
-                val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
-                val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
-                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
-                textView5.typeface = bold
-
-                tvSeatSelection.typeface = medium // semi bold
-                tvSeatAvailable2.typeface = regular
-                tvKdPrice2.typeface = regular
-
-                tvSelectSeatType.typeface = bold
-
-                txtNumber.typeface = regular
-                totalPrice.typeface = bold
-                termsCond.typeface = medium // semi bold
-                ratingDesc.typeface = regular
-                rating.typeface = heavy   // heavy
-                tvGiftCard.typeface = bold
-                tvGiftVoucher.typeface = bold
-                textBankOffer.typeface = bold
-
-
-            }
-            else -> {
-                languageCheck = "en"
-                LocaleHelper.setLocale(this, "en")
-                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
-                val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
-                val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
-                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
-                textView5.typeface = bold
-
-                tvSeatSelection.typeface = medium // semi bold
-                tvSeatAvailable2.typeface = regular
-                tvKdPrice2.typeface = regular
-
-                tvSelectSeatType.typeface = bold
-
-                txtNumber.typeface = regular
-                totalPrice.typeface = bold
-                termsCond.typeface = medium // semi bold
-                ratingDesc.typeface = regular
-                rating.typeface = heavy // heavy
-                tvGiftCard.typeface = bold
-                tvGiftVoucher.typeface = bold
-                textBankOffer.typeface = bold
-
-
-            }
-        }
-
-
     }
 
     override fun onResume() {
@@ -1070,13 +938,7 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
         getCinemaData(CinemaSessionRequest(dateTime, movieID))
     }
 
-    override fun onShowClicked(
-        show: CSessionResponse.Output.DaySession.Show,
-        name: String,
-        position: Int,
-        cinemaPos: Int,
-        movieCinemaId: String
-    ) {
+    override fun onShowClicked(show: CSessionResponse.Output.DaySession.Show, name: String, position: Int, cinemaPos: Int, movieCinemaId: String) {
         showPose = cinemaPos
         cinemaID = show.cinemaId
         sessionID = show.sessionId

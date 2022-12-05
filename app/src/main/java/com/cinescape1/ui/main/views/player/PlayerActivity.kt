@@ -19,6 +19,7 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 import javax.inject.Inject
 
+@Suppress("DEPRECATION")
 class PlayerActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -34,8 +35,10 @@ class PlayerActivity : DaggerAppCompatActivity() {
         setContentView(view)
 
         binding?.imageView38?.setOnClickListener {
+            onBackPressed()
             finish()
         }
+
 
         val trailerUrl = intent.getStringExtra("trailerUrl")
         getYoutubeVideoId(trailerUrl)
@@ -46,10 +49,20 @@ class PlayerActivity : DaggerAppCompatActivity() {
         registerReceiver(broadcastReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
     }
 
-    override fun onPause() {
-        super.onPause()
+//    override fun onStart() {
+//        super.onStart()
+//        unregisterReceiver(broadcastReceiver)
+//    }
+//    override fun onPause() {
+//        super.onPause()
+//        unregisterReceiver(broadcastReceiver)
+//    }
+    override fun onResume() {
+        super.onResume()
         unregisterReceiver(broadcastReceiver)
     }
+
+
 
     private fun getYoutubeVideoId(youtubeUrl: String?): String? {
         var vId: String? = null
@@ -85,5 +98,13 @@ class PlayerActivity : DaggerAppCompatActivity() {
                 ) {
                 }
             })
+    }
+
+
+    override fun onBackPressed() {
+        if (callingActivity != null) {
+            setResult(RESULT_OK)
+            finish()
+        } else super.onBackPressed()
     }
 }

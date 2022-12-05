@@ -22,8 +22,7 @@ import com.cinescape1.utils.show
 
 class AdapterNowShowing(
     private var nowShowingList: ArrayList<MoviesResponse.Nowshowing>,
-    context: Context, var listener : TypefaceListenerNowShowing
-) :
+    context: Context, var listener : TypefaceListenerNowShowing) :
     RecyclerView.Adapter<AdapterNowShowing.MyViewHolderNowShowing>() {
     private var mContext = context
 

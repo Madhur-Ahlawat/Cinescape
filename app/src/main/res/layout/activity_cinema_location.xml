@@ -225,6 +225,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginBottom="8dp"
+                android:layout_marginTop="@dimen/margin14"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -235,8 +236,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin8"
-                android:layout_marginBottom="1dp"
                 android:orientation="vertical"
+                android:layout_marginBottom="@dimen/dimen30"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/recylerview_show_time_date"
                 app:layout_constraintStart_toStartOf="@+id/recylerview_show_time_date"
                 app:layout_constraintTop_toBottomOf="@+id/recylerview_show_time_date" />

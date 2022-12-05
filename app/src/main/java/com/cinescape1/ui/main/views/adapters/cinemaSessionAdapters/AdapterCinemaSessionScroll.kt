@@ -42,7 +42,7 @@ class AdapterCinemaSessionScroll(
         val showtimeListItem = cinemaSessionList[position]
         holder.name.text = showtimeListItem.movie.title
         holder.duration.text =
-            showtimeListItem.movie.language + " | " + showtimeListItem.movie.runTime + "min."
+            showtimeListItem.movie.language + " | " + showtimeListItem.movie.runTime + " min."
         holder.cateogry.text = showtimeListItem.movie.rating
         holder.genre.text = showtimeListItem.movie.genre
 

@@ -19,7 +19,6 @@ import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 import kotlinx.android.synthetic.main.showtime_day_date_item.view.*
 
-
 class CinemaDayAdapter(
     var context: Activity, private var dayDateList: ArrayList<CSessionResponse.Output.Day>,
     var listener: RecycleViewItemClickListener, var listenerDay : TypeFaceDay

@@ -180,7 +180,6 @@
                                     android:textSize="@dimen/size11"
                                     tools:ignore="HardcodedText,TextContrastCheck"
                                     tools:text="13+" />
-
                             </androidx.cardview.widget.CardView>
 
 

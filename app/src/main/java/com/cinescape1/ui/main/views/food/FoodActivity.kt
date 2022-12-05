@@ -477,6 +477,7 @@ class FoodActivity : DaggerAppCompatActivity(),
     //Cart Dialog
     @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     private fun setCartDialog() {
+
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.food_cart_dailog_info, null)
         val mBuilder = AlertDialog.Builder(this, R.style.NewDialog)
             .setView(mDialogView)
@@ -552,7 +553,11 @@ class FoodActivity : DaggerAppCompatActivity(),
             cinemaName.text=intent.getStringExtra("movieCinemaName").toString()
             timing.text= intent.getStringExtra("movieTimeDate").toString()
             type.text= intent.getStringExtra("movieType").toString()
-            rating.setBackgroundColor(Color.parseColor(movieRatingColor))
+            try {
+                rating.setBackgroundColor(Color.parseColor(movieRatingColor))
+            }catch (e:Exception){
+                println("foodError--------->${e.message}")
+            }
 
         }
 

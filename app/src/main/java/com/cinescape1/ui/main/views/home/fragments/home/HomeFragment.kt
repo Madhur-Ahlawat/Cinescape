@@ -62,8 +62,8 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
 
                 homeTitle1?.typeface = bold
                 txtSeeAll1?.typeface = regular
-
             }
+
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(requireActivity(), "en")
                 val regular = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_regular)

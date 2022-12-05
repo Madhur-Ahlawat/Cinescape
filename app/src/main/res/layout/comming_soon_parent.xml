@@ -18,8 +18,7 @@
             android:id="@+id/textView121"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/margin10"
-            android:paddingEnd="1dp"
+            android:gravity="start"
             android:textColor="@color/white"
             android:fontFamily="@font/sf_pro_text_bold"
             android:textSize="@dimen/size14"
@@ -37,7 +36,7 @@
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView121"
             app:layout_constraintTop_toBottomOf="@+id/textView121"
             tools:itemCount="3"
             tools:listitem="@layout/com_soon_item" />

@@ -158,7 +158,7 @@
                     android:gravity="center"
                     tools:text="Akash"
                     android:textAlignment="center"
-                    android:textColor="@color/text_color"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/size12"
                     android:textStyle="normal" />
 
@@ -170,7 +170,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:text="@string/english_action_thriller_horror_128_min"
-                android:textColor="@color/text_color"
+                android:textColor="@color/white"
                 android:textSize="@dimen/size12"
                 android:textStyle="normal"
                 app:layout_constraintBottom_toBottomOf="parent"
