@@ -7,7 +7,6 @@ data class UpdateAccountRequest(
     val firstName: String,
     val gender: String,
     val lastName: String,
-    val password: String,
     val userId: String,
     val mobilePhone: String
     )

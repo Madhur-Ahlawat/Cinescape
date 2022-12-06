@@ -40,6 +40,7 @@ class PlayerActivity : DaggerAppCompatActivity() {
         }
 
 
+
         val trailerUrl = intent.getStringExtra("trailerUrl")
         getYoutubeVideoId(trailerUrl)
         broadcastReceiver = MyReceiver()

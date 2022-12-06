@@ -171,6 +171,9 @@ interface DataServices {
     @POST("customer/updatepassword")
     suspend fun updatePassword(@Body request: UpdatePasswordRequest): Response<ForgotOtpVerifyResponse>
 
+    @POST("customer/changepassword")
+    suspend fun changePassword(@Body request: ChangePasswordRequest): Response<ChangePasswordResponses>
+
     @POST("customer/activatecard")
     suspend fun activateCard(@Body request: ActivatwWalletRequest): Response<ForgotOtpVerifyResponse>
 

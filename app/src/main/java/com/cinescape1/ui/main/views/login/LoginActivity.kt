@@ -66,7 +66,6 @@ import java.util.*
 import javax.inject.Inject
 import android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS as FLAG_TRANSLUCENT_STATUS1
 
-
 @Suppress("DEPRECATION")
 class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewItemClickListener {
     @Inject
@@ -903,12 +902,8 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                                     startActivity(intent)
                                     finish()
                                 } else if (booking == "FOOD") {
-                                    val intent = Intent(
-                                        this,
-                                        HomeActivity::class.java
-                                    ).putExtra("BOOKING", "FOOD")
-                                    intent.flags =
-                                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                    val intent = Intent(this, HomeActivity::class.java).putExtra("BOOKING", "FOOD")
+                                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
                                     startActivity(intent)
                                     finish()
                                 } else if (from == "Details") {

@@ -80,7 +80,12 @@ import kotlinx.android.synthetic.main.account_profile_layout.*
 import kotlinx.android.synthetic.main.account_recharge_card_layout.*
 import kotlinx.android.synthetic.main.account_refund_layout.*
 import kotlinx.android.synthetic.main.cancel_dialog.*
+import kotlinx.android.synthetic.main.cancel_dialog.consSure
+import kotlinx.android.synthetic.main.cancel_dialog.imageBackground
+import kotlinx.android.synthetic.main.cancel_dialog.negative_btn
+import kotlinx.android.synthetic.main.cancel_dialog.subtitle
 import kotlinx.android.synthetic.main.cancel_dialog.view.*
+import kotlinx.android.synthetic.main.change_password.*
 import kotlinx.android.synthetic.main.checkout_creditcart_payment_alert.*
 import kotlinx.android.synthetic.main.fragment_account_page.*
 import kotlinx.android.synthetic.main.seat_category_item.*
@@ -899,85 +904,96 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         UpdateAccount.setOnClickListener {
             val password = enter_passwords.text.toString()
             val confPassword = enterConfPasswords.text.toString()
-            if (enter_passwords.text.isNullOrEmpty()) {
-                updateAccount(
-                    UpdateAccountRequest(
-                        enter_city.text.toString(),
-                        enter_date_births.text.toString(),
-                        enter_emails.text.toString(),
-                        enter_first_name.text.toString(),
-                        gender,
-                        enter_last_name.text.toString(),
-                        enter_passwords.text.toString(),
-                        preferences.getString(Constant.USER_ID).toString(),
-                        enter_mobile_numbers.text.toString()
-                    )
+            updateAccount(
+                UpdateAccountRequest(
+                    enter_city.text.toString(),
+                    enter_date_births.text.toString(),
+                    enter_emails.text.toString(),
+                    enter_first_name.text.toString(),
+                    gender,
+                    enter_last_name.text.toString(),
+                    preferences.getString(Constant.USER_ID).toString(),
+                    enter_mobile_numbers.text.toString()
                 )
+            )
 
-            } else if (password.isNullOrEmpty()) {
-                val dialog = OptionDialog(requireContext(),
-                    R.mipmap.ic_launcher,
-                    R.string.app_name,
-                    resources.getString(R.string.enterPass),
-                    positiveBtnText = R.string.ok,
-                    negativeBtnText = R.string.no,
-                    positiveClick = {
-                    },
-                    negativeClick = {
-                    })
-                dialog.show()
-            } else if (confPassword.isNullOrEmpty()) {
-                val dialog = OptionDialog(requireContext(),
-                    R.mipmap.ic_launcher,
-                    R.string.app_name,
-                    resources.getString(R.string.enterConfPass),
-                    positiveBtnText = R.string.ok,
-                    negativeBtnText = R.string.no,
-                    positiveClick = {
-                    },
-                    negativeClick = {
-                    })
-                dialog.show()
-            } else if (password != confPassword) {
-                val dialog = OptionDialog(requireContext(),
-                    R.mipmap.ic_launcher,
-                    R.string.app_name,
-                    resources.getString(R.string.passNotMatch),
-                    positiveBtnText = R.string.ok,
-                    negativeBtnText = R.string.no,
-                    positiveClick = {
-                    },
-                    negativeClick = {
-                    })
-                dialog.show()
-            } else if (confPassword != password) {
-                val dialog = OptionDialog(requireContext(),
-                    R.mipmap.ic_launcher,
-                    R.string.app_name,
-                    resources.getString(R.string.passNotMatch),
-                    positiveBtnText = R.string.ok,
-                    negativeBtnText = R.string.no,
-                    positiveClick = {
-                    },
-                    negativeClick = {
-                    })
-                dialog.show()
-            } else {
-                Constant().hideKeyboard(requireActivity())
-                updateAccount(
-                    UpdateAccountRequest(
-                        enter_city.text.toString(),
-                        enter_date_births.text.toString(),
-                        enter_emails.text.toString(),
-                        enter_first_name.text.toString(),
-                        gender,
-                        enter_last_name.text.toString(),
-                        enterConfPasswords.text.toString(),
-                        preferences.getString(Constant.USER_ID).toString(),
-                        enter_mobile_numbers.text.toString()
-                    )
-                )
-            }
+//            if (enter_passwords.text.isNullOrEmpty()) {
+//                updateAccount(
+//                    UpdateAccountRequest(
+//                        enter_city.text.toString(),
+//                        enter_date_births.text.toString(),
+//                        enter_emails.text.toString(),
+//                        enter_first_name.text.toString(),
+//                        gender,
+//                        enter_last_name.text.toString(),
+//                        preferences.getString(Constant.USER_ID).toString(),
+//                        enter_mobile_numbers.text.toString()
+//                    )
+//                )
+//
+//            } else if (password.isNullOrEmpty()) {
+//                val dialog = OptionDialog(requireContext(),
+//                    R.mipmap.ic_launcher,
+//                    R.string.app_name,
+//                    resources.getString(R.string.enterPass),
+//                    positiveBtnText = R.string.ok,
+//                    negativeBtnText = R.string.no,
+//                    positiveClick = {
+//                    },
+//                    negativeClick = {
+//                    })
+//                dialog.show()
+//            } else if (confPassword.isNullOrEmpty()) {
+//                val dialog = OptionDialog(requireContext(),
+//                    R.mipmap.ic_launcher,
+//                    R.string.app_name,
+//                    resources.getString(R.string.enterConfPass),
+//                    positiveBtnText = R.string.ok,
+//                    negativeBtnText = R.string.no,
+//                    positiveClick = {
+//                    },
+//                    negativeClick = {
+//                    })
+//                dialog.show()
+//            } else if (password != confPassword) {
+//                val dialog = OptionDialog(requireContext(),
+//                    R.mipmap.ic_launcher,
+//                    R.string.app_name,
+//                    resources.getString(R.string.passNotMatch),
+//                    positiveBtnText = R.string.ok,
+//                    negativeBtnText = R.string.no,
+//                    positiveClick = {
+//                    },
+//                    negativeClick = {
+//                    })
+//                dialog.show()
+//            } else if (confPassword != password) {
+//                val dialog = OptionDialog(requireContext(),
+//                    R.mipmap.ic_launcher,
+//                    R.string.app_name,
+//                    resources.getString(R.string.passNotMatch),
+//                    positiveBtnText = R.string.ok,
+//                    negativeBtnText = R.string.no,
+//                    positiveClick = {
+//                    },
+//                    negativeClick = {
+//                    })
+//                dialog.show()
+//            } else {
+//                Constant().hideKeyboard(requireActivity())
+//                updateAccount(
+//                    UpdateAccountRequest(
+//                        enter_city.text.toString(),
+//                        enter_date_births.text.toString(),
+//                        enter_emails.text.toString(),
+//                        enter_first_name.text.toString(),
+//                        gender,
+//                        enter_last_name.text.toString(),
+//                        preferences.getString(Constant.USER_ID).toString(),
+//                        enter_mobile_numbers.text.toString()
+//                    )
+//                )
+//            }
         }
 
 
@@ -1041,13 +1057,41 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
+        dialog.negative_btns?.setOnClickListener {
+            val passWord = dialog.enterNewPassword.text.toString()
+            val conPassWord = dialog.enterConfPassword.text.toString()
+            if (passWord == conPassWord){
+                changePassword(
+                    ChangePasswordRequest(
+                        passWord,
+                        preferences.getString(Constant.USER_ID)!!
+                    )
+                )
+                dialog.dismiss()
+            }else{
+                val dialogs = OptionDialog(requireContext(),
+                    R.mipmap.ic_launcher,
+                    R.string.app_name,
+                    "Invalid Password",
+                    positiveBtnText = R.string.ok,
+                    negativeBtnText = R.string.no,
+                    positiveClick = {
+                    },
+                    negativeClick = {
+                    })
+                dialogs.show()
+            }
+
+        }
+
+
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
         dialog.window!!.setGravity(Gravity.BOTTOM)
         if (isAdded) {
             dialog.show()
         }
-        dialog.negative_btn.text = getString(R.string.proceed)
+        dialog.negative_btn?.text = getString(R.string.proceed)
         dialog.consSure?.setOnClickListener {
             dialog.dismiss()
         }
@@ -3287,6 +3331,66 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                         Status.ERROR -> {
                             loader?.dismiss()
                             val dialog = OptionDialog(requireActivity(),
+                                R.mipmap.ic_launcher,
+                                R.string.app_name,
+                                it.message.toString(),
+                                positiveBtnText = R.string.ok,
+                                negativeBtnText = R.string.no,
+                                positiveClick = {
+                                },
+                                negativeClick = {
+                                })
+                            dialog.show()
+                        }
+                        Status.LOADING -> {
+                            loader = LoaderDialog(R.string.pleasewait)
+                            loader?.show(requireActivity().supportFragmentManager, null)
+                        }
+                    }
+                }
+            }
+    }
+
+
+    //Change Password
+    private fun changePassword(changePasswordRequest: ChangePasswordRequest) {
+        accountFragViewModel.changePassword(changePasswordRequest)
+            .observe(requireActivity()) {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            loader?.dismiss()
+                            resource.data?.let { it ->
+                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                    val dialog = OptionDialog(requireContext(),
+                                        R.mipmap.ic_launcher,
+                                        R.string.app_name,
+                                        it.data.msg,
+                                        positiveBtnText = R.string.ok,
+                                        negativeBtnText = R.string.no,
+                                        positiveClick = {
+                                        },
+                                        negativeClick = {
+                                        })
+                                    dialog.show()
+                                } else {
+                                    val dialog = OptionDialog(requireContext(),
+                                        R.mipmap.ic_launcher,
+                                        R.string.app_name,
+                                        it.data?.msg.toString(),
+                                        positiveBtnText = R.string.ok,
+                                        negativeBtnText = R.string.no,
+                                        positiveClick = {
+                                        },
+                                        negativeClick = {
+                                        })
+                                    dialog.show()
+                                }
+                            }
+                        }
+                        Status.ERROR -> {
+                            loader?.dismiss()
+                            val dialog = OptionDialog(requireContext(),
                                 R.mipmap.ic_launcher,
                                 R.string.app_name,
                                 it.message.toString(),

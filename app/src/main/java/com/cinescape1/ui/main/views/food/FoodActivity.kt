@@ -37,6 +37,7 @@ import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.adapters.foodAdapters.*
 import com.cinescape1.ui.main.views.food.viewModel.FoodViewModel
+import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.ui.main.views.summery.SummeryActivity
 import com.cinescape1.utils.*
 import com.cinescape1.utils.Constant.Companion.ON_BACK_FOOD
@@ -47,7 +48,6 @@ import kotlinx.android.synthetic.main.cancel_dialog.*
 import kotlinx.android.synthetic.main.cancel_dialog.view.*
 import javax.inject.Inject
 import kotlin.math.roundToInt
-
 
 @Suppress("DEPRECATION", "NAME_SHADOWING")
 class FoodActivity : DaggerAppCompatActivity(),
@@ -287,6 +287,8 @@ class FoodActivity : DaggerAppCompatActivity(),
         } else {
             binding?.txtSkipProceed?.hide()
             binding?.viewCancel?.setOnClickListener {
+                val intent = Intent(this@FoodActivity, HomeActivity::class.java)
+                startActivity(intent)
                 finish()
             }
 

@@ -203,9 +203,15 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
     suspend fun forgotPassword(request: ForgotPasswordRequest): Result<ForgotOtpsendResponse> {
         return apiRequest { api.forgotPassword(request) }
     }
+
     suspend fun updatePassword(request: UpdatePasswordRequest): Result<ForgotOtpVerifyResponse> {
         return apiRequest { api.updatePassword(request) }
     }
+
+    suspend fun changePassword(request: ChangePasswordRequest): Result<ChangePasswordResponses> {
+        return apiRequest { api.changePassword(request) }
+    }
+
     suspend fun activateCard(request: ActivatwWalletRequest): Result<ForgotOtpVerifyResponse> {
         return apiRequest { api.activateCard(request) }
     }

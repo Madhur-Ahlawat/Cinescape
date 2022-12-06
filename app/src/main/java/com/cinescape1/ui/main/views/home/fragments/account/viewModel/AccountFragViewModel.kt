@@ -231,6 +231,20 @@ class AccountFragViewModel @Inject constructor(private val repositories: Reposit
         }
     }
 
+    fun changePassword(password: ChangePasswordRequest) = liveData(Dispatchers.IO) {
+        emit(Result.loading(data = null))
+        try {
+            val data = repositories.changePassword(password)
+            if (data.status == Status.ERROR){
+                emit(Result.error(data.message.toString(),data))
+            }else{
+                emit(Result.success(data = data))
+            }
+        } catch (exception: Exception) {
+            emit(Result.error(exception.message ?: "Error Occurred!",data = null))
+        }
+    }
+
 
 
 }

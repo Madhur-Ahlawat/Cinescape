@@ -803,7 +803,10 @@ class SummeryActivity : DaggerAppCompatActivity(),SummerySeatListAdapter.TypeFac
         binding?.viewCancel?.setOnClickListener {
             cancelDialog()
         }
-        imgs_back.setOnClickListener { cancelDialog() }
+
+        imgs_back.setOnClickListener {
+            cancelDialog()
+        }
 
         binding?.viewFood?.setOnClickListener {
             if (!up) {

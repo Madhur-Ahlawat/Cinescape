@@ -36,9 +36,14 @@ class PaymentFailedActivity : DaggerAppCompatActivity() {
         binding = ActivityPaymentFailedBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
         setContentView(view)
-        bookingId = intent.getStringExtra(Constant.IntentKey.BOOKING_ID).toString()
-        transId = intent.getStringExtra(Constant.IntentKey.TRANSACTION_ID).toString()
-        printTicket(FinalTicketRequest(bookingId, transId.toInt()))
+
+        try {
+            bookingId = intent.getStringExtra(Constant.IntentKey.BOOKING_ID).toString()
+            transId = intent.getStringExtra(Constant.IntentKey.TRANSACTION_ID).toString()
+            printTicket(FinalTicketRequest(bookingId, transId.toInt()))
+        }catch (e:Exception){
+            println("finalError------->${e.message}")
+        }
 
     }
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/black"
-    android:paddingStart="@dimen/margin20"
+    android:paddingStart="@dimen/margin8"
     android:paddingEnd="@dimen/margin20"
     android:paddingTop="@dimen/margin20"
     android:paddingBottom="@dimen/margin5">
@@ -25,6 +25,7 @@
         android:fontFamily="@font/sf_pro_text_bold"
         android:text="@string/contact_us"
         android:textColor="@color/white"
+        android:layout_marginStart="@dimen/margin12"
         android:textSize="@dimen/size22"
         app:layout_constraintStart_toStartOf="@+id/view33"
         app:layout_constraintTop_toTopOf="@+id/view33"/>
@@ -39,8 +40,7 @@
         app:boxStrokeColor="@color/edittext_selector"
         app:hintTextColor="@color/editColor"
         app:layout_constraintEnd_toEndOf="@+id/view33"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/view33"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -69,8 +69,7 @@
         app:boxStrokeColor="@color/edittext_selector"
         app:hintTextColor="@color/editColor"
         app:layout_constraintEnd_toEndOf="@+id/view33"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/view33"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterUsernames">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -101,13 +100,12 @@
         android:id="@+id/text_mobile_title"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/margin43"
-        android:layout_marginStart="16dp"
         android:layout_marginEnd="4dp"
         android:fontFamily="@font/sf_pro_text_regular"
         android:gravity="bottom"
         android:letterSpacing="-0.01"
         android:lineSpacingExtra="2sp"
-        android:paddingStart="@dimen/margin4"
+        android:paddingStart="@dimen/margin16"
         android:paddingEnd="@dimen/margin10"
         android:paddingBottom="@dimen/margin4"
         android:text="@string/mobile"
@@ -184,13 +182,12 @@
         android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/sf_pro_text_regular"
         android:gravity="center_vertical"
         android:letterSpacing="-0.01"
         android:lineSpacingExtra="2sp"
-        android:paddingStart="@dimen/margin4"
+        android:paddingStart="@dimen/margin16"
         android:paddingEnd="@dimen/margin10"
         android:text="@string/message"
         android:textColor="@color/hint_color"
@@ -261,6 +258,7 @@
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginTop="8dp"
+        android:layout_marginStart="@dimen/margin12"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView29" />
@@ -288,10 +286,11 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="@dimen/margin45"
         android:background="@drawable/card_border"
         android:padding="@dimen/size10"
+        android:adjustViewBounds="true"
         app:layout_constraintBottom_toBottomOf="@+id/view40"
         app:layout_constraintEnd_toEndOf="@+id/view40"
         app:layout_constraintTop_toTopOf="@+id/view40"
@@ -329,10 +328,11 @@
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="@dimen/margin45"
         android:background="@drawable/card_border"
         android:padding="@dimen/size10"
+        android:adjustViewBounds="true"
         app:layout_constraintBottom_toBottomOf="@+id/view41"
         app:layout_constraintEnd_toEndOf="@+id/view40"
         app:layout_constraintTop_toTopOf="@+id/view41"
@@ -343,10 +343,11 @@
         android:id="@+id/textView34"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/margin20"
         android:fontFamily="@font/sf_pro_text_medium"
         android:text="@string/connect_with_us"
         android:textColor="@color/white"
+        android:layout_marginStart="@dimen/margin12"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view41" />
 
@@ -355,6 +356,7 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginTop="16dp"
+        android:layout_marginStart="@dimen/margin12"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView34"

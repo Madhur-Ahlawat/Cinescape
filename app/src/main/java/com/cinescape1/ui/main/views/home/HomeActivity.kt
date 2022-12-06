@@ -22,6 +22,7 @@ import android.widget.AdapterView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.AppCompatSpinner
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -76,6 +77,7 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
     var mAlertDialog: AlertDialog? = null
     private var cinemaId = ""
     private var loader: LoaderDialog? = null
+    private var spinner: AppCompatSpinner? = null
     private var locationlist = ArrayList<FoodResponse.Output.Cinema>()
 
     private var broadcastReceiver: BroadcastReceiver? = null
@@ -114,9 +116,7 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
             setCurrentFragment(HomeFragment())
             setNextBooking()
         }
-        if (intent.hasExtra("BOOKING")) {
-            foodDialog()
-        }
+
 
         navigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -131,7 +131,17 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
                 }
                 R.id.foodFragment -> {
                     binding?.imageView42?.hide()
-                    foodDialog()
+                    if (!preferences.getBoolean(Constant.IS_LOGIN)) {
+                        startActivity(
+                            Intent(this, LoginActivity::class.java)
+                                .putExtra("CINEMA_ID", cinemaId)
+                                .putExtra("BOOKING", "FOOD")
+                                .putExtra("type", "0")
+                        )
+                    } else {
+                        foodDialog()
+                    }
+
                 }
                 R.id.accountFragment -> {
                     binding?.imageView42?.hide()
@@ -162,6 +172,12 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
                                     if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                         locationlist = it.data.output.cinemas
                                         cinemaId = it.data.output.cinemas[0].id
+
+                                        if (intent.hasExtra("BOOKING")) {
+                                            foodDialog()
+                                        }
+
+                                        println("locationListSpinner--------->${locationlist}")
 
                                     }
                                 } catch (e: Exception) {
@@ -215,6 +231,8 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
         dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
         dialog.window!!.setGravity(Gravity.BOTTOM)
         dialog.show()
+
+         spinner = dialog.spinner
 
         dialog.text_cancel_goback.setOnClickListener {
             dialog.dismiss()

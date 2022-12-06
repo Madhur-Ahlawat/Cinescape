@@ -147,6 +147,7 @@ class FoodFragment : DaggerFragment(), AdapterView.OnItemSelectedListener {
                                         binding?.foodLayout?.show()
                                         locationlist = it.data.output.cinemas
                                         binding?.spinner?.onItemSelectedListener = this
+
                                         val customAdapter = CustomSpinnerAdapter(
                                             requireActivity(),
                                             it.data.output.cinemas
