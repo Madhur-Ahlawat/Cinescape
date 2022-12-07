@@ -51,7 +51,7 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
         transId = intent.getStringExtra(Constant.IntentKey.TRANSACTION_ID).toString()
         from = intent.getStringExtra("From").toString()
         if (from == "login") {
-            binding?.textView109?.text = ""
+            binding?.textView109?.text = resources.getString(R.string.terms_amp_condition)
             binding?.viewBack?.show()
             binding?.textView109?.show()
             binding?.imageView47?.show()
@@ -59,8 +59,8 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
             binding?.viewBack?.hide()
             binding?.textView109?.hide()
             binding?.imageView47?.hide()
-
         }
+
         binding?.imageView47?.setOnClickListener {
             finish()
         }

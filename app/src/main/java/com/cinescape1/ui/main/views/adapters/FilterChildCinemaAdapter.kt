@@ -19,7 +19,7 @@ class FilterChildCinemaAdapter(private val mContext: Context, private val items:
     @SuppressLint("InflateParams")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.filter_alert_expanded_item, null)
+            LayoutInflater.from(parent.context).inflate(R.layout.filter_location_item, null)
         return TodoViewHolder(view)
     }
 

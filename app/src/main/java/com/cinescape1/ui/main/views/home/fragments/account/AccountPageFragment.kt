@@ -110,6 +110,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     private var binding: FragmentAccountPageBinding? = null
     private var loader: LoaderDialog? = null
     private var profileList: ArrayList<ProfileResponse.Output.Experience>? = null
+    private var ageRatingList: ArrayList<ProfileResponse.Output.Rating>? = null
     private val accountFragViewModel: AccountFragViewModel by viewModels { viewModelFactory }
     private val list: ArrayList<ModelPreferenceExperience> = arrayListOf(
         ModelPreferenceExperience(R.drawable.img_vip, 0),
@@ -2179,8 +2180,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     private fun setSeatCategoryFlexbox(layout: FlexboxLayout, seatCategory: String) {
         val list: ArrayList<ModelPreferenceCategory> = arrayListOf(
             ModelPreferenceCategory(R.drawable.family, "Family", 0),
-            ModelPreferenceCategory(R.drawable.bachlor, "Bachelor", 0),
-        )
+            ModelPreferenceCategory(R.drawable.bachlor, "Bachelor", 0))
         layout.removeAllViews()
         for (item in list) {
             val v: View = layoutInflater.inflate(R.layout.seat_category_item, null)
@@ -2375,11 +2375,11 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             ModelPreferenceAgeRating("18+", 0)
         )
         layout.removeAllViews()
-        for (age_rating_item in list) {
+        for (age_rating_item in ageRatingList!!) {
             val v: View = layoutInflater.inflate(R.layout.age_rating_item, null)
             val ageRatingName: TextView = v.findViewById(R.id.age_rating_name) as TextView
 
-            ageRatingName.text = age_rating_item.seatAgeRating
+            ageRatingName.text = age_rating_item.name
             seatAbility = if (age_rating_item.count > 0) {
                 1
             } else {
@@ -2391,15 +2391,22 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
             for (item in rating) {
                 if (item.likes) {
-                    when (age_rating_item.seatAgeRating) {
+                    when (age_rating_item.name) {
                         "E" -> {
                             ageRatingName.setTextColor(getColor(requireContext(), R.color.green))
-
                         }
+                          "T" -> {
+                            ageRatingName.setTextColor(getColor(requireContext(), R.color.green))
+                        }
+
                         "PG" -> {
                             ageRatingName.setTextColor(getColor(requireContext(), R.color.grey))
-
                         }
+
+                        "G" -> {
+                            ageRatingName.setTextColor(getColor(requireContext(), R.color.grey))
+                        }
+
                         "13+" -> {
                             ageRatingName.setTextColor(getColor(requireContext(), R.color.yellow))
 
@@ -2427,41 +2434,41 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
             v.setOnClickListener {
 
-                if (ageRating.contains(age_rating_item.seatAgeRating)) {
-                    ageRating.remove(age_rating_item.seatAgeRating)
+                if (ageRating.contains(age_rating_item.name)) {
+                    ageRating.remove(age_rating_item.name)
                     ageRatingName.setTextColor(getColor(requireContext(), R.color.hint_color))
 
                 } else {
-                    when (age_rating_item.seatAgeRating) {
+                    when (age_rating_item.name) {
                         "E" -> {
                             ageRatingName.setTextColor(getColor(requireContext(), R.color.green))
-
                         }
+                          "T" -> {
+                            ageRatingName.setTextColor(getColor(requireContext(), R.color.green))
+                        }
+
                         "PG" -> {
                             ageRatingName.setTextColor(getColor(requireContext(), R.color.grey))
-
                         }
+
+                        "G" -> {
+                            ageRatingName.setTextColor(getColor(requireContext(), R.color.grey))
+                        }
+
                         "13+" -> {
                             ageRatingName.setTextColor(getColor(requireContext(), R.color.yellow))
 
                         }
                         "15+" -> {
                             ageRatingName.setTextColor(getColor(requireContext(), R.color.yellow))
-
                         }
                         "18+" -> {
-                            ageRatingName.setTextColor(
-                                getColor(
-                                    requireContext(),
-                                    R.color.text_alert_color_red
-                                )
-                            )
-
+                            ageRatingName.setTextColor(getColor(requireContext(), R.color.text_alert_color_red))
                         }
                     }
 
                 }
-                ageRating.add(age_rating_item.seatAgeRating)
+                ageRating.add(age_rating_item.name)
             }
         }
     }
@@ -2946,6 +2953,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                             resource.data?.let { it ->
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                     profileList = it.data.output.experience
+                                    ageRatingList = it.data.output.rating
                                     setExperienceFlexbox(
                                         experience_list_preference!!,
                                         it.data.output.experience

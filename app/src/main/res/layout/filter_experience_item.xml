@@ -11,25 +11,26 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/margin6"
         android:layout_marginEnd="7dp"
-        android:layout_marginBottom="@dimen/margin12"
+        android:layout_marginBottom="@dimen/margin7"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/filter_unselect">
-        <TextView
+
+        <ImageView
             android:id="@+id/text_exp_title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/sf_pro_text_regular"
-            android:gravity="center_horizontal"
-            tools:text="Standard"
-            android:textColor="@color/hint_color"
-            android:textSize="@dimen/size14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="68dp"
+            android:maxHeight="60dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_icon_metro_visa"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

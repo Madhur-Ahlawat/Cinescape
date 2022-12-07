@@ -2,6 +2,7 @@ package com.cinescape1.ui.main.views.adapters.cinemaSessionAdapters
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +34,12 @@ class AdapterCinemaSessionDimension(var context: Context, private var showtimeLi
             holder.cardScroll.setOnClickListener {
                 listener.onShowClicked(showtimeList[position],name,position,cinemaPos)
             }
+
+
+
     }
+
+
 
     override fun getItemCount(): Int {
         return showtimeList.size

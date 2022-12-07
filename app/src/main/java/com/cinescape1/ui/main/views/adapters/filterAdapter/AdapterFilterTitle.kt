@@ -16,6 +16,7 @@ import com.cinescape1.data.models.responseModel.FilterTypeModel
 import com.cinescape1.ui.main.views.adapters.FilterChildAdapter
 import com.cinescape1.ui.main.views.adapters.FilterChildCinemaAdapter
 import com.cinescape1.ui.main.views.adapters.FilterChildMovieAdapter
+import com.cinescape1.ui.main.views.home.fragments.movie.adapter.FilterExperiencesAdapter
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 import com.google.android.flexbox.*
@@ -42,14 +43,12 @@ class AdapterFilterTitle(
         val filterExpItem = filterTitleList[position]
         holder.textTitleFilter.text = filterExpItem.title
 
-
         holder.itemView.setOnClickListener {
             try {
                 when (filterExpItem.type) {
                     1 -> {
-
+                        println("ExperienceClickAdapter1---------->Yes")
                         if (holder.filterExpand.visibility == View.GONE) {
-
                             holder.viewSpace.show()
                             holder.filterExpand.show()
                             holder.filterExpand.visibility = View.VISIBLE
@@ -61,7 +60,7 @@ class AdapterFilterTitle(
                             }
                             holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
 
-                            val adapter = FilterChildAdapter(
+                            val adapter = FilterExperiencesAdapter(
                                 mContext,
                                 filterExpItem.dataList, getList(filterExpItem)
                             )
@@ -72,6 +71,7 @@ class AdapterFilterTitle(
                             layoutManager.alignItems = AlignItems.FLEX_START
                             layoutManager.justifyContent = JustifyContent.FLEX_START
                             holder.filterExpand.layoutManager = layoutManager
+
                         } else {
                             holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
                             holder.filterExpand.hide()
@@ -104,6 +104,8 @@ class AdapterFilterTitle(
                             layoutManager.justifyContent = JustifyContent.FLEX_START
                             holder.filterExpand.layoutManager = layoutManager
 
+                            println("ExperienceClickAdapter2---------->Yes")
+
                         } else {
                             holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
                             holder.filterExpand.hide()
@@ -114,6 +116,7 @@ class AdapterFilterTitle(
                         }
                     }
                     3 -> {
+                        println("ExperienceClickAdapter3---------->Yes")
                         if (
                             holder.filterExpand.visibility == View.GONE){
                             up = false
@@ -252,6 +255,13 @@ class AdapterFilterTitle(
                 println("Exception------>${e.message}")
             }
         }
+
+        if (getList(filterExpItem).size > 0) {
+            holder.selectFilter.show()
+        } else {
+            holder.selectFilter.hide()
+        }
+
 
     }
 

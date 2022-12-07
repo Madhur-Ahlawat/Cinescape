@@ -462,7 +462,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="10dp"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -992,6 +992,19 @@
                     app:layout_constraintTop_toBottomOf="@+id/textRecomNotification" />
 
                 <TextView
+                    android:id="@+id/text_terms_conditions1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="1.8sp"
+                    android:paddingStart="@dimen/size16"
+                    android:paddingEnd="0dp"
+                    android:text="@string/terms_amp_conditions"
+                    android:textColor="@color/hint_color"
+                    android:textSize="@dimen/size12"
+                    app:layout_constraintStart_toStartOf="@+id/text_terms_conditions"
+                    app:layout_constraintTop_toBottomOf="@+id/text_terms_conditions" />
+
+                <TextView
                     android:id="@+id/signup_btn"
                     android:layout_width="136dp"
                     android:layout_height="@dimen/margin36"
@@ -1002,7 +1015,7 @@
                     android:text="@string/sign_up"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size16"
-                    app:layout_constraintBottom_toBottomOf="@+id/text_terms_conditions"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_terms_conditions1"
                     app:layout_constraintEnd_toEndOf="@+id/view_switch"
                     app:layout_constraintTop_toTopOf="@+id/text_terms_conditions" />
 

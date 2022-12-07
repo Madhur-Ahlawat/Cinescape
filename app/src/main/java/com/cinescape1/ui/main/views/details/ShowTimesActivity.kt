@@ -53,6 +53,7 @@ import com.cinescape1.ui.main.views.adapters.showTimesAdapters.AdpaterShowTimesC
 import com.cinescape1.ui.main.views.details.adapter.SimilarMovieAdapter
 import com.cinescape1.ui.main.views.details.viewModel.ShowTimesViewModel
 import com.cinescape1.ui.main.views.login.LoginActivity
+import com.cinescape1.ui.main.views.payment.PaymentWebActivity
 import com.cinescape1.ui.main.views.player.PlayerActivity
 import com.cinescape1.ui.main.views.seatLayout.SeatScreenMainActivity
 import com.cinescape1.utils.*
@@ -490,12 +491,12 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         println("MovieCast ComingSoon----->${output.movie.cast}")
         if (output.movie.cast.size < 0) {
             println("MovieCast ComingSoon----->yes")
-            binding?.include?.textCast?.show()
-            binding?.include?.recyclerviewShowTimesCast?.show()
+//            binding?.include?.textCast?.show()
+//            binding?.include?.recyclerviewShowTimesCast?.show()
         } else {
             println("MovieCast ComingSoon----->no")
-            binding?.include?.textCast?.show()
-            binding?.include?.recyclerviewShowTimesCast?.hide()
+//            binding?.include?.textCast?.show()
+//            binding?.include?.recyclerviewShowTimesCast?.hide()
         }
 
         if (output.movie.trailerUrl.isEmpty()) {
@@ -712,11 +713,11 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         text_sysnopsis_detail.text = movie.synopsis
         text_directoe_name.text = movie.director.firstName + " " + movie.director.lastName
         if (movie.cast.isNotEmpty()) {
-            text_cast.show()
-            binding?.include?.recyclerviewShowTimesCast?.show()
+//            text_cast.show()
+//            binding?.include?.recyclerviewShowTimesCast?.show()
         } else {
-            text_cast.hide()
-            binding?.include?.recyclerviewShowTimesCast?.hide()
+//            text_cast.hide()
+//            binding?.include?.recyclerviewShowTimesCast?.hide()
         }
 
         try {
@@ -904,6 +905,9 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         val viewGiftVoucher = mDialogView.findViewById<View>(R.id.view_gift_voucher)
         val viewGiftCard1 = mDialogView.findViewById<View>(R.id.view_gift_card1)
 
+        val text_terms_conditions1 = mDialogView.findViewById<TextView>(R.id.text_terms_conditions1)
+        val consTermCondition = mDialogView.findViewById<ConstraintLayout>(R.id.consTermCondition)
+
         termsCond.paintFlags = tvGiftCard.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         tvGiftCard.paintFlags = tvGiftCard.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         tvGiftVoucher.paintFlags = tvGiftVoucher.paintFlags or Paint.UNDERLINE_TEXT_FLAG
@@ -911,6 +915,17 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
         cancelDialog.setOnClickListener {
             mAlertDialog?.dismiss()
+        }
+
+        text_terms_conditions1.underline()
+        consTermCondition.setOnClickListener {
+            val intent = Intent(
+                this,
+                PaymentWebActivity::class.java
+            )
+            intent.putExtra("From", "login")
+            intent.putExtra("PAY_URL", Constant.termsConditions)
+            startActivity(intent)
         }
         
         ratingDesc.text = output.movie.ratingDescription
@@ -1391,6 +1406,10 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         intent.putExtra(Constant.IntentKey.MOVIE_ID, view.id)
         startActivity(intent)
 
+    }
+
+    fun TextView.underline() {
+        paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
     }
 
 

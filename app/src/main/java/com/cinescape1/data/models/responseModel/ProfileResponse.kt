@@ -20,7 +20,7 @@ data class ProfileResponse(
         val balance: String,
         val guest: Boolean,
         val password: Any,
-        val rating: List<Rating>,
+        val rating: ArrayList<Rating>,
         val seatCategory: String,
         val seatType: String,
         val userName: String
@@ -32,7 +32,8 @@ data class ProfileResponse(
         )
         data class Rating(
             val likes: Boolean,
-            val name: String
+            val name: String,
+            var count: Int
         )
     }
 }

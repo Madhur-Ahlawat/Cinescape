@@ -519,6 +519,8 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
                     else TextUtils.join(",", data.selectedList)
                 }
                 2 -> {
+                    println("ExperienceClick2---------->Yes")
+
                     if (data.selectedList.contains(crossItem))
                         data.selectedList.remove(crossItem)
                     for (item in data.selectedList) {
@@ -531,6 +533,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
                     else TextUtils.join(",", list1)
                 }
                 3 -> {
+                    println("ExperienceClick3---------->Yes")
                     if (data.selectedList.contains(crossItem))
                         data.selectedList.remove(crossItem)
                     for (item in data.selectedList) {
@@ -543,6 +546,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
                     else TextUtils.join(",", list2)
                 }
                 4 -> {
+                    println("ExperienceClick4---------->Yes")
                     if (data.selectedList.contains(crossItem.split("-")[0]))
                         data.selectedList.remove(crossItem.split("-")[0])
                     list.add(FilterTypeModel(4, data.selectedList))
@@ -772,6 +776,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
 
         textReset.setOnClickListener {
             dataList.clear()
+            filterDataList.clear()
             adapterFilterCategory?.notifyDataSetChanged()
             binding?.recyclerviewCategory?.hide()
             mAlertDialog.dismiss()

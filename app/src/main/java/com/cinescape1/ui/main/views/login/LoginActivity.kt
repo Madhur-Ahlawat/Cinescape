@@ -9,6 +9,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.Paint
 import android.net.ConnectivityManager.CONNECTIVITY_ACTION
 import android.os.Bundle
 import android.text.*
@@ -17,6 +18,7 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager.LayoutParams
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -340,19 +342,23 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
         @Suppress("DEPRECATION")
         registerReceiver(broadcastReceiver, IntentFilter(CONNECTIVITY_ACTION))
     }
+    fun TextView.underline() {
+        paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
+    }
 
     private fun movedNext() {
         val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
         val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
 
+        binding?.textTermsConditions1?.underline()
         //terms Condition
-        binding?.textTermsConditions?.setOnClickListener {
+        binding?.textTermsConditions1?.setOnClickListener {
             val intent = Intent(
                 this,
                 PaymentWebActivity::class.java
             )
             intent.putExtra("From", "login")
-            intent.putExtra("PAY_URL", Constant.termsCondition)
+            intent.putExtra("PAY_URL", Constant.termsConditions)
             startActivity(intent)
         }
 

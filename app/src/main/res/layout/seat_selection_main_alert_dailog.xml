@@ -457,6 +457,7 @@
                         android:id="@+id/text_category_decription"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
                         android:fontFamily="@font/sf_pro_text_regular"
                         android:letterSpacing="-0.01"
                         android:lineSpacingExtra="1.5sp"
@@ -469,10 +470,48 @@
                         android:textStyle="normal"
                         android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toEndOf="@+id/rating_ui"
                         app:layout_constraintTop_toTopOf="@+id/rating_ui"
                         tools:ignore="HardcodedText" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/consTermCondition"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin40"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/vw_category">
+
+                    <TextView
+                        android:id="@+id/text_terms_conditions"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="1.8sp"
+                        android:paddingStart="@dimen/size16"
+                        android:paddingEnd="0dp"
+                        android:text="@string/by_signing_up_i_agree_to_the"
+                        android:textColor="@color/hint_color"
+                        android:textSize="@dimen/size12"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/text_terms_conditions1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="1.8sp"
+                        android:paddingStart="@dimen/size16"
+                        android:paddingEnd="0dp"
+                        android:text="@string/terms_amp_conditions"
+                        android:textColor="@color/hint_color"
+                        android:textSize="@dimen/size12"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/text_terms_conditions"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -480,12 +519,12 @@
                     android:id="@+id/view42lines"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="@dimen/margin2"
                     android:background="@color/view_bg_color_line"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="@+id/vw_category"
                     app:layout_constraintStart_toStartOf="@+id/vw_category"
-                    app:layout_constraintTop_toBottomOf="@+id/vw_category" />
+                    app:layout_constraintTop_toBottomOf="@+id/consTermCondition" />
 
                 <TextView
                     android:id="@+id/text_agree"

@@ -43,25 +43,15 @@ class FilterChildAdapter(private val mContext: Context, private val items: Array
 
             }else {
                 selected.add(obj.toString())
-
-                holder.todoTitle.setTextColor(
-                    ContextCompat.getColor(
-                        mContext,
-                        R.color.white
-                    )
-                )
+                holder.todoTitle.setTextColor(ContextCompat.getColor(mContext, R.color.white))
                 holder.layoutFilterBg.setBackgroundDrawable(mContext.getDrawable(R.drawable.filter_select))
 
             }
         }
 
         if (selected.contains(obj)) {
-            holder.todoTitle.setTextColor(
-                ContextCompat.getColor(
-                    mContext,
-                    R.color.white
-                )
-            )
+            holder.todoTitle.setTextColor(ContextCompat.getColor(mContext, R.color.white))
+
             holder.layoutFilterBg.setBackgroundDrawable(mContext.getDrawable(R.drawable.filter_select))
         } else {
             holder.layoutFilterBg.setBackgroundDrawable(mContext.getDrawable(R.drawable.filter_unselect))
