@@ -110,7 +110,6 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
 
                         if (from == "recharge") {
                             Constant.IntentKey.OPEN_FROM = 1
-
                             finish()
                         } else {
                             val intent = Intent(applicationContext, FinalTicketActivity::class.java)
