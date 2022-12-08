@@ -23,11 +23,14 @@ import javax.inject.Inject
 class PlayerActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
     @Inject
     lateinit var preferences: AppPreferences
     private val playerViewModel: PlayerViewModel by viewModels { viewModelFactory }
     private var binding: ActivityPlayerBinding? = null
     private var broadcastReceiver: BroadcastReceiver? = null
+    val apiKey = "AIzaSyBjiGzB2u4Et5ZGMrA4ucqfmdZfeqhSRKY"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPlayerBinding.inflate(layoutInflater, null, false)
@@ -39,18 +42,17 @@ class PlayerActivity : DaggerAppCompatActivity() {
             finish()
         }
 
-
-
         val trailerUrl = intent.getStringExtra("trailerUrl")
         getYoutubeVideoId(trailerUrl)
         broadcastReceiver = MyReceiver()
         broadcastIntent()
     }
+
     private fun broadcastIntent() {
         registerReceiver(broadcastReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
     }
 
-//    override fun onStart() {
+    //    override fun onStart() {
 //        super.onStart()
 //        unregisterReceiver(broadcastReceiver)
 //    }
@@ -62,7 +64,6 @@ class PlayerActivity : DaggerAppCompatActivity() {
         super.onResume()
         unregisterReceiver(broadcastReceiver)
     }
-
 
 
     private fun getYoutubeVideoId(youtubeUrl: String?): String? {
@@ -81,16 +82,19 @@ class PlayerActivity : DaggerAppCompatActivity() {
     }
 
     private fun playVideo(vid: Any) {
+
         val youtubeFragment =
             fragmentManager.findFragmentById(R.id.youtubeFragment) as YouTubePlayerFragment
-        youtubeFragment.initialize("AIzaSyBjiGzB2u4Et5ZGMrA4ucqfmdZfeqhSRKY",
+        youtubeFragment.initialize(apiKey,
             object : YouTubePlayer.OnInitializedListener {
                 override fun onInitializationSuccess(
                     provider: YouTubePlayer.Provider,
                     youTubePlayer: YouTubePlayer, b: Boolean
                 ) {
                     // do any work here to cue video, play video, etc.
-                    youTubePlayer.cueVideo(vid.toString())
+//                    youTubePlayer.cueVideo(vid.toString())
+                    youTubePlayer.loadVideo(vid.toString())
+                    youTubePlayer.play()
                 }
 
                 override fun onInitializationFailure(
