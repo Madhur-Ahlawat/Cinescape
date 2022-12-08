@@ -157,11 +157,17 @@ class Constant {
         var DISPLAY = 1
         const val MOBILE = "mobile"
         const val mid = "movieId"
+        const val transId = ""
+        const val bookingId = ""
 
         const val termsCondition = "https://cinescapeweb.wemonde.co/app/tc"
         const val termsConditions = "https://www.cinescape.com.kw/terms-and-conditions"
         const val privacyPolicy = "https://cinescapeweb.wemonde.co/app/pp"
 
+
+
+        const val KNETID = "401"
+        const val CREDITCARDID = "402"
 
     }
 

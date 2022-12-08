@@ -70,7 +70,6 @@ class FoodActivity : DaggerAppCompatActivity(),
     private var individualAdapter: AdapterIndividual? = null
     private var foodCartAdapter: AdapterCart? = null
     private var mFoodCartDialog: AlertDialog? = null
-    private var type = ""
     private var movieRatingColor = ""
     private var seatPrice = "0.0"
     private var textNumber: TextView? = null
@@ -248,10 +247,11 @@ class FoodActivity : DaggerAppCompatActivity(),
         sessionId = intent.getStringExtra("SESSION_ID").toString()
         booktype = intent.getStringExtra("BOOKING").toString()
         transId = intent.getStringExtra("TRANS_ID").toString()
-        type = intent.getStringExtra("type").toString()
+
+        toast("$booktype")
 
         movieRatingColor= intent.getStringExtra("movieRatingColor").toString()
-        if (type == "0") {
+        if (booktype == "FOOD") {
             binding?.txtSkipProceed?.show()
             binding?.viewCancel?.setOnClickListener {
                 cancelDialog()
@@ -276,7 +276,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                     intent.putExtra("CINEMA_ID", cinemaId)
                     intent.putExtra("SESSION_ID", sessionId)
                     intent.putExtra("TRANS_ID", transId)
-                    intent.putExtra("TYPE", type)
+                    intent.putExtra("booktype", booktype)
                     TimerTime = timeCount
                     startActivity(intent)
                     finish()
@@ -373,7 +373,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             intent.putExtra("CINEMA_ID", cinemaId)
             intent.putExtra("SESSION_ID", sessionId)
             intent.putExtra("TRANS_ID", transId)
-            intent.putExtra("TYPE", type)
+            intent.putExtra("booktype", booktype)
 
             TimerTime = timeCount
             startActivity(intent)
@@ -880,7 +880,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                                         intent.putExtra("SESSION_ID", sessionId)
                                         intent.putExtra("TRANS_ID", it.data.output.transid)
                                         intent.putExtra("BOOKING", it.data.output.booktype)
-                                        intent.putExtra("TYPE", type)
+                                        intent.putExtra("booktype", booktype)
 
                                         TimerTime = timeCount
                                         startActivity(intent)

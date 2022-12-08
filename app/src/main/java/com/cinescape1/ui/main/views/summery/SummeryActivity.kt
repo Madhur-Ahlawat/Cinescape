@@ -11,28 +11,20 @@ import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.cardinalcommerce.cardinalmobilesdk.Cardinal
-import com.cardinalcommerce.cardinalmobilesdk.enums.CardinalEnvironment
-import com.cardinalcommerce.cardinalmobilesdk.enums.CardinalRenderType
-import com.cardinalcommerce.cardinalmobilesdk.enums.CardinalUiType
 import com.cardinalcommerce.cardinalmobilesdk.models.CardinalActionCode
-import com.cardinalcommerce.cardinalmobilesdk.models.CardinalConfigurationParameters
 import com.cardinalcommerce.cardinalmobilesdk.models.ValidateResponse
 import com.cardinalcommerce.cardinalmobilesdk.services.CardinalInitService
-import com.cardinalcommerce.shared.userinterfaces.UiCustomization
 import com.cinescape1.R
 import com.cinescape1.data.models.requestModel.*
 import com.cinescape1.data.models.responseModel.TicketSummaryResponse
@@ -45,6 +37,7 @@ import com.cinescape1.ui.main.views.adapters.checkoutAdapter.AdapterCheckoutFood
 import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
 import com.cinescape1.ui.main.views.login.LoginActivity
 import com.cinescape1.ui.main.views.payment.PaymentWebActivity
+import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity
 import com.cinescape1.ui.main.views.summery.response.GiftCardResponse
 import com.cinescape1.ui.main.views.summery.viewModel.SummeryViewModel
 import com.cinescape1.utils.*
@@ -62,15 +55,12 @@ import kotlinx.android.synthetic.main.cancel_dialog.view.*
 import kotlinx.android.synthetic.main.checkout_creditcart_payment_alert.*
 import kotlinx.android.synthetic.main.checkout_layout_ticket_include.*
 import kotlinx.android.synthetic.main.food_review_pay_include.*
-import org.json.JSONArray
-import java.text.ParseException
-import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @Suppress("DEPRECATION")
-class SummeryActivity : DaggerAppCompatActivity(),SummerySeatListAdapter.TypeFaceSeatLists {
+class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFaceSeatLists {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -102,14 +92,15 @@ class SummeryActivity : DaggerAppCompatActivity(),SummerySeatListAdapter.TypeFac
     private var from = ""
     private var paidPrice = ""
     private var totalPrice = ""
+    private var cinemaId = ""
+    private var sessionId = ""
     private var cardinal = Cardinal.getInstance()
-    private var clickOffer=1
+    private var clickOffer = 1
     private var secondLeft: Long = 0
     private var timeExtendClick: Boolean = false
     private var dialogShow: Long = 60
     private var countDownTimerPrimary: CountDownTimer? = null
-
-    var seatNumber1: TextView? = null
+    private var seatNumber1: TextView? = null
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -275,9 +266,6 @@ class SummeryActivity : DaggerAppCompatActivity(),SummerySeatListAdapter.TypeFac
             }
         }
         setContentView(view)
-        from = intent.getStringExtra("From").toString()
-        bookType = intent.getStringExtra("BOOKING").toString()
-        type = intent.getStringExtra("TYPE").toString()
         //AppBar Hide
         window.apply {
             clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
@@ -286,13 +274,11 @@ class SummeryActivity : DaggerAppCompatActivity(),SummerySeatListAdapter.TypeFac
             statusBarColor = Color.TRANSPARENT
         }
 
-        if (type == "0") {
+        if (bookType == "BOOKING") {
             textView111?.show()
             textView112?.show()
-
-
             resendTimer()
-        }else{
+        } else {
             textView111?.invisible()
             textView112?.invisible()
         }
@@ -310,10 +296,19 @@ class SummeryActivity : DaggerAppCompatActivity(),SummerySeatListAdapter.TypeFac
         tckSummary(
             TicketSummaryRequest(
                 intent.getStringExtra("TRANS_ID").toString(),
-                USER_ID,
+                bookingId,
                 preferences.getString(Constant.USER_ID).toString()
             )
         )
+
+        from = intent.getStringExtra("From").toString()
+        bookType = intent.getStringExtra("BOOKING").toString()
+        type = intent.getStringExtra("TYPE").toString()
+
+        println("from--->${from}---bookType--->${bookType}--->type${type}")
+        sessionId= intent.getStringExtra("SESSION_ID").toString()
+        cinemaId= intent.getStringExtra("CINEMA_ID").toString()
+        transId=intent.getStringExtra("TRANS_ID").toString()
         broadcastReceiver = MyReceiver()
         broadcastIntent()
         movedNext()
@@ -323,600 +318,6 @@ class SummeryActivity : DaggerAppCompatActivity(),SummerySeatListAdapter.TypeFac
         registerReceiver(broadcastReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
     }
 
-    private fun movedNext() {
-        binding?.viewProceed?.setOnClickListener {
-            if (click) {
-                when (payType) {
-                    "WALLET" -> {
-                        walletPay(
-                            HmacKnetRequest(
-                                bookingId,
-                                bookType,
-                                transId,
-                                preferences.getString(Constant.USER_ID).toString()
-                            )
-                        )
-
-                    }
-                    "KNET" -> {
-                        paymentHmac(
-                            HmacKnetRequest(
-                                bookingId,
-                                bookType,
-                                transId,
-                                preferences.getString(Constant.USER_ID).toString()
-                            )
-                        )
-
-                    }
-                    "CC" -> {
-                        val cardinalConfigurationParameters = CardinalConfigurationParameters()
-                        cardinalConfigurationParameters.environment = CardinalEnvironment.STAGING
-                        cardinalConfigurationParameters.requestTimeout = 8000
-                        cardinalConfigurationParameters.challengeTimeout = 5
-
-                        val rType = JSONArray()
-                        rType.put(CardinalRenderType.OTP)
-                        rType.put(CardinalRenderType.SINGLE_SELECT)
-                        rType.put(CardinalRenderType.MULTI_SELECT)
-                        rType.put(CardinalRenderType.OOB)
-                        rType.put(CardinalRenderType.HTML)
-                        cardinalConfigurationParameters.renderType = rType
-
-                        cardinalConfigurationParameters.uiType = CardinalUiType.BOTH
-
-                        val yourUICustomizationObject = UiCustomization()
-                        cardinalConfigurationParameters.uiCustomization = yourUICustomizationObject
-
-                        cardinal.configure(this, cardinalConfigurationParameters)
-                        val mDialogView =
-                            LayoutInflater.from(this)
-                                .inflate(R.layout.checkout_creditcart_payment_alert, null)
-                        val mBuilder = AlertDialog.Builder(this)
-                            .setView(mDialogView)
-                        val proceedAlertDialog = mBuilder.show()
-                        proceedAlertDialog.show()
-                        proceedAlertDialog?.kd_to_pay?.text = " $totalPrice"
-
-                        proceedAlertDialog.cardNumberTextInputEditText.addTextChangedListener(object :
-                            TextWatcher {
-                            override fun beforeTextChanged(
-                                charSequence: CharSequence,
-                                i: Int,
-                                i1: Int,
-                                i2: Int
-                            ) {
-                                try {
-                                    if (!proceedAlertDialog.cardNumberTextInputEditText.text
-                                            .toString().isEmpty()
-                                    ) {
-                                        proceedAlertDialog.image_american_express_card.visibility =
-                                            View.VISIBLE
-                                        if (VISA_PREFIX.contains(
-                                                proceedAlertDialog.cardNumberTextInputEditText.text
-                                                    .toString().substring(0, 1)
-                                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text
-                                                .toString().isEmpty()
-                                        ) {
-                                            proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                                ContextCompat.getDrawable(
-                                                    mContext,
-                                                    R.drawable.visa_card
-                                                )
-                                            )
-                                        } else if (MASTERCARD_PREFIX.contains(
-                                                proceedAlertDialog.cardNumberTextInputEditText.text
-                                                    .toString()
-                                                    .substring(0, 2) + ","
-                                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text
-                                                .toString().isEmpty()
-                                        ) {
-                                            proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                                ContextCompat.getDrawable(
-                                                    mContext,
-                                                    R.drawable.mastercard_card
-                                                )
-                                            )
-                                        } else if (AMEX_PREFIX.contains(
-                                                proceedAlertDialog.cardNumberTextInputEditText.text
-                                                    .toString()
-                                                    .substring(0, 2) + ","
-                                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text
-                                                .toString().isEmpty()
-                                        ) {
-                                            proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                                ContextCompat.getDrawable(
-                                                    mContext,
-                                                    R.drawable.amerian_card
-                                                )
-                                            )
-                                        } else if (DISCOVER_PREFIX.contains(
-                                                proceedAlertDialog.cardNumberTextInputEditText.text
-                                                    .toString().substring(0, 4)
-                                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text
-                                                .toString().isEmpty()
-                                        ) {
-                                            proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                                ContextCompat.getDrawable(
-                                                    mContext,
-                                                    R.drawable.amerian_card
-                                                )
-                                            )
-                                        } else if (JCB.contains(
-                                                proceedAlertDialog.cardNumberTextInputEditText.text
-                                                    .toString().substring(0, 1)
-                                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text
-                                                .toString().isEmpty()
-                                        ) {
-                                            proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                                ContextCompat.getDrawable(
-                                                    mContext,
-                                                    R.drawable.amerian_card
-                                                )
-                                            )
-                                        } else if (MAESTRO.contains(
-                                                proceedAlertDialog.cardNumberTextInputEditText.text
-                                                    .toString().substring(0, 2)
-                                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text
-                                                .toString().isEmpty()
-                                        ) {
-                                            proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                                ContextCompat.getDrawable(
-                                                    mContext,
-                                                    R.drawable.amerian_card
-                                                )
-                                            )
-                                        } else {
-                                            proceedAlertDialog.image_american_express_card.visibility =
-                                                View.GONE
-                                        }
-                                    } else {
-                                        proceedAlertDialog.image_american_express_card.visibility =
-                                            View.GONE
-                                    }
-                                } catch (e: java.lang.Exception) {
-                                }
-                            }
-
-                            override fun onTextChanged(
-                                charSequence: CharSequence,
-                                i: Int,
-                                i1: Int,
-                                i2: Int
-                            ) {
-                                try {
-                                    if (!proceedAlertDialog.cardNumberTextInputEditText.text
-                                            .toString().isEmpty()
-                                    ) {
-                                        proceedAlertDialog.image_american_express_card.visibility =
-                                            View.VISIBLE
-                                        if (VISA_PREFIX.contains(
-                                                proceedAlertDialog.cardNumberTextInputEditText.text
-                                                    .toString().substring(0, 1)
-                                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text
-                                                .toString().isEmpty()
-                                        ) {
-                                            proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                                ContextCompat.getDrawable(
-                                                    mContext,
-                                                    R.drawable.visa_card
-                                                )
-                                            )
-                                        } else if (MASTERCARD_PREFIX.contains(
-                                                proceedAlertDialog.cardNumberTextInputEditText.text
-                                                    .toString()
-                                                    .substring(0, 2) + ","
-                                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text
-                                                .toString().isEmpty()
-                                        ) {
-                                            proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                                ContextCompat.getDrawable(
-                                                    mContext,
-                                                    R.drawable.mastercard_card
-                                                )
-                                            )
-                                        } else if (AMEX_PREFIX.contains(
-                                                proceedAlertDialog.cardNumberTextInputEditText.text
-                                                    .toString()
-                                                    .substring(0, 2) + ","
-                                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text
-                                                .toString().isEmpty()
-                                        ) {
-                                            proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                                ContextCompat.getDrawable(
-                                                    mContext,
-                                                    R.drawable.amerian_card
-                                                )
-                                            )
-                                        } else if (DISCOVER_PREFIX.contains(
-                                                proceedAlertDialog.cardNumberTextInputEditText.text
-                                                    .toString().substring(0, 4)
-                                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text
-                                                .toString().isEmpty()
-                                        ) {
-                                            proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                                ContextCompat.getDrawable(
-                                                    mContext,
-                                                    R.drawable.disover_card
-                                                )
-                                            )
-                                        } else if (JCB.contains(
-                                                proceedAlertDialog.cardNumberTextInputEditText.text
-                                                    .toString().substring(0, 4)
-                                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text
-                                                .toString().isEmpty()
-                                        ) {
-                                            proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                                ContextCompat.getDrawable(
-                                                    mContext,
-                                                    R.drawable.jcb_card
-                                                )
-                                            )
-                                        } else if (MAESTRO.contains(
-                                                proceedAlertDialog.cardNumberTextInputEditText.text
-                                                    .toString().substring(0, 4)
-                                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text
-                                                .toString().isEmpty()
-                                        ) {
-                                            proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                                ContextCompat.getDrawable(
-                                                    mContext,
-                                                    R.drawable.maestro_card
-                                                )
-                                            )
-                                        } else if (UATP.contains(
-                                                proceedAlertDialog.cardNumberTextInputEditText.text
-                                                    .toString().substring(0, 4)
-                                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text
-                                                .toString().isEmpty()
-                                        ) {
-                                            proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                                ContextCompat.getDrawable(
-                                                    mContext,
-                                                    R.drawable.uatp
-                                                )
-                                            )
-                                        } else {
-                                            proceedAlertDialog.image_american_express_card.visibility =
-                                                View.GONE
-                                        }
-                                    } else {
-                                        proceedAlertDialog.image_american_express_card.visibility =
-                                            View.GONE
-                                    }
-                                } catch (e: java.lang.Exception) {
-                                }
-                            }
-
-                            override fun afterTextChanged(editable: Editable) {
-                                try {
-                                    if (!proceedAlertDialog.cardNumberTextInputEditText.text
-                                            .toString().isEmpty()
-                                    ) {
-                                        proceedAlertDialog.imageView52.visibility =
-                                            View.VISIBLE
-                                        if (VISA_PREFIX.contains(
-                                                proceedAlertDialog.cardNumberTextInputEditText.text
-                                                    .toString().substring(0, 1)
-                                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text
-                                                .toString().isEmpty()
-                                        ) {
-                                            proceedAlertDialog.imageView52.setImageDrawable(
-                                                ContextCompat.getDrawable(
-                                                    mContext,
-                                                    R.drawable.visa_card
-                                                )
-                                            )
-                                        } else if (MASTERCARD_PREFIX.contains(
-                                                proceedAlertDialog.cardNumberTextInputEditText.text
-                                                    .toString()
-                                                    .substring(0, 2) + ","
-                                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text
-                                                .toString().isEmpty()
-                                        ) {
-                                            proceedAlertDialog.imageView52.setImageDrawable(
-                                                ContextCompat.getDrawable(
-                                                    mContext,
-                                                    R.drawable.mastercard_card
-                                                )
-                                            )
-                                        } else if (AMEX_PREFIX.contains(
-                                                proceedAlertDialog.cardNumberTextInputEditText.text
-                                                    .toString()
-                                                    .substring(0, 2) + ","
-                                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text
-                                                .toString().isEmpty()
-                                        ) {
-                                            proceedAlertDialog.imageView52.setImageDrawable(
-                                                ContextCompat.getDrawable(
-                                                    mContext,
-                                                    R.drawable.amerian_card
-                                                )
-                                            )
-                                        } else if (DISCOVER_PREFIX.contains(
-                                                proceedAlertDialog.cardNumberTextInputEditText.text
-                                                    .toString().substring(0, 4)
-                                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text
-                                                .toString().isEmpty()
-                                        ) {
-                                            proceedAlertDialog.imageView52.setImageDrawable(
-                                                ContextCompat.getDrawable(
-                                                    mContext,
-                                                    R.drawable.disover_card
-                                                )
-                                            )
-                                        } else if (JCB.contains(
-                                                proceedAlertDialog.cardNumberTextInputEditText.text
-                                                    .toString().substring(0, 4)
-                                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text
-                                                .toString().isEmpty()
-                                        ) {
-                                            proceedAlertDialog.imageView52.setImageDrawable(
-                                                ContextCompat.getDrawable(
-                                                    mContext,
-                                                    R.drawable.jcb_card
-                                                )
-                                            )
-                                        } else if (MAESTRO.contains(
-                                                proceedAlertDialog.cardNumberTextInputEditText.text
-                                                    .toString().substring(0, 4)
-                                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text
-                                                .toString().isEmpty()
-                                        ) {
-                                            proceedAlertDialog.imageView52.setImageDrawable(
-                                                ContextCompat.getDrawable(
-                                                    mContext,
-                                                    R.drawable.maestro_card
-                                                )
-                                            )
-                                        } else if (UATP.contains(
-                                                proceedAlertDialog.cardNumberTextInputEditText.text
-                                                    .toString().substring(0, 4)
-                                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text
-                                                .toString().isEmpty()
-                                        ) {
-                                            proceedAlertDialog.imageView52.setImageDrawable(
-                                                ContextCompat.getDrawable(
-                                                    mContext,
-                                                    R.drawable.uatp
-                                                )
-                                            )
-                                        } else {
-//                                            proceedAlertDialogtDialog.imageView52.visibility =
-//                                                View.GONE
-                                        }
-                                    } else {
-//                                        proceedAlertDialogtDialogialog.imageView52.visibility =
-//                                            View.GONE
-                                    }
-                                } catch (e: java.lang.Exception) {
-                                }
-                            }
-                        })
-
-                        proceedAlertDialog.text_cancel_go_back.setOnClickListener {
-                            proceedAlertDialog.dismiss()
-
-                        }
-                        var lastInput = ""
-
-                        proceedAlertDialog.expireDateTextInputEditText.addTextChangedListener(object :
-                            TextWatcher {
-                            override fun afterTextChanged(p0: Editable?) {}
-
-                            override fun beforeTextChanged(
-                                p0: CharSequence?,
-                                p1: Int,
-                                p2: Int,
-                                p3: Int
-                            ) {
-                            }
-
-                            @SuppressLint("SetTextI18n")
-                            override fun onTextChanged(
-                                p0: CharSequence?,
-                                start: Int,
-                                removed: Int,
-                                added: Int
-                            ) {
-                                val input = p0.toString()
-                                val formatter = SimpleDateFormat("MM/YY", Locale.GERMANY)
-                                val expiryDateDate = Calendar.getInstance()
-                                try {
-                                    expiryDateDate.time = formatter.parse(input)
-                                } catch (e: ParseException) {
-                                    if (p0?.length == 2 && !lastInput.endsWith("/")) {
-                                        val month = Integer.parseInt(input)
-                                        if (month <= 12) {
-                                            proceedAlertDialog.expireDateTextInputEditText.setText(
-                                                proceedAlertDialog.expireDateTextInputEditText.text.toString() + "/"
-                                            )
-                                            proceedAlertDialog.expireDateTextInputEditText.setSelection(
-                                                3
-                                            )
-                                        }
-                                    } else if (p0?.length == 2 && lastInput.endsWith("/")) {
-                                        val month = Integer.parseInt(input)
-                                        if (month <= 12) {
-                                            proceedAlertDialog.expireDateTextInputEditText.setText(
-                                                proceedAlertDialog.expireDateTextInputEditText.text.toString()
-                                                    .substring(0, 1)
-                                            )
-                                        }
-                                    }
-                                    lastInput =
-                                        proceedAlertDialog.expireDateTextInputEditText.text.toString()
-                                    //because not valid so code exits here
-                                    return
-                                }
-                            }
-                        })
-
-                        proceedAlertDialog.btn_pay.setOnClickListener {
-                            if (validateFields(proceedAlertDialog))
-                                try {
-                                    postCardData(
-                                        PostCardRequest(
-                                            bookingId,
-                                            proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                                .replace(" ".toRegex(), "").trim(),
-                                            proceedAlertDialog.ccvTextInputEditText.text.toString(),
-                                            proceedAlertDialog.expireDateTextInputEditText.text.toString()
-                                                .split("/")[0],
-                                            proceedAlertDialog.expireDateTextInputEditText.text.toString()
-                                                .split("/")[1],
-                                            refId
-                                        )
-                                    )
-                                } catch (e: Exception) {
-                                    println("exception--->${e.message}")
-                                }
-
-
-                        }
-
-                        creditCardInit(
-                            HmacKnetRequest(
-                                bookingId,
-                                bookType,
-                                transId,
-                                preferences.getString(Constant.USER_ID).toString()
-                            )
-                        )
-                    }
-                }
-            } else {
-                val dialog = OptionDialog(this,
-                    R.mipmap.ic_launcher,
-                    R.string.app_name,
-                    getString(R.string.payment_method),
-                    positiveBtnText = R.string.ok,
-                    negativeBtnText = R.string.no,
-                    positiveClick = {
-                    },
-                    negativeClick = {
-                    })
-                dialog.show()
-            }
-        }
-
-        binding?.viewCancel?.setOnClickListener {
-            cancelDialog()
-        }
-
-        imgs_back.setOnClickListener {
-            cancelDialog()
-        }
-
-        binding?.viewFood?.setOnClickListener {
-            if (!up) {
-                up = true
-                icon_down_arrow.setImageResource(R.drawable.ic_icons_arrow_down)
-                recyclerview_food_chekout.visibility = View.GONE
-            } else {
-                up = false
-                icon_down_arrow.setImageResource(R.drawable.arrow_up)
-                recyclerview_food_chekout.visibility = View.VISIBLE
-            }
-        }
-
-        //GiftCard
-        binding?.giftCardClick?.setOnClickListener {
-            clickOffer=1
-            binding?.enterCode?.text?.clear()
-
-            //giftCard
-            binding?.imageView55?.setImageResource(R.drawable.gift_card__active)
-            binding?.textView152?.setTextColor(this.getColor(R.color.white))
-            //voucher
-            binding?.imageView56?.setImageResource(R.drawable.gift_voucher_normal)
-            binding?.textView153?.setTextColor(this.getColor(R.color.hint_color))
-            //promo
-            binding?.imageView57?.setImageResource(R.drawable.promocode_normal)
-            binding?.textView154?.setTextColor(this.getColor(R.color.hint_color))
-
-            binding?.enterCode?.hint = getString(R.string.enter_gift_card)
-
-        }
-
-        //Voucher
-        binding?.voucherClick?.setOnClickListener {
-            clickOffer=2
-            binding?.enterCode?.text?.clear()
-
-            //giftCard
-            binding?.imageView55?.setImageResource(R.drawable.gift_card_normal)
-            binding?.textView152?.setTextColor(this.getColor(R.color.hint_color))
-            //voucher
-            binding?.imageView56?.setImageResource(R.drawable.gift_voucher_active)
-            binding?.textView153?.setTextColor(this.getColor(R.color.white))
-            //promo
-            binding?.imageView57?.setImageResource(R.drawable.promocode_normal)
-            binding?.textView154?.setTextColor(this.getColor(R.color.hint_color))
-            binding?.enterCode?.hint = getString(R.string.enter_voucher_code)
-
-        }
-        //promoClick
-        binding?.promoClick?.setOnClickListener {
-            clickOffer=3
-            binding?.enterCode?.text?.clear()
-
-            //giftCard
-            binding?.imageView55?.setImageResource(R.drawable.gift_card_normal)
-            binding?.textView152?.setTextColor(this.getColor(R.color.hint_color))
-            //voucher
-            binding?.imageView56?.setImageResource(R.drawable.gift_voucher_normal)
-            binding?.textView153?.setTextColor(this.getColor(R.color.hint_color))
-            //promo
-            binding?.imageView57?.setImageResource(R.drawable.promocode_active)
-            binding?.textView154?.setTextColor(this.getColor(R.color.white))
-            binding?.enterCode?.hint = getString(R.string.enter_promo_code)
-
-
-        }
-
-        //Apply Coupon
-        binding?.textView151?.setOnClickListener {
-            val cardNumber = binding?.enterCode?.text.toString()
-            when (clickOffer) {
-                1 -> {
-                    giftCardApply(
-                        GiftCardRequest(
-                            bookingId,
-                            bookType,
-                            cardNumber,
-                            intent.getStringExtra("TRANS_ID").toString(),
-                            preferences.getString(Constant.USER_ID).toString()
-                        )
-                    )
-                }
-                2 -> {
-                    voucherApply(
-                        GiftCardRequest(
-                            bookingId,
-                            bookType,
-                            cardNumber,
-                            intent.getStringExtra("TRANS_ID").toString(),
-                            preferences.getString(Constant.USER_ID).toString()
-                        )
-                    )
-                }
-                3 -> {
-                    giftCardApply(
-                        GiftCardRequest(
-                            bookingId,
-                            bookType,
-                            cardNumber,
-                            intent.getStringExtra("TRANS_ID").toString(),
-                            preferences.getString(Constant.USER_ID).toString()
-                        )
-                    )
-                }
-            }
-
-        }
-
-    }
 
     private fun giftCardApply(request: GiftCardRequest) {
         summeryViewModel.giftCardApply(request)
@@ -1436,8 +837,8 @@ class SummeryActivity : DaggerAppCompatActivity(),SummerySeatListAdapter.TypeFac
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                     try {
                                         bookType = it.data.output.bookingType
-                                        bookingId = it.data.output.bookingId.toString()
-                                        bookingIdNEw = it.data.output.bookingId.toString()
+                                        bookingId = it.data.output.bookingId
+                                        bookingIdNEw = it.data.output.bookingId
                                         transId = request.transid
                                         retrieveSummaryResponse(it.data.output)
                                     } catch (e: Exception) {
@@ -1482,6 +883,135 @@ class SummeryActivity : DaggerAppCompatActivity(),SummerySeatListAdapter.TypeFac
                     }
                 }
             }
+    }
+    private fun movedNext() {
+        binding?.viewProceed?.setOnClickListener {
+            val intent = Intent(this, PaymentListActivity::class.java)
+            intent.putExtra("CINEMA_ID", cinemaId)
+            intent.putExtra("SESSION_ID", sessionId)
+            intent.putExtra("TRANS_ID", transId)
+            intent.putExtra("bookingId", bookingIdNEw)
+            intent.putExtra("BOOKING", bookType)
+            Constant.IntentKey.TimerTime = timeCount
+            startActivity(intent)
+        }
+
+        binding?.viewCancel?.setOnClickListener {
+            cancelDialog()
+        }
+
+        imgs_back.setOnClickListener {
+            cancelDialog()
+        }
+
+        binding?.viewFood?.setOnClickListener {
+            if (!up) {
+                up = true
+                icon_down_arrow.setImageResource(R.drawable.ic_icons_arrow_down)
+                recyclerview_food_chekout.visibility = View.GONE
+            } else {
+                up = false
+                icon_down_arrow.setImageResource(R.drawable.arrow_up)
+                recyclerview_food_chekout.visibility = View.VISIBLE
+            }
+        }
+
+        //GiftCard
+        binding?.giftCardClick?.setOnClickListener {
+            clickOffer = 1
+            binding?.enterCode?.text?.clear()
+
+            //giftCard
+            binding?.imageView55?.setImageResource(R.drawable.gift_card__active)
+            binding?.textView152?.setTextColor(this.getColor(R.color.white))
+            //voucher
+            binding?.imageView56?.setImageResource(R.drawable.gift_voucher_normal)
+            binding?.textView153?.setTextColor(this.getColor(R.color.hint_color))
+            //promo
+            binding?.imageView57?.setImageResource(R.drawable.promocode_normal)
+            binding?.textView154?.setTextColor(this.getColor(R.color.hint_color))
+
+            binding?.enterCode?.hint = getString(R.string.enter_gift_card)
+
+        }
+
+        //Voucher
+        binding?.voucherClick?.setOnClickListener {
+            clickOffer = 2
+            binding?.enterCode?.text?.clear()
+
+            //giftCard
+            binding?.imageView55?.setImageResource(R.drawable.gift_card_normal)
+            binding?.textView152?.setTextColor(this.getColor(R.color.hint_color))
+            //voucher
+            binding?.imageView56?.setImageResource(R.drawable.gift_voucher_active)
+            binding?.textView153?.setTextColor(this.getColor(R.color.white))
+            //promo
+            binding?.imageView57?.setImageResource(R.drawable.promocode_normal)
+            binding?.textView154?.setTextColor(this.getColor(R.color.hint_color))
+            binding?.enterCode?.hint = getString(R.string.enter_voucher_code)
+
+        }
+        //promoClick
+        binding?.promoClick?.setOnClickListener {
+            clickOffer = 3
+            binding?.enterCode?.text?.clear()
+
+            //giftCard
+            binding?.imageView55?.setImageResource(R.drawable.gift_card_normal)
+            binding?.textView152?.setTextColor(this.getColor(R.color.hint_color))
+            //voucher
+            binding?.imageView56?.setImageResource(R.drawable.gift_voucher_normal)
+            binding?.textView153?.setTextColor(this.getColor(R.color.hint_color))
+            //promo
+            binding?.imageView57?.setImageResource(R.drawable.promocode_active)
+            binding?.textView154?.setTextColor(this.getColor(R.color.white))
+            binding?.enterCode?.hint = getString(R.string.enter_promo_code)
+
+
+        }
+
+        //Apply Coupon
+        binding?.textView151?.setOnClickListener {
+            val cardNumber = binding?.enterCode?.text.toString()
+            when (clickOffer) {
+                1 -> {
+                    giftCardApply(
+                        GiftCardRequest(
+                            bookingId,
+                            bookType,
+                            cardNumber,
+                            intent.getStringExtra("TRANS_ID").toString(),
+                            preferences.getString(Constant.USER_ID).toString()
+                        )
+                    )
+                }
+                2 -> {
+                    voucherApply(
+                        GiftCardRequest(
+                            bookingId,
+                            bookType,
+                            cardNumber,
+                            intent.getStringExtra("TRANS_ID").toString(),
+                            preferences.getString(Constant.USER_ID).toString()
+                        )
+                    )
+                }
+                3 -> {
+                    giftCardApply(
+                        GiftCardRequest(
+                            bookingId,
+                            bookType,
+                            cardNumber,
+                            intent.getStringExtra("TRANS_ID").toString(),
+                            preferences.getString(Constant.USER_ID).toString()
+                        )
+                    )
+                }
+            }
+
+        }
+
     }
 
     // hmac Request
@@ -1997,7 +1527,6 @@ class SummeryActivity : DaggerAppCompatActivity(),SummerySeatListAdapter.TypeFac
             true
         }
     }
-
 
 
 }

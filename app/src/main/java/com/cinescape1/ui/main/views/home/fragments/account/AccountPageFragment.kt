@@ -2014,7 +2014,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     }
 
     private fun setSpinner(cinemas: ArrayList<FoodResponse.Output.Cinema>) {
-
         val customAdapter = CustomSpinnerAdapter(
             requireContext(),
             cinemas

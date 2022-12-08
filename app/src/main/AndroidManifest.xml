@@ -32,9 +32,17 @@
         tools:ignore="AllowBackup,UnusedAttribute"
         tools:replace="android:supportsRtl">
         <activity
+            android:name=".ui.main.views.payment.paymentList.PaymentListActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
             android:name=".ui.main.views.login.otpVerification.OtpVerificationActivity"
-            android:theme="@style/Theme.Cinescape.NoActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Cinescape.NoActionBar" />
         <activity
             android:name=".ui.main.views.payment.paymentFaield.PaymentFailedActivity"
             android:exported="false" />
@@ -56,10 +64,9 @@
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.main.views.summery.SummeryActivity"
-            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
-
             android:theme="@style/Theme.Cinescape.NoActionBar"
+            android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.main.views.food.FoodActivity"

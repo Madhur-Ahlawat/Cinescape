@@ -136,7 +136,6 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
                             Intent(this, LoginActivity::class.java)
                                 .putExtra("CINEMA_ID", cinemaId)
                                 .putExtra("BOOKING", "FOOD")
-                                .putExtra("type", "0")
                         )
                     } else {
                         foodDialog()

@@ -83,7 +83,7 @@ class PlayerActivity : DaggerAppCompatActivity() {
     private fun playVideo(vid: Any) {
         val youtubeFragment =
             fragmentManager.findFragmentById(R.id.youtubeFragment) as YouTubePlayerFragment
-        youtubeFragment.initialize("AIzaSyAD0AZTCMULaXpQfulSKNWuLlLl-nbdSf0",
+        youtubeFragment.initialize("AIzaSyBjiGzB2u4Et5ZGMrA4ucqfmdZfeqhSRKY",
             object : YouTubePlayer.OnInitializedListener {
                 override fun onInitializationSuccess(
                     provider: YouTubePlayer.Provider,

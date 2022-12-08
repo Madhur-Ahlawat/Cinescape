@@ -27,6 +27,7 @@ import com.cinescape1.ui.main.views.splash.viewModel.SplashViewModel
 import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.ui.main.views.login.LoginActivity
 import com.cinescape1.ui.main.views.login.otpVerification.OtpVerificationActivity
+import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.LocaleHelper
 import com.cinescape1.utils.Status
@@ -35,6 +36,7 @@ import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import javax.inject.Inject
 
+@Suppress("DEPRECATION")
 @SuppressLint("CustomSplashScreen")
 @ActivityScoped
 class SplashActivity : DaggerAppCompatActivity() {
@@ -44,7 +46,7 @@ class SplashActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var preferences: AppPreferences
     private val splashViewModel: SplashViewModel by viewModels { viewModelFactory }
-    var networkDialog:Dialog? = null
+    private var networkDialog:Dialog? = null
 
     @SuppressLint("PackageManagerGetSignatures")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,7 +76,9 @@ class SplashActivity : DaggerAppCompatActivity() {
                 Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT))
             }
         } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
         } catch (e: NoSuchAlgorithmException) {
+            e.printStackTrace()
         }
         try {
             val info = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
@@ -168,6 +172,7 @@ class SplashActivity : DaggerAppCompatActivity() {
         println("LoginCheck--->${preferences.getString(Constant.USER_ID)}")
         val runnable = Runnable {
             if (preferences.getBoolean(Constant.IS_LOGIN)) {
+//                val intent = Intent(this@SplashActivity, PaymentListActivity::class.java)
                 val intent = Intent(this@SplashActivity, HomeActivity::class.java)
                 startActivity(intent)
                 finish()

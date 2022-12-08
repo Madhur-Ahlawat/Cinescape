@@ -112,8 +112,9 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     private var languageCheck: String = "en"
     private var broadcastReceiver: BroadcastReceiver? = null
 
-    var movieCastName1: TextView? = null
-    var textTitle5: TextView? = null
+    private var movieCastName1: TextView? = null
+    private var textTitle5: TextView? = null
+    private var bookType: String = "BOOKING"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -227,15 +228,16 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
             statusBarColor = Color.TRANSPARENT
         }
+
         type = intent.getStringExtra("type").toString()
         movieID = intent.getStringExtra(Constant.IntentKey.MOVIE_ID)!!
+
         when (type) {
             "comingSoon" -> {
 
                 val layoutParams = (binding?.recylerviewShowTimeDate?.layoutParams as? ViewGroup.MarginLayoutParams)
                 layoutParams?.setMargins(0, 0, 0, 16)
                 binding?.recylerviewShowTimeDate?.layoutParams = layoutParams
-
                 binding?.moviePage?.hide()
                 binding?.comingSoon?.show()
                 binding?.viewpager?.hide()
@@ -255,7 +257,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 binding?.comingSoon?.hide()
                 binding?.viewpager?.show()
                 binding?.imageView48?.show()
-//                binding?.textView110?.show()
                 binding?.centerView?.show()
                 include.hide()
                 getShowTimes()

@@ -44,7 +44,6 @@ import com.cinescape1.ui.main.views.seatLayout.viewModel.SeatScreenMainViewModel
 import com.cinescape1.ui.main.views.summery.SummeryActivity
 import com.cinescape1.utils.*
 import com.cinescape1.utils.Constant.Companion.SEAT_SESSION_CLICK
-import com.otaliastudios.zoom.ZoomEngine
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_seat_screen_main.*
 import kotlinx.android.synthetic.main.cancel_dialog.*
@@ -621,6 +620,8 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                                                      ).putExtra("CINEMA_ID", cinemaID)
                                                     .putExtra("SESSION_ID", sessionID)
                                                     .putExtra("TRANS_ID", it.data.output.transid)
+                                                    .putExtra("BOOKING", it.data.output.booktype)
+
                                             )
                                             finish()
                                         }

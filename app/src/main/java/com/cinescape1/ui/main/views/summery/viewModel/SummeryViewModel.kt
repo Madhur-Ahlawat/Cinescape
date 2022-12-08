@@ -24,6 +24,19 @@ class SummeryViewModel @Inject constructor(private val repositories: Repositorie
             emit(Result.error(exception.message ?: "Error Occurred!", data = null))
         }
     }
+  fun paymentList(request: TicketSummaryRequest) = liveData(Dispatchers.IO) {
+        emit(Result.loading(data = null))
+        try {
+            val data = repositories.paymentList(request)
+            if (data.status == Status.ERROR) {
+                emit(Result.error(data.message.toString(), data))
+            } else {
+                emit(Result.success(data = data))
+            }
+        } catch (exception: Exception) {
+            emit(Result.error(exception.message ?: "Error Occurred!", data = null))
+        }
+    }
 
     fun cancelTrans(request: CancelTransRequest) = liveData(Dispatchers.IO) {
         emit(Result.loading(data = null))

@@ -2,9 +2,9 @@ package com.cinescape1.data.network
 
 import com.cinescape1.data.models.requestModel.*
 import com.cinescape1.data.models.responseModel.*
-import com.cinescape1.ui.main.views.home.fragments.account.response.GetAmountResponse
 import com.cinescape1.ui.main.views.home.fragments.account.response.RechargeAmountResponse
 import com.cinescape1.ui.main.views.payment.paymentFaield.reponse.PaymentFailedResponse
+import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResponse
 import com.cinescape1.ui.main.views.splash.response.SplashResponse
 import com.cinescape1.ui.main.views.summery.response.GiftCardResponse
 import com.cinescape1.utils.Constant
@@ -72,6 +72,9 @@ interface DataServices {
     @POST("content/trans/tcksummary")
     suspend fun tckSummary(@Body request: TicketSummaryRequest): Response<TicketSummaryResponse>
 
+    @POST("content/trans/paymodes")
+    suspend fun paymentList(@Body request: TicketSummaryRequest): Response<PaymentListResponse>
+
     @POST("content/trans/cancel")
     suspend fun cancelTrans(@Body request: CancelTransRequest): Response<TicketSummaryResponse>
 
@@ -107,7 +110,6 @@ interface DataServices {
 
     @POST("content/trans/tckfailed")
     suspend fun tckFailed(@Body request: FinalTicketRequest): Response<PaymentFailedResponse>
-
 
     @POST("history/mybookings")
     suspend fun myBooking(@Body request: MyBookingRequest): Response<HistoryResponse>

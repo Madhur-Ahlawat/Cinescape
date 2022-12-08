@@ -2,9 +2,9 @@ package com.cinescape1.data.network
 
 import com.cinescape1.data.models.requestModel.*
 import com.cinescape1.data.models.responseModel.*
-import com.cinescape1.ui.main.views.home.fragments.account.response.GetAmountResponse
 import com.cinescape1.ui.main.views.home.fragments.account.response.RechargeAmountResponse
 import com.cinescape1.ui.main.views.payment.paymentFaield.reponse.PaymentFailedResponse
+import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResponse
 import com.cinescape1.ui.main.views.splash.response.SplashResponse
 import com.cinescape1.ui.main.views.summery.response.GiftCardResponse
 import javax.inject.Inject
@@ -91,6 +91,11 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
     ): Result<TicketSummaryResponse> {
         return apiRequest { api.tckSummary(request) }
     }
+    suspend fun paymentList(
+        request: TicketSummaryRequest
+    ): Result<PaymentListResponse> {
+        return apiRequest { api.paymentList(request) }
+    }
 
     suspend fun cancelTrans(
         request: CancelTransRequest
@@ -139,7 +144,6 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
     suspend fun tckFailed(request: FinalTicketRequest): Result<PaymentFailedResponse> {
         return apiRequest { api.tckFailed(request) }
     }
-
     suspend fun myBooking(request: MyBookingRequest): Result<HistoryResponse> {
         return apiRequest { api.myBooking(request) }
     }
