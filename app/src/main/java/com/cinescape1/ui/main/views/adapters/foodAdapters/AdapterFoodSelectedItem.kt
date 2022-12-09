@@ -47,7 +47,6 @@ class AdapterFoodSelectedItem(
         }
 
         listener2.onTypeFaceFoodItem(holder.foodSelectItemName)
-
     }
 
     override fun getItemCount(): Int {

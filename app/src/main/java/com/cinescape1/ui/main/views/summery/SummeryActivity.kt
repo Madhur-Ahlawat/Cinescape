@@ -11,20 +11,15 @@ import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.cardinalcommerce.cardinalmobilesdk.Cardinal
-import com.cardinalcommerce.cardinalmobilesdk.models.CardinalActionCode
-import com.cardinalcommerce.cardinalmobilesdk.models.ValidateResponse
-import com.cardinalcommerce.cardinalmobilesdk.services.CardinalInitService
 import com.cinescape1.R
 import com.cinescape1.data.models.requestModel.*
 import com.cinescape1.data.models.responseModel.TicketSummaryResponse
@@ -34,20 +29,15 @@ import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.adapters.SummerySeatListAdapter
 import com.cinescape1.ui.main.views.adapters.checkoutAdapter.AdapterCheckoutFoodItem
-import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
 import com.cinescape1.ui.main.views.login.LoginActivity
-import com.cinescape1.ui.main.views.payment.PaymentWebActivity
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity
-import com.cinescape1.ui.main.views.summery.response.GiftCardResponse
 import com.cinescape1.ui.main.views.summery.viewModel.SummeryViewModel
 import com.cinescape1.utils.*
-import com.cinescape1.utils.Constant.IntentKey.Companion.USER_ID
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.threatmetrix.TrustDefender.*
-import com.threatmetrix.TrustDefender.TMXProfilingConnections.TMXProfilingConnections
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_checkout_with_food.*
 import kotlinx.android.synthetic.main.cancel_dialog.*
@@ -56,7 +46,6 @@ import kotlinx.android.synthetic.main.checkout_creditcart_payment_alert.*
 import kotlinx.android.synthetic.main.checkout_layout_ticket_include.*
 import kotlinx.android.synthetic.main.food_review_pay_include.*
 import java.util.*
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @Suppress("DEPRECATION")
@@ -298,9 +287,9 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
         bookType = intent.getStringExtra("BOOKING").toString()
         type = intent.getStringExtra("TYPE").toString()
 
-        sessionId= intent.getStringExtra("SESSION_ID").toString()
-        cinemaId= intent.getStringExtra("CINEMA_ID").toString()
-        transId=intent.getStringExtra("TRANS_ID").toString()
+        sessionId = intent.getStringExtra("SESSION_ID").toString()
+        cinemaId = intent.getStringExtra("CINEMA_ID").toString()
+        transId = intent.getStringExtra("TRANS_ID").toString()
         broadcastReceiver = MyReceiver()
 
         if (bookType == "BOOKING") {
@@ -487,7 +476,7 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
             binding?.view1Line1?.show()
             binding?.priceUi?.hide()
             checkout_food_include.hide()
-            image= output.posterhori
+            image = output.posterhori
             Glide.with(this)
                 .load(output.posterhori)
                 .placeholder(R.drawable.bombshell)
@@ -512,7 +501,7 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
             totalPrice = output.totalTicketPrice
             text_kd_total.text = output.totalTicketPrice
             paidPrice = output.totalPrice
-            totalPrice=output.totalPrice
+            totalPrice = output.totalPrice
             binding?.textTimeToLeft?.text = output.totalPrice
             binding?.textView118?.text = output.totalPrice
             binding?.textView116?.text = output.totalPrice
