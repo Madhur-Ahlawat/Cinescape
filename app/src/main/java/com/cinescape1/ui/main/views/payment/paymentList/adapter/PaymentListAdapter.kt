@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.GetMovieResponse
 import com.cinescape1.databinding.ItemPaymentListBinding
+import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResponse
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
@@ -24,6 +25,7 @@ class PaymentListAdapter(
 ) : RecyclerView.Adapter<PaymentListAdapter.ViewHolder>(),
     GiftCardAdapter.RecycleViewItemClickListener {
     private var clickName = ""
+    private var clickId = ""
 
     inner class ViewHolder(val binding: ItemPaymentListBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -56,7 +58,7 @@ class PaymentListAdapter(
                     listner.onCreditCardItemClick(this)
                 }
                 binding.knet.setOnClickListener {
-                    listner.onKnetItemClick(this)
+                    listner.onKnitItemClick(this)
                 }
                 //show Hide
                 binding.offerEditText.hint = clickName
@@ -97,6 +99,7 @@ class PaymentListAdapter(
                                 binding.imageView63.setImageResource(R.drawable.arrow_up)
                                 binding.giftCardUi.show()
                                 println("------>${this.respPayModes}")
+                                clickName=this.respPayModes[0].name
                                 val adapter = GiftCardAdapter(
                                     context,
                                     this.respPayModes,
@@ -107,6 +110,24 @@ class PaymentListAdapter(
                                 )
                                 binding.recyclerOffer.adapter = adapter
 
+                                binding.textView157.setOnClickListener {
+                                    val offerCode=binding.offerEditText.text.toString()
+                                    if (offerCode==""){
+                                        val dialog = OptionDialog(context,
+                                            R.mipmap.ic_launcher,
+                                            R.string.app_name,
+                                            "$clickName can not we empty",
+                                            positiveBtnText = R.string.ok,
+                                            negativeBtnText = R.string.no,
+                                            positiveClick = {
+                                            },
+                                            negativeClick = {
+                                            })
+                                        dialog.show()
+                                    }else{
+                                        listner.onVoucherItemClick(this,offerCode,clickName,clickId)
+                                    }
+                                }
                             } else {
                                 binding.imageView63.setImageResource(R.drawable.arrow_down)
                                 binding.giftCardUi.hide()
@@ -138,7 +159,7 @@ class PaymentListAdapter(
                                     listner.onCreditCardItemClick(this)
                                 }
                                 binding.knet.setOnClickListener {
-                                    listner.onKnetItemClick(this)
+                                    listner.onKnitItemClick(this)
                                 }
                             } else {
                                 binding.imageView63.setImageResource(R.drawable.arrow_down)
@@ -162,11 +183,18 @@ class PaymentListAdapter(
         fun walletItemApply(view: PaymentListResponse.Output.PayMode)
         fun onSimilarItemClick(view: GetMovieResponse.Output.Similar)
         fun onCreditCardItemClick(view: PaymentListResponse.Output.PayMode)
-        fun onKnetItemClick(view: PaymentListResponse.Output.PayMode)
+        fun onKnitItemClick(view: PaymentListResponse.Output.PayMode)
+        fun onVoucherItemClick(
+            view: PaymentListResponse.Output.PayMode,
+            offerCode: String,
+            clickName: String,
+            clickId: String
+        )
     }
 
     override fun giftCardClick(view: PaymentListResponse.Output.PayMode.RespPayMode) {
         clickName = view.name
+        clickId = view.id.toString()
         notifyDataSetChanged()
     }
 }

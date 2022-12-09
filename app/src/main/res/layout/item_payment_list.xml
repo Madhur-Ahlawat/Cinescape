@@ -41,9 +41,9 @@
             android:id="@+id/bankOffer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/margin35"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
+            android:paddingTop="@dimen/margin35"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -121,9 +121,9 @@
                 android:id="@+id/checkBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
-
                 android:buttonTint="@color/red"
+
+                android:checked="true"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 app:layout_constraintBottom_toBottomOf="@+id/constraintLayout25"
@@ -157,12 +157,12 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerOffer"
-                    tools:listitem="@layout/item_offer"
                     android:layout_width="match_parent"
-                    tools:itemCount="5"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:layout_height="wrap_content" />
+                    tools:itemCount="5"
+                    tools:listitem="@layout/item_offer" />
 
             </LinearLayout>
 
@@ -261,9 +261,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cardUi"
-            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -272,8 +272,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin35"
                 android:layout_gravity="center_horizontal|center"
+                android:layout_marginTop="@dimen/margin35"
                 android:weightSum="2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -378,16 +378,17 @@
 
     <View
         android:id="@+id/view105"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="1dp"
+        android:layout_marginStart="3dp"
         android:layout_marginTop="32dp"
-        android:background="#ADADAD33"
+        android:layout_marginEnd="3dp"
         android:layout_marginBottom="@dimen/dimen30"
+        android:background="@color/editColor"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

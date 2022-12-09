@@ -2,20 +2,22 @@ package com.cinescape1.ui.main.views.payment.paymentList
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.bumptech.glide.Glide
 import com.cardinalcommerce.cardinalmobilesdk.Cardinal
 import com.cardinalcommerce.cardinalmobilesdk.enums.CardinalEnvironment
 import com.cardinalcommerce.cardinalmobilesdk.enums.CardinalRenderType
@@ -26,10 +28,7 @@ import com.cardinalcommerce.cardinalmobilesdk.models.ValidateResponse
 import com.cardinalcommerce.cardinalmobilesdk.services.CardinalInitService
 import com.cardinalcommerce.shared.userinterfaces.UiCustomization
 import com.cinescape1.R
-import com.cinescape1.data.models.requestModel.HmacKnetRequest
-import com.cinescape1.data.models.requestModel.PostCardRequest
-import com.cinescape1.data.models.requestModel.TicketSummaryRequest
-import com.cinescape1.data.models.requestModel.ValidateJWTRequest
+import com.cinescape1.data.models.requestModel.*
 import com.cinescape1.data.models.responseModel.GetMovieResponse
 import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.databinding.ActivityPaymentListBinding
@@ -41,14 +40,13 @@ import com.cinescape1.ui.main.views.payment.PaymentWebActivity
 import com.cinescape1.ui.main.views.payment.paymentList.adapter.PaymentListAdapter
 import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResponse
 import com.cinescape1.ui.main.views.summery.SummeryActivity
+import com.cinescape1.ui.main.views.summery.response.GiftCardResponse
 import com.cinescape1.ui.main.views.summery.viewModel.SummeryViewModel
-import com.cinescape1.utils.Constant
-import com.cinescape1.utils.CreditCardUtils
-import com.cinescape1.utils.Status
-import com.cinescape1.utils.toast
+import com.cinescape1.utils.*
 import com.threatmetrix.TrustDefender.*
 import com.threatmetrix.TrustDefender.TMXProfilingConnections.TMXProfilingConnections
 import dagger.android.support.DaggerAppCompatActivity
+import kotlinx.android.synthetic.main.cancel_dialog.*
 import kotlinx.android.synthetic.main.cancel_dialog.view.*
 import kotlinx.android.synthetic.main.checkout_creditcart_payment_alert.*
 import kotlinx.android.synthetic.main.checkout_layout_ticket_include.*
@@ -88,7 +86,9 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     private var JCB = "2131,1800"
     private var MAESTRO = "5033,5868,6759,5641"
     private var UATP = "1354"
+    private var image = ""
     private var from = ""
+    private var paidPrice = ""
     private var timeCount: Long = 0
     private var secondLeft: Long = 0
     private var dialogShow: Long = 60
@@ -100,15 +100,37 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         binding = ActivityPaymentListBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
         setContentView(view)
+
         bookingId= intent.getStringExtra("bookingId").toString()
         bookType= intent.getStringExtra("BOOKING").toString()
         transId = intent.getStringExtra("TRANS_ID").toString()
+        image = intent.getStringExtra("image").toString()
+        paidPrice = intent.getStringExtra("paidPrice").toString()
+
+        Glide.with(this)
+            .load(image)
+            .placeholder(R.drawable.bombshell)
+            .into(binding?.imageView6!!)
+        binding?.textTimeToLeft?.text=paidPrice
         println("book--->${bookingId}--type->${bookType}---transId--->${transId}>")
+
+        if (bookType == "BOOKING") {
+            textView111?.show()
+            textView112?.show()
+            resendTimer()
+        } else {
+            textView111?.invisible()
+            textView112?.invisible()
+        }
         ticketList(
             TicketSummaryRequest(
                 transId, bookingId, preferences.getString(Constant.USER_ID).toString()
             )
         )
+
+        binding?.viewCancel?.setOnClickListener {
+            cancelDialog()
+        }
     }
 
     private fun ticketList(request: TicketSummaryRequest) {
@@ -995,13 +1017,188 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
 
-    override fun onKnetItemClick(view: PaymentListResponse.Output.PayMode) {
+    override fun onKnitItemClick(view: PaymentListResponse.Output.PayMode) {
         paymentHmac(
             HmacKnetRequest(
                 bookingId, bookType, transId, preferences.getString(Constant.USER_ID).toString()
             )
         )
 
+    }
+
+    override fun onVoucherItemClick(
+        view: PaymentListResponse.Output.PayMode,
+        offerCode: String,
+        clickName: String,
+        clickId: String
+    ) {
+
+        println("offerCode---->${offerCode}---clickName$--->${clickName}---clickId---->${clickId}")
+        if (clickName=="Gift Card"){
+            giftCardApply(
+                GiftCardRequest(
+                    bookingId,
+                    bookType,
+                    offerCode,
+                    transId,
+                    preferences.getString(Constant.USER_ID).toString()
+                )
+            )
+        }else if (clickName=="Voucher"){
+            voucherApply(
+                GiftCardRequest(
+                    bookingId,
+                    bookType,
+                    offerCode,
+                    transId,
+                    preferences.getString(Constant.USER_ID).toString()
+                )
+            )
+        }
+    }
+    private fun voucherApply(request: GiftCardRequest) {
+        summeryViewModel.voucherApply(request)
+            .observe(this) {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            loader?.dismiss()
+                            resource.data?.let { it ->
+                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                    try {
+                                        Constant.IntentKey.TimerExtandCheck = true
+                                        Constant.IntentKey.TimerExtand = 90
+                                        Constant.IntentKey.TimerTime = 360
+                                        val intent = Intent(
+                                            applicationContext,
+                                            FinalTicketActivity::class.java
+                                        )
+                                        intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
+                                        intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
+                                        startActivity(intent)
+                                    } catch (e: Exception) {
+                                        println("updateUiCinemaSession ---> ${e.message}")
+                                    }
+
+                                } else {
+                                    loader?.dismiss()
+                                    val dialog = OptionDialog(this,
+                                        R.mipmap.ic_launcher,
+                                        R.string.app_name,
+                                        it.data?.msg.toString(),
+                                        positiveBtnText = R.string.ok,
+                                        negativeBtnText = R.string.no,
+                                        positiveClick = {
+                                        },
+                                        negativeClick = {
+                                        })
+                                    dialog.show()
+                                }
+
+                            }
+                        }
+                        Status.ERROR -> {
+                            loader?.dismiss()
+                            val dialog = OptionDialog(this,
+                                R.mipmap.ic_launcher,
+                                R.string.app_name,
+                                it.message.toString(),
+                                positiveBtnText = R.string.ok,
+                                negativeBtnText = R.string.no,
+                                positiveClick = {
+                                },
+                                negativeClick = {
+                                })
+                            dialog.show()
+                        }
+                        Status.LOADING -> {
+                            loader = LoaderDialog(R.string.pleasewait)
+                            loader?.show(supportFragmentManager, null)
+                        }
+                    }
+                }
+            }
+
+    }
+
+    private fun giftCardApply(request: GiftCardRequest) {
+        summeryViewModel.giftCardApply(request)
+            .observe(this) {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            loader?.dismiss()
+                            resource.data?.let { it ->
+                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                    try {
+                                        retrieveDataGiftCard(it.data.output)
+                                    } catch (e: Exception) {
+                                        println("updateUiCinemaSession ---> ${e.message}")
+                                    }
+
+                                } else {
+                                    loader?.dismiss()
+                                    val dialog = OptionDialog(this,
+                                        R.mipmap.ic_launcher,
+                                        R.string.app_name,
+                                        it.data?.msg.toString(),
+                                        positiveBtnText = R.string.ok,
+                                        negativeBtnText = R.string.no,
+                                        positiveClick = {
+                                        },
+                                        negativeClick = {
+                                        })
+                                    dialog.show()
+                                }
+
+                            }
+                        }
+                        Status.ERROR -> {
+                            loader?.dismiss()
+                            val dialog = OptionDialog(this,
+                                R.mipmap.ic_launcher,
+                                R.string.app_name,
+                                it.message.toString(),
+                                positiveBtnText = R.string.ok,
+                                negativeBtnText = R.string.no,
+                                positiveClick = {
+                                },
+                                negativeClick = {
+                                })
+                            dialog.show()
+                        }
+                        Status.LOADING -> {
+                            loader = LoaderDialog(R.string.pleasewait)
+                            loader?.show(supportFragmentManager, null)
+                        }
+                    }
+                }
+            }
+
+    }
+
+    private fun retrieveDataGiftCard(output: GiftCardResponse.Output) {
+//        binding?.enterCode?.text?.clear()
+        if (output.PAID == "NO") {
+//            tckSummary(
+//                TicketSummaryRequest(
+//                    transId,
+//                    bookingId,
+//                    preferences.getString(Constant.USER_ID).toString()
+//                )
+//            )
+        } else {
+            Constant.IntentKey.TimerExtandCheck = true
+            Constant.IntentKey.TimerExtand = 90
+            Constant.IntentKey.TimerTime = 360
+            val intent = Intent(
+                applicationContext,
+                FinalTicketActivity::class.java
+            )
+            intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
+            intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
+            startActivity(intent)
+        }
     }
 
     // hmac Request
@@ -1183,5 +1380,85 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             finish()
         }
     }
+
+
+    private fun cancelDialog() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.cancel_dialog)
+        dialog.window!!.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
+        dialog.window!!.setGravity(Gravity.BOTTOM)
+        dialog.show()
+
+        dialog.consSure?.setOnClickListener {
+            Constant.IntentKey.TimerExtandCheck = true
+            Constant.IntentKey.TimerExtand = 90
+            Constant.IntentKey.TimerTime = 360
+            cancelTrans(CancelTransRequest(bookingId, transId))
+            finish()
+        }
+
+        dialog.negative_btn?.setOnClickListener {
+            dialog.dismiss()
+        }
+    }
+    private fun cancelTrans(cancelTransRequest: CancelTransRequest) {
+        summeryViewModel.cancelTrans(cancelTransRequest)
+            .observe(this) {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            loader?.dismiss()
+                            resource.data?.let { it ->
+                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                    try {
+                                        println("cancelTrans ---> ${it.data.output}")
+                                    } catch (e: Exception) {
+                                        println("updateUiCinemaSession ---> ${e.message}")
+                                    }
+
+                                } else {
+                                    loader?.dismiss()
+                                    val dialog = OptionDialog(this,
+                                        R.mipmap.ic_launcher,
+                                        R.string.app_name,
+                                        it.data?.msg.toString(),
+                                        positiveBtnText = R.string.ok,
+                                        negativeBtnText = R.string.no,
+                                        positiveClick = {
+                                        },
+                                        negativeClick = {
+                                        })
+                                    dialog.show()
+                                }
+
+                            }
+                        }
+                        Status.ERROR -> {
+                            loader?.dismiss()
+                            val dialog = OptionDialog(this,
+                                R.mipmap.ic_launcher,
+                                R.string.app_name,
+                                it.message.toString(),
+                                positiveBtnText = R.string.ok,
+                                negativeBtnText = R.string.no,
+                                positiveClick = {
+                                },
+                                negativeClick = {
+                                })
+                            dialog.show()
+                        }
+                        Status.LOADING -> {
+                        }
+                    }
+                }
+            }
+    }
+
 
 }
