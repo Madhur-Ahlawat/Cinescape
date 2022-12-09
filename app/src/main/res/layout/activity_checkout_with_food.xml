@@ -67,7 +67,6 @@
                 android:paddingStart="@dimen/margin15"
                 android:paddingTop="@dimen/margin15"
                 android:paddingEnd="@dimen/margin15"
-                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -557,14 +556,12 @@
                     app:layout_constraintTop_toBottomOf="@+id/voucherUi" />
 
                 <TextView
-                    android:visibility="gone"
                     android:id="@+id/text_select_payment_method"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
                     android:fontFamily="@font/sf_pro_text_bold"
                     android:gravity="center"
-                    android:text="@string/select_payment_method"
+                    android:visibility="gone"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size18"
                     android:textStyle="bold"
@@ -574,6 +571,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/text_food" />
 
                 <View
+                    android:visibility="gone"
                     android:id="@+id/viewWallet"
                     android:layout_width="0dp"
                     android:layout_height="90dp"
@@ -583,6 +581,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/text_select_payment_method" />
 
                 <View
+                    android:visibility="gone"
                     android:id="@+id/viewKnet"
                     android:layout_width="0dp"
                     android:layout_height="90dp"
@@ -592,6 +591,7 @@
                     app:layout_constraintTop_toTopOf="@+id/viewWallet" />
 
                 <View
+                    android:visibility="gone"
                     android:id="@+id/viewCreditCard"
                     android:layout_width="0dp"
                     android:layout_height="90dp"
@@ -601,6 +601,7 @@
                     app:layout_constraintTop_toTopOf="@+id/viewKnet" />
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/imageCreditCard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -613,6 +614,7 @@
                     tools:ignore="ContentDescription" />
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/textCreditCardName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -630,6 +632,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/imageCreditCard" />
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/imageKnet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -642,6 +645,7 @@
                     tools:ignore="ContentDescription" />
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/textKnetName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -659,6 +663,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/imageKnet" />
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/imageWallet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -670,6 +675,7 @@
                     tools:ignore="ContentDescription" />
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/textWalletName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -687,6 +693,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/imageWallet" />
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/textWalletKd"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -704,6 +711,7 @@
                     tools:text="KD 65  Balance" />
 
                 <View
+                    android:visibility="gone"
                     android:id="@+id/vwLine1"
                     android:layout_width="1dp"
                     android:layout_height="0dp"
@@ -713,6 +721,7 @@
                     app:layout_constraintTop_toTopOf="@+id/viewKnet" />
 
                 <View
+                    android:visibility="gone"
                     android:id="@+id/vvLine2"
                     android:layout_width="1dp"
                     android:layout_height="0dp"

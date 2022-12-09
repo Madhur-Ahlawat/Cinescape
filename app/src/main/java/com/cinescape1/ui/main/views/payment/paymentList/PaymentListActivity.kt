@@ -111,6 +111,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             .load(image)
             .placeholder(R.drawable.bombshell)
             .into(binding?.imageView6!!)
+
         binding?.textTimeToLeft?.text=paidPrice
         println("book--->${bookingId}--type->${bookType}---transId--->${transId}>")
 

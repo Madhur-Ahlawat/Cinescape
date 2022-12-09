@@ -77,10 +77,8 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     SimilarMovieAdapter.RecycleViewItemClickListener,
     AdpaterShowTimesCast.TypeFaceListenerShowTime, AdapterShowTimesCinemaTitle.TypeFaceItem {
     private var num = 0
-
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
     @Inject
     lateinit var preferences: AppPreferences
     private val showTimeViewModel: ShowTimesViewModel by viewModels { viewModelFactory }
@@ -111,10 +109,8 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     var adapterShowTimesCinemaTitle: AdapterShowTimesCinemaTitle? = null
     private var languageCheck: String = "en"
     private var broadcastReceiver: BroadcastReceiver? = null
-
     private var movieCastName1: TextView? = null
     private var textTitle5: TextView? = null
-    private var bookType: String = "BOOKING"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -555,6 +551,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                                         datePosition = it.data.output.days[0].wdf
                                         dt = it.data.output.days[0].dt
                                         dateTime = it.data.output.days[0].dt
+//                                        toast("dateTime--->${dateTime}---dt--->${dt}")
                                         if (json.dated == "")
                                             daySessionResponse = it.data.output.daySessions
                                         setShowTimesDayDateAdapter(it.data.output.days)
@@ -665,11 +662,11 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
     @SuppressLint("SetTextI18n")
     private fun updateUiShowTimes(output: CinemaSessionResponse.Output) {
-        println("""updateUiCinemaSession ----> $output""")
         binding?.textFilmHouseName?.text = output.movie.title
         binding?.textFilmHouseName?.isSelected = true
         binding?.textView56?.text = output.movie.rating
         val ratingColor = output.movie.ratingColor
+
         binding?.textView56?.setBackgroundColor(Color.parseColor(ratingColor))
         if (output.movie.rating == "") {
             binding?.ratingUi?.hide()
@@ -713,12 +710,13 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         textView123.text = movie.subTitle
         text_sysnopsis_detail.text = movie.synopsis
         text_directoe_name.text = movie.director.firstName + " " + movie.director.lastName
+        println("cast---->${movie.cast}")
         if (movie.cast.isNotEmpty()) {
-//            text_cast.show()
-//            binding?.include?.recyclerviewShowTimesCast?.show()
+            text_cast.show()
+            binding?.include?.recyclerviewShowTimesCast?.show()
         } else {
-//            text_cast.hide()
-//            binding?.include?.recyclerviewShowTimesCast?.hide()
+            text_cast.hide()
+            binding?.include?.recyclerviewShowTimesCast?.hide()
         }
 
         try {
@@ -1294,7 +1292,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                     categoryClick = false
                     num = 0
                     mAlertDialog?.dismiss()
-                    println("dateCheck--->${dateTime},  MovieId--->${movieID},CinemaId--->${cinemaID} ,SessionID--->${sessionID}")
                 }
             }
         }

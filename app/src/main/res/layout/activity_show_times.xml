@@ -129,8 +129,6 @@
                 android:id="@+id/titleView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin12"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -157,16 +155,14 @@
 
                     <TextView
                         android:id="@+id/text_more_info"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sf_pro_text_regular"
                         android:gravity="center"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="1.3sp"
                         android:text="@string/movie_n_info"
                         android:textAlignment="center"
                         android:textColor="@color/text_color"
-                        android:textSize="@dimen/size12"
+                        android:textSize="@dimen/size11"
                         android:textStyle="normal"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/image_up"
@@ -192,7 +188,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
-                    android:layout_marginTop="@dimen/margin12"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -290,6 +285,7 @@
                 android:lineSpacingExtra="1sp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/size13"
+                app:layout_constraintBottom_toBottomOf="@+id/titleView"
                 app:layout_constraintEnd_toStartOf="@+id/titleView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout2"

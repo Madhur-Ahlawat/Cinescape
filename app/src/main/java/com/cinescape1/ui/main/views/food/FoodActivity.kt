@@ -251,7 +251,7 @@ class FoodActivity : DaggerAppCompatActivity(),
         toast("$booktype")
 
         movieRatingColor= intent.getStringExtra("movieRatingColor").toString()
-        if (booktype == "FOOD") {
+        if (booktype != "FOOD") {
             binding?.txtSkipProceed?.show()
             binding?.viewCancel?.setOnClickListener {
                 cancelDialog()
@@ -282,7 +282,6 @@ class FoodActivity : DaggerAppCompatActivity(),
                     finish()
                 }
             }
-
 
         } else {
             binding?.txtSkipProceed?.hide()
@@ -1147,7 +1146,6 @@ class FoodActivity : DaggerAppCompatActivity(),
                     } else {
                         binding?.textCartCountNotiication?.invisible()
                     }
-
 
                     updateItemUi(foodItem)
                     foodAdapter?.loadNewData(foodComboList)

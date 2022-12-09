@@ -49,8 +49,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="@+id/view20"
                 app:layout_constraintStart_toStartOf="@+id/text_cast"
                 app:layout_constraintTop_toBottomOf="@+id/text_cast" />
 
@@ -115,11 +115,12 @@
 
             <TextView
                 android:id="@+id/text_genres"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/size15"
+                app:layout_constraintEnd_toEndOf="@+id/textView122"
                 app:layout_constraintStart_toStartOf="@+id/view13"
                 app:layout_constraintTop_toBottomOf="@+id/text_genre"
                 tools:text="Action, Adventure, Crime" />

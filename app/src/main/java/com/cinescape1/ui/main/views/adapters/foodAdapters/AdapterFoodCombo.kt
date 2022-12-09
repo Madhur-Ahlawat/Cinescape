@@ -33,8 +33,8 @@ class AdapterFoodCombo(
         val foodSelectedItem = foodComboList[position]
         if (type == "combo") {
             foodSelectedItem.description
-            foodSelectedItem.title = "Combo " + (position + 1)
-            holder.foodcomboName.text = "Combo " + (position + 1)
+//            foodSelectedItem.title = "Combo " + (position + 1)
+            holder.foodcomboName.text =foodSelectedItem.title
             holder.foodTitleName.text = foodSelectedItem.description
             holder.foodTitleName.show()
         } else {
@@ -43,7 +43,7 @@ class AdapterFoodCombo(
         }
         holder.foodKdName.text = foodSelectedItem.itemPrice
         holder.foodKdName.show()
-        println("notifyDataSetChanged12--->"+type+"---"+foodSelectedItem.quantityUpdate)
+
         if (foodSelectedItem.quantityUpdate>0){
             holder.totalItems.show()
             holder.totalItems.text = foodSelectedItem.quantityUpdate.toString()+" "+mContext.getString(R.string.ItemAdded)

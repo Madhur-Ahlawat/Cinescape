@@ -27,6 +27,7 @@ data class GetFoodResponse(
         val addVisibility: Boolean,
         val alternateItems: List<AlternateItem>,
         var packageChildItems: ArrayList<ComboItem>,
+        var title: String,
         var description: String,
         val descriptionAlt: String,
         val flvourHeaderDesc: String,
@@ -47,8 +48,7 @@ data class GetFoodResponse(
         val modifierGroups: List<ModifierGroup>,
         val priceInCents: Int,
         val priceTextVisibility: Boolean,
-        val tabImageUrl: Any,
-        var title: String=""
+        val tabImageUrl: Any
 
     ) {
     }

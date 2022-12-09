@@ -45,6 +45,7 @@ import com.cinescape1.ui.main.views.adapters.cinemaSessionAdapters.AdapterCinema
 import com.cinescape1.ui.main.views.adapters.showTimesAdapters.AdapterShowTimesCinemaTitle
 import com.cinescape1.ui.main.views.cinemaLocation.viewModel.CinemaLocationViewModel
 import com.cinescape1.ui.main.views.login.LoginActivity
+import com.cinescape1.ui.main.views.payment.PaymentWebActivity
 import com.cinescape1.ui.main.views.seatLayout.SeatScreenMainActivity
 import com.cinescape1.utils.*
 import com.google.android.flexbox.FlexboxLayout
@@ -474,6 +475,9 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
         val viewGiftVoucher = mDialogView.findViewById<View>(R.id.view_gift_voucher)
         val viewGiftCard1 = mDialogView.findViewById<View>(R.id.view_gift_card1)
 
+        val text_terms_conditions1 = mDialogView.findViewById<TextView>(R.id.text_terms_conditions1)
+        val consTermCondition = mDialogView.findViewById<ConstraintLayout>(R.id.consTermCondition)
+
         termsCond.paintFlags = tvGiftCard.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         tvGiftCard.paintFlags = tvGiftCard.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         tvGiftVoucher.paintFlags = tvGiftVoucher.paintFlags or Paint.UNDERLINE_TEXT_FLAG
@@ -481,6 +485,17 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
 
         cancelDialog.setOnClickListener {
             mAlertDialog?.dismiss()
+        }
+
+        text_terms_conditions1.underline()
+        consTermCondition.setOnClickListener {
+            val intent = Intent(
+                this,
+                PaymentWebActivity::class.java
+            )
+            intent.putExtra("From", "login")
+            intent.putExtra("PAY_URL", Constant.termsConditions)
+            startActivity(intent)
         }
 
         ratingDesc.text = output.movie.ratingDescription
@@ -848,7 +863,6 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                     categoryClick = false
                     num = 0
                     mAlertDialog?.dismiss()
-                    println("dateCheck--->${dateTime},  MovieId--->${movieID},CinemaId--->${cinemaID} ,SessionID--->${sessionID}")
                 }
             }
         }
@@ -962,6 +976,8 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
     }
 
 
-
+    private fun TextView.underline() {
+        paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
+    }
 
 }

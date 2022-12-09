@@ -184,7 +184,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
         datePosition = intent.getStringExtra("DatePosition").toString()
         dt = intent.getStringExtra("dt").toString()
 
-//        toast("seatType--->${seatCat}---->sessionID---->${sessionID}")
+        println("dateTime--->${dateTime}")
         if (!preferences.getBoolean(Constant.IS_LOGIN)) {
             val intent = Intent(this, LoginActivity::class.java).putExtra("AREA_CODE", areaCode)
                 .putExtra("TT_TYPE", ttType)
@@ -367,11 +367,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
 
 
             println("cinemaPos1--->${cinemaPos1}--->showPos--->${showPos}")
-//            cinemaID = output.daySessions[cinemaPos1].shows[showPos].cinemaId
             movieId = output.movie.id
-
-
-//            sessionID = output.daySessions[cinemaPos1].shows[showPos].sessionId
             binding?.tvCinemaName?.text = output.cinema.name
             movieCinemaName = output.cinema.name
             movieTimeDate =
