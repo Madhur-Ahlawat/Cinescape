@@ -486,11 +486,11 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
     }
 
-    override fun onCreditCardItemClick(view: PaymentListResponse.Output.PayMode) {
-        creditCardDialog()
+    override fun onCreditCardItemClick(view: PaymentListResponse.Output.PayMode, cardNo: String) {
+        creditCardDialog(cardNo)
     }
 
-    private fun creditCardDialog() {
+    private fun creditCardDialog(cardNo: String) {
         val cardinalConfigurationParameters = CardinalConfigurationParameters()
         cardinalConfigurationParameters.environment = CardinalEnvironment.STAGING
         cardinalConfigurationParameters.requestTimeout = 8000
@@ -516,6 +516,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         val proceedAlertDialog = mBuilder.show()
         proceedAlertDialog.show()
         proceedAlertDialog?.kd_to_pay?.text = " $totalPrice"
+        proceedAlertDialog?.cardNumberTextInputEditText?.setText(cardNo)
 
         proceedAlertDialog.cardNumberTextInputEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(
@@ -535,6 +536,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                     this@PaymentListActivity, R.drawable.visa_card
                                 )
                             )
+                            
                         } else if (MASTERCARD_PREFIX.contains(
                                 proceedAlertDialog.cardNumberTextInputEditText.text.toString()
                                     .substring(0, 2) + ","

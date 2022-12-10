@@ -2,7 +2,8 @@ package com.cinescape1.ui.main.views.payment.paymentList.adapter
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.text.InputType
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,11 +16,10 @@ import com.cinescape1.databinding.ItemPaymentListBinding
 import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity
 import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResponse
-import com.cinescape1.utils.Constant.Companion.bankOfferClick
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
-import com.cinescape1.utils.toast
 import kotlinx.android.synthetic.main.account_preference_layout.*
+import java.util.regex.Pattern
 
 
 class PaymentListAdapter(
@@ -31,6 +31,7 @@ class PaymentListAdapter(
     private var clickName = ""
     private var clickId = ""
     private var offerId = ""
+    private var cardNo = ""
 
     inner class ViewHolder(val binding: ItemPaymentListBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -71,7 +72,7 @@ class PaymentListAdapter(
 
                 //Card Click
                 binding.creditCard.setOnClickListener {
-                    listner.onCreditCardItemClick(this)
+                    listner.onCreditCardItemClick(this, cardNo)
                     notifyDataSetChanged()
                 }
                 binding.knet.setOnClickListener {
@@ -111,7 +112,7 @@ class PaymentListAdapter(
                                     }
 
                                 binding.bankApply.setOnClickListener {
-                                    val cardNo = binding.bankEdit.text.toString()
+                                    cardNo = binding.bankEdit.text.toString().replace(" ", "")
                                     listner.bankItemApply(
                                         offerId,
                                         cardNo,
@@ -127,11 +128,59 @@ class PaymentListAdapter(
                                     )
                                 }
 
+//                                binding.bankEdit.addTextChangedListener(
+//                                    FourDigitCardFormatWatcher()
+//                                )
+
+
+                                binding.bankEdit.addTextChangedListener(object : TextWatcher {
+                                    private val space =
+                                        " " // you can change this to whatever you want
+                                    private val pattern: Pattern =
+                                        Pattern.compile("^(\\d{4}$space{1}){0,3}\\d{1,4}$") // check whether we need to modify or not
+
+                                    override fun onTextChanged(
+                                        s: CharSequence,
+                                        st: Int,
+                                        be: Int,
+                                        count: Int
+                                    ) {
+                                        val currentText: String = binding.bankEdit.text.toString()
+                                        if (currentText.isEmpty() || pattern.matcher(currentText)
+                                                .matches()
+                                        ) return  // no need to modify
+                                        val numbersOnly = currentText.trim { it <= ' ' }
+                                            .replace("[^\\d.]".toRegex(), "")
+                                        // remove everything but numbers
+                                        var formatted = ""
+                                        var i = 0
+                                        while (i < numbersOnly.length) {
+                                            formatted += if (i + 4 < numbersOnly.length) numbersOnly.substring(
+                                                i,
+                                                i + 4
+                                            ) + space else numbersOnly.substring(i)
+                                            i += 4
+                                        }
+                                        binding.bankEdit.setText(formatted)
+                                        binding.bankEdit.setSelection(
+                                            binding.bankEdit.text.toString().length
+                                        )
+                                    }
+
+                                    override fun beforeTextChanged(
+                                        s: CharSequence,
+                                        start: Int,
+                                        count: Int,
+                                        after: Int
+                                    ) {
+                                    }
+
+                                    override fun afterTextChanged(e: Editable) {}
+                                })
+
                                 //remove
                                 binding.imageView64.setOnClickListener {
-                                    val cardNo =
-                                        binding.bankEdit.text.toString().replace(" ".toRegex(), "")
-                                            .trim()
+                                    cardNo = binding.bankEdit.text.toString().replace(" ", "")
                                     listner.bankItemRemove(
                                         offerId,
                                         cardNo,
@@ -220,7 +269,7 @@ class PaymentListAdapter(
                                 binding.imageView63.setImageResource(R.drawable.arrow_up)
                                 binding.cardUi.show()
                                 binding.creditCard.setOnClickListener {
-                                    listner.onCreditCardItemClick(this)
+                                    listner.onCreditCardItemClick(this,cardNo)
                                 }
                                 binding.knet.setOnClickListener {
                                     listner.onKnitItemClick(this)
@@ -275,7 +324,7 @@ class PaymentListAdapter(
         )
 
         fun onSimilarItemClick(view: GetMovieResponse.Output.Similar)
-        fun onCreditCardItemClick(view: PaymentListResponse.Output.PayMode)
+        fun onCreditCardItemClick(view: PaymentListResponse.Output.PayMode, cardNo: String)
         fun onKnitItemClick(view: PaymentListResponse.Output.PayMode)
         fun onVoucherItemClick(
             view: PaymentListResponse.Output.PayMode,

@@ -17,4 +17,6 @@
             <enum name="right_bottom_triangle" value="7"></enum>
         </attr>
     </declare-styleable>
-</resources>
+
+    </resources>
+
