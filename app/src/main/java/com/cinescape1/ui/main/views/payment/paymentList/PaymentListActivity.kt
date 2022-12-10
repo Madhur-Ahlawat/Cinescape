@@ -48,6 +48,7 @@ import com.cinescape1.utils.Constant.Companion.bankOfferClick
 import com.threatmetrix.TrustDefender.*
 import com.threatmetrix.TrustDefender.TMXProfilingConnections.TMXProfilingConnections
 import dagger.android.support.DaggerAppCompatActivity
+import kotlinx.android.synthetic.main.booking_alert2_item.*
 import kotlinx.android.synthetic.main.cancel_dialog.*
 import kotlinx.android.synthetic.main.cancel_dialog.view.*
 import kotlinx.android.synthetic.main.checkout_creditcart_payment_alert.*
@@ -216,7 +217,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     override fun bankItemApply(
         offerId: String,
         cardNo: String,
-        check: CheckBox,
+        check: ImageView,
         close: ImageView,
         apply: TextView,
         bankEdit: EditText,
@@ -233,13 +234,13 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 offerId,
                 transId,
                 preferences.getString(Constant.USER_ID).toString()
-            ), check, close, apply,bankEdit, msg,knet,walletApply,offerApply,offerEditText
+            ), check, close, apply,bankEdit, msg,knet, walletApply, offerApply,offerEditText
         )
     }
 
     private fun bankOfferApply(
         bankOfferRequest: BankOfferRequest,
-        chekbox: CheckBox,
+        chekbox: ImageView,
         close: ImageView,
         apply: TextView,
         bankEdit: EditText,
@@ -318,7 +319,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     override fun bankItemRemove(
         offerId: String,
         cardNo: String,
-        check: CheckBox,
+        check: ImageView,
         close: ImageView,
         apply: TextView,
         bankEdit: EditText,
@@ -335,13 +336,13 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 offerId,
                 transId,
                 preferences.getString(Constant.USER_ID).toString()
-            ), check, close, apply,bankEdit, msg,knet,walletApply,offerApply,offerEditText
+            ), check, close, apply,bankEdit, msg,knet, walletApply, offerApply,offerEditText
         )
     }
 
     private fun bankOfferRemove(
         bankOfferRequest: BankOfferRequest,
-        checkbox: CheckBox,
+        checkbox: ImageView,
         close: ImageView,
         apply: TextView,
         bankEdit: EditText,
@@ -366,7 +367,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 checkbox.hide()
                                 offerApplied = false
                                 adapter?.notifyDataSetChanged()
-
+                                bankEdit.text.clear()
                                 bankEdit.isClickable = true
                                 bankEdit.isFocusable = true
                                 bankEdit.isEnabled = true
@@ -491,6 +492,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     private fun creditCardDialog(cardNo: String) {
+
         val cardinalConfigurationParameters = CardinalConfigurationParameters()
         cardinalConfigurationParameters.environment = CardinalEnvironment.STAGING
         cardinalConfigurationParameters.requestTimeout = 8000
@@ -517,7 +519,16 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         proceedAlertDialog.show()
         proceedAlertDialog?.kd_to_pay?.text = " $totalPrice"
         proceedAlertDialog?.cardNumberTextInputEditText?.setText(cardNo)
+        if (cardNo==""){
+            proceedAlertDialog?.cardNumberTextInputEditText?.isClickable= true
+            proceedAlertDialog?.cardNumberTextInputEditText?.isEnabled= true
+            proceedAlertDialog?.cardNumberTextInputEditText?.isFocusable= true
+        }else{
+            proceedAlertDialog?.cardNumberTextInputEditText?.isClickable= false
+            proceedAlertDialog?.cardNumberTextInputEditText?.isEnabled= false
+            proceedAlertDialog?.cardNumberTextInputEditText?.isFocusable= false
 
+        }
         proceedAlertDialog.cardNumberTextInputEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(
                 charSequence: CharSequence, i: Int, i1: Int, i2: Int
@@ -536,7 +547,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                     this@PaymentListActivity, R.drawable.visa_card
                                 )
                             )
-                            
+
                         } else if (MASTERCARD_PREFIX.contains(
                                 proceedAlertDialog.cardNumberTextInputEditText.text.toString()
                                     .substring(0, 2) + ","

@@ -18,6 +18,7 @@ import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity
 import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResponse
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
+import com.cinescape1.utils.toast
 import kotlinx.android.synthetic.main.account_preference_layout.*
 import java.util.regex.Pattern
 
@@ -113,19 +114,41 @@ class PaymentListAdapter(
 
                                 binding.bankApply.setOnClickListener {
                                     cardNo = binding.bankEdit.text.toString().replace(" ", "")
-                                    listner.bankItemApply(
-                                        offerId,
-                                        cardNo,
-                                        binding.checkBox,
-                                        binding.imageView64,
-                                        binding.bankApply,
-                                        binding.bankEdit,
-                                        binding.editTextTextPersonName2,
-                                        binding.knet,
-                                        binding.textView158,
-                                        binding.textView157,
-                                        binding.offerEditText
-                                    )
+                                    if (cardNo==""){
+                                        val dialog = OptionDialog(context,
+                                            R.mipmap.ic_launcher,
+                                            R.string.app_name,
+                                            "Bank offer can not we empty",
+                                            positiveBtnText = R.string.ok,
+                                            negativeBtnText = R.string.no,
+                                            positiveClick = {},
+                                            negativeClick = {})
+                                        dialog.show()
+                                    }else  if(cardNo.length!=16){
+                                        val dialog = OptionDialog(context,
+                                            R.mipmap.ic_launcher,
+                                            R.string.app_name,
+                                            "Enter valid card number.",
+                                            positiveBtnText = R.string.ok,
+                                            negativeBtnText = R.string.no,
+                                            positiveClick = {},
+                                            negativeClick = {})
+                                        dialog.show()
+                                    }else{
+                                        listner.bankItemApply(
+                                            offerId,
+                                            cardNo,
+                                            binding.checkBox,
+                                            binding.imageView64,
+                                            binding.bankApply,
+                                            binding.bankEdit,
+                                            binding.editTextTextPersonName2,
+                                            binding.knet,
+                                            binding.textView158,
+                                            binding.textView157,
+                                            binding.offerEditText
+                                        )
+                                    }
                                 }
 
 //                                binding.bankEdit.addTextChangedListener(
@@ -298,7 +321,7 @@ class PaymentListAdapter(
         fun bankItemApply(
             view: String,
             cardNo: String,
-            binding: CheckBox,
+            binding: ImageView,
             checkBox: ImageView,
             imageView64: TextView,
             bankEdit: EditText,
@@ -312,7 +335,7 @@ class PaymentListAdapter(
         fun bankItemRemove(
             view: String,
             cardNo: String,
-            binding: CheckBox,
+            binding: ImageView,
             imageView64: ImageView,
             bankApply: TextView,
             bankEdit: EditText,

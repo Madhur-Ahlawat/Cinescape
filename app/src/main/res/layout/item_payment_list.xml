@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/black">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/textView156"
@@ -124,11 +123,11 @@
                 app:layout_constraintEnd_toEndOf="@+id/constraintLayout24"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout25">
 
-                <CheckBox
+                <ImageView
                     android:id="@+id/checkBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/red"
+                    android:src="@drawable/applied_check_icon"
                     android:checked="true"
                     android:focusable="false"
                     android:visibility="gone"

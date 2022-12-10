@@ -78,26 +78,13 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
     private var transId = ""
     private var broadcastReceiver: BroadcastReceiver? = null
     private var timeCount: Long = 0
-    private var mSessionid = ""
-    private var refId = ""
-    private var VISA_PREFIX = "4"
-    private var mContext: Activity = this
-    private var MASTERCARD_PREFIX = "51,52,53,54,55,2222,22"
-    private var DISCOVER_PREFIX = "6011,65"
-    private var AMEX_PREFIX = "34,37,"
-    private var JCB = "2131,1800"
-    private var MAESTRO = "5033,5868,6759,5641"
-    private var UATP = "1354"
     private var type = ""
     private var from = ""
-    private var title = ""
     private var image = ""
     private var paidPrice = ""
     private var totalPrice = ""
     private var cinemaId = ""
     private var sessionId = ""
-    private var cardinal = Cardinal.getInstance()
-    private var clickOffer = 1
     private var secondLeft: Long = 0
     private var timeExtendClick: Boolean = false
     private var dialogShow: Long = 60
@@ -472,17 +459,12 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
             ticketPage.hide()
             priceView.hide()
             totalPrice = output.totalTicketPrice
-
             binding?.priceUi?.hide()
-            binding?.textTimeLeft?.hide()
-            binding?.textTimeToLeft?.hide()
             checkout_food_include.show()
             binding?.view1Line1?.hide()
             foodViewCheck.hide()
-//            binding?.imageView6?.setImageResource(R.)
 
         } else {
-//            binding?.priceUi?.show()
             ticketPage.show()
             priceView.show()
             foodViewCheck.show()
