@@ -295,12 +295,13 @@
                 app:layout_constraintStart_toStartOf="@+id/view4"
                 app:layout_constraintTop_toTopOf="@+id/view4" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/text_experience_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:adjustViewBounds="true"
+                android:text=""
                 android:src="@drawable/ic_screenx_icon"
                 app:layout_constraintEnd_toEndOf="@+id/view4"
                 app:layout_constraintHorizontal_bias="0.0"

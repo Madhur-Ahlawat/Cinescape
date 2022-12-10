@@ -89,6 +89,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     private var dateTime = ""
     private var areaCode = ""
     private var ttType = ""
+    private var showTime = ""
     private var seatCat = ""
     private var seatType = ""
     private var movieID = ""
@@ -106,7 +107,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     private var seatAbility: Int = 0
     private var categoryClick: Boolean = false
     private var mAlertDialog: AlertDialog? = null
-    var adapterShowTimesCinemaTitle: AdapterShowTimesCinemaTitle? = null
+    private  var adapterShowTimesCinemaTitle: AdapterShowTimesCinemaTitle? = null
     private var languageCheck: String = "en"
     private var broadcastReceiver: BroadcastReceiver? = null
     private var movieCastName1: TextView? = null
@@ -123,8 +124,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 val regular = ResourcesCompat.getFont(this, R.font.gess_light)
                 val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
                 val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
-                println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
-
                 binding?.textFilmHouseName?.typeface = bold // heavy
                 binding?.textView56?.typeface = bold // heavy
                 binding?.textMoreInfo?.typeface = regular
@@ -549,14 +548,13 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                                     try {
                                         binding?.LayoutTime?.show()
                                         datePosition = it.data.output.days[0].wdf
-                                        dt = it.data.output.days[0].dt
+                                        dt = it.data.output.days[0].showdate
                                         dateTime = it.data.output.days[0].dt
-//                                        toast("dateTime--->${dateTime}---dt--->${dt}")
                                         if (json.dated == "")
-                                            daySessionResponse = it.data.output.daySessions
+                                            showData = it.data.output
+                                         daySessionResponse = it.data.output.daySessions
                                         setShowTimesDayDateAdapter(it.data.output.days)
                                         updateUiShowTimes(it.data.output)
-                                        showData = it.data.output
                                         setTitleAdapter()
                                     } catch (e: Exception) {
                                         e.printStackTrace()
@@ -818,7 +816,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         binding?.recylerviewShowTimeDate?.let { focusOnView(view, it) }
         dateTime = city.dt
         datePosition = city.wdf
-        dt = city.dt
+        dt = city.showdate
         getShowTimes(CinemaSessionRequest(dateTime, movieID))
     }
 
@@ -835,10 +833,13 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         show: CinemaSessionResponse.Show,
         name: String,
         position: Int,
-        cinemaPos: Int
+        cinemaPos: Int,
+        cinemaId: String,
+        showTime1: String
     ) {
+        showTime= showTime1
         showPose = cinemaPos
-        cinemaID = show.cinemaId
+        cinemaID = cinemaId
         sessionID = show.sessionId
 
         if (!preferences.getBoolean(Constant.IS_LOGIN)) {
@@ -1137,7 +1138,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                             e.printStackTrace()
                         }
 
-
                     }
                 } else {
                     selectSeatType.invisible()
@@ -1284,6 +1284,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                             .putExtra("dt", dt)
                             .putExtra("SessionID", sessionID)
                             .putExtra("SHOW_POS", pos)
+                            .putExtra("showTime", showTime)
                             .putExtra("CINEMA_POS", showPose), 50
                     )
 
@@ -1374,7 +1375,8 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         name: String,
         position: Int,
         cinemaPos: Int,
-        movieCinemaId: String
+        movieCinemaId: String,
+        showTime: String
     ) {
         showPose = cinemaPos
         cinemaID = show.cinemaId

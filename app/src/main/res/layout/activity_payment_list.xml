@@ -241,12 +241,12 @@
             android:id="@+id/recyclerPayMode"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="-80dp"
+            android:layout_marginTop="80dp"
             app:layout_constraintBottom_toBottomOf="@+id/view30"
             app:layout_constraintEnd_toEndOf="@+id/view30"
             app:layout_constraintStart_toStartOf="@+id/view30"
-            app:layout_constraintTop_toBottomOf="@+id/imageView6"
-            tools:itemCount="2"
+            app:layout_constraintTop_toBottomOf="@+id/textView155"
+            tools:itemCount="4"
             tools:listitem="@layout/item_payment_list" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

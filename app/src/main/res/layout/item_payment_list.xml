@@ -52,7 +52,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout24"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:layout_marginEnd="48dp"
                 android:background="@drawable/curve_payment"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -64,6 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:backgroundTint="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -74,13 +75,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
                 android:background="@drawable/curve_payment"
-                app:layout_constraintEnd_toStartOf="@+id/checkBox"
+                app:layout_constraintEnd_toStartOf="@+id/linearLayout7"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout24">
 
                 <EditText
+                    android:id="@+id/bankEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
@@ -88,48 +89,82 @@
                     android:importantForAutofill="no"
                     android:textColor="#7B7A7A"
                     android:textSize="@dimen/size15"
+                    android:inputType="number"
+                    android:hint="____ - ____ - ____ - ____"
+                    android:maxLength="19"
+                    android:maxLines="1"
+                    app:hintTextColor="@color/editColor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="LabelFor" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/editTextTextPersonName2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/sf_pro_text_regular"
-                android:text="@string/offer_applied_for_1_ticket"
+                tools:text="@string/offer_applied_for_1_ticket"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/size15"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/constraintLayout25"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout25" />
 
-            <ImageView
-                android:id="@+id/imageView64"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/linearLayout7"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="@+id/constraintLayout25"
                 app:layout_constraintEnd_toEndOf="@+id/constraintLayout24"
-                app:layout_constraintTop_toTopOf="@+id/constraintLayout25"
-                app:srcCompat="@drawable/ic_close_icons_light"
-                app:tint="@color/text_color" />
+                app:layout_constraintTop_toTopOf="@+id/constraintLayout25">
 
-            <CheckBox
-                android:id="@+id/checkBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:buttonTint="@color/red"
+                <ImageView
+                    android:id="@+id/checkBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/applied_check_icon"
+                    android:checked="true"
+                    android:focusable="false"
+                    android:visibility="gone"
+                    android:focusableInTouchMode="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView64"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                android:checked="true"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                app:layout_constraintBottom_toBottomOf="@+id/constraintLayout25"
-                app:layout_constraintEnd_toStartOf="@+id/imageView64"
-                app:layout_constraintTop_toTopOf="@+id/constraintLayout25" />
+                <ImageView
+                    android:id="@+id/imageView64"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/ic_close_icons_light"
+                    app:tint="@color/text_color"
+                    tools:ignore="ContentDescription"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
+
+                <TextView
+                    android:id="@+id/bankApply"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin32"
+                    android:visibility="visible"
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:text="@string/apply"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/size15"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -173,9 +208,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="32dp"
-                android:layout_marginEnd="32dp"
                 android:background="@drawable/curve_payment"
-                app:layout_constraintEnd_toStartOf="@+id/textView157"
+                app:layout_constraintEnd_toStartOf="@+id/linearLayout8"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/couponUi">
 
@@ -191,22 +225,63 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="LabelFor,TextFields" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/textView157"
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/linearLayout8"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginEnd="32dp"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:text="@string/apply"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/size15"
                 app:layout_constraintBottom_toBottomOf="@+id/giftCard"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/giftCard" />
+                app:layout_constraintTop_toTopOf="@+id/giftCard">
+
+                <CheckBox
+                    android:id="@+id/checkBox2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/red"
+                    android:checked="true"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView66"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView66"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_close_icons_light"
+                    app:tint="@color/text_color"
+                    tools:ignore="ContentDescription" />
+
+
+                <TextView
+                    android:id="@+id/textView157"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin32"
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:text="@string/apply"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/size15"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -229,7 +304,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_icon_wallet" />
+                app:srcCompat="@drawable/ic_icon_wallet"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/textView158"
@@ -323,7 +399,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="#393939" />
+                    android:background="@color/lineColor" />
 
                 <LinearLayout
                     android:id="@+id/creditCard"
@@ -380,11 +456,11 @@
         android:id="@+id/view105"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="3dp"
-        android:layout_marginBottom="@dimen/dimen30"
-        android:background="@color/editColor"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/lineColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

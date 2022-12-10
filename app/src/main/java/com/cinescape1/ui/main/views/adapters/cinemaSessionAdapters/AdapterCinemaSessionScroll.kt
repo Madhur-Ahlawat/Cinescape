@@ -1,11 +1,9 @@
 package com.cinescape1.ui.main.views.adapters.cinemaSessionAdapters
 
 import android.annotation.SuppressLint
-import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,11 +24,10 @@ import com.cinescape1.utils.show
 class AdapterCinemaSessionScroll(
     private val context: Context,
     private var cinemaSessionList: ArrayList<CSessionResponse.Output.DaySession>,
-    val listener: LocationListener, var listenerSession : TypeFaceSession
+    private val listener: LocationListener, var listenerSession : TypeFaceSession
 ) :
     RecyclerView.Adapter<AdapterCinemaSessionScroll.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        Log.d(ContentValues.TAG, ".onCreateViewHolder new view requested")
         val view =
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.showtimes_scroll_item, parent, false)
@@ -98,9 +95,10 @@ class AdapterCinemaSessionScroll(
         name: String,
         position: Int,
         cinemaPos: Int,
-        movieCinemaId: String
+        movieCinemaId: String,
+        showTime: String
     ) {
-        listener.onShowClicked(show, name, position, cinemaPos, movieCinemaId)
+        listener.onShowClicked(show, name, position, cinemaPos, movieCinemaId,showTime)
     }
 
     interface LocationListener {
@@ -109,7 +107,8 @@ class AdapterCinemaSessionScroll(
             name: String,
             position: Int,
             cinemaPos: Int,
-            movieCinemaId: String
+            movieCinemaId: String,
+            showTime: String
         )
     }
 

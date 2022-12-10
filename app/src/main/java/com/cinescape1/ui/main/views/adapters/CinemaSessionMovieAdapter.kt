@@ -48,7 +48,8 @@ class CinemaSessionMovieAdapter(
                 title,
                 position,
                 moviePos,
-                movieCinemaId
+                movieCinemaId,
+                showtimeListItem.showTime
             )
         }
     }

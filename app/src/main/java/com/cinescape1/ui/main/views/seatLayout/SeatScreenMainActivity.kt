@@ -6,13 +6,10 @@ import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
-import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -89,6 +86,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
     private var movieCinemaName = ""
     private var movieTimeDate = ""
     private var movieType = ""
+    private var showTime = ""
     private var cinemaSessionResponse: SeatLayoutResponse.Output? = null
 
     @SuppressLint("ClickableViewAccessibility")
@@ -140,26 +138,27 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                 binding?.textOtherShowtimes?.typeface = regular
 
 
-            }else -> {
-            LocaleHelper.setLocale(this, "en")
-            val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
-            val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
-            val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
-            val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+            }
+            else -> {
+                LocaleHelper.setLocale(this, "en")
+                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
 
-            binding?.tvSeatFilmTitle?.typeface = heavy // heavy
-            binding?.tvSeatFilmType?.typeface = heavy // heavy
-            binding?.tvCinemaName?.typeface = bold
-            binding?.tvSeatTimingDate?.typeface = bold
-            binding?.textType?.typeface = regular
-            binding?.textView75?.typeface = regular
-            binding?.textAvailable?.typeface = regular
-            binding?.textUnavailable?.typeface = regular
-            binding?.textSelected?.typeface = regular
-            binding?.textModify?.typeface = regular
-            binding?.textSeatTypes?.typeface = bold
-            binding?.textOtherShowtimes?.typeface = regular
-        }
+                binding?.tvSeatFilmTitle?.typeface = heavy // heavy
+                binding?.tvSeatFilmType?.typeface = heavy // heavy
+                binding?.tvCinemaName?.typeface = bold
+                binding?.tvSeatTimingDate?.typeface = bold
+                binding?.textType?.typeface = regular
+                binding?.textView75?.typeface = regular
+                binding?.textAvailable?.typeface = regular
+                binding?.textUnavailable?.typeface = regular
+                binding?.textSelected?.typeface = regular
+                binding?.textModify?.typeface = regular
+                binding?.textSeatTypes?.typeface = bold
+                binding?.textOtherShowtimes?.typeface = regular
+            }
 
         }
         setContentView(view)
@@ -176,7 +175,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
         showPos = intent.getIntExtra("SHOW_POS", 0)
         cinemaPos1 = intent.getIntExtra("CINEMA_POS", 0)
         seatQuantity = intent.getIntExtra("SEAT_POS", 0)
-
+        showTime = intent.getStringExtra("showTime").toString()
         dateTime = intent.getStringExtra("DateTime").toString()
         movieId = intent.getStringExtra("MovieId").toString()
         cinemaID = intent.getStringExtra("CinemaID").toString()
@@ -184,7 +183,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
         datePosition = intent.getStringExtra("DatePosition").toString()
         dt = intent.getStringExtra("dt").toString()
 
-        println("dateTime--->${dateTime}")
+        println("dateTime--->${cinemaPos1}---->${showPos}")
         if (!preferences.getBoolean(Constant.IS_LOGIN)) {
             val intent = Intent(this, LoginActivity::class.java).putExtra("AREA_CODE", areaCode)
                 .putExtra("TT_TYPE", ttType)
@@ -212,6 +211,8 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
         binding?.viewCancel?.setOnClickListener {
             cancelDialog()
         }
+
+        binding?.tvSeatTimingDate?.text = "$showTime | $datePosition | $dt"
 
         binding?.tvSeatFilmTitle?.show()
         getSeatLayout(SeatLayoutRequest(cinemaID, dateTime, movieId, sessionID))
@@ -353,28 +354,26 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
 
             movieTitle = output.movie.title
             movieRating = output.movie.rating
-            movieRatingColor= output.movie.ratingColor
+            movieRatingColor = output.movie.ratingColor
 
             binding?.tvSeatFilmTitle?.text = output.movie.title
             binding?.tvSeatFilmTitle1?.text = output.movie.title
 
             binding?.tvSeatFilmType?.text = output.movie.rating
             binding?.tvSeatFilmType1?.text = output.movie.rating
-            val ratingColor=output.movie.ratingColor
+            val ratingColor = output.movie.ratingColor
 
             binding?.tvSeatFilmType?.setBackgroundColor(Color.parseColor(ratingColor))
             binding?.tvSeatFilmType1?.setBackgroundColor(Color.parseColor(ratingColor))
 
 
-            println("cinemaPos1--->${cinemaPos1}--->showPos--->${showPos}")
             movieId = output.movie.id
             binding?.tvCinemaName?.text = output.cinema.name
             movieCinemaName = output.cinema.name
             movieTimeDate =
                 "${output.daySessions[cinemaPos1].shows[showPos].showTime} | $datePosition | $dt"
             movieImage = output.movie.mobimgbig
-            binding?.tvSeatTimingDate?.text =
-                "${output.daySessions[cinemaPos1].shows[showPos].showTime} | $datePosition | $dt"
+
             movieType =
                 "${output.daySessions[cinemaPos1].shows[showPos].experience} | ${output.daySessions[cinemaPos1].shows[showPos].format} | $seatCat"
             binding?.textType?.text =
@@ -397,6 +396,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
         binding?.recyclerviewCinemasName?.layoutManager = gridLayout
         binding?.recyclerviewCinemasName?.adapter = adapter
     }
+
     private fun createRows(output: SeatLayoutResponse.Output) {
         binding?.SeatnestedScroll?.show()
         binding?.constraintLayout4?.show()
@@ -530,7 +530,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
         dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
         dialog.window!!.setGravity(Gravity.BOTTOM)
 
-        dialog.subtitle.text= getString(R.string.cancel_msg)
+        dialog.subtitle.text = getString(R.string.cancel_msg)
         dialog.show()
 
         dialog.consSure?.setOnClickListener {
@@ -579,7 +579,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
     private fun reserveSeat() {
         seatScreenMainViewModel.reserveSeat(
             this,
-            ReserveSeatRequest(seatCat,cinemaID, passingValArrayList, sessionID, movieId, ttType)
+            ReserveSeatRequest(seatCat, cinemaID, passingValArrayList, sessionID, movieId, ttType)
         )
             .observe(this) {
                 it?.let { resource ->
@@ -606,14 +606,15 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                                                     .putExtra("movieCinemaName", movieCinemaName)
                                                     .putExtra("movieTimeDate", movieTimeDate)
                                                     .putExtra("movieImage", movieImage)
-                                                    .putExtra("movieType", movieType))
+                                                    .putExtra("movieType", movieType)
+                                            )
                                             finish()
                                         } else {
                                             startActivity(
                                                 Intent(
                                                     this@SeatScreenMainActivity,
                                                     SummeryActivity::class.java
-                                                     ).putExtra("CINEMA_ID", cinemaID)
+                                                ).putExtra("CINEMA_ID", cinemaID)
                                                     .putExtra("SESSION_ID", sessionID)
                                                     .putExtra("TRANS_ID", it.data.output.transid)
                                                     .putExtra("BOOKING", it.data.output.booktype)
@@ -668,7 +669,8 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
         name: String,
         position: Int,
         cinemaPos: Int,
-        movieCinemaId: String
+        movieCinemaId: String,
+        showTime: String
     ) {
 
         println("Cinema--->${position}")

@@ -31,6 +31,7 @@ data class NextBookingResponse(
         val paymodes: Paymodes,
         val poster: String,
         val posterhori: String,
+        val experienceIcon: String,
         val qr: String,
         val screenId: Int,
         val seatsArr: List<String>,

@@ -4,6 +4,9 @@ import com.cinescape1.data.models.requestModel.*
 import com.cinescape1.data.models.responseModel.*
 import com.cinescape1.ui.main.views.home.fragments.account.response.RechargeAmountResponse
 import com.cinescape1.ui.main.views.payment.paymentFaield.reponse.PaymentFailedResponse
+import com.cinescape1.ui.main.views.payment.paymentList.BankOfferRequest
+import com.cinescape1.ui.main.views.payment.paymentList.response.BankOfferApply
+import com.cinescape1.ui.main.views.payment.paymentList.response.OfferRemove
 import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResponse
 import com.cinescape1.ui.main.views.splash.response.SplashResponse
 import com.cinescape1.ui.main.views.summery.response.GiftCardResponse
@@ -84,8 +87,17 @@ interface DataServices {
     @POST("clubcard/clubPayment")
     suspend fun paymentWallet(@Body request: HmacKnetRequest): Response<WalletResponse>
 
+    @POST("bankoffer/apply")
+    suspend fun bankApply(@Body request: BankOfferRequest): Response<BankOfferApply>
+
+    @POST("bankoffer/remove")
+    suspend fun bankRemove(@Body request: BankOfferRequest): Response<OfferRemove>
+
     @POST("giftcard/apply")
     suspend fun giftCardApply(@Body request: GiftCardRequest): Response<GiftCardResponse>
+
+    @POST("giftcard/remove")
+    suspend fun giftCardRemove(@Body request: GiftCardRequest): Response<OfferRemove>
 
     @POST("voucher/payment/apply")
     suspend fun voucherApply(@Body request: GiftCardRequest): Response<GiftCardResponse>

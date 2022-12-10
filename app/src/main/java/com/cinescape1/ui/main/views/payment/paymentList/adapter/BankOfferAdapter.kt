@@ -19,7 +19,7 @@ class BankOfferAdapter(context: Context, private val locationlist: List<PaymentL
         val view: View
         val vh: ItemHolder
         if (convertView == null) {
-            view = inflater.inflate(R.layout.food_location, parent, false)
+            view = inflater.inflate(R.layout.bank_offer, parent, false)
             vh = ItemHolder(view)
             view?.tag = vh
         } else {

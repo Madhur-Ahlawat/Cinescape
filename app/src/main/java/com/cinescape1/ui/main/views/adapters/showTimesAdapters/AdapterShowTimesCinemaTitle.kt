@@ -63,9 +63,11 @@ class AdapterShowTimesCinemaTitle(
         show: CinemaSessionResponse.Show,
         name: String,
         position: Int,
-        cinemaPos: Int
+        cinemaPos: Int,
+        cinemaId: String,
+        showTime: String
     ) {
-        listener.onShowClicked(show, name, position, cinemaPos)
+        listener.onShowClicked(show, name, position, cinemaPos,cinemaId,  showTime)
     }
 
     interface CinemaAdapterListener {
@@ -73,7 +75,9 @@ class AdapterShowTimesCinemaTitle(
             show: CinemaSessionResponse.Show,
             name: String,
             position: Int,
-            cinemaPos: Int
+            cinemaPos: Int,
+            cinemaId: String,
+            showTime: String
         )
     }
 

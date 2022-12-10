@@ -12,6 +12,7 @@ import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.CinemaSessionResponse
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
+import com.cinescape1.utils.toast
 
 class AdapterCinemaSessionDimension(
     var context: Context,
@@ -38,7 +39,7 @@ class AdapterCinemaSessionDimension(
         }
         holder.textTimes.text = showtimeListItem.showTime
         holder.cardScroll.setOnClickListener {
-            listener.onShowClicked(showtimeListItem, name, position, cinemaPos)
+            listener.onShowClicked(showtimeListItem, name, position, cinemaPos,showtimeListItem.cinemaId,showtimeListItem.showTime)
         }
     }
 
@@ -51,7 +52,9 @@ class AdapterCinemaSessionDimension(
             show: CinemaSessionResponse.Show,
             name: String,
             position: Int,
-            cinemaPos: Int
+            cinemaPos: Int,
+            cinemaId: String,
+            showTime: String
         )
     }
 
