@@ -407,7 +407,7 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
     }
 
     private fun movedNext() {
-        binding?.viewProceed?.setOnClickListener {
+        binding?.txtProceed?.setOnClickListener {
             val intent = Intent(this, PaymentListActivity::class.java)
             intent.putExtra("CINEMA_ID", cinemaId)
             intent.putExtra("SESSION_ID", sessionId)
@@ -418,6 +418,7 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
             intent.putExtra("paidPrice", paidPrice)
             Constant.IntentKey.TimerTime = timeCount
             startActivity(intent)
+            finish()
         }
 
         binding?.viewCancel?.setOnClickListener {
@@ -448,12 +449,13 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
         binding?.constraintLayout6?.show()
         println("BookingType--->${output.totalPrice}")
         binding?.textTimeToLeft?.text = output.totalPrice
+
         if (output.totalPrice.isNullOrEmpty()) {
             binding?.textTimeLeft?.hide()
         } else {
             binding?.textTimeLeft?.show()
-
         }
+
         binding?.textWalletKd?.text = output.balance
         binding?.textView117?.text = output.balance
 
@@ -705,7 +707,12 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
         builder.setCancelable(false)
         val alertDialog: android.app.AlertDialog = builder.create()
         alertDialog.window?.setBackgroundDrawableResource(R.color.transparent)
-        alertDialog.show()
+        try {
+
+            alertDialog.show()
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
 
         dialogView.title.text = getString(R.string.app_name)
         dialogView.subtitle.text = getString(R.string.stillHere)

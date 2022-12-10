@@ -45,8 +45,8 @@ class AdapterMultiMovieAlertBooking(
         holder.date.text = showtimeListItem.showDate
         holder.time.text = showtimeListItem.showTime
         holder.rating.text = showtimeListItem.mcensor
-        holder.experience.text = showtimeListItem.experience
         val ratingColor=showtimeListItem.ratingColor
+
         try {
             holder.rating.setBackgroundColor(Color.parseColor(ratingColor))
         } catch (e: Exception) {
@@ -66,6 +66,10 @@ class AdapterMultiMovieAlertBooking(
             .load(showtimeListItem.posterhori)
             .placeholder(R.drawable.movie_default)
             .into(holder.image)
+
+        Glide.with(mContext)
+            .load(showtimeListItem.experienceIcon)
+            .into(holder.experience)
 
         holder.bookings.text = mContext.getString(R.string.go_to_bookings)
         holder.bookings.setOnClickListener {
@@ -92,7 +96,7 @@ class AdapterMultiMovieAlertBooking(
         var time: TextView = view.text_time_visible
         var rating: TextView = view.text13
         var image: ImageView = view.image_booking_alert
-        var experience: TextView = view.text_experience_name
+        var experience: ImageView = view.text_experience_name
         var ratingUi: CardView = view.ratingUi
         var bookings: TextView = view.go_to_booking_btn1
     }

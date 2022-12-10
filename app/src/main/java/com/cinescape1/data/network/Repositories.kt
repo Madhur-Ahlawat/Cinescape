@@ -4,6 +4,9 @@ import com.cinescape1.data.models.requestModel.*
 import com.cinescape1.data.models.responseModel.*
 import com.cinescape1.ui.main.views.home.fragments.account.response.RechargeAmountResponse
 import com.cinescape1.ui.main.views.payment.paymentFaield.reponse.PaymentFailedResponse
+import com.cinescape1.ui.main.views.payment.paymentList.BankOfferRequest
+import com.cinescape1.ui.main.views.payment.paymentList.response.BankOfferApply
+import com.cinescape1.ui.main.views.payment.paymentList.response.OfferRemove
 import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResponse
 import com.cinescape1.ui.main.views.splash.response.SplashResponse
 import com.cinescape1.ui.main.views.summery.response.GiftCardResponse
@@ -114,10 +117,26 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
         return apiRequest { api.paymentWallet(request) }
     }
 
+    suspend fun bnankApply(
+        request: BankOfferRequest
+    ): Result<BankOfferApply> {
+        return apiRequest { api.bankApply(request) }
+    }
+    suspend fun bnankRemove(
+        request: BankOfferRequest
+    ): Result<OfferRemove> {
+        return apiRequest { api.bankRemove(request) }
+    }
+
     suspend fun giftCardRequest(
         request: GiftCardRequest
     ): Result<GiftCardResponse> {
         return apiRequest { api.giftCardApply(request) }
+    }
+    suspend fun giftCardRemove(
+        request: GiftCardRequest
+    ): Result<OfferRemove> {
+        return apiRequest { api.giftCardRemove(request) }
     }
    suspend fun voucherApply(
         request: GiftCardRequest

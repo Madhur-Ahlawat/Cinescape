@@ -358,7 +358,6 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
                     mDialogView.text_bombshell.isSelected=true
                     mDialogView.text_location_name.text = output.output[0].cinemaname
                     mDialogView.text_screen_number.text = output.output[0].screenId.toString()
-                    mDialogView.text_experience_name.text = output.output[0].experience
                     mDialogView.text_date_visible.text = output.output[0].showDate
                     mDialogView.text_time_visible.text = output.output[0].showTime
                     mDialogView.text_bombshell.text = output.output[0].moviename
@@ -374,7 +373,11 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
                         .load(output.output[0].posterhori)
                         .placeholder(R.drawable.movie_default)
                         .into(mDialogView.image_booking_alert)
-
+//
+                    println("loadImageExperience---->${output.output[0].experienceIcon}")
+                    Glide.with(this)
+                        .load(output.output[0].experienceIcon)
+                        .into(mDialogView.text_experience_name)
 
                     //cancel button click of custom layout
                     mDialogView.image_cross_icon.setOnClickListener {

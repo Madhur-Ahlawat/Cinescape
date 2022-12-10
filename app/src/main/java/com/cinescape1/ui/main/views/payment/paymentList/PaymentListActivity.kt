@@ -9,9 +9,11 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
 import android.util.Log
 import android.view.*
+import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -39,10 +41,10 @@ import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
 import com.cinescape1.ui.main.views.payment.PaymentWebActivity
 import com.cinescape1.ui.main.views.payment.paymentList.adapter.PaymentListAdapter
 import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResponse
-import com.cinescape1.ui.main.views.summery.SummeryActivity
 import com.cinescape1.ui.main.views.summery.response.GiftCardResponse
 import com.cinescape1.ui.main.views.summery.viewModel.SummeryViewModel
 import com.cinescape1.utils.*
+import com.cinescape1.utils.Constant.Companion.bankOfferClick
 import com.threatmetrix.TrustDefender.*
 import com.threatmetrix.TrustDefender.TMXProfilingConnections.TMXProfilingConnections
 import dagger.android.support.DaggerAppCompatActivity
@@ -50,6 +52,7 @@ import kotlinx.android.synthetic.main.cancel_dialog.*
 import kotlinx.android.synthetic.main.cancel_dialog.view.*
 import kotlinx.android.synthetic.main.checkout_creditcart_payment_alert.*
 import kotlinx.android.synthetic.main.checkout_layout_ticket_include.*
+import kotlinx.android.synthetic.main.item_payment_list.*
 import org.json.JSONArray
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -101,18 +104,14 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         val view = binding?.root
         setContentView(view)
 
-        bookingId= intent.getStringExtra("bookingId").toString()
-        bookType= intent.getStringExtra("BOOKING").toString()
+        bookingId = intent.getStringExtra("bookingId").toString()
+        bookType = intent.getStringExtra("BOOKING").toString()
         transId = intent.getStringExtra("TRANS_ID").toString()
         image = intent.getStringExtra("image").toString()
         paidPrice = intent.getStringExtra("paidPrice").toString()
 
-        Glide.with(this)
-            .load(image)
-            .placeholder(R.drawable.bombshell)
-            .into(binding?.imageView6!!)
+        Glide.with(this).load(image).placeholder(R.drawable.bombshell).into(binding?.imageView6!!)
 
-        binding?.textTimeToLeft?.text=paidPrice
         println("book--->${bookingId}--type->${bookType}---transId--->${transId}>")
 
         if (bookType == "BOOKING") {
@@ -194,6 +193,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     private fun retrieveData(output: PaymentListResponse.Output) {
+        binding?.textTimeToLeft?.text = output.amount
+
         val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
         val adapter = PaymentListAdapter(this, output.payMode, this)
         binding?.recyclerPayMode?.layoutManager = gridLayout
@@ -203,13 +204,215 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     override fun walletItemApply(view: PaymentListResponse.Output.PayMode) {
         walletPay(
             HmacKnetRequest(
-                bookingId,
-                bookType,
-                transId,
-                preferences.getString(Constant.USER_ID).toString()
+                bookingId, bookType, transId, preferences.getString(Constant.USER_ID).toString()
             )
         )
     }
+
+    override fun bankItemApply(
+        offerId: String,
+        cardNo: String,
+        check: CheckBox,
+        close: ImageView,
+        apply: TextView,
+        bankEdit: EditText,
+        msg: TextView,
+        knet: LinearLayout,
+        walletApply: TextView,
+        offerApply: TextView,
+        offerEditText: EditText
+    ) {
+        bankOfferApply(
+            BankOfferRequest(
+                bookingId,
+                cardNo,
+                offerId,
+                transId,
+                preferences.getString(Constant.USER_ID).toString()
+            ), check, close, apply,bankEdit, msg,knet,walletApply,offerApply,offerEditText
+        )
+    }
+
+    private fun bankOfferApply(
+        bankOfferRequest: BankOfferRequest,
+        chekbox: CheckBox,
+        close: ImageView,
+        apply: TextView,
+        bankEdit: EditText,
+        msg: TextView,
+        knet: LinearLayout,
+        walletApply: TextView,
+        offerApply: TextView,
+        offerEditText: EditText
+    ) {
+        summeryViewModel.bankApply(bankOfferRequest).observe(this) {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                binding?.textTimeToLeft?.text = it.data.output.amount
+                                msg.show()
+                                msg.text = it.data.output.MSG
+                                apply.hide()
+                                close.show()
+                                chekbox.show()
+
+//                             bank  Clickable false
+                                bankEdit.isClickable = false
+                                bankEdit.isEnabled = false
+                                bankEdit.isFocusable = false
+
+//                          //knet
+                                knet.isClickable = false
+                                knet.isEnabled = false
+                                knet.isFocusable = false
+
+//                          //wallet
+                                walletApply.isClickable = false
+                                walletApply.isEnabled = false
+                                walletApply.isFocusable = false
+
+//                          //offer
+                                offerApply.isClickable = false
+                                offerApply.isEnabled = false
+                                offerApply.isFocusable = false
+
+//                          offer EditText
+                                offerEditText.isClickable = false
+                                offerEditText.isEnabled = false
+                                offerEditText.isFocusable = false
+                                bankEdit.isFocusableInTouchMode = false
+                            }
+
+                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(this,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                        loader = LoaderDialog(R.string.pleasewait)
+                        loader?.show(supportFragmentManager, null)
+                    }
+                }
+            }
+        }
+
+    }
+
+    override fun bankItemRemove(
+        offerId: String,
+        cardNo: String,
+        check: CheckBox,
+        close: ImageView,
+        apply: TextView,
+        bankEdit: EditText,
+        msg: TextView,
+        knet: LinearLayout,
+        walletApply: TextView,
+        offerApply: TextView,
+        offerEditText: EditText
+    ) {
+        bankOfferRemove(
+            BankOfferRequest(
+                bookingId,
+                cardNo,
+                offerId,
+                transId,
+                preferences.getString(Constant.USER_ID).toString()
+            ), check, close, apply,bankEdit, msg,knet,walletApply,offerApply,offerEditText
+        )
+    }
+
+    private fun bankOfferRemove(
+        bankOfferRequest: BankOfferRequest,
+        checkbox: CheckBox,
+        close: ImageView,
+        apply: TextView,
+        bankEdit: EditText,
+        msg: TextView,
+        knet: LinearLayout,
+        walletApply: TextView,
+        offerApply: TextView,
+        offerEditText: EditText
+    ) {
+        summeryViewModel.bankRemove(bankOfferRequest).observe(this) {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                msg.hide()
+                                bankOfferClick=false
+                                //bank
+                                apply.show()
+                                close.hide()
+                                checkbox.hide()
+
+                                bankEdit.isClickable = true
+                                bankEdit.isFocusable = true
+                                bankEdit.isEnabled = true
+                                bankEdit.isFocusableInTouchMode = true
+                                bankEdit.inputType = InputType.TYPE_NULL
+
+
+                                //knet
+                                knet.isClickable = true
+                                knet.isEnabled = true
+                                knet.isFocusable = true
+
+//                          //wallet
+                                walletApply.isClickable = true
+                                walletApply.isEnabled = true
+                                walletApply.isFocusable = true
+
+//                          //offer
+                                offerApply.isClickable = true
+                                offerApply.isEnabled = true
+                                offerApply.isFocusable = true
+
+                                //offer EditText
+                                offerEditText.isClickable = true
+                                offerEditText.isEnabled = true
+                                offerEditText.isFocusable = true
+                                offerEditText.isFocusableInTouchMode = true
+                                offerEditText.inputType = InputType.TYPE_NULL
+                            }
+                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(this,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                        loader = LoaderDialog(R.string.pleasewait)
+                        loader?.show(supportFragmentManager, null)
+                    }
+                }
+            }
+        }
+
+    }
+
 
     private fun walletPay(request: HmacKnetRequest) {
         summeryViewModel.paymentWallet(request).observe(this) {
@@ -658,8 +861,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     private fun postCardData(request: PostCardRequest) {
-        summeryViewModel.postCardData(request)
-            .observe(this) {
+        summeryViewModel.postCardData(request).observe(this) {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
@@ -708,10 +910,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                                 it.data.output.errorDescription,
                                                 positiveBtnText = R.string.ok,
                                                 negativeBtnText = R.string.no,
-                                                positiveClick = {
-                                                },
-                                                negativeClick = {
-                                                })
+                                                positiveClick = {},
+                                                negativeClick = {})
                                             dialog.show()
                                         }
                                     } catch (e: Exception) {
@@ -726,10 +926,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                         it.data?.msg.toString(),
                                         positiveBtnText = R.string.ok,
                                         negativeBtnText = R.string.no,
-                                        positiveClick = {
-                                        },
-                                        negativeClick = {
-                                        })
+                                        positiveClick = {},
+                                        negativeClick = {})
                                     dialog.show()
                                 }
 
@@ -743,10 +941,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 it.message.toString(),
                                 positiveBtnText = R.string.ok,
                                 negativeBtnText = R.string.no,
-                                positiveClick = {
-                                },
-                                negativeClick = {
-                                })
+                                positiveClick = {},
+                                negativeClick = {})
                             dialog.show()
                         }
                         Status.LOADING -> {
@@ -759,8 +955,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     private fun validateJWT(s: ValidateJWTRequest) {
-        summeryViewModel.validateJWT(s)
-            .observe(this) {
+        summeryViewModel.validateJWT(s).observe(this) {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
@@ -773,16 +968,13 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                             finish()
                                         } else {
                                             val intent = Intent(
-                                                applicationContext,
-                                                FinalTicketActivity::class.java
+                                                applicationContext, FinalTicketActivity::class.java
                                             )
                                             intent.putExtra(
-                                                Constant.IntentKey.TRANSACTION_ID,
-                                                transId
+                                                Constant.IntentKey.TRANSACTION_ID, transId
                                             )
                                             intent.putExtra(
-                                                Constant.IntentKey.BOOKING_ID,
-                                                bookingId
+                                                Constant.IntentKey.BOOKING_ID, bookingId
                                             )
                                             startActivity(intent)
                                         }
@@ -798,10 +990,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                         it.data?.msg.toString(),
                                         positiveBtnText = R.string.ok,
                                         negativeBtnText = R.string.no,
-                                        positiveClick = {
-                                        },
-                                        negativeClick = {
-                                        })
+                                        positiveClick = {},
+                                        negativeClick = {})
                                     dialog.show()
                                 }
 
@@ -815,10 +1005,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 it.message.toString(),
                                 positiveBtnText = R.string.ok,
                                 negativeBtnText = R.string.no,
-                                positiveClick = {
-                                },
-                                negativeClick = {
-                                })
+                                positiveClick = {},
+                                negativeClick = {})
                             dialog.show()
                         }
                         Status.LOADING -> {
@@ -859,8 +1047,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                     TMXProfiling.getInstance().init(config)
 
                                     doProfile(
-                                        it.data.output.deviceSessionId,
-                                        it.data.output.merchantId
+                                        it.data.output.deviceSessionId, it.data.output.merchantId
                                     )
                                     cardinal.init(serverJwt, object : CardinalInitService {
                                         /**
@@ -874,8 +1061,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                         }
 
                                         override fun onValidated(
-                                            validateResponse: ValidateResponse?,
-                                            serverJwt: String?
+                                            validateResponse: ValidateResponse?, serverJwt: String?
                                         ) {
                                             println("consumerSessionId-->" + validateResponse?.actionCode + "----" + serverJwt)
                                         }
@@ -926,8 +1112,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         val options =
             TMXProfilingOptions().setCustomAttributes(list) // Fire off the profiling request. We could use a more complex request,
         options.setSessionID(merchent + sessions1)
-        val profilingHandle = TMXProfiling.getInstance().profile(options,
-            CompletionNotifier()
+        val profilingHandle = TMXProfiling.getInstance().profile(
+            options, CompletionNotifier()
         )
         // Session id can be collected here
         Log.d("TAG", "Session id = " + profilingHandle.sessionID)
@@ -948,8 +1134,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
     private fun validateFields(proceedAlertDialog: AlertDialog): Boolean {
         return if (proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                .isEmpty() && proceedAlertDialog.cardNumberTextInputEditText.text
-                .toString().length != 16 && !CreditCardUtils.isValid(
+                .isEmpty() && proceedAlertDialog.cardNumberTextInputEditText.text.toString().length != 16 && !CreditCardUtils.isValid(
                 proceedAlertDialog.cardNumberTextInputEditText.text.toString().replace(" ", "")
             )
         ) {
@@ -959,10 +1144,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 getString(R.string.valid_card),
                 positiveBtnText = R.string.ok,
                 negativeBtnText = R.string.no,
-                positiveClick = {
-                },
-                negativeClick = {
-                })
+                positiveClick = {},
+                negativeClick = {})
             dialog.show()
             false
         } else if (proceedAlertDialog.expireDateTextInputEditText.text.toString()
@@ -974,10 +1157,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 getString(R.string.valid_expiry),
                 positiveBtnText = R.string.ok,
                 negativeBtnText = R.string.no,
-                positiveClick = {
-                },
-                negativeClick = {
-                })
+                positiveClick = {},
+                negativeClick = {})
             dialog.show()
             false
         } else if (proceedAlertDialog.expireDateTextInputEditText.text.toString()
@@ -991,10 +1172,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 getString(R.string.valid_expiry),
                 positiveBtnText = R.string.ok,
                 negativeBtnText = R.string.no,
-                positiveClick = {
-                },
-                negativeClick = {
-                })
+                positiveClick = {},
+                negativeClick = {})
             dialog.show()
             false
         } else if (proceedAlertDialog.ccvTextInputEditText.text.toString()
@@ -1006,10 +1185,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 getString(R.string.valid_cvv),
                 positiveBtnText = R.string.ok,
                 negativeBtnText = R.string.no,
-                positiveClick = {
-                },
-                negativeClick = {
-                })
+                positiveClick = {},
+                negativeClick = {})
             dialog.show()
             false
         } else {
@@ -1035,7 +1212,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     ) {
 
         println("offerCode---->${offerCode}---clickName$--->${clickName}---clickId---->${clickId}")
-        if (clickName=="Gift Card"){
+        if (clickName == "Gift Card") {
             giftCardApply(
                 GiftCardRequest(
                     bookingId,
@@ -1045,7 +1222,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     preferences.getString(Constant.USER_ID).toString()
                 )
             )
-        }else if (clickName=="Voucher"){
+        } else if (clickName == "Voucher") {
             voucherApply(
                 GiftCardRequest(
                     bookingId,
@@ -1057,9 +1234,31 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             )
         }
     }
+
+    override fun onGiftCardItemRemove(
+        view: PaymentListResponse.Output.PayMode,
+        offerCode: String,
+        clickName: String,
+        clickId: String
+    ) {
+
+        if (clickName == "Gift Card") {
+            giftCardRemove(
+                GiftCardRequest(
+                    bookingId,
+                    bookType,
+                    offerCode,
+                    transId,
+                    preferences.getString(Constant.USER_ID).toString()
+                )
+            )
+        } else if (clickName == "Voucher") {
+
+        }
+    }
+
     private fun voucherApply(request: GiftCardRequest) {
-        summeryViewModel.voucherApply(request)
-            .observe(this) {
+        summeryViewModel.voucherApply(request).observe(this) {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
@@ -1071,8 +1270,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                         Constant.IntentKey.TimerExtand = 90
                                         Constant.IntentKey.TimerTime = 360
                                         val intent = Intent(
-                                            applicationContext,
-                                            FinalTicketActivity::class.java
+                                            applicationContext, FinalTicketActivity::class.java
                                         )
                                         intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
                                         intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
@@ -1089,10 +1287,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                         it.data?.msg.toString(),
                                         positiveBtnText = R.string.ok,
                                         negativeBtnText = R.string.no,
-                                        positiveClick = {
-                                        },
-                                        negativeClick = {
-                                        })
+                                        positiveClick = {},
+                                        negativeClick = {})
                                     dialog.show()
                                 }
 
@@ -1106,10 +1302,61 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 it.message.toString(),
                                 positiveBtnText = R.string.ok,
                                 negativeBtnText = R.string.no,
-                                positiveClick = {
-                                },
-                                negativeClick = {
-                                })
+                                positiveClick = {},
+                                negativeClick = {})
+                            dialog.show()
+                        }
+                        Status.LOADING -> {
+                            loader = LoaderDialog(R.string.pleasewait)
+                            loader?.show(supportFragmentManager, null)
+                        }
+                    }
+                }
+            }
+
+    }
+
+    private fun giftCardRemove(request: GiftCardRequest) {
+        summeryViewModel.giftCardRemove(request).observe(this) {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            loader?.dismiss()
+                            resource.data?.let { it ->
+                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                    try {
+
+
+
+                                    } catch (e: Exception) {
+                                        println("updateUiCinemaSession ---> ${e.message}")
+                                    }
+
+                                } else {
+                                    loader?.dismiss()
+                                    val dialog = OptionDialog(this,
+                                        R.mipmap.ic_launcher,
+                                        R.string.app_name,
+                                        it.data?.msg.toString(),
+                                        positiveBtnText = R.string.ok,
+                                        negativeBtnText = R.string.no,
+                                        positiveClick = {},
+                                        negativeClick = {})
+                                    dialog.show()
+                                }
+
+                            }
+                        }
+                        Status.ERROR -> {
+                            loader?.dismiss()
+                            val dialog = OptionDialog(this,
+                                R.mipmap.ic_launcher,
+                                R.string.app_name,
+                                it.message.toString(),
+                                positiveBtnText = R.string.ok,
+                                negativeBtnText = R.string.no,
+                                positiveClick = {},
+                                negativeClick = {})
                             dialog.show()
                         }
                         Status.LOADING -> {
@@ -1123,8 +1370,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     private fun giftCardApply(request: GiftCardRequest) {
-        summeryViewModel.giftCardApply(request)
-            .observe(this) {
+        summeryViewModel.giftCardApply(request).observe(this) {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
@@ -1145,10 +1391,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                         it.data?.msg.toString(),
                                         positiveBtnText = R.string.ok,
                                         negativeBtnText = R.string.no,
-                                        positiveClick = {
-                                        },
-                                        negativeClick = {
-                                        })
+                                        positiveClick = {},
+                                        negativeClick = {})
                                     dialog.show()
                                 }
 
@@ -1162,10 +1406,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 it.message.toString(),
                                 positiveBtnText = R.string.ok,
                                 negativeBtnText = R.string.no,
-                                positiveClick = {
-                                },
-                                negativeClick = {
-                                })
+                                positiveClick = {},
+                                negativeClick = {})
                             dialog.show()
                         }
                         Status.LOADING -> {
@@ -1193,8 +1435,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             Constant.IntentKey.TimerExtand = 90
             Constant.IntentKey.TimerTime = 360
             val intent = Intent(
-                applicationContext,
-                FinalTicketActivity::class.java
+                applicationContext, FinalTicketActivity::class.java
             )
             intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
             intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
@@ -1262,7 +1503,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         }
     }
 
-
     private fun resendTimer() {
         countDownTimerPrimary =
             object : CountDownTimer((Constant.IntentKey.TimerTime * 1000), 1000) {
@@ -1306,8 +1546,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                             Constant.IntentKey.TimerExtand = 90
                                             finish()
                                         },
-                                        negativeClick = {
-                                        })
+                                        negativeClick = {})
                                     dialog.show()
 
                                 }
@@ -1319,10 +1558,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 getString(R.string.timeOut),
                                 positiveBtnText = R.string.ok,
                                 negativeBtnText = R.string.no,
-                                positiveClick = {
-                                },
-                                negativeClick = {
-                                })
+                                positiveClick = {},
+                                negativeClick = {})
                             dialog.show()
                         }
                     }
@@ -1382,14 +1619,12 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         }
     }
 
-
     private fun cancelDialog() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.cancel_dialog)
         dialog.window!!.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
+            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
         )
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
@@ -1408,9 +1643,9 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             dialog.dismiss()
         }
     }
+
     private fun cancelTrans(cancelTransRequest: CancelTransRequest) {
-        summeryViewModel.cancelTrans(cancelTransRequest)
-            .observe(this) {
+        summeryViewModel.cancelTrans(cancelTransRequest).observe(this) {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
@@ -1431,10 +1666,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                         it.data?.msg.toString(),
                                         positiveBtnText = R.string.ok,
                                         negativeBtnText = R.string.no,
-                                        positiveClick = {
-                                        },
-                                        negativeClick = {
-                                        })
+                                        positiveClick = {},
+                                        negativeClick = {})
                                     dialog.show()
                                 }
 
@@ -1448,10 +1681,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 it.message.toString(),
                                 positiveBtnText = R.string.ok,
                                 negativeBtnText = R.string.no,
-                                positiveClick = {
-                                },
-                                negativeClick = {
-                                })
+                                positiveClick = {},
+                                negativeClick = {})
                             dialog.show()
                         }
                         Status.LOADING -> {
@@ -1460,6 +1691,5 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 }
             }
     }
-
 
 }

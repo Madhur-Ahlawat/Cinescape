@@ -32,7 +32,7 @@
             android:id="@+id/view_movie_name"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="56dp"
             app:layout_constraintEnd_toEndOf="@+id/view_mains"
             app:layout_constraintStart_toStartOf="@+id/view_mains"
             app:layout_constraintTop_toBottomOf="@+id/textView111" />
@@ -42,14 +42,15 @@
             android:id="@+id/linearLayout2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             app:alignContent="flex_start"
             app:alignItems="flex_start"
             app:flexWrap="nowrap"
             app:layout_constraintBottom_toBottomOf="@+id/view_movie_name"
             app:layout_constraintEnd_toEndOf="@+id/view_times"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/text_date_name"
-            app:layout_constraintTop_toBottomOf="@+id/textView111"
+            app:layout_constraintTop_toTopOf="@+id/view_movie_name"
+            app:layout_constraintVertical_bias="1.0"
             app:showDivider="middle">
 
             <TextView

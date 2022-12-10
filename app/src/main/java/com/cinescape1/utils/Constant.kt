@@ -166,6 +166,9 @@ class Constant {
 
 
 
+        var bankOfferClick = false
+        const val promoClick = false
+
         const val KNETID = "401"
         const val CREDITCARDID = "402"
 

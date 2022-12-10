@@ -247,9 +247,6 @@ class FoodActivity : DaggerAppCompatActivity(),
         sessionId = intent.getStringExtra("SESSION_ID").toString()
         booktype = intent.getStringExtra("BOOKING").toString()
         transId = intent.getStringExtra("TRANS_ID").toString()
-
-        toast("$booktype")
-
         movieRatingColor= intent.getStringExtra("movieRatingColor").toString()
         if (booktype != "FOOD") {
             binding?.txtSkipProceed?.show()

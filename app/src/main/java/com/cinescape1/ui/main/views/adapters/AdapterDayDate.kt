@@ -17,6 +17,7 @@ import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.CinemaSessionResponse
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
+import com.cinescape1.utils.toast
 import kotlinx.android.synthetic.main.showtime_day_date_item.view.*
 
 class AdapterDayDate(
@@ -85,6 +86,7 @@ class AdapterDayDate(
 
         if (dayDateItem.enable) {
             holder.itemView.setOnClickListener {
+                context.toast("hello")
                 listener.onDateClick(dayDateItem, holder.itemView, position)
                 rowIndex = position
                 backIndex = position

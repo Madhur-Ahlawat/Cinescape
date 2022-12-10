@@ -184,7 +184,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
         datePosition = intent.getStringExtra("DatePosition").toString()
         dt = intent.getStringExtra("dt").toString()
 
-        println("dateTime--->${dateTime}")
+        println("dateTime--->${cinemaPos1}---->${showPos}")
         if (!preferences.getBoolean(Constant.IS_LOGIN)) {
             val intent = Intent(this, LoginActivity::class.java).putExtra("AREA_CODE", areaCode)
                 .putExtra("TT_TYPE", ttType)
@@ -366,7 +366,6 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
             binding?.tvSeatFilmType1?.setBackgroundColor(Color.parseColor(ratingColor))
 
 
-            println("cinemaPos1--->${cinemaPos1}--->showPos--->${showPos}")
             movieId = output.movie.id
             binding?.tvCinemaName?.text = output.cinema.name
             movieCinemaName = output.cinema.name
@@ -397,6 +396,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
         binding?.recyclerviewCinemasName?.layoutManager = gridLayout
         binding?.recyclerviewCinemasName?.adapter = adapter
     }
+
     private fun createRows(output: SeatLayoutResponse.Output) {
         binding?.SeatnestedScroll?.show()
         binding?.constraintLayout4?.show()

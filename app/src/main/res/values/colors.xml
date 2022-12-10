@@ -34,5 +34,6 @@
     <color name="back_food">#00000080</color>
     <color name="back_70">#B2000000</color>
     <color name="black_grey">#464646</color>
+    <color name="lineColor">#667B7A7A</color>
 
 </resources>

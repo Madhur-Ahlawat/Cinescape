@@ -106,7 +106,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     private var seatAbility: Int = 0
     private var categoryClick: Boolean = false
     private var mAlertDialog: AlertDialog? = null
-    var adapterShowTimesCinemaTitle: AdapterShowTimesCinemaTitle? = null
+    private  var adapterShowTimesCinemaTitle: AdapterShowTimesCinemaTitle? = null
     private var languageCheck: String = "en"
     private var broadcastReceiver: BroadcastReceiver? = null
     private var movieCastName1: TextView? = null
@@ -123,8 +123,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 val regular = ResourcesCompat.getFont(this, R.font.gess_light)
                 val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
                 val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
-                println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
-
                 binding?.textFilmHouseName?.typeface = bold // heavy
                 binding?.textView56?.typeface = bold // heavy
                 binding?.textMoreInfo?.typeface = regular
@@ -551,12 +549,11 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                                         datePosition = it.data.output.days[0].wdf
                                         dt = it.data.output.days[0].dt
                                         dateTime = it.data.output.days[0].dt
-//                                        toast("dateTime--->${dateTime}---dt--->${dt}")
                                         if (json.dated == "")
-                                            daySessionResponse = it.data.output.daySessions
+                                            showData = it.data.output
+                                         daySessionResponse = it.data.output.daySessions
                                         setShowTimesDayDateAdapter(it.data.output.days)
                                         updateUiShowTimes(it.data.output)
-                                        showData = it.data.output
                                         setTitleAdapter()
                                     } catch (e: Exception) {
                                         e.printStackTrace()
@@ -837,10 +834,11 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         show: CinemaSessionResponse.Show,
         name: String,
         position: Int,
-        cinemaPos: Int
+        cinemaPos: Int,
+        cinemaId: String
     ) {
         showPose = cinemaPos
-        cinemaID = show.cinemaId
+        cinemaID = cinemaId
         sessionID = show.sessionId
 
         if (!preferences.getBoolean(Constant.IS_LOGIN)) {

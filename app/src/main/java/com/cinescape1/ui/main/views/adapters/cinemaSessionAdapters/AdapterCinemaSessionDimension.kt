@@ -38,7 +38,7 @@ class AdapterCinemaSessionDimension(
         }
         holder.textTimes.text = showtimeListItem.showTime
         holder.cardScroll.setOnClickListener {
-            listener.onShowClicked(showtimeListItem, name, position, cinemaPos)
+            listener.onShowClicked(showtimeListItem, name, position, cinemaPos,showtimeListItem.cinemaId)
         }
     }
 
@@ -51,7 +51,8 @@ class AdapterCinemaSessionDimension(
             show: CinemaSessionResponse.Show,
             name: String,
             position: Int,
-            cinemaPos: Int
+            cinemaPos: Int,
+            cinemaId: String
         )
     }
 

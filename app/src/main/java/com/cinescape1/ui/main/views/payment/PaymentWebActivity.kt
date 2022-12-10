@@ -34,8 +34,6 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var preferences: AppPreferences
-
-    //    private val splashViewModel: SplashViewModel by viewModels { viewModelFactory }
     private var payUrl = ""
     var bookingId = ""
     var transId = ""
@@ -194,6 +192,7 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
                 finish()
             } else {
 
+                finish()
 //            val intent = Intent(this, CinemaSessionActivity::class.java)
 ////            intent.putExtra(Constant.IntentKey.TICKET_BOOKING_DETAILS, paymentIntentData)
 //            intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)

@@ -20,7 +20,6 @@ import android.view.WindowManager
 import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -56,8 +55,6 @@ import javax.inject.Inject
 
 @Suppress("DEPRECATION", "NAME_SHADOWING")
 class CinemaLocationActivity : DaggerAppCompatActivity(),
-    AdapterDayDate.RecycleViewItemClickListener,
-    AdapterShowTimesCinemaTitle.CinemaAdapterListener,
     CinemaDayAdapter.RecycleViewItemClickListener,
     AdapterCinemaSessionScroll.LocationListener,
     CinemaDayAdapter.TypeFaceDay, AdapterCinemaSessionScroll.TypeFaceSession {
@@ -266,7 +263,7 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
     private fun retrieveMovieData(output: CSessionResponse.Output) {
         println("MovieData--->${output}")
         binding?.LayoutTime?.show()
-
+        dateTime=output.days[0].dt
         //Day Data
         if (count == 0) {
             val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
@@ -386,51 +383,6 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
             }
     }
 
-    override fun onDateClick(city: CinemaSessionResponse.Days, view: View, pos: Int) {
-        datePos = pos
-        binding?.recylerviewShowTimeDate?.let { focusOnView(view, it) }
-        dateTime = city.dt
-        println("ShowClicked--->${dateTime}")
-        datePosition = city.wdf
-        dt = city.dt
-    }
-
-    private fun focusOnView(view: View, scrollView: RecyclerView) {
-        Handler(Looper.getMainLooper()).post {
-            val vLeft = view.left
-            val vRight = view.right
-            val sWidth = scrollView.width
-            scrollView.scrollBy((vLeft + vRight - sWidth) / 2, 0)
-        }
-    }
-
-    override fun onShowClicked(
-        show: CinemaSessionResponse.Show,
-        name: String,
-        position: Int,
-        cinemaPos: Int
-    ) {
-        showPose = cinemaPos
-        cinemaID = show.cinemaId
-        sessionID = show.sessionId
-
-        if (!preferences.getBoolean(Constant.IS_LOGIN)) {
-            type
-            val intent = Intent(this, LoginActivity::class.java).putExtra("AREA_CODE", areaCode)
-                .putExtra("type", type)
-                .putExtra("from", "Details")
-                .putExtra("movieId", movieID)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(intent)
-            finish()
-        } else {
-            getSeatLayout(
-                SeatLayoutRequest(show.cinemaId, dateTime, movieID, show.sessionId),
-                name,
-                position
-            )
-        }
-    }
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -856,8 +808,9 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                             .putExtra("DatePosition", datePosition)
                             .putExtra("dt", dt)
                             .putExtra("SessionID", sessionID)
-                            .putExtra("SHOW_POS", pos)
-                            .putExtra("CINEMA_POS", showPose), 50
+                            .putExtra("SHOW_POS", showPose.toString())
+                            .putExtra("CINEMA_POS", showPose.toString()),
+                        50
                     )
 
                     categoryClick = false
@@ -958,6 +911,7 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
         sessionID = show.sessionId
         movieID = movieCinemaId
 
+        toast("hello---${showPose}")
         if (!preferences.getBoolean(Constant.IS_LOGIN)) {
             type
             val intent = Intent(this, LoginActivity::class.java).putExtra("AREA_CODE", areaCode)
