@@ -66,6 +66,9 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+    companion object{
+         var  offerApplied:Boolean = false
+    }
 
     @Inject
     lateinit var preferences: AppPreferences
@@ -97,6 +100,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     private var dialogShow: Long = 60
     private var timeExtendClick: Boolean = false
     private var countDownTimerPrimary: CountDownTimer? = null
+    private var adapter : PaymentListAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
@@ -196,7 +200,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         binding?.textTimeToLeft?.text = output.amount
 
         val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
-        val adapter = PaymentListAdapter(this, output.payMode, this)
+         adapter = PaymentListAdapter(this, output.payMode, this)
         binding?.recyclerPayMode?.layoutManager = gridLayout
         binding?.recyclerPayMode?.adapter = adapter
     }
@@ -258,7 +262,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 apply.hide()
                                 close.show()
                                 chekbox.show()
-
+                                offerApplied = true
+                                adapter?.notifyDataSetChanged()
 //                             bank  Clickable false
                                 bankEdit.isClickable = false
                                 bankEdit.isEnabled = false
@@ -359,6 +364,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 apply.show()
                                 close.hide()
                                 checkbox.hide()
+                                offerApplied = false
+                                adapter?.notifyDataSetChanged()
 
                                 bankEdit.isClickable = true
                                 bankEdit.isFocusable = true

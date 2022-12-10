@@ -13,6 +13,7 @@ import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.GetMovieResponse
 import com.cinescape1.databinding.ItemPaymentListBinding
 import com.cinescape1.ui.main.dailogs.OptionDialog
+import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity
 import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResponse
 import com.cinescape1.utils.Constant.Companion.bankOfferClick
 import com.cinescape1.utils.hide
@@ -56,13 +57,26 @@ class PaymentListAdapter(
                 } else {
                     binding.cardUi.hide()
                 }
+                if (PaymentListActivity.offerApplied){
+                    binding.imageView63.isClickable = false
+                    binding.imageView63.isEnabled = false
+                    binding.knet.isClickable = false
+                    binding.knet.isEnabled = false
+                }else{
+                    binding.knet.isClickable = true
+                    binding.knet.isEnabled = true
+                    binding.imageView63.isClickable = true
+                    binding.imageView63.isEnabled = true
+                }
 
                 //Card Click
                 binding.creditCard.setOnClickListener {
                     listner.onCreditCardItemClick(this)
+                    notifyDataSetChanged()
                 }
                 binding.knet.setOnClickListener {
                     listner.onKnitItemClick(this)
+                    notifyDataSetChanged()
                 }
 
                 //show Hide
@@ -219,6 +233,7 @@ class PaymentListAdapter(
 
                         }
                     }
+                    notifyDataSetChanged()
                 }
             }
         }
