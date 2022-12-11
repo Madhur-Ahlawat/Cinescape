@@ -1127,10 +1127,10 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                     val selectedImageUri = data!!.data
                     if (null != selectedImageUri) {
                         // Get the path from the Uri
-//                        val path = getPathFromURI(selectedImageUri)
+                        val path = PathUtil.getPath(requireContext(),selectedImageUri)
 
                         val mFileTemp =
-                            File(ImageFilePath.getFilePath(requireContext(), selectedImageUri))
+                            File(path)
                         val requestFile: RequestBody =
                             mFileTemp.asRequestBody("multipart/form-data".toMediaTypeOrNull())
                         val file =

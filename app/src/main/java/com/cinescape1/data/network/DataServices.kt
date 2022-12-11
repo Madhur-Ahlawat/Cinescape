@@ -145,7 +145,7 @@ interface DataServices {
     @GET("content/cinemas")
     suspend fun foodResponse(): Response<FoodResponse>
 
-    @GET("customer/getcountry?id=O")
+    @GET("customer/getcountry?id=0")
     suspend fun countryCode(): Response<CountryCodeResponse>
 
     @POST("customer/updateprofile")

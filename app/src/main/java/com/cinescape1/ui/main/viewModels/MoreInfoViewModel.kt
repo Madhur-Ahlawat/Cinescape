@@ -41,10 +41,10 @@ class MoreInfoViewModel @Inject constructor(private val repositories: Repositori
         try {
             val data = repositories.contctUs(
                 ContactUsRequest(
-                RequestBody.create("multipart/form-data".toMediaTypeOrNull(), email),
-                RequestBody.create("multipart/form-data".toMediaTypeOrNull(), name),
-                RequestBody.create("multipart/form-data".toMediaTypeOrNull(), mobile),
-                RequestBody.create("multipart/form-data".toMediaTypeOrNull(), username),
+                RequestBody.create("text".toMediaTypeOrNull(), email),
+                RequestBody.create("text".toMediaTypeOrNull(), name),
+                RequestBody.create("text".toMediaTypeOrNull(), mobile),
+                RequestBody.create("text".toMediaTypeOrNull(), username),
                     frontPhoto!!
                 ))
             if (data.status == Status.ERROR){
@@ -54,6 +54,7 @@ class MoreInfoViewModel @Inject constructor(private val repositories: Repositori
             }
 
         } catch (exception: Exception) {
+            exception.printStackTrace()
             emit(Result.error(exception.message ?: "Error Occurred!", data = null))
         }
     }
