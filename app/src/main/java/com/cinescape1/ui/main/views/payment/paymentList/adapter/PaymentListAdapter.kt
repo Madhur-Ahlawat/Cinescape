@@ -2,20 +2,19 @@ package com.cinescape1.ui.main.views.payment.paymentList.adapter
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.GetMovieResponse
 import com.cinescape1.databinding.ItemPaymentListBinding
 import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity
 import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResponse
-import com.cinescape1.utils.Constant.Companion.bankOfferClick
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 import com.cinescape1.utils.toast
@@ -31,6 +30,8 @@ class PaymentListAdapter(
     private var clickName = ""
     private var clickId = ""
     private var offerId = ""
+    private var knetClick = false
+    private var creditCardClick = false
 
     inner class ViewHolder(val binding: ItemPaymentListBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -50,6 +51,7 @@ class PaymentListAdapter(
             with(payMode[position]) {
                 //title
                 binding.textView156.text = this.name
+
                 //wallet
                 if (this.payType == "GATEWAY") {
                     binding.imageView63.setImageResource(R.drawable.arrow_up)
@@ -57,12 +59,12 @@ class PaymentListAdapter(
                 } else {
                     binding.cardUi.hide()
                 }
-                if (PaymentListActivity.offerApplied){
+                if (PaymentListActivity.offerApplied) {
                     binding.imageView63.isClickable = false
                     binding.imageView63.isEnabled = false
                     binding.knet.isClickable = false
                     binding.knet.isEnabled = false
-                }else{
+                } else {
                     binding.knet.isClickable = true
                     binding.knet.isEnabled = true
                     binding.imageView63.isClickable = true
@@ -70,12 +72,51 @@ class PaymentListAdapter(
                 }
 
                 //Card Click
+
+                //default image url
+//                if (this.payType == "GATEWAY") {
+//
+//                    println("imageUrl----1>${this.respPayModes.size}")
+//
+//                    Glide.with(context).load(this.respPayModes[1].imageUrl)
+//                        .into(binding.imageCreditCard)
+//                    Glide.with(context).load(this.respPayModes[0].imageUrl)
+//                        .into(binding.imageKnet)
+//                }
+
                 binding.creditCard.setOnClickListener {
-                    listner.onCreditCardItemClick(this)
+                    creditCardClick = true
+                    knetClick = false
+                    binding.imageCreditCard.setImageResource(0)
+                    binding.imageKnet.setImageResource(0)
+                    println("imageUrl---->${this.respPayModes[1].activeImageUrl}")
+                    Glide.with(context).load(this.respPayModes[1].activeImageUrl)
+                        .into(binding.imageCreditCard)
+                    Glide.with(context).load(this.respPayModes[0].imageUrl)
+                        .into(binding.imageKnet)
+
+                    binding.textKnetName.setTextColor(context.getColor(R.color.hint_color))
+                    binding.textCreditCardName.setTextColor(context.getColor(R.color.white))
+
+                    listner.onCreditCardItemClick(this, creditCardClick, knetClick)
                     notifyDataSetChanged()
                 }
+
                 binding.knet.setOnClickListener {
-                    listner.onKnitItemClick(this)
+
+                    knetClick = true
+                    creditCardClick = false
+
+
+                    Glide.with(context).load(this.respPayModes[0].activeImageUrl)
+                        .into(binding.imageKnet)
+                    Glide.with(context).load(this.respPayModes[1].imageUrl)
+                        .into(binding.imageCreditCard)
+
+                    binding.textKnetName.setTextColor(context.getColor(R.color.white))
+                    binding.textCreditCardName.setTextColor(context.getColor(R.color.hint_color))
+
+                    listner.onKnitItemClick(this, creditCardClick, knetClick)
                     notifyDataSetChanged()
                 }
 
@@ -219,11 +260,35 @@ class PaymentListAdapter(
                             if (binding.cardUi.visibility == View.GONE) {
                                 binding.imageView63.setImageResource(R.drawable.arrow_up)
                                 binding.cardUi.show()
+
                                 binding.creditCard.setOnClickListener {
-                                    listner.onCreditCardItemClick(this)
+                                    context.toast("1")
+                                    creditCardClick = true
+                                    knetClick = false
+
+                                    Glide.with(context).load(this.respPayModes[1].activeImageUrl)
+                                        .into(binding.imageCreditCard)
+                                    Glide.with(context).load(this.respPayModes[0].imageUrl)
+                                        .into(binding.imageKnet)
+
+                                    binding.textKnetName.setTextColor(context.getColor(R.color.hint_color))
+                                    binding.textCreditCardName.setTextColor(context.getColor(R.color.white))
+
+                                    listner.onCreditCardItemClick(this, creditCardClick, knetClick)
                                 }
                                 binding.knet.setOnClickListener {
-                                    listner.onKnitItemClick(this)
+                                    knetClick = true
+                                    creditCardClick = false
+
+                                    Glide.with(context).load(this.respPayModes[0].activeImageUrl)
+                                        .into(binding.imageKnet)
+                                    Glide.with(context).load(this.respPayModes[1].imageUrl)
+                                        .into(binding.imageCreditCard)
+
+                                    binding.textKnetName.setTextColor(context.getColor(R.color.white))
+                                    binding.textCreditCardName.setTextColor(context.getColor(R.color.hint_color))
+
+                                    listner.onKnitItemClick(this, creditCardClick, knetClick)
                                 }
                             } else {
                                 binding.imageView63.setImageResource(R.drawable.arrow_down)
@@ -275,8 +340,15 @@ class PaymentListAdapter(
         )
 
         fun onSimilarItemClick(view: GetMovieResponse.Output.Similar)
-        fun onCreditCardItemClick(view: PaymentListResponse.Output.PayMode)
-        fun onKnitItemClick(view: PaymentListResponse.Output.PayMode)
+
+        fun onCreditCardItemClick(
+            view: PaymentListResponse.Output.PayMode, creditCardClick: Boolean, knetClick: Boolean
+        )
+
+        fun onKnitItemClick(
+            view: PaymentListResponse.Output.PayMode, creditCardClick: Boolean, knetClick: Boolean
+        )
+
         fun onVoucherItemClick(
             view: PaymentListResponse.Output.PayMode,
             offerCode: String,

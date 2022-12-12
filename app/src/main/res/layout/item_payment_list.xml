@@ -363,15 +363,14 @@
 
                     <ImageView
                         android:id="@+id/imageKnet"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="38dp"
+                        android:layout_height="25dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="4dp"
                         android:adjustViewBounds="true"
                         app:layout_constraintEnd_toEndOf="@+id/viewKnet"
                         app:layout_constraintStart_toStartOf="@+id/viewKnet"
                         app:layout_constraintTop_toTopOf="@+id/viewKnet"
-                        app:srcCompat="@drawable/ic_icon_knet"
                         tools:ignore="ContentDescription" />
 
                     <TextView
@@ -408,16 +407,14 @@
 
                     <ImageView
                         android:id="@+id/imageCreditCard"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="38dp"
+                        android:layout_height="25dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="4dp"
                         android:adjustViewBounds="true"
-
                         app:layout_constraintEnd_toEndOf="@+id/viewCreditCard"
                         app:layout_constraintStart_toStartOf="@+id/viewCreditCard"
                         app:layout_constraintTop_toTopOf="@+id/viewCreditCard"
-                        app:srcCompat="@drawable/ic_icon_credit_card"
                         tools:ignore="ContentDescription" />
 
 
