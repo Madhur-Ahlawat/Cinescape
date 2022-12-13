@@ -171,6 +171,7 @@ class Constant {
 
         const val KNETID = "401"
         const val CREDITCARDID = "402"
+         var LANGUAGE = "language"
 
     }
 

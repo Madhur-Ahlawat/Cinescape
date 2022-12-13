@@ -709,6 +709,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         text_sysnopsis_detail.text = movie.synopsis
         text_directoe_name.text = movie.director.firstName + " " + movie.director.lastName
         println("cast---->${movie.cast}")
+
         if (movie.cast.isNotEmpty()) {
             text_cast.show()
             binding?.include?.recyclerviewShowTimesCast?.show()
@@ -994,8 +995,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 txtNumber.text = num.toString()
                 btnDecrease.invisible()
 
-                totalPrice.text =
-                    getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format((totalPriceResponse * num) / 100)
+                totalPrice.text = getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format((totalPriceResponse * num) / 100)
 
                 var imageSeatSelection1: ImageView?
                 var tvSeatSelection1: TextView?

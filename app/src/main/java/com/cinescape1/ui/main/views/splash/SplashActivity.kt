@@ -55,13 +55,16 @@ class SplashActivity : DaggerAppCompatActivity() {
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
-                println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
+                Constant.LANGUAGE = "${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}"
+                println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}--->$Constant.LANGUAGE")
             }
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(this, "en")
+                Constant.LANGUAGE = "${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}"
             }
             else -> {
                 LocaleHelper.setLocale(this, "en")
+                Constant.LANGUAGE = "${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}"
             }
         }
         setContentView(R.layout.activity_splash)

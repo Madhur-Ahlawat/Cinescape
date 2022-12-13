@@ -370,14 +370,14 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
             movieId = output.movie.id
             binding?.tvCinemaName?.text = output.cinema.name
             movieCinemaName = output.cinema.name
-            movieTimeDate =
-                "${output.daySessions[cinemaPos1].shows[showPos].showTime} | $datePosition | $dt"
+            movieTimeDate = "${output.daySessions[cinemaPos1].shows[showPos].showTime} | $datePosition | $dt"
             movieImage = output.movie.mobimgbig
 
-            movieType =
-                "${output.daySessions[cinemaPos1].shows[showPos].experience} | ${output.daySessions[cinemaPos1].shows[showPos].format} | $seatCat"
-            binding?.textType?.text =
-                "${output.daySessions[cinemaPos1].shows[showPos].experience} | ${output.daySessions[cinemaPos1].shows[showPos].format} | $seatCat"
+            movieType = "${output.daySessions[cinemaPos1].shows[showPos].experience} | ${output.daySessions[cinemaPos1].shows[showPos].format} | $seatCat"
+
+
+//            binding?.textType?.text = "${output.daySessions[cinemaPos1].shows[showPos].experience} | ${output.daySessions[cinemaPos1].shows[showPos].format} | $seatCat"
+            binding?.textType?.text = "${output.daySessions[cinemaPos1].shows[showPos].experience} | ${output.daySessions[cinemaPos1].shows[showPos].format} | $seatCat"
 
             setTitleAdapter(output.daySessions)
         } catch (e: Exception) {

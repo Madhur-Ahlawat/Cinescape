@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
@@ -21,6 +22,7 @@ import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.databinding.FragmentHomeBinding
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
+import com.cinescape1.ui.main.views.adapters.HomeChildAdapter
 import com.cinescape1.ui.main.views.home.viewModel.HomeViewModel
 import com.cinescape1.ui.main.views.home.fragments.home.adapter.HomeParentAdapter
 import com.cinescape1.utils.*
@@ -31,7 +33,8 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
 @Suppress("DEPRECATION")
-class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickListener, HomeParentAdapter.TypeFaceInter {
+class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickListener,
+    HomeParentAdapter.TypeFaceInter, HomeChildAdapter.ImageChangeIcon {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject
@@ -53,6 +56,7 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(requireActivity(), "ar")
+                Constant.LANGUAGE = "${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}"
                 val regular = ResourcesCompat.getFont(requireActivity(), R.font.gess_light)
                 val bold = ResourcesCompat.getFont(requireActivity(), R.font.gess_bold)
                 val medium = ResourcesCompat.getFont(requireActivity(), R.font.gess_medium)
@@ -66,6 +70,7 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
 
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(requireActivity(), "en")
+                Constant.LANGUAGE = "${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}"
                 val regular = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_regular)
                 val bold = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_bold)
                 val heavy = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
@@ -79,6 +84,7 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
             }
             else -> {
                 LocaleHelper.setLocale(requireActivity(), "en")
+                Constant.LANGUAGE = "${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}"
                 val regular = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_regular)
                 val bold = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_bold)
                 val heavy = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
@@ -256,5 +262,21 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
     override fun typeFace(homeTitle: TextView, txtSeeAll: TextView) {
         homeTitle1 = homeTitle
         txtSeeAll1 = txtSeeAll
+    }
+
+    override fun arabicClick(imgArabic: ImageView) {
+
+           if (preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar")  {
+                LocaleHelper.setLocale(requireActivity(), "ar")
+                imgArabic.setImageResource(R.drawable.arebic_red_icon)
+               println("ARAaaaaa-----yes")
+            }
+
+           if (preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en") {
+               LocaleHelper.setLocale(requireActivity(), "en")
+               imgArabic.setImageResource(R.drawable.now_showing_diagonal)
+               println("ARAaaaaa-----no")
+           }
+
     }
 }

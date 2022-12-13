@@ -34,7 +34,7 @@ class AdapterShowTimesCinemaTitle(
         holder.imageCinema.show()
 
         typeFaceListener.onTypeFaceCinemaTittle(holder.textTitle)
-        println("image--->${showtimeListItem.experienceIcon}")
+        println("imageTittle--->${showtimeListItem.experienceIcon}")
         try {
             Glide.with(context)
                 .load(showtimeListItem.experienceIcon)

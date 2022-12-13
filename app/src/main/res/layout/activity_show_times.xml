@@ -76,13 +76,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_minWidth="50dp"
-                    android:maxLines="2"
-                    android:ellipsize="end"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size20"
                     android:fontFamily="@font/sf_pro_text_heavy"
                     android:gravity="start"
-                    tools:text="Akash "/>
+                    tools:text="Gunda Raja "/>
 
                 <LinearLayout
                     android:id="@+id/constraintLayout18"

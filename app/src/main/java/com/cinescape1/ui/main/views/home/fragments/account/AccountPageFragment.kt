@@ -247,7 +247,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                 text_seat_type_preference.typeface = bold
                 text_age_rating_preference.typeface = bold
 
-                categoryName?.typeface = regular
+//                categoryName?.typeface = regular
 
                 // include profile layout text
                 text_profile_titles.typeface = bold
@@ -339,7 +339,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                 text_seat_type_preference.typeface = bold
                 text_age_rating_preference.typeface = bold
 
-                categoryName?.typeface = regular
+//                categoryName?.typeface = regular
 
                 // include profile layout text
                 text_profile_titles.typeface = bold
@@ -428,7 +428,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                 text_seat_type_preference.typeface = bold
                 text_age_rating_preference.typeface = bold
 
-                categoryName?.typeface = regular
+//                categoryName?.typeface = regular
 
                 // include profile layout text
                 text_profile_titles.typeface = bold
@@ -2048,17 +2048,18 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     }
 
     @SuppressLint("InflateParams")
-    val viewListForDates = ArrayList<View>()
     private fun setSeatCategoryFlexbox(layout: FlexboxLayout, seatCategory: String) {
+
         val list: ArrayList<ModelPreferenceCategory> = arrayListOf(
             ModelPreferenceCategory(R.drawable.family, "Family", 0),
             ModelPreferenceCategory(R.drawable.bachlor, "Bachelor", 0)
         )
         layout.removeAllViews()
+        val viewListForDates = ArrayList<View>()
         for (item in list) {
             val v: View = layoutInflater.inflate(R.layout.seat_category_item, null)
             val categoryImage: ImageView = v.findViewById(R.id.image_family) as ImageView
-            categoryName = v.findViewById(R.id.category_name) as TextView
+           val categoryName = v.findViewById(R.id.category_name) as TextView
 
             seatAbility = if (item.count > 0) {
                 1
@@ -2071,29 +2072,39 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             viewListForDates.add(v)
             layout.addView(v)
 
+
+            println("SeatCategory21--->${item.cateTypeText}---<${seatCategory}")
             if (item.cateTypeText == seatCategory) {
                 categoryImage.setColorFilter(resources.getColor(R.color.text_alert_color_red))
-                categoryName?.setTextColor(
-                    getColor(
-                        requireContext(), R.color.text_alert_color_red
-                    )
-                )
+                categoryName?.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_alert_color_red))
             } else {
-
                 categoryImage.setColorFilter(resources.getColor(R.color.hint_color))
-                categoryName?.setTextColor(getColor(requireContext(), R.color.hint_color))
+                categoryName?.setTextColor(ContextCompat.getColor(requireContext(), R.color.hint_color))
             }
 
             v.setOnClickListener {
+
                 for (v in viewListForDates) {
+//                    println("SeatListClick -------->${v}------>${viewListForDates}")
                     val categoryImage1: ImageView = v.findViewById(R.id.image_family) as ImageView
                     val categoryName1: TextView = v.findViewById(R.id.category_name) as TextView
                     categoryImage1.setColorFilter(getColor(requireContext(), R.color.hint_color))
-                    categoryName1.setTextColor(getColor(requireContext(), R.color.hint_color))
+                    categoryName1.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.hint_color))
+
                 }
-                this.seatCategory = categoryName?.text.toString()
+                println("SeatListClick1 -------->${v}------>${viewListForDates}")
+                this.seatCategory = item.cateTypeText
                 categoryImage.setColorFilter(resources.getColor(R.color.text_alert_color_red))
-                categoryName?.setTextColor(getColor(requireContext(), R.color.text_alert_color_red))
+                categoryName?.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.text_alert_color_red))
+
+//                if (this.seatCategory == "Bachelor"){
+//                    this.seatCategory = "Family"
+//                }else{
+//                    this.seatCategory = "Bachelor"
+//                }
+
+                println("SeatListClick1 ------------->${this.seatCategory}")
+
             }
         }
     }
@@ -2101,7 +2112,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     @SuppressLint("InflateParams", "CutPasteId")
     private fun setSeatTypeFlexbox(layout: FlexboxLayout, seatType: String) {
         val list: ArrayList<ModelPreferenceType> = arrayListOf(
-            ModelPreferenceType("STANDARD", 0), ModelPreferenceType("PREMIUM", 0)
+            ModelPreferenceType("STANDARD", 0),
+            ModelPreferenceType("PREMIUM", 0)
         )
 
         layout.removeAllViews()
@@ -2118,7 +2130,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             viewListForSeatType.add(v)
             layout.addView(v)
 
-            println("SeatType--->${type_item.seatType}---<${seatType}")
+            println("SeatType221--->${type_item.seatType}---<${seatType}")
             if (type_item.seatType == seatType) {
                 typeName.setTextColor(getColor(requireContext(), R.color.text_alert_color_red))
             } else {
@@ -2128,23 +2140,21 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             v.setOnClickListener {
                 for (v in viewListForSeatType) {
                     val typeName1: TextView = v.findViewById(R.id.tv_seat_selectiopn) as TextView
-                    typeName1.setTextColor(getColor(requireContext(), R.color.hint_color))
+                    typeName1.setTextColor(ContextCompat.getColor(requireContext(), R.color.hint_color))
                 }
                 this.seatType = type_item.seatType
-                typeName.setTextColor(getColor(requireContext(), R.color.text_alert_color_red))
+                typeName.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_alert_color_red))
 
             }
         }
     }
 
     @SuppressLint("InflateParams")
-    val viewListForSeatExperience = ArrayList<View>()
-
-    @SuppressLint("CutPasteId")
     private fun setExperienceFlexbox(
         layout: FlexboxLayout, experience: ArrayList<ProfileResponse.Output.Experience>
     ) {
         layout.removeAllViews()
+        val viewListForSeatExperience = ArrayList<View>()
         for (data in profileList!!) {
             val v: View = layoutInflater.inflate(R.layout.experience_item, null)
             val experienceName = v.findViewById(R.id.experience_name) as ImageView
@@ -2168,7 +2178,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             layout.addView(v)
             viewListForSeatExperience.add(v)
 
-            println("SeatType--->${data.name}---<${experience}")
+            println("SeatType21--->${data.name}---<${experience}")
             if (data.likes) {
                 experienceName.setColorFilter(
                     getColor(
@@ -2227,9 +2237,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
     @SuppressLint("InflateParams")
     val viewListForSeatAgeRating = ArrayList<String>()
-    private fun setAgeRatingFlexbox(
-        layout: FlexboxLayout, rating: List<ProfileResponse.Output.Rating>
-    ) {
+    private fun setAgeRatingFlexbox(layout: FlexboxLayout, rating: List<ProfileResponse.Output.Rating>) {
         val list: ArrayList<ModelPreferenceAgeRating> = arrayListOf(
             ModelPreferenceAgeRating("E", 0),
             ModelPreferenceAgeRating("PG", 0),
@@ -2251,7 +2259,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
             layout.addView(v)
             viewListForSeatAgeRating.add(v.toString())
-
             for (item in rating) {
                 if (item.likes) {
                     when (age_rating_item.name) {
@@ -2295,7 +2302,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             }
 
             v.setOnClickListener {
-
                 if (ageRating.contains(age_rating_item.name)) {
                     ageRating.remove(age_rating_item.name)
                     ageRatingName.setTextColor(getColor(requireContext(), R.color.hint_color))

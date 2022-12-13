@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
@@ -32,7 +33,7 @@ class HomeParentAdapter(
     private var mContext: Activity,
     private var homeDataList: ArrayList<HomeDataResponse.HomeOne>,
     var listener: RecycleViewItemClickListener, var listenerTypeface : TypeFaceInter) :
-    RecyclerView.Adapter<HomeParentAdapter.MyViewHolder>() {
+    RecyclerView.Adapter<HomeParentAdapter.MyViewHolder>(),HomeChildAdapter.ImageChangeIcon {
     var adapter: HomeChildAdapter? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -120,7 +121,7 @@ class HomeParentAdapter(
             "homeOnes" -> {
                 val gridLayout = GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
                 holder.homeList.layoutManager = LinearLayoutManager(mContext)
-                adapter = HomeChildAdapter(mContext, movieDataList, 1, true)
+                adapter = HomeChildAdapter(mContext, movieDataList, 1, true, this)
                 holder.homeList.layoutManager = gridLayout
                 holder.homeList.adapter = adapter
             }
@@ -185,7 +186,7 @@ class HomeParentAdapter(
                     val gridLayout =
                         GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
                     holder.homeList.layoutManager = LinearLayoutManager(mContext)
-                    adapter = HomeChildAdapter(mContext, obj.movieData, 1,true)
+                    adapter = HomeChildAdapter(mContext, obj.movieData, 1,true, this)
                     holder.homeList.layoutManager = gridLayout
                     holder.homeList.adapter = adapter
                     holder.txtSeeAll.setOnClickListener {
@@ -214,7 +215,7 @@ class HomeParentAdapter(
                     val gridLayout =
                         GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
                     holder.homeList.layoutManager = LinearLayoutManager(mContext)
-                    adapter = HomeChildAdapter(mContext, obj.movieData, 1, false)
+                    adapter = HomeChildAdapter(mContext, obj.movieData, 1, false, this)
                     holder.homeList.layoutManager = gridLayout
                     holder.homeList.adapter = adapter
                     holder.txtSeeAll.setOnClickListener {
@@ -249,6 +250,7 @@ class HomeParentAdapter(
         var consAdvance = itemView.consAdvance!!
         var sliderAdvance = itemView.sliderAdvance!!
         var myTabLayout = itemView.my_tablayout!!
+
     }
 
     interface RecycleViewItemClickListener {
@@ -257,5 +259,9 @@ class HomeParentAdapter(
 
     interface TypeFaceInter{
        fun typeFace(homeTitle : TextView, txtSeeAll : TextView)
+    }
+
+    override fun arabicClick(imgArabic: ImageView) {
+
     }
 }
