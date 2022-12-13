@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/black">
 
     <TextView
         android:id="@+id/textView156"
@@ -221,6 +222,7 @@
                     android:fontFamily="@font/sf_pro_text_regular"
                     android:importantForAutofill="no"
                     android:textColor="#7B7A7A"
+                    android:maxLength="16"
                     android:textSize="@dimen/size15"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -240,14 +242,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/giftCard">
 
-                <CheckBox
+                <ImageView
                     android:id="@+id/checkBox2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/red"
-                    android:checked="true"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
+                    android:src="@drawable/applied_check_icon"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/imageView66"
@@ -366,15 +365,14 @@
 
                     <ImageView
                         android:id="@+id/imageKnet"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="38dp"
+                        android:layout_height="25dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="4dp"
                         android:adjustViewBounds="true"
                         app:layout_constraintEnd_toEndOf="@+id/viewKnet"
                         app:layout_constraintStart_toStartOf="@+id/viewKnet"
                         app:layout_constraintTop_toTopOf="@+id/viewKnet"
-                        app:srcCompat="@drawable/ic_icon_knet"
                         tools:ignore="ContentDescription" />
 
                     <TextView
@@ -411,16 +409,14 @@
 
                     <ImageView
                         android:id="@+id/imageCreditCard"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="38dp"
+                        android:layout_height="25dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="4dp"
                         android:adjustViewBounds="true"
-
                         app:layout_constraintEnd_toEndOf="@+id/viewCreditCard"
                         app:layout_constraintStart_toStartOf="@+id/viewCreditCard"
                         app:layout_constraintTop_toTopOf="@+id/viewCreditCard"
-                        app:srcCompat="@drawable/ic_icon_credit_card"
                         tools:ignore="ContentDescription" />
 
 

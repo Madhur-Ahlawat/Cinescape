@@ -40,6 +40,7 @@ import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
 import com.cinescape1.ui.main.views.payment.PaymentWebActivity
 import com.cinescape1.ui.main.views.payment.paymentList.adapter.PaymentListAdapter
+import com.cinescape1.ui.main.views.payment.paymentList.response.GiftCardRemove
 import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResponse
 import com.cinescape1.ui.main.views.summery.response.GiftCardResponse
 import com.cinescape1.ui.main.views.summery.viewModel.SummeryViewModel
@@ -67,8 +68,10 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    companion object{
-         var  offerApplied:Boolean = false
+
+    companion object {
+        var offerApplied: Boolean = false
+        var giftApplied: Boolean = false
     }
 
     @Inject
@@ -101,7 +104,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     private var dialogShow: Long = 60
     private var timeExtendClick: Boolean = false
     private var countDownTimerPrimary: CountDownTimer? = null
-    private var adapter : PaymentListAdapter? = null
+    private var adapter: PaymentListAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
@@ -198,10 +201,10 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     private fun retrieveData(output: PaymentListResponse.Output) {
+        binding?.paymentLayout?.show()
         binding?.textTimeToLeft?.text = output.amount
-
         val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
-         adapter = PaymentListAdapter(this, output.payMode, this)
+        adapter = PaymentListAdapter(this, output.payMode, this)
         binding?.recyclerPayMode?.layoutManager = gridLayout
         binding?.recyclerPayMode?.adapter = adapter
     }
@@ -234,7 +237,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 offerId,
                 transId,
                 preferences.getString(Constant.USER_ID).toString()
-            ), check, close, apply,bankEdit, msg,knet, walletApply, offerApply,offerEditText
+            ), check, close, apply, bankEdit, msg, knet, walletApply, offerApply, offerEditText
         )
     }
 
@@ -313,7 +316,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 }
             }
         }
-
     }
 
     override fun bankItemRemove(
@@ -336,7 +338,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 offerId,
                 transId,
                 preferences.getString(Constant.USER_ID).toString()
-            ), check, close, apply,bankEdit, msg,knet, walletApply, offerApply,offerEditText
+            ), check, close, apply, bankEdit, msg, knet, walletApply, offerApply, offerEditText
         )
     }
 
@@ -360,7 +362,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 msg.hide()
-                                bankOfferClick=false
+                                bankOfferClick = false
                                 //bank
                                 apply.show()
                                 close.hide()
@@ -487,8 +489,48 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
     }
 
-    override fun onCreditCardItemClick(view: PaymentListResponse.Output.PayMode, cardNo: String) {
-        creditCardDialog(cardNo)
+    override fun onCreditCardItemClick(
+        view: PaymentListResponse.Output.PayMode,
+        cardNo: String,
+        creditCardClick1: Boolean,
+        knetClick1: Boolean
+    ) {
+        val knetClick = knetClick1
+        val creditCardClick = creditCardClick1
+        paymentOptionClick(view, knetClick, creditCardClick, cardNo)
+    }
+
+    private fun paymentOptionClick(
+        view: PaymentListResponse.Output.PayMode,
+        knetClick: Boolean,
+        creditCardClick: Boolean,
+        cardNo: String
+    ) {
+        binding?.txtProceed?.setOnClickListener {
+            if (!knetClick && !creditCardClick) {
+                val dialog = OptionDialog(this,
+                    R.mipmap.ic_launcher,
+                    R.string.app_name,
+                    getString(R.string.select_payment_methods),
+                    positiveBtnText = R.string.ok,
+                    negativeBtnText = R.string.no,
+                    positiveClick = {},
+                    negativeClick = {})
+                dialog.show()
+            } else if (creditCardClick) {
+                creditCardDialog(cardNo)
+            } else if (knetClick) {
+                paymentHmac(
+                    HmacKnetRequest(
+                        bookingId,
+                        bookType,
+                        transId,
+                        preferences.getString(Constant.USER_ID).toString()
+                    )
+                )
+            }
+        }
+
     }
 
     private fun creditCardDialog(cardNo: String) {
@@ -519,14 +561,14 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         proceedAlertDialog.show()
         proceedAlertDialog?.kd_to_pay?.text = " $totalPrice"
         proceedAlertDialog?.cardNumberTextInputEditText?.setText(cardNo)
-        if (cardNo==""){
-            proceedAlertDialog?.cardNumberTextInputEditText?.isClickable= true
-            proceedAlertDialog?.cardNumberTextInputEditText?.isEnabled= true
-            proceedAlertDialog?.cardNumberTextInputEditText?.isFocusable= true
-        }else{
-            proceedAlertDialog?.cardNumberTextInputEditText?.isClickable= false
-            proceedAlertDialog?.cardNumberTextInputEditText?.isEnabled= false
-            proceedAlertDialog?.cardNumberTextInputEditText?.isFocusable= false
+        if (cardNo == "") {
+            proceedAlertDialog?.cardNumberTextInputEditText?.isClickable = true
+            proceedAlertDialog?.cardNumberTextInputEditText?.isEnabled = true
+            proceedAlertDialog?.cardNumberTextInputEditText?.isFocusable = true
+        } else {
+            proceedAlertDialog?.cardNumberTextInputEditText?.isClickable = false
+            proceedAlertDialog?.cardNumberTextInputEditText?.isEnabled = false
+            proceedAlertDialog?.cardNumberTextInputEditText?.isFocusable = false
 
         }
         proceedAlertDialog.cardNumberTextInputEditText.addTextChangedListener(object : TextWatcher {
@@ -882,160 +924,158 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
     private fun postCardData(request: PostCardRequest) {
         summeryViewModel.postCardData(request).observe(this) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            resource.data?.let { it ->
-                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    try {
-                                        if (it.data.output.redirect == "0") {
-                                            cardinal.cca_continue(
-                                                it.data.output.authTransId,
-                                                it.data.output.pares,
-                                                this
-                                            ) { context, validateResponse, s ->
-                                                println("consumerSessionId12-->" + validateResponse.actionCode + "----" + validateResponse.errorDescription)
-                                                if (validateResponse.actionCode == CardinalActionCode.CANCEL) {
-                                                    toast("Transaction Cancelled!")
-                                                } else if (validateResponse.actionCode == CardinalActionCode.ERROR) {
-                                                    toast(validateResponse.errorDescription)
-                                                } else if (validateResponse.actionCode == CardinalActionCode.SUCCESS) {
-                                                    if (s != null) {
-                                                        runOnUiThread {
-                                                            validateJWT(
-                                                                ValidateJWTRequest(
-                                                                    bookingId,
-                                                                    request.cardNumber,
-                                                                    request.cvNumber,
-                                                                    request.expirationMonth,
-                                                                    request.expirationYear,
-                                                                    s,
-                                                                    mSessionid,
-                                                                    ""
-                                                                )
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                try {
+                                    if (it.data.output.redirect == "0") {
+                                        cardinal.cca_continue(
+                                            it.data.output.authTransId, it.data.output.pares, this
+                                        ) { context, validateResponse, s ->
+                                            println("consumerSessionId12-->" + validateResponse.actionCode + "----" + validateResponse.errorDescription)
+                                            if (validateResponse.actionCode == CardinalActionCode.CANCEL) {
+                                                toast("Transaction Cancelled!")
+                                            } else if (validateResponse.actionCode == CardinalActionCode.ERROR) {
+                                                toast(validateResponse.errorDescription)
+                                            } else if (validateResponse.actionCode == CardinalActionCode.SUCCESS) {
+                                                if (s != null) {
+                                                    runOnUiThread {
+                                                        validateJWT(
+                                                            ValidateJWTRequest(
+                                                                bookingId,
+                                                                request.cardNumber,
+                                                                request.cvNumber,
+                                                                request.expirationMonth,
+                                                                request.expirationYear,
+                                                                s,
+                                                                mSessionid,
+                                                                ""
                                                             )
-                                                        }
-                                                    } else {
-                                                        toast("Transaction Failed!")
+                                                        )
                                                     }
                                                 } else {
-                                                    toast(validateResponse.errorDescription)
+                                                    toast("Transaction Failed!")
                                                 }
+                                            } else {
+                                                toast(validateResponse.errorDescription)
                                             }
-                                        } else {
-                                            loader?.dismiss()
-                                            val dialog = OptionDialog(this,
-                                                R.mipmap.ic_launcher,
-                                                R.string.app_name,
-                                                it.data.output.errorDescription,
-                                                positiveBtnText = R.string.ok,
-                                                negativeBtnText = R.string.no,
-                                                positiveClick = {},
-                                                negativeClick = {})
-                                            dialog.show()
                                         }
-                                    } catch (e: Exception) {
-                                        println("updateUiCinemaSession ---> ${e.message}")
+                                    } else {
+                                        loader?.dismiss()
+                                        val dialog = OptionDialog(this,
+                                            R.mipmap.ic_launcher,
+                                            R.string.app_name,
+                                            it.data.output.errorDescription,
+                                            positiveBtnText = R.string.ok,
+                                            negativeBtnText = R.string.no,
+                                            positiveClick = {},
+                                            negativeClick = {})
+                                        dialog.show()
                                     }
-
-                                } else {
-                                    loader?.dismiss()
-                                    val dialog = OptionDialog(this,
-                                        R.mipmap.ic_launcher,
-                                        R.string.app_name,
-                                        it.data?.msg.toString(),
-                                        positiveBtnText = R.string.ok,
-                                        negativeBtnText = R.string.no,
-                                        positiveClick = {},
-                                        negativeClick = {})
-                                    dialog.show()
+                                } catch (e: Exception) {
+                                    println("updateUiCinemaSession ---> ${e.message}")
                                 }
 
+                            } else {
+                                loader?.dismiss()
+                                val dialog = OptionDialog(this,
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
                             }
+
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(this,
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
-                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(this,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                        loader = LoaderDialog(R.string.pleasewait)
+                        loader?.show(supportFragmentManager, null)
                     }
                 }
             }
+        }
     }
 
     private fun validateJWT(s: ValidateJWTRequest) {
         summeryViewModel.validateJWT(s).observe(this) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    try {
-                                        if (from == "recharge") {
-                                            Constant.IntentKey.OPEN_FROM = 1
-                                            finish()
-                                        } else {
-                                            val intent = Intent(
-                                                applicationContext, FinalTicketActivity::class.java
-                                            )
-                                            intent.putExtra(
-                                                Constant.IntentKey.TRANSACTION_ID, transId
-                                            )
-                                            intent.putExtra(
-                                                Constant.IntentKey.BOOKING_ID, bookingId
-                                            )
-                                            startActivity(intent)
-                                        }
-                                    } catch (e: Exception) {
-                                        println("updateUiCinemaSession ---> ${e.message}")
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                try {
+                                    if (from == "recharge") {
+                                        Constant.IntentKey.OPEN_FROM = 1
+                                        finish()
+                                    } else {
+                                        val intent = Intent(
+                                            applicationContext, FinalTicketActivity::class.java
+                                        )
+                                        intent.putExtra(
+                                            Constant.IntentKey.TRANSACTION_ID, transId
+                                        )
+                                        intent.putExtra(
+                                            Constant.IntentKey.BOOKING_ID, bookingId
+                                        )
+                                        startActivity(intent)
                                     }
-
-                                } else {
-                                    loader?.dismiss()
-                                    val dialog = OptionDialog(this,
-                                        R.mipmap.ic_launcher,
-                                        R.string.app_name,
-                                        it.data?.msg.toString(),
-                                        positiveBtnText = R.string.ok,
-                                        negativeBtnText = R.string.no,
-                                        positiveClick = {},
-                                        negativeClick = {})
-                                    dialog.show()
+                                } catch (e: Exception) {
+                                    println("updateUiCinemaSession ---> ${e.message}")
                                 }
 
+                            } else {
+                                loader?.dismiss()
+                                val dialog = OptionDialog(this,
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
                             }
+
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(this,
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
-                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(this,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                        loader = LoaderDialog(R.string.pleasewait)
+                        loader?.show(supportFragmentManager, null)
                     }
                 }
             }
+        }
     }
 
     private fun creditCardInit(request: HmacKnetRequest) {
@@ -1140,7 +1180,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         /*
          * profilingHandle can also be used to cancel this profile if needed *
          * profilingHandle.cancel();
-         * */mSessionid = sessions1
+         * */
+        mSessionid = sessions1
     }
 
     private class CompletionNotifier : TMXEndNotifier {
@@ -1150,7 +1191,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             Log.d("ProfilingResults-", "SessionID:" + result.sessionID + "Status:" + result.status)
         }
     }
-
 
     private fun validateFields(proceedAlertDialog: AlertDialog): Boolean {
         return if (proceedAlertDialog.cardNumberTextInputEditText.text.toString()
@@ -1214,24 +1254,27 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         }
     }
 
+    override fun onKnitItemClick(
+        view: PaymentListResponse.Output.PayMode, creditCardClick1: Boolean, knetClick1: Boolean
+    ) {
 
-    override fun onKnitItemClick(view: PaymentListResponse.Output.PayMode) {
-        paymentHmac(
-            HmacKnetRequest(
-                bookingId, bookType, transId, preferences.getString(Constant.USER_ID).toString()
-            )
-        )
+        val knetClick = knetClick1
+        val creditCardClick = creditCardClick1
+        paymentOptionClick(view, knetClick, creditCardClick, "")
+
 
     }
 
-    override fun onVoucherItemClick(
+    override fun onVoucherApply(
         view: PaymentListResponse.Output.PayMode,
         offerCode: String,
         clickName: String,
-        clickId: String
+        clickId: String,
+        offerEditText: EditText,
+        textView157: TextView,
+        checkBox2: ImageView,
+        imageView66: ImageView
     ) {
-
-        println("offerCode---->${offerCode}---clickName$--->${clickName}---clickId---->${clickId}")
         if (clickName == "Gift Card") {
             giftCardApply(
                 GiftCardRequest(
@@ -1240,7 +1283,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     offerCode,
                     transId,
                     preferences.getString(Constant.USER_ID).toString()
-                )
+                ), offerEditText, textView157, checkBox2, imageView66
             )
         } else if (clickName == "Voucher") {
             voucherApply(
@@ -1250,7 +1293,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     offerCode,
                     transId,
                     preferences.getString(Constant.USER_ID).toString()
-                )
+                ), offerEditText, textView157, checkBox2, imageView66
             )
         }
     }
@@ -1259,9 +1302,12 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         view: PaymentListResponse.Output.PayMode,
         offerCode: String,
         clickName: String,
-        clickId: String
+        clickId: String,
+        offerEditText: EditText,
+        textView157: TextView,
+        checkBox2: ImageView,
+        imageView66: ImageView
     ) {
-
         if (clickName == "Gift Card") {
             giftCardRemove(
                 GiftCardRequest(
@@ -1270,186 +1316,235 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     offerCode,
                     transId,
                     preferences.getString(Constant.USER_ID).toString()
-                )
+                ), offerEditText, textView157, checkBox2, imageView66
             )
         } else if (clickName == "Voucher") {
 
         }
     }
 
-    private fun voucherApply(request: GiftCardRequest) {
+    private fun voucherApply(
+        request: GiftCardRequest,
+        offerEditText: EditText,
+        textView157: TextView,
+        checkBox2: ImageView,
+        imageView66: ImageView
+    ) {
         summeryViewModel.voucherApply(request).observe(this) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    try {
-                                        Constant.IntentKey.TimerExtandCheck = true
-                                        Constant.IntentKey.TimerExtand = 90
-                                        Constant.IntentKey.TimerTime = 360
-                                        val intent = Intent(
-                                            applicationContext, FinalTicketActivity::class.java
-                                        )
-                                        intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
-                                        intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
-                                        startActivity(intent)
-                                    } catch (e: Exception) {
-                                        println("updateUiCinemaSession ---> ${e.message}")
-                                    }
-
-                                } else {
-                                    loader?.dismiss()
-                                    val dialog = OptionDialog(this,
-                                        R.mipmap.ic_launcher,
-                                        R.string.app_name,
-                                        it.data?.msg.toString(),
-                                        positiveBtnText = R.string.ok,
-                                        negativeBtnText = R.string.no,
-                                        positiveClick = {},
-                                        negativeClick = {})
-                                    dialog.show()
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                try {
+                                    Constant.IntentKey.TimerExtandCheck = true
+                                    Constant.IntentKey.TimerExtand = 90
+                                    Constant.IntentKey.TimerTime = 360
+                                    val intent = Intent(
+                                        applicationContext, FinalTicketActivity::class.java
+                                    )
+                                    intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
+                                    intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
+                                    startActivity(intent)
+                                } catch (e: Exception) {
+                                    println("updateUiCinemaSession ---> ${e.message}")
                                 }
 
+                            } else {
+                                loader?.dismiss()
+                                val dialog = OptionDialog(this,
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
                             }
+
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(this,
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
-                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(this,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                        loader = LoaderDialog(R.string.pleasewait)
+                        loader?.show(supportFragmentManager, null)
                     }
                 }
             }
+        }
 
     }
 
-    private fun giftCardRemove(request: GiftCardRequest) {
+    private fun giftCardRemove(
+        request: GiftCardRequest,
+        offerEditText: EditText,
+        apply: TextView,
+        imageCheck: ImageView,
+        remove: ImageView
+    ) {
         summeryViewModel.giftCardRemove(request).observe(this) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    try {
-
-
-
-                                    } catch (e: Exception) {
-                                        println("updateUiCinemaSession ---> ${e.message}")
-                                    }
-
-                                } else {
-                                    loader?.dismiss()
-                                    val dialog = OptionDialog(this,
-                                        R.mipmap.ic_launcher,
-                                        R.string.app_name,
-                                        it.data?.msg.toString(),
-                                        positiveBtnText = R.string.ok,
-                                        negativeBtnText = R.string.no,
-                                        positiveClick = {},
-                                        negativeClick = {})
-                                    dialog.show()
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                try {
+                                    retriveRemoveGiftCard(it.data.output, offerEditText, apply, imageCheck, remove)
+                                } catch (e: Exception) {
+                                    println("updateUiCinemaSession ---> ${e.message}")
                                 }
 
+                            } else {
+                                loader?.dismiss()
+                                val dialog = OptionDialog(this,
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
                             }
+
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(this,
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
-                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(this,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                        loader = LoaderDialog(R.string.pleasewait)
+                        loader?.show(supportFragmentManager, null)
                     }
                 }
             }
+        }
+    }
+
+    private fun retriveRemoveGiftCard(
+        output: GiftCardRemove.Output,
+        offerEditText: EditText,
+        apply: TextView,
+        imageCheck: ImageView,
+        remove: ImageView
+    ) {
+        binding?.textTimeToLeft?.text = output.amount
+        apply.show()
+        imageCheck.hide()
+        remove.hide()
+
+        giftApplied= false
+        adapter?.notifyDataSetChanged()
+
+        offerEditText.text.clear()
+        offerEditText.isClickable = true
+        offerEditText.isEnabled = true
+        offerEditText.isFocusable = true
+        bankEdit.isFocusableInTouchMode = true
 
     }
 
-    private fun giftCardApply(request: GiftCardRequest) {
+    private fun giftCardApply(
+        request: GiftCardRequest,
+        offerEditText: EditText,
+        apply: TextView,
+        imageCheck: ImageView,
+        remove: ImageView
+    ) {
         summeryViewModel.giftCardApply(request).observe(this) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    try {
-                                        retrieveDataGiftCard(it.data.output)
-                                    } catch (e: Exception) {
-                                        println("updateUiCinemaSession ---> ${e.message}")
-                                    }
-
-                                } else {
-                                    loader?.dismiss()
-                                    val dialog = OptionDialog(this,
-                                        R.mipmap.ic_launcher,
-                                        R.string.app_name,
-                                        it.data?.msg.toString(),
-                                        positiveBtnText = R.string.ok,
-                                        negativeBtnText = R.string.no,
-                                        positiveClick = {},
-                                        negativeClick = {})
-                                    dialog.show()
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                try {
+                                    retrieveDataGiftCard(
+                                        it.data.output, offerEditText, apply, imageCheck, remove
+                                    )
+                                } catch (e: Exception) {
+                                    println("updateUiCinemaSession ---> ${e.message}")
                                 }
 
+                            } else {
+                                loader?.dismiss()
+                                val dialog = OptionDialog(this,
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
                             }
+
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(this,
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
-                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(this,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                        loader = LoaderDialog(R.string.pleasewait)
+                        loader?.show(supportFragmentManager, null)
                     }
                 }
             }
+        }
 
     }
 
-    private fun retrieveDataGiftCard(output: GiftCardResponse.Output) {
-//        binding?.enterCode?.text?.clear()
+    private fun retrieveDataGiftCard(
+        output: GiftCardResponse.Output,
+        offerEditText: EditText,
+        apply: TextView,
+        imageCheck: ImageView,
+        remove: ImageView
+    ) {
         if (output.PAID == "NO") {
-//            tckSummary(
-//                TicketSummaryRequest(
-//                    transId,
-//                    bookingId,
-//                    preferences.getString(Constant.USER_ID).toString()
-//                )
-//            )
+            binding?.textTimeToLeft?.text = output.amount
+            giftApplied=true
+            offerEditText.isClickable = false
+            offerEditText.isEnabled = false
+            offerEditText.isFocusable = false
+            bankEdit.isFocusableInTouchMode = false
+            adapter?.notifyDataSetChanged()
+
+            apply.hide()
+            imageCheck.show()
+            remove.show()
         } else {
             Constant.IntentKey.TimerExtandCheck = true
             Constant.IntentKey.TimerExtand = 90
@@ -1666,50 +1761,50 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
     private fun cancelTrans(cancelTransRequest: CancelTransRequest) {
         summeryViewModel.cancelTrans(cancelTransRequest).observe(this) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    try {
-                                        println("cancelTrans ---> ${it.data.output}")
-                                    } catch (e: Exception) {
-                                        println("updateUiCinemaSession ---> ${e.message}")
-                                    }
-
-                                } else {
-                                    loader?.dismiss()
-                                    val dialog = OptionDialog(this,
-                                        R.mipmap.ic_launcher,
-                                        R.string.app_name,
-                                        it.data?.msg.toString(),
-                                        positiveBtnText = R.string.ok,
-                                        negativeBtnText = R.string.no,
-                                        positiveClick = {},
-                                        negativeClick = {})
-                                    dialog.show()
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                try {
+                                    println("cancelTrans ---> ${it.data.output}")
+                                } catch (e: Exception) {
+                                    println("updateUiCinemaSession ---> ${e.message}")
                                 }
 
+                            } else {
+                                loader?.dismiss()
+                                val dialog = OptionDialog(this,
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
                             }
+
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(this,
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
-                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(this,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
                     }
                 }
             }
+        }
     }
 
 }

@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject
 
 class MoreInfoViewModel @Inject constructor(private val repositories: Repositories) : ViewModel() {
@@ -35,17 +36,17 @@ class MoreInfoViewModel @Inject constructor(private val repositories: Repositori
         name: String,
         mobile: String,
         username: String,
-        frontPhoto: MultipartBody.Part?
+        frontPhoto: MultipartBody.Part
     ) = liveData(Dispatchers.IO) {
         emit(Result.loading(data = null))
         try {
             val data = repositories.contctUs(
                 ContactUsRequest(
-                RequestBody.create("multipart/form-data".toMediaTypeOrNull(), email),
-                RequestBody.create("multipart/form-data".toMediaTypeOrNull(), name),
-                RequestBody.create("multipart/form-data".toMediaTypeOrNull(), mobile),
-                RequestBody.create("multipart/form-data".toMediaTypeOrNull(), username),
-                    frontPhoto!!
+                    email.toRequestBody("text".toMediaTypeOrNull()),
+                    name.toRequestBody("text".toMediaTypeOrNull()),
+                    mobile.toRequestBody("text".toMediaTypeOrNull()),
+                    username.toRequestBody("text".toMediaTypeOrNull()),
+                    frontPhoto
                 ))
             if (data.status == Status.ERROR){
                 emit(Result.error(data.message.toString(),data))
@@ -54,6 +55,7 @@ class MoreInfoViewModel @Inject constructor(private val repositories: Repositori
             }
 
         } catch (exception: Exception) {
+            exception.printStackTrace()
             emit(Result.error(exception.message ?: "Error Occurred!", data = null))
         }
     }

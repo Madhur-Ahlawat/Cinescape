@@ -8,20 +8,23 @@
     <androidx.cardview.widget.CardView
         android:layout_width="42dp"
         android:layout_height="28dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="@dimen/margin5"
+        app:cardBackgroundColor="@color/black"
+        app:cardCornerRadius="@dimen/margin5"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="@dimen/margin5"
-        app:cardBackgroundColor="@color/black"
-        app:cardCornerRadius="@dimen/margin3">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/seatNumber"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:includeFontPadding="false"
+            android:paddingEnd="@dimen/margin8"
+            android:paddingStart="@dimen/margin8"
             android:fontFamily="@font/sf_pro_text_regular"
             android:textAlignment="center"
             android:textColor="@color/white"

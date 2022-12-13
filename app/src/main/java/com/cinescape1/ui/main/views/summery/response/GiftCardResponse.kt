@@ -7,6 +7,7 @@ data class GiftCardResponse(
     val result: String
 ):java.io.Serializable{
     data class Output(
+        val amount: String,
         val PAID: String
     )
 }

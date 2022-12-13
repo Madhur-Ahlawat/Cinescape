@@ -142,6 +142,7 @@
                 android:text="@string/languange"
                 android:textColor="@color/white"
                 android:textSize="@dimen/size15"
+                app:layout_constraintEnd_toStartOf="@+id/textView122"
                 app:layout_constraintStart_toStartOf="@+id/view21"
                 app:layout_constraintTop_toTopOf="@+id/view21" />
 
@@ -152,6 +153,7 @@
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/size15"
+                app:layout_constraintEnd_toStartOf="@+id/textView123"
                 app:layout_constraintStart_toStartOf="@+id/view21"
                 app:layout_constraintTop_toBottomOf="@+id/textView8"
                 tools:text="English" />

@@ -75,7 +75,8 @@ class UpcomingBookingAdapter(
 
         }
 
-        if (foodSelctedItem.addFood) {
+        if (foodSelctedItem.addFood==true) {
+            holder.btClick.show()
             holder.btClick.text = mContext.resources.getString(R.string.addFoodMsg)
             holder.btClick.setOnClickListener {
                 val intent = Intent(mContext, FoodActivity::class.java)
@@ -85,10 +86,8 @@ class UpcomingBookingAdapter(
                 mContext.startActivity(intent)
             }
 
-        }else{
-            holder.btClick.hide()
-        }
-        if (foodSelctedItem.foodPickup) {
+        }else if (foodSelctedItem.foodPickup==true) {
+            holder.btClick.show()
             holder.btClick.text = mContext.resources.getString(R.string.food_pickup_info)
             holder.btClick.setOnClickListener {
                 val mDialogView =

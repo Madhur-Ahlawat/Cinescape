@@ -799,6 +799,12 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
         adapterFilterCategory?.notifyDataSetChanged()
         adapterFilterTitle?.notifyDataSetChanged()
         binding?.recyclerviewCategory?.hide()
+         exp_data = "ALL"
+         cinema_data = "ALL"
+         timing_data = "ALL"
+         rating_data = "ALL"
+         genre_data = "ALL"
+         language_data = "ALL"
 
         if (isAdded) {
             val smoothScroller: SmoothScroller =

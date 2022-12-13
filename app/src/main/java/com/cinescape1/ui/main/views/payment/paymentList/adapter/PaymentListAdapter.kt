@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.GetMovieResponse
 import com.cinescape1.databinding.ItemPaymentListBinding
@@ -18,7 +19,6 @@ import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity
 import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResponse
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
-import com.cinescape1.utils.toast
 import kotlinx.android.synthetic.main.account_preference_layout.*
 import java.util.regex.Pattern
 
@@ -33,6 +33,9 @@ class PaymentListAdapter(
     private var clickId = ""
     private var offerId = ""
     private var cardNo = ""
+
+    private var knetClick = false
+    private var creditCardClick = false
 
     inner class ViewHolder(val binding: ItemPaymentListBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -59,25 +62,106 @@ class PaymentListAdapter(
                 } else {
                     binding.cardUi.hide()
                 }
-                if (PaymentListActivity.offerApplied){
+
+                if (PaymentListActivity.giftApplied){
                     binding.imageView63.isClickable = false
                     binding.imageView63.isEnabled = false
                     binding.knet.isClickable = false
                     binding.knet.isEnabled = false
+                    //offer Click
+                    binding.textView157.isClickable = false
+                    binding.textView157.isEnabled = false
+                    //wallet
+                    binding.textView159.isClickable = false
+                    binding.textView159.isEnabled = false
+                    //gift Cart
+                    binding.offerEditText.isClickable = false
+                    binding.offerEditText.isEnabled = false
+                    binding.offerEditText.isFocusable = false
                 }else{
                     binding.knet.isClickable = true
                     binding.knet.isEnabled = true
                     binding.imageView63.isClickable = true
                     binding.imageView63.isEnabled = true
+                    //offer Click
+                    binding.textView157.isClickable = true
+                    binding.textView157.isEnabled = true
+                    //wallet
+                    binding.textView159.isClickable = true
+                    binding.textView159.isEnabled = true
+                    //gift Cart
+                    binding.offerEditText.isClickable = true
+                    binding.offerEditText.isEnabled = true
+                    binding.offerEditText.isFocusable = true
                 }
+
+                if (PaymentListActivity.offerApplied) {
+                    binding.imageView63.isClickable = false
+                    binding.imageView63.isEnabled = false
+                    binding.knet.isClickable = false
+                    binding.knet.isEnabled = false
+                    //offer Click
+                    binding.textView157.isClickable = false
+                    binding.textView157.isEnabled = false
+                    //wallet
+                    binding.textView159.isClickable = false
+                    binding.textView159.isEnabled = false
+                    //gift Cart
+                    binding.offerEditText.isClickable = false
+                    binding.offerEditText.isEnabled = false
+                    binding.offerEditText.isFocusable = false
+                } else {
+                    binding.knet.isClickable = true
+                    binding.knet.isEnabled = true
+                    binding.imageView63.isClickable = true
+                    binding.imageView63.isEnabled = true
+                    //offer Click
+                    binding.textView157.isClickable = true
+                    binding.textView157.isEnabled = true
+                    //wallet
+                    binding.textView159.isClickable = true
+                    binding.textView159.isEnabled = true
+                    //gift Cart
+                    binding.offerEditText.isClickable = true
+                    binding.offerEditText.isEnabled = true
+                    binding.offerEditText.isFocusable = true
+                }
+
+                if (this.payType == "GATEWAY") {
+                    println("imageUrl----1>${this.respPayModes.size}")
+                    Glide.with(context).load(this.respPayModes[1].imageUrl)
+                        .into(binding.imageCreditCard)
+                    Glide.with(context).load(this.respPayModes[0].imageUrl).into(binding.imageKnet)
+                }
+
 
                 //Card Click
                 binding.creditCard.setOnClickListener {
-                    listner.onCreditCardItemClick(this, cardNo)
+                    creditCardClick = true
+                    knetClick = false
+                    binding.imageCreditCard.setImageResource(0)
+                    binding.imageKnet.setImageResource(0)
+                    Glide.with(context).load(this.respPayModes[1].activeImageUrl)
+                        .into(binding.imageCreditCard)
+                    Glide.with(context).load(this.respPayModes[0].imageUrl).into(binding.imageKnet)
+
+                    binding.textKnetName.setTextColor(context.getColor(R.color.hint_color))
+                    binding.textCreditCardName.setTextColor(context.getColor(R.color.white))
+                    listner.onCreditCardItemClick(this, cardNo, creditCardClick, knetClick)
                     notifyDataSetChanged()
                 }
+
                 binding.knet.setOnClickListener {
-                    listner.onKnitItemClick(this)
+                    knetClick = true
+                    creditCardClick = false
+                    Glide.with(context).load(this.respPayModes[0].activeImageUrl)
+                        .into(binding.imageKnet)
+                    Glide.with(context).load(this.respPayModes[1].imageUrl)
+                        .into(binding.imageCreditCard)
+
+                    binding.textKnetName.setTextColor(context.getColor(R.color.white))
+                    binding.textCreditCardName.setTextColor(context.getColor(R.color.hint_color))
+                    listner.onKnitItemClick(this, creditCardClick, knetClick)
                     notifyDataSetChanged()
                 }
 
@@ -114,17 +198,17 @@ class PaymentListAdapter(
 
                                 binding.bankApply.setOnClickListener {
                                     cardNo = binding.bankEdit.text.toString().replace(" ", "")
-                                    if (cardNo==""){
+                                    if (cardNo == "") {
                                         val dialog = OptionDialog(context,
                                             R.mipmap.ic_launcher,
                                             R.string.app_name,
-                                            "Bank offer can not we empty",
+                                            "Bank offer can not be empty",
                                             positiveBtnText = R.string.ok,
                                             negativeBtnText = R.string.no,
                                             positiveClick = {},
                                             negativeClick = {})
                                         dialog.show()
-                                    }else  if(cardNo.length!=16){
+                                    } else if (cardNo.length != 16) {
                                         val dialog = OptionDialog(context,
                                             R.mipmap.ic_launcher,
                                             R.string.app_name,
@@ -134,7 +218,7 @@ class PaymentListAdapter(
                                             positiveClick = {},
                                             negativeClick = {})
                                         dialog.show()
-                                    }else{
+                                    } else {
                                         listner.bankItemApply(
                                             offerId,
                                             cardNo,
@@ -163,10 +247,7 @@ class PaymentListAdapter(
                                         Pattern.compile("^(\\d{4}$space{1}){0,3}\\d{1,4}$") // check whether we need to modify or not
 
                                     override fun onTextChanged(
-                                        s: CharSequence,
-                                        st: Int,
-                                        be: Int,
-                                        count: Int
+                                        s: CharSequence, st: Int, be: Int, count: Int
                                     ) {
                                         val currentText: String = binding.bankEdit.text.toString()
                                         if (currentText.isEmpty() || pattern.matcher(currentText)
@@ -179,8 +260,7 @@ class PaymentListAdapter(
                                         var i = 0
                                         while (i < numbersOnly.length) {
                                             formatted += if (i + 4 < numbersOnly.length) numbersOnly.substring(
-                                                i,
-                                                i + 4
+                                                i, i + 4
                                             ) + space else numbersOnly.substring(i)
                                             i += 4
                                         }
@@ -191,10 +271,7 @@ class PaymentListAdapter(
                                     }
 
                                     override fun beforeTextChanged(
-                                        s: CharSequence,
-                                        start: Int,
-                                        count: Int,
-                                        after: Int
+                                        s: CharSequence, start: Int, count: Int, after: Int
                                     ) {
                                     }
 
@@ -244,15 +321,22 @@ class PaymentListAdapter(
                                         val dialog = OptionDialog(context,
                                             R.mipmap.ic_launcher,
                                             R.string.app_name,
-                                            "$clickName can not we empty",
+                                            "$clickName can not be empty",
                                             positiveBtnText = R.string.ok,
                                             negativeBtnText = R.string.no,
                                             positiveClick = {},
                                             negativeClick = {})
                                         dialog.show()
                                     } else {
-                                        listner.onVoucherItemClick(
-                                            this, offerCode, clickName, clickId
+                                        listner.onVoucherApply(
+                                            this,
+                                            offerCode,
+                                            clickName,
+                                            clickId,
+                                            binding.offerEditText,
+                                            binding.textView157,
+                                            binding.checkBox2,
+                                            binding.imageView66
                                         )
                                     }
                                 }
@@ -260,7 +344,14 @@ class PaymentListAdapter(
                                 binding.imageView66.setOnClickListener {
                                     val offerCode = binding.offerEditText.text.toString()
                                     listner.onGiftCardItemRemove(
-                                        this, offerCode, clickName, clickId
+                                        this,
+                                        offerCode,
+                                        clickName,
+                                        clickId,
+                                        binding.offerEditText,
+                                        binding.textView157,
+                                        binding.checkBox2,
+                                        binding.imageView66
                                     )
 
                                 }
@@ -292,17 +383,37 @@ class PaymentListAdapter(
                                 binding.imageView63.setImageResource(R.drawable.arrow_up)
                                 binding.cardUi.show()
                                 binding.creditCard.setOnClickListener {
-                                    listner.onCreditCardItemClick(this,cardNo)
+                                    creditCardClick = true
+                                    knetClick = false
+                                    Glide.with(context).load(this.respPayModes[1].activeImageUrl)
+                                        .into(binding.imageCreditCard)
+                                    Glide.with(context).load(this.respPayModes[0].imageUrl)
+                                        .into(binding.imageKnet)
+
+                                    binding.textKnetName.setTextColor(context.getColor(R.color.hint_color))
+                                    binding.textCreditCardName.setTextColor(context.getColor(R.color.white))
+                                    listner.onCreditCardItemClick(
+                                        this, cardNo, creditCardClick, knetClick
+                                    )
                                 }
                                 binding.knet.setOnClickListener {
-                                    listner.onKnitItemClick(this)
+                                    knetClick = true
+                                    creditCardClick = false
+                                    Glide.with(context).load(this.respPayModes[0].activeImageUrl)
+                                        .into(binding.imageKnet)
+                                    Glide.with(context).load(this.respPayModes[1].imageUrl)
+                                        .into(binding.imageCreditCard)
+
+                                    binding.textKnetName.setTextColor(context.getColor(R.color.white))
+                                    binding.textCreditCardName.setTextColor(context.getColor(R.color.hint_color))
+
+                                    listner.onKnitItemClick(this, creditCardClick, knetClick)
                                 }
                             } else {
                                 binding.imageView63.setImageResource(R.drawable.arrow_down)
                                 binding.cardUi.hide()
 
                             }
-
                         }
                     }
                     notifyDataSetChanged()
@@ -347,20 +458,37 @@ class PaymentListAdapter(
         )
 
         fun onSimilarItemClick(view: GetMovieResponse.Output.Similar)
-        fun onCreditCardItemClick(view: PaymentListResponse.Output.PayMode, cardNo: String)
-        fun onKnitItemClick(view: PaymentListResponse.Output.PayMode)
-        fun onVoucherItemClick(
+        fun onCreditCardItemClick(
+            view: PaymentListResponse.Output.PayMode,
+            cardNo: String,
+            creditCardClick: Boolean,
+            knetClick: Boolean
+        )
+
+        fun onKnitItemClick(
+            view: PaymentListResponse.Output.PayMode, creditCardClick: Boolean, knetClick: Boolean
+        )
+
+        fun onVoucherApply(
             view: PaymentListResponse.Output.PayMode,
             offerCode: String,
             clickName: String,
-            clickId: String
+            clickId: String,
+            offerEditText: EditText,
+            textView157: TextView,
+            checkBox2: ImageView,
+            imageView66: ImageView
         )
 
         fun onGiftCardItemRemove(
             view: PaymentListResponse.Output.PayMode,
             offerCode: String,
             clickName: String,
-            clickId: String
+            clickId: String,
+            offerEditText: EditText,
+            textView157: TextView,
+            checkBox2: ImageView,
+            imageView66: ImageView
         )
     }
 

@@ -38,18 +38,18 @@ import com.cinescape1.data.models.responseModel.FoodResponse
 import com.cinescape1.data.models.responseModel.NextBookingResponse
 import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.databinding.ActivityHomeBinding
-import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
-import com.cinescape1.ui.main.views.home.viewModel.HomeViewModel
-import com.cinescape1.ui.main.views.food.FoodActivity
-import com.cinescape1.ui.main.views.login.LoginActivity
-import com.cinescape1.ui.main.views.home.adapter.CustomSpinnerAdapter
 import com.cinescape1.ui.main.views.adapters.sliderAdapter.AdapterMultiMovieAlertBooking
+import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
+import com.cinescape1.ui.main.views.food.FoodActivity
+import com.cinescape1.ui.main.views.home.adapter.CustomSpinnerAdapter
 import com.cinescape1.ui.main.views.home.fragments.account.AccountPageFragment
 import com.cinescape1.ui.main.views.home.fragments.home.HomeFragment
 import com.cinescape1.ui.main.views.home.fragments.more.MorePageFragment
 import com.cinescape1.ui.main.views.home.fragments.movie.MoviesFragment
+import com.cinescape1.ui.main.views.home.viewModel.HomeViewModel
+import com.cinescape1.ui.main.views.login.LoginActivity
 import com.cinescape1.utils.*
 import com.cinescape1.utils.Constant.IntentKey.Companion.DialogShow
 import com.cinescape1.utils.Constant.IntentKey.Companion.OPEN_FROM
@@ -62,19 +62,19 @@ import kotlinx.android.synthetic.main.fragment_food.*
 import javax.inject.Inject
 
 @Suppress("DEPRECATION")
-class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.RecycleViewItemClickListener {
+class HomeActivity : DaggerAppCompatActivity(),
+    AdapterMultiMovieAlertBooking.RecycleViewItemClickListener {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
     @Inject
     lateinit var preferences: AppPreferences
     private val homeViewModel: HomeViewModel by viewModels { viewModelFactory }
     private var binding: ActivityHomeBinding? = null
-    var bookingId = ""
-    var transId = ""
     private val PERMISSION_ID = 42
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private var timeback: Long = 0
-    var mAlertDialog: AlertDialog? = null
+    private var mAlertDialog: AlertDialog? = null
     private var cinemaId = ""
     private var loader: LoaderDialog? = null
     private var spinner: AppCompatSpinner? = null
@@ -121,12 +121,11 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
         navigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.homeFragment -> {
-//                    binding?.imageView42?.show()
                     setCurrentFragment(HomeFragment())
+                    setNextBooking()
                 }
                 R.id.movieFragment -> {
                     binding?.imageView42?.hide()
-                    //Constant.SEE_ALL_TYPE = 0
                     setCurrentFragment(MoviesFragment(0))
                 }
                 R.id.foodFragment -> {
@@ -140,7 +139,6 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
                     } else {
                         foodDialog()
                     }
-
                 }
                 R.id.accountFragment -> {
                     binding?.imageView42?.hide()
@@ -171,13 +169,9 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
                                     if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                         locationlist = it.data.output.cinemas
                                         cinemaId = it.data.output.cinemas[0].id
-
                                         if (intent.hasExtra("BOOKING")) {
                                             foodDialog()
                                         }
-
-                                        println("locationListSpinner--------->${locationlist}")
-
                                     }
                                 } catch (e: Exception) {
                                     val dialog = OptionDialog(this,
@@ -230,9 +224,7 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
         dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
         dialog.window!!.setGravity(Gravity.BOTTOM)
         dialog.show()
-
-         spinner = dialog.spinner
-
+        spinner = dialog.spinner
         dialog.text_cancel_goback.setOnClickListener {
             dialog.dismiss()
         }
@@ -256,7 +248,6 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
             }
 
         }
-
         val customAdapter = CustomSpinnerAdapter(
             this,
             locationlist
@@ -316,7 +307,7 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
                                         } else {
                                             binding?.imageView42?.show()
                                         }
-                                        if (DialogShow){
+                                        if (DialogShow) {
                                             retrieveNextBookedResponse(it.data)
                                         }
                                     } catch (e: Exception) {
@@ -344,7 +335,7 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
         }
 
         mAlertDialog?.show()
-        DialogShow=false
+        DialogShow = false
 
         when (output.output.size) {
             1 -> {
@@ -355,17 +346,17 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
                     mAlertDialog = mBuilder.show()
                     mAlertDialog?.show()
                     mAlertDialog?.window?.setBackgroundDrawableResource(R.color.black70)
-                    mDialogView.text_bombshell.isSelected=true
+                    mDialogView.text_bombshell.isSelected = true
                     mDialogView.text_location_name.text = output.output[0].cinemaname
                     mDialogView.text_screen_number.text = output.output[0].screenId.toString()
                     mDialogView.text_date_visible.text = output.output[0].showDate
                     mDialogView.text_time_visible.text = output.output[0].showTime
                     mDialogView.text_bombshell.text = output.output[0].moviename
                     mDialogView.text13.text = output.output[0].mcensor
-                    val ratingColor=output.output[0].ratingColor
+                    val ratingColor = output.output[0].ratingColor
                     try {
                         mDialogView.text13.setBackgroundColor(Color.parseColor(ratingColor))
-                    }catch (e:Exception){
+                    } catch (e: Exception) {
                         e.printStackTrace()
                     }
 
@@ -420,11 +411,12 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
                     mDialogView.img_cross_icon.setOnClickListener {
                         mAlertDialog?.dismiss()
                     }
-                    mDialogView.text_have_upcoming_booking.text=getString(R.string.upcoming_booking)
+                    mDialogView.text_have_upcoming_booking.text =
+                        getString(R.string.upcoming_booking)
                     val recyclerViewAlertBooking =
                         mDialogView.findViewById<View>(R.id.recyclerViewAlertBooking) as RecyclerView
                     val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
-                    val adapter = AdapterMultiMovieAlertBooking(this, output.output,this)
+                    val adapter = AdapterMultiMovieAlertBooking(this, output.output, this)
 
                     recyclerViewAlertBooking.layoutManager = LinearLayoutManager(
                         this,
@@ -446,7 +438,6 @@ class HomeActivity : DaggerAppCompatActivity(),AdapterMultiMovieAlertBooking.Rec
         }
 
     }
-
 
 
     @SuppressLint("MissingPermission")
