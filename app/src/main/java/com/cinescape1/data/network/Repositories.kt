@@ -6,6 +6,7 @@ import com.cinescape1.ui.main.views.home.fragments.account.response.RechargeAmou
 import com.cinescape1.ui.main.views.payment.paymentFaield.reponse.PaymentFailedResponse
 import com.cinescape1.ui.main.views.payment.paymentList.BankOfferRequest
 import com.cinescape1.ui.main.views.payment.paymentList.response.BankOfferApply
+import com.cinescape1.ui.main.views.payment.paymentList.response.GiftCardRemove
 import com.cinescape1.ui.main.views.payment.paymentList.response.OfferRemove
 import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResponse
 import com.cinescape1.ui.main.views.splash.response.SplashResponse
@@ -135,7 +136,7 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
     }
     suspend fun giftCardRemove(
         request: GiftCardRequest
-    ): Result<OfferRemove> {
+    ): Result<GiftCardRemove> {
         return apiRequest { api.giftCardRemove(request) }
     }
    suspend fun voucherApply(

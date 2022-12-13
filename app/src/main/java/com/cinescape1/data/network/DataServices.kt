@@ -6,6 +6,7 @@ import com.cinescape1.ui.main.views.home.fragments.account.response.RechargeAmou
 import com.cinescape1.ui.main.views.payment.paymentFaield.reponse.PaymentFailedResponse
 import com.cinescape1.ui.main.views.payment.paymentList.BankOfferRequest
 import com.cinescape1.ui.main.views.payment.paymentList.response.BankOfferApply
+import com.cinescape1.ui.main.views.payment.paymentList.response.GiftCardRemove
 import com.cinescape1.ui.main.views.payment.paymentList.response.OfferRemove
 import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResponse
 import com.cinescape1.ui.main.views.splash.response.SplashResponse
@@ -97,7 +98,7 @@ interface DataServices {
     suspend fun giftCardApply(@Body request: GiftCardRequest): Response<GiftCardResponse>
 
     @POST("giftcard/remove")
-    suspend fun giftCardRemove(@Body request: GiftCardRequest): Response<OfferRemove>
+    suspend fun giftCardRemove(@Body request: GiftCardRequest): Response<GiftCardRemove>
 
     @POST("voucher/payment/apply")
     suspend fun voucherApply(@Body request: GiftCardRequest): Response<GiftCardResponse>

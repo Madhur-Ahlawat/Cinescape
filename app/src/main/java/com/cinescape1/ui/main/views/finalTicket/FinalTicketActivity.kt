@@ -27,18 +27,20 @@ import com.cinescape1.databinding.ActivityFinalTicketBinding
 import com.cinescape1.di.scoped.ActivityScoped
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
-import com.cinescape1.ui.main.views.finalTicket.viewModel.FinalTicketViewModel
-import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.ui.main.views.finalTicket.adapter.FinalTicketParentAdapter
 import com.cinescape1.ui.main.views.finalTicket.model.FinalTicketLocalModel
+import com.cinescape1.ui.main.views.finalTicket.viewModel.FinalTicketViewModel
+import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.utils.*
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
 @Suppress("DEPRECATION")
 @ActivityScoped
-class FinalTicketActivity : DaggerAppCompatActivity(), FinalTicketParentAdapter.TypeFaceFinalTicket0ne,
-    FinalTicketParentAdapter.TypeFaceFinalTicketTwo, FinalTicketParentAdapter.TypeFaceFinalTicketThree{
+class FinalTicketActivity : DaggerAppCompatActivity(),
+    FinalTicketParentAdapter.TypeFaceFinalTicket0ne,
+    FinalTicketParentAdapter.TypeFaceFinalTicketTwo,
+    FinalTicketParentAdapter.TypeFaceFinalTicketThree {
     private var loader: LoaderDialog? = null
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -53,35 +55,33 @@ class FinalTicketActivity : DaggerAppCompatActivity(), FinalTicketParentAdapter.
     private var qrBitmap: Bitmap? = null
     private var bookType: String = ""
     private var from: String = ""
-
     private val finalTicketLocalModel = ArrayList<FinalTicketLocalModel>()
+    private var oneBookingId1: TextView? = null
+    private var oneTitle1: TextView? = null
+    private var oneRating1: TextView? = null
+    private var oneLocation1: TextView? = null
+    private var oneDateTime1: TextView? = null
+    private var oneScreen1: TextView? = null
+    private var oneType1: TextView? = null
+    private var oneCategoryName1: TextView? = null
+    private var onePayMode1: TextView? = null
+    private var onePrice1: TextView? = null
 
-    var oneBookingId1: TextView? = null
-    var oneTitle1: TextView? = null
-    var oneRating1: TextView? = null
-    var oneLocation1: TextView? = null
-    var oneDateTime1: TextView? = null
-    var oneScreen1: TextView? = null
-    var oneType1: TextView? = null
-    var oneCategoryName1: TextView? = null
-    var onePayMode1: TextView? = null
-    var onePrice1: TextView? = null
+    private var twoBookingId1: TextView? = null
+    private var twoPickupInfo1: TextView? = null
+    private var twoPayMode1: TextView? = null
+    private var twoPayPrice1: TextView? = null
 
-    var twoBookingId1: TextView? = null
-    var twoPickupInfo1: TextView? = null
-    var twoPayMode1: TextView? = null
-    var twoPayPrice1: TextView? = null
-
-    var threeBookingId1: TextView? = null
-    var threeTicket1: TextView? = null
-    var threeTicketPrice1: TextView? = null
-    var threeFood1: TextView? = null
-    var threeFoodPrice1: TextView? = null
-    var threeReferenceId1: TextView? = null
-    var threeReferenceTxt1: TextView? = null
-    var threeTrackId1: TextView? = null
-    var threeDateTime1: TextView? = null
-    var threePayMode1: TextView? = null
+    private var threeBookingId1: TextView? = null
+    private var threeTicket1: TextView? = null
+    private var threeTicketPrice1: TextView? = null
+    private var threeFood1: TextView? = null
+    private var threeFoodPrice1: TextView? = null
+    private var threeReferenceId1: TextView? = null
+    private var threeReferenceTxt1: TextView? = null
+    private var threeTrackId1: TextView? = null
+    private var threeDateTime1: TextView? = null
+    private var threePayMode1: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,7 +93,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(), FinalTicketParentAdapter.
                 LocaleHelper.setLocale(this, "ar")
                 val regular = ResourcesCompat.getFont(this, R.font.gess_light)
                 val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
-                val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
+//                val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
 
                 binding?.textBookingAddedWallet?.typeface = regular
                 binding?.textBookingSuccess?.typeface = regular
@@ -133,7 +133,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(), FinalTicketParentAdapter.
                 val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
                 val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
                 val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
-                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+//                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
 
                 binding?.textBookingAddedWallet?.typeface = regular
                 binding?.textBookingSuccess?.typeface = regular
@@ -174,7 +174,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(), FinalTicketParentAdapter.
                 val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
                 val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
                 val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
-                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
+//                val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
 
                 binding?.textBookingAddedWallet?.typeface = regular
                 binding?.textBookingSuccess?.typeface = regular
@@ -212,6 +212,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(), FinalTicketParentAdapter.
             }
         }
         setContentView(view)
+
         //AppBar Hide
         window.apply {
             clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
@@ -240,7 +241,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(), FinalTicketParentAdapter.
         if (from == "MTicket") {
             setMySingleTicket()
         } else {
-            printTicket(FinalTicketRequest(bookingId, transId.toInt()))
+            printTicket(FinalTicketRequest(bookingId, transId))
         }
 
         binding?.imagShare?.setColorFilter(this.getColor(R.color.white))
@@ -261,6 +262,8 @@ class FinalTicketActivity : DaggerAppCompatActivity(), FinalTicketParentAdapter.
             startActivity(intent)
             finish()
         }
+//
+
     }
 
     private fun printTicket(request: FinalTicketRequest) {
@@ -361,7 +364,6 @@ class FinalTicketActivity : DaggerAppCompatActivity(), FinalTicketParentAdapter.
 
         binding?.uiFinalTaket?.show()
 
-//        println("output.bookingType--->${output.bookingType}")
         if (output.bookingType == "BOOKING") {
             if (output.concessionFoods.isNotEmpty()) {
                 println("checkCase--->1---New")
@@ -390,10 +392,17 @@ class FinalTicketActivity : DaggerAppCompatActivity(), FinalTicketParentAdapter.
         val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(binding?.recyclerViewFinalTicket)
         val finalTicketParentAdapter =
-            FinalTicketParentAdapter(this@FinalTicketActivity, finalTicketLocalModel, output, this,this,this)
+            FinalTicketParentAdapter(
+                this@FinalTicketActivity,
+                finalTicketLocalModel,
+                output,
+                this,
+                this,
+                this
+            )
         binding?.recyclerViewFinalTicket?.layoutManager = gridLayout
         binding?.recyclerViewFinalTicket?.adapter = finalTicketParentAdapter
-        binding?.layoutDots?.attachToRecyclerView( binding?.recyclerViewFinalTicket!!)
+        binding?.layoutDots?.attachToRecyclerView(binding?.recyclerViewFinalTicket!!)
 
     }
 
@@ -467,6 +476,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(), FinalTicketParentAdapter.
             }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         super.onBackPressed()
         val intent = Intent(applicationContext, HomeActivity::class.java)
@@ -491,11 +501,15 @@ class FinalTicketActivity : DaggerAppCompatActivity(), FinalTicketParentAdapter.
         oneRating1 = oneRating
         oneLocation1 = oneLocation
         oneDateTime1 = oneDateTime
-        oneScreen1= oneScreen
+        oneScreen1 = oneScreen
         oneType1 = oneType
         oneCategoryName1 = oneCategoryName
         onePayMode1 = onePayMode
         onePrice1 = onePrice
+    }
+
+    override fun cancelReserv(foodSelctedItem: TicketSummaryResponse.Output) {
+        cancelReservation(FinalTicketRequest(bookingId, transId))
     }
 
     override fun onTypeFaceFinalTicketTwo(
@@ -506,7 +520,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(), FinalTicketParentAdapter.
     ) {
         twoBookingId1 = twoBookingId
         twoPickupInfo1 = twoPickupInfo
-        twoPayMode1= twoPayMode
+        twoPayMode1 = twoPayMode
         twoPayPrice1 = twoPayPrice
 
     }
@@ -528,12 +542,79 @@ class FinalTicketActivity : DaggerAppCompatActivity(), FinalTicketParentAdapter.
         threeTicketPrice1 = threeTicketPrice
         threeFood1 = threeFood
         threeFoodPrice1 = threeFoodPrice
-        threeReferenceId1= threeReferenceId
+        threeReferenceId1 = threeReferenceId
         threeReferenceTxt1 = threeReferenceTxt
         threeTrackId1 = threeTrackId
         threeDateTime1 = threeDateTime
-        threePayMode1= threePayMode
+        threePayMode1 = threePayMode
 
+    }
+
+
+    private fun cancelReservation(finalTicketRequest: FinalTicketRequest) {
+        finalTicketViewModel.cancelReservation(finalTicketRequest).observe(this) {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                try {
+                                    val dialog = OptionDialog(this@FinalTicketActivity,
+                                        R.mipmap.ic_launcher,
+                                        R.string.app_name,
+                                        it.data.msg,
+                                        positiveBtnText = R.string.ok,
+                                        negativeBtnText = R.string.no,
+                                        positiveClick = {},
+                                        negativeClick = {})
+                                    dialog.show()
+
+                                } catch (e: Exception) {
+                                    val dialog = OptionDialog(this@FinalTicketActivity,
+                                        R.mipmap.ic_launcher,
+                                        R.string.app_name,
+                                        it.data.msg.toString(),
+                                        positiveBtnText = R.string.ok,
+                                        negativeBtnText = R.string.no,
+                                        positiveClick = {},
+                                        negativeClick = {})
+                                    dialog.show()
+                                }
+
+                            } else {
+                                loader?.dismiss()
+                                val dialog = OptionDialog(this@FinalTicketActivity,
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
+                            }
+                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(this@FinalTicketActivity,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                        loader = LoaderDialog(R.string.pleasewait)
+                        loader?.show(this@FinalTicketActivity.supportFragmentManager, null)
+                    }
+                }
+            }
+        }
     }
 
 }

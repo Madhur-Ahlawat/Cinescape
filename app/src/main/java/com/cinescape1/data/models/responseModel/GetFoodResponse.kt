@@ -11,7 +11,7 @@ data class GetFoodResponse(
         val transid: String,
         val booktype: String,
         val cinemaId: Any,
-        val concessionTabs: List<ConcessionTab>,
+        val concessionTabs: ArrayList<ConcessionTab>,
         val foodQuantity: Int,
         val sessionId: Any,
         val status: Any,

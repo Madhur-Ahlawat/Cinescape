@@ -1,7 +1,6 @@
 package com.cinescape1.ui.main.views.home.fragments.more
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.content.*
@@ -9,7 +8,6 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.text.Editable
@@ -39,8 +37,8 @@ import com.cinescape1.databinding.FragmentMorePageBinding
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.viewModels.MoreInfoViewModel
-import com.cinescape1.ui.main.views.login.LoginActivity
 import com.cinescape1.ui.main.views.adapters.*
+import com.cinescape1.ui.main.views.login.LoginActivity
 import com.cinescape1.utils.*
 import com.cinescape1.utils.Constant.IntentKey.Companion.OPEN_FROM
 import com.google.firebase.auth.FirebaseAuth
@@ -56,8 +54,9 @@ import java.io.File
 import javax.inject.Inject
 
 
+@Suppress("DEPRECATION")
 class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemClickListener,
-    FaqAdapter.TypefaceListenerFaq,PrivacyAdapter.TypefaceListenerPrivacy,
+    FaqAdapter.TypefaceListenerFaq, PrivacyAdapter.TypefaceListenerPrivacy,
     AgeRatingAdapter.TypefaceListenerAgeRating,
     TermsConditionAdapter.TypefaceListenerTermsCondition, LocationAdapter.TypefaceListenerLocation {
     @Inject
@@ -77,33 +76,28 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
     var dialog: Dialog? = null
     private var broadcastReceiver: BroadcastReceiver? = null
     private var mobile: String = ""
-    private var frontPhoto: MultipartBody.Part? = null
-
+    private lateinit var frontPhoto: MultipartBody.Part
     private val SELECT_PICTURE = 100
-
-    var todoTitle1: TextView? = null
-
-    var todoTitle11: TextView? = null
-    var todoDesc1: TextView? = null
-
+    private var todoTitle1: TextView? = null
+    private var todoTitle11: TextView? = null
+    private var todoDesc1: TextView? = null
     // ageRating adapter
-    var type2: TextView? = null
-    var todoTitle2: TextView? = null
-    var todoDesc2: TextView? = null
-
+    private var type2: TextView? = null
+    private var todoTitle2: TextView? = null
+    private var todoDesc2: TextView? = null
     // terms Condition
-    var todoTitle3: TextView? = null
-    var todoDesc3: TextView? = null
-
+    private var todoTitle3: TextView? = null
+    private var todoDesc3: TextView? = null
     // location
-    var title4: TextView? = null
-    var workingHour4: TextView? = null
-    var address4: TextView? = null
+    private var title4: TextView? = null
+    private var workingHour4: TextView? = null
+    private var address4: TextView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         binding = FragmentMorePageBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
@@ -134,7 +128,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                 binding?.textView35?.typeface = bold
 
                 // contact us
-               textView11.typeface = bold
+                textView11.typeface = bold
                 text_mobile_title.typeface = regular
                 textView17.typeface = regular
                 textView29.typeface = regular
@@ -581,20 +575,9 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                     negativeClick = {
                     })
                 dialog.show()
-            } else if (frontPhoto == null) {
-                val dialog = OptionDialog(requireContext(),
-                    R.mipmap.ic_launcher,
-                    R.string.app_name,
-                    resources.getString(R.string.enterPhoto),
-                    positiveBtnText = R.string.ok,
-                    negativeBtnText = R.string.no,
-                    positiveClick = {
-                    },
-                    negativeClick = {
-                    })
-                dialog.show()
             } else {
                 contactUs(email, name, mobile, username, frontPhoto)
+                println("---------->$email---${name}---${username}----${frontPhoto}")
                 Constant().hideKeyboard(requireActivity())
             }
 
@@ -648,11 +631,10 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE)
     }
 
-    @SuppressLint("ObsoleteSdkInt")
     private fun handlePermission() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return
-        }
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+//            return
+//        }
         if (ContextCompat.checkSelfPermission(
                 requireActivity(),
                 Manifest.permission.READ_EXTERNAL_STORAGE
@@ -753,7 +735,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                                         binding?.moreLayout?.show()
                                         responseData = it.data
 
-                                        for (item in it.data.output.faqs){
+                                        for (item in it.data.output.faqs) {
                                             responseData1 = item.faqs
                                         }
 
@@ -798,7 +780,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
         name: String,
         mobile: String,
         username: String,
-        Photo: MultipartBody.Part?,
+        Photo: MultipartBody.Part,
     ) {
         moreInfoViewModel.contactUs(email, name, mobile, username, Photo)
             .observe(requireActivity()) {
@@ -820,7 +802,6 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                                             enter_mobile_numbers.text?.clear()
                                             editTextTextPersonName.text?.clear()
                                             enterUsername.text?.clear()
-                                            frontPhoto = null
                                         },
                                         negativeClick = {
                                         })
@@ -906,7 +887,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
     }
 
     override fun onTypefaceAgeRating(type: TextView, todoTitle: TextView, todoDesc: TextView) {
-        type2= type
+        type2 = type
         todoTitle2 = todoTitle
         todoDesc2 = todoDesc
     }
@@ -920,8 +901,9 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
         binding?.recyclerMore?.adapter = adapter
 
     }
+
     override fun onTypefaceTermsCondition(todoTitle: TextView, todoDesc: TextView) {
-        todoTitle3= todoTitle
+        todoTitle3 = todoTitle
         todoDesc3 = todoDesc
     }
 
@@ -953,7 +935,9 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                                     countryCodeList = it.data.output
                                     enter_mobile_code.text = it.data.output[0].isdCode
                                     val maxLengthEditText = it.data.output[0].phoneLength
-                                    enter_mobile_numbers.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxLengthEditText ))
+                                    enter_mobile_numbers.filters = arrayOf<InputFilter>(
+                                        InputFilter.LengthFilter(maxLengthEditText)
+                                    )
 
                                     retrieveCountryList(it.data.output)
 
@@ -1063,7 +1047,8 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
         println("PhoneLength--->${view.phoneLength}")
         countryCode = view.isdCode
         val maxLengthEditText = view.phoneLength
-        enter_mobile_numbers.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxLengthEditText ))
+        enter_mobile_numbers.filters =
+            arrayOf<InputFilter>(InputFilter.LengthFilter(maxLengthEditText))
 
     }
 
@@ -1127,7 +1112,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                     val selectedImageUri = data!!.data
                     if (null != selectedImageUri) {
                         // Get the path from the Uri
-                        val path = PathUtil.getPath(requireContext(),selectedImageUri)
+                        val path = PathUtil.getPath(requireContext(), selectedImageUri)
 
                         val mFileTemp =
                             File(path)
@@ -1136,6 +1121,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                         val file =
                             MultipartBody.Part.createFormData("file", mFileTemp.name, requestFile)
 //                        updateImage(file)
+                        toast("hello---->${frontPhoto}")
                         frontPhoto = file
 
                     }
@@ -1159,7 +1145,6 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
             context.startActivity(i)
         }
     }
-
 
 
 }

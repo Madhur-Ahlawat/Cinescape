@@ -378,18 +378,23 @@ class FoodActivity : DaggerAppCompatActivity(),
 
     }
 
-    private fun setFoodSelectAdapter(concessionTabs: List<GetFoodResponse.ConcessionTab>) {
-        val horizontalLayoutManagaer =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        binding?.recyclerFoodSelectItem?.layoutManager = LinearLayoutManager(this)
-        val adapter = AdapterFoodSelectedItem(this, concessionTabs, this, this)
-        binding?.recyclerFoodSelectItem?.layoutManager = horizontalLayoutManagaer
-        binding?.uiFood?.show()
-        binding?.recyclerFoodSelectItem?.adapter = adapter
-        adapter.loadNewData(concessionTabs)
-        foodSelectedList = concessionTabs[0].concessionItems
-        tabItem = concessionTabs[0]
-        setFoodComboAdapter(foodSelectedList!!)
+    private fun setFoodSelectAdapter(concessionTabs: ArrayList<GetFoodResponse.ConcessionTab>) {
+        if (concessionTabs.isNotEmpty()){
+            binding?.uiFood?.show()
+            val horizontalLayoutManagaer =
+                LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            binding?.recyclerFoodSelectItem?.layoutManager = LinearLayoutManager(this)
+            val adapter = AdapterFoodSelectedItem(this, concessionTabs, this, this)
+            binding?.recyclerFoodSelectItem?.layoutManager = horizontalLayoutManagaer
+            binding?.recyclerFoodSelectItem?.adapter = adapter
+            adapter.loadNewData(concessionTabs)
+            foodSelectedList = concessionTabs[0].concessionItems
+            tabItem = concessionTabs[0]
+            setFoodComboAdapter(foodSelectedList!!)
+        }else{
+            finish()
+        }
+
     }
 
     override fun onTypeFaceFoodItem(foodSelectItemName: TextView) {
@@ -807,14 +812,8 @@ class FoodActivity : DaggerAppCompatActivity(),
                             loader?.dismiss()
                             resource.data?.let { it ->
                                 if (it.data?.code == Constant.SUCCESS_CODE) {
-                                    try {
                                         tabItemArr = it.data.output.concessionTabs
                                         setFoodSelectAdapter(it.data.output.concessionTabs)
-                                    } catch (e: Exception) {
-                                        e.printStackTrace()
-                                        println("updateUiCinemaSession ---> ${e.message}")
-                                    }
-
                                 } else {
                                     loader?.dismiss()
                                     val dialog = OptionDialog(this,

@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject
 
 class MoreInfoViewModel @Inject constructor(private val repositories: Repositories) : ViewModel() {
@@ -35,17 +36,17 @@ class MoreInfoViewModel @Inject constructor(private val repositories: Repositori
         name: String,
         mobile: String,
         username: String,
-        frontPhoto: MultipartBody.Part?
+        frontPhoto: MultipartBody.Part
     ) = liveData(Dispatchers.IO) {
         emit(Result.loading(data = null))
         try {
             val data = repositories.contctUs(
                 ContactUsRequest(
-                RequestBody.create("text".toMediaTypeOrNull(), email),
-                RequestBody.create("text".toMediaTypeOrNull(), name),
-                RequestBody.create("text".toMediaTypeOrNull(), mobile),
-                RequestBody.create("text".toMediaTypeOrNull(), username),
-                    frontPhoto!!
+                    email.toRequestBody("text".toMediaTypeOrNull()),
+                    name.toRequestBody("text".toMediaTypeOrNull()),
+                    mobile.toRequestBody("text".toMediaTypeOrNull()),
+                    username.toRequestBody("text".toMediaTypeOrNull()),
+                    frontPhoto
                 ))
             if (data.status == Status.ERROR){
                 emit(Result.error(data.message.toString(),data))

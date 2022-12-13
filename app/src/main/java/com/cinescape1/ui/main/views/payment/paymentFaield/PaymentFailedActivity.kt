@@ -40,7 +40,7 @@ class PaymentFailedActivity : DaggerAppCompatActivity() {
         try {
             bookingId = intent.getStringExtra(Constant.IntentKey.BOOKING_ID).toString()
             transId = intent.getStringExtra(Constant.IntentKey.TRANSACTION_ID).toString()
-            printTicket(FinalTicketRequest(bookingId, transId.toInt()))
+            printTicket(FinalTicketRequest(bookingId, transId))
         }catch (e:Exception){
             println("finalError------->${e.message}")
         }

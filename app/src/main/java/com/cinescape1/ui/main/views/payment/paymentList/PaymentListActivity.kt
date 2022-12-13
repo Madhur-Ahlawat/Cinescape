@@ -40,6 +40,7 @@ import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
 import com.cinescape1.ui.main.views.payment.PaymentWebActivity
 import com.cinescape1.ui.main.views.payment.paymentList.adapter.PaymentListAdapter
+import com.cinescape1.ui.main.views.payment.paymentList.response.GiftCardRemove
 import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResponse
 import com.cinescape1.ui.main.views.summery.response.GiftCardResponse
 import com.cinescape1.ui.main.views.summery.viewModel.SummeryViewModel
@@ -48,6 +49,7 @@ import com.cinescape1.utils.Constant.Companion.bankOfferClick
 import com.threatmetrix.TrustDefender.*
 import com.threatmetrix.TrustDefender.TMXProfilingConnections.TMXProfilingConnections
 import dagger.android.support.DaggerAppCompatActivity
+import kotlinx.android.synthetic.main.booking_alert2_item.*
 import kotlinx.android.synthetic.main.cancel_dialog.*
 import kotlinx.android.synthetic.main.cancel_dialog.view.*
 import kotlinx.android.synthetic.main.checkout_creditcart_payment_alert.*
@@ -69,11 +71,14 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
     companion object {
         var offerApplied: Boolean = false
+        var giftApplied: Boolean = false
     }
 
     @Inject
     lateinit var preferences: AppPreferences
     private val summeryViewModel: SummeryViewModel by viewModels { viewModelFactory }
+
+
     private var binding: ActivityPaymentListBinding? = null
     private var loader: LoaderDialog? = null
     private var cardinal = Cardinal.getInstance()
@@ -215,7 +220,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     override fun bankItemApply(
         offerId: String,
         cardNo: String,
-        check: CheckBox,
+        check: ImageView,
         close: ImageView,
         apply: TextView,
         bankEdit: EditText,
@@ -238,7 +243,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
     private fun bankOfferApply(
         bankOfferRequest: BankOfferRequest,
-        chekbox: CheckBox,
+        chekbox: ImageView,
         close: ImageView,
         apply: TextView,
         bankEdit: EditText,
@@ -311,13 +316,12 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 }
             }
         }
-
     }
 
     override fun bankItemRemove(
         offerId: String,
         cardNo: String,
-        check: CheckBox,
+        check: ImageView,
         close: ImageView,
         apply: TextView,
         bankEdit: EditText,
@@ -340,7 +344,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
     private fun bankOfferRemove(
         bankOfferRequest: BankOfferRequest,
-        checkbox: CheckBox,
+        checkbox: ImageView,
         close: ImageView,
         apply: TextView,
         bankEdit: EditText,
@@ -365,7 +369,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 checkbox.hide()
                                 offerApplied = false
                                 adapter?.notifyDataSetChanged()
-
+                                bankEdit.text.clear()
                                 bankEdit.isClickable = true
                                 bankEdit.isFocusable = true
                                 bankEdit.isEnabled = true
@@ -486,14 +490,51 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     override fun onCreditCardItemClick(
-        view: PaymentListResponse.Output.PayMode, creditCardClick1: Boolean, knetClick1: Boolean
+        view: PaymentListResponse.Output.PayMode,
+        cardNo: String,
+        creditCardClick1: Boolean,
+        knetClick1: Boolean
     ) {
-        val  knetClick = knetClick1
-        val  creditCardClick = creditCardClick1
-        paymentOptionClick(view,knetClick, creditCardClick)
+        val knetClick = knetClick1
+        val creditCardClick = creditCardClick1
+        paymentOptionClick(view, knetClick, creditCardClick, cardNo)
     }
 
-    private fun creditCardDialog() {
+    private fun paymentOptionClick(
+        view: PaymentListResponse.Output.PayMode,
+        knetClick: Boolean,
+        creditCardClick: Boolean,
+        cardNo: String
+    ) {
+        binding?.txtProceed?.setOnClickListener {
+            if (!knetClick && !creditCardClick) {
+                val dialog = OptionDialog(this,
+                    R.mipmap.ic_launcher,
+                    R.string.app_name,
+                    getString(R.string.select_payment_methods),
+                    positiveBtnText = R.string.ok,
+                    negativeBtnText = R.string.no,
+                    positiveClick = {},
+                    negativeClick = {})
+                dialog.show()
+            } else if (creditCardClick) {
+                creditCardDialog(cardNo)
+            } else if (knetClick) {
+                paymentHmac(
+                    HmacKnetRequest(
+                        bookingId,
+                        bookType,
+                        transId,
+                        preferences.getString(Constant.USER_ID).toString()
+                    )
+                )
+            }
+        }
+
+    }
+
+    private fun creditCardDialog(cardNo: String) {
+
         val cardinalConfigurationParameters = CardinalConfigurationParameters()
         cardinalConfigurationParameters.environment = CardinalEnvironment.STAGING
         cardinalConfigurationParameters.requestTimeout = 8000
@@ -519,7 +560,17 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         val proceedAlertDialog = mBuilder.show()
         proceedAlertDialog.show()
         proceedAlertDialog?.kd_to_pay?.text = " $totalPrice"
+        proceedAlertDialog?.cardNumberTextInputEditText?.setText(cardNo)
+        if (cardNo == "") {
+            proceedAlertDialog?.cardNumberTextInputEditText?.isClickable = true
+            proceedAlertDialog?.cardNumberTextInputEditText?.isEnabled = true
+            proceedAlertDialog?.cardNumberTextInputEditText?.isFocusable = true
+        } else {
+            proceedAlertDialog?.cardNumberTextInputEditText?.isClickable = false
+            proceedAlertDialog?.cardNumberTextInputEditText?.isEnabled = false
+            proceedAlertDialog?.cardNumberTextInputEditText?.isFocusable = false
 
+        }
         proceedAlertDialog.cardNumberTextInputEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(
                 charSequence: CharSequence, i: Int, i1: Int, i2: Int
@@ -538,6 +589,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                     this@PaymentListActivity, R.drawable.visa_card
                                 )
                             )
+
                         } else if (MASTERCARD_PREFIX.contains(
                                 proceedAlertDialog.cardNumberTextInputEditText.text.toString()
                                     .substring(0, 2) + ","
@@ -1128,7 +1180,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         /*
          * profilingHandle can also be used to cancel this profile if needed *
          * profilingHandle.cancel();
-         * */mSessionid = sessions1
+         * */
+        mSessionid = sessions1
     }
 
     private class CompletionNotifier : TMXEndNotifier {
@@ -1204,49 +1257,24 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     override fun onKnitItemClick(
         view: PaymentListResponse.Output.PayMode, creditCardClick1: Boolean, knetClick1: Boolean
     ) {
-       val knetClick = knetClick1
+
+        val knetClick = knetClick1
         val creditCardClick = creditCardClick1
-        paymentOptionClick(view, knetClick, creditCardClick)
-    }
+        paymentOptionClick(view, knetClick, creditCardClick, "")
 
-    private fun paymentOptionClick(
-        view: PaymentListResponse.Output.PayMode,
-        knetClick: Boolean,
-        creditCardClick: Boolean
-    )
-    {
-        binding?.txtProceed?.setOnClickListener {
-            if (!knetClick && !creditCardClick) {
-                val dialog = OptionDialog(this,
-                    R.mipmap.ic_launcher,
-                    R.string.app_name,
-                    getString(R.string.select_payment_methods),
-                    positiveBtnText = R.string.ok,
-                    negativeBtnText = R.string.no,
-                    positiveClick = {},
-                    negativeClick = {})
-                dialog.show()
-            } else if (creditCardClick) {
-                creditCardDialog()
-            } else if (knetClick) {
-                paymentHmac(
-                    HmacKnetRequest(
-                        bookingId, bookType, transId, preferences.getString(Constant.USER_ID).toString()
-                    )
-                )
-            }
-        }
 
     }
 
-    override fun onVoucherItemClick(
+    override fun onVoucherApply(
         view: PaymentListResponse.Output.PayMode,
         offerCode: String,
         clickName: String,
-        clickId: String
+        clickId: String,
+        offerEditText: EditText,
+        textView157: TextView,
+        checkBox2: ImageView,
+        imageView66: ImageView
     ) {
-
-        println("offerCode---->${offerCode}---clickName$--->${clickName}---clickId---->${clickId}")
         if (clickName == "Gift Card") {
             giftCardApply(
                 GiftCardRequest(
@@ -1255,7 +1283,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     offerCode,
                     transId,
                     preferences.getString(Constant.USER_ID).toString()
-                )
+                ), offerEditText, textView157, checkBox2, imageView66
             )
         } else if (clickName == "Voucher") {
             voucherApply(
@@ -1265,7 +1293,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     offerCode,
                     transId,
                     preferences.getString(Constant.USER_ID).toString()
-                )
+                ), offerEditText, textView157, checkBox2, imageView66
             )
         }
     }
@@ -1274,9 +1302,12 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         view: PaymentListResponse.Output.PayMode,
         offerCode: String,
         clickName: String,
-        clickId: String
+        clickId: String,
+        offerEditText: EditText,
+        textView157: TextView,
+        checkBox2: ImageView,
+        imageView66: ImageView
     ) {
-
         if (clickName == "Gift Card") {
             giftCardRemove(
                 GiftCardRequest(
@@ -1285,14 +1316,20 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     offerCode,
                     transId,
                     preferences.getString(Constant.USER_ID).toString()
-                )
+                ), offerEditText, textView157, checkBox2, imageView66
             )
         } else if (clickName == "Voucher") {
 
         }
     }
 
-    private fun voucherApply(request: GiftCardRequest) {
+    private fun voucherApply(
+        request: GiftCardRequest,
+        offerEditText: EditText,
+        textView157: TextView,
+        checkBox2: ImageView,
+        imageView66: ImageView
+    ) {
         summeryViewModel.voucherApply(request).observe(this) {
             it?.let { resource ->
                 when (resource.status) {
@@ -1351,7 +1388,13 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
     }
 
-    private fun giftCardRemove(request: GiftCardRequest) {
+    private fun giftCardRemove(
+        request: GiftCardRequest,
+        offerEditText: EditText,
+        apply: TextView,
+        imageCheck: ImageView,
+        remove: ImageView
+    ) {
         summeryViewModel.giftCardRemove(request).observe(this) {
             it?.let { resource ->
                 when (resource.status) {
@@ -1360,8 +1403,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
-
-
+                                    retriveRemoveGiftCard(it.data.output, offerEditText, apply, imageCheck, remove)
                                 } catch (e: Exception) {
                                     println("updateUiCinemaSession ---> ${e.message}")
                                 }
@@ -1400,10 +1442,38 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 }
             }
         }
+    }
+
+    private fun retriveRemoveGiftCard(
+        output: GiftCardRemove.Output,
+        offerEditText: EditText,
+        apply: TextView,
+        imageCheck: ImageView,
+        remove: ImageView
+    ) {
+        binding?.textTimeToLeft?.text = output.amount
+        apply.show()
+        imageCheck.hide()
+        remove.hide()
+
+        giftApplied= false
+        adapter?.notifyDataSetChanged()
+
+        offerEditText.text.clear()
+        offerEditText.isClickable = true
+        offerEditText.isEnabled = true
+        offerEditText.isFocusable = true
+        bankEdit.isFocusableInTouchMode = true
 
     }
 
-    private fun giftCardApply(request: GiftCardRequest) {
+    private fun giftCardApply(
+        request: GiftCardRequest,
+        offerEditText: EditText,
+        apply: TextView,
+        imageCheck: ImageView,
+        remove: ImageView
+    ) {
         summeryViewModel.giftCardApply(request).observe(this) {
             it?.let { resource ->
                 when (resource.status) {
@@ -1412,7 +1482,9 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
-                                    retrieveDataGiftCard(it.data.output)
+                                    retrieveDataGiftCard(
+                                        it.data.output, offerEditText, apply, imageCheck, remove
+                                    )
                                 } catch (e: Exception) {
                                     println("updateUiCinemaSession ---> ${e.message}")
                                 }
@@ -1454,16 +1526,25 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
     }
 
-    private fun retrieveDataGiftCard(output: GiftCardResponse.Output) {
-//        binding?.enterCode?.text?.clear()
+    private fun retrieveDataGiftCard(
+        output: GiftCardResponse.Output,
+        offerEditText: EditText,
+        apply: TextView,
+        imageCheck: ImageView,
+        remove: ImageView
+    ) {
         if (output.PAID == "NO") {
-//            tckSummary(
-//                TicketSummaryRequest(
-//                    transId,
-//                    bookingId,
-//                    preferences.getString(Constant.USER_ID).toString()
-//                )
-//            )
+            binding?.textTimeToLeft?.text = output.amount
+            giftApplied=true
+            offerEditText.isClickable = false
+            offerEditText.isEnabled = false
+            offerEditText.isFocusable = false
+            bankEdit.isFocusableInTouchMode = false
+            adapter?.notifyDataSetChanged()
+
+            apply.hide()
+            imageCheck.show()
+            remove.show()
         } else {
             Constant.IntentKey.TimerExtandCheck = true
             Constant.IntentKey.TimerExtand = 90

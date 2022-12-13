@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/black">
 
     <TextView
         android:id="@+id/textView156"
@@ -52,7 +53,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout24"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:layout_marginEnd="48dp"
                 android:background="@drawable/curve_payment"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -64,6 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:backgroundTint="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -87,8 +89,10 @@
                     android:fontFamily="@font/sf_pro_text_regular"
                     android:importantForAutofill="no"
                     android:textColor="#7B7A7A"
-                    android:textSize="@dimen/size15"                android:inputType="number"
-                    android:maxLength="16"
+                    android:textSize="@dimen/size15"
+                    android:inputType="number"
+                    android:hint="____ - ____ - ____ - ____"
+                    android:maxLength="19"
                     android:maxLines="1"
                     app:hintTextColor="@color/editColor"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -120,11 +124,11 @@
                 app:layout_constraintEnd_toEndOf="@+id/constraintLayout24"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout25">
 
-                <CheckBox
+                <ImageView
                     android:id="@+id/checkBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/red"
+                    android:src="@drawable/applied_check_icon"
                     android:checked="true"
                     android:focusable="false"
                     android:visibility="gone"
@@ -218,12 +222,13 @@
                     android:fontFamily="@font/sf_pro_text_regular"
                     android:importantForAutofill="no"
                     android:textColor="#7B7A7A"
+                    android:maxLength="16"
                     android:textSize="@dimen/size15"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="LabelFor" />
+                    tools:ignore="LabelFor,TextFields" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -237,14 +242,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/giftCard">
 
-                <CheckBox
+                <ImageView
                     android:id="@+id/checkBox2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/red"
-                    android:checked="true"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
+                    android:src="@drawable/applied_check_icon"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/imageView66"
