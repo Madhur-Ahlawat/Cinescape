@@ -10,12 +10,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.MoviesResponse
 import com.cinescape1.ui.main.views.details.ShowTimesActivity
 import com.cinescape1.utils.Constant
+import com.cinescape1.utils.LocaleHelper
 
 class AdvanceBookingAdapter(private var nowShowingList: List<MoviesResponse.AdvanceBooking>, context:Context,
                            var listener : TypefaceListener1) :
@@ -33,6 +35,32 @@ class AdvanceBookingAdapter(private var nowShowingList: List<MoviesResponse.Adva
         holder.movieTitle.isSelected=true
         holder.movieCategory.isSelected=true
 
+        if (Constant.LANGUAGE == "ar"){
+            LocaleHelper.setLocale(mContext, "ar")
+            holder.imageView60.setImageResource(R.drawable.arebic_red_icon)
+            holder.tag.rotation = 30f
+            (holder.tag.layoutParams as ConstraintLayout.LayoutParams).apply {
+                marginStart=20
+//                        topMargin=2
+                marginEnd=20
+                bottomMargin=65
+//                holder.tag.text = comingSoonItem.tag
+//                        bottomMargin=8.dpToPixels()
+            }
+
+        }else if (Constant.LANGUAGE == "en"){
+            LocaleHelper.setLocale(mContext, "en")
+            holder.imageView60.setImageResource(R.drawable.now_showing_diagonal)
+            holder.tag.rotation = -30f
+            (holder.tag.layoutParams as ConstraintLayout.LayoutParams).apply {
+                marginStart=20
+//              topMargin=2
+                marginEnd=20
+                bottomMargin=65
+//                holder.tag.text = comingSoonItem.tag
+            }
+        }
+
         Glide.with(mContext)
             .load(comingSoonItem.mobimgsmall)
             .error(R.drawable.pos_not_avilbale)
@@ -40,6 +68,8 @@ class AdvanceBookingAdapter(private var nowShowingList: List<MoviesResponse.Adva
 
         holder.movieTitle.text = comingSoonItem.title
         holder.type.text=comingSoonItem.rating
+
+        println("RatingAdvance-------->${comingSoonItem.rating}")
 
         val ratingColor=comingSoonItem.ratingColor
         holder.type.setBackgroundColor(Color.parseColor(ratingColor))
@@ -68,9 +98,11 @@ class AdvanceBookingAdapter(private var nowShowingList: List<MoviesResponse.Adva
 
     class MyViewHolderNowShowing(view: View) : RecyclerView.ViewHolder(view) {
         var thumbnail: ImageView = view.findViewById(R.id.image_now_showing)
+        var imageView60: ImageView = view.findViewById(R.id.imageView60)
         var movieTitle: TextView = view.findViewById(R.id.text_movie_title)
         var movieCategory: TextView = view.findViewById(R.id.text_movie_category)
         var type: TextView = view.findViewById(R.id.movieRating)
+        var tag: TextView = view.findViewById(R.id.tag)
         var cardView: CardView = view.findViewById(R.id.rating_ui)
     }
 

@@ -145,5 +145,7 @@ dependencies {
 //    implementation 'com.haozhang.library:android-slanted-textview:1.2'
 //    implementation 'com.haozhang.libary:android-slanted-textview:1.2'
 
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
 
 }

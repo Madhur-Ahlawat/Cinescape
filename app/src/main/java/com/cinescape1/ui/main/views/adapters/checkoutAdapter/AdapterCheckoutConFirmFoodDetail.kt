@@ -20,17 +20,12 @@ class AdapterCheckoutConFirmFoodDetail(
     RecyclerView.Adapter<AdapterCheckoutConFirmFoodDetail.MyViewHolderCheckoutConFirmFoodDetail>() {
     private var mContext = context
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): MyViewHolderCheckoutConFirmFoodDetail {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.checkout_booking_confirm_food_details_item, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderCheckoutConFirmFoodDetail {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.checkout_booking_confirm_food_details_item, parent, false)
         return MyViewHolderCheckoutConFirmFoodDetail(view)
     }
 
     override fun onBindViewHolder(holder: MyViewHolderCheckoutConFirmFoodDetail, position: Int) {
-
         val foodSelctedItem = CheckoutConirmFoodDetailList[position]
         holder.tvsItemTitle.text = foodSelctedItem.description
         holder.tvsOtemSubtitle.text = foodSelctedItem.itemType

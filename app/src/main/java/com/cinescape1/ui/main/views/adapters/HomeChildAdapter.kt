@@ -92,7 +92,6 @@ class HomeChildAdapter(
                         holder.tag.text = photoItem.tag
 
                     }
-
                 }
 
                 Glide.with(context)

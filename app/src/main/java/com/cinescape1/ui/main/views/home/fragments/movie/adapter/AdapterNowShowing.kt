@@ -17,6 +17,7 @@ import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.MoviesResponse
 import com.cinescape1.ui.main.views.details.ShowTimesActivity
 import com.cinescape1.utils.Constant
+import com.cinescape1.utils.LocaleHelper
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 
@@ -27,8 +28,7 @@ class AdapterNowShowing(
     private var mContext = context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderNowShowing {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.movie_now_showing_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_now_showing_item, parent, false)
         return MyViewHolderNowShowing(view)
     }
     @SuppressLint("SetTextI18n")
@@ -42,13 +42,39 @@ class AdapterNowShowing(
         holder.movieTitle.text = comingSoonItem.title
         holder.type.text = comingSoonItem.rating
 
+        if (Constant.LANGUAGE == "ar"){
+            LocaleHelper.setLocale(mContext, "ar")
+            holder.imageView60.setImageResource(R.drawable.arebic_red_icon)
+            holder.tag.rotation = 30f
+            (holder.tag.layoutParams as ConstraintLayout.LayoutParams).apply {
+                marginStart=20
+//                        topMargin=2
+                marginEnd=80
+                bottomMargin=35
+                holder.tag.text = comingSoonItem.tag
+//                        bottomMargin=8.dpToPixels()
+            }
+
+        }else if (Constant.LANGUAGE == "en"){
+            LocaleHelper.setLocale(mContext, "en")
+            holder.imageView60.setImageResource(R.drawable.now_showing_diagonal)
+            holder.tag.rotation = -30f
+            (holder.tag.layoutParams as ConstraintLayout.LayoutParams).apply {
+                marginStart=20
+//              topMargin=2
+                marginEnd=80
+                bottomMargin=35
+                holder.tag.text = comingSoonItem.tag
+            }
+        }
+
         if (comingSoonItem.tag == "") {
             holder.background.hide()
             holder.tag.hide()
         } else {
             holder.background.show()
             holder.tag.show()
-            holder.tag.text = comingSoonItem.tag+"           "
+            holder.tag.text = comingSoonItem.tag
             val tagColor = comingSoonItem.tagColor
             holder.background.setColorFilter(Color.parseColor(tagColor))
         }
@@ -67,12 +93,14 @@ class AdapterNowShowing(
 
     }
 
+
     override fun getItemCount(): Int {
         return nowShowingList.size
     }
 
     class MyViewHolderNowShowing(view: View) : RecyclerView.ViewHolder(view) {
         var thumbnail: ImageView = view.findViewById(R.id.image_now_showing)
+        var imageView60: ImageView = view.findViewById(R.id.imageView60)
         var movieTitle: TextView = view.findViewById(R.id.text_movie_title)
         var movieCategory: TextView = view.findViewById(R.id.text_movie_category)
         var type: TextView = view.findViewById(R.id.movieRating)

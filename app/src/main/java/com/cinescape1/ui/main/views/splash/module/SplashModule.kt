@@ -2,7 +2,7 @@ package com.cinescape1.ui.main.views.splash.module
 
 import androidx.lifecycle.ViewModel
 import com.cinescape1.di.ViewModelKey
-import com.cinescape1.ui.main.views.splash.viewModel.SplashViewModel
+import com.cinescape1.ui.main.views.player.viewModel.SplashViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

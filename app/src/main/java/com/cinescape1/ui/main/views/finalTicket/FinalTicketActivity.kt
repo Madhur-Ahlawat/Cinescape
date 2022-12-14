@@ -1,14 +1,15 @@
 package com.cinescape1.ui.main.views.finalTicket
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.View
-import android.view.WindowManager
+import android.view.*
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.content.res.ResourcesCompat
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.bumptech.glide.Glide
 import com.cinescape1.R
+import com.cinescape1.data.models.requestModel.CancelTransRequest
 import com.cinescape1.data.models.requestModel.FinalTicketRequest
 import com.cinescape1.data.models.requestModel.MySingleTicketRequest
 import com.cinescape1.data.models.responseModel.TicketSummaryResponse
@@ -33,6 +35,7 @@ import com.cinescape1.ui.main.views.finalTicket.viewModel.FinalTicketViewModel
 import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.utils.*
 import dagger.android.support.DaggerAppCompatActivity
+import kotlinx.android.synthetic.main.cancel_dialog.*
 import javax.inject.Inject
 
 @Suppress("DEPRECATION")
@@ -263,7 +266,6 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
             finish()
         }
 //
-
     }
 
     private fun printTicket(request: FinalTicketRequest) {
@@ -275,6 +277,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
                             loader?.dismiss()
                             resource.data?.let { it ->
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+
                                     try {
                                         binding?.uiFinalTaket?.show()
                                         binding?.successConstraintLayout?.show()
@@ -287,11 +290,11 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
                                         val handler = Handler(Looper.getMainLooper())
                                         handler.postDelayed(runnable, 3000)
 
-
                                         retrieveBookedResponse(it.data.output)
                                     } catch (e: Exception) {
                                         println("updateUiCinemaSession ---> ${e.message}")
                                     }
+
 
                                 } else {
                                     loader?.dismiss()
@@ -509,7 +512,9 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
     }
 
     override fun cancelReserv(foodSelctedItem: TicketSummaryResponse.Output) {
-        cancelReservation(FinalTicketRequest(bookingId, transId))
+        cancelDialog()
+
+
     }
 
     override fun onTypeFaceFinalTicketTwo(
@@ -574,7 +579,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
                                     val dialog = OptionDialog(this@FinalTicketActivity,
                                         R.mipmap.ic_launcher,
                                         R.string.app_name,
-                                        it.data.msg.toString(),
+                                        it.data.msg,
                                         positiveBtnText = R.string.ok,
                                         negativeBtnText = R.string.no,
                                         positiveClick = {},
@@ -614,6 +619,32 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
                     }
                 }
             }
+        }
+    }
+
+    private fun cancelDialog() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.cancel_dialog)
+        dialog.window!!.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
+        dialog.window!!.setGravity(Gravity.BOTTOM)
+        dialog.show()
+
+        dialog.consSure?.setOnClickListener {
+            Constant.IntentKey.TimerExtandCheck = true
+            Constant.IntentKey.TimerExtand = 90
+            Constant.IntentKey.TimerTime = 360
+            cancelReservation(FinalTicketRequest(bookingId, transId))
+            finish()
+        }
+
+        dialog.negative_btn?.setOnClickListener {
+            dialog.dismiss()
         }
     }
 

@@ -25,7 +25,6 @@ import kotlinx.android.synthetic.main.final_ticket_item_one.view.*
 import kotlinx.android.synthetic.main.final_ticket_item_three.view.*
 import kotlinx.android.synthetic.main.final_ticket_item_two.view.*
 
-
 class FinalTicketParentAdapter(
     var mContext: Activity,
     private var homeDataList: ArrayList<FinalTicketLocalModel>,
@@ -40,8 +39,7 @@ class FinalTicketParentAdapter(
         return when (viewType) {
             1 -> {
                 val headerLayout =
-                    LayoutInflater.from(parent.context)
-                        .inflate(R.layout.final_ticket_item_one, parent, false)
+                    LayoutInflater.from(parent.context).inflate(R.layout.final_ticket_item_one, parent, false)
                 MyViewHolder(headerLayout)
             }
             2 -> {
@@ -173,6 +171,7 @@ class FinalTicketParentAdapter(
                 } else {
                     holder.cancelReservation.show()
                 }
+
                 //Add Food
                 if (!output.addFood) {
                     holder.addFood.hide()

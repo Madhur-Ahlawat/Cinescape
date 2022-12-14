@@ -1,4 +1,4 @@
-package com.cinescape1.ui.main.views.splash.viewModel
+package com.cinescape1.ui.main.views.player.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData

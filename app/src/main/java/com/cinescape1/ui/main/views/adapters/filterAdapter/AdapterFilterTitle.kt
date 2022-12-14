@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.FilterModel
@@ -28,7 +29,7 @@ class AdapterFilterTitle(
 ) :
     RecyclerView.Adapter<AdapterFilterTitle.MyViewHolderFilterTitle>() {
     private var up = true
-    private val mContext: Context = context
+    private val mContext: Activity = context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderFilterTitle {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.filter_alert_title_item, parent, false)
@@ -59,17 +60,14 @@ class AdapterFilterTitle(
                                 holder.selectFilter.hide()
                             }
                             holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
-
-                            val adapter = FilterExperiencesAdapter(
-                                mContext,
-                                filterExpItem.dataList, getList(filterExpItem)
-                            )
+                            val adapter = FilterExperiencesAdapter(mContext, filterExpItem.dataList, getList(filterExpItem))
                             holder.filterExpand.adapter = adapter
+
                             val layoutManager = FlexboxLayoutManager(mContext)
                             layoutManager.flexDirection = FlexDirection.ROW
                             layoutManager.flexWrap = FlexWrap.WRAP
-                            layoutManager.alignItems = AlignItems.FLEX_START
-                            layoutManager.justifyContent = JustifyContent.FLEX_START
+                            layoutManager.alignItems = AlignItems.CENTER
+                            layoutManager.justifyContent = JustifyContent.SPACE_EVENLY
                             holder.filterExpand.layoutManager = layoutManager
 
                         } else {
@@ -230,10 +228,7 @@ class AdapterFilterTitle(
                             } else {
                                 holder.selectFilter.hide()
                             }
-                            val adapter = FilterChildAdapter(
-                                mContext,
-                                filterExpItem.dataList, getList(filterExpItem)
-                            )
+                            val adapter = FilterChildAdapter(mContext, filterExpItem.dataList, getList(filterExpItem))
                             holder.filterExpand.adapter = adapter
                             val layoutManager = FlexboxLayoutManager(mContext)
                             layoutManager.flexDirection = FlexDirection.ROW

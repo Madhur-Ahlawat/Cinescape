@@ -113,6 +113,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(requireActivity(), "ar")
+                Constant.LANGUAGE = "${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}"
                 println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
 
                 val regular = ResourcesCompat.getFont(requireActivity(), R.font.gess_light)
@@ -135,6 +136,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             }
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(requireActivity(), "en")
+                Constant.LANGUAGE = "${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}"
                 val regular = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_regular)
                 val bold = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_bold)
                 val heavy = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
@@ -155,6 +157,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             }
             else -> {
                 LocaleHelper.setLocale(requireActivity(), "en")
+                Constant.LANGUAGE = "${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}"
                 val regular = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_regular)
                 val bold = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_bold)
                 val heavy = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_heavy)
@@ -175,6 +178,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
 
             }
         }
+
         return view!!
     }
 
@@ -407,8 +411,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
 
     private fun nowSowing(nowShowing: ArrayList<MoviesResponse.Nowshowing>) {
         commingSoonClick= false
-        val gridLayout =
-            GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+        val gridLayout = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
         binding?.fragmentMovie?.setHasFixedSize(true)
         var comingSoonList: ArrayList<MoviesResponse.Nowshowing>
         if (nowShowing.size > 0) {
@@ -763,8 +766,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             )
         }
 
-        val recyclerviewExperience =
-            mDialogView.findViewById<View>(R.id.recyclerview_filter_title) as RecyclerView
+        val recyclerviewExperience = mDialogView.findViewById<View>(R.id.recyclerview_filter_title) as RecyclerView
         val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
         recyclerviewExperience.layoutManager = LinearLayoutManager(context)
         adapterFilterTitle = AdapterFilterTitle(requireActivity(), dataList, filterDataList)

@@ -387,9 +387,9 @@ class HomeActivity : DaggerAppCompatActivity(),
                         intent.putExtra(Constant.IntentKey.BOOKING_ID, output.output[0].bookingId)
                         intent.putExtra(
                             Constant.IntentKey.TRANSACTION_ID,
-                            output.output[0].transId.toString()
-                        )
+                            output.output[0].transId.toString())
                         intent.putExtra(Constant.IntentKey.BOOK_TYPE, output.output[0].bookingType)
+                        intent.putExtra("FROM", "MTicket")
                         startActivity(intent)
 
                     }

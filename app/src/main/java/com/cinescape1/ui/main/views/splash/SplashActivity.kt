@@ -23,7 +23,7 @@ import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.di.scoped.ActivityScoped
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
-import com.cinescape1.ui.main.views.splash.viewModel.SplashViewModel
+import com.cinescape1.ui.main.views.player.viewModel.SplashViewModel
 import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.ui.main.views.login.LoginActivity
 import com.cinescape1.ui.main.views.login.otpVerification.OtpVerificationActivity
