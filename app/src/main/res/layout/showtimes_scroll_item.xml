@@ -110,7 +110,6 @@
                 tools:ignore="HardcodedText,ObsoleteLayoutParam"
                 tools:text="Akash" />
 
-
             <LinearLayout
                 android:id="@+id/constraintLayout18"
                 android:layout_width="0dp"
@@ -127,8 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/tv_seat_film_title"
-                    app:cardCornerRadius="@dimen/margin3"
-                    app:cardUseCompatPadding="true"
+                    app:cardCornerRadius="@dimen/margin2"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_seat_film_title">
@@ -136,8 +134,9 @@
                     <TextView
                         android:id="@+id/text_category"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/size22"
+                        android:layout_height="@dimen/margin17"
                         android:fontFamily="@font/sf_pro_text_heavy"
+                        android:includeFontPadding="false"
                         android:gravity="center"
                         android:paddingStart="@dimen/margin6"
                         android:paddingEnd="@dimen/margin6"

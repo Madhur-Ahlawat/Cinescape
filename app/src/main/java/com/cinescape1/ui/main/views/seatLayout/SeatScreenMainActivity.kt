@@ -46,7 +46,6 @@ import kotlinx.android.synthetic.main.activity_seat_screen_main.*
 import kotlinx.android.synthetic.main.cancel_dialog.*
 import javax.inject.Inject
 
-
 @Suppress("DEPRECATION")
 class SeatScreenMainActivity : DaggerAppCompatActivity(),
     SeatShowTimesCinemaAdapter.SeatCinemaAdapterListener,

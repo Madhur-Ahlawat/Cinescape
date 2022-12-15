@@ -106,6 +106,7 @@ class HomeParentAdapter(
                 })
 
             }
+
             "advance" -> {
                 holder.homeTitle.show()
                 holder.txtSeeAll.hide()
@@ -212,8 +213,7 @@ class HomeParentAdapter(
                     holder.itemView.show()
                     holder.txtSeeAll.hide()
 
-                    val gridLayout =
-                        GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
+                    val gridLayout = GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
                     holder.homeList.layoutManager = LinearLayoutManager(mContext)
                     adapter = HomeChildAdapter(mContext, obj.movieData, 1, false, this)
                     holder.homeList.layoutManager = gridLayout
@@ -234,7 +234,6 @@ class HomeParentAdapter(
         }
     }
 
-
     override fun getItemCount(): Int {
         return homeDataList.size
     }
@@ -250,7 +249,6 @@ class HomeParentAdapter(
         var consAdvance = itemView.consAdvance!!
         var sliderAdvance = itemView.sliderAdvance!!
         var myTabLayout = itemView.my_tablayout!!
-
     }
 
     interface RecycleViewItemClickListener {

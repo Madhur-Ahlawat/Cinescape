@@ -216,11 +216,13 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
                             homeData.add(data)
                         }
                     }
+
                     "comingSoon" -> {
                         if (data.movieData.isNotEmpty()) {
                             homeData.add(data)
                         }
                     }
+
                     "offers" -> {
                         if (data.offers.isNotEmpty()) {
                             println("offer123--->${data.offers.size}")
@@ -229,8 +231,8 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
                     }
                 }
             }
-            val gridLayout =
-                GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
+
+            val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
             mainList?.layoutManager = LinearLayoutManager(context)
             val adapter = HomeParentAdapter(requireActivity(), homeData,this, this)
             mainList?.layoutManager = gridLayout

@@ -17,9 +17,9 @@ import com.cinescape1.data.models.responseModel.HomeDataResponse
 import com.cinescape1.ui.main.views.details.ShowTimesActivity
 import com.cinescape1.utils.Constant
 
-
 class AdvanceSliderAdapter(private  val mContext: Activity,private var movieData: ArrayList<HomeDataResponse.MovieData>) :
     PagerAdapter() {
+
     var ratingColor:String=""
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val inflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
