@@ -8,11 +8,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.HistoryResponse
 import com.cinescape1.ui.main.views.adapters.HistoryFoodListAdapter
+import com.cinescape1.utils.Constant
+import com.cinescape1.utils.LocaleHelper
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 
@@ -30,6 +33,86 @@ class AdapterBookingHistory(private val context: Activity,
     override fun onBindViewHolder(holder: MyViewHolderBookingHistory, @SuppressLint("RecyclerView") position: Int) {
         val bookingHistoryItem = bookingHistoryList[position]
         println("Booktype--->${bookingHistoryItem.bookingType}")
+
+        if (Constant.LANGUAGE == "ar"){
+            LocaleHelper.setLocale(context, "ar")
+            val regular = ResourcesCompat.getFont(context, R.font.gess_light)
+            val bold = ResourcesCompat.getFont(context, R.font.gess_bold)
+            val medium = ResourcesCompat.getFont(context, R.font.gess_medium)
+
+            holder.textBookingHistoryTitle.typeface = bold
+            holder.textBookingHistoryDate.typeface = regular
+            holder.textBookingHistoryTime.typeface = regular
+            holder.textAddress.typeface = regular
+            holder.textviewScreenNumber.typeface = regular
+            holder.textviewDateInfo.typeface = regular
+            holder.textviewTimeInfo.typeface = regular
+            holder.textviewExperienceName.typeface = regular
+            holder.textviewSeatName.typeface = regular
+            holder.textKdTicketPrice.typeface = regular
+            holder.payDone.typeface = regular
+            holder.rechargeTime.typeface = regular
+            holder.rechargePrice.typeface = regular
+            holder.rechargeDate.typeface = regular
+            holder.paidBy.typeface = regular
+            holder.foodTotalPrice.typeface = regular
+            holder.foodPaidby.typeface = regular
+
+
+        }else if (Constant.LANGUAGE == "en"){
+            LocaleHelper.setLocale(context, "en")
+            val regular = ResourcesCompat.getFont(context, R.font.sf_pro_text_regular)
+            val bold = ResourcesCompat.getFont(context, R.font.sf_pro_text_bold)
+            val heavy = ResourcesCompat.getFont(context, R.font.sf_pro_text_heavy)
+            val medium = ResourcesCompat.getFont(context, R.font.sf_pro_text_medium)
+
+            holder.textBookingHistoryTitle.typeface = bold
+            holder.textBookingHistoryDate.typeface = regular
+            holder.textBookingHistoryTime.typeface = regular
+            holder.textAddress.typeface = regular
+            holder.textviewScreenNumber.typeface = regular
+            holder.textviewDateInfo.typeface = regular
+            holder.textviewTimeInfo.typeface = regular
+            holder.textviewExperienceName.typeface = regular
+            holder.textviewSeatName.typeface = regular
+            holder.textKdTicketPrice.typeface = regular
+            holder.payDone.typeface = regular
+            holder.rechargeTime.typeface = regular
+            holder.rechargePrice.typeface = regular
+            holder.rechargeDate.typeface = regular
+            holder.paidBy.typeface = regular
+            holder.foodTotalPrice.typeface = regular
+            holder.foodPaidby.typeface = regular
+
+
+        }else{
+            LocaleHelper.setLocale(context, "en")
+            val regular = ResourcesCompat.getFont(context, R.font.sf_pro_text_regular)
+            val bold = ResourcesCompat.getFont(context, R.font.sf_pro_text_bold)
+            val heavy = ResourcesCompat.getFont(context, R.font.sf_pro_text_heavy)
+            val medium = ResourcesCompat.getFont(context, R.font.sf_pro_text_medium)
+
+            holder.textBookingHistoryTitle.typeface = bold
+            holder.textBookingHistoryDate.typeface = regular
+            holder.textBookingHistoryTime.typeface = regular
+            holder.textAddress.typeface = regular
+            holder.textviewScreenNumber.typeface = regular
+            holder.textviewDateInfo.typeface = regular
+            holder.textviewTimeInfo.typeface = regular
+            holder.textviewExperienceName.typeface = regular
+            holder.textviewSeatName.typeface = regular
+            holder.textKdTicketPrice.typeface = regular
+            holder.payDone.typeface = regular
+            holder.rechargeTime.typeface = regular
+            holder.rechargePrice.typeface = regular
+            holder.rechargeDate.typeface = regular
+            holder.paidBy.typeface = regular
+            holder.foodTotalPrice.typeface = regular
+            holder.foodPaidby.typeface = regular
+
+
+        }
+
         when (bookingHistoryItem.bookingType) {
             "CLUBRECHARGE" -> {
                 holder.textBookingHistoryTitle.text= context.getString(R.string.clubCardrecharge)

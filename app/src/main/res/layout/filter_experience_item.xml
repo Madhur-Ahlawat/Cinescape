@@ -22,7 +22,7 @@
         <ImageView
             android:id="@+id/text_exp_title"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/margin20"
             android:adjustViewBounds="true"
             android:src="@drawable/screenx_icon"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -11,7 +11,6 @@ import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.SimpleTarget
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.MoviesResponse
 import java.io.IOException
@@ -19,14 +18,12 @@ import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
-
 class FilterExperiencesAdapter(
     private val mContext: Activity,
     private val items: ArrayList<*>,
     private val selected: ArrayList<String>
 ) :
     RecyclerView.Adapter<FilterExperiencesAdapter.TodoViewHolder>() {
-
 
     @SuppressLint("InflateParams")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
@@ -54,17 +51,19 @@ class FilterExperiencesAdapter(
         var height1 = 0
 
 
+
+
         Thread(Runnable {
             val bmp = getBitmapFromURL(url)
             println("url---->${bmp?.height}")
             width1 = bmp?.width!!
             height1 = bmp.height
 
-//       holder.todoTitle.layoutParams.width = bmp?.width!!
-//      holder.layoutFilterBg.layoutParams.width = bmp?.width!!
-//       holder.todoTitle.layoutParams.height = bmp.height
-//      holder.layoutFilterBg.layoutParams.height = bmp.height
-            println("url1---->${bmp?.width}---->${holder.todoTitle.layoutParams.width}")
+//            holder.todoTitle.layoutParams.width = bmp.width
+//            holder.layoutFilterBg.layoutParams.width = bmp.width
+//            holder.todoTitle.layoutParams.height = bmp.height
+//            holder.layoutFilterBg.layoutParams.height = bmp.height
+            println("url1---->${bmp.width}---->${holder.todoTitle.layoutParams.width}")
 
         }).start()
 
@@ -73,13 +72,8 @@ class FilterExperiencesAdapter(
 //            height = height1
 //        }
 
-
-
-
-
-
-
         holder.layoutFilterBg.setOnClickListener {
+
             if (selected.contains(obj)) {
                 selected.remove(obj)
                 holder.layoutFilterBg.setBackgroundResource(R.drawable.filter_unselect)
@@ -87,6 +81,7 @@ class FilterExperiencesAdapter(
                 selected.add(obj.toString())
                 holder.layoutFilterBg.setBackgroundResource(R.drawable.filter_select)
             }
+
         }
 
         if (selected.contains(obj)) {
@@ -126,5 +121,6 @@ class FilterExperiencesAdapter(
             null
         }
     } // Author: sil
+
 
 }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.FilterModel
@@ -15,6 +16,8 @@ import com.cinescape1.ui.main.views.adapters.FilterChildAdapter
 import com.cinescape1.ui.main.views.adapters.FilterChildCinemaAdapter
 import com.cinescape1.ui.main.views.adapters.FilterChildMovieAdapter
 import com.cinescape1.ui.main.views.home.fragments.movie.adapter.FilterExperiencesAdapter
+import com.cinescape1.utils.Constant
+import com.cinescape1.utils.LocaleHelper
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 import com.google.android.flexbox.*
@@ -22,8 +25,7 @@ import com.google.android.flexbox.*
 class AdapterFilterTitle(
     context: Activity,
     private var filterTitleList: ArrayList<FilterModel>,
-    private val dataList: ArrayList<FilterTypeModel>
-) :
+    private val dataList: ArrayList<FilterTypeModel>) :
     RecyclerView.Adapter<AdapterFilterTitle.MyViewHolderFilterTitle>() {
     private var up = true
     private var rowIndex = -1
@@ -39,10 +41,37 @@ class AdapterFilterTitle(
     @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(
         holder: MyViewHolderFilterTitle,
-        @SuppressLint("RecyclerView") position: Int
-    ) {
+        @SuppressLint("RecyclerView") position: Int) {
         val filterExpItem = filterTitleList[position]
         holder.textTitleFilter.text = filterExpItem.title
+
+        if (Constant.LANGUAGE == "ar"){
+            LocaleHelper.setLocale(mContext, "ar")
+            val regular = ResourcesCompat.getFont(mContext, R.font.gess_light)
+            val bold = ResourcesCompat.getFont(mContext, R.font.gess_bold)
+            val medium = ResourcesCompat.getFont(mContext, R.font.gess_medium)
+
+            holder.textTitleFilter.typeface = bold
+
+        }else if (Constant.LANGUAGE == "en"){
+            LocaleHelper.setLocale(mContext, "en")
+            val regular = ResourcesCompat.getFont(mContext, R.font.sf_pro_text_regular)
+            val bold = ResourcesCompat.getFont(mContext, R.font.sf_pro_text_bold)
+            val heavy = ResourcesCompat.getFont(mContext, R.font.sf_pro_text_heavy)
+            val medium = ResourcesCompat.getFont(mContext, R.font.sf_pro_text_medium)
+            holder.textTitleFilter.typeface = bold
+
+        }else{
+            LocaleHelper.setLocale(mContext, "en")
+            val regular = ResourcesCompat.getFont(mContext, R.font.sf_pro_text_regular)
+            val bold = ResourcesCompat.getFont(mContext, R.font.sf_pro_text_bold)
+            val heavy = ResourcesCompat.getFont(mContext, R.font.sf_pro_text_heavy)
+            val medium = ResourcesCompat.getFont(mContext, R.font.sf_pro_text_medium)
+
+            holder.textTitleFilter.typeface = bold
+
+        }
+
         try {
             when (filterExpItem.type) {
                 1 -> {
@@ -257,39 +286,21 @@ class AdapterFilterTitle(
             println("Exception------>${e.message}")
         }
 
-//        if (check == false){
-//            holder.textTitleFilter.setOnClickListener {
-//                if (holder.filterExpand.visibility == View.GONE){
-//                    holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-//                    holder.filterExpand.show()
-//                    println("ClickListener21------>yes")
-//                }else{
-//                    println("ClickListener212------>no")
-//                    check = true
-//                    holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
-//                    holder.filterExpand.hide()
-//                }
-//            }
-
-//        }
-
 
         holder.itemView.setOnClickListener {
                 rowIndex = position
                 notifyDataSetChanged()
         }
 
-
-
             if (rowIndex == position) {
                 holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
                 holder.filterExpand.show()
+                holder.viewSpace.hide()
             } else {
                 holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
                 holder.filterExpand.hide()
+                holder.viewSpace.hide()
             }
-
-
     }
 
     private fun getList(i: FilterModel): ArrayList<String> {
@@ -314,6 +325,6 @@ class AdapterFilterTitle(
         var selectFilter: ImageView = view.findViewById(R.id.imageView50)
         var filterExpand: RecyclerView = view.findViewById(R.id.filter_exapands)
         var viewSpace: View = view.findViewById(R.id.viewSpace)
-
     }
+
 }

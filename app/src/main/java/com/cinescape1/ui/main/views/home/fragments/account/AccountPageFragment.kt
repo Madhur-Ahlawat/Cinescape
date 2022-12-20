@@ -218,6 +218,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(requireActivity(), "ar")
+                Constant.LANGUAGE = "${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}"
                 binding?.imageSwitcherLang?.isChecked = false
                 arbic = true
                 println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
@@ -311,6 +312,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(requireActivity(), "en")
+                Constant.LANGUAGE = "${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}"
                 binding?.imageSwitcherLang?.isChecked = true
                 arbic = false
                 val regular = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_regular)

@@ -8,9 +8,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.MoviesResponse
+import com.cinescape1.utils.Constant
+import com.cinescape1.utils.LocaleHelper
 
 class FilterChildAdapter(private val mContext: Context, private val items: ArrayList<*>, private val selected: ArrayList<String>) :
     RecyclerView.Adapter<FilterChildAdapter.TodoViewHolder>() {
@@ -34,6 +37,29 @@ class FilterChildAdapter(private val mContext: Context, private val items: Array
     ) {
         val obj = items[position]
         holder.todoTitle.text = obj.toString()
+        if (Constant.LANGUAGE == "ar"){
+            LocaleHelper.setLocale(mContext, "ar")
+            val regular = ResourcesCompat.getFont(mContext, R.font.gess_light)
+            val bold = ResourcesCompat.getFont(mContext, R.font.gess_bold)
+            val medium = ResourcesCompat.getFont(mContext, R.font.gess_medium)
+
+            holder.todoTitle.typeface = regular
+
+
+        }else if (Constant.LANGUAGE == "en"){
+            LocaleHelper.setLocale(mContext, "en")
+            val regular = ResourcesCompat.getFont(mContext, R.font.sf_pro_text_regular)
+            holder.todoTitle.typeface = regular
+
+        }else{
+            LocaleHelper.setLocale(mContext, "en")
+            val regular = ResourcesCompat.getFont(mContext, R.font.sf_pro_text_regular)
+
+            holder.todoTitle.typeface = regular
+
+        }
+
+
         holder.layoutFilterBg.setOnClickListener {
             if (selected.contains(obj)){
                 selected.remove(obj)
