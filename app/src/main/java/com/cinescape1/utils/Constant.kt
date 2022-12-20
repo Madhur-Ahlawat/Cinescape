@@ -134,6 +134,13 @@ class Constant {
         const val version = "1.5"
         const val status = "success"
         const val SUCCESS_CODE = 10001
+
+        const val ENABLE_GPS_LOCATION_REQUEST = 2
+        const val CHANGE_LOCATION_REQUEST = 3
+        const val REQUEST_SELECT_FILE = 2222
+        const val REQUEST_CAMERA = 11111
+        const val RESULT_OK = -1
+        const val IMAGE_COUNT = "count"
         var SEE_ALL_TYPE = 0
         var SEAT_SESSION_CLICK = 0
         var ON_BACK_FOOD = 0

@@ -29,25 +29,13 @@ class MoreInfoViewModel @Inject constructor(private val repositories: Repositori
         } catch (exception: Exception) {
             emit(Result.error(exception.message ?: "Error Occurred!", data = null))
         }
+
     }
 
-    fun contactUs(
-        email: String,
-        name: String,
-        mobile: String,
-        username: String,
-        frontPhoto: MultipartBody.Part
-    ) = liveData(Dispatchers.IO) {
+    fun contactUs(email: String, name: String, mobile: String, msg: String, frontPhoto: MultipartBody.Part) = liveData(Dispatchers.IO) {
         emit(Result.loading(data = null))
         try {
-            val data = repositories.contctUs(
-                ContactUsRequest(
-                    email.toRequestBody("text".toMediaTypeOrNull()),
-                    name.toRequestBody("text".toMediaTypeOrNull()),
-                    mobile.toRequestBody("text".toMediaTypeOrNull()),
-                    username.toRequestBody("text".toMediaTypeOrNull()),
-                    frontPhoto
-                ))
+            val data = repositories.contctUs(email,name,mobile,msg,frontPhoto)
             if (data.status == Status.ERROR){
                 emit(Result.error(data.message.toString(),data))
             }else{
@@ -59,6 +47,39 @@ class MoreInfoViewModel @Inject constructor(private val repositories: Repositori
             emit(Result.error(exception.message ?: "Error Occurred!", data = null))
         }
     }
+
+//       fun contactUs(
+//        email: String,
+//        name: String,
+//        mobile: String,
+//        username: String,
+//        frontPhoto: MultipartBody.Part
+//    ) = liveData(Dispatchers.IO) {
+//        emit(Result.loading(data = null))
+//        try {
+//            val data = repositories.contctUs(
+//                ContactUsRequest(
+//                    email.toRequestBody("text".toMediaTypeOrNull()),
+//                    name.toRequestBody("text".toMediaTypeOrNull()),
+//                    mobile.toRequestBody("text".toMediaTypeOrNull()),
+//                    username.toRequestBody("text".toMediaTypeOrNull()),
+//                    frontPhoto
+//                ))
+//            if (data.status == Status.ERROR){
+//                emit(Result.error(data.message.toString(),data))
+//            }else{
+//                emit(Result.success(data = data))
+//            }
+//
+//        } catch (exception: Exception) {
+//            exception.printStackTrace()
+//            emit(Result.error(exception.message ?: "Error Occurred!", data = null))
+//        }
+//    }
+//
+
+
+
     fun countryCode(
         context: Activity
     ) = liveData(Dispatchers.IO) {

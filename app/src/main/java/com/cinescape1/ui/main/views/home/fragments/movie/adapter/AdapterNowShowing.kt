@@ -44,26 +44,28 @@ class AdapterNowShowing(
 
         if (Constant.LANGUAGE == "ar"){
             LocaleHelper.setLocale(mContext, "ar")
-            holder.imageView60.setImageResource(R.drawable.arebic_red_icon)
+//            holder.imageView60.setImageResource(R.drawable.arebic_red_icon)
+            holder.imageView60.setImageResource(R.drawable.ar_tab)
             holder.tag.rotation = 30f
             (holder.tag.layoutParams as ConstraintLayout.LayoutParams).apply {
                 marginStart=20
 //                        topMargin=2
                 marginEnd=80
-                bottomMargin=35
+                bottomMargin=20
                 holder.tag.text = comingSoonItem.tag
 //                        bottomMargin=8.dpToPixels()
             }
 
         }else if (Constant.LANGUAGE == "en"){
             LocaleHelper.setLocale(mContext, "en")
-            holder.imageView60.setImageResource(R.drawable.now_showing_diagonal)
+//            holder.imageView60.setImageResource(R.drawable.now_showing_diagonal)
+            holder.imageView60.setImageResource(R.drawable.en_tab)
             holder.tag.rotation = -30f
             (holder.tag.layoutParams as ConstraintLayout.LayoutParams).apply {
                 marginStart=20
 //              topMargin=2
                 marginEnd=80
-                bottomMargin=35
+                bottomMargin=20
                 holder.tag.text = comingSoonItem.tag
             }
         }

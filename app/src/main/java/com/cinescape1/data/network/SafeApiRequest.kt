@@ -41,11 +41,11 @@ fun <T : Any> Response<T>.getErrorObject(): Result<T> {
         try {
 
             message.append((JSONObject(it).getJSONObject("error")).get("message"))
-            println("message-->: ${message.toString()}")
+            println("message-->: ${message}")
 
         } catch (e: JSONException) {
             try {
-                println("message-->: ${message.toString()}")
+                println("message-->: ${message}")
 
                 message.append((JSONObject(it).getString("error")))
             } catch (e: JSONException) {

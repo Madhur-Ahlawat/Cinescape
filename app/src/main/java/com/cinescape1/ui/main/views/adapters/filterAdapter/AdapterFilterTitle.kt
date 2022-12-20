@@ -2,14 +2,11 @@ package com.cinescape1.ui.main.views.adapters.filterAdapter
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.FilterModel
@@ -29,6 +26,9 @@ class AdapterFilterTitle(
 ) :
     RecyclerView.Adapter<AdapterFilterTitle.MyViewHolderFilterTitle>() {
     private var up = true
+    private var rowIndex = -1
+    private var check = true
+
     private val mContext: Activity = context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderFilterTitle {
         val view = LayoutInflater.from(parent.context)
@@ -43,219 +43,251 @@ class AdapterFilterTitle(
     ) {
         val filterExpItem = filterTitleList[position]
         holder.textTitleFilter.text = filterExpItem.title
+        try {
+            when (filterExpItem.type) {
+                1 -> {
+                    up = false
+                    println("ExperienceClickAdapter1---------->Yes")
+//                    if (holder.filterExpand.visibility == View.GONE) {
+
+                    holder.viewSpace.show()
+//                                holder.filterExpand.show()
+//                    holder.filterExpand.visibility = View.VISIBLE
+//                            }
+
+                    holder.filterExpand.removeAllViews()
+                    if (getList(filterExpItem).size > 0) {
+                        holder.selectFilter.show()
+                    } else {
+                        holder.selectFilter.hide()
+                    }
+
+                    holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
+                    val adapter = FilterExperiencesAdapter(
+                        mContext,
+                        filterExpItem.dataList,
+                        getList(filterExpItem)
+                    )
+                    holder.filterExpand.adapter = adapter
+
+                    val layoutManager = FlexboxLayoutManager(mContext)
+                    layoutManager.flexDirection = FlexDirection.ROW
+                    layoutManager.flexWrap = FlexWrap.WRAP
+                    layoutManager.alignItems = AlignItems.CENTER
+                    layoutManager.justifyContent = JustifyContent.SPACE_EVENLY
+                    holder.filterExpand.layoutManager = layoutManager
+
+//                    } else {
+//                        holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
+//                        holder.filterExpand.hide()
+//                        holder.viewSpace.hide()
+//                        holder.filterExpand.hide()
+//                        holder.selectFilter.hide()
+//                    }
+
+                }
+
+                2 -> {
+                    up = false
+
+//                    if (holder.filterExpand.visibility == View.GONE) {
+
+//                    holder.filterExpand.visibility = View.VISIBLE
+                    holder.filterExpand.removeAllViews()
+                    if (getList(filterExpItem).size > 0) {
+                        holder.selectFilter.show()
+                    } else {
+                        holder.selectFilter.hide()
+                    }
+                    val adapter = FilterChildCinemaAdapter(
+                        mContext,
+                        filterExpItem.cinemaList!!, getList(filterExpItem)
+                    )
+                    holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
+
+                    holder.filterExpand.adapter = adapter
+                    val layoutManager = FlexboxLayoutManager(mContext)
+                    layoutManager.flexDirection = FlexDirection.ROW
+                    layoutManager.flexWrap = FlexWrap.WRAP
+                    layoutManager.alignItems = AlignItems.FLEX_START
+                    layoutManager.justifyContent = JustifyContent.FLEX_START
+                    holder.filterExpand.layoutManager = layoutManager
+
+                    println("ExperienceClickAdapter2---------->Yes")
+
+//                    } else {
+//                        holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
+//                        holder.filterExpand.hide()
+//                        holder.viewSpace.hide()
+//                        holder.filterExpand.hide()
+//                        holder.selectFilter.hide()
+//
+//                    }
+                }
+                3 -> {
+//                    up = false
+//                    if (holder.filterExpand.visibility == View.GONE){
+                    up = false
+                    holder.viewSpace.show()
+                    holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
+//                    holder.filterExpand.visibility = View.VISIBLE
+                    holder.filterExpand.removeAllViews()
+                    if (getList(filterExpItem).size > 0) {
+                        holder.selectFilter.show()
+                    } else {
+                        holder.selectFilter.hide()
+                    }
+                    val adapter = FilterChildMovieAdapter(
+                        mContext,
+                        filterExpItem.movieTimings!!, getList(filterExpItem)
+                    )
+                    holder.filterExpand.adapter = adapter
+                    val layoutManager = FlexboxLayoutManager(mContext)
+                    layoutManager.flexDirection = FlexDirection.ROW
+                    layoutManager.flexWrap = FlexWrap.WRAP
+                    layoutManager.alignItems = AlignItems.FLEX_START
+                    layoutManager.justifyContent = JustifyContent.FLEX_START
+                    holder.filterExpand.layoutManager = layoutManager
+
+
+//                    }else{
+//                        holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
+//                        holder.viewSpace.hide()
+//                        holder.filterExpand.hide()
+//                        holder.selectFilter.hide()
+//
+//                    }
+                }
+                4 -> {
+                    up = false
+//                    if (holder.filterExpand.visibility == View.GONE) {
+                    holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
+                    holder.viewSpace.show()
+//                    holder.filterExpand.visibility = View.VISIBLE
+                    holder.filterExpand.removeAllViews()
+                    println("checkList--->${getList(filterExpItem)}")
+                    if (getList(filterExpItem).size > 0) {
+                        holder.selectFilter.show()
+                    } else {
+                        holder.selectFilter.hide()
+                    }
+                    val adapter = FilterChildAdapter(
+                        mContext,
+                        filterExpItem.dataList, getList(filterExpItem)
+                    )
+                    holder.filterExpand.adapter = adapter
+                    val layoutManager = FlexboxLayoutManager(mContext)
+                    layoutManager.flexDirection = FlexDirection.ROW
+                    layoutManager.flexWrap = FlexWrap.WRAP
+                    layoutManager.alignItems = AlignItems.FLEX_START
+                    layoutManager.justifyContent = JustifyContent.FLEX_START
+                    holder.filterExpand.layoutManager = layoutManager
+//                    } else {
+//                        up = false
+//                        holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
+//                        holder.viewSpace.hide()
+//                        holder.filterExpand.hide()
+//                        holder.selectFilter.hide()
+//                    }
+                }
+                5 -> {
+                    up = false
+//                    if (holder.filterExpand.visibility == View.GONE) {
+                    holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
+                    holder.viewSpace.show()
+//                    holder.filterExpand.show()
+                    holder.filterExpand.removeAllViews()
+                    println("checkList--->${getList(filterExpItem)}")
+                    if (getList(filterExpItem).size > 0) {
+                        holder.selectFilter.show()
+                    } else {
+                        holder.selectFilter.hide()
+                    }
+
+                    val adapter = FilterChildAdapter(mContext, filterExpItem.dataList, getList(filterExpItem))
+                    holder.filterExpand.adapter = adapter
+                    val layoutManager = FlexboxLayoutManager(mContext)
+                    layoutManager.flexDirection = FlexDirection.ROW
+                    layoutManager.flexWrap = FlexWrap.WRAP
+                    layoutManager.alignItems = AlignItems.FLEX_START
+                    layoutManager.justifyContent = JustifyContent.FLEX_START
+                    holder.filterExpand.layoutManager = layoutManager
+
+//                    } else {
+//                        up = false
+//                        holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
+//                        holder.viewSpace.hide()
+//                        holder.filterExpand.hide()
+//                        holder.selectFilter.hide()
+//                    }
+                }
+                6 -> {
+                    up = false
+//                    if (holder.filterExpand.visibility == View.GONE) {
+                    holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
+                    holder.viewSpace.show()
+//                    holder.filterExpand.show()
+                    holder.filterExpand.removeAllViews()
+                    println("checkList--->${getList(filterExpItem)}")
+                    if (getList(filterExpItem).size > 0) {
+                        holder.selectFilter.show()
+                    } else {
+                        holder.selectFilter.hide()
+                    }
+                    val adapter = FilterChildAdapter(mContext, filterExpItem.dataList, getList(filterExpItem))
+                    holder.filterExpand.adapter = adapter
+                    val layoutManager = FlexboxLayoutManager(mContext)
+                    layoutManager.flexDirection = FlexDirection.ROW
+                    layoutManager.flexWrap = FlexWrap.WRAP
+                    layoutManager.alignItems = AlignItems.FLEX_START
+                    layoutManager.justifyContent = JustifyContent.FLEX_START
+                    holder.filterExpand.layoutManager = layoutManager
+
+//                    } else {
+//                        up = false
+//                        holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
+//                        holder.viewSpace.hide()
+//                        holder.filterExpand.hide()
+//                        holder.selectFilter.hide()
+//                    }
+                }
+
+            }
+        } catch (e: Exception) {
+            println("Exception------>${e.message}")
+        }
+
+//        if (check == false){
+//            holder.textTitleFilter.setOnClickListener {
+//                if (holder.filterExpand.visibility == View.GONE){
+//                    holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
+//                    holder.filterExpand.show()
+//                    println("ClickListener21------>yes")
+//                }else{
+//                    println("ClickListener212------>no")
+//                    check = true
+//                    holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
+//                    holder.filterExpand.hide()
+//                }
+//            }
+
+//        }
+
 
         holder.itemView.setOnClickListener {
-            try {
-                when (filterExpItem.type) {
-                    1 -> {
-                        println("ExperienceClickAdapter1---------->Yes")
-                        if (holder.filterExpand.visibility == View.GONE) {
-                            holder.viewSpace.show()
-                            holder.filterExpand.show()
-                            holder.filterExpand.visibility = View.VISIBLE
-                            holder.filterExpand.removeAllViews()
-                            if (getList(filterExpItem).size > 0) {
-                                holder.selectFilter.show()
-                            } else {
-                                holder.selectFilter.hide()
-                            }
-                            holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
-                            val adapter = FilterExperiencesAdapter(mContext, filterExpItem.dataList, getList(filterExpItem))
-                            holder.filterExpand.adapter = adapter
-
-                            val layoutManager = FlexboxLayoutManager(mContext)
-                            layoutManager.flexDirection = FlexDirection.ROW
-                            layoutManager.flexWrap = FlexWrap.WRAP
-                            layoutManager.alignItems = AlignItems.CENTER
-                            layoutManager.justifyContent = JustifyContent.SPACE_EVENLY
-                            holder.filterExpand.layoutManager = layoutManager
-
-                        } else {
-                            holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-                            holder.filterExpand.hide()
-                            holder.viewSpace.hide()
-                            holder.filterExpand.hide()
-                            holder.selectFilter.hide()
-                        }
-
-                    }
-                    2 -> {
-                        if (holder.filterExpand.visibility == View.GONE) {
-                            holder.filterExpand.visibility = View.VISIBLE
-                            holder.filterExpand.removeAllViews()
-                            if (getList(filterExpItem).size > 0) {
-                                holder.selectFilter.show()
-                            } else {
-                                holder.selectFilter.hide()
-                            }
-                            val adapter = FilterChildCinemaAdapter(
-                                mContext,
-                                filterExpItem.cinemaList!!, getList(filterExpItem)
-                            )
-                            holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
-
-                            holder.filterExpand.adapter = adapter
-                            val layoutManager = FlexboxLayoutManager(mContext)
-                            layoutManager.flexDirection = FlexDirection.ROW
-                            layoutManager.flexWrap = FlexWrap.WRAP
-                            layoutManager.alignItems = AlignItems.FLEX_START
-                            layoutManager.justifyContent = JustifyContent.FLEX_START
-                            holder.filterExpand.layoutManager = layoutManager
-
-                            println("ExperienceClickAdapter2---------->Yes")
-
-                        } else {
-                            holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-                            holder.filterExpand.hide()
-                            holder.viewSpace.hide()
-                            holder.filterExpand.hide()
-                            holder.selectFilter.hide()
-
-                        }
-                    }
-                    3 -> {
-                        println("ExperienceClickAdapter3---------->Yes")
-                        if (
-                            holder.filterExpand.visibility == View.GONE){
-                            up = false
-                            holder.viewSpace.show()
-                            holder.filterExpand.show()
-                            holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
-                            holder.filterExpand.visibility = View.VISIBLE
-                            holder.filterExpand.removeAllViews()
-                            if (getList(filterExpItem).size > 0) {
-                                holder.selectFilter.show()
-                            } else {
-                                holder.selectFilter.hide()
-                            }
-                            val adapter = FilterChildMovieAdapter(
-                                mContext,
-                                filterExpItem.movieTimings!!, getList(filterExpItem)
-                            )
-                            holder.filterExpand.adapter = adapter
-                            val layoutManager = FlexboxLayoutManager(mContext)
-                            layoutManager.flexDirection = FlexDirection.ROW
-                            layoutManager.flexWrap = FlexWrap.WRAP
-                            layoutManager.alignItems = AlignItems.FLEX_START
-                            layoutManager.justifyContent = JustifyContent.FLEX_START
-                            holder.filterExpand.layoutManager = layoutManager
+                rowIndex = position
+                notifyDataSetChanged()
+        }
 
 
-                        }else{
-                            holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-                            holder.viewSpace.hide()
-                            holder.filterExpand.hide()
-                            holder.selectFilter.hide()
 
-                        }
-                    }
-                    4 -> {
-                        if (holder.filterExpand.visibility == View.GONE) {
-                            holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
-                            holder.viewSpace.show()
-                            holder.filterExpand.show()
-                            holder.filterExpand.visibility = View.VISIBLE
-                            holder.filterExpand.removeAllViews()
-                            println("checkList--->${getList(filterExpItem)}")
-                            if (getList(filterExpItem).size > 0) {
-                                holder.selectFilter.show()
-                            } else {
-                                holder.selectFilter.hide()
-                            }
-                            val adapter = FilterChildAdapter(
-                                mContext,
-                                filterExpItem.dataList, getList(filterExpItem)
-                            )
-                            holder.filterExpand.adapter = adapter
-                            val layoutManager = FlexboxLayoutManager(mContext)
-                            layoutManager.flexDirection = FlexDirection.ROW
-                            layoutManager.flexWrap = FlexWrap.WRAP
-                            layoutManager.alignItems = AlignItems.FLEX_START
-                            layoutManager.justifyContent = JustifyContent.FLEX_START
-                            holder.filterExpand.layoutManager = layoutManager
-                        } else {
-                            up = false
-                            holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-                            holder.viewSpace.hide()
-                            holder.filterExpand.hide()
-                            holder.selectFilter.hide()
-                        }
-                    }
-                    5 -> {
-                        if (holder.filterExpand.visibility == View.GONE) {
-                            holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
-                            holder.viewSpace.show()
-                            holder.filterExpand.show()
-                            holder.filterExpand.visibility = View.VISIBLE
-                            holder.filterExpand.removeAllViews()
-                            println("checkList--->${getList(filterExpItem)}")
-                            if (getList(filterExpItem).size > 0) {
-                                holder.selectFilter.show()
-                            } else {
-                                holder.selectFilter.hide()
-                            }
-
-                            val adapter = FilterChildAdapter(
-                                mContext,
-                                filterExpItem.dataList, getList(filterExpItem)
-                            )
-                            holder.filterExpand.adapter = adapter
-                            val layoutManager = FlexboxLayoutManager(mContext)
-                            layoutManager.flexDirection = FlexDirection.ROW
-                            layoutManager.flexWrap = FlexWrap.WRAP
-                            layoutManager.alignItems = AlignItems.FLEX_START
-                            layoutManager.justifyContent = JustifyContent.FLEX_START
-                            holder.filterExpand.layoutManager = layoutManager
-
-                        } else {
-                            up = false
-                            holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-                            holder.viewSpace.hide()
-                            holder.filterExpand.hide()
-                            holder.selectFilter.hide()
-                        }
-                    }
-                    6 -> {
-                        if (holder.filterExpand.visibility == View.GONE) {
-                            holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
-                            holder.viewSpace.show()
-                            holder.filterExpand.show()
-                            holder.filterExpand.visibility = View.VISIBLE
-                            holder.filterExpand.removeAllViews()
-                            println("checkList--->${getList(filterExpItem)}")
-                            if (getList(filterExpItem).size > 0) {
-                                holder.selectFilter.show()
-                            } else {
-                                holder.selectFilter.hide()
-                            }
-                            val adapter = FilterChildAdapter(mContext, filterExpItem.dataList, getList(filterExpItem))
-                            holder.filterExpand.adapter = adapter
-                            val layoutManager = FlexboxLayoutManager(mContext)
-                            layoutManager.flexDirection = FlexDirection.ROW
-                            layoutManager.flexWrap = FlexWrap.WRAP
-                            layoutManager.alignItems = AlignItems.FLEX_START
-                            layoutManager.justifyContent = JustifyContent.FLEX_START
-                            holder.filterExpand.layoutManager = layoutManager
-
-                        } else {
-                            up = false
-                            holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-                            holder.viewSpace.hide()
-                            holder.filterExpand.hide()
-                            holder.selectFilter.hide()
-                        }
-                    }
-                }
-            } catch (e: Exception) {
-                println("Exception------>${e.message}")
+            if (rowIndex == position) {
+                holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
+                holder.filterExpand.show()
+            } else {
+                holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
+                holder.filterExpand.hide()
             }
-        }
-
-        if (getList(filterExpItem).size > 0) {
-            holder.selectFilter.show()
-        } else {
-            holder.selectFilter.hide()
-        }
 
 
     }
@@ -264,6 +296,8 @@ class AdapterFilterTitle(
         for (data in dataList) {
             if (data.type == i.type) {
                 i.selectedList = data.selectedList
+
+                println("data.selectedList12345---" + i.selectedList + "----")
                 break
             }
         }
@@ -280,5 +314,6 @@ class AdapterFilterTitle(
         var selectFilter: ImageView = view.findViewById(R.id.imageView50)
         var filterExpand: RecyclerView = view.findViewById(R.id.filter_exapands)
         var viewSpace: View = view.findViewById(R.id.viewSpace)
+
     }
 }

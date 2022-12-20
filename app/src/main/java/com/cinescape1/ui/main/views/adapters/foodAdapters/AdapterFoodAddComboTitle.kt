@@ -15,8 +15,8 @@ import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.GetFoodResponse
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
-import com.cinescape1.utils.toast
-import com.google.android.flexbox.FlexboxLayout
+import com.google.android.flexbox.*
+
 
 class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitleList: List<GetFoodResponse.ComboItem>,
     private var alternateItems: List<GetFoodResponse.AlternateItem>, private val listener:RecycleViewItemClickListener,val foodItem:GetFoodResponse.ConcessionItem,val foodPos:Int):
@@ -90,14 +90,16 @@ class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitle
             holder.popcornUi.hide()
             holder.comboUi.show()
 
-            holder.foodComboSubtitleList.removeAllViews()
             val viewList:ArrayList<View> = ArrayList()
-
+            holder.foodComboSubtitleList.removeAllViews()
             for (item in foodSelectedItem.alternateItems) {
-                v = LayoutInflater.from(mContext).inflate(R.layout.food_selected_add_combo_subtitle_item, holder.foodComboSubtitleList, false)
+//              v = LayoutInflater.from(mContext).inflate(R.layout.food_selected_add_combo_subtitle_item, holder.foodComboSubtitleList, false)
+                val  v : View = mContext.layoutInflater.inflate(R.layout.food_selected_add_combo_subtitle_item, null)
                 val imgSubItem: ImageView = v.findViewById(R.id.img_sub_item)
                 val textSubAddFoodName: TextView = v.findViewById(R.id.text_sub_add_food_name)
                 val view22: TextView = v.findViewById(R.id.view22)
+
+
                 viewList.add(v)
                 imgSubItem.show()
 
@@ -115,10 +117,11 @@ class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitle
 //                }
 
                 textSubAddFoodName.text = item.description
+                println("textSubAddFoodName.text------------> ${textSubAddFoodName.text}")
+
                 holder.foodComboSubtitleList.addView(v)
                 v.setOnClickListener {
 //                    mContext.toast("hell3o")
-
                     val data = it.tag as GetFoodResponse.Item
                     println("foodSelectedItem----"+data.description)
 
@@ -126,6 +129,7 @@ class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitle
                     for(item in foodSelectedItem.alternateItems){
                         item.checkFlag = data.id==item.id
                     }
+
                     listener.onComboClick(foodSelectedItem,position,foodItem,foodPos)
                     for (view in viewList){
                         viewLine = view.findViewById(R.id.view22)

@@ -929,8 +929,7 @@ class FoodActivity : DaggerAppCompatActivity(),
     override fun onAddFood(foodItem: GetFoodResponse.ConcessionItem, position: Int,foodComboList: ArrayList<GetFoodResponse.ConcessionItem>) {
         val mDialogView =
             LayoutInflater.from(this).inflate(R.layout.food_selected_add_alert_dailog, null)
-        val mBuilder = AlertDialog.Builder(this)
-            .setView(mDialogView)
+        val mBuilder = AlertDialog.Builder(this).setView(mDialogView)
         val mAlertDialog = mBuilder.show()
         mAlertDialog.show()
         mAlertDialog.window?.setBackgroundDrawableResource(R.color.transparent)
@@ -1732,8 +1731,7 @@ class FoodActivity : DaggerAppCompatActivity(),
         item: GetFoodResponse.ComboItem,
         position: Int,
         foodItem: GetFoodResponse.ConcessionItem,
-        foodPos: Int
-    ) {
+        foodPos: Int) {
         if (position > 0) {
             textNumber?.text = "1"
             tvKdTotal?.text = foodItem.itemPrice

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/black"
-    android:layout_marginTop="@dimen/dimen30">
+    android:layout_marginTop="@dimen/margin12">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_now_showing"
@@ -44,6 +44,7 @@
                         android:layout_height="237.4dp"
                         android:adjustViewBounds="true"
                         android:scaleType="fitXY"
+                        android:maxWidth="172dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintDimensionRatio="H,2:1"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +52,6 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/img_coming_soon"
                         tools:ignore="ContentDescription" />
-
 
                     <ImageView
                         android:id="@+id/imageView60"
@@ -72,7 +72,7 @@
                         android:rotation="-30"
                         android:text="NEW           "
                         android:textColor="@color/white"
-                        android:textSize="@dimen/size11"
+                        android:textSize="@dimen/size8"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView60"
                         app:layout_constraintEnd_toEndOf="@+id/imageView60"
                         app:layout_constraintStart_toStartOf="@+id/imageView60"
@@ -107,7 +107,6 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin4"
                 android:layout_marginBottom="@dimen/margin2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -138,7 +137,7 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/rating_ui"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/margin32"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin2"
                     app:cardCornerRadius="2dp"
@@ -149,11 +148,11 @@
 
                     <TextView
                         android:id="@+id/movieRating"
-                        android:layout_width="wrap_content"
+                        android:layout_width="32dp"
                         android:layout_height="@dimen/margin17"
                         android:fontFamily="@font/sf_pro_text_heavy"
+                        android:gravity="center"
                         android:includeFontPadding="false"
-                        android:gravity="center_vertical"
                         android:paddingStart="@dimen/margin5"
                         android:paddingEnd="@dimen/margin3"
                         android:textColor="@color/white"

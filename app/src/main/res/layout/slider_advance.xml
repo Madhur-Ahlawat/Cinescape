@@ -75,9 +75,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="@dimen/margin5"
+                        android:layout_marginTop="@dimen/margin12"
                         android:ellipsize="end"
                         android:maxLines="1"
+
                         android:minWidth="50dp"
                         app:layout_minWidth="50dp">
 
@@ -86,6 +87,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             app:cardCornerRadius="@dimen/margin3"
+                            android:paddingStart="@dimen/margin2"
+                            android:paddingEnd="@dimen/margin2"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/tv_seat_film_title">
@@ -93,12 +96,12 @@
                             <TextView
                                 android:id="@+id/textView77"
                                 android:layout_width="wrap_content"
-                                android:layout_height="@dimen/margin17"
+                                android:layout_height="@dimen/margin16"
                                 android:fontFamily="@font/sf_pro_text_heavy"
                                 android:includeFontPadding="false"
                                 android:gravity="center_vertical"
-                                android:paddingStart="@dimen/margin6"
-                                android:paddingEnd="@dimen/margin6"
+                                android:paddingStart="@dimen/margin8"
+                                android:paddingEnd="@dimen/margin8"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/size11"
                                 tools:ignore="HardcodedText,TextContrastCheck"

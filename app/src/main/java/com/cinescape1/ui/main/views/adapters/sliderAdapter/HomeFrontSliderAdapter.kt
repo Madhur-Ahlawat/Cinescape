@@ -49,6 +49,7 @@ import kotlinx.android.synthetic.main.home_slider_item.view.*
             intent.putExtra(Constant.IntentKey.MOVIE_ID,obj.id)
             mContext.startActivity(intent)
         }
+
     }
 
      class SliderViewHolder(view: View) : RecyclerView.ViewHolder(view){

@@ -5,9 +5,11 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.*
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.text.Editable
@@ -20,6 +22,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.EditText
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -53,12 +56,12 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import javax.inject.Inject
 
-
 @Suppress("DEPRECATION")
 class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemClickListener,
     FaqAdapter.TypefaceListenerFaq, PrivacyAdapter.TypefaceListenerPrivacy,
     AgeRatingAdapter.TypefaceListenerAgeRating,
-    TermsConditionAdapter.TypefaceListenerTermsCondition, LocationAdapter.TypefaceListenerLocation {
+    TermsConditionAdapter.TypefaceListenerTermsCondition, LocationAdapter.TypefaceListenerLocation ,PhotoUtils.OnImageSelectListener,
+    ViewRefreshListener{
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -92,6 +95,9 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
     private var title4: TextView? = null
     private var workingHour4: TextView? = null
     private var address4: TextView? = null
+
+    var photoUtils: PhotoUtils? = null
+    var permsRequestCode = 202
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -491,6 +497,12 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
         }
 
         textView29.setOnClickListener {
+            if (!checkPermission()){
+                requestPermission()
+            } else {
+                uploadPhoto()
+            }
+
 //            if (requireActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 //                requestPermissions( arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), myGalleryPermissionCode)
 //            } else {
@@ -508,8 +520,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
             val username = enterUsername.text.toString()
             val email = contactEmail.text.toString()
             val mobile = enter_mobile_numbers.text.toString()
-            val name = editTextTextPersonName.text.toString()
-
+            val msg = editTextTextPersonName.text.toString()
 
             if (username.isNullOrEmpty()) {
                 val dialog = OptionDialog(requireContext(),
@@ -563,7 +574,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                     negativeClick = {
                     })
                 dialog.show()
-            } else if (name.isNullOrEmpty()) {
+            } else if (msg.isNullOrEmpty()) {
                 val dialog = OptionDialog(requireContext(),
                     R.mipmap.ic_launcher,
                     R.string.app_name,
@@ -576,9 +587,11 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                     })
                 dialog.show()
             } else {
-                contactUs(email, name, mobile, username, frontPhoto)
-                println("---------->$email---${name}---${username}----${frontPhoto}")
+
+                contactUs(email, username, mobile, msg, frontPhoto)
+                println("---------->$email---${msg}---${username}----${frontPhoto}-----${mobile}")
                 Constant().hideKeyboard(requireActivity())
+
             }
 
         }
@@ -705,7 +718,6 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
     private fun launchInsta() {
         val uriForApp: Uri = Uri.parse("http://instagram.com/_u/cinescapekuwait/")
         val forApp = Intent(Intent.ACTION_VIEW, uriForApp)
-
         val uriForBrowser: Uri = Uri.parse("http://instagram.com/cinescapekuwait/")
         val forBrowser = Intent(Intent.ACTION_VIEW, uriForBrowser)
 
@@ -779,10 +791,9 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
         email: String,
         name: String,
         mobile: String,
-        username: String,
-        Photo: MultipartBody.Part,
-    ) {
-        moreInfoViewModel.contactUs(email, name, mobile, username, Photo)
+        msg: String,
+        Photo: MultipartBody.Part ) {
+        moreInfoViewModel.contactUs(email, name, mobile, msg, Photo)
             .observe(requireActivity()) {
                 it?.let { resource ->
                     when (resource.status) {
@@ -791,6 +802,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                             resource.data?.let { it ->
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                     println("SomethingWrong--->${it.data.msg}")
+                                    println("SomethingWrong21--->yes")
                                     val dialog = OptionDialog(requireActivity(),
                                         R.mipmap.ic_launcher,
                                         R.string.app_name,
@@ -816,7 +828,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                             val dialog = OptionDialog(requireActivity(),
                                 R.mipmap.ic_launcher,
                                 R.string.app_name,
-                                it.message.toString(),
+                                it.data?.data?.msg!!,
                                 positiveBtnText = R.string.ok,
                                 negativeBtnText = R.string.no,
                                 positiveClick = {
@@ -1052,35 +1064,87 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
+    private fun requestPermission() {
+        ActivityCompat.requestPermissions(
+            requireActivity(),
+            arrayOf(
+                Manifest.permission.CAMERA,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ),
+            permsRequestCode
+        )
+    }
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    private fun checkPermission(): Boolean {
+        val result: Int = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+        val result1: Int = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+        val result2: Int = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+        return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED && result2 == PackageManager.PERMISSION_GRANTED
+    }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
+        permissions: Array<out String>,
+        grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
         when (requestCode) {
-            SELECT_PICTURE -> {
-                var i = 0
-                while (i < permissions.size) {
-                    val permission = permissions[i]
-                    if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
-                        val showRationale =
-                            ActivityCompat.shouldShowRequestPermissionRationale(
-                                requireActivity(),
-                                permission
-                            )
-                        if (showRationale) {
-                            textView29.performClick()
-                            //  Show your own message here
-                        } else {
-                            showSettingsAlert()
-                        }
+            202 -> if (grantResults.isNotEmpty()) {
+                try {
+                    val cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    val readAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED
+                    val writeAccepted = grantResults[2] == PackageManager.PERMISSION_GRANTED
+                    val manageAccepted = grantResults[3] == PackageManager.PERMISSION_GRANTED
+                    if (cameraAccepted && readAccepted && writeAccepted && manageAccepted) {
+                        println("CameraImage -----> ${"Image Upload"}")
+                        uploadPhoto()
+                    } else {
                     }
-                    i++
+                }catch (e : Exception){
+                    println("errorCamera---------->${e.message}")
                 }
+
             }
         }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
+    private fun uploadPhoto() {
+        photoUtils = PhotoUtils(requireActivity(), this, textView29, this)
+        photoUtils!!.selectImage(requireActivity())
+    }
+
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int,
+//        permissions: Array<String>,
+//        grantResults: IntArray
+//    ) {
+//        when (requestCode) {
+//            SELECT_PICTURE -> {
+//                var i = 0
+//                while (i < permissions.size) {
+//                    val permission = permissions[i]
+//                    if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
+//                        val showRationale =
+//                            ActivityCompat.shouldShowRequestPermissionRationale(
+//                                requireActivity(),
+//                                permission
+//                            )
+//                        if (showRationale) {
+//                            textView29.performClick()
+//                            //  Show your own message here
+//                        } else {
+//                            showSettingsAlert()
+//                        }
+//                    }
+//                    i++
+//                }
+//            }
+//        }
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//    }
 
     private fun showSettingsAlert() {
         val alertDialog = android.app.AlertDialog.Builder(requireActivity()).create()
@@ -1105,29 +1169,35 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Thread {
+//        Thread {
             if (resultCode == AppCompatActivity.RESULT_OK) {
                 if (requestCode == SELECT_PICTURE) {
                     // Get the url from data
-                    val selectedImageUri = data!!.data
-                    if (null != selectedImageUri) {
-                        // Get the path from the Uri
-                        val path = PathUtil.getPath(requireContext(), selectedImageUri)
+                    val selectedImageUri = data?.data
+                    val mFileTemp = File(ImageFilePath.getFilePath(requireContext(), selectedImageUri!!))
+                    val requestFile: RequestBody = mFileTemp.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+                    val file = MultipartBody.Part.createFormData("file", mFileTemp.name, requestFile)
+                    frontPhoto = file
+                    println("FrontPhotoListItem --------->${frontPhoto}")
 
-                        val mFileTemp =
-                            File(path)
-                        val requestFile: RequestBody =
-                            mFileTemp.asRequestBody("multipart/form-data".toMediaTypeOrNull())
-                        val file =
-                            MultipartBody.Part.createFormData("file", mFileTemp.name, requestFile)
-//                        updateImage(file)
-                        toast("hello---->${frontPhoto}")
-                        frontPhoto = file
+//                    if (null != selectedImageUri) {
+//                        // Get the path from the Uri
+//                        val path = PathUtil.getPath(requireContext(), selectedImageUri)
+//
+//                        val mFileTemp = File(path)
+//                        val requestFile: RequestBody = mFileTemp.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+//                        val file =
+//                            MultipartBody.Part.createFormData("file", mFileTemp.name, requestFile)
+////                        updateImage(file)
+//                        frontPhoto = file
+////                        toast("hello---->${frontPhoto}")
+//                        println("FrontPhotoListItem --------->${frontPhoto}")
+//
+//                    }
 
-                    }
                 }
             }
-        }.start()
+//        }.start()
     }
 
     companion object {
@@ -1144,6 +1214,14 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
             i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
             context.startActivity(i)
         }
+    }
+
+    override fun onImageSelect(bitmap: Bitmap?, file: File?) {
+
+    }
+
+    override fun onRefereshClick(type: Int) {
+
     }
 
 

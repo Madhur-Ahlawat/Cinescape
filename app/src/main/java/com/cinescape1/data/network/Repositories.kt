@@ -11,6 +11,9 @@ import com.cinescape1.ui.main.views.payment.paymentList.response.OfferRemove
 import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResponse
 import com.cinescape1.ui.main.views.splash.response.SplashResponse
 import com.cinescape1.ui.main.views.summery.response.GiftCardResponse
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 class Repositories @Inject constructor(private val api: DataServices) : SafeApiRequest() {
@@ -209,8 +212,22 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
     suspend fun getProfile(request: ProfileRequest): Result<ProfileResponse> {
         return apiRequest { api.getProfile(request) }
     }
-    suspend fun contctUs(request: ContactUsRequest): Result<ContactUsResponse> {
-        return apiRequest { api.contactUs(request.email,request.name,request.mobile,request.msg,request.file) }
+
+//    suspend fun contctUs(request: ContactUsRequest): Result<ContactUsResponse> {
+//        return apiRequest { api.contactUs(request.email,request.name,request.mobile,request.msg,request.file) }
+//    }
+
+    suspend fun contctUs( email: String,
+                          name: String,
+                          mobile: String,
+                          msg: String,
+                          frontPhoto: MultipartBody.Part): Result<ContactUsResponse> {
+        return apiRequest { api.contactUs(
+            RequestBody.create("multipart/form-data".toMediaTypeOrNull(),email),
+            RequestBody.create("multipart/form-data".toMediaTypeOrNull(),name),
+            RequestBody.create("multipart/form-data".toMediaTypeOrNull(),mobile),
+            RequestBody.create("multipart/form-data".toMediaTypeOrNull(),msg),
+            frontPhoto) }
     }
     suspend fun moreTabs(): Result<MoreTabResponse> {
         return apiRequest { api.moreTabs() }

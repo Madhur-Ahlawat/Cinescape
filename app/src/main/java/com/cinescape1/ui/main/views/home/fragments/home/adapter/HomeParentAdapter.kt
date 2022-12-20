@@ -22,6 +22,7 @@ import com.cinescape1.ui.main.views.adapters.*
 import com.cinescape1.ui.main.views.adapters.sliderAdapter.HomeFrontSliderAdapter
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.Constant.Companion.SEE_ALL_TYPE
+import com.cinescape1.utils.LocaleHelper
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 import com.github.islamkhsh.viewpager2.ViewPager2
@@ -57,13 +58,23 @@ class HomeParentAdapter(
                 holder.homeTitle.hide()
                 holder.txtSeeAll.hide()
                 holder.homeList.show()
-                holder.viewpagerBack.show()
+//                holder.viewpagerBack.visibility = View.INVISIBLE
                 holder.viewpager.show()
                 holder.search.show()
-                holder.viewpagerBack.layoutDirection = View.LAYOUT_DIRECTION_RTL
-                val sliderBackAdapter = SliderBackAdapter(mContext, obj.movieData)
-                holder.viewpagerBack.adapter = sliderBackAdapter
-                holder.viewpagerBack.setPagingEnabled(false)
+                
+//                holder.viewpagerBack.layoutDirection = View.LAYOUT_DIRECTION_RTL
+//                val sliderBackAdapter = SliderBackAdapter(mContext, obj.movieData)
+//                holder.viewpagerBack.adapter = sliderBackAdapter
+//                holder.viewpagerBack.setPagingEnabled(false)
+
+                if (Constant.LANGUAGE == "ar"){
+                    LocaleHelper.setLocale(mContext, "ar")
+//                    transfer.addTransformer(MarginPageTransformer(0))
+                    println("Arabic21 ---------->$---yes")
+                }else{
+//                    transfer.addTransformer(MarginPageTransformer(70))
+                    println("Arabic212 -------------yes")
+                }
 
                 holder.viewpager.adapter = HomeFrontSliderAdapter(mContext, obj.movieData,holder.viewpager)
                 holder.viewpager.offscreenPageLimit = 3
@@ -71,7 +82,7 @@ class HomeParentAdapter(
                 holder.viewpager.clipToPadding = false
                 holder.viewpager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
                 val transfer = CompositePageTransformer()
-                transfer.addTransformer(MarginPageTransformer(70))
+
 
 
                 val nextItemVisiblePx = mContext.resources.getDimension(R.dimen.viewpager_next_item_visible)
@@ -84,11 +95,13 @@ class HomeParentAdapter(
                         val r = 1- abs(position)
                         page.translationX = -pageTranslationX * position
                         page.scaleY = 1 - (0.35f * abs(position))
+
 //                        if ((0.85f+ r*0.14f)>90.0) {
 //                            page.scaleY = (0.85f + r * 0.14f)
 //                        }else{
 //                            page.scaleY=   (0.59f)
 //                        }
+
                         println("otherPage--->${(0.85f+ r*0.14f)}--->position${position}--->R${r}")
                     }
 
@@ -101,7 +114,7 @@ class HomeParentAdapter(
                         super.onPageSelected(position)
                         Log.e("Selected_Page", position.toString())
                         Constant.select_pos = position
-                        holder.viewpagerBack.currentItem = position
+//                        holder.viewpagerBack.currentItem = position
                     }
                 })
 
@@ -112,7 +125,7 @@ class HomeParentAdapter(
                 holder.txtSeeAll.hide()
                 holder.consAdvance.show()
                 holder.sliderAdvance.show()
-                holder.viewpagerBack.hide()
+//                holder.viewpagerBack.hide()
                 holder.homeList.hide()
                 holder.viewpager.hide()
                 val advanceSliderAdapter = AdvanceSliderAdapter(mContext, obj.movieData)
@@ -133,7 +146,7 @@ class HomeParentAdapter(
                     holder.homeTitle.show()
                     holder.homeList.show()
                     holder.viewpager.hide()
-                    holder.viewpagerBack.hide()
+//                    holder.viewpagerBack.hide()
 
                     val gridLayout = GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
                     holder.homeList.layoutManager = LinearLayoutManager(mContext)
@@ -164,7 +177,7 @@ class HomeParentAdapter(
                 holder.homeTitle.show()
                 holder.homeList.show()
                 holder.viewpager.hide()
-                holder.viewpagerBack.hide()
+//                holder.viewpagerBack.hide()
                 holder.itemView.show()
                 holder.txtSeeAll.hide()
 
@@ -180,7 +193,7 @@ class HomeParentAdapter(
                     holder.homeTitle.show()
                     holder.homeList.show()
                     holder.viewpager.hide()
-                    holder.viewpagerBack.hide()
+//                    holder.viewpagerBack.hide()
                     holder.itemView.show()
                     holder.txtSeeAll.show()
 
@@ -209,7 +222,7 @@ class HomeParentAdapter(
                     holder.homeTitle.show()
                     holder.homeList.show()
                     holder.viewpager.hide()
-                    holder.viewpagerBack.hide()
+//                    holder.viewpagerBack.hide()
                     holder.itemView.show()
                     holder.txtSeeAll.hide()
 
@@ -245,7 +258,7 @@ class HomeParentAdapter(
         var homeList = itemView.homeList!!
         var viewpager = itemView.viewpager!!
         var search = itemView.search!!
-        var viewpagerBack = itemView.viewpagerBack!!
+//        var viewpagerBack = itemView.viewpagerBack!!
         var consAdvance = itemView.consAdvance!!
         var sliderAdvance = itemView.sliderAdvance!!
         var myTabLayout = itemView.my_tablayout!!

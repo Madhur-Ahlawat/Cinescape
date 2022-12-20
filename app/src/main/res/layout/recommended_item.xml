@@ -51,7 +51,7 @@
                 android:rotation="-30"
                 android:text="ADVANCE           "
                 android:textColor="@color/white"
-                android:textSize="@dimen/size11"
+                android:textSize="@dimen/size9"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView60"
                 app:layout_constraintEnd_toEndOf="@+id/imageView60"
                 app:layout_constraintStart_toStartOf="@+id/imageView60"

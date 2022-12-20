@@ -78,13 +78,13 @@ class HomeParentAdapter(
                 holder.home_title.hide()
                 holder.txtSeeAll.hide()
                 holder.homeList.show()
-                holder.viewpagerBack.show()
+//                holder.viewpagerBack.show()
                 holder.viewpager.show()
                 holder.search.show()
-                holder.viewpagerBack.layoutDirection = View.LAYOUT_DIRECTION_RTL
-                val sliderbackAdapter = SliderBackAdapter(mContext, obj.movieData)
-                holder.viewpagerBack.adapter = sliderbackAdapter
-                holder.viewpagerBack.setPagingEnabled(false)
+//                holder.viewpagerBack.layoutDirection = View.LAYOUT_DIRECTION_RTL
+//                val sliderbackAdapter = SliderBackAdapter(mContext, obj.movieData)
+//                holder.viewpagerBack.adapter = sliderbackAdapter
+//                holder.viewpagerBack.setPagingEnabled(false)
 
                 holder.viewpager.adapter = HomeFrontSliderAdapter(mContext, obj.movieData,holder.viewpager)
                 holder.viewpager.offscreenPageLimit = 3
@@ -130,7 +130,7 @@ class HomeParentAdapter(
                         super.onPageSelected(position)
                         Log.e("Selected_Page", position.toString())
                         Constant.select_pos = position;
-                        holder.viewpagerBack.currentItem = position
+//                        holder.viewpagerBack.currentItem = position
 
                     }
 
@@ -158,7 +158,7 @@ class HomeParentAdapter(
                 holder.txtSeeAll.hide()
                 holder.consAdvance.show()
                 holder.sliderAdvance.show()
-                holder.viewpagerBack.hide()
+//                holder.viewpagerBack.hide()
                 holder.homeList.hide()
                 holder.viewpager.hide()
                 val advanceSliderAdapter = AdvanceSliderAdapter(mContext, obj.movieData)
@@ -193,7 +193,7 @@ class HomeParentAdapter(
                 holder.home_title.show()
                 holder.homeList.show()
                 holder.viewpager.hide()
-                holder.viewpagerBack.hide()
+//                holder.viewpagerBack.hide()
                 holder.itemView.show()
                 val gridLayout = GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
                 holder.homeList?.layoutManager = LinearLayoutManager(mContext)
@@ -212,7 +212,7 @@ class HomeParentAdapter(
                 holder.home_title.show()
                 holder.homeList.show()
                 holder.viewpager.hide()
-                holder.viewpagerBack.hide()
+//                holder.viewpagerBack.hide()
                 holder.itemView.show()
                 holder.txtSeeAll.hide()
 
@@ -228,7 +228,7 @@ class HomeParentAdapter(
                     holder.home_title.show()
                     holder.homeList.show()
                     holder.viewpager.hide()
-                    holder.viewpagerBack.hide()
+//                    holder.viewpagerBack.hide()
                     holder.itemView.show()
                     holder.txtSeeAll.show()
 
@@ -257,7 +257,7 @@ class HomeParentAdapter(
                     holder.home_title.show()
                     holder.homeList.show()
                     holder.viewpager.hide()
-                    holder.viewpagerBack.hide()
+//                    holder.viewpagerBack.hide()
                     holder.itemView.show()
                     holder.txtSeeAll.show()
 
@@ -295,7 +295,7 @@ class HomeParentAdapter(
         var homeList = itemView.homeList
         var viewpager = itemView.viewpager
         var search = itemView.search
-        var viewpagerBack = itemView.viewpagerBack
+//        var viewpagerBack = itemView.viewpagerBack
         var consAdvance = itemView.consAdvance
         var sliderAdvance = itemView.sliderAdvance
         var mytablayout = itemView.my_tablayout
