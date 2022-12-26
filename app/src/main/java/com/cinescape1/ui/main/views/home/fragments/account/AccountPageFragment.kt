@@ -632,7 +632,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             binding?.imagePreference?.setColorFilter(requireActivity().getColor(R.color.text_color))
             binding?.textPreference?.setTextColor(requireActivity().getColor(R.color.text_color))
 
-//            binding?.imageRecharageWallet?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.imageRecharageWallet?.setImageResource(R.drawable.ic_recharge)
             binding?.textRecharageWallet?.setTextColor(requireActivity().getColor(R.color.text_color))
 
             binding?.imageRefundCoin?.setColorFilter(requireActivity().getColor(R.color.text_color))
@@ -703,7 +703,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             binding?.imagePreference?.setColorFilter(requireActivity().getColor(R.color.text_color))
             binding?.textPreference?.setTextColor(requireActivity().getColor(R.color.text_color))
 
-//            binding?.imageRecharageWallet?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.imageRecharageWallet?.setImageResource(R.drawable.ic_recharge)
             binding?.textRecharageWallet?.setTextColor(requireActivity().getColor(R.color.text_color))
 
             binding?.imageRefundCoin?.setColorFilter(requireActivity().getColor(R.color.text_color))
@@ -735,7 +735,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             binding?.imagePreference?.setColorFilter(requireActivity().getColor(R.color.white))
             binding?.textPreference?.setTextColor(requireActivity().getColor(R.color.white))
 
-//            binding?.imageRecharageWallet?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.imageRecharageWallet?.setImageResource(R.drawable.ic_recharge)
             binding?.textRecharageWallet?.setTextColor(requireActivity().getColor(R.color.text_color))
 
             binding?.imageRefundCoin?.setColorFilter(requireActivity().getColor(R.color.text_color))
@@ -765,7 +765,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             binding?.imagePreference?.setColorFilter(requireActivity().getColor(R.color.text_color))
             binding?.textPreference?.setTextColor(requireActivity().getColor(R.color.text_color))
 
-//            binding?.imageRecharageWallet?.setColorFilter(requireActivity().getColor(R.color.white))
+            binding?.imageRecharageWallet?.setImageResource(R.drawable.recharge_wallet)
             binding?.textRecharageWallet?.setTextColor(requireActivity().getColor(R.color.white))
 
             binding?.imageRefundCoin?.setColorFilter(requireActivity().getColor(R.color.text_color))
@@ -794,7 +794,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             binding?.imagePreference?.setColorFilter(requireActivity().getColor(R.color.text_color))
             binding?.textPreference?.setTextColor(requireActivity().getColor(R.color.text_color))
 
-//            binding?.imageRecharageWallet?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.imageRecharageWallet?.setImageResource(R.drawable.ic_recharge)
             binding?.textRecharageWallet?.setTextColor(requireActivity().getColor(R.color.text_color))
 
             binding?.imageRefundCoin?.setColorFilter(requireActivity().getColor(R.color.white))
@@ -832,7 +832,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             binding?.imagePreference?.setColorFilter(requireActivity().getColor(R.color.text_color))
             binding?.textPreference?.setTextColor(requireActivity().getColor(R.color.text_color))
 
-//            binding?.imageRecharageWallet?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.imageRecharageWallet?.setImageResource(R.drawable.ic_recharge)
             binding?.textRecharageWallet?.setTextColor(requireActivity().getColor(R.color.text_color))
 
             binding?.imageRefundCoin?.setColorFilter(requireActivity().getColor(R.color.text_color))
@@ -880,96 +880,123 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         UpdateAccount.setOnClickListener {
             val password = enter_passwords.text.toString()
             val confPassword = enterConfPasswords.text.toString()
-            updateAccount(
-                UpdateAccountRequest(
-                    enter_city.text.toString(),
-                    enter_date_births.text.toString(),
-                    enter_emails.text.toString(),
-                    enter_first_name.text.toString(),
-                    gender,
-                    enter_last_name.text.toString(),
-                    preferences.getString(Constant.USER_ID).toString(),
-                    enter_mobile_numbers.text.toString()
-                )
-            )
 
-//            if (enter_passwords.text.isNullOrEmpty()) {
-//                updateAccount(
-//                    UpdateAccountRequest(
-//                        enter_city.text.toString(),
-//                        enter_date_births.text.toString(),
-//                        enter_emails.text.toString(),
-//                        enter_first_name.text.toString(),
-//                        gender,
-//                        enter_last_name.text.toString(),
-//                        preferences.getString(Constant.USER_ID).toString(),
-//                        enter_mobile_numbers.text.toString()
-//                    )
-//                )
-//
-//            } else if (password.isNullOrEmpty()) {
-//                val dialog = OptionDialog(requireContext(),
-//                    R.mipmap.ic_launcher,
-//                    R.string.app_name,
-//                    resources.getString(R.string.enterPass),
-//                    positiveBtnText = R.string.ok,
-//                    negativeBtnText = R.string.no,
-//                    positiveClick = {
-//                    },
-//                    negativeClick = {
-//                    })
-//                dialog.show()
-//            } else if (confPassword.isNullOrEmpty()) {
-//                val dialog = OptionDialog(requireContext(),
-//                    R.mipmap.ic_launcher,
-//                    R.string.app_name,
-//                    resources.getString(R.string.enterConfPass),
-//                    positiveBtnText = R.string.ok,
-//                    negativeBtnText = R.string.no,
-//                    positiveClick = {
-//                    },
-//                    negativeClick = {
-//                    })
-//                dialog.show()
-//            } else if (password != confPassword) {
-//                val dialog = OptionDialog(requireContext(),
-//                    R.mipmap.ic_launcher,
-//                    R.string.app_name,
-//                    resources.getString(R.string.passNotMatch),
-//                    positiveBtnText = R.string.ok,
-//                    negativeBtnText = R.string.no,
-//                    positiveClick = {
-//                    },
-//                    negativeClick = {
-//                    })
-//                dialog.show()
-//            } else if (confPassword != password) {
-//                val dialog = OptionDialog(requireContext(),
-//                    R.mipmap.ic_launcher,
-//                    R.string.app_name,
-//                    resources.getString(R.string.passNotMatch),
-//                    positiveBtnText = R.string.ok,
-//                    negativeBtnText = R.string.no,
-//                    positiveClick = {
-//                    },
-//                    negativeClick = {
-//                    })
-//                dialog.show()
-//            } else {
-//                Constant().hideKeyboard(requireActivity())
-//                updateAccount(
-//                    UpdateAccountRequest(
-//                        enter_city.text.toString(),
-//                        enter_date_births.text.toString(),
-//                        enter_emails.text.toString(),
-//                        enter_first_name.text.toString(),
-//                        gender,
-//                        enter_last_name.text.toString(),
-//                        preferences.getString(Constant.USER_ID).toString(),
-//                        enter_mobile_numbers.text.toString()
-//                    )
-//                )
-//            }
+            if (!InputTextValidator.validateEmail(binding?.includeProfile?.enterEmails!!)) {
+                if (binding?.includeProfile?.enterEmails?.text.toString().trim { it <= ' ' }.isEmpty()) {
+//                    binding?.enterEmails?.error = resources.getString(R.string.emailOnlyEmpty)
+                    val dialog = OptionDialog(requireActivity(),
+                        R.mipmap.ic_launcher,
+                        R.string.app_name,
+                        resources.getString(R.string.emailOnlyEmpty),
+                        positiveBtnText = R.string.ok,
+                        negativeBtnText = R.string.no,
+                        positiveClick = {
+                        },
+                        negativeClick = {
+                        })
+                    dialog.show()
+                } else {
+                    val dialog = OptionDialog(requireActivity(),
+                        R.mipmap.ic_launcher,
+                        R.string.app_name,
+                        resources.getString(R.string.email_msg_invalid),
+                        positiveBtnText = R.string.ok,
+                        negativeBtnText = R.string.no,
+                        positiveClick = {
+                        },
+                        negativeClick = {
+                        })
+                    dialog.show()
+                }
+
+            } else if (binding?.includeProfile?.enterUserNames?.text.toString().trim() == "") {
+                val dialog = OptionDialog(requireActivity(),
+                    R.mipmap.ic_launcher,
+                    R.string.app_name,
+                    resources.getString(R.string.enterUserNames),
+                    positiveBtnText = R.string.ok,
+                    negativeBtnText = R.string.no,
+                    positiveClick = {
+                    },
+                    negativeClick = {
+                    })
+                dialog.show()
+            } else if (binding?.includeProfile?.enterFirstName?.text.toString().trim() == "") {
+                val dialog = OptionDialog(requireActivity(),
+                    R.mipmap.ic_launcher,
+                    R.string.app_name,
+                    resources.getString(R.string.firstName),
+                    positiveBtnText = R.string.ok,
+                    negativeBtnText = R.string.no,
+                    positiveClick = {
+                    },
+                    negativeClick = {
+                    })
+                dialog.show()
+            } else if (binding?.includeProfile?.enterLastName?.text.toString().trim() == "") {
+                val dialog = OptionDialog(requireActivity(),
+                    R.mipmap.ic_launcher,
+                    R.string.app_name,
+                    resources.getString(R.string.lastName),
+                    positiveBtnText = R.string.ok,
+                    negativeBtnText = R.string.no,
+                    positiveClick = {
+                    },
+                    negativeClick = {
+                    })
+                dialog.show()
+            } else if (binding?.includeProfile?.enterMobileNumbers?.text.toString().trim() == "") {
+                val dialog = OptionDialog(requireActivity(),
+                    R.mipmap.ic_launcher,
+                    R.string.app_name,
+                    resources.getString(R.string.enterMo),
+                    positiveBtnText = R.string.ok,
+                    negativeBtnText = R.string.no,
+                    positiveClick = {
+                    },
+                    negativeClick = {
+                    })
+                dialog.show()
+            } else if (binding?.includeProfile?.enterDateBirths?.text.toString().trim() == "") {
+                val dialog = OptionDialog(requireActivity(),
+                    R.mipmap.ic_launcher,
+                    R.string.app_name,
+                    resources.getString(R.string.enterDob),
+                    positiveBtnText = R.string.ok,
+                    negativeBtnText = R.string.no,
+                    positiveClick = {
+                    },
+                    negativeClick = {
+                    })
+                dialog.show()
+            } else if (binding?.includeProfile?.enterCity?.text.toString().trim() == "") {
+                val dialog = OptionDialog(requireActivity(),
+                    R.mipmap.ic_launcher,
+                    R.string.app_name,
+                    resources.getString(R.string.enterCity),
+                    positiveBtnText = R.string.ok,
+                    negativeBtnText = R.string.no,
+                    positiveClick = {
+                    },
+                    negativeClick = {
+                    })
+                dialog.show()
+
+            } else {
+                updateAccount(
+                    UpdateAccountRequest(
+                        enter_city.text.toString(),
+                        enter_date_births.text.toString(),
+                        enter_emails.text.toString(),
+                        enter_first_name.text.toString(),
+                        gender,
+                        enter_last_name.text.toString(),
+                        preferences.getString(Constant.USER_ID).toString(),
+                        enter_mobile_numbers.text.toString()))
+                Constant().hideKeyboard(requireActivity())
+            }
+
+
         }
 
 
@@ -981,16 +1008,37 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             val mDatePicker = DatePickerDialog(
                 requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
                     val myCalendar = Calendar.getInstance()
+
+                    myCalendar.set(selectedYear, selectedMonth, selectedDay)
+                    val current: Date = myCalendar.getTime()
+
                     myCalendar[Calendar.YEAR] = selectedYear
                     myCalendar[java.util.Calendar.MONTH] = selectedMonth
                     myCalendar[java.util.Calendar.DAY_OF_MONTH] = selectedDay
                     val myFormat = "dd-MM-yy" //Change as you need
                     val sdf = SimpleDateFormat(myFormat, Locale.ENGLISH)
-                    enter_date_births.text = sdf.format(myCalendar.time)
+                    val diff1 = Date().compareTo(current)
+
+                    if (diff1 > 12){
+                        enter_date_births.text = sdf.format(myCalendar.time)
+                    }else{
+                        val dialog = OptionDialog(requireActivity(),
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            resources.getString(R.string.enterDobs),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {
+                            },
+                            negativeClick = {
+                            })
+                        dialog.show()
+                    }
+                    println("enter_date_births21--------->${enter_date_births.text}")
                     mDay = selectedDay
                     mMonth = selectedMonth
                     mYear = selectedYear
-                }, mYear, mMonth, mDay
+                }, mYear-12, mMonth, mDay
             )
             mDatePicker.datePicker.maxDate = System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 0)
             mDatePicker.show()
@@ -1006,10 +1054,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     ageRating.toString(),
                     seatCategory,
                     seatType,
-                    preferences.getString(Constant.USER_ID).toString()
-                )
-            )
-
+                    preferences.getString(Constant.USER_ID).toString()))
         }
 
         broadcastReceiver = MyReceiver()
@@ -1022,6 +1067,15 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         view_ConfPassword.hide()
         textConfPassword.hide()
         enter_ConfPassword.hide()
+
+        binding?.includeProfile?.mobileCode?.setOnDismissListener {
+            binding?.includeProfile?.mobileCode?.isClickable = true
+            binding?.includeProfile?.mobileCode?.isEnabled = true
+            binding?.includeProfile?.mobileCode?.isFocusable = true
+            bottomDialog(countryCodeList)
+            println("countryCodeList21-------->${countryCodeList}")
+        }
+
     }
 
     private fun accountChangePasswordDialog() {
@@ -2007,8 +2061,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                                                 ProfileRequest(
                                                     latitude,
                                                     longitude,
-                                                    preferences.getString(Constant.USER_ID)
-                                                        .toString()
+                                                    preferences.getString(Constant.USER_ID).toString()
                                                 )
                                             )
 
@@ -2092,12 +2145,14 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     val categoryName1: TextView = v.findViewById(R.id.category_name) as TextView
                     categoryImage1.setColorFilter(getColor(requireContext(), R.color.hint_color))
                     categoryName1.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.hint_color))
-
+                    preferences.putString(Constant.SEAT_CATEGORY, "")
                 }
                 println("SeatListClick1 -------->${v}------>${viewListForDates}")
                 this.seatCategory = item.cateTypeText
+                preferences.putString(Constant.SEAT_CATEGORY, item.cateTypeText)
+//                this.seatCategory = preferences.getString(Constant.SEAT_CATEGORY)!!
                 categoryImage.setColorFilter(resources.getColor(R.color.text_alert_color_red))
-                categoryName?.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.text_alert_color_red))
+                categoryName.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.text_alert_color_red))
 
 //                if (this.seatCategory == "Bachelor"){
 //                    this.seatCategory = "Family"
@@ -2133,6 +2188,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             layout.addView(v)
 
             println("SeatType221--->${type_item.seatType}---<${seatType}")
+
             if (type_item.seatType == seatType) {
                 typeName.setTextColor(getColor(requireContext(), R.color.text_alert_color_red))
             } else {
@@ -2140,14 +2196,24 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             }
 
             v.setOnClickListener {
+                if (seatType.contains(type_item.seatType)){
+                    seatType
+                }
+
                 for (v in viewListForSeatType) {
                     val typeName1: TextView = v.findViewById(R.id.tv_seat_selectiopn) as TextView
-                    typeName1.setTextColor(ContextCompat.getColor(requireContext(), R.color.hint_color))
+                    typeName1.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.hint_color))
+                    preferences.putString(Constant.SEAT_TYPE, "")
                 }
-                this.seatType = type_item.seatType
-                typeName.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_alert_color_red))
 
+                this.seatType = type_item.seatType
+                preferences.putString(Constant.SEAT_TYPE, type_item.seatType)
+//                this.seatType = preferences.getString(Constant.SEAT_TYPE)!!
+                typeName.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.text_alert_color_red))
+
+                println("SeatListClick1 ------------->${this.seatType}")
             }
+
         }
     }
 
@@ -2198,8 +2264,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                 for (v in viewListForSeatExperience) {
                     val experienceName1 = v.findViewById(R.id.experience_name) as ImageView
                     experienceName1.setBackgroundColor(
-                        getColor(
-                            requireContext(), R.color.transparent
+                        getColor(requireContext(), R.color.transparent
                         )
                     )
                 }
@@ -2207,13 +2272,10 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     this.experience.remove(data.name)
                     experienceName.setColorFilter(
                         getColor(requireContext(), R.color.hint_color),
-                        android.graphics.PorterDuff.Mode.MULTIPLY
-                    )
-
+                        android.graphics.PorterDuff.Mode.MULTIPLY)
                 } else {
-                    this.experience.add(data.name)
-//                    experience.add(data.name)
 
+                    this.experience.add(data.name)
                     experienceName.setColorFilter(
                         getColor(
                             requireContext(), R.color.text_alert_color_red
@@ -2226,6 +2288,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     }
 
     private fun getMatchIcon(image: String): Int {
+
         for (item in list) {
             if ((resources.getResourceName(item.imgSeatExperience).toString().uppercase()).contains(
                     image
@@ -2261,88 +2324,81 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
             layout.addView(v)
             viewListForSeatAgeRating.add(v.toString())
-            for (item in rating) {
-                if (item.likes) {
-                    when (age_rating_item.name) {
-                        "E" -> {
-                            ageRatingName.setTextColor(getColor(requireContext(), R.color.green))
-                        }
-                        "T" -> {
-                            ageRatingName.setTextColor(getColor(requireContext(), R.color.green))
-                        }
 
-                        "PG" -> {
-                            ageRatingName.setTextColor(getColor(requireContext(), R.color.grey))
-                        }
-
-                        "G" -> {
-                            ageRatingName.setTextColor(getColor(requireContext(), R.color.grey))
-                        }
-
-                        "13+" -> {
-                            ageRatingName.setTextColor(getColor(requireContext(), R.color.yellow))
-
-                        }
-                        "15+" -> {
-                            ageRatingName.setTextColor(getColor(requireContext(), R.color.yellow))
-
-                        }
-                        "18+" -> {
-                            ageRatingName.setTextColor(
-                                getColor(
-                                    requireContext(), R.color.text_alert_color_red
-                                )
-                            )
-
-                        }
-                    }
+                if (age_rating_item.likes) {
+                    ageRatingName.setTextColor(getColor(requireContext(), R.color.text_alert_color_red))
+//                    when (age_rating_item.name) {
+//                        "E" -> {
+//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.green))
+//                        }
+//                        "T" -> {
+//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.green))
+//                        }
+//
+//                        "PG" -> {
+//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.grey))
+//                        }
+//
+//                        "G" -> {
+//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.grey))
+//                        }
+//
+//                        "13+" -> {
+//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.yellow))
+//
+//                        }
+//                        "15+" -> {
+//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.yellow))
+//                        }
+//                        "18+" -> {
+//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.text_alert_color_red))
+//
+//                        }
+//                    }
 
                 } else {
                     ageRatingName.setTextColor(getColor(requireContext(), R.color.hint_color))
                 }
 
-            }
 
             v.setOnClickListener {
+
                 if (ageRating.contains(age_rating_item.name)) {
                     ageRating.remove(age_rating_item.name)
                     ageRatingName.setTextColor(getColor(requireContext(), R.color.hint_color))
-
                 } else {
-                    when (age_rating_item.name) {
-                        "E" -> {
-                            ageRatingName.setTextColor(getColor(requireContext(), R.color.green))
-                        }
-                        "T" -> {
-                            ageRatingName.setTextColor(getColor(requireContext(), R.color.green))
-                        }
 
-                        "PG" -> {
-                            ageRatingName.setTextColor(getColor(requireContext(), R.color.grey))
-                        }
+//                    when (age_rating_item.name) {
+//                        "E" -> {
+//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.green))
+//                        }
+//                        "T" -> {
+//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.green))
+//                        }
+//
+//                        "PG" -> {
+//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.grey))
+//                        }
+//
+//                        "G" -> {
+//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.grey))
+//                        }
+//
+//                        "13+" -> {
+//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.yellow))
+//
+//                        }
+//                        "15+" -> {
+//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.yellow))
+//                        }
+//                        "18+" -> {
+//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.text_alert_color_red))
+//                        }
+//                    }
 
-                        "G" -> {
-                            ageRatingName.setTextColor(getColor(requireContext(), R.color.grey))
-                        }
-
-                        "13+" -> {
-                            ageRatingName.setTextColor(getColor(requireContext(), R.color.yellow))
-
-                        }
-                        "15+" -> {
-                            ageRatingName.setTextColor(getColor(requireContext(), R.color.yellow))
-                        }
-                        "18+" -> {
-                            ageRatingName.setTextColor(
-                                getColor(
-                                    requireContext(), R.color.text_alert_color_red
-                                )
-                            )
-                        }
-                    }
-
+                    ageRatingName.setTextColor(getColor(requireContext(), R.color.text_alert_color_red))
+                    ageRating.add(age_rating_item.name)
                 }
-                ageRating.add(age_rating_item.name)
             }
         }
     }
@@ -2574,9 +2630,11 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     }
 
     private fun retrieveCountryList(output: ArrayList<CountryCodeResponse.Output>) {
-        mobile_code.setOnClickListener {
+
+        binding?.includeProfile?.mobileCode?.setOnClickListener {
             bottomDialog(output)
         }
+
     }
 
     private fun updateAccount(updateAccountRequest: UpdateAccountRequest) {
@@ -2587,13 +2645,13 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                             loader?.dismiss()
                             resource.data?.let { it ->
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    loader?.dismiss()
-                                    retrieveUpdateResponse(it.data.output)
+//                                    loader?.dismiss()
+                                    retrieveUpdateResponse(it.data)
                                 } else {
                                     val dialog = OptionDialog(requireActivity(),
                                         R.mipmap.ic_launcher,
                                         R.string.app_name,
-                                        it.data?.msg.toString(),
+                                        it.data?.msg!!,
                                         positiveBtnText = R.string.ok,
                                         negativeBtnText = R.string.no,
                                         positiveClick = {},
@@ -2607,7 +2665,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                             val dialog = OptionDialog(requireActivity(),
                                 R.mipmap.ic_launcher,
                                 R.string.app_name,
-                                it.message.toString(),
+                                it.data?.data?.msg!!,
                                 positiveBtnText = R.string.ok,
                                 negativeBtnText = R.string.no,
                                 positiveClick = {},
@@ -2615,31 +2673,39 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                             dialog.show()
                         }
                         Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(childFragmentManager, null)
+//                            if (isAdded){
+//                                loader = LoaderDialog(R.string.pleasewait)
+//                                loader?.show(childFragmentManager, null)
+//                            }
+
                         }
                     }
                 }
             }
     }
 
-    private fun retrieveUpdateResponse(output: UpdateAccountResponse.Output) {
+//    getString(R.string.profileUpdate)
+    private fun retrieveUpdateResponse(output: UpdateAccountResponse) {
+           loader?.dismiss()
         val dialog = OptionDialog(requireActivity(),
             R.mipmap.ic_launcher,
             R.string.app_name,
-            getString(R.string.profileUpdate),
+            output.msg,
             positiveBtnText = R.string.ok,
             negativeBtnText = R.string.no,
-            positiveClick = {},
+            positiveClick = {
+                println("ProfileUpdate-------->${"yes"}")
+            },
             negativeClick = {})
         dialog.show()
-        text_make_editable.show()
-        view_ConfPassword.hide()
-        textConfPassword.hide()
-        view39_line.hide()
-        enter_ConfPassword.hide()
-        view19.hide()
-        UpdateAccount.hide()
+
+//        text_make_editable.show()
+//        view_ConfPassword.hide()
+//        textConfPassword.hide()
+//        view39_line.hide()
+//        enter_ConfPassword.hide()
+//        view19.hide()
+//        UpdateAccount.hide()
     }
 
     private fun getAmountLoad() {
@@ -2799,17 +2865,13 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                                         view!!.findViewById<FlexboxLayout>(R.id.seat_list_preference)
                                     val typeListPreference =
                                         view!!.findViewById<FlexboxLayout>(R.id.type_list_preference)
-                                    val ageRatingListPreference =
-                                        view!!.findViewById<FlexboxLayout>(R.id.age_rating_list_preference)
-                                    setSeatCategoryFlexbox(
-                                        seatListPreference, it.data.output.seatCategory
-                                    )
+                                    val ageRatingListPreference = view!!.findViewById<FlexboxLayout>(R.id.age_rating_list_preference)
+                                    setSeatCategoryFlexbox(seatListPreference, it.data.output.seatCategory)
                                     setSeatTypeFlexbox(typeListPreference, it.data.output.seatType)
                                     setAgeRatingFlexbox(
                                         ageRatingListPreference, it.data.output.rating
                                     )
                                     retrievedProfile(it.data.output)
-
                                 } else {
                                     println("Something Wrong")
                                 }
@@ -2847,6 +2909,35 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 //        loginType = output.guest
         println("GuestChwck--->${output.guest}")
 
+//        if (output.seatType == ""){
+//            this.seatType = ""
+////            preferences.putString(Constant.SEAT_TYPE, "")
+//        }else{
+//            this.seatType = output.seatType
+//        }
+//
+//        if (output.seatCategory == ""){
+//            this.seatCategory = ""
+//        }else{
+//            this.seatCategory = output.seatCategory
+//        }
+
+
+//        this.seatType = preferences.getString(Constant.SEAT_TYPE)!!
+//        this.seatCategory = preferences.getString(Constant.SEAT_CATEGORY)!!
+
+//        for (item in output.experience){
+//            if (item.likes){
+//                this.experience.add(item.name)
+//            }
+//        }
+//
+//        for (item in output.rating){
+//            if (item.likes){
+//                this.ageRating.add(item.name)
+//            }
+//        }
+
         if (output.userName.isNullOrEmpty()) {
             view_user_name.hide()
             text_user_name_title.hide()
@@ -2858,7 +2949,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }
 
 //        type=output.
-        mobile_code.setText(output.countryCode)
+        binding?.includeProfile?.mobileCode?.setText(output.countryCode)
         binding?.textWalletUserId?.text = getString(R.string.wallet_Id) + output.cardNumber
         binding?.textUserWalletKd?.text = getString(R.string.wallet_balance) + output.balance
 
@@ -2883,7 +2974,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     }
 
     override fun onItemClick(view: CountryCodeResponse.Output) {
-        mobile_code?.setText(view.isdCode)
+        binding?.includeProfile?.mobileCode?.setText(view.isdCode)
         countryCode = view.isdCode
     }
 
@@ -2912,8 +3003,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         mAdapter = CountryCodeAdapter(countryCodeList, this, requireActivity())
         recyclerView.adapter = mAdapter
         //Recycler
-        val layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = layoutManager
         countryCodeList = countryList
@@ -2960,7 +3050,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         proceed.setOnClickListener {
             mAlertDialog?.dismiss()
             edSearch.text.clear()
-            mobile_code.setText(countryCode)
+            binding?.includeProfile?.mobileCode?.setText(countryCode)
         }
     }
 

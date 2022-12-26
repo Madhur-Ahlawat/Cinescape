@@ -339,10 +339,11 @@
 
                 <ImageView
                     android:id="@+id/image_recharage_wallet"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/margin25"
+                    android:layout_height="@dimen/margin25"
                     android:layout_marginTop="8dp"
                     android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
                     android:contentDescription="@string/contentDes"
                     android:src="@drawable/ic_recharge"
                     app:layout_constraintEnd_toEndOf="@+id/view_recharge"

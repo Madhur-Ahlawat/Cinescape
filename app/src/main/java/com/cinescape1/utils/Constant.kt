@@ -156,6 +156,8 @@ class Constant {
         const val USER_NAME = "user_name"
         const val USER_GENDER = "user_gender"
         const val USER_ID = "user_id"
+        const val SEAT_TYPE = "seat_type"
+        const val SEAT_CATEGORY = "seat_category"
         const val IS_LOGIN = "is_login"
         var select_pos = 0
         const val TYPE_LOGIN = "type_login"

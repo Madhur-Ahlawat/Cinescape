@@ -2,6 +2,7 @@ package com.cinescape1.utils
 
 
 import android.widget.EditText
+import android.widget.TextView
 import java.util.regex.Pattern
 
 
@@ -71,7 +72,12 @@ object InputTextValidator {
     //        else
     //            return true;
     //    }
+
     fun hasText(editText: EditText): Boolean {
+        val string = editText.text.toString().trim { it <= ' ' }
+        return string.isNotEmpty()
+    }
+   fun hasText1(editText: TextView): Boolean {
         val string = editText.text.toString().trim { it <= ' ' }
         return string.isNotEmpty()
     }

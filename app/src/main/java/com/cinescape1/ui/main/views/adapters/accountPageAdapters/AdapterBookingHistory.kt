@@ -84,8 +84,8 @@ class AdapterBookingHistory(private val context: Activity,
             holder.foodTotalPrice.typeface = regular
             holder.foodPaidby.typeface = regular
 
-
         }else{
+
             LocaleHelper.setLocale(context, "en")
             val regular = ResourcesCompat.getFont(context, R.font.sf_pro_text_regular)
             val bold = ResourcesCompat.getFont(context, R.font.sf_pro_text_bold)
@@ -109,7 +109,6 @@ class AdapterBookingHistory(private val context: Activity,
             holder.paidBy.typeface = regular
             holder.foodTotalPrice.typeface = regular
             holder.foodPaidby.typeface = regular
-
 
         }
 

@@ -29,7 +29,6 @@ class AdapterFilterTitle(
     RecyclerView.Adapter<AdapterFilterTitle.MyViewHolderFilterTitle>() {
     private var up = true
     private var rowIndex = -1
-    private var check = true
 
     private val mContext: Activity = context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderFilterTitle {
@@ -219,7 +218,7 @@ class AdapterFilterTitle(
 //                        holder.selectFilter.hide()
 //                    }
                 }
-                5 -> {
+               5 -> {
                     up = false
 //                    if (holder.filterExpand.visibility == View.GONE) {
                     holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
@@ -250,7 +249,7 @@ class AdapterFilterTitle(
 //                        holder.selectFilter.hide()
 //                    }
                 }
-                6 -> {
+               6 -> {
                     up = false
 //                    if (holder.filterExpand.visibility == View.GONE) {
                     holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
@@ -286,21 +285,37 @@ class AdapterFilterTitle(
             println("Exception------>${e.message}")
         }
 
-
-        holder.itemView.setOnClickListener {
-                rowIndex = position
-                notifyDataSetChanged()
+        if (rowIndex == position){
+            holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
+            holder.filterExpand.show()
+            holder.viewSpace.hide()
+        }else{
+            holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
+            holder.filterExpand.hide()
+            holder.viewSpace.hide()
         }
 
-            if (rowIndex == position) {
-                holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-                holder.filterExpand.show()
-                holder.viewSpace.hide()
-            } else {
-                holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
-                holder.filterExpand.hide()
-                holder.viewSpace.hide()
+
+        holder.itemView.setOnClickListener {
+            notifyDataSetChanged()
+
+            rowIndex = if (rowIndex == position) {
+                -1
+            } else{
+                position
             }
+        }
+
+
+
+//         if (rowIndexCustom == 0) {
+//            if (holder.filterExpand.visibility == View.VISIBLE){
+//                holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
+//                holder.filterExpand.hide()
+//                holder.viewSpace.hide()
+//            }
+//        }
+
     }
 
     private fun getList(i: FilterModel): ArrayList<String> {
