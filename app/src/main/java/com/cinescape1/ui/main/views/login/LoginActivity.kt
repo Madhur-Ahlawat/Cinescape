@@ -1226,7 +1226,7 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
         }
     }
 
-    override fun onItemClick(view: CountryCodeResponse.Output) {
+    override fun onItemClick(view: CountryCodeResponse.Output, check : Boolean) {
         countryCode = view.isdCode
         val maxLengthEditText = view.phoneLength
         binding?.editTextPhone?.filters = arrayOf<InputFilter>(LengthFilter(maxLengthEditText))

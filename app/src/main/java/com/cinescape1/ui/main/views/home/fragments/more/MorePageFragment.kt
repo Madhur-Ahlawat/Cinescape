@@ -1055,7 +1055,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
 
     }
 
-    override fun onItemClick(view: CountryCodeResponse.Output) {
+    override fun onItemClick(view: CountryCodeResponse.Output, check : Boolean) {
         println("PhoneLength--->${view.phoneLength}")
         countryCode = view.isdCode
         val maxLengthEditText = view.phoneLength

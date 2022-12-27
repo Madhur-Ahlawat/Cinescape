@@ -886,7 +886,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }
 
         UpdateAccount.setOnClickListener {
-            
+
             val password = enter_passwords.text.toString()
             val confPassword = enterConfPasswords.text.toString()
 
@@ -2317,16 +2317,18 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             } else {
                 0
             }
-            val iconId = getMatchIcon(data.name)
-            if (iconId == 0) {
-                experienceText.text = getMatchIcon(data.name).toString()
-                experienceText.show()
-                experienceName.hide()
-            } else {
-                experienceName.setImageResource(getMatchIcon(data.name))
-                experienceText.hide()
-                experienceName.show()
-            }
+
+//            val iconId = getMatchIcon(data.name)
+//            if (iconId == 0) {
+//                experienceText.text = getMatchIcon(data.name).toString()
+//                experienceText.show()
+//                experienceName.hide()
+//            } else {
+//                experienceName.setImageResource(getMatchIcon(data.name))
+//                experienceText.hide()
+//                experienceName.show()
+//            }
+            experienceName.setImageResource(getMatchIcon(data.name))
 
             layout.addView(v)
             viewListForSeatExperience.add(v)
@@ -2963,14 +2965,9 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                                     view!!.findViewById<FlexboxLayout>(R.id.type_list_preference)
                                 val ageRatingListPreference =
                                     view!!.findViewById<FlexboxLayout>(R.id.age_rating_list_preference)
-                                setSeatCategoryFlexbox(
-                                    seatListPreference,
-                                    it.data.output.seatCategory
-                                )
+                                setSeatCategoryFlexbox(seatListPreference, it.data.output.seatCategory)
                                 setSeatTypeFlexbox(typeListPreference, it.data.output.seatType)
-                                setAgeRatingFlexbox(
-                                    ageRatingListPreference, it.data.output.rating
-                                )
+                                setAgeRatingFlexbox(ageRatingListPreference, it.data.output.rating)
                                 retrievedProfile(it.data.output)
                             } else {
                                 println("Something Wrong")
@@ -3079,9 +3076,15 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }
     }
 
-    override fun onItemClick(view: CountryCodeResponse.Output) {
-        binding?.includeProfile?.mobileCode?.setText(view.isdCode)
-        countryCode = view.isdCode
+    override fun onItemClick(view: CountryCodeResponse.Output, check : Boolean) {
+        if (check == true){
+            binding?.includeProfile?.mobileCode?.setText(view.isdCode)
+            countryCode = view.isdCode
+        }else{
+            binding?.includeProfile?.mobileCode?.setText("")
+            countryCode = ""
+        }
+
     }
 
     private fun broadcastIntent() {
@@ -3152,13 +3155,15 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
         cancel.setOnClickListener {
             mAlertDialog?.dismiss()
+            binding?.includeProfile?.mobileCode?.setText(countryCode)
         }
 
         proceed.setOnClickListener {
+            binding?.includeProfile?.mobileCode?.setText(countryCode)
             mAlertDialog?.dismiss()
             edSearch.text.clear()
-            binding?.includeProfile?.mobileCode?.setText(countryCode)
         }
+
     }
 
     private fun signOut() {

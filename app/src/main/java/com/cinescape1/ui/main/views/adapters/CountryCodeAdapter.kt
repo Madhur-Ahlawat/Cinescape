@@ -20,7 +20,8 @@ class CountryCodeAdapter(
     private val mcontext: Activity
 ) :
     RecyclerView.Adapter<CountryCodeAdapter.RecyclerViewHolder>() {
-    private var rowIndex = 0
+    private var rowIndex = -1
+    var check = false
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -50,8 +51,17 @@ class CountryCodeAdapter(
             }
 
             holder.itemView.setOnClickListener {
-                rowIndex = position
-                listener.onItemClick(recyclerData)
+
+                if (rowIndex == position){
+                    rowIndex = -1
+                    check = false
+                    println("IsdCodeClick--------->no")
+                }else{
+                    rowIndex = position
+                    check = true
+                    println("IsdCodeClick--------->yes")
+                }
+                listener.onItemClick(recyclerData, check)
                 notifyDataSetChanged()
             }
 
@@ -72,7 +82,7 @@ class CountryCodeAdapter(
     }
 
     interface RecycleViewItemClickListener {
-        fun onItemClick(view: CountryCodeResponse.Output)
+        fun onItemClick(view: CountryCodeResponse.Output,check : Boolean)
 
     }
     @SuppressLint("NotifyDataSetChanged")

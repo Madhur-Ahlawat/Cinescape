@@ -39,7 +39,7 @@
                 android:visibility="visible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/now_showing_diagonal"
+                app:srcCompat="@drawable/en_tab"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -49,9 +49,11 @@
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:gravity="center"
                 android:rotation="-30"
-                android:text="ADVANCE           "
+                android:text="ADVANCE  "
                 android:textColor="@color/white"
-                android:textSize="@dimen/size9"
+                android:textSize="@dimen/size8"
+                android:layout_marginEnd="@dimen/margin8"
+                android:layout_marginBottom="@dimen/margin16"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView60"
                 app:layout_constraintEnd_toEndOf="@+id/imageView60"
                 app:layout_constraintStart_toStartOf="@+id/imageView60"

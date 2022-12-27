@@ -426,8 +426,13 @@ class ActivateWalletActivity : DaggerAppCompatActivity(),
         }
     }
 
-    override fun onItemClick(view: CountryCodeResponse.Output) {
-        countryCode = view.isdCode
+    override fun onItemClick(view: CountryCodeResponse.Output, check : Boolean) {
+//        if (check == true){
+            countryCode = view.isdCode
+//        }else{
+//            countryCode = ""
+//        }
+
         println("CountryCode--->${view.isdCode}")
     }
 
