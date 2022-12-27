@@ -4,8 +4,8 @@ data class ProfileResponse(
     val code: Int,
     val msg: String,
     val output: Output,
-    val result: String
-) {
+    val result: String)
+{
     data class Output(
         val city: String,
         val email: String,

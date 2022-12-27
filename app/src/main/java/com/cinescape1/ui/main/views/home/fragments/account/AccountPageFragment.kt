@@ -119,9 +119,13 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         ModelPreferenceExperience(R.drawable.img_dolby, 0),
         ModelPreferenceExperience(R.drawable.img_3d, 0),
         ModelPreferenceExperience(R.drawable.img_eleven, 0),
-        ModelPreferenceExperience(R.drawable.img_2d, 0),
         ModelPreferenceExperience(R.drawable.img_screenx, 0)
     )
+
+//    val seatTypeList: ArrayList<ModelPreferenceType> = arrayListOf(
+//        ModelPreferenceType("STANDARD", 0),
+//        ModelPreferenceType("PREMIUM", 0)
+//    )
 
     private var userName: String = ""
     private var firstName: String = ""
@@ -151,8 +155,12 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
     private var seatCategory: String = ""
     private var seatType: String = ""
-    private val experience: ArrayList<String> = ArrayList()
-    private var ageRating: ArrayList<String> = ArrayList()
+
+//    private val experience: ArrayList<String> = ArrayList()
+//    private val seatTypeList: ArrayList<String> = ArrayList()
+//    private val seatCategoryList: ArrayList<String> = ArrayList()
+//    private var ageRating: ArrayList<String> = ArrayList()
+
     private var locationlist = ArrayList<FoodResponse.Output.Cinema>()
     private var clickEnable: Int = 0
 
@@ -878,11 +886,13 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }
 
         UpdateAccount.setOnClickListener {
+            
             val password = enter_passwords.text.toString()
             val confPassword = enterConfPasswords.text.toString()
 
             if (!InputTextValidator.validateEmail(binding?.includeProfile?.enterEmails!!)) {
-                if (binding?.includeProfile?.enterEmails?.text.toString().trim { it <= ' ' }.isEmpty()) {
+                if (binding?.includeProfile?.enterEmails?.text.toString().trim { it <= ' ' }
+                        .isEmpty()) {
 //                    binding?.enterEmails?.error = resources.getString(R.string.emailOnlyEmpty)
                     val dialog = OptionDialog(requireActivity(),
                         R.mipmap.ic_launcher,
@@ -992,7 +1002,9 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                         gender,
                         enter_last_name.text.toString(),
                         preferences.getString(Constant.USER_ID).toString(),
-                        enter_mobile_numbers.text.toString()))
+                        enter_mobile_numbers.text.toString()
+                    )
+                )
                 Constant().hideKeyboard(requireActivity())
             }
 
@@ -1019,9 +1031,9 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     val sdf = SimpleDateFormat(myFormat, Locale.ENGLISH)
                     val diff1 = Date().compareTo(current)
 
-                    if (diff1 > 12){
+                    if (diff1 > 12) {
                         enter_date_births.text = sdf.format(myCalendar.time)
-                    }else{
+                    } else {
                         val dialog = OptionDialog(requireActivity(),
                             R.mipmap.ic_launcher,
                             R.string.app_name,
@@ -1038,7 +1050,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     mDay = selectedDay
                     mMonth = selectedMonth
                     mYear = selectedYear
-                }, mYear-12, mMonth, mDay
+                }, mYear - 12, mMonth, mDay
             )
             mDatePicker.datePicker.maxDate = System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 0)
             mDatePicker.show()
@@ -1046,15 +1058,33 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
         //Save Prefrence
         textView3.setOnClickListener {
-            updatePreference(
-                PreferenceRequest(
-                    arbic,
-                    cinema,
-                    experience.toString(),
-                    ageRating.toString(),
-                    seatCategory,
-                    seatType,
-                    preferences.getString(Constant.USER_ID).toString()))
+//            try {
+                updatePreference(
+                    PreferenceRequest(
+                        arbic,
+                        cinema,
+                        Constant.experience.toString(),
+                        Constant.ageRating.toString(),
+                        Constant.seatCategoryList.toString(),
+                        Constant.seatTypeList.toString(),
+                        preferences.getString(Constant.USER_ID).toString()
+                    )
+                )
+//            } catch (e: Exception) {
+//                println("errorMessage-------->${e.message}")
+//            }
+
+
+//            updatePreference(
+//                PreferenceRequest(
+//                    arbic,
+//                    cinema,
+//                    experience.toString(),
+//                    ageRating.toString(),
+//                    seatCategory,
+//                    seatType,
+//                    preferences.getString(Constant.USER_ID).toString()))
+
         }
 
         broadcastReceiver = MyReceiver()
@@ -1613,288 +1643,288 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
     private fun postCardData(request: PostCardRequest) {
         accountFragViewModel.postCardData(request).observe(requireActivity()) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
 //                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    try {
-                                        if (it.data.output.redirect == "0") {
-                                            cardinal.cca_continue(
-                                                it.data.output.authTransId,
-                                                it.data.output.pares,
-                                                requireActivity()
-                                            ) { context, validateResponse, s ->
-                                                println("consumerSessionId12-->" + validateResponse.actionCode + "----" + validateResponse.errorDescription)
-                                                if (validateResponse.actionCode == CardinalActionCode.CANCEL) {
-                                                    toast("Transaction Cancelled!")
-                                                } else if (validateResponse.actionCode == CardinalActionCode.ERROR) {
-                                                    toast(validateResponse.errorDescription)
-                                                } else if (validateResponse.actionCode == CardinalActionCode.SUCCESS) {
-                                                    if (s != null) {
-                                                        requireActivity().runOnUiThread {
-                                                            validateJWT(
-                                                                ValidateJWTRequest(
-                                                                    request.bookingid,
-                                                                    request.cardNumber,
-                                                                    request.cvNumber,
-                                                                    request.expirationMonth,
-                                                                    request.expirationYear,
-                                                                    s,
-                                                                    m_sessionID,
-                                                                    ""
-                                                                )
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                try {
+                                    if (it.data.output.redirect == "0") {
+                                        cardinal.cca_continue(
+                                            it.data.output.authTransId,
+                                            it.data.output.pares,
+                                            requireActivity()
+                                        ) { context, validateResponse, s ->
+                                            println("consumerSessionId12-->" + validateResponse.actionCode + "----" + validateResponse.errorDescription)
+                                            if (validateResponse.actionCode == CardinalActionCode.CANCEL) {
+                                                toast("Transaction Cancelled!")
+                                            } else if (validateResponse.actionCode == CardinalActionCode.ERROR) {
+                                                toast(validateResponse.errorDescription)
+                                            } else if (validateResponse.actionCode == CardinalActionCode.SUCCESS) {
+                                                if (s != null) {
+                                                    requireActivity().runOnUiThread {
+                                                        validateJWT(
+                                                            ValidateJWTRequest(
+                                                                request.bookingid,
+                                                                request.cardNumber,
+                                                                request.cvNumber,
+                                                                request.expirationMonth,
+                                                                request.expirationYear,
+                                                                s,
+                                                                m_sessionID,
+                                                                ""
                                                             )
-                                                        }
-                                                    } else {
-                                                        toast("Transaction Failed!")
+                                                        )
                                                     }
                                                 } else {
-                                                    toast(validateResponse.errorDescription)
+                                                    toast("Transaction Failed!")
                                                 }
+                                            } else {
+                                                toast(validateResponse.errorDescription)
                                             }
-                                        } else {
-                                            loader?.dismiss()
-                                            val dialog = OptionDialog(requireActivity(),
-                                                R.mipmap.ic_launcher,
-                                                R.string.app_name,
-                                                it.data.output.errorDescription,
-                                                positiveBtnText = R.string.ok,
-                                                negativeBtnText = R.string.no,
-                                                positiveClick = {},
-                                                negativeClick = {})
-                                            dialog.show()
                                         }
-                                    } catch (e: Exception) {
+                                    } else {
                                         loader?.dismiss()
-
-                                        println("updateUiCinemaSession ---> ${e.message}")
+                                        val dialog = OptionDialog(requireActivity(),
+                                            R.mipmap.ic_launcher,
+                                            R.string.app_name,
+                                            it.data.output.errorDescription,
+                                            positiveBtnText = R.string.ok,
+                                            negativeBtnText = R.string.no,
+                                            positiveClick = {},
+                                            negativeClick = {})
+                                        dialog.show()
                                     }
-
-                                } else {
+                                } catch (e: Exception) {
                                     loader?.dismiss()
-                                    val dialog = OptionDialog(requireActivity(),
-                                        R.mipmap.ic_launcher,
-                                        R.string.app_name,
-                                        it.data?.msg.toString(),
-                                        positiveBtnText = R.string.ok,
-                                        negativeBtnText = R.string.no,
-                                        positiveClick = {},
-                                        negativeClick = {})
-                                    dialog.show()
+
+                                    println("updateUiCinemaSession ---> ${e.message}")
                                 }
 
+                            } else {
+                                loader?.dismiss()
+                                val dialog = OptionDialog(requireActivity(),
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
                             }
+
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(requireContext(),
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(requireContext(),
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
 //                            loader = LoaderDialog(R.string.pleasewait)
 //                            loader?.show(requireActivity().supportFragmentManager, null)
-                        }
                     }
                 }
             }
+        }
     }
 
     private fun validateJWT(s: ValidateJWTRequest) {
         accountFragViewModel.validateJWT(s).observe(requireActivity()) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    try {
-                                        proceedAlertDialog?.dismiss()
-                                        image_knet.setColorFilter(requireActivity().getColor(R.color.hint_color))
-                                        text_kent.setTextColor(requireContext().getColor(R.color.hint_color))
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                try {
+                                    proceedAlertDialog?.dismiss()
+                                    image_knet.setColorFilter(requireActivity().getColor(R.color.hint_color))
+                                    text_kent.setTextColor(requireContext().getColor(R.color.hint_color))
 
-                                        image_credit_card.setColorFilter(
-                                            requireActivity().getColor(
-                                                R.color.hint_color
-                                            )
+                                    image_credit_card.setColorFilter(
+                                        requireActivity().getColor(
+                                            R.color.hint_color
                                         )
-                                        text_credit_card.setTextColor(requireContext().getColor(R.color.hint_color))
+                                    )
+                                    text_credit_card.setTextColor(requireContext().getColor(R.color.hint_color))
 
-                                        clickEnable = 0
-                                        getProfile(
-                                            ProfileRequest(
-                                                latitude,
-                                                longitude,
-                                                preferences.getString(Constant.USER_ID).toString()
-                                            )
+                                    clickEnable = 0
+                                    getProfile(
+                                        ProfileRequest(
+                                            latitude,
+                                            longitude,
+                                            preferences.getString(Constant.USER_ID).toString()
                                         )
+                                    )
 
-                                    } catch (e: Exception) {
-                                        println("updateUiCinemaSession ---> ${e.message}")
-                                    }
-
-                                } else {
-                                    loader?.dismiss()
-                                    val dialog = OptionDialog(requireActivity(),
-                                        R.mipmap.ic_launcher,
-                                        R.string.app_name,
-                                        it.data?.msg.toString(),
-                                        positiveBtnText = R.string.ok,
-                                        negativeBtnText = R.string.no,
-                                        positiveClick = {},
-                                        negativeClick = {})
-                                    dialog.show()
+                                } catch (e: Exception) {
+                                    println("updateUiCinemaSession ---> ${e.message}")
                                 }
 
+                            } else {
+                                loader?.dismiss()
+                                val dialog = OptionDialog(requireActivity(),
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
                             }
+
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(requireActivity(),
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
-                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(requireActivity(),
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
                     }
                 }
             }
+        }
     }
 
     private fun creditCardInit(request: HmacKnetRequest, bookinId: String) {
         accountFragViewModel.creditCardInit(request).observe(requireActivity()) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            // loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    try {
-                                        cardinal = Cardinal.getInstance()
-                                        val serverJwt: String = it.data.output.jwtToken
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        // loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                try {
+                                    cardinal = Cardinal.getInstance()
+                                    val serverJwt: String = it.data.output.jwtToken
 
-                                        val profilingConnections: TMXProfilingConnectionsInterface =
-                                            TMXProfilingConnections().setConnectionTimeout(
-                                                20, TimeUnit.SECONDS
-                                            ).setRetryTimes(3)
+                                    val profilingConnections: TMXProfilingConnectionsInterface =
+                                        TMXProfilingConnections().setConnectionTimeout(
+                                            20, TimeUnit.SECONDS
+                                        ).setRetryTimes(3)
 
 
-                                        val config = TMXConfig() // (REQUIRED) Organisation ID
-                                            .setOrgId(it.data.output.orgId)
-                                            .setFPServer("h.online-metrix.net")
-                                            .setContext(requireActivity())
-                                            .setProfilingConnections(profilingConnections)
-                                            .setProfileTimeout(20, TimeUnit.SECONDS)
-                                            .setRegisterForLocationServices(true)
+                                    val config = TMXConfig() // (REQUIRED) Organisation ID
+                                        .setOrgId(it.data.output.orgId)
+                                        .setFPServer("h.online-metrix.net")
+                                        .setContext(requireActivity())
+                                        .setProfilingConnections(profilingConnections)
+                                        .setProfileTimeout(20, TimeUnit.SECONDS)
+                                        .setRegisterForLocationServices(true)
 //
-                                        TMXProfiling.getInstance().init(config)
+                                    TMXProfiling.getInstance().init(config)
 
-                                        doProfile(
-                                            it.data.output.deviceSessionId,
-                                            it.data.output.merchantId
-                                        )
+                                    doProfile(
+                                        it.data.output.deviceSessionId,
+                                        it.data.output.merchantId
+                                    )
 
-                                        cardinal.init(serverJwt, object : CardinalInitService {
-                                            /**
-                                             * You may have your Submit button disabled on page load. Once you are set up
-                                             * for CCA, you may then enable it. This will prevent users from submitting
-                                             * their order before CCA is ready.
-                                             */
-                                            override fun onSetupCompleted(consumerSessionId: String) {
-                                                refId = consumerSessionId
-                                                println("consumerSessionId-->$consumerSessionId")
+                                    cardinal.init(serverJwt, object : CardinalInitService {
+                                        /**
+                                         * You may have your Submit button disabled on page load. Once you are set up
+                                         * for CCA, you may then enable it. This will prevent users from submitting
+                                         * their order before CCA is ready.
+                                         */
+                                        override fun onSetupCompleted(consumerSessionId: String) {
+                                            refId = consumerSessionId
+                                            println("consumerSessionId-->$consumerSessionId")
 
 
-                                                activity?.runOnUiThread {
-                                                    postCardData(
-                                                        PostCardRequest(
-                                                            bookinId,
-                                                            ccCardNo,
-                                                            ccCardCvv,
-                                                            ccCardExpiryMonth,
-                                                            ccCardExpiryYear,
-                                                            refId
-                                                        )
+                                            activity?.runOnUiThread {
+                                                postCardData(
+                                                    PostCardRequest(
+                                                        bookinId,
+                                                        ccCardNo,
+                                                        ccCardCvv,
+                                                        ccCardExpiryMonth,
+                                                        ccCardExpiryYear,
+                                                        refId
                                                     )
-                                                }
-
-
+                                                )
                                             }
 
-                                            override fun onValidated(
-                                                validateResponse: ValidateResponse?,
-                                                serverJwt: String?
-                                            ) {
-                                                activity?.runOnUiThread {
-                                                    loader?.dismiss()
-                                                    proceedAlertDialog?.dismiss()
-                                                    val dialog = OptionDialog(requireActivity(),
-                                                        R.mipmap.ic_launcher,
-                                                        R.string.app_name,
-                                                        getString(R.string.somethingWrong),
-                                                        positiveBtnText = R.string.ok,
-                                                        negativeBtnText = R.string.no,
-                                                        positiveClick = {},
-                                                        negativeClick = {})
-                                                    dialog.show()
-                                                }
 
-                                                println("consumerSessionId-->" + validateResponse?.actionCode + "----" + serverJwt)
+                                        }
+
+                                        override fun onValidated(
+                                            validateResponse: ValidateResponse?,
+                                            serverJwt: String?
+                                        ) {
+                                            activity?.runOnUiThread {
+                                                loader?.dismiss()
+                                                proceedAlertDialog?.dismiss()
+                                                val dialog = OptionDialog(requireActivity(),
+                                                    R.mipmap.ic_launcher,
+                                                    R.string.app_name,
+                                                    getString(R.string.somethingWrong),
+                                                    positiveBtnText = R.string.ok,
+                                                    negativeBtnText = R.string.no,
+                                                    positiveClick = {},
+                                                    negativeClick = {})
+                                                dialog.show()
                                             }
-                                        })
 
-                                    } catch (e: Exception) {
-                                        println("updateUiCinemaSession ---> ${e.message}")
-                                    }
+                                            println("consumerSessionId-->" + validateResponse?.actionCode + "----" + serverJwt)
+                                        }
+                                    })
 
-                                } else {
-                                    loader?.dismiss()
-                                    val dialog = OptionDialog(requireActivity(),
-                                        R.mipmap.ic_launcher,
-                                        R.string.app_name,
-                                        it.data?.msg.toString(),
-                                        positiveBtnText = R.string.ok,
-                                        negativeBtnText = R.string.no,
-                                        positiveClick = {},
-                                        negativeClick = {})
-                                    dialog.show()
+                                } catch (e: Exception) {
+                                    println("updateUiCinemaSession ---> ${e.message}")
                                 }
 
+                            } else {
+                                loader?.dismiss()
+                                val dialog = OptionDialog(requireActivity(),
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
                             }
+
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(requireActivity(),
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(requireActivity(),
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
 //                            loader = LoaderDialog(R.string.pleasewait)
 //                            loader?.show(requireActivity().supportFragmentManager, null)
-                        }
                     }
                 }
             }
+        }
     }
 
     private fun doProfile(sessions1: String, merchent: String) {
@@ -1918,42 +1948,42 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
     private fun CinemaResponse() {
         accountFragViewModel.foodResponse().observe(requireActivity()) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                try {
-                                    if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                        locationlist = it.data.output.cinemas
-                                        cinemaId = it.data.output.cinemas[0].id
-                                        setSpinner(it.data.output.cinemas)
-                                    }
-                                } catch (e: Exception) {
-                                    e.printStackTrace()
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            try {
+                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                    locationlist = it.data.output.cinemas
+                                    cinemaId = it.data.output.cinemas[0].id
+                                    setSpinner(it.data.output.cinemas)
                                 }
+                            } catch (e: Exception) {
+                                e.printStackTrace()
                             }
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(requireContext(),
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.data?.message ?: "Something went wrong",
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(requireContext(),
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.data?.message ?: "Something went wrong",
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {
 
-                                },
-                                negativeClick = {})
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
+                            },
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
 
-                        }
                     }
                 }
             }
+        }
     }
 
     private fun setSpinner(cinemas: ArrayList<FoodResponse.Output.Cinema>) {
@@ -2039,67 +2069,67 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     //Prefrence
     private fun updatePreference(profileRequest: PreferenceRequest) {
         accountFragViewModel.updatePreference(profileRequest).observe(requireActivity()) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    println("SomethingWrong--->${it.data.msg}")
-                                    view39_line.hide()
-                                    view_ConfPassword.hide()
-                                    textConfPassword.hide()
-                                    enter_ConfPassword.hide()
-                                    val dialog = OptionDialog(requireContext(),
-                                        R.mipmap.ic_launcher,
-                                        R.string.app_name,
-                                        it.data.msg,
-                                        positiveBtnText = R.string.ok,
-                                        negativeBtnText = R.string.no,
-                                        positiveClick = {
-                                            getProfile(
-                                                ProfileRequest(
-                                                    latitude,
-                                                    longitude,
-                                                    preferences.getString(Constant.USER_ID).toString()
-                                                )
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                println("SomethingWrong--->${it.data.msg}")
+                                view39_line.hide()
+                                view_ConfPassword.hide()
+                                textConfPassword.hide()
+                                enter_ConfPassword.hide()
+                                val dialog = OptionDialog(requireContext(),
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data.msg,
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {
+                                        getProfile(
+                                            ProfileRequest(
+                                                latitude,
+                                                longitude,
+                                                preferences.getString(Constant.USER_ID).toString()
                                             )
+                                        )
 
-                                        },
-                                        negativeClick = {})
-                                    dialog.show()
-                                } else {
-                                    val dialog = OptionDialog(requireContext(),
-                                        R.mipmap.ic_launcher,
-                                        R.string.app_name,
-                                        it.data?.msg.toString(),
-                                        positiveBtnText = R.string.ok,
-                                        negativeBtnText = R.string.no,
-                                        positiveClick = {},
-                                        negativeClick = {})
-                                    dialog.show()
-                                }
+                                    },
+                                    negativeClick = {})
+                                dialog.show()
+                            } else {
+                                val dialog = OptionDialog(requireContext(),
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
                             }
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(requireContext(),
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(requireActivity().supportFragmentManager, null)
-                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(requireContext(),
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                        loader = LoaderDialog(R.string.pleasewait)
+                        loader?.show(requireActivity().supportFragmentManager, null)
                     }
                 }
             }
+        }
     }
 
     @SuppressLint("InflateParams")
@@ -2114,53 +2144,82 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         for (item in list) {
             val v: View = layoutInflater.inflate(R.layout.seat_category_item, null)
             val categoryImage: ImageView = v.findViewById(R.id.image_family) as ImageView
-           val categoryName = v.findViewById(R.id.category_name) as TextView
+            val categoryName = v.findViewById(R.id.category_name) as TextView
 
             seatAbility = if (item.count > 0) {
                 1
             } else {
                 0
             }
-            categoryName?.text = item.cateTypeText
+            categoryName.text = item.cateTypeText
             Glide.with(this).load(item.imgCate).placeholder(R.drawable.family).into(categoryImage)
 
             viewListForDates.add(v)
             layout.addView(v)
 
 
-            println("SeatCategory21--->${item.cateTypeText}---<${seatCategory}")
-            if (item.cateTypeText == seatCategory) {
+
+          val seat = seatCategory.replace("[", "").replace("]", "")
+//          val seat1 = seat.replace("]","")
+//            textList.toString().replace("[", "").replace("]", "")
+            println("SeatCategory212--->${item.cateTypeText}--->${seat}")
+            if (item.cateTypeText == seat) {
                 categoryImage.setColorFilter(resources.getColor(R.color.text_alert_color_red))
-                categoryName?.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_alert_color_red))
+                categoryName.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.text_alert_color_red
+                    )
+                )
             } else {
                 categoryImage.setColorFilter(resources.getColor(R.color.hint_color))
-                categoryName?.setTextColor(ContextCompat.getColor(requireContext(), R.color.hint_color))
+                categoryName.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.hint_color
+                    )
+                )
             }
 
             v.setOnClickListener {
 
                 for (v in viewListForDates) {
-//                    println("SeatListClick -------->${v}------>${viewListForDates}")
                     val categoryImage1: ImageView = v.findViewById(R.id.image_family) as ImageView
                     val categoryName1: TextView = v.findViewById(R.id.category_name) as TextView
                     categoryImage1.setColorFilter(getColor(requireContext(), R.color.hint_color))
-                    categoryName1.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.hint_color))
+                    categoryName1.setTextColor(
+                        ContextCompat.getColorStateList(
+                            requireContext(),
+                            R.color.hint_color
+                        )
+                    )
                     preferences.putString(Constant.SEAT_CATEGORY, "")
                 }
                 println("SeatListClick1 -------->${v}------>${viewListForDates}")
-                this.seatCategory = item.cateTypeText
-                preferences.putString(Constant.SEAT_CATEGORY, item.cateTypeText)
-//                this.seatCategory = preferences.getString(Constant.SEAT_CATEGORY)!!
-                categoryImage.setColorFilter(resources.getColor(R.color.text_alert_color_red))
-                categoryName.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.text_alert_color_red))
 
-//                if (this.seatCategory == "Bachelor"){
-//                    this.seatCategory = "Family"
-//                }else{
-//                    this.seatCategory = "Bachelor"
-//                }
+//                this.seatCategory = item.cateTypeText
+//                preferences.putString(Constant.SEAT_CATEGORY, item.cateTypeText)
+//                categoryImage.setColorFilter(resources.getColor(R.color.text_alert_color_red))
+//                categoryName.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.text_alert_color_red))
 
-                println("SeatListClick1 ------------->${this.seatCategory}")
+                if (Constant.seatCategoryList.contains(item.cateTypeText)) {
+                    Constant.seatCategoryList.remove(item.cateTypeText)
+                    println("SeatListClick21 ------------->${Constant.seatCategoryList}")
+                    categoryImage.setColorFilter(resources.getColor(R.color.hint_color))
+                    categoryName.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.hint_color)
+                    )
+                } else {
+                    Constant.seatCategoryList.clear()
+                    Constant.seatCategoryList.add(item.cateTypeText)
+                    categoryImage.setColorFilter(resources.getColor(R.color.text_alert_color_red))
+                    categoryName.setTextColor(
+                        ContextCompat.getColorStateList(
+                            requireContext(),
+                            R.color.text_alert_color_red
+                        )
+                    )
+                    println("SeatListClick2123 ------------->${Constant.seatCategoryList}")
+                }
 
             }
         }
@@ -2176,6 +2235,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         layout.removeAllViews()
         val viewListForSeatType = ArrayList<View>()
         for (type_item in list) {
+
             val v: View = layoutInflater.inflate(R.layout.seat_type_item, null)
             val typeName: TextView = v.findViewById(R.id.tv_seat_selectiopn) as TextView
             seatAbility = if (type_item.count > 0) {
@@ -2189,29 +2249,54 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
             println("SeatType221--->${type_item.seatType}---<${seatType}")
 
-            if (type_item.seatType == seatType) {
+            val seat = seatType.replace("[", "").replace("]", "")
+
+            if (type_item.seatType == seat) {
                 typeName.setTextColor(getColor(requireContext(), R.color.text_alert_color_red))
             } else {
                 typeName.setTextColor(getColor(requireContext(), R.color.hint_color))
             }
 
             v.setOnClickListener {
-                if (seatType.contains(type_item.seatType)){
-                    seatType
-                }
 
                 for (v in viewListForSeatType) {
                     val typeName1: TextView = v.findViewById(R.id.tv_seat_selectiopn) as TextView
-                    typeName1.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.hint_color))
-                    preferences.putString(Constant.SEAT_TYPE, "")
+                    typeName1.setTextColor(
+                        ContextCompat.getColorStateList(
+                            requireContext(),
+                            R.color.hint_color
+                        )
+                    )
                 }
 
-                this.seatType = type_item.seatType
-                preferences.putString(Constant.SEAT_TYPE, type_item.seatType)
-//                this.seatType = preferences.getString(Constant.SEAT_TYPE)!!
-                typeName.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.text_alert_color_red))
+//                this.seatType = type_item.seatType
+//                this.seatTypeList.add(type_item.seatType)
+//                println("seatTypeV212----------yes2")
+//                preferences.putString(Constant.SEAT_TYPE, type_item.seatType)
+//                typeName.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.text_alert_color_red))
 
-                println("SeatListClick1 ------------->${this.seatType}")
+                if (Constant.seatTypeList.contains(type_item.seatType)) {
+                    Constant.seatTypeList.remove(type_item.seatType)
+                    println("SeatListClick21 ------------->yes")
+                    typeName.setTextColor(
+                        ContextCompat.getColorStateList(
+                            requireContext(),
+                            R.color.hint_color
+                        )
+                    )
+                } else {
+                    Constant.seatTypeList.clear()
+                    Constant.seatTypeList.add(type_item.seatType)
+                    typeName.setTextColor(
+                        ContextCompat.getColorStateList(
+                            requireContext(),
+                            R.color.text_alert_color_red
+                        )
+                    )
+                    println("SeatListClick21 ------------->no")
+                }
+
+
             }
 
         }
@@ -2264,18 +2349,21 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                 for (v in viewListForSeatExperience) {
                     val experienceName1 = v.findViewById(R.id.experience_name) as ImageView
                     experienceName1.setBackgroundColor(
-                        getColor(requireContext(), R.color.transparent
+                        getColor(
+                            requireContext(),
+                            R.color.transparent
                         )
                     )
                 }
-                if (this.experience.contains(data.name)) {
-                    this.experience.remove(data.name)
+                if (Constant.experience.contains(data.name)) {
+                    Constant.experience.remove(data.name)
                     experienceName.setColorFilter(
                         getColor(requireContext(), R.color.hint_color),
-                        android.graphics.PorterDuff.Mode.MULTIPLY)
+                        android.graphics.PorterDuff.Mode.MULTIPLY
+                    )
                 } else {
 
-                    this.experience.add(data.name)
+                    Constant.experience.add(data.name)
                     experienceName.setColorFilter(
                         getColor(
                             requireContext(), R.color.text_alert_color_red
@@ -2302,7 +2390,10 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
     @SuppressLint("InflateParams")
     val viewListForSeatAgeRating = ArrayList<String>()
-    private fun setAgeRatingFlexbox(layout: FlexboxLayout, rating: List<ProfileResponse.Output.Rating>) {
+    private fun setAgeRatingFlexbox(
+        layout: FlexboxLayout,
+        rating: List<ProfileResponse.Output.Rating>
+    ) {
         val list: ArrayList<ModelPreferenceAgeRating> = arrayListOf(
             ModelPreferenceAgeRating("E", 0),
             ModelPreferenceAgeRating("PG", 0),
@@ -2325,8 +2416,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             layout.addView(v)
             viewListForSeatAgeRating.add(v.toString())
 
-                if (age_rating_item.likes) {
-                    ageRatingName.setTextColor(getColor(requireContext(), R.color.text_alert_color_red))
+            if (age_rating_item.likes) {
+                ageRatingName.setTextColor(getColor(requireContext(), R.color.text_alert_color_red))
 //                    when (age_rating_item.name) {
 //                        "E" -> {
 //                            ageRatingName.setTextColor(getColor(requireContext(), R.color.green))
@@ -2356,15 +2447,15 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 //                        }
 //                    }
 
-                } else {
-                    ageRatingName.setTextColor(getColor(requireContext(), R.color.hint_color))
-                }
+            } else {
+                ageRatingName.setTextColor(getColor(requireContext(), R.color.hint_color))
+            }
 
 
             v.setOnClickListener {
 
-                if (ageRating.contains(age_rating_item.name)) {
-                    ageRating.remove(age_rating_item.name)
+                if (Constant.ageRating.contains(age_rating_item.name)) {
+                    Constant.ageRating.remove(age_rating_item.name)
                     ageRatingName.setTextColor(getColor(requireContext(), R.color.hint_color))
                 } else {
 
@@ -2396,8 +2487,13 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 //                        }
 //                    }
 
-                    ageRatingName.setTextColor(getColor(requireContext(), R.color.text_alert_color_red))
-                    ageRating.add(age_rating_item.name)
+                    ageRatingName.setTextColor(
+                        getColor(
+                            requireContext(),
+                            R.color.text_alert_color_red
+                        )
+                    )
+                    Constant.ageRating.add(age_rating_item.name)
                 }
             }
         }
@@ -2540,93 +2636,93 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     // Hmac Request
     private fun paymentMac(request: HmacKnetRequest) {
         accountFragViewModel.paymentKnetHmac(request).observe(requireActivity()) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    try {
-                                        val intent = Intent(
-                                            requireActivity(), PaymentWebActivity::class.java
-                                        )
-                                        intent.putExtra("From", "recharge")
-                                        intent.putExtra("PAY_URL", it.data.output.callingUrl)
-                                        startActivity(intent)
-                                    } catch (e: Exception) {
-                                        println("updateUiCinemaSession ---> ${e.message}")
-                                    }
-
-                                } else {
-                                    loader?.dismiss()
-                                    val dialog = OptionDialog(requireActivity(),
-                                        R.mipmap.ic_launcher,
-                                        R.string.app_name,
-                                        it.data?.msg.toString(),
-                                        positiveBtnText = R.string.ok,
-                                        negativeBtnText = R.string.no,
-                                        positiveClick = {},
-                                        negativeClick = {})
-                                    dialog.show()
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                try {
+                                    val intent = Intent(
+                                        requireActivity(), PaymentWebActivity::class.java
+                                    )
+                                    intent.putExtra("From", "recharge")
+                                    intent.putExtra("PAY_URL", it.data.output.callingUrl)
+                                    startActivity(intent)
+                                } catch (e: Exception) {
+                                    println("updateUiCinemaSession ---> ${e.message}")
                                 }
 
+                            } else {
+                                loader?.dismiss()
+                                val dialog = OptionDialog(requireActivity(),
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
                             }
+
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(requireActivity(),
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(requireActivity(),
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
 //                            loader = LoaderDialog(R.string.pleasewait)
 //                            loader?.show(supportFragmentManager, null)
-                        }
                     }
                 }
             }
+        }
     }
 
     private fun countryCodeLoad() {
         accountFragViewModel.countryCode(requireActivity()).observe(requireActivity()) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    println("LocationResponse--->${it.data.output}")
-                                    countryCodeList = it.data.output
-                                    retrieveCountryList(it.data.output)
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                println("LocationResponse--->${it.data.output}")
+                                countryCodeList = it.data.output
+                                retrieveCountryList(it.data.output)
 
-                                } else {
-                                    println("Something Wrong")
-                                }
+                            } else {
+                                println("Something Wrong")
                             }
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(requireActivity(),
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
-                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(requireActivity(),
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
                     }
                 }
             }
+        }
     }
 
     private fun retrieveCountryList(output: ArrayList<CountryCodeResponse.Output>) {
@@ -2639,54 +2735,54 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
     private fun updateAccount(updateAccountRequest: UpdateAccountRequest) {
         accountFragViewModel.updateAccount(updateAccountRequest).observe(requireActivity()) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
 //                                    loader?.dismiss()
-                                    retrieveUpdateResponse(it.data)
-                                } else {
-                                    val dialog = OptionDialog(requireActivity(),
-                                        R.mipmap.ic_launcher,
-                                        R.string.app_name,
-                                        it.data?.msg!!,
-                                        positiveBtnText = R.string.ok,
-                                        negativeBtnText = R.string.no,
-                                        positiveClick = {},
-                                        negativeClick = {})
-                                    dialog.show()
-                                }
+                                retrieveUpdateResponse(it.data)
+                            } else {
+                                val dialog = OptionDialog(requireActivity(),
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg!!,
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
                             }
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(requireActivity(),
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.data?.data?.msg!!,
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(requireActivity(),
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.data?.data?.msg!!,
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
 //                            if (isAdded){
 //                                loader = LoaderDialog(R.string.pleasewait)
 //                                loader?.show(childFragmentManager, null)
 //                            }
 
-                        }
                     }
                 }
             }
+        }
     }
 
-//    getString(R.string.profileUpdate)
+    //    getString(R.string.profileUpdate)
     private fun retrieveUpdateResponse(output: UpdateAccountResponse) {
-           loader?.dismiss()
+        loader?.dismiss()
         val dialog = OptionDialog(requireActivity(),
             R.mipmap.ic_launcher,
             R.string.app_name,
@@ -2710,130 +2806,130 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
     private fun getAmountLoad() {
         accountFragViewModel.getAmount(requireActivity()).observe(requireActivity()) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    getAmountList = it.data.output.amounts
-                                    rechargeAmount(it.data.output)
-                                } else {
-                                    val dialog = OptionDialog(requireActivity(),
-                                        R.mipmap.ic_launcher,
-                                        R.string.app_name,
-                                        it.data?.msg.toString(),
-                                        positiveBtnText = R.string.ok,
-                                        negativeBtnText = R.string.no,
-                                        positiveClick = {},
-                                        negativeClick = {})
-                                    dialog.show()
-                                }
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                getAmountList = it.data.output.amounts
+                                rechargeAmount(it.data.output)
+                            } else {
+                                val dialog = OptionDialog(requireActivity(),
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
                             }
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(requireActivity(),
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
-                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(requireActivity(),
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
                     }
                 }
             }
+        }
     }
 
     private fun myBooking(request: MyBookingRequest) {
         accountFragViewModel.getMyBookingData(request).observe(requireActivity()) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    try {
-                                        setBookingHistoryAdapter(it.data.output)
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                try {
+                                    setBookingHistoryAdapter(it.data.output)
 
-                                    } catch (e: Exception) {
-                                        println("updateUiCinemaSession ---> ${e.message}")
-                                    }
-
-                                } else {
-                                    bookingText = it.data?.msg.toString()
+                                } catch (e: Exception) {
+                                    println("updateUiCinemaSession ---> ${e.message}")
                                 }
-                            }
-                        }
 
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(requireContext(),
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
-                            if (isAdded) {
-                                loader = LoaderDialog(R.string.pleasewait)
-                                loader?.show(requireActivity().supportFragmentManager, null)
+                            } else {
+                                bookingText = it.data?.msg.toString()
                             }
+                        }
+                    }
+
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(requireContext(),
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                        if (isAdded) {
+                            loader = LoaderDialog(R.string.pleasewait)
+                            loader?.show(requireActivity().supportFragmentManager, null)
                         }
                     }
                 }
             }
+        }
     }
 
     private fun myNextBooking(request: NextBookingsRequest) {
         accountFragViewModel.getNextBookingData(request).observe(requireActivity()) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    try {
-                                        retrieveNextBookedResponse(it.data)
-                                    } catch (e: Exception) {
-                                        println("updateUiCinemaSession ---> ${e.message}")
-                                    }
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                try {
+                                    retrieveNextBookedResponse(it.data)
+                                } catch (e: Exception) {
+                                    println("updateUiCinemaSession ---> ${e.message}")
                                 }
                             }
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(requireActivity(),
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.data?.message ?: "Something went wrong",
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(requireActivity(),
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.data?.message ?: "Something went wrong",
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {
 
-                                },
-                                negativeClick = {})
-                            dialog.show()
+                            },
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                        if (isAdded) {
+                            loader = LoaderDialog(R.string.pleasewait)
+                            loader?.show(requireActivity().supportFragmentManager, null)
                         }
-                        Status.LOADING -> {
-                            if (isAdded) {
-                                loader = LoaderDialog(R.string.pleasewait)
-                                loader?.show(requireActivity().supportFragmentManager, null)
-                            }
 
-                        }
                     }
                 }
             }
+        }
     }
 
     private fun retrieveNextBookedResponse(output: NextBookingResponse) {
@@ -2850,50 +2946,60 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
     private fun getProfile(profileRequest: ProfileRequest) {
         accountFragViewModel.getProfile(profileRequest).observe(requireActivity()) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    profileList = it.data.output.experience
-                                    ageRatingList = it.data.output.rating
-                                    setExperienceFlexbox(
-                                        experience_list_preference!!, it.data.output.experience
-                                    )
-                                    val seatListPreference =
-                                        view!!.findViewById<FlexboxLayout>(R.id.seat_list_preference)
-                                    val typeListPreference =
-                                        view!!.findViewById<FlexboxLayout>(R.id.type_list_preference)
-                                    val ageRatingListPreference = view!!.findViewById<FlexboxLayout>(R.id.age_rating_list_preference)
-                                    setSeatCategoryFlexbox(seatListPreference, it.data.output.seatCategory)
-                                    setSeatTypeFlexbox(typeListPreference, it.data.output.seatType)
-                                    setAgeRatingFlexbox(
-                                        ageRatingListPreference, it.data.output.rating
-                                    )
-                                    retrievedProfile(it.data.output)
-                                } else {
-                                    println("Something Wrong")
-                                }
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                profileList = it.data.output.experience
+                                ageRatingList = it.data.output.rating
+                                setExperienceFlexbox(
+                                    experience_list_preference!!, it.data.output.experience
+                                )
+                                val seatListPreference =
+                                    view!!.findViewById<FlexboxLayout>(R.id.seat_list_preference)
+                                val typeListPreference =
+                                    view!!.findViewById<FlexboxLayout>(R.id.type_list_preference)
+                                val ageRatingListPreference =
+                                    view!!.findViewById<FlexboxLayout>(R.id.age_rating_list_preference)
+                                setSeatCategoryFlexbox(
+                                    seatListPreference,
+                                    it.data.output.seatCategory
+                                )
+                                setSeatTypeFlexbox(typeListPreference, it.data.output.seatType)
+                                setAgeRatingFlexbox(
+                                    ageRatingListPreference, it.data.output.rating
+                                )
+                                retrievedProfile(it.data.output)
+                            } else {
+                                println("Something Wrong")
                             }
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(requireActivity(),
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(requireActivity(),
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+
+                        if (isAdded) {
+//                            loader = LoaderDialog(R.string.pleasewait)
+//                            loader?.show(requireActivity().supportFragmentManager, null)
                         }
-                        Status.LOADING -> {
-                        }
+
                     }
                 }
             }
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -3003,7 +3109,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         mAdapter = CountryCodeAdapter(countryCodeList, this, requireActivity())
         recyclerView.adapter = mAdapter
         //Recycler
-        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = layoutManager
         countryCodeList = countryList
@@ -3129,68 +3236,68 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
     private fun cancelReservation(finalTicketRequest: FinalTicketRequest) {
         accountFragViewModel.cancelReservation(finalTicketRequest).observe(this) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    try {
-                                        val dialog = OptionDialog(requireActivity(),
-                                            R.mipmap.ic_launcher,
-                                            R.string.app_name,
-                                            it.data.msg,
-                                            positiveBtnText = R.string.ok,
-                                            negativeBtnText = R.string.no,
-                                            positiveClick = {},
-                                            negativeClick = {})
-                                        dialog.show()
-                                    } catch (e: Exception) {
-                                        val dialog = OptionDialog(requireActivity(),
-                                            R.mipmap.ic_launcher,
-                                            R.string.app_name,
-                                            it.data.msg.toString(),
-                                            positiveBtnText = R.string.ok,
-                                            negativeBtnText = R.string.no,
-                                            positiveClick = {},
-                                            negativeClick = {})
-                                        dialog.show()
-                                        println("updateUiCinemaSession ---> ${e.message}")
-                                    }
-
-                                } else {
-                                    loader?.dismiss()
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                try {
                                     val dialog = OptionDialog(requireActivity(),
                                         R.mipmap.ic_launcher,
                                         R.string.app_name,
-                                        it.data?.msg.toString(),
+                                        it.data.msg,
                                         positiveBtnText = R.string.ok,
                                         negativeBtnText = R.string.no,
                                         positiveClick = {},
                                         negativeClick = {})
                                     dialog.show()
+                                } catch (e: Exception) {
+                                    val dialog = OptionDialog(requireActivity(),
+                                        R.mipmap.ic_launcher,
+                                        R.string.app_name,
+                                        it.data.msg.toString(),
+                                        positiveBtnText = R.string.ok,
+                                        negativeBtnText = R.string.no,
+                                        positiveClick = {},
+                                        negativeClick = {})
+                                    dialog.show()
+                                    println("updateUiCinemaSession ---> ${e.message}")
                                 }
+
+                            } else {
+                                loader?.dismiss()
+                                val dialog = OptionDialog(requireActivity(),
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
                             }
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(requireActivity(),
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(requireActivity().supportFragmentManager, null)
-                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(requireActivity(),
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                        loader = LoaderDialog(R.string.pleasewait)
+                        loader?.show(requireActivity().supportFragmentManager, null)
                     }
                 }
             }
+        }
     }
 
     override fun resenDmail(output: NextBookingResponse.Current) {
@@ -3206,73 +3313,14 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
     private fun resendMail(resendRequest: ResendRequest) {
         accountFragViewModel.resendMail(resendRequest).observe(this) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    try {
-                                        val dialog = OptionDialog(requireActivity(),
-                                            R.mipmap.ic_launcher,
-                                            R.string.app_name,
-                                            it.data.msg,
-                                            positiveBtnText = R.string.ok,
-                                            negativeBtnText = R.string.no,
-                                            positiveClick = {},
-                                            negativeClick = {})
-                                        dialog.show()
-                                    } catch (e: Exception) {
-                                        println("updateUiCinemaSession ---> ${e.message}")
-                                    }
-
-                                } else {
-                                    loader?.dismiss()
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                try {
                                     val dialog = OptionDialog(requireActivity(),
-                                        R.mipmap.ic_launcher,
-                                        R.string.app_name,
-                                        it.data?.msg.toString(),
-                                        positiveBtnText = R.string.ok,
-                                        negativeBtnText = R.string.no,
-                                        positiveClick = {},
-                                        negativeClick = {})
-                                    dialog.show()
-                                }
-
-                            }
-                        }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(requireActivity(),
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(requireActivity().supportFragmentManager, null)
-                        }
-                    }
-                }
-            }
-    }
-
-
-    //Change Password
-    private fun changePassword(changePasswordRequest: ChangePasswordRequest) {
-        accountFragViewModel.changePassword(changePasswordRequest).observe(requireActivity()) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    val dialog = OptionDialog(requireContext(),
                                         R.mipmap.ic_launcher,
                                         R.string.app_name,
                                         it.data.msg,
@@ -3281,38 +3329,97 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                                         positiveClick = {},
                                         negativeClick = {})
                                     dialog.show()
-                                } else {
-                                    val dialog = OptionDialog(requireContext(),
-                                        R.mipmap.ic_launcher,
-                                        R.string.app_name,
-                                        it.data?.msg.toString(),
-                                        positiveBtnText = R.string.ok,
-                                        negativeBtnText = R.string.no,
-                                        positiveClick = {},
-                                        negativeClick = {})
-                                    dialog.show()
+                                } catch (e: Exception) {
+                                    println("updateUiCinemaSession ---> ${e.message}")
                                 }
+
+                            } else {
+                                loader?.dismiss()
+                                val dialog = OptionDialog(requireActivity(),
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
                             }
+
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(requireContext(),
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(requireActivity().supportFragmentManager, null)
-                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(requireActivity(),
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                        loader = LoaderDialog(R.string.pleasewait)
+                        loader?.show(requireActivity().supportFragmentManager, null)
                     }
                 }
             }
+        }
+    }
+
+
+    //Change Password
+    private fun changePassword(changePasswordRequest: ChangePasswordRequest) {
+        accountFragViewModel.changePassword(changePasswordRequest).observe(requireActivity()) {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                val dialog = OptionDialog(requireContext(),
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data.msg,
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
+                            } else {
+                                val dialog = OptionDialog(requireContext(),
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
+                            }
+                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(requireContext(),
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                        loader = LoaderDialog(R.string.pleasewait)
+                        loader?.show(requireActivity().supportFragmentManager, null)
+                    }
+                }
+            }
+        }
     }
 
 
