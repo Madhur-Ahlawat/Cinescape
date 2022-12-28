@@ -16,6 +16,7 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Looper
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.*
 import android.widget.*
@@ -992,7 +993,20 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     })
                 dialog.show()
 
-            } else {
+            } else if (Data(enter_date_births.text.toString()) < 12){
+                val dialog = OptionDialog(requireActivity(),
+                    R.mipmap.ic_launcher,
+                    R.string.app_name,
+                    resources.getString(R.string.enterDobs),
+                    positiveBtnText = R.string.ok,
+                    negativeBtnText = R.string.no,
+                    positiveClick = {
+                    },
+                    negativeClick = {
+                    })
+                dialog.show()
+            }else{
+
                 updateAccount(
                     UpdateAccountRequest(
                         enter_city.text.toString(),
@@ -1012,78 +1026,89 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }
 
 
-        enter_date_births.setOnClickListener {
-            val mcurrentDate = Calendar.getInstance()
-            var mYear = mcurrentDate[Calendar.YEAR]
-            var mMonth = mcurrentDate[java.util.Calendar.MONTH]
-            var mDay = mcurrentDate[java.util.Calendar.DAY_OF_MONTH]
-            val mDatePicker = DatePickerDialog(
-                requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
-                    val myCalendar = Calendar.getInstance()
 
-                    myCalendar.set(selectedYear, selectedMonth, selectedDay)
-                    val current: Date = myCalendar.getTime()
+            enter_date_births.setOnClickListener {
+                var datePicker: DatePickerDialog? = null
+                val calendar = Calendar.getInstance()
+                val day = calendar.get(Calendar.DAY_OF_MONTH)
+                val year = calendar.get(Calendar.YEAR)
+                val month = calendar.get(Calendar.MONTH)
+                val year1 = year - 12
+                datePicker = DatePickerDialog(
+                    requireActivity(),
+                    { view, year, month, dayOfMonth -> // adding the selected date in the edittext
+//                        dob_et?.setText(dayOfMonth.toString() + "/" + (month + 1) + "/" + year)
+                        enter_date_births.setText("${Constant().changeFormat("$dayOfMonth-${month + 1}-$year")}")
+                    }, year1, month, day
+                )
+                // set maximum date to be selected as today
+                datePicker.datePicker.maxDate = calendar.timeInMillis
+//                datePicker!!.datePicker.minDate = calendar.timeInMillis
+                // show the dialog
+                datePicker.show()
 
-                    myCalendar[Calendar.YEAR] = selectedYear
-                    myCalendar[java.util.Calendar.MONTH] = selectedMonth
-                    myCalendar[java.util.Calendar.DAY_OF_MONTH] = selectedDay
-                    val myFormat = "dd-MM-yy" //Change as you need
-                    val sdf = SimpleDateFormat(myFormat, Locale.ENGLISH)
-                    val diff1 = Date().compareTo(current)
 
-                    if (diff1 > 12) {
-                        enter_date_births.text = sdf.format(myCalendar.time)
-                    } else {
-                        val dialog = OptionDialog(requireActivity(),
-                            R.mipmap.ic_launcher,
-                            R.string.app_name,
-                            resources.getString(R.string.enterDobs),
-                            positiveBtnText = R.string.ok,
-                            negativeBtnText = R.string.no,
-                            positiveClick = {
-                            },
-                            negativeClick = {
-                            })
-                        dialog.show()
-                    }
-                    println("enter_date_births21--------->${enter_date_births.text}")
-                    mDay = selectedDay
-                    mMonth = selectedMonth
-                    mYear = selectedYear
-                }, mYear - 12, mMonth, mDay
-            )
-            mDatePicker.datePicker.maxDate = System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 0)
-            mDatePicker.show()
-        }
+//            val mcurrentDate = Calendar.getInstance()
+//            var mYear = mcurrentDate[Calendar.YEAR]
+//            var mMonth = mcurrentDate[java.util.Calendar.MONTH]
+//            var mDay = mcurrentDate[java.util.Calendar.DAY_OF_MONTH]
+//            val mDatePicker = DatePickerDialog(
+//                requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
+//                    val myCalendar = Calendar.getInstance()
+//
+//                    myCalendar.set(selectedYear, selectedMonth, selectedDay)
+//                    val current: Date = myCalendar.getTime()
+//
+//                    myCalendar[Calendar.YEAR] = selectedYear
+//                    myCalendar[Calendar.MONTH] = selectedMonth
+//                    myCalendar[Calendar.DAY_OF_MONTH] = selectedDay
+//                    val myFormat = "dd-MM-yy" //Change as you need
+//                    val sdf = SimpleDateFormat(myFormat, Locale.ENGLISH)
+//                    val diff1 = Date().compareTo(current)
+//
+//                    if (myCalendar[Calendar.YEAR] > 12) {
+//                        enter_date_births.text = sdf.format(myCalendar.time)
+//                    } else {
+//                        val dialog = OptionDialog(requireActivity(),
+//                            R.mipmap.ic_launcher,
+//                            R.string.app_name,
+//                            resources.getString(R.string.enterDobs),
+//                            positiveBtnText = R.string.ok,
+//                            negativeBtnText = R.string.no,
+//                            positiveClick = {
+//                            },
+//                            negativeClick = {
+//                            })
+//                        dialog.show()
+//                    }
+//                    println("enter_date_births21--------->${enter_date_births.text}")
+//                    mDay = selectedDay
+//                    mMonth = selectedMonth
+//                    mYear = selectedYear
+//                }, mYear, mMonth, mDay
+//            )
+//            mDatePicker.datePicker.maxDate = System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 0)
+//            mDatePicker.show()
+            }
+
+
+
 
         //Save Prefrence
         textView3.setOnClickListener {
 //            try {
-                updatePreference(
-                    PreferenceRequest(
-                        arbic,
-                        cinema,
-                        Constant.experience.toString(),
-                        Constant.ageRating.toString(),
-                        Constant.seatCategoryList.toString(),
-                        Constant.seatTypeList.toString(),
-                        preferences.getString(Constant.USER_ID).toString()
-                    )
+            updatePreference(
+                PreferenceRequest(
+                    arbic,
+                    cinema,
+                    Constant.experience.toString(),
+                    Constant.ageRating.toString(),
+                    Constant.seatCategoryList.toString(),
+                    Constant.seatTypeList.toString(),
+                    preferences.getString(Constant.USER_ID).toString()
                 )
-//            } catch (e: Exception) {
-//                println("errorMessage-------->${e.message}")
-//            }
+            )
 
-
-//            updatePreference(
-//                PreferenceRequest(
-//                    arbic,
-//                    cinema,
-//                    experience.toString(),
-//                    ageRating.toString(),
-//                    seatCategory,
-//                    seatType,
-//                    preferences.getString(Constant.USER_ID).toString()))
 
         }
 
@@ -1106,6 +1131,50 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             println("countryCodeList21-------->${countryCodeList}")
         }
 
+    }
+
+
+    @SuppressLint("SimpleDateFormat")
+    fun Data(date: String?): Int {
+        if (!TextUtils.isEmpty(date)) {
+            val cal = Calendar.getInstance()
+            val dateInString = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(Date())
+                .format(cal.time)
+            val formatter = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH)
+            println("dateInString---$formatter")
+            var parsedDate: Date? = null
+            var Date: Date? = null
+
+            try {
+                parsedDate = formatter.parse(dateInString)
+                Date = formatter.parse(date)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            if (parsedDate != null && Date != null) {
+                return getDiffYears(Date, parsedDate)
+            }
+        }
+        return 0
+    }
+
+    private fun getDiffYears(first: Date?, last: Date?): Int {
+        val a = getCalendar(first)
+        val b = getCalendar(last)
+        var diff = b[Calendar.YEAR] - a[Calendar.YEAR]
+        if (a[Calendar.MONTH] > b[Calendar.MONTH] ||
+            a[Calendar.MONTH] == b[Calendar.MONTH] && a[Calendar.DATE] > b[Calendar.DATE]
+        ) {
+            diff--
+        }
+        return diff
+    }
+
+    private fun getCalendar(date: Date?): Calendar {
+        val cal = Calendar.getInstance(Locale.ENGLISH)
+        cal.time = date
+        return cal
     }
 
     private fun accountChangePasswordDialog() {
@@ -2158,8 +2227,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             layout.addView(v)
 
 
-
-          val seat = seatCategory.replace("[", "").replace("]", "")
+            val seat = seatCategory.replace("[", "").replace("]", "")
 //          val seat1 = seat.replace("]","")
 //            textList.toString().replace("[", "").replace("]", "")
             println("SeatCategory212--->${item.cateTypeText}--->${seat}")
@@ -2206,7 +2274,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     Constant.seatCategoryList.remove(item.cateTypeText)
                     println("SeatListClick21 ------------->${Constant.seatCategoryList}")
                     categoryImage.setColorFilter(resources.getColor(R.color.hint_color))
-                    categoryName.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.hint_color)
+                    categoryName.setTextColor(
+                        ContextCompat.getColorStateList(requireContext(), R.color.hint_color)
                     )
                 } else {
                     Constant.seatCategoryList.clear()
@@ -2328,6 +2397,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 //                experienceText.hide()
 //                experienceName.show()
 //            }
+
             experienceName.setImageResource(getMatchIcon(data.name))
 
             layout.addView(v)
@@ -2771,10 +2841,10 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                         dialog.show()
                     }
                     Status.LOADING -> {
-//                            if (isAdded){
-//                                loader = LoaderDialog(R.string.pleasewait)
-//                                loader?.show(childFragmentManager, null)
-//                            }
+                        if (isAdded) {
+                            loader = LoaderDialog(R.string.pleasewait)
+                            loader?.show(childFragmentManager, null)
+                        }
 
                     }
                 }
@@ -2965,7 +3035,10 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                                     view!!.findViewById<FlexboxLayout>(R.id.type_list_preference)
                                 val ageRatingListPreference =
                                     view!!.findViewById<FlexboxLayout>(R.id.age_rating_list_preference)
-                                setSeatCategoryFlexbox(seatListPreference, it.data.output.seatCategory)
+                                setSeatCategoryFlexbox(
+                                    seatListPreference,
+                                    it.data.output.seatCategory
+                                )
                                 setSeatTypeFlexbox(typeListPreference, it.data.output.seatType)
                                 setAgeRatingFlexbox(ageRatingListPreference, it.data.output.rating)
                                 retrievedProfile(it.data.output)
@@ -3010,36 +3083,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         enter_date_births.text = output.dob
         binding?.textUserAccountName?.text = output.firstName + " " + output.lastName
 //        loginType = output.guest
-        println("GuestChwck--->${output.guest}")
+        println("GuestChwck21--->${output.guest}----->${output.dob}")
 
-//        if (output.seatType == ""){
-//            this.seatType = ""
-////            preferences.putString(Constant.SEAT_TYPE, "")
-//        }else{
-//            this.seatType = output.seatType
-//        }
-//
-//        if (output.seatCategory == ""){
-//            this.seatCategory = ""
-//        }else{
-//            this.seatCategory = output.seatCategory
-//        }
-
-
-//        this.seatType = preferences.getString(Constant.SEAT_TYPE)!!
-//        this.seatCategory = preferences.getString(Constant.SEAT_CATEGORY)!!
-
-//        for (item in output.experience){
-//            if (item.likes){
-//                this.experience.add(item.name)
-//            }
-//        }
-//
-//        for (item in output.rating){
-//            if (item.likes){
-//                this.ageRating.add(item.name)
-//            }
-//        }
 
         if (output.userName.isNullOrEmpty()) {
             view_user_name.hide()
@@ -3076,11 +3121,11 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }
     }
 
-    override fun onItemClick(view: CountryCodeResponse.Output, check : Boolean) {
-        if (check == true){
+    override fun onItemClick(view: CountryCodeResponse.Output, check: Boolean) {
+        if (check == true) {
             binding?.includeProfile?.mobileCode?.setText(view.isdCode)
             countryCode = view.isdCode
-        }else{
+        } else {
             binding?.includeProfile?.mobileCode?.setText("")
             countryCode = ""
         }

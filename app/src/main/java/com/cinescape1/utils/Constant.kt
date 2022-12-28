@@ -24,6 +24,8 @@ import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "DEPRECATED_IDENTITY_EQUALS")
@@ -232,5 +234,24 @@ class Constant {
 //        val buffer: ByteBuffer = ByteBuffer.wrap(decodedString)
 //        bmp.copyPixelsFromBuffer(buffer)
         return decodedByte
+    }
+
+
+    fun changeFormat(date: String?): String? {
+        return if (date != null && date != "") {
+            try {
+                val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH)
+                val d = sdf.parse(date)
+                val displayFormat = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH)
+                displayFormat.format(d)
+
+                // all done
+            } catch (e: java.lang.Exception) {
+                Log.e("gDatStriFrDefStringDate", e.toString())
+                ""
+            }
+        } else {
+            ""
+        }
     }
 }

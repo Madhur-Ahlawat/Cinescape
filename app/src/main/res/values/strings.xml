@@ -290,13 +290,13 @@
     <string name="recharge_amount">Recharge Amount</string>
     <string name="emailOnlyEmpty">Please enter email</string>
     <string name="cardNoEmpty">Please enter your card Number.</string>
-    <string name="firstName">Please enter first name</string>
-    <string name="lastName">Please enter last name</string>
+    <string name="firstName">Please enter your first name.</string>
+    <string name="lastName">Please enter your last name.</string>
     <string name="enterPass">Please enter password</string>
     <string name="enterUserName">Fix</string>
     <string name="enterConfPass">Please enter confirm password</string>
     <string name="enterDob">People will just add an older DOB and continue</string>
-    <string name="enterDobs">People will just add an older DOB and continue</string>
+    <string name="enterDobs">You must be 12 years old.</string>
     <string name="enterMo">Please enter mobile number.</string>
     <string name="enterCity">Please enter City Name.</string>
     <string name="enterUserNames">Please enter mobile UserName.</string>

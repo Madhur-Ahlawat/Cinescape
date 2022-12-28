@@ -62,7 +62,7 @@
                 android:fontFamily="@font/sf_pro_text_heavy"
                 android:gravity="start"
                 android:maxLines="2"
-                android:text="klkllkm "
+                tools:text="klkllkm "
                 android:textColor="@color/white"
                 android:textSize="@dimen/size20"
                 app:layout_minWidth="50dp" />
@@ -72,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="@dimen/margin5"
+                android:layout_marginTop="@dimen/margin12"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:minWidth="50dp"
@@ -80,19 +80,19 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/ratingUi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/margin32"
+                    android:layout_height="@dimen/margin17"
                     app:cardCornerRadius="@dimen/margin3"
-                    app:cardUseCompatPadding="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_seat_film_title">
 
                     <TextView
                         android:id="@+id/text_types"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/size22"
+                        android:layout_width="32dp"
+                        android:layout_height="@dimen/margin17"
                         android:fontFamily="@font/sf_pro_text_heavy"
+                        android:includeFontPadding="false"
                         android:gravity="center"
                         android:paddingStart="@dimen/margin6"
                         android:paddingEnd="@dimen/margin6"
@@ -135,7 +135,7 @@
         <View
             android:id="@+id/view_locations"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="55dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toStartOf="@+id/views_screens"
@@ -170,6 +170,7 @@
             android:textColor="@color/black"
             android:textSize="@dimen/size14"
             android:textStyle="normal"
+            android:gravity="top"
             app:layout_constraintEnd_toEndOf="@+id/view_locations"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/view_locations"
@@ -267,7 +268,7 @@
         <View
             android:id="@+id/views_screens"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="55dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/view_locations"
             app:layout_constraintEnd_toStartOf="@+id/view33_experience"
@@ -309,7 +310,7 @@
         <View
             android:id="@+id/view33_experience"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="55dp"
             app:layout_constraintBottom_toBottomOf="@+id/views_screens"
             app:layout_constraintEnd_toEndOf="@+id/view31"
             app:layout_constraintHorizontal_bias="0.0"
@@ -362,7 +363,7 @@
         <TextView
             android:id="@+id/food_pickup_btn"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_marginStart="@dimen/margin8"
             android:layout_marginEnd="@dimen/margin8"
             android:background="@drawable/curv_bt"
@@ -371,13 +372,13 @@
             android:focusableInTouchMode="true"
             android:fontFamily="@font/sf_pro_text_bold"
             android:freezesText="true"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:letterSpacing="-0.02"
             android:marqueeRepeatLimit="marquee_forever"
             android:maxLines="1"
-            android:paddingStart="@dimen/margin15"
-            android:paddingTop="@dimen/margin8"
-            android:paddingEnd="@dimen/margin15"
+            android:paddingStart="@dimen/margin12"
+            android:paddingTop="@dimen/margin4"
+            android:paddingEnd="@dimen/margin12"
             android:paddingBottom="@dimen/margin8"
             android:scrollHorizontally="true"
             android:singleLine="true"
@@ -387,7 +388,8 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/view_food_pickup_info_btn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/view_food_pickup_info_btn" />
+            app:layout_constraintStart_toStartOf="@+id/view_food_pickup_info_btn"
+            app:layout_constraintTop_toTopOf="@+id/view_food_pickup_info_btn" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
