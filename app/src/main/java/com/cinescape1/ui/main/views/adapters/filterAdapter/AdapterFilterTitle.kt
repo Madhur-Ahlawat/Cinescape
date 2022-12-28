@@ -90,7 +90,7 @@ class AdapterFilterTitle(
                         holder.selectFilter.hide()
                     }
 
-                    holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
+                    holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
                     val adapter = FilterExperiencesAdapter(
                         mContext,
                         filterExpItem.dataList,
@@ -131,7 +131,7 @@ class AdapterFilterTitle(
                         mContext,
                         filterExpItem.cinemaList!!, getList(filterExpItem)
                     )
-                    holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
+                    holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
 
                     holder.filterExpand.adapter = adapter
                     val layoutManager = FlexboxLayoutManager(mContext)
@@ -157,7 +157,7 @@ class AdapterFilterTitle(
 //                    if (holder.filterExpand.visibility == View.GONE){
                     up = false
                     holder.viewSpace.show()
-                    holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
+                    holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
 //                    holder.filterExpand.visibility = View.VISIBLE
                     holder.filterExpand.removeAllViews()
                     if (getList(filterExpItem).size > 0) {
@@ -189,7 +189,7 @@ class AdapterFilterTitle(
                 4 -> {
                     up = false
 //                    if (holder.filterExpand.visibility == View.GONE) {
-                    holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
+                    holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
                     holder.viewSpace.show()
 //                    holder.filterExpand.visibility = View.VISIBLE
                     holder.filterExpand.removeAllViews()
@@ -221,7 +221,7 @@ class AdapterFilterTitle(
                5 -> {
                     up = false
 //                    if (holder.filterExpand.visibility == View.GONE) {
-                    holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
+                    holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
                     holder.viewSpace.show()
 //                    holder.filterExpand.show()
                     holder.filterExpand.removeAllViews()
@@ -252,7 +252,7 @@ class AdapterFilterTitle(
                6 -> {
                     up = false
 //                    if (holder.filterExpand.visibility == View.GONE) {
-                    holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
+                    holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
                     holder.viewSpace.show()
 //                    holder.filterExpand.show()
                     holder.filterExpand.removeAllViews()
@@ -286,11 +286,11 @@ class AdapterFilterTitle(
         }
 
         if (rowIndex == position){
-            holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
+            holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
             holder.filterExpand.show()
             holder.viewSpace.hide()
         }else{
-            holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
+            holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
             holder.filterExpand.hide()
             holder.viewSpace.hide()
         }

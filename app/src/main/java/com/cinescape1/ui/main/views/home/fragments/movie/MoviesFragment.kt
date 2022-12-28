@@ -56,6 +56,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
     MovieTypeAdapter.TypeFaceListener,
     AdvanceBookingAdapter.TypefaceListener1,
     AdapterComingSoon.TypefaceListener2, AdapterNowShowing.TypefaceListenerNowShowing {
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 

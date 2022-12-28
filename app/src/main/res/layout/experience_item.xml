@@ -23,12 +23,11 @@
     <ImageView
         android:id="@+id/experience_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/margin32"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="4dp"
         android:adjustViewBounds="true"
-        android:padding="@dimen/margin8"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -365,9 +365,13 @@
     <string name="select_payment_methods">حدد طرق الدفع</string>
     <string name="offer_applied_for_1_ticket">يسري العرض على تذكرة واحدة *</string>
     <string name="enterUserName">Fix</string>
-    <string name="enterUserNames">Please enter mobile UserName.</string>
-    <string name="enterCity">Please enter City Name.</string>
-    <string name="enterDobs">Please enter valid date of birth</string>
+    <string name="enterUserNames">الرجاء إدخال اسم مستخدم الجوال.</string>
+    <string name="enterCity">الرجاء إدخال اسم المدينة.</string>
+    <string name="enterDobs">يجب أن يكون عمرك 12 سنة.</string>
+    <string name="enterPasswprd">Please enter password.</string>
+    <string name="enterNewPass">Please enter new password.</string>
+    <string name="enterSamePass">Please enter same password.</string>
+    <string name="enterConfPasswrd">Please enter confirm password.</string>
 
 
 </resources>

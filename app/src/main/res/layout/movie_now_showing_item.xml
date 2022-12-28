@@ -36,7 +36,8 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/margin4">
 
                     <ImageView
                         android:id="@+id/image_now_showing"
@@ -94,9 +95,10 @@
                 android:focusableInTouchMode="true"
                 android:fontFamily="@font/sf_pro_text_heavy"
                 android:freezesText="true"
-                android:gravity="center_horizontal"
+                android:gravity="start"
                 android:letterSpacing="-0.02"
                 android:maxLines="1"
+                android:layout_marginStart="@dimen/margin4"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
                 android:textColor="@color/white"
@@ -127,6 +129,7 @@
                     android:freezesText="true"
                     android:letterSpacing="-0.02"
                     android:maxLines="1"
+                    android:layout_marginStart="@dimen/margin4"
                     android:scrollHorizontally="true"
                     android:singleLine="true"
                     android:textColor="@color/white"

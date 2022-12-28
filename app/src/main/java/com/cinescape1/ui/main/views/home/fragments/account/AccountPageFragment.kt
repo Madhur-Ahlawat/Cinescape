@@ -115,6 +115,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
     private val list: ArrayList<ModelPreferenceExperience> = arrayListOf(
         ModelPreferenceExperience(R.drawable.img_vip, 0),
+        ModelPreferenceExperience(R.drawable.img_vip, 0),
         ModelPreferenceExperience(R.drawable.img_imax, 0),
         ModelPreferenceExperience(R.drawable.img_4dx, 0),
         ModelPreferenceExperience(R.drawable.img_dolby, 0),
@@ -1185,26 +1186,82 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
         )
         dialog.negative_btns?.setOnClickListener {
+
             val passWord = dialog.enterNewPassword.text.toString()
             val conPassWord = dialog.enterConfPassword.text.toString()
-            if (passWord == conPassWord) {
-                changePassword(
-                    ChangePasswordRequest(
-                        passWord, preferences.getString(Constant.USER_ID)!!
-                    )
-                )
-                dialog.dismiss()
-            } else {
+            if (dialog.enterOldPassword.text.toString().trim() == ""){
                 val dialogs = OptionDialog(requireContext(),
                     R.mipmap.ic_launcher,
                     R.string.app_name,
-                    "Invalid Password",
+                    getString(R.string.enterPasswprd),
                     positiveBtnText = R.string.ok,
                     negativeBtnText = R.string.no,
                     positiveClick = {},
                     negativeClick = {})
                 dialogs.show()
+            }else if (dialog.enterNewPassword.text.toString().trim() == ""){
+
+                val dialogs = OptionDialog(requireContext(),
+                    R.mipmap.ic_launcher,
+                    R.string.app_name,
+                    getString(R.string.enterNewPass),
+                    positiveBtnText = R.string.ok,
+                    negativeBtnText = R.string.no,
+                    positiveClick = {},
+                    negativeClick = {})
+                dialogs.show()
+
+            }else if (dialog.enterConfPassword.text.toString().trim() == ""){
+                val dialogs = OptionDialog(requireContext(),
+                    R.mipmap.ic_launcher,
+                    R.string.app_name,
+                    getString(R.string.enterConfPasswrd),
+                    positiveBtnText = R.string.ok,
+                    negativeBtnText = R.string.no,
+                    positiveClick = {},
+                    negativeClick = {})
+                dialogs.show()
+            }else{
+
+                 if (passWord != conPassWord){
+                    val dialogs = OptionDialog(requireContext(),
+                        R.mipmap.ic_launcher,
+                        R.string.app_name,
+                        getString(R.string.enterSamePass),
+                        positiveBtnText = R.string.ok,
+                        negativeBtnText = R.string.no,
+                        positiveClick = {},
+                        negativeClick = {})
+                    dialogs.show()
+                }else{
+                     changePassword(
+                         ChangePasswordRequest(
+                             passWord, preferences.getString(Constant.USER_ID)!!
+                         )
+                     )
+                     dialog.dismiss()
+                 }
+
             }
+
+//            if (passWord == conPassWord) {
+//                changePassword(
+//                    ChangePasswordRequest(
+//                        passWord, preferences.getString(Constant.USER_ID)!!
+//                    )
+//                )
+//                dialog.dismiss()
+//            } else {
+//                val dialogs = OptionDialog(requireContext(),
+//                    R.mipmap.ic_launcher,
+//                    R.string.app_name,
+//                    "Invalid Password",
+//                    positiveBtnText = R.string.ok,
+//                    negativeBtnText = R.string.no,
+//                    positiveClick = {},
+//                    negativeClick = {})
+//                dialogs.show()
+//            }
 
         }
 
@@ -2381,6 +2438,9 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             val v: View = layoutInflater.inflate(R.layout.experience_item, null)
             val experienceName = v.findViewById(R.id.experience_name) as ImageView
             val experienceText = v.findViewById(R.id.experience_nametxt) as TextView
+
+            val lowerCase = data.name.toString().toLowerCase()
+            val url = "https://s3.eu-west-1.amazonaws.com/cinescape.uat/experience/${lowerCase}.png"
             seatAbility = if (data.count > 0) {
                 1
             } else {
@@ -2398,7 +2458,11 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 //                experienceName.show()
 //            }
 
-            experienceName.setImageResource(getMatchIcon(data.name))
+//           experienceName.setImageResource(getMatchIcon(data.name))
+            Glide.with(requireContext())
+                .load(url)
+                .error(R.drawable.placeholder_home_small_poster)
+                .into(experienceName)
 
             layout.addView(v)
             viewListForSeatExperience.add(v)
