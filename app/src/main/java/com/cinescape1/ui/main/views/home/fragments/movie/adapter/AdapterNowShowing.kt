@@ -48,10 +48,10 @@ class AdapterNowShowing(
             holder.imageView60.setImageResource(R.drawable.ar_tab)
             holder.tag.rotation = 30f
             (holder.tag.layoutParams as ConstraintLayout.LayoutParams).apply {
-                marginStart=20
+                marginStart=12
 //                        topMargin=2
-                marginEnd=80
-                bottomMargin=20
+                marginEnd=85
+                bottomMargin=12
                 holder.tag.text = comingSoonItem.tag
 //                        bottomMargin=8.dpToPixels()
             }
@@ -62,10 +62,10 @@ class AdapterNowShowing(
             holder.imageView60.setImageResource(R.drawable.en_tab)
             holder.tag.rotation = -30f
             (holder.tag.layoutParams as ConstraintLayout.LayoutParams).apply {
-                marginStart=20
+                marginStart=12
 //              topMargin=2
-                marginEnd=80
-                bottomMargin=20
+                marginEnd=85
+                bottomMargin=12
                 holder.tag.text = comingSoonItem.tag
             }
         }

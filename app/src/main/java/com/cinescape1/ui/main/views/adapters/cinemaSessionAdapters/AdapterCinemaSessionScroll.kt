@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +19,7 @@ import com.cinescape1.data.models.responseModel.CSessionResponse
 import com.cinescape1.ui.main.views.adapters.CinemaSessionMovieAdapter
 import com.cinescape1.ui.main.views.details.ShowTimesActivity
 import com.cinescape1.utils.Constant
+import com.cinescape1.utils.LocaleHelper
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 
@@ -38,8 +40,46 @@ class AdapterCinemaSessionScroll(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val showtimeListItem = cinemaSessionList[position]
         holder.name.text = showtimeListItem.movie.title
-        holder.duration.text =
-            showtimeListItem.movie.language + " | " + showtimeListItem.movie.runTime + " min."
+
+        if (Constant.LANGUAGE == "ar"){
+            LocaleHelper.setLocale(context, "ar")
+//                    holder.imageView60.setImageResource(R.drawable.arebic_red_icon)
+            holder.background.setImageResource(R.drawable.ar_tab)
+            holder.tag.rotation = 30f
+            (holder.tag.layoutParams as ConstraintLayout.LayoutParams).apply {
+                marginStart=25
+//                        topMargin=2
+                marginEnd=40
+                bottomMargin=40
+                holder.tag.text = showtimeListItem.movie.tag
+//                        bottomMargin=8.dpToPixels()
+            }
+
+        }else if (Constant.LANGUAGE == "en"){
+            LocaleHelper.setLocale(context, "en")
+//                    holder.imageView60.setImageResource(R.drawable.now_showing_diagonal)
+            holder.background.setImageResource(R.drawable.en_tab)
+            holder.tag.rotation = -30f
+            (holder.tag.layoutParams as ConstraintLayout.LayoutParams).apply {
+                marginStart=25
+//                        topMargin=2
+                marginEnd=40
+                bottomMargin=40
+                holder.tag.text = showtimeListItem.movie.tag
+            }
+        }
+
+
+
+        if (showtimeListItem.movie.language == null){
+            holder.duration.text = "" + showtimeListItem.movie.runTime + " min."
+        }else{
+            holder.duration.text =
+                showtimeListItem.movie.language + " | " + showtimeListItem.movie.runTime + " min."
+
+        }
+
+
         holder.cateogry.text = showtimeListItem.movie.rating
         holder.genre.text = showtimeListItem.movie.genre
 

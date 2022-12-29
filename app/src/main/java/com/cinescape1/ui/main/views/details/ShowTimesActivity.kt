@@ -70,7 +70,6 @@ import kotlinx.android.synthetic.main.show_times_layout_include.*
 import javax.inject.Inject
 import kotlin.math.abs
 
-
 @Suppress("DEPRECATION", "NAME_SHADOWING")
 class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewItemClickListener,
     AdapterShowTimesCinemaTitle.CinemaAdapterListener, AdapterCinemaSessionScroll.LocationListener,
@@ -117,6 +116,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         super.onCreate(savedInstanceState)
         binding = ActivityShowTimesBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
+
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
@@ -477,10 +477,18 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
             }
             else -> {
-                binding?.textMovieType?.text =
-                    output.movie.language + " | " + output.movie.genre + " | " + output.movie.runTime + " " + getString(
-                        R.string.min
-                    )
+                if (output.movie.language == null){
+                    binding?.textMovieType?.text =
+                        "" + output.movie.genre + " | " + output.movie.runTime + " " + getString(
+                            R.string.min
+                        )
+                }else{
+                    binding?.textMovieType?.text =
+                        output.movie.language + " | " + output.movie.genre + " | " + output.movie.runTime + " " + getString(
+                            R.string.min
+                        )
+                }
+
             }
         }
 

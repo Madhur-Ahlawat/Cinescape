@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:id="@+id/container"
-    android:layout_marginTop="@dimen/margin25"
     android:layout_height="wrap_content">
 
     <TextView
@@ -13,12 +12,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin16"
+        android:layout_marginTop="@dimen/margin15"
         android:fontFamily="@font/sf_pro_text_bold"
         android:textColor="@color/white"
         android:textSize="@dimen/size15"
-        android:layout_marginTop="@dimen/margin8"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewpager"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="TextView" />
 
     <TextView
@@ -40,9 +39,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin17"
+        android:layout_marginTop="@dimen/margin12"
         android:orientation="horizontal"
         android:visibility="visible"
-        android:layout_marginTop="@dimen/margin8"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,40 +51,42 @@
         tools:itemCount="3"
         tools:listitem="@layout/recommended_item" />
 
-<!--    <com.cinescape1.utils.CustomViewPager-->
-<!--        android:id="@+id/viewpagerBack"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="430dp"-->
-<!--        android:visibility="visible"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.0"-->
-<!--        tools:ignore="SpeakableTextPresentCheck" />-->
+    <com.cinescape1.utils.CustomViewPager
+        android:id="@+id/viewpagerBack"
+        android:layout_width="match_parent"
+        android:layout_height="430dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="SpeakableTextPresentCheck" />
 
-<!--    <ImageView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:src="@drawable/movie_default"-->
-<!--        android:visibility="visible"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/viewpagerBack"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        tools:ignore="ContentDescription" />-->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/movie_default"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/viewpagerBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/viewpagerBack"
+        tools:ignore="ContentDescription" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="80dp"
-        android:paddingEnd="80dp"
-        android:layout_marginTop="@dimen/margin12"
+        android:layout_marginTop="@dimen/dimen30"
         android:visibility="visible"
+        android:paddingEnd="80dp"
+        android:paddingStart="80dp"
+        app:layout_constraintBottom_toBottomOf="@+id/viewpagerBack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/viewpagerBack" />
 
     <RelativeLayout
         android:layout_width="0dp"

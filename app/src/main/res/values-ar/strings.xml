@@ -368,10 +368,10 @@
     <string name="enterUserNames">الرجاء إدخال اسم مستخدم الجوال.</string>
     <string name="enterCity">الرجاء إدخال اسم المدينة.</string>
     <string name="enterDobs">يجب أن يكون عمرك 12 سنة.</string>
-    <string name="enterPasswprd">Please enter password.</string>
-    <string name="enterNewPass">Please enter new password.</string>
-    <string name="enterSamePass">Please enter same password.</string>
-    <string name="enterConfPasswrd">Please enter confirm password.</string>
+    <string name="enterPasswprd">الرجاء إدخال كلمة المرور القديمة.</string>
+    <string name="enterNewPass">الرجاء إدخال كلمة المرور الجديدة.</string>
+    <string name="enterSamePass">الرجاء إدخال نفس كلمة المرور.</string>
+    <string name="enterConfPasswrd">الرجاء إدخال تأكيد كلمة المرور.</string>
 
 
 </resources>

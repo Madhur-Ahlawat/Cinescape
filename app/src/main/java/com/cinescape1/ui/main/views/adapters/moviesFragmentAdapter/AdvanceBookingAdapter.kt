@@ -75,7 +75,14 @@ class AdvanceBookingAdapter(private var nowShowingList: List<MoviesResponse.Adva
 
         val ratingColor=comingSoonItem.ratingColor
         holder.type.setBackgroundColor(Color.parseColor(ratingColor))
-        holder.movieCategory.text = comingSoonItem.language+" | "+comingSoonItem.genre
+
+        if (comingSoonItem.language == null){
+
+            holder.movieCategory.text = ""+comingSoonItem.genre
+        }else{
+            holder.movieCategory.text = comingSoonItem.language+" | "+comingSoonItem.genre
+        }
+
 
         listener.typeFaceAdvanceBooking(holder.movieTitle,holder.movieCategory,holder.type)
 

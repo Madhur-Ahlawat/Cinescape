@@ -39,9 +39,9 @@ class FilterExperiencesAdapter(
     @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(
         holder: TodoViewHolder,
-        @SuppressLint("RecyclerView") position: Int
-    ) {
+        @SuppressLint("RecyclerView") position: Int) {
         val obj = items[position]
+
         val lowerCase = obj.toString().toLowerCase()
         val url = "https://s3.eu-west-1.amazonaws.com/cinescape.uat/experience/${lowerCase}.png"
         val urlActive =

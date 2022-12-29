@@ -17,6 +17,7 @@ data class CSessionResponse(
             val active: Boolean,
             val address1: String,
             val address2: String,
+            val workingHours: String,
             val alerttxt: String,
             val allowOnlineVoucherValidation: Boolean,
             val allowPrintAtHomeBookings: Boolean,
@@ -47,6 +48,7 @@ data class CSessionResponse(
             val dt: String,
             val showdate: String,
             val wd: String,
+            val enable:Boolean,
             val wdf: String
         ):Serializable
         data class DaySession(

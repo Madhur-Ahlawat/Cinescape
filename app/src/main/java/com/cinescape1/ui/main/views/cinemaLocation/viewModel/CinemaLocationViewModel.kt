@@ -12,6 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 class CinemaLocationViewModel  @Inject constructor(private val repositories: Repositories) : ViewModel() {
+
     fun getCinemaData(context: Activity, request: CinemaSessionRequest) = liveData(Dispatchers.IO) {
         emit(Result.loading(data = null))
         try {

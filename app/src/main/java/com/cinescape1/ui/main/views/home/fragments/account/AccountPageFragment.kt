@@ -2421,17 +2421,12 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     )
                     println("SeatListClick21 ------------->no")
                 }
-
-
             }
-
         }
     }
 
     @SuppressLint("InflateParams")
-    private fun setExperienceFlexbox(
-        layout: FlexboxLayout, experience: ArrayList<ProfileResponse.Output.Experience>
-    ) {
+    private fun setExperienceFlexbox(layout: FlexboxLayout, experience: ArrayList<ProfileResponse.Output.Experience>) {
         layout.removeAllViews()
         val viewListForSeatExperience = ArrayList<View>()
         for (data in profileList!!) {
@@ -2457,8 +2452,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 //                experienceText.hide()
 //                experienceName.show()
 //            }
-
 //           experienceName.setImageResource(getMatchIcon(data.name))
+
             Glide.with(requireContext())
                 .load(url)
                 .error(R.drawable.placeholder_home_small_poster)

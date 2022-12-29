@@ -138,7 +138,7 @@
     <string name="recharge_wallet">Recharge Wallet</string>
     <string name="history">History</string>
     <string name="your_upcoming_bookings">Your Upcoming Bookings</string>
-    <string name="your_bookings_history">Your Booking History</string>
+    <string name="your_bookings_history">Your Order History</string>
     <string name="modifi_seat">Choosing Yes will reset your current selections.</string>
     <string name="food_pickup_info">Food Pickup Info</string>
     <string name="edit">Edit</string>
@@ -158,7 +158,7 @@
     <string name="sign_out">Sign Out</string>
     <string name="refunds">Refunds</string>
     <string name="your_refunded_credits">Your Refunded Credits</string>
-    <string name="your_booking_history">Your Booking History</string>
+    <string name="your_booking_history">Your Order History</string>
     <string name="category">Category</string>
     <string name="paid_by_club_card">Paid By </string>
     <string name="mad_n_monday">MAD \n MONDAY</string>
@@ -361,7 +361,7 @@
     <string name="youtube_api_key" translatable="false">AIzaSyAD0AZTCMULaXpQfulSKNWuLlLl-nbdSf0</string>
     <string name="select_payment_methods">Select Payment Methods</string>
     <string name="offer_applied_for_1_ticket">Offer Applied for 1 Ticket *</string>
-    <string name="enterPasswprd">Please enter password.</string>
+    <string name="enterPasswprd">Please enter old password.</string>
     <string name="enterNewPass">Please enter new password.</string>
     <string name="enterSamePass">Please enter same password.</string>
     <string name="enterConfPasswrd">Please enter confirm password.</string>

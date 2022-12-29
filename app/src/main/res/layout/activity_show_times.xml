@@ -13,7 +13,7 @@
         android:id="@+id/LayoutTime"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <View
             android:id="@+id/view66"
@@ -87,7 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
-                    android:layout_marginTop="@dimen/margin5"
+                    android:layout_marginTop="@dimen/margin12"
                     android:ellipsize="end"
                     android:minWidth="50dp"
                     android:layout_marginStart="8dp"
@@ -95,7 +95,7 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/ratingUi"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/margin32"
                         android:layout_height="wrap_content"
                         app:cardCornerRadius="@dimen/margin2"
                         android:layout_marginStart="@dimen/margin2"
@@ -105,7 +105,7 @@
 
                         <TextView
                             android:id="@+id/textView56"
-                            android:layout_width="wrap_content"
+                            android:layout_width="@dimen/margin32"
                             android:layout_height="@dimen/margin17"
                             android:fontFamily="@font/sf_pro_text_heavy"
                             android:includeFontPadding="false"

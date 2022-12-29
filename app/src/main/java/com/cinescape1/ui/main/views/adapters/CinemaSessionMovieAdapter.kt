@@ -5,9 +5,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.CSessionResponse
 import com.cinescape1.ui.main.views.adapters.cinemaSessionAdapters.AdapterCinemaSessionScroll
@@ -32,9 +34,22 @@ class CinemaSessionMovieAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolderCinemaSession, position: Int) {
         val showtimeListItem = showtimeList[position]
+
+        val lowerCase = showtimeListItem.experience.toLowerCase()
+        val url = "https://s3.eu-west-1.amazonaws.com/cinescape.uat/experience/${lowerCase}.png"
+
         holder.textDimension.text = showtimeListItem.format
         holder.textTimes.text = showtimeListItem.showTime
-        holder.type.text=showtimeListItem.experience
+
+//        holder.type.text=showtimeListItem.experience
+//        Glide.with(context).load(url).into(holder.type)
+
+        Glide.with(context)
+            .load(url)
+            .placeholder(R.drawable.movie_default)
+            .into(holder.type)
+
+
         if (!showtimeListItem.premium) {
             holder.textMoviesCategory.hide()
         } else {
@@ -52,6 +67,7 @@ class CinemaSessionMovieAdapter(
                 showtimeListItem.showTime
             )
         }
+
     }
 
     override fun getItemCount(): Int {
@@ -60,7 +76,7 @@ class CinemaSessionMovieAdapter(
 
     class MyViewHolderCinemaSession(view: View) : RecyclerView.ViewHolder(view) {
         var textTimes: TextView = view.findViewById(R.id.text_times)
-        var type: TextView = view.findViewById(R.id.type)
+        var type: ImageView = view.findViewById(R.id.type)
         var textDimension: TextView = view.findViewById(R.id.text_dimension)
         var textMoviesCategory: TextView = view.findViewById(R.id.text_movies_category)
         var cardScroll: CardView = view.findViewById(R.id.card_scroll)

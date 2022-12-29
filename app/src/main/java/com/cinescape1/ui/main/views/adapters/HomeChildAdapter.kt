@@ -26,7 +26,6 @@ import kotlinx.android.synthetic.main.activity_user_preferences.*
 import kotlinx.android.synthetic.main.home_slider_item.view.*
 import kotlinx.android.synthetic.main.recommended_item.view.*
 
-
 class HomeChildAdapter(
     var context: Activity,
     private var recommendedList: ArrayList<HomeDataResponse.MovieData>,
@@ -65,8 +64,8 @@ class HomeChildAdapter(
 
                 val holder = holder as MyViewHolderRecommended
 
-
                 listener.arabicClick(holder.imageView60)
+
                 if (Constant.LANGUAGE == "ar"){
                     LocaleHelper.setLocale(context, "ar")
 //                    holder.imageView60.setImageResource(R.drawable.arebic_red_icon)
@@ -92,7 +91,6 @@ class HomeChildAdapter(
                         marginEnd=80
                         bottomMargin=22
                         holder.tag.text = photoItem.tag
-
                     }
                 }
 

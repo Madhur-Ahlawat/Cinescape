@@ -459,12 +459,14 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
                 }
             })
         } else {
+
             val adapter = AdapterNowShowing(nowShowing, requireActivity(), this)
             binding?.fragmentMovie?.layoutManager = gridLayout
             binding?.fragmentMovie?.adapter = adapter
             binding?.noData?.show()
             binding?.fragmentMovie?.hide()
 //            toast("No movie available!")
+
         }
     }
 
@@ -691,8 +693,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             )
         }
 
-        val recyclerviewExperience =
-            mDialogView.findViewById<View>(R.id.recyclerview_filter_title) as RecyclerView
+        val recyclerviewExperience = mDialogView.findViewById<View>(R.id.recyclerview_filter_title) as RecyclerView
         val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
         recyclerviewExperience.layoutManager = LinearLayoutManager(context)
         adapterFilterTitle = AdapterFilterTitle(requireActivity(), dataList, filterDataList)
@@ -703,12 +704,26 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
         val textReset = mDialogView.findViewById<View>(R.id.text_reset) as ConstraintLayout
 
         textReset.setOnClickListener {
+            movesData(
+                MovieRequest(
+                    "ALL",
+                    "ALL",
+                    "ALL",
+                    "ALL",
+                    "ALL",
+                    "ALL"
+                )
+            )
+
+//            updateFilterData(dataList, "")
+
             dataList.clear()
             filterDataList.clear()
             adapterFilterCategory?.notifyDataSetChanged()
             adapterFilterTitle?.notifyDataSetChanged()
             binding?.recyclerviewCategory?.hide()
             mAlertDialog.dismiss()
+
         }
 
         textViewDone.setOnClickListener {
@@ -778,11 +793,23 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
         val textReset = mDialogView.findViewById<View>(R.id.text_reset) as ConstraintLayout
 
         textReset.setOnClickListener {
+
             dataList.clear()
             filterDataList.clear()
             adapterFilterCategory?.notifyDataSetChanged()
             binding?.recyclerviewCategory?.hide()
+            movesData(
+                MovieRequest(
+                    "ALL",
+                    "ALL",
+                    "ALL",
+                    "ALL",
+                    "ALL",
+                    "ALL"
+                )
+            )
             mAlertDialog.dismiss()
+
         }
 
         textViewDone.setOnClickListener {

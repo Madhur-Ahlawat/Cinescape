@@ -17,6 +17,7 @@ import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.CSessionResponse
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
+import com.cinescape1.utils.toast
 import kotlinx.android.synthetic.main.showtime_day_date_item.view.*
 
 class CinemaDayAdapter(
@@ -85,12 +86,35 @@ class CinemaDayAdapter(
             }
         }
 
-        holder.itemView.setOnClickListener {
-            listener.onMovieDateClick(dayDateItem,holder.itemView,position)
-            rowIndex = position
-            backIndex = position
-            notifyDataSetChanged()
+        if (dayDateItem.enable) {
+            holder.itemView.setOnClickListener {
+
+                listener.onMovieDateClick(dayDateItem,holder.itemView,position)
+                rowIndex = position
+                backIndex = position
+                notifyDataSetChanged()
+            }
+
+        } else {
+//            holder.views1.show()
+            holder.consBackground.setBackgroundResource(R.drawable.primarydark_rectangle)
+            holder.day.setTextColor(ContextCompat.getColor(context, R.color.countrySearch))
+            holder.date.setTextColor(ContextCompat.getColor(context, R.color.countrySearch))
+            val regular: Typeface = context.resources.getFont(R.font.sf_pro_text_regular)
+            holder.day.typeface = regular
+            holder.date.typeface = regular
+            holder.day.textSize = 13F
+            holder.date.textSize = 16F
         }
+
+//        holder.itemView.setOnClickListener {
+//            listener.onMovieDateClick(dayDateItem,holder.itemView,position)
+//            rowIndex = position
+//            backIndex = position
+//            notifyDataSetChanged()
+//        }
+
+
 
     }
 

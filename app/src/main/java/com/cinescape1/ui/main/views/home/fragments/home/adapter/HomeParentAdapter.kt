@@ -58,14 +58,14 @@ class HomeParentAdapter(
                 holder.homeTitle.hide()
                 holder.txtSeeAll.hide()
                 holder.homeList.show()
-//                holder.viewpagerBack.visibility = View.INVISIBLE
+                holder.viewpagerBack.visibility = View.INVISIBLE
                 holder.viewpager.show()
                 holder.search.show()
                 
-//                holder.viewpagerBack.layoutDirection = View.LAYOUT_DIRECTION_RTL
-//                val sliderBackAdapter = SliderBackAdapter(mContext, obj.movieData)
-//                holder.viewpagerBack.adapter = sliderBackAdapter
-//                holder.viewpagerBack.setPagingEnabled(false)
+                holder.viewpagerBack.layoutDirection = View.LAYOUT_DIRECTION_RTL
+                val sliderBackAdapter = SliderBackAdapter(mContext, obj.movieData)
+                holder.viewpagerBack.adapter = sliderBackAdapter
+                holder.viewpagerBack.setPagingEnabled(false)
 
                 if (Constant.LANGUAGE == "ar"){
                     LocaleHelper.setLocale(mContext, "ar")
@@ -148,24 +148,24 @@ class HomeParentAdapter(
                     holder.viewpager.hide()
 //                    holder.viewpagerBack.hide()
 
-                    val gridLayout = GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
-                    holder.homeList.layoutManager = LinearLayoutManager(mContext)
-                   val  adapter = OfferAdapter(mContext, obj.offers)
-                    holder.homeList.adapter = adapter
-                    println("errorOffer---123>${obj.offers.size}")
-                    holder.homeList.layoutManager = gridLayout
-
 //                    val gridLayout = GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
 //                    holder.homeList.layoutManager = LinearLayoutManager(mContext)
-//                    val adapter = OfferAdapter(mContext, obj.offers)
-//                    holder.homeList.layoutManager = gridLayout
+//                   val  adapter = OfferAdapter(mContext, obj.offers)
 //                    holder.homeList.adapter = adapter
-//                    holder.txtSeeAll.setOnClickListener {
-//                        val intent = Intent(mContext, SeeAllActivity::class.java)
-//                        intent.putExtra("type", "offer")
-//                        intent.putExtra("arrayList", obj.movieData)
-//                        mContext.startActivity(intent)
-//                    }
+//                    println("errorOffer---123>${obj.offers.size}")
+//                    holder.homeList.layoutManager = gridLayout
+
+                    val gridLayout = GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
+                    holder.homeList.layoutManager = LinearLayoutManager(mContext)
+                    val adapter = OfferAdapter(mContext, obj.offers)
+                    holder.homeList.layoutManager = gridLayout
+                    holder.homeList.adapter = adapter
+                    holder.txtSeeAll.setOnClickListener {
+                        val intent = Intent(mContext, SeeAllActivity::class.java)
+                        intent.putExtra("type", "offer")
+                        intent.putExtra("arrayList", obj.movieData)
+                        mContext.startActivity(intent)
+                    }
 
                 } catch (e:Exception){
                     println("errorOffer--->${e.message}")
@@ -258,7 +258,7 @@ class HomeParentAdapter(
         var homeList = itemView.homeList!!
         var viewpager = itemView.viewpager!!
         var search = itemView.search!!
-//        var viewpagerBack = itemView.viewpagerBack!!
+        var viewpagerBack = itemView.viewpagerBack!!
         var consAdvance = itemView.consAdvance!!
         var sliderAdvance = itemView.sliderAdvance!!
         var myTabLayout = itemView.my_tablayout!!

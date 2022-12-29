@@ -36,8 +36,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/margin4">
+                    android:layout_height="match_parent">
 
                     <ImageView
                         android:id="@+id/image_now_showing"
@@ -72,10 +71,10 @@
                         android:fontFamily="@font/sf_pro_text_medium"
                         android:gravity="center"
                         android:rotation="-30"
-                        tools:text="NEW  "
+                        android:text="NEW        "
                         android:textColor="@color/white"
                         android:textSize="7sp"
-                        android:layout_marginBottom="@dimen/margin16"
+                        android:layout_marginBottom="@dimen/margin12"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView60"
                         app:layout_constraintEnd_toEndOf="@+id/imageView60"
                         app:layout_constraintStart_toStartOf="@+id/imageView60"
@@ -95,10 +94,9 @@
                 android:focusableInTouchMode="true"
                 android:fontFamily="@font/sf_pro_text_heavy"
                 android:freezesText="true"
-                android:gravity="start"
+                android:gravity="center_horizontal"
                 android:letterSpacing="-0.02"
                 android:maxLines="1"
-                android:layout_marginStart="@dimen/margin4"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
                 android:textColor="@color/white"
@@ -129,7 +127,6 @@
                     android:freezesText="true"
                     android:letterSpacing="-0.02"
                     android:maxLines="1"
-                    android:layout_marginStart="@dimen/margin4"
                     android:scrollHorizontally="true"
                     android:singleLine="true"
                     android:textColor="@color/white"

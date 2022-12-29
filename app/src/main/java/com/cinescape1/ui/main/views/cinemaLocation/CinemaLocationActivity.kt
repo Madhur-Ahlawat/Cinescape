@@ -99,9 +99,11 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
         super.onCreate(savedInstanceState)
         binding = ActivityCinemaLocationBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
+
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
+                Constant.LANGUAGE = "${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}"
                 languageCheck = "ar"
                 val regular = ResourcesCompat.getFont(this, R.font.gess_light)
                 val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
@@ -125,6 +127,7 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
             }
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(this, "en")
+                Constant.LANGUAGE = "${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}"
                 languageCheck = "en"
                 val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
                 val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
@@ -149,6 +152,8 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
             else -> {
                 languageCheck = "en"
                 LocaleHelper.setLocale(this, "en")
+                Constant.LANGUAGE = "${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}"
+
                 val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
                 val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
                 val heavy = ResourcesCompat.getFont(this, R.font.sf_pro_text_heavy)
@@ -283,16 +288,19 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
         binding?.textFilmHouseName?.text = output.cinema.name
         binding?.textFilmHouseName?.isSelected = true
         binding?.textMovieType?.text = output.cinema.address1 + "\n" + output.cinema.address2
+        binding?.textMovieType1?.text = output.cinema.workingHours
         binding?.imageView39?.show()
+
         //Map From Cinema
         binding?.imageView39?.setOnClickListener {
-            val strUri =
-                "http://maps.google.com/maps?q=loc:" + output.cinema.latitude + "," + output.cinema.longitude + " (" + "Label which you want" + ")"
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(strUri))
-            intent.setClassName(
-                "com.google.android.apps.maps", "com.google.android.maps.MapsActivity"
-            )
-            startActivity(intent)
+
+//            val strUri =
+//                "http://maps.google.com/maps?q=loc:" + output.cinema.latitude + "," + output.cinema.longitude + " (" + "Label which you want" + ")"
+//            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(strUri))
+//            intent.setClassName(
+//                "com.google.android.apps.maps", "com.google.android.maps.MapsActivity"
+//            )
+//            startActivity(intent)
 
         }
 
