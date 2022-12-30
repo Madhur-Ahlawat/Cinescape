@@ -86,11 +86,13 @@ class AdapterDayDate(
 
         if (dayDateItem.enable) {
             holder.itemView.setOnClickListener {
+
 //                context.toast("hello")
                 listener.onDateClick(dayDateItem, holder.itemView, position)
                 rowIndex = position
                 backIndex = position
                 notifyDataSetChanged()
+
             }
         } else {
 //            holder.views1.show()

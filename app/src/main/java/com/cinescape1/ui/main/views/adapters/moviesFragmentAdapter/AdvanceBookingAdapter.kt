@@ -18,6 +18,7 @@ import com.cinescape1.data.models.responseModel.MoviesResponse
 import com.cinescape1.ui.main.views.details.ShowTimesActivity
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.LocaleHelper
+import com.haozhang.lib.SlantedTextView
 
 class AdvanceBookingAdapter(private var nowShowingList: List<MoviesResponse.AdvanceBooking>, context:Context,
                            var listener : TypefaceListener1) :
@@ -39,28 +40,35 @@ class AdvanceBookingAdapter(private var nowShowingList: List<MoviesResponse.Adva
             LocaleHelper.setLocale(mContext, "ar")
 //            holder.imageView60.setImageResource(R.drawable.arebic_red_icon)
             holder.imageView60.setImageResource(R.drawable.ar_tab)
-            holder.tag.rotation = 30f
-            (holder.tag.layoutParams as ConstraintLayout.LayoutParams).apply {
-                marginStart=20
-//                        topMargin=2
-                marginEnd=20
-                bottomMargin=50
-//                holder.tag.text = comingSoonItem.tag
-//                        bottomMargin=8.dpToPixels()
-            }
+            holder.tag.setSlantedBackgroundColor(Color.parseColor(comingSoonItem.ratingColor))
+            holder.tag.mode = SlantedTextView.MODE_RIGHT
+
+
+//            holder.tag.rotation = 30f
+//            (holder.tag.layoutParams as ConstraintLayout.LayoutParams).apply {
+//                marginStart=20
+////                        topMargin=2
+//                marginEnd=20
+//                bottomMargin=50
+////                holder.tag.text = comingSoonItem.tag
+////                        bottomMargin=8.dpToPixels()
+//            }
 
         }else if (Constant.LANGUAGE == "en"){
             LocaleHelper.setLocale(mContext, "en")
 //            holder.imageView60.setImageResource(R.drawable.now_showing_diagonal)
             holder.imageView60.setImageResource(R.drawable.en_tab)
-            holder.tag.rotation = -30f
-            (holder.tag.layoutParams as ConstraintLayout.LayoutParams).apply {
-                marginStart=20
-//              topMargin=2
-                marginEnd=20
-                bottomMargin=50
-//                holder.tag.text = comingSoonItem.tag
-            }
+            holder.tag.setSlantedBackgroundColor(Color.parseColor(comingSoonItem.ratingColor))
+            holder.tag.mode = SlantedTextView.MODE_LEFT
+
+//            holder.tag.rotation = -30f
+//            (holder.tag.layoutParams as ConstraintLayout.LayoutParams).apply {
+//                marginStart=20
+////              topMargin=2
+//                marginEnd=20
+//                bottomMargin=50
+////                holder.tag.text = comingSoonItem.tag
+//            }
         }
 
         Glide.with(mContext)
@@ -77,7 +85,6 @@ class AdvanceBookingAdapter(private var nowShowingList: List<MoviesResponse.Adva
         holder.type.setBackgroundColor(Color.parseColor(ratingColor))
 
         if (comingSoonItem.language == null){
-
             holder.movieCategory.text = ""+comingSoonItem.genre
         }else{
             holder.movieCategory.text = comingSoonItem.language+" | "+comingSoonItem.genre
@@ -111,7 +118,7 @@ class AdvanceBookingAdapter(private var nowShowingList: List<MoviesResponse.Adva
         var movieTitle: TextView = view.findViewById(R.id.text_movie_title)
         var movieCategory: TextView = view.findViewById(R.id.text_movie_category)
         var type: TextView = view.findViewById(R.id.movieRating)
-        var tag: TextView = view.findViewById(R.id.tag)
+        var tag: SlantedTextView = view.findViewById(R.id.tag)
         var cardView: CardView = view.findViewById(R.id.rating_ui)
     }
 

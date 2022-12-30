@@ -22,6 +22,7 @@ import com.cinescape1.utils.Constant
 import com.cinescape1.utils.LocaleHelper
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
+import com.haozhang.lib.SlantedTextView
 import kotlinx.android.synthetic.main.activity_user_preferences.*
 import kotlinx.android.synthetic.main.home_slider_item.view.*
 import kotlinx.android.synthetic.main.recommended_item.view.*
@@ -68,30 +69,29 @@ class HomeChildAdapter(
 
                 if (Constant.LANGUAGE == "ar"){
                     LocaleHelper.setLocale(context, "ar")
-//                    holder.imageView60.setImageResource(R.drawable.arebic_red_icon)
                     holder.imageView60.setImageResource(R.drawable.ar_tab)
-                    holder.tag.rotation = 30f
-                    (holder.tag.layoutParams as ConstraintLayout.LayoutParams).apply {
-                        marginStart=20
-//                        topMargin=2
-                        marginEnd=80
-                        bottomMargin=22
-                        holder.tag.text = photoItem.tag
-//                        bottomMargin=8.dpToPixels()
-                    }
+                    holder.tag.setSlantedBackgroundColor(Color.parseColor(photoItem.tagColor))
+                    holder.tag.mode = SlantedTextView.MODE_RIGHT
+                    holder.tag.text = photoItem.tag
 
                 }else if (Constant.LANGUAGE == "en"){
                     LocaleHelper.setLocale(context, "en")
+
 //                    holder.imageView60.setImageResource(R.drawable.now_showing_diagonal)
                     holder.imageView60.setImageResource(R.drawable.en_tab)
-                    holder.tag.rotation = -30f
-                    (holder.tag.layoutParams as ConstraintLayout.LayoutParams).apply {
-                        marginStart=20
-//                        topMargin=2
-                        marginEnd=80
-                        bottomMargin=22
-                        holder.tag.text = photoItem.tag
-                    }
+                    holder.tag.text = photoItem.tag
+                    holder.tag.setSlantedBackgroundColor(Color.parseColor(photoItem.tagColor))
+                    holder.tag.mode = SlantedTextView.MODE_LEFT
+
+//                    holder.tag.rotation = -30f
+//                    (holder.tag.layoutParams as ConstraintLayout.LayoutParams).apply {
+//                        marginStart=20
+////                        topMargin=2
+//                        marginEnd=80
+//                        bottomMargin=22
+//                        holder.tag.text = photoItem.tag
+//                    }
+
                 }
 
                 Glide.with(context)
@@ -101,14 +101,15 @@ class HomeChildAdapter(
 
                 println("tags--->${photoItem.tag}")
                 if (photoItem.tag == "") {
-                    holder.background.hide()
+//                    holder.background.hide()
                     holder.tag.hide()
                 } else {
-                    holder.background.show()
+//                    holder.background.show()
                     holder.tag.show()
                     holder.tag.text = photoItem.tag
                     val tagColor = photoItem.tagColor
-                    holder.background.setColorFilter(Color.parseColor(tagColor))
+                    holder.tag.setSlantedBackgroundColor(Color.parseColor(photoItem.tagColor))
+//                    holder.background.setColorFilter(Color.parseColor(tagColor))
                 }
                 if (comingSoon) {
                     holder.thumbnail.setOnClickListener {
@@ -148,7 +149,7 @@ class HomeChildAdapter(
     class MyViewHolderRecommended(view: View) : RecyclerView.ViewHolder(view) {
         var thumbnail: ImageView = itemView.image_recommended
         var background: ImageView = view.findViewById(R.id.imageView60)
-        var tag: TextView = view.findViewById(R.id.tag)
+        var tag: SlantedTextView = view.findViewById(R.id.tag)
         var imageView60 = itemView.imageView60!!
     }
 

@@ -55,7 +55,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
     MovieTypeAdapter.RecycleViewItemClickListener,
     MovieTypeAdapter.TypeFaceListener,
     AdvanceBookingAdapter.TypefaceListener1,
-    AdapterComingSoon.TypefaceListener2, AdapterNowShowing.TypefaceListenerNowShowing {
+    AdapterComingSoon.TypefaceListener2 {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -420,7 +420,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             binding?.fragmentMovie?.show()
             binding?.movieLayout?.show()
             comingSoonList = nowShowing
-            val adapter = AdapterNowShowing(nowShowing, requireActivity(), this)
+            val adapter = AdapterNowShowing(nowShowing, requireActivity())
             binding?.fragmentMovie?.layoutManager = gridLayout
             binding?.fragmentMovie?.adapter = adapter
 
@@ -460,7 +460,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             })
         } else {
 
-            val adapter = AdapterNowShowing(nowShowing, requireActivity(), this)
+            val adapter = AdapterNowShowing(nowShowing, requireActivity())
             binding?.fragmentMovie?.layoutManager = gridLayout
             binding?.fragmentMovie?.adapter = adapter
             binding?.noData?.show()
@@ -940,14 +940,6 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
 
     override fun typeFaceComingSoon(movieTitle: TextView) {
         movieTitle2 = movieTitle
-    }
-
-    override fun typeFaceNowShowing(
-        movieTitle: TextView,
-        movieCategory: TextView,
-        type: TextView,
-        tag: TextView) {
-
     }
 
 

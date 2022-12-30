@@ -862,6 +862,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }
 
         Proceed_btnUi.setOnClickListener {
+
             if (clickEnable == 0) {
                 val dialog = OptionDialog(requireContext(),
                     R.mipmap.ic_launcher,
@@ -882,9 +883,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                         )
                     )
                 }
-
-
             }
+
         }
 
         UpdateAccount.setOnClickListener {
@@ -1029,6 +1029,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
 
             enter_date_births.setOnClickListener {
+
                 var datePicker: DatePickerDialog? = null
                 val calendar = Calendar.getInstance()
                 val day = calendar.get(Calendar.DAY_OF_MONTH)
@@ -1048,48 +1049,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                 // show the dialog
                 datePicker.show()
 
-
-//            val mcurrentDate = Calendar.getInstance()
-//            var mYear = mcurrentDate[Calendar.YEAR]
-//            var mMonth = mcurrentDate[java.util.Calendar.MONTH]
-//            var mDay = mcurrentDate[java.util.Calendar.DAY_OF_MONTH]
-//            val mDatePicker = DatePickerDialog(
-//                requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
-//                    val myCalendar = Calendar.getInstance()
-//
-//                    myCalendar.set(selectedYear, selectedMonth, selectedDay)
-//                    val current: Date = myCalendar.getTime()
-//
-//                    myCalendar[Calendar.YEAR] = selectedYear
-//                    myCalendar[Calendar.MONTH] = selectedMonth
-//                    myCalendar[Calendar.DAY_OF_MONTH] = selectedDay
-//                    val myFormat = "dd-MM-yy" //Change as you need
-//                    val sdf = SimpleDateFormat(myFormat, Locale.ENGLISH)
-//                    val diff1 = Date().compareTo(current)
-//
-//                    if (myCalendar[Calendar.YEAR] > 12) {
-//                        enter_date_births.text = sdf.format(myCalendar.time)
-//                    } else {
-//                        val dialog = OptionDialog(requireActivity(),
-//                            R.mipmap.ic_launcher,
-//                            R.string.app_name,
-//                            resources.getString(R.string.enterDobs),
-//                            positiveBtnText = R.string.ok,
-//                            negativeBtnText = R.string.no,
-//                            positiveClick = {
-//                            },
-//                            negativeClick = {
-//                            })
-//                        dialog.show()
-//                    }
-//                    println("enter_date_births21--------->${enter_date_births.text}")
-//                    mDay = selectedDay
-//                    mMonth = selectedMonth
-//                    mYear = selectedYear
-//                }, mYear, mMonth, mDay
-//            )
-//            mDatePicker.datePicker.maxDate = System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 0)
-//            mDatePicker.show()
             }
 
 
