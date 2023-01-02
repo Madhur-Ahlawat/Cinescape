@@ -49,6 +49,8 @@ data class MoviesResponse(
         val synopsis: String,
         val synopsisAlt: String,
         val title: String,
+        val tag: String,
+        val tagColor: String,
         val titleAlt: String,
         val trailerUrl: String,
         val webimgbig: String,

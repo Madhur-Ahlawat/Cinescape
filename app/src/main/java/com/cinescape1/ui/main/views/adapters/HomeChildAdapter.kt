@@ -111,6 +111,7 @@ class HomeChildAdapter(
                     holder.tag.setSlantedBackgroundColor(Color.parseColor(photoItem.tagColor))
 //                    holder.background.setColorFilter(Color.parseColor(tagColor))
                 }
+
                 if (comingSoon) {
                     holder.thumbnail.setOnClickListener {
                         val intent = Intent(holder.thumbnail.context, ShowTimesActivity::class.java)
@@ -125,6 +126,7 @@ class HomeChildAdapter(
                         holder.thumbnail.context.startActivity(intent)
                     }
                 }
+
 
             }
 

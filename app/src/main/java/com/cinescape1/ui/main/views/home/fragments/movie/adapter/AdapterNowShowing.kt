@@ -49,8 +49,8 @@ class AdapterNowShowing(
             if (Constant.LANGUAGE == "ar") {
                 LocaleHelper.setLocale(mContext, "ar")
                 holder.imageView60.setImageResource(R.drawable.ar_tab)
-//                holder.tag.setSlantedBackgroundColor(Color.parseColor(comingSoonItem.tagColor))
-//                holder.tag.mode = SlantedTextView.MODE_RIGHT
+                holder.tag.setSlantedBackgroundColor(Color.parseColor(comingSoonItem.tagColor))
+                holder.tag.mode = SlantedTextView.MODE_RIGHT
                 holder.tag.text = comingSoonItem.tag
 
             } else if (Constant.LANGUAGE == "en") {
@@ -58,8 +58,8 @@ class AdapterNowShowing(
 
                 holder.imageView60.setImageResource(R.drawable.en_tab)
                 holder.tag.text = comingSoonItem.tag
-//                holder.tag.setSlantedBackgroundColor(Color.parseColor(comingSoonItem.tagColor))
-//                holder.tag.mode = SlantedTextView.MODE_LEFT
+                holder.tag.setSlantedBackgroundColor(Color.parseColor(comingSoonItem.tagColor))
+                holder.tag.mode = SlantedTextView.MODE_LEFT
 
             }
         }
@@ -83,7 +83,7 @@ class AdapterNowShowing(
             holder.tag.show()
             holder.tag.text = comingSoonItem.tag
             val tagColor = comingSoonItem.tagColor
-//            holder.tag.setSlantedBackgroundColor(Color.parseColor(comingSoonItem.tagColor))
+            holder.tag.setSlantedBackgroundColor(Color.parseColor(comingSoonItem.tagColor))
 //                    holder.background.setColorFilter(Color.parseColor(tagColor))
         }
 
@@ -108,7 +108,7 @@ class AdapterNowShowing(
         var movieCategory: TextView = view.findViewById(R.id.text_movie_category)
         var type: TextView = view.findViewById(R.id.movieRating)
         var background: ImageView = view.findViewById(R.id.imageView60)
-        var tag: TextView = view.findViewById(R.id.tag)
+        var tag: SlantedTextView = view.findViewById(R.id.tag)
         var cardView: CardView = view.findViewById(R.id.rating_ui)
     }
 

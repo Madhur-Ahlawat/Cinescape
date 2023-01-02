@@ -594,7 +594,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             .setView(mDialogView)
         val mAlertDialog = mBuilder.show()
 
-//Outside Clickable  False
+     //Outside Clickable  False
         mAlertDialog.setCancelable(true)
         mAlertDialog.setCanceledOnTouchOutside(true)
         mAlertDialog.show()

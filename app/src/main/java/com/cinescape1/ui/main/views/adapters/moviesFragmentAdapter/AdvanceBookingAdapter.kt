@@ -18,6 +18,8 @@ import com.cinescape1.data.models.responseModel.MoviesResponse
 import com.cinescape1.ui.main.views.details.ShowTimesActivity
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.LocaleHelper
+import com.cinescape1.utils.hide
+import com.cinescape1.utils.show
 import com.haozhang.lib.SlantedTextView
 
 class AdvanceBookingAdapter(private var nowShowingList: List<MoviesResponse.AdvanceBooking>, context:Context,
@@ -38,7 +40,7 @@ class AdvanceBookingAdapter(private var nowShowingList: List<MoviesResponse.Adva
 
         if (Constant.LANGUAGE == "ar"){
             LocaleHelper.setLocale(mContext, "ar")
-//            holder.imageView60.setImageResource(R.drawable.arebic_red_icon)
+            holder.tag.text = comingSoonItem.tag
             holder.imageView60.setImageResource(R.drawable.ar_tab)
             holder.tag.setSlantedBackgroundColor(Color.parseColor(comingSoonItem.ratingColor))
             holder.tag.mode = SlantedTextView.MODE_RIGHT
@@ -56,7 +58,7 @@ class AdvanceBookingAdapter(private var nowShowingList: List<MoviesResponse.Adva
 
         }else if (Constant.LANGUAGE == "en"){
             LocaleHelper.setLocale(mContext, "en")
-//            holder.imageView60.setImageResource(R.drawable.now_showing_diagonal)
+            holder.tag.text = comingSoonItem.tag
             holder.imageView60.setImageResource(R.drawable.en_tab)
             holder.tag.setSlantedBackgroundColor(Color.parseColor(comingSoonItem.ratingColor))
             holder.tag.mode = SlantedTextView.MODE_LEFT
@@ -70,6 +72,19 @@ class AdvanceBookingAdapter(private var nowShowingList: List<MoviesResponse.Adva
 ////                holder.tag.text = comingSoonItem.tag
 //            }
         }
+
+        if (comingSoonItem.tag == "") {
+//                    holder.background.hide()
+            holder.tag.hide()
+        } else {
+//                    holder.background.show()
+            holder.tag.show()
+            holder.tag.text = comingSoonItem.tag
+            holder.tag.setSlantedBackgroundColor(Color.parseColor(comingSoonItem.tagColor))
+//                    holder.background.setColorFilter(Color.parseColor(tagColor))
+        }
+
+
 
         Glide.with(mContext)
             .load(comingSoonItem.mobimgsmall)
