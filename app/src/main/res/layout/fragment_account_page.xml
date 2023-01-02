@@ -346,7 +346,7 @@
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
                     android:contentDescription="@string/contentDes"
-                    android:src="@drawable/ic_recharge"
+                    android:src="@drawable/recharge_wallet_normal"
                     app:layout_constraintEnd_toEndOf="@+id/view_recharge"
                     app:layout_constraintStart_toStartOf="@+id/view_recharge"
                     app:layout_constraintTop_toTopOf="@+id/view_recharge" />

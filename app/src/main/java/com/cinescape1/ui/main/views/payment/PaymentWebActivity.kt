@@ -78,20 +78,15 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
             webSettings?.javaScriptEnabled = true
             webSettings?.domStorageEnabled = true
             binding?.paymentView?.clearFormData()
-            binding?.paymentView?.addJavascriptInterface(
-                JavaScriptInterface(
-                    this
-                ), "Android"
-            )
+            binding?.paymentView?.addJavascriptInterface(JavaScriptInterface(this), "Android")
         } catch (exception: Exception) {
             exception.printStackTrace()
         }
-        binding?.paymentView?.webViewClient = object : WebViewClient() {
 
+        binding?.paymentView?.webViewClient = object : WebViewClient() {
             @Deprecated("Deprecated in Java")
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
                 println("url response123--->$url")
-
                 return false
             }
 
@@ -105,15 +100,28 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
                     val args = uri.queryParameterNames
                     println("args---$args")
                     if (uri.getQueryParameter("result") == "success") {
-
                         if (from == "recharge") {
-                            Constant.IntentKey.OPEN_FROM = 1
-                            finish()
+                            val dialog = OptionDialog(this@PaymentWebActivity,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            getString(R.string.recharge_success),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {
+                                Constant.IntentKey.OPEN_FROM = 1
+                                println("rechargeWallet-------->1")
+                                finish()
+                            },
+                            negativeClick = {
+                            })
+                        dialog.show()
+
                         } else {
                             val intent = Intent(applicationContext, FinalTicketActivity::class.java)
 //                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
                             intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
+                            println("rechargeWallet-------->2")
                             startActivity(intent)
 //                        finish()
                         }
@@ -121,19 +129,22 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
                         val intent = Intent(applicationContext, PaymentFailedActivity::class.java)
                         intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
                         intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
+                        println("rechargeWallet-------->3")
                         startActivity(intent)
-                        val dialog = OptionDialog(this@PaymentWebActivity,
-                            R.mipmap.ic_launcher,
-                            R.string.app_name,
-                            uri.getQueryParameter("error").toString(),
-                            positiveBtnText = R.string.ok,
-                            negativeBtnText = R.string.no,
-                            positiveClick = {
-                                onBackPressed()
-                            },
-                            negativeClick = {
-                            })
-                        dialog.show()
+
+//                        val dialog = OptionDialog(this@PaymentWebActivity,
+//                            R.mipmap.ic_launcher,
+//                            R.string.app_name,
+//                            uri.getQueryParameter("error").toString(),
+//                            positiveBtnText = R.string.ok,
+//                            negativeBtnText = R.string.no,
+//                            positiveClick = {
+//                                onBackPressed()
+//                            },
+//                            negativeClick = {
+//                            })
+//                        dialog.show()
+
                     }
 //
                 }
@@ -150,11 +161,7 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
                 super.onReceivedError(view, request, error)
             }
 
-            override fun onReceivedHttpError(
-                view: WebView,
-                request: WebResourceRequest,
-                errorResponse: WebResourceResponse
-            ) {
+            override fun onReceivedHttpError(view: WebView, request: WebResourceRequest, errorResponse: WebResourceResponse) {
 //                Utility.dismissDialog()
                 super.onReceivedHttpError(view, request, errorResponse)
             }
@@ -162,8 +169,7 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
             override fun onReceivedSslError(
                 view: WebView,
                 handler: SslErrorHandler,
-                error: SslError
-            ) {
+                error: SslError) {
 //                Utility.dismissDialog()
                 super.onReceivedSslError(view, handler, error)
             }

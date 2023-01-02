@@ -64,9 +64,9 @@ import javax.inject.Inject
 @Suppress("DEPRECATION")
 class HomeActivity : DaggerAppCompatActivity(),
     AdapterMultiMovieAlertBooking.RecycleViewItemClickListener {
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
     @Inject
     lateinit var preferences: AppPreferences
     private val homeViewModel: HomeViewModel by viewModels { viewModelFactory }
@@ -228,6 +228,7 @@ class HomeActivity : DaggerAppCompatActivity(),
         dialog.text_cancel_goback.setOnClickListener {
             dialog.dismiss()
         }
+
         dialog.text_proceeds?.setOnClickListener {
             if (!preferences.getBoolean(Constant.IS_LOGIN)) {
                 dialog.dismiss()
@@ -246,8 +247,8 @@ class HomeActivity : DaggerAppCompatActivity(),
                         .putExtra("type", "FOOD")
                 )
             }
-
         }
+
         val customAdapter = CustomSpinnerAdapter(
             this,
             locationlist

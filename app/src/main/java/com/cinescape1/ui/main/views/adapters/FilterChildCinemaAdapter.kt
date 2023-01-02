@@ -21,9 +21,10 @@ class FilterChildCinemaAdapter(private val mContext: Context, private val items:
 
     @SuppressLint("InflateParams")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.filter_location_item, null)
+
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.filter_location_item, null)
         return TodoViewHolder(view)
+
     }
 
     override fun getItemCount(): Int {
@@ -31,10 +32,8 @@ class FilterChildCinemaAdapter(private val mContext: Context, private val items:
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    override fun onBindViewHolder(
-        holder: TodoViewHolder,
-        @SuppressLint("RecyclerView") position: Int
-    ) {
+    override fun onBindViewHolder(holder: TodoViewHolder,
+        @SuppressLint("RecyclerView") position: Int) {
         val obj = items[position]
         holder.todoTitle.text = obj.name
         if (Constant.LANGUAGE == "ar"){
@@ -60,12 +59,8 @@ class FilterChildCinemaAdapter(private val mContext: Context, private val items:
             val bold = ResourcesCompat.getFont(mContext, R.font.sf_pro_text_bold)
             val heavy = ResourcesCompat.getFont(mContext, R.font.sf_pro_text_heavy)
             val medium = ResourcesCompat.getFont(mContext, R.font.sf_pro_text_medium)
-
             holder.todoTitle.typeface = regular
-
         }
-
-
 
         holder.todoTitle.setOnClickListener {
             if (selected.contains(obj.name+"-"+obj.id)){
@@ -84,25 +79,14 @@ class FilterChildCinemaAdapter(private val mContext: Context, private val items:
 //                    )
 //                )
 
-                holder.todoTitle.setTextColor(
-                    ContextCompat.getColor(
-                        mContext,
-                        R.color.white
-                    )
-                )
+                holder.todoTitle.setTextColor(ContextCompat.getColor(mContext, R.color.white))
                 holder.layoutFilterBg.setBackgroundDrawable(mContext.getDrawable(R.drawable.filter_select))
 
             }
         }
         println("data.selectedList---"+selected+"----"+obj.name)
         if (selected.contains(obj.name+"-"+obj.id)) {
-//
-            holder.todoTitle.setTextColor(
-                ContextCompat.getColor(
-                    mContext,
-                    R.color.white
-                )
-            )
+            holder.todoTitle.setTextColor(ContextCompat.getColor(mContext, R.color.white))
             holder.layoutFilterBg.setBackgroundDrawable(mContext.getDrawable(R.drawable.filter_select))
 
         } else {

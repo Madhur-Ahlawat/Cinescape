@@ -155,6 +155,9 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     private var cinemaId = ""
     private var rechargeType = ""
 
+    private var transId = ""
+    private var bookingId = ""
+
     private var seatCategory: String = ""
     private var seatType: String = ""
 
@@ -607,7 +610,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
         view_knet.setOnClickListener {
             image_knet.setColorFilter(requireActivity().getColor(R.color.text_alert_color_red))
-            text_kent.setTextColor(requireContext().getColor(R.color.white))
+            text_kent.setTextColor(requireContext().getColor(R.color.text_alert_color_red))
 
             image_credit_card.setColorFilter(requireActivity().getColor(R.color.hint_color))
             text_credit_card.setTextColor(requireContext().getColor(R.color.hint_color))
@@ -621,7 +624,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             text_kent.setTextColor(requireContext().getColor(R.color.hint_color))
 
             image_credit_card.setColorFilter(requireActivity().getColor(R.color.text_alert_color_red))
-            text_credit_card.setTextColor(requireContext().getColor(R.color.white))
+            text_credit_card.setTextColor(requireContext().getColor(R.color.text_alert_color_red))
 
             clickEnable = 1
             rechargeType = "cc"
@@ -642,7 +645,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             binding?.imagePreference?.setColorFilter(requireActivity().getColor(R.color.text_color))
             binding?.textPreference?.setTextColor(requireActivity().getColor(R.color.text_color))
 
-            binding?.imageRecharageWallet?.setImageResource(R.drawable.ic_recharge)
+            binding?.imageRecharageWallet?.setImageResource(R.drawable.recharge_wallet_normal)
             binding?.textRecharageWallet?.setTextColor(requireActivity().getColor(R.color.text_color))
 
             binding?.imageRefundCoin?.setColorFilter(requireActivity().getColor(R.color.text_color))
@@ -713,7 +716,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             binding?.imagePreference?.setColorFilter(requireActivity().getColor(R.color.text_color))
             binding?.textPreference?.setTextColor(requireActivity().getColor(R.color.text_color))
 
-            binding?.imageRecharageWallet?.setImageResource(R.drawable.ic_recharge)
+            binding?.imageRecharageWallet?.setImageResource(R.drawable.recharge_wallet_normal)
             binding?.textRecharageWallet?.setTextColor(requireActivity().getColor(R.color.text_color))
 
             binding?.imageRefundCoin?.setColorFilter(requireActivity().getColor(R.color.text_color))
@@ -745,7 +748,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             binding?.imagePreference?.setColorFilter(requireActivity().getColor(R.color.white))
             binding?.textPreference?.setTextColor(requireActivity().getColor(R.color.white))
 
-            binding?.imageRecharageWallet?.setImageResource(R.drawable.ic_recharge)
+            binding?.imageRecharageWallet?.setImageResource(R.drawable.recharge_wallet_normal)
             binding?.textRecharageWallet?.setTextColor(requireActivity().getColor(R.color.text_color))
 
             binding?.imageRefundCoin?.setColorFilter(requireActivity().getColor(R.color.text_color))
@@ -775,7 +778,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             binding?.imagePreference?.setColorFilter(requireActivity().getColor(R.color.text_color))
             binding?.textPreference?.setTextColor(requireActivity().getColor(R.color.text_color))
 
-            binding?.imageRecharageWallet?.setImageResource(R.drawable.recharge_wallet)
+            binding?.imageRecharageWallet?.setImageResource(R.drawable.recharge_wallet_active)
             binding?.textRecharageWallet?.setTextColor(requireActivity().getColor(R.color.white))
 
             binding?.imageRefundCoin?.setColorFilter(requireActivity().getColor(R.color.text_color))
@@ -794,7 +797,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }
 
         binding?.viewRefund?.setOnClickListener {
-
             binding?.imageUserProfile?.setColorFilter(requireActivity().getColor(R.color.text_color))
             binding?.textProfileTitle?.setTextColor(requireActivity().getColor(R.color.text_color))
 
@@ -1022,7 +1024,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                 )
                 Constant().hideKeyboard(requireActivity())
             }
-
 
         }
 
@@ -1340,11 +1341,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                             ) && !proceedAlertDialog?.cardNumberTextInputEditText?.text.toString()
                                 .isEmpty()
                         ) {
-                            proceedAlertDialog?.image_american_express_card?.setImageDrawable(
-                                ContextCompat.getDrawable(
-                                    requireContext(), R.drawable.amerian_card
-                                )
-                            )
+                            proceedAlertDialog?.image_american_express_card?.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.amerian_card))
                         } else {
                             proceedAlertDialog?.image_american_express_card?.visibility = View.GONE
                         }
@@ -1403,10 +1400,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                                 .isEmpty()
                         ) {
                             proceedAlertDialog?.image_american_express_card?.setImageDrawable(
-                                ContextCompat.getDrawable(
-                                    requireContext(), R.drawable.disover_card
-                                )
-                            )
+                                ContextCompat.getDrawable(requireContext(), R.drawable.disover_card))
                         } else if (JCB.contains(
                                 proceedAlertDialog?.cardNumberTextInputEditText?.text.toString()
                                     .substring(0, 4)
@@ -1618,11 +1612,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                 } catch (e: Exception) {
                     println("exception--->${e.message}")
                 }
-
-
         }
     }
-
 
     override fun datatypeFace(
         textBookingHistoryTitle: TextView,
@@ -1898,6 +1889,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                         // loader?.dismiss()
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+
                                 try {
                                     cardinal = Cardinal.getInstance()
                                     val serverJwt: String = it.data.output.jwtToken
@@ -1917,11 +1909,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                                         .setRegisterForLocationServices(true)
 //
                                     TMXProfiling.getInstance().init(config)
-
-                                    doProfile(
-                                        it.data.output.deviceSessionId,
-                                        it.data.output.merchantId
-                                    )
+                                    doProfile(it.data.output.deviceSessionId, it.data.output.merchantId)
 
                                     cardinal.init(serverJwt, object : CardinalInitService {
                                         /**
@@ -2655,29 +2643,30 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
-
                             resource.data?.let { it ->
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                     try {
                                         if (rechargeType == "cc") {
+                                            transId = it.data.output.transid
+                                            bookingId = it.data.output.bookingid
                                             creditCardInit(
                                                 HmacKnetRequest(
                                                     it.data.output.bookingid,
                                                     it.data.output.booktype,
                                                     it.data.output.transid,
-                                                    preferences.getString(Constant.USER_ID)
-                                                        .toString()
-                                                ), it.data.output.bookingid.toString()
+                                                    preferences.getString(Constant.USER_ID).toString()
+                                                ), it.data.output.bookingid
                                             )
                                         } else {
                                             loader?.dismiss()
+                                            transId = it.data.output.transid
+                                            bookingId = it.data.output.bookingid
                                             paymentMac(
                                                 HmacKnetRequest(
                                                     it.data.output.bookingid,
                                                     it.data.output.booktype,
                                                     it.data.output.transid,
-                                                    preferences.getString(Constant.USER_ID)
-                                                        .toString()
+                                                    preferences.getString(Constant.USER_ID).toString()
                                                 )
                                             )
                                         }
@@ -2733,11 +2722,11 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
-                                    val intent = Intent(
-                                        requireActivity(), PaymentWebActivity::class.java
-                                    )
+                                    val intent = Intent(requireActivity(), PaymentWebActivity::class.java)
                                     intent.putExtra("From", "recharge")
                                     intent.putExtra("PAY_URL", it.data.output.callingUrl)
+                                    intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
+                                    intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
                                     startActivity(intent)
                                 } catch (e: Exception) {
                                     println("updateUiCinemaSession ---> ${e.message}")

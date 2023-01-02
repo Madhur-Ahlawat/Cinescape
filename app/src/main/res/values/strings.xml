@@ -365,5 +365,6 @@
     <string name="enterNewPass">Please enter new password.</string>
     <string name="enterSamePass">Please enter same password.</string>
     <string name="enterConfPasswrd">Please enter confirm password.</string>
+    <string name="recharge_success">Your Recharge has been successfull</string>
 
 </resources>

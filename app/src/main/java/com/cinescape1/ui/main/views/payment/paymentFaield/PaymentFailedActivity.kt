@@ -40,6 +40,7 @@ class PaymentFailedActivity : DaggerAppCompatActivity() {
         try {
             bookingId = intent.getStringExtra(Constant.IntentKey.BOOKING_ID).toString()
             transId = intent.getStringExtra(Constant.IntentKey.TRANSACTION_ID).toString()
+            println("FailedTransandBookingId----->${bookingId}------>${transId}")
             printTicket(FinalTicketRequest(bookingId, transId))
         }catch (e:Exception){
             println("finalError------->${e.message}")
@@ -125,6 +126,15 @@ class PaymentFailedActivity : DaggerAppCompatActivity() {
             startActivity(intent)
             finish()
         }
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent(this@PaymentFailedActivity, HomeActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+       Constant.IntentKey.OPEN_FROM = 1
+        startActivity(intent)
+        finish()
+
     }
 
 }

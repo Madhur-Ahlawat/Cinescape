@@ -1,5 +1,4 @@
 package com.cinescape1.ui.main.views.home.adapter
-
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -9,13 +8,10 @@ import android.widget.TextView
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.FoodResponse
 
-
 class CustomSpinnerAdapter(context: Context,private val locationlist: ArrayList<FoodResponse.Output.Cinema>):BaseAdapter() {
-
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-
         val view: View
         val vh: ItemHolder
         if (convertView == null) {
@@ -27,11 +23,11 @@ class CustomSpinnerAdapter(context: Context,private val locationlist: ArrayList<
             vh = view.tag as ItemHolder
         }
         vh.label.text = locationlist[position].name
-        println("foodAdapter--->${locationlist}")
+        println("foodAdapter213--->${locationlist}-------->${locationlist[position].name}")
         return view
     }
 
-    override fun getItem(position: Int): Any? {
+    override fun getItem(position: Int): Any {
         return locationlist[position]
     }
 

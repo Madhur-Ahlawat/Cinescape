@@ -372,6 +372,7 @@
     <string name="enterNewPass">الرجاء إدخال كلمة المرور الجديدة.</string>
     <string name="enterSamePass">الرجاء إدخال نفس كلمة المرور.</string>
     <string name="enterConfPasswrd">الرجاء إدخال تأكيد كلمة المرور.</string>
+    <string name="recharge_success">لقد كانت عملية إعادة الشحن الخاصة بك ناجحة</string>
 
 
 </resources>

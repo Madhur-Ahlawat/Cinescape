@@ -93,7 +93,6 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
     private var genre1: TextView? = null
     private var cateogry1: TextView? = null
     private var duration1: TextView? = null
-    private var tag1: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -120,7 +119,6 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                 name1?.typeface = bold
                 genre1?.typeface = regular
                 duration1?.typeface = regular
-                tag1?.typeface = regular
                 cateogry1?.typeface = bold // heavy
 
 
@@ -145,7 +143,6 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                 name1?.typeface = bold
                 genre1?.typeface = regular
                 duration1?.typeface = regular
-                tag1?.typeface = regular
                 cateogry1?.typeface = heavy // heavy
 
             }
@@ -170,7 +167,6 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                 name1?.typeface = bold
                 genre1?.typeface = regular
                 duration1?.typeface = regular
-                tag1?.typeface = regular
                 cateogry1?.typeface = heavy // heavy
 
             }
@@ -314,14 +310,15 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
     }
 
     override fun onTypeFaceSession(
-        name: TextView, genre: TextView, cateogry: TextView, duration: TextView, tag: TextView
+        name: TextView,
+        genre: TextView,
+        cateogry: TextView,
+        duration: TextView
     ) {
         name1 = name
         genre1 = genre
         cateogry1 = cateogry
         duration1 = duration
-        tag1 = tag
-
     }
 
     //GetSeatLayout

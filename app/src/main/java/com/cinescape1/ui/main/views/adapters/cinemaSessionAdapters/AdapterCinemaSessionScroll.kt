@@ -22,6 +22,7 @@ import com.cinescape1.utils.Constant
 import com.cinescape1.utils.LocaleHelper
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
+import com.haozhang.lib.SlantedTextView
 
 class AdapterCinemaSessionScroll(
     private val context: Context,
@@ -43,30 +44,48 @@ class AdapterCinemaSessionScroll(
 
         if (Constant.LANGUAGE == "ar"){
             LocaleHelper.setLocale(context, "ar")
-//                    holder.imageView60.setImageResource(R.drawable.arebic_red_icon)
-            holder.background.setImageResource(R.drawable.ar_tab)
-            holder.tag.rotation = 30f
-            (holder.tag.layoutParams as ConstraintLayout.LayoutParams).apply {
-                marginStart=25
-//                        topMargin=2
-                marginEnd=40
-                bottomMargin=40
+
+            try {
+                holder.background.setImageResource(R.drawable.ar_tab)
+                holder.tag.setSlantedBackgroundColor(Color.parseColor(showtimeListItem.movie.tagColor))
+                holder.tag.mode = SlantedTextView.MODE_RIGHT
                 holder.tag.text = showtimeListItem.movie.tag
-//                        bottomMargin=8.dpToPixels()
+            }catch (e : Exception){
+                e.printStackTrace()
             }
+
+
+//            holder.tag.rotation = 30f
+//            (holder.tag.layoutParams as ConstraintLayout.LayoutParams).apply {
+//                marginStart=25
+////                        topMargin=2
+//                marginEnd=40
+//                bottomMargin=40
+//                holder.tag.text = showtimeListItem.movie.tag
+////                        bottomMargin=8.dpToPixels()
+//            }
 
         }else if (Constant.LANGUAGE == "en"){
             LocaleHelper.setLocale(context, "en")
-//                    holder.imageView60.setImageResource(R.drawable.now_showing_diagonal)
-            holder.background.setImageResource(R.drawable.en_tab)
-            holder.tag.rotation = -30f
-            (holder.tag.layoutParams as ConstraintLayout.LayoutParams).apply {
-                marginStart=25
-//                        topMargin=2
-                marginEnd=40
-                bottomMargin=40
+
+            try {
+                holder.background.setImageResource(R.drawable.en_tab)
                 holder.tag.text = showtimeListItem.movie.tag
+                holder.tag.setSlantedBackgroundColor(Color.parseColor(showtimeListItem.movie.tagColor))
+                holder.tag.mode = SlantedTextView.MODE_LEFT
+            }catch (e : Exception){
+                e.printStackTrace()
             }
+
+
+//            holder.tag.rotation = -30f
+//            (holder.tag.layoutParams as ConstraintLayout.LayoutParams).apply {
+//                marginStart=25
+//                marginEnd=40
+//                bottomMargin=40
+//                holder.tag.text = showtimeListItem.movie.tag
+//            }
+
         }
 
 
@@ -74,16 +93,13 @@ class AdapterCinemaSessionScroll(
         if (showtimeListItem.movie.language == null){
             holder.duration.text = "" + showtimeListItem.movie.runTime + " min."
         }else{
-            holder.duration.text =
-                showtimeListItem.movie.language + " | " + showtimeListItem.movie.runTime + " min."
-
+            holder.duration.text = showtimeListItem.movie.language + " | " + showtimeListItem.movie.runTime + " min."
         }
 
 
         holder.cateogry.text = showtimeListItem.movie.rating
         holder.genre.text = showtimeListItem.movie.genre
-
-        listenerSession.onTypeFaceSession(holder.name, holder.genre, holder.cateogry, holder.duration,holder.tag)
+        listenerSession.onTypeFaceSession(holder.name, holder.genre, holder.cateogry, holder.duration)
 
 
         val ratingColor=showtimeListItem.movie.ratingColor
@@ -96,15 +112,27 @@ class AdapterCinemaSessionScroll(
 
 
         if (showtimeListItem.movie.tag == "") {
-            holder.background.hide()
+//                    holder.background.hide()
             holder.tag.hide()
         } else {
-            holder.background.show()
+//                    holder.background.show()
             holder.tag.show()
-            holder.tag.text = showtimeListItem.movie.tag+"           "
+            holder.tag.text = showtimeListItem.movie.tag
             val tagColor = showtimeListItem.movie.tagColor
-            holder.background.setColorFilter(Color.parseColor(tagColor))
+            holder.tag.setSlantedBackgroundColor(Color.parseColor(showtimeListItem.movie.tagColor))
+//                    holder.background.setColorFilter(Color.parseColor(tagColor))
         }
+
+//        if (showtimeListItem.movie.tag == "") {
+//            holder.background.hide()
+//            holder.tag.hide()
+//        } else {
+//            holder.background.show()
+//            holder.tag.show()
+//            holder.tag.text = showtimeListItem.movie.tag+"           "
+//            val tagColor = showtimeListItem.movie.tagColor
+//            holder.background.setColorFilter(Color.parseColor(tagColor))
+//        }
 
         holder.image.setOnClickListener {
             val intent = Intent(context, ShowTimesActivity::class.java)
@@ -136,8 +164,7 @@ class AdapterCinemaSessionScroll(
         position: Int,
         cinemaPos: Int,
         movieCinemaId: String,
-        showTime: String
-    ) {
+        showTime: String) {
         listener.onShowClicked(show, name, position, cinemaPos, movieCinemaId,showTime)
     }
 
@@ -157,20 +184,21 @@ class AdapterCinemaSessionScroll(
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
         var image: ImageView = view.findViewById(R.id.image_showtimes)
         var name: TextView = view.findViewById(R.id.text_film_name)
         var genre: TextView = view.findViewById(R.id.genre)
         var cateogry: TextView = view.findViewById(R.id.text_category)
         var duration: TextView = view.findViewById(R.id.text_film_types_duration)
         var background: ImageView = view.findViewById(R.id.imageView60)
-        var tag: TextView = view.findViewById(R.id.tag)
-
+        var tag: SlantedTextView = view.findViewById(R.id.tag)
         val recyclerView =
             view.findViewById(R.id.recylerview_cinema_session_timing_dimension) as RecyclerView
+
     }
 
     interface TypeFaceSession{
-        fun onTypeFaceSession(name: TextView,genre: TextView,cateogry: TextView, duration: TextView, tag: TextView)
+        fun onTypeFaceSession(name: TextView,genre: TextView,cateogry: TextView, duration: TextView)
     }
 
 }

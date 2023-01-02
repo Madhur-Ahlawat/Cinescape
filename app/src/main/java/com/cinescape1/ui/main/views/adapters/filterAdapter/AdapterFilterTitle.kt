@@ -78,7 +78,7 @@ class AdapterFilterTitle(
                     println("ExperienceClickAdapter1---------->Yes")
 //                    if (holder.filterExpand.visibility == View.GONE) {
 
-                    holder.viewSpace.show()
+//                    holder.viewSpace.show()
 //                                holder.filterExpand.show()
 //                    holder.filterExpand.visibility = View.VISIBLE
 //                            }
@@ -91,11 +91,7 @@ class AdapterFilterTitle(
                     }
 
                     holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-                    val adapter = FilterExperiencesAdapter(
-                        mContext,
-                        filterExpItem.dataList,
-                        getList(filterExpItem)
-                    )
+                    val adapter = FilterExperiencesAdapter(mContext, filterExpItem.dataList, getList(filterExpItem))
                     holder.filterExpand.adapter = adapter
 
                     val layoutManager = FlexboxLayoutManager(mContext)
@@ -127,12 +123,8 @@ class AdapterFilterTitle(
                     } else {
                         holder.selectFilter.hide()
                     }
-                    val adapter = FilterChildCinemaAdapter(
-                        mContext,
-                        filterExpItem.cinemaList!!, getList(filterExpItem)
-                    )
+                    val adapter = FilterChildCinemaAdapter(mContext, filterExpItem.cinemaList!!, getList(filterExpItem))
                     holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-
                     holder.filterExpand.adapter = adapter
                     val layoutManager = FlexboxLayoutManager(mContext)
                     layoutManager.flexDirection = FlexDirection.ROW
@@ -156,7 +148,7 @@ class AdapterFilterTitle(
 //                    up = false
 //                    if (holder.filterExpand.visibility == View.GONE){
                     up = false
-                    holder.viewSpace.show()
+//                    holder.viewSpace.show()
                     holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
 //                    holder.filterExpand.visibility = View.VISIBLE
                     holder.filterExpand.removeAllViews()
@@ -190,7 +182,7 @@ class AdapterFilterTitle(
                     up = false
 //                    if (holder.filterExpand.visibility == View.GONE) {
                     holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-                    holder.viewSpace.show()
+//                    holder.viewSpace.show()
 //                    holder.filterExpand.visibility = View.VISIBLE
                     holder.filterExpand.removeAllViews()
                     println("checkList--->${getList(filterExpItem)}")
@@ -222,7 +214,7 @@ class AdapterFilterTitle(
                     up = false
 //                    if (holder.filterExpand.visibility == View.GONE) {
                     holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-                    holder.viewSpace.show()
+//                    holder.viewSpace.show()
 //                    holder.filterExpand.show()
                     holder.filterExpand.removeAllViews()
                     println("checkList--->${getList(filterExpItem)}")
@@ -253,7 +245,7 @@ class AdapterFilterTitle(
                     up = false
 //                    if (holder.filterExpand.visibility == View.GONE) {
                     holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-                    holder.viewSpace.show()
+//                    holder.viewSpace.show()
 //                    holder.filterExpand.show()
                     holder.filterExpand.removeAllViews()
                     println("checkList--->${getList(filterExpItem)}")
