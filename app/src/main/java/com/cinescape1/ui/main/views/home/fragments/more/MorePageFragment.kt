@@ -418,7 +418,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
             binding?.textView35?.hide()
             binding?.recyclerMore?.show()
             binding?.scrollNested?.hide()
-            ageRating(responseData?.output?.ratings!!)
+            responseData?.output?.ratings?.let { it1 -> ageRating(it1) }
 
         }
 

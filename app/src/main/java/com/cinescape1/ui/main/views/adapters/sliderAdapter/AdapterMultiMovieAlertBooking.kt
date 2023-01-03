@@ -106,7 +106,7 @@ class AdapterMultiMovieAlertBooking(context: Context,
             "DOLBY" -> {
                 Glide
                     .with(mContext)
-                    .load(R.drawable.threed_black)
+                    .load(R.drawable.dolby_black)
                     .into(holder.experience)
             }
             "ELEVEN" -> {
