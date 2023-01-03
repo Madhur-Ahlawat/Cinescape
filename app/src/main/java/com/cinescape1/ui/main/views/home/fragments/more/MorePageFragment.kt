@@ -22,6 +22,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -39,7 +40,7 @@ import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.databinding.FragmentMorePageBinding
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
-import com.cinescape1.ui.main.viewModels.MoreInfoViewModel
+import com.cinescape1.ui.main.views.home.fragments.more.viewModel.MoreInfoViewModel
 import com.cinescape1.ui.main.views.adapters.*
 import com.cinescape1.ui.main.views.login.LoginActivity
 import com.cinescape1.utils.*
@@ -72,15 +73,15 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
     private val moreInfoViewModel: MoreInfoViewModel by viewModels { viewModelFactory }
     private var responseData: MoreTabResponse? = null
     private var responseData1: ArrayList<MoreTabResponse.Faq.Faqs>? = null
-    private var twitter_user_name: String? = "Cinescapekuwait"
+    private var twitterUserName: String? = "Cinescapekuwait"
     private var countryCodeList = ArrayList<CountryCodeResponse.Output>()
     private var mAdapter: CountryCodeAdapter? = null
     var countryCode: String = ""
     var dialog: Dialog? = null
     private var broadcastReceiver: BroadcastReceiver? = null
     private var mobile: String = ""
-    private lateinit var frontPhoto: MultipartBody.Part
-    private val SELECT_PICTURE = 100
+    private var frontPhoto: MultipartBody.Part? = null
+    private val selectPicture = 100
     private var todoTitle1: TextView? = null
     private var todoTitle11: TextView? = null
     private var todoDesc1: TextView? = null
@@ -96,8 +97,8 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
     private var workingHour4: TextView? = null
     private var address4: TextView? = null
 
-    var photoUtils: PhotoUtils? = null
-    var permsRequestCode = 202
+    private var photoUtils: PhotoUtils? = null
+    private var permsRequestCode = 202
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -483,7 +484,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
 
         //Instagram
         imageView18.setOnClickListener {
-            launchInsta()
+            launchInstagram()
         }
 
         //Twitter
@@ -522,7 +523,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
             val mobile = enter_mobile_numbers.text.toString()
             val msg = editTextTextPersonName.text.toString()
 
-            if (username.isNullOrEmpty()) {
+            if (username.isEmpty()) {
                 val dialog = OptionDialog(requireContext(),
                     R.mipmap.ic_launcher,
                     R.string.app_name,
@@ -562,7 +563,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                 }
 
 
-            } else if (mobile.isNullOrEmpty()) {
+            } else if (mobile.isEmpty()) {
                 val dialog = OptionDialog(requireContext(),
                     R.mipmap.ic_launcher,
                     R.string.app_name,
@@ -574,7 +575,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                     negativeClick = {
                     })
                 dialog.show()
-            } else if (msg.isNullOrEmpty()) {
+            } else if (msg.isEmpty()) {
                 val dialog = OptionDialog(requireContext(),
                     R.mipmap.ic_launcher,
                     R.string.app_name,
@@ -587,9 +588,8 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                     })
                 dialog.show()
             } else {
-
-                contactUs(email, username, mobile, msg, frontPhoto)
-                println("---------->$email---${msg}---${username}----${frontPhoto}-----${mobile}")
+                Toast.makeText(requireContext(), "1", Toast.LENGTH_SHORT).show()
+                frontPhoto?.let { it1 -> contactUs(email, username, mobile, msg, it1) }
                 Constant().hideKeyboard(requireActivity())
 
             }
@@ -641,7 +641,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE)
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), selectPicture)
     }
 
     private fun handlePermission() {
@@ -656,7 +656,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
             //ask for permission
             ActivityCompat.requestPermissions(
                 requireActivity(), arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                SELECT_PICTURE
+                selectPicture
             )
         } else {
             openImageChooser()
@@ -675,14 +675,14 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
             startActivity(
                 Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse("twitter://user?screen_name=$twitter_user_name")
+                    Uri.parse("twitter://user?screen_name=$twitterUserName")
                 )
             )
         } catch (e: java.lang.Exception) {
             startActivity(
                 Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse("https://twitter.com/#!/$twitter_user_name")
+                    Uri.parse("https://twitter.com/#!/$twitterUserName")
                 )
             )
         }
@@ -715,7 +715,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
 
     }
 
-    private fun launchInsta() {
+    private fun launchInstagram() {
         val uriForApp: Uri = Uri.parse("http://instagram.com/_u/cinescapekuwait/")
         val forApp = Intent(Intent.ACTION_VIEW, uriForApp)
         val uriForBrowser: Uri = Uri.parse("http://instagram.com/cinescapekuwait/")
@@ -801,8 +801,6 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                             loader?.dismiss()
                             resource.data?.let { it ->
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    println("SomethingWrong--->${it.data.msg}")
-                                    println("SomethingWrong21--->yes")
                                     val dialog = OptionDialog(requireActivity(),
                                         R.mipmap.ic_launcher,
                                         R.string.app_name,
@@ -819,8 +817,17 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                                         })
                                     dialog.show()
                                 } else {
-                                    println("Something Wrong")
-                                }
+                                    val dialog = OptionDialog(requireActivity(),
+                                        R.mipmap.ic_launcher,
+                                        R.string.app_name,
+                                        it.data?.msg!!,
+                                        positiveBtnText = R.string.ok,
+                                        negativeBtnText = R.string.no,
+                                        positiveClick = {
+                                        },
+                                        negativeClick = {
+                                        })
+                                    dialog.show()                                }
                             }
                         }
                         Status.ERROR -> {
@@ -889,7 +896,6 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
     }
 
     private fun ageRating(ratings: ArrayList<MoreTabResponse.Rating>) {
-        println("ageRating--->${ratings}")
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding?.recyclerMore?.setHasFixedSize(true)
@@ -920,8 +926,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
     }
 
     private fun location(location: ArrayList<MoreTabResponse.Cinema>) {
-        val layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding?.recyclerMore?.setHasFixedSize(true)
         val adapter = LocationAdapter(location, requireContext(), this)
         binding?.recyclerMore?.layoutManager = layoutManager
@@ -1116,62 +1121,13 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
         photoUtils!!.selectImage(requireActivity())
     }
 
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<String>,
-//        grantResults: IntArray
-//    ) {
-//        when (requestCode) {
-//            SELECT_PICTURE -> {
-//                var i = 0
-//                while (i < permissions.size) {
-//                    val permission = permissions[i]
-//                    if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
-//                        val showRationale =
-//                            ActivityCompat.shouldShowRequestPermissionRationale(
-//                                requireActivity(),
-//                                permission
-//                            )
-//                        if (showRationale) {
-//                            textView29.performClick()
-//                            //  Show your own message here
-//                        } else {
-//                            showSettingsAlert()
-//                        }
-//                    }
-//                    i++
-//                }
-//            }
-//        }
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//    }
-
-    private fun showSettingsAlert() {
-        val alertDialog = android.app.AlertDialog.Builder(requireActivity()).create()
-        alertDialog.setTitle("Alert")
-        alertDialog.setMessage("App needs to access the Camera.")
-        alertDialog.setButton(
-            android.app.AlertDialog.BUTTON_NEGATIVE, "DONT ALLOW"
-        ) { dialog, _ ->
-            dialog.dismiss()
-            //finish();
-        }
-        alertDialog.setButton(
-            android.app.AlertDialog.BUTTON_POSITIVE, "SETTINGS"
-        ) { dialog, _ ->
-            dialog.dismiss()
-            openAppSettings(requireActivity())
-        }
-        alertDialog.show()
-    }
-
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 //        Thread {
             if (resultCode == AppCompatActivity.RESULT_OK) {
-                if (requestCode == SELECT_PICTURE) {
+                if (requestCode == selectPicture) {
                     // Get the url from data
                     val selectedImageUri = data?.data
                     val mFileTemp = File(ImageFilePath.getFilePath(requireContext(), selectedImageUri!!))
@@ -1197,7 +1153,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
 
                 }
             }
-//        }.start()
+
     }
 
     companion object {

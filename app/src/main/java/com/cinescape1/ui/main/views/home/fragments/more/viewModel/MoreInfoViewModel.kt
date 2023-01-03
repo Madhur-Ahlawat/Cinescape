@@ -1,17 +1,13 @@
-package com.cinescape1.ui.main.viewModels
+package com.cinescape1.ui.main.views.home.fragments.more.viewModel
 
 import android.app.Activity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.cinescape1.data.models.requestModel.ContactUsRequest
 import com.cinescape1.data.network.Repositories
 import com.cinescape1.data.network.Result
 import com.cinescape1.utils.Status
 import kotlinx.coroutines.Dispatchers
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject
 
 class MoreInfoViewModel @Inject constructor(private val repositories: Repositories) : ViewModel() {

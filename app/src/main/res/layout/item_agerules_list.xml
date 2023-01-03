@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="41dp"
@@ -36,7 +35,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/sf_pro_text_bold"
         android:textColor="@color/white"
-        android:textSize="@dimen/size22"
+        android:textSize="@dimen/size18"
         app:layout_constraintBottom_toBottomOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cardView"
@@ -50,7 +49,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/sf_pro_text_regular"
-        android:textColor="@color/silver"
+        android:textColor="#ADADAD"
         android:textSize="@dimen/size14"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

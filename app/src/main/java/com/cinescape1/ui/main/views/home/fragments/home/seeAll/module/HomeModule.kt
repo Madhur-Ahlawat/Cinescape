@@ -3,7 +3,7 @@ package com.cinescape1.ui.main.views.home.fragments.home.seeAll.module
 import androidx.lifecycle.ViewModel
 import com.cinescape1.di.ViewModelKey
 import com.cinescape1.ui.main.views.home.viewModel.HomeViewModel
-import com.cinescape1.ui.main.viewModels.MoreInfoViewModel
+import com.cinescape1.ui.main.views.home.fragments.more.viewModel.MoreInfoViewModel
 import com.cinescape1.ui.main.views.home.fragments.account.viewModel.AccountFragViewModel
 import com.cinescape1.ui.main.views.home.fragments.home.viewModel.HomeFragViewModel
 import com.cinescape1.ui.main.views.home.fragments.movie.viewModel.MoviesFragViewModel

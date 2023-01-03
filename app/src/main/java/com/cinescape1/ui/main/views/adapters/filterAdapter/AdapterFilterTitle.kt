@@ -75,14 +75,6 @@ class AdapterFilterTitle(
             when (filterExpItem.type) {
                 1 -> {
                     up = false
-                    println("ExperienceClickAdapter1---------->Yes")
-//                    if (holder.filterExpand.visibility == View.GONE) {
-
-//                    holder.viewSpace.show()
-//                                holder.filterExpand.show()
-//                    holder.filterExpand.visibility = View.VISIBLE
-//                            }
-
                     holder.filterExpand.removeAllViews()
                     if (getList(filterExpItem).size > 0) {
                         holder.selectFilter.show()
@@ -93,30 +85,16 @@ class AdapterFilterTitle(
                     holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
                     val adapter = FilterExperiencesAdapter(mContext, filterExpItem.dataList, getList(filterExpItem))
                     holder.filterExpand.adapter = adapter
-
                     val layoutManager = FlexboxLayoutManager(mContext)
                     layoutManager.flexDirection = FlexDirection.ROW
-                    layoutManager.flexWrap = FlexWrap.WRAP
-                    layoutManager.alignItems = AlignItems.CENTER
-                    layoutManager.justifyContent = JustifyContent.SPACE_EVENLY
+                    layoutManager.justifyContent = JustifyContent.FLEX_START
+                    layoutManager.alignItems = AlignItems.STRETCH
                     holder.filterExpand.layoutManager = layoutManager
-
-//                    } else {
-//                        holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-//                        holder.filterExpand.hide()
-//                        holder.viewSpace.hide()
-//                        holder.filterExpand.hide()
-//                        holder.selectFilter.hide()
-//                    }
-
                 }
 
                 2 -> {
                     up = false
 
-//                    if (holder.filterExpand.visibility == View.GONE) {
-
-//                    holder.filterExpand.visibility = View.VISIBLE
                     holder.filterExpand.removeAllViews()
                     if (getList(filterExpItem).size > 0) {
                         holder.selectFilter.show()
@@ -133,24 +111,10 @@ class AdapterFilterTitle(
                     layoutManager.justifyContent = JustifyContent.FLEX_START
                     holder.filterExpand.layoutManager = layoutManager
 
-                    println("ExperienceClickAdapter2---------->Yes")
-
-//                    } else {
-//                        holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-//                        holder.filterExpand.hide()
-//                        holder.viewSpace.hide()
-//                        holder.filterExpand.hide()
-//                        holder.selectFilter.hide()
-//
-//                    }
                 }
                 3 -> {
-//                    up = false
-//                    if (holder.filterExpand.visibility == View.GONE){
                     up = false
-//                    holder.viewSpace.show()
                     holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-//                    holder.filterExpand.visibility = View.VISIBLE
                     holder.filterExpand.removeAllViews()
                     if (getList(filterExpItem).size > 0) {
                         holder.selectFilter.show()
@@ -169,23 +133,11 @@ class AdapterFilterTitle(
                     layoutManager.justifyContent = JustifyContent.FLEX_START
                     holder.filterExpand.layoutManager = layoutManager
 
-
-//                    }else{
-//                        holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-//                        holder.viewSpace.hide()
-//                        holder.filterExpand.hide()
-//                        holder.selectFilter.hide()
-//
-//                    }
                 }
                 4 -> {
                     up = false
-//                    if (holder.filterExpand.visibility == View.GONE) {
                     holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-//                    holder.viewSpace.show()
-//                    holder.filterExpand.visibility = View.VISIBLE
                     holder.filterExpand.removeAllViews()
-                    println("checkList--->${getList(filterExpItem)}")
                     if (getList(filterExpItem).size > 0) {
                         holder.selectFilter.show()
                     } else {
@@ -202,22 +154,12 @@ class AdapterFilterTitle(
                     layoutManager.alignItems = AlignItems.FLEX_START
                     layoutManager.justifyContent = JustifyContent.FLEX_START
                     holder.filterExpand.layoutManager = layoutManager
-//                    } else {
-//                        up = false
-//                        holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-//                        holder.viewSpace.hide()
-//                        holder.filterExpand.hide()
-//                        holder.selectFilter.hide()
-//                    }
+
                 }
                5 -> {
                     up = false
-//                    if (holder.filterExpand.visibility == View.GONE) {
                     holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-//                    holder.viewSpace.show()
-//                    holder.filterExpand.show()
                     holder.filterExpand.removeAllViews()
-                    println("checkList--->${getList(filterExpItem)}")
                     if (getList(filterExpItem).size > 0) {
                         holder.selectFilter.show()
                     } else {
@@ -233,20 +175,11 @@ class AdapterFilterTitle(
                     layoutManager.justifyContent = JustifyContent.FLEX_START
                     holder.filterExpand.layoutManager = layoutManager
 
-//                    } else {
-//                        up = false
-//                        holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-//                        holder.viewSpace.hide()
-//                        holder.filterExpand.hide()
-//                        holder.selectFilter.hide()
-//                    }
                 }
                6 -> {
                     up = false
-//                    if (holder.filterExpand.visibility == View.GONE) {
                     holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-//                    holder.viewSpace.show()
-//                    holder.filterExpand.show()
+
                     holder.filterExpand.removeAllViews()
                     println("checkList--->${getList(filterExpItem)}")
                     if (getList(filterExpItem).size > 0) {
@@ -263,13 +196,6 @@ class AdapterFilterTitle(
                     layoutManager.justifyContent = JustifyContent.FLEX_START
                     holder.filterExpand.layoutManager = layoutManager
 
-//                    } else {
-//                        up = false
-//                        holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-//                        holder.viewSpace.hide()
-//                        holder.filterExpand.hide()
-//                        holder.selectFilter.hide()
-//                    }
                 }
 
             }

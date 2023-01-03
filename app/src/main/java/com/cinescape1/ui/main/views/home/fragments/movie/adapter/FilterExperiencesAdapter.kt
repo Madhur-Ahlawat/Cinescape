@@ -2,28 +2,24 @@ package com.cinescape1.ui.main.views.home.fragments.movie.adapter
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.MoviesResponse
-import java.io.IOException
-import java.io.InputStream
-import java.net.HttpURLConnection
-import java.net.URL
+import kotlinx.android.synthetic.main.alert_booking.view.*
+import java.util.*
 
 class FilterExperiencesAdapter(
     private val mContext: Activity,
     private val items: ArrayList<*>,
     private val selected: ArrayList<String>
-) :
-    RecyclerView.Adapter<FilterExperiencesAdapter.TodoViewHolder>() {
+) : RecyclerView.Adapter<FilterExperiencesAdapter.TodoViewHolder>() {
 
     @SuppressLint("InflateParams")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
@@ -38,89 +34,119 @@ class FilterExperiencesAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(
-        holder: TodoViewHolder,
-        @SuppressLint("RecyclerView") position: Int) {
+        holder: TodoViewHolder, @SuppressLint("RecyclerView") position: Int
+    ) {
         val obj = items[position]
+////        val url = "https://s3.eu-west-1.amazonaws.com/cinescape.uat/experience/${lowerCase}.png"
+//        val urlActive =
+//            "https://s3.eu-west-1.amazonaws.com/cinescape.uat/experience/${lowerCase}-Active.png"
 
-        val lowerCase = obj.toString().toLowerCase()
-        val url = "https://s3.eu-west-1.amazonaws.com/cinescape.uat/experience/${lowerCase}.png"
-        val urlActive =
-            "https://s3.eu-west-1.amazonaws.com/cinescape.uat/experience/${lowerCase}-Active.png"
-
-        var width1 = 0
-        var height1 = 0
-
-
-
-
-        Thread(Runnable {
-            val bmp = getBitmapFromURL(url)
-            println("url---->${bmp?.height}")
-            width1 = bmp?.width!!
-            height1 = bmp.height
-
-//            holder.todoTitle.layoutParams.width = bmp.width
-//            holder.layoutFilterBg.layoutParams.width = bmp.width
-//            holder.todoTitle.layoutParams.height = bmp.height
-//            holder.layoutFilterBg.layoutParams.height = bmp.height
-            println("url1---->${bmp.width}---->${holder.todoTitle.layoutParams.width}")
-
-        }).start()
-
-//        (holder.todoTitle.layoutParams as ConstraintLayout.LayoutParams).apply {
-//            width = width1
-//            height = height1
-//        }
+        when (obj) {
+            "4DX" -> {
+                Glide.with(mContext).load(R.drawable.fourdx_gray).into(holder.todoTitle)
+            }
+            "STANDARD" -> {
+                Glide.with(mContext).load(R.drawable.standard_gray).into(holder.todoTitle)
+            }
+            "VIP" -> {
+                Glide.with(mContext).load(R.drawable.vip_gray).into(holder.todoTitle)
+            }
+            "IMAX" -> {
+                Glide.with(mContext).load(R.drawable.imax_gray).into(holder.todoTitle)
+            }
+            "3D" -> {
+                Glide.with(mContext).load(R.drawable.threed_gray).into(holder.todoTitle)
+            }
+            "DOLBY" -> {
+                Glide.with(mContext).load(R.drawable.dolby_gray).into(holder.todoTitle)
+            }
+            "ELEVEN" -> {
+                Glide.with(mContext).load(R.drawable.eleven_gray).into(holder.todoTitle)
+            }
+            "SCREENX" -> {
+                Glide.with(mContext).load(R.drawable.screenx_gray).into(holder.todoTitle)
+            }
+            "PREMIUM" -> {
+                Glide.with(mContext).load(R.drawable.premium_gray).into(holder.todoTitle)
+            }
+        }
 
         holder.layoutFilterBg.setOnClickListener {
-
             if (selected.contains(obj)) {
                 selected.remove(obj)
+                when (obj) {
+                    "4DX" -> {
+                        Glide.with(mContext).load(R.drawable.fourdx_gray).into(holder.todoTitle)
+                    }
+                    "STANDARD" -> {
+                        Glide.with(mContext).load(R.drawable.standard_gray).into(holder.todoTitle)
+                    }
+                    "VIP" -> {
+                        Glide.with(mContext).load(R.drawable.vip_gray).into(holder.todoTitle)
+                    }
+                    "IMAX" -> {
+                        Glide.with(mContext).load(R.drawable.imax_gray).into(holder.todoTitle)
+                    }
+                    "3D" -> {
+                        Glide.with(mContext).load(R.drawable.threed_gray).into(holder.todoTitle)
+                    }
+                    "DOLBY" -> {
+                        Glide.with(mContext).load(R.drawable.dolby_gray).into(holder.todoTitle)
+                    }
+                    "ELEVEN" -> {
+                        Glide.with(mContext).load(R.drawable.eleven_gray).into(holder.todoTitle)
+                    }
+                    "SCREENX" -> {
+                        Glide.with(mContext).load(R.drawable.screenx_gray).into(holder.todoTitle)
+                    }
+                    "PREMIUM" -> {
+                        Glide.with(mContext).load(R.drawable.premium_gray).into(holder.todoTitle)
+                    }
+                }
                 holder.layoutFilterBg.setBackgroundResource(R.drawable.filter_unselect)
+
             } else {
                 selected.add(obj.toString())
+                when (obj) {
+                    "4DX" -> {
+                        Glide.with(mContext).load(R.drawable.fourdx_white).into(holder.todoTitle)
+                    }
+                    "STANDARD" -> {
+                        Glide.with(mContext).load(R.drawable.standard_white).into(holder.todoTitle)
+                    }
+                    "VIP" -> {
+                        Glide.with(mContext).load(R.drawable.vip_white).into(holder.todoTitle)
+                    }
+                    "IMAX" -> {
+                        Glide.with(mContext).load(R.drawable.imax_white).into(holder.todoTitle)
+                    }
+                    "3D" -> {
+                        Glide.with(mContext).load(R.drawable.threed_white).into(holder.todoTitle)
+                    }
+                    "DOLBY" -> {
+                        Glide.with(mContext).load(R.drawable.dolby_white).into(holder.todoTitle)
+                    }
+                    "ELEVEN" -> {
+                        Glide.with(mContext).load(R.drawable.eleven_white).into(holder.todoTitle)
+                    }
+                    "SCREENX" -> {
+                        Glide.with(mContext).load(R.drawable.screenx_white).into(holder.todoTitle)
+                    }
+                    "PREMIUM" -> {
+                        Glide.with(mContext).load(R.drawable.premium_white).into(holder.todoTitle)
+                    }
+                }
                 holder.layoutFilterBg.setBackgroundResource(R.drawable.filter_select)
             }
-
         }
-
-        if (selected.contains(obj)) {
-//            Glide.with(mContext).load(url).error(R.drawable.filter_select).into(holder.todoTitle)
-            Glide.with(mContext).load(url).override(width1, height1).into(holder.todoTitle)
-//            holder.layoutFilterBg.setBackgroundResource(R.drawable.filter_select)
-        } else {
-//            holder.layoutFilterBg.setBackgroundResource(R.drawable.filter_unselect)
-//            Glide.with(mContext).load(url).error(R.drawable.filter_unselect).into(holder.todoTitle)
-            Glide.with(mContext).load(url).override(width1, height1).into(holder.todoTitle)
-        }
-
-
     }
 
     inner class TodoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var todoTitle: ImageView = view.findViewById(R.id.text_exp_title) as ImageView
-        var layoutFilterBg: ConstraintLayout =
-            view.findViewById(R.id.layoutFilterBg) as ConstraintLayout
+        var todoTitle: ImageView = view.findViewById(R.id.text_exp_title)
+        var layoutFilterBg: ConstraintLayout = view.findViewById(R.id.constraintLayout29)
     }
 
     interface RecycleViewItemClickListener {
         fun onItemClick(view: MoviesResponse.Output, title: String)
     }
-
-    fun getBitmapFromURL(src: String?): Bitmap? {
-        return try {
-            val url = URL(src)
-            val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
-            connection.doInput = true
-            connection.connect()
-            val input: InputStream = connection.inputStream
-            BitmapFactory.decodeStream(input)
-        } catch (e: IOException) {
-            println("ErrorBitmap-------->${e.printStackTrace()}")
-            e.printStackTrace()
-            null
-        }
-    } // Author: sil
-
-
 }
