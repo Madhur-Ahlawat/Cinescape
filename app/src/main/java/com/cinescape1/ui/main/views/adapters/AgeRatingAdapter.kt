@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.MoreTabResponse
@@ -30,7 +31,6 @@ class AgeRatingAdapter(private val ratingList: ArrayList<MoreTabResponse.Rating>
         return ratingList.size
     }
 
-    @SuppressLint("ResourceType", "UseCompatLoadingForColorStateLists")
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val obj = ratingList[position]
         dataList.add(obj.toString())
@@ -46,13 +46,12 @@ class AgeRatingAdapter(private val ratingList: ArrayList<MoreTabResponse.Rating>
             holder.cardView.show()
             holder.type.text = obj.more_key
             holder.type.show()
-            val ratingColor=obj.ratingColor
-            try {
-                holder.type.setBackgroundColor(Color.parseColor(ratingColor))
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            val colorCode =obj.colorCode
 
+            println("colorCode---->${colorCode}")
+            holder.type.setBackgroundColor(Color.parseColor(colorCode))
+
+//            holder.type.setBackgroundColor(Color.parseColor(obj.ratingColor))
 
 //            when (obj.more_key) {
 //                "PG" -> {
@@ -83,8 +82,6 @@ class AgeRatingAdapter(private val ratingList: ArrayList<MoreTabResponse.Rating>
 //
 //                }
 //            }
-
-            holder.cardView.setCardBackgroundColor(Color.parseColor(obj.colorCode))
 
         }
     }

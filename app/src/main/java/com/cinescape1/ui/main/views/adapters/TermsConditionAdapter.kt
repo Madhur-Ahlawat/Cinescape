@@ -30,8 +30,6 @@ class TermsConditionAdapter(private val termsCondition: ArrayList<MoreTabRespons
         val obj = termsCondition[position]
         holder.todoTitle.text = obj.name
         holder.todoDesc.text = obj.description
-        println("termsCheck--->${termsCondition.size}")
-
         listener.onTypefaceTermsCondition(holder.todoTitle,holder.todoDesc)
     }
 

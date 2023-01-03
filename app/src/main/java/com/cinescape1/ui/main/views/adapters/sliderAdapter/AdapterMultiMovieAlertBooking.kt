@@ -70,6 +70,66 @@ class AdapterMultiMovieAlertBooking(context: Context,
             .load(showtimeListItem.experienceIcon)
             .into(holder.experience)
 
+
+        when (showtimeListItem.experience) {
+            "4DX" -> {
+                Glide
+                    .with(mContext)
+                    .load(R.drawable.four_dx)
+                    .into(holder.experience)
+
+            }
+            "STANDARD" -> {
+                Glide
+                    .with(mContext)
+                    .load(R.drawable.standard)
+                    .into(holder.experience)
+            }
+            "VIP" -> {
+                Glide
+                    .with(mContext)
+                    .load(R.drawable.vip)
+                    .into(holder.experience)
+            }
+            "IMAX" -> {
+                Glide
+                    .with(mContext)
+                    .load(R.drawable.imax)
+                    .into(holder.experience)
+            }
+            "3D" -> {
+                Glide
+                    .with(mContext)
+                    .load(R.drawable.threed_black)
+                    .into(holder.experience)
+            }
+            "DOLBY" -> {
+                Glide
+                    .with(mContext)
+                    .load(R.drawable.threed_black)
+                    .into(holder.experience)
+            }
+            "ELEVEN" -> {
+                Glide
+                    .with(mContext)
+                    .load(R.drawable.eleven_black)
+                    .into(holder.experience)
+            }
+            "SCREENX" -> {
+                Glide
+                    .with(mContext)
+                    .load(R.drawable.screenx_black)
+                    .into(holder.experience)
+            }
+            "PREMIUM" -> {
+                Glide
+                    .with(mContext)
+                    .load(R.drawable.premium_black)
+                    .into(holder.experience)
+            }
+        }
+
+
         holder.bookings.text = mContext.getString(R.string.go_to_bookings)
         holder.bookings.setOnClickListener {
             listener.onDateClick(showtimeListItem)

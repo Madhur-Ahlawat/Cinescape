@@ -367,11 +367,64 @@ class HomeActivity : DaggerAppCompatActivity(),
                         .load(output.output[0].posterhori)
                         .placeholder(R.drawable.movie_default)
                         .into(mDialogView.image_booking_alert)
-//
-                    println("loadImageExperience---->${output.output[0].experienceIcon}")
-                    Glide.with(this)
-                        .load(output.output[0].experienceIcon)
-                        .into(mDialogView.text_experience_name)
+
+                    when (output.output[0].experience) {
+                        "4DX" -> {
+                            Glide
+                                .with(this)
+                                .load(R.drawable.four_dx)
+                                .into(mDialogView.text_experience_name)
+
+                        }
+                        "STANDARD" -> {
+                            Glide
+                                .with(this)
+                                .load(R.drawable.standard)
+                                .into(mDialogView.text_experience_name)
+                        }
+                        "VIP" -> {
+                            Glide
+                                .with(this)
+                                .load(R.drawable.vip)
+                                .into(mDialogView.text_experience_name)
+                        }
+                        "IMAX" -> {
+                            Glide
+                                .with(this)
+                                .load(R.drawable.imax)
+                                .into(mDialogView.text_experience_name)
+                        }
+                        "3D" -> {
+                            Glide
+                                .with(this)
+                                .load(R.drawable.threed_black)
+                                .into(mDialogView.text_experience_name)
+                        }
+                        "DOLBY" -> {
+                            Glide
+                                .with(this)
+                                .load(R.drawable.threed_black)
+                                .into(mDialogView.text_experience_name)
+                        }
+                        "ELEVEN" -> {
+                            Glide
+                                .with(this)
+                                .load(R.drawable.eleven_black)
+                                .into(mDialogView.text_experience_name)
+                        }
+                        "SCREENX" -> {
+                            Glide
+                                .with(this)
+                                .load(R.drawable.screenx_black)
+                                .into(mDialogView.text_experience_name)
+                        }
+                        "PREMIUM" -> {
+                            Glide
+                                .with(this)
+                                .load(R.drawable.premium_black)
+                                .into(mDialogView.text_experience_name)
+                        }
+                    }
 
                     //cancel button click of custom layout
                     mDialogView.image_cross_icon.setOnClickListener {

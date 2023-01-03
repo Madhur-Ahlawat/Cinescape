@@ -40,9 +40,8 @@
         android:id="@+id/textView55"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-30dp"
         android:fontFamily="@font/sf_pro_text_regular"
-        android:textColor="@color/silver"
+        android:textColor="#A6ADB4"
         android:textSize="@dimen/size14"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,7 +56,7 @@
         android:layout_height="1dp"
         android:layout_marginTop="@dimen/margin8"
         android:layout_marginBottom="@dimen/margin8"
-        android:background="@color/view_bg_color_line"
+        android:background="@color/lineColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView55" />
 
