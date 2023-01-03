@@ -57,7 +57,9 @@
                 app:layout_constraintBottom_toBottomOf="@+id/text_booking_history_title"
                 app:layout_constraintEnd_toEndOf="@+id/view_booking_history"
                 app:layout_constraintStart_toEndOf="@+id/text_booking_history_title"
-                app:layout_constraintTop_toTopOf="@+id/text_booking_history_title" />   <ImageView
+                app:layout_constraintTop_toTopOf="@+id/text_booking_history_title" />
+
+            <ImageView
                 android:id="@+id/image_arrow_drop1"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/size25"
@@ -65,7 +67,7 @@
                 android:layout_marginEnd="24dp"
                 android:contentDescription="@string/contentDes"
                 android:src="@drawable/ic_arrow_right"
-            android:visibility="gone"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/text_booking_history_title"
                 app:layout_constraintEnd_toEndOf="@+id/view_booking_history"
                 app:layout_constraintStart_toEndOf="@+id/text_booking_history_title"
@@ -122,9 +124,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -140,13 +142,13 @@
             app:layout_constraintTop_toBottomOf="@+id/layout">
 
             <include
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 layout="@layout/history_recarge"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

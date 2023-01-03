@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin4"
+    android:layout_margin="@dimen/margin6"
     android:background="@drawable/account_bg_layout">
 
     <ImageView
@@ -91,7 +91,7 @@
                         android:id="@+id/text_types"
                         android:layout_width="32dp"
                         android:layout_height="@dimen/margin17"
-                        android:fontFamily="@font/sf_pro_text_heavy"
+                        android:fontFamily="@font/sf_pro_text_regular"
                         android:includeFontPadding="false"
                         android:gravity="center"
                         android:paddingStart="@dimen/margin6"
@@ -335,19 +335,14 @@
             app:layout_constraintTop_toTopOf="@+id/view33_experience"
             tools:ignore="TextContrastCheck" />
 
-        <TextView
+        <ImageView
             android:id="@+id/text_ss"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/sf_pro_text_bold"
-            android:letterSpacing="-0.01"
-            android:lineSpacingExtra="1sp"
-            android:text="@string/screenx"
-            android:textColor="@color/black"
-            android:textSize="@dimen/size14"
-            android:textStyle="normal"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/vip"
             app:layout_constraintEnd_toEndOf="@+id/view33_experience"
-            app:layout_constraintStart_toStartOf="@+id/view33_experience"
+            app:layout_constraintStart_toEndOf="@+id/tv_no_of_screen"
             app:layout_constraintTop_toBottomOf="@+id/text_experience2" />
 
         <View
@@ -362,10 +357,8 @@
 
         <TextView
             android:id="@+id/food_pickup_btn"
-            android:layout_width="0dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="@dimen/margin8"
-            android:layout_marginEnd="@dimen/margin8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@drawable/curv_bt"
             android:ellipsize="marquee"
             android:focusable="true"
@@ -379,7 +372,7 @@
             android:paddingStart="@dimen/margin12"
             android:paddingTop="@dimen/margin4"
             android:paddingEnd="@dimen/margin12"
-            android:paddingBottom="@dimen/margin8"
+            android:paddingBottom="@dimen/margin4"
             android:scrollHorizontally="true"
             android:singleLine="true"
             android:text="@string/food_pickup_info"

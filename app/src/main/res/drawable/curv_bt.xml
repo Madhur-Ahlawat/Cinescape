@@ -9,9 +9,9 @@
         />
 
     <corners
-        android:bottomLeftRadius="@dimen/margin10"
-        android:bottomRightRadius="@dimen/margin10"
-        android:topLeftRadius="@dimen/margin10"
-        android:topRightRadius="@dimen/margin10" />
+        android:bottomLeftRadius="@dimen/margin6"
+        android:bottomRightRadius="@dimen/margin6"
+        android:topLeftRadius="@dimen/margin6"
+        android:topRightRadius="@dimen/margin6" />
 
 </shape>

@@ -80,6 +80,7 @@ import kotlinx.android.synthetic.main.account_preference_layout.*
 import kotlinx.android.synthetic.main.account_profile_layout.*
 import kotlinx.android.synthetic.main.account_recharge_card_layout.*
 import kotlinx.android.synthetic.main.account_refund_layout.*
+import kotlinx.android.synthetic.main.alert_booking.view.*
 import kotlinx.android.synthetic.main.cancel_dialog.*
 import kotlinx.android.synthetic.main.cancel_dialog.consSure
 import kotlinx.android.synthetic.main.cancel_dialog.imageBackground
@@ -2207,8 +2208,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     private fun setSeatCategoryFlexbox(layout: FlexboxLayout, seatCategory: String) {
 
         val list: ArrayList<ModelPreferenceCategory> = arrayListOf(
-            ModelPreferenceCategory(R.drawable.family, "Family", 0),
-            ModelPreferenceCategory(R.drawable.bachlor, "Bachelor", 0)
+            ModelPreferenceCategory(R.drawable.family_icons, "Family", 0),
+            ModelPreferenceCategory(R.drawable.family_normal_icon, "Bachelor", 0)
         )
         layout.removeAllViews()
         val viewListForDates = ArrayList<View>()
@@ -2233,7 +2234,34 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 //          val seat1 = seat.replace("]","")
 //            textList.toString().replace("[", "").replace("]", "")
             println("SeatCategory212--->${item.cateTypeText}--->${seat}")
+
+//            if (seat == "Family"){
+//                categoryImage.setImageResource(R.drawable.family_active)
+//                categoryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_alert_color_red))
+//            }else{
+//                categoryImage.setImageResource(R.drawable.family_icons)
+//                categoryName.setTextColor(ContextCompat.getColor(
+//                    requireContext(),
+//                    R.color.hint_color
+//                )
+//                )
+//            }
+//
+//            if (seat == "Bachelor"){
+//                categoryImage.setImageResource(R.drawable.family_n_active)
+//                categoryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_alert_color_red))
+//            }else{
+//                categoryImage.setImageResource(R.drawable.family_normal_icon)
+//                categoryName.setTextColor(ContextCompat.getColor(
+//                    requireContext(),
+//                    R.color.hint_color
+//                )
+//                )
+//            }
+
+
             if (item.cateTypeText == seat) {
+//                categoryImage.setImageResource(R.drawable.family_active)
                 categoryImage.setColorFilter(resources.getColor(R.color.text_alert_color_red))
                 categoryName.setTextColor(
                     ContextCompat.getColor(
@@ -2243,42 +2271,40 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                 )
             } else {
                 categoryImage.setColorFilter(resources.getColor(R.color.hint_color))
-                categoryName.setTextColor(
-                    ContextCompat.getColor(
-                        requireContext(),
+                categoryName.setTextColor(ContextCompat.getColor(
+                    requireContext(),
                         R.color.hint_color
                     )
                 )
             }
 
             v.setOnClickListener {
-
                 for (v in viewListForDates) {
                     val categoryImage1: ImageView = v.findViewById(R.id.image_family) as ImageView
                     val categoryName1: TextView = v.findViewById(R.id.category_name) as TextView
+
+//                    if (seat == "Family"){
+//                        categoryImage.setImageResource(R.drawable.family_icons)
+//                        categoryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.hint_color))
+//                    }
+//
+//                    if (seat == "Bachelor"){
+//                        categoryImage.setImageResource(R.drawable.family_normal_icon)
+//                        categoryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.hint_color))
+//                    }
+
                     categoryImage1.setColorFilter(getColor(requireContext(), R.color.hint_color))
-                    categoryName1.setTextColor(
-                        ContextCompat.getColorStateList(
-                            requireContext(),
-                            R.color.hint_color
-                        )
-                    )
-                    preferences.putString(Constant.SEAT_CATEGORY, "")
+                    categoryName1.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.hint_color))
+
                 }
                 println("SeatListClick1 -------->${v}------>${viewListForDates}")
 
-//                this.seatCategory = item.cateTypeText
-//                preferences.putString(Constant.SEAT_CATEGORY, item.cateTypeText)
-//                categoryImage.setColorFilter(resources.getColor(R.color.text_alert_color_red))
-//                categoryName.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.text_alert_color_red))
 
                 if (Constant.seatCategoryList.contains(item.cateTypeText)) {
                     Constant.seatCategoryList.remove(item.cateTypeText)
                     println("SeatListClick21 ------------->${Constant.seatCategoryList}")
                     categoryImage.setColorFilter(resources.getColor(R.color.hint_color))
-                    categoryName.setTextColor(
-                        ContextCompat.getColorStateList(requireContext(), R.color.hint_color)
-                    )
+                    categoryName.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.hint_color))
                 } else {
                     Constant.seatCategoryList.clear()
                     Constant.seatCategoryList.add(item.cateTypeText)
@@ -2379,7 +2405,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             val experienceName = v.findViewById(R.id.experience_name) as ImageView
             val experienceText = v.findViewById(R.id.experience_nametxt) as TextView
 
-            val lowerCase = data.name.toString().toLowerCase()
+            val lowerCase = data.name.toLowerCase()
             val url = "https://s3.eu-west-1.amazonaws.com/cinescape.uat/experience/${lowerCase}.png"
             seatAbility = if (data.count > 0) {
                 1
@@ -2399,10 +2425,72 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 //            }
 //           experienceName.setImageResource(getMatchIcon(data.name))
 
+            println("data.name--------->${data.name}")
+
+
             Glide.with(requireContext())
                 .load(url)
                 .error(R.drawable.placeholder_home_small_poster)
                 .into(experienceName)
+
+//            when (data.name) {
+//                "4DX" -> {
+//                    Glide
+//                        .with(this)
+//                        .load(R.drawable.four_dx)
+//                        .into(experienceName)
+//
+//                }
+//                "STANDARD" -> {
+//                    Glide
+//                        .with(this)
+//                        .load(R.drawable.standard)
+//                        .into(experienceName)
+//                }
+//                "VIP" -> {
+//                    Glide
+//                        .with(this)
+//                        .load(R.drawable.vip)
+//                        .into(experienceName)
+//                }
+//                "IMAX" -> {
+//                    Glide
+//                        .with(this)
+//                        .load(R.drawable.imax)
+//                        .into(experienceName)
+//                }
+//                "3D" -> {
+//                    Glide
+//                        .with(this)
+//                        .load(R.drawable.threed_black)
+//                        .into(experienceName)
+//                }
+//                "DOLBY" -> {
+//                    Glide
+//                        .with(this)
+//                        .load(R.drawable.threed_black)
+//                        .into(experienceName)
+//                }
+//                "ELEVEN" -> {
+//                    Glide
+//                        .with(this)
+//                        .load(R.drawable.eleven_black)
+//                        .into(experienceName)
+//                }
+//                "SCREENX" -> {
+//                    Glide
+//                        .with(this)
+//                        .load(R.drawable.screenx_black)
+//                        .into(experienceName)
+//                }
+//                "PREMIUM" -> {
+//                    Glide
+//                        .with(this)
+//                        .load(R.drawable.premium_black)
+//                        .into(experienceName)
+//                }
+//            }
+
 
             layout.addView(v)
             viewListForSeatExperience.add(v)
@@ -2410,10 +2498,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             println("SeatType21--->${data.name}---<${experience}")
             if (data.likes) {
                 experienceName.setColorFilter(
-                    getColor(
-                        requireContext(), R.color.text_alert_color_red
-                    ), android.graphics.PorterDuff.Mode.MULTIPLY
-                )
+                    getColor(requireContext(), R.color.text_alert_color_red), android.graphics.PorterDuff.Mode.MULTIPLY)
             } else {
                 experienceName.setColorFilter(
                     getColor(requireContext(), R.color.hint_color),
@@ -3103,7 +3188,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
 //        type=output.
         binding?.includeProfile?.mobileCode?.setText(output.countryCode)
-        binding?.textWalletUserId?.text = getString(R.string.wallet_Id) + output.cardNumber
+        binding?.textWalletUserId?.text = getString(R.string.wallet_Id)+" " + output.cardNumber
         binding?.textUserWalletKd?.text = getString(R.string.wallet_balance) + output.balance
 
         gender = output.gender

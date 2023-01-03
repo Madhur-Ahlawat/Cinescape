@@ -444,7 +444,7 @@
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/contentDes"
-                    android:src="@drawable/ic_sign_out_icon"
+                    android:src="@drawable/signout_icon"
                     app:layout_constraintBottom_toTopOf="@+id/text_signout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/view_historys"

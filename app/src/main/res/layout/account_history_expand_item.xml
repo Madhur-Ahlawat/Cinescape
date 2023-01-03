@@ -330,7 +330,7 @@
         android:layout_height="1dp"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="5dp"
-        android:background="@color/view_bg_color_line"
+        android:background="@color/lineColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

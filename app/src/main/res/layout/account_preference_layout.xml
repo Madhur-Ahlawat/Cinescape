@@ -363,7 +363,7 @@
     <TextView
         android:id="@+id/textView3"
         android:layout_width="136dp"
-        android:layout_height="@dimen/margin48"
+        android:layout_height="@dimen/margin35"
         android:layout_marginTop="32dp"
         android:background="@drawable/btn_corner_bg_red"
         android:fontFamily="@font/sf_pro_text_bold"

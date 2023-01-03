@@ -22,6 +22,7 @@ import com.cinescape1.ui.main.views.food.FoodActivity
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
+import kotlinx.android.synthetic.main.alert_booking.view.*
 
 
 class UpcomingBookingAdapter(
@@ -57,9 +58,67 @@ class UpcomingBookingAdapter(
 
         holder.adressName.text = foodSelctedItem.cinemaname
         holder.screenNumber.text = foodSelctedItem.screenId.toString()
-        holder.cinemaName.text = foodSelctedItem.experience
+//        holder.cinemaName.text = foodSelctedItem.experience
         holder.date.text = foodSelctedItem.showDate
         holder.times.text = foodSelctedItem.showTime
+
+        when (foodSelctedItem.experience) {
+            "4DX" -> {
+                Glide
+                    .with(mContext)
+                    .load(R.drawable.four_dx)
+                    .into(holder.cinemaName)
+
+            }
+            "STANDARD" -> {
+                Glide
+                    .with(mContext)
+                    .load(R.drawable.standard)
+                    .into(holder.cinemaName)
+            }
+            "VIP" -> {
+                Glide
+                    .with(mContext)
+                    .load(R.drawable.vip)
+                    .into(holder.cinemaName)
+            }
+            "IMAX" -> {
+                Glide
+                    .with(mContext)
+                    .load(R.drawable.imax)
+                    .into(holder.cinemaName)
+            }
+            "3D" -> {
+                Glide
+                    .with(mContext)
+                    .load(R.drawable.threed_black)
+                    .into(holder.cinemaName)
+            }
+            "DOLBY" -> {
+                Glide
+                    .with(mContext)
+                    .load(R.drawable.threed_black)
+                    .into(holder.cinemaName)
+            }
+            "ELEVEN" -> {
+                Glide
+                    .with(mContext)
+                    .load(R.drawable.eleven_black)
+                    .into(holder.cinemaName)
+            }
+            "SCREENX" -> {
+                Glide
+                    .with(mContext)
+                    .load(R.drawable.screenx_black)
+                    .into(holder.cinemaName)
+            }
+            "PREMIUM" -> {
+                Glide
+                    .with(mContext)
+                    .load(R.drawable.premium_black)
+                    .into(holder.cinemaName)
+            }
+        }
 
 
         val ratingColor=foodSelctedItem.ratingColor
@@ -167,7 +226,7 @@ class UpcomingBookingAdapter(
     class MyViewHolderUpcomingBooking(view: View) : RecyclerView.ViewHolder(view) {
         var adressName: TextView = view.findViewById(R.id.text_location_names)
         var screenNumber: TextView = view.findViewById(R.id.tv_no_of_screen)
-        var cinemaName: TextView = view.findViewById(R.id.text_ss)
+        var cinemaName: ImageView = view.findViewById(R.id.text_ss)
         var date: TextView = view.findViewById(R.id.txt_date)
         var times: TextView = view.findViewById(R.id.text_times2)
         var textNameMovie: TextView = view.findViewById(R.id.text_name_movie)

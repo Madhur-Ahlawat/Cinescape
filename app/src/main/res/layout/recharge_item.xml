@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:background="@color/black">
+    android:layout_height="@dimen/margin45"
+    android:background="@color/transparent">
 
     <TextView
         android:id="@+id/textView21"
@@ -14,7 +14,7 @@
         android:textColor="@color/white"
         android:fontFamily="@font/sf_pro_text_regular"
         android:text="TextView"
-        android:padding="@dimen/margin10"
+        android:padding="@dimen/margin6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
