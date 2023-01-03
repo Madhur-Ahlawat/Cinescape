@@ -271,15 +271,13 @@ class HomeActivity : DaggerAppCompatActivity(),
 
             }
         }
-
     }
 
     private fun broadcastIntent() {
         registerReceiver(broadcastReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
     }
 
-    private fun setCurrentFragment(fragment: Fragment) =
-        supportFragmentManager.beginTransaction().apply {
+    private fun setCurrentFragment(fragment: Fragment) = supportFragmentManager.beginTransaction().apply {
             replace(R.id.container, fragment)
             commit()
         }
@@ -403,7 +401,7 @@ class HomeActivity : DaggerAppCompatActivity(),
                         "DOLBY" -> {
                             Glide
                                 .with(this)
-                                .load(R.drawable.threed_black)
+                                .load(R.drawable.dolby_black)
                                 .into(mDialogView.text_experience_name)
                         }
                         "ELEVEN" -> {
