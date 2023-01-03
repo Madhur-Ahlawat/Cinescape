@@ -1,5 +1,4 @@
 package com.cinescape1.ui.main.views.adapters
-
 import android.annotation.SuppressLint
 import android.app.ActionBar
 import android.app.Activity

@@ -54,7 +54,7 @@
     <com.cinescape1.utils.CustomViewPager
         android:id="@+id/viewpagerBack"
         android:layout_width="match_parent"
-        android:layout_height="360dp"
+        android:layout_height="420dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

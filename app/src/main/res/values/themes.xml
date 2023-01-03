@@ -101,4 +101,17 @@
         <item name="android:background">@drawable/now_showing_diagonal</item>
     </style>
 
+    <style name="Widget.App.Spinner" parent="@style/Widget.AppCompat.Spinner">
+        <item name="overlapAnchor">true</item>
+        <item name="android:background">@drawable/ic_arrow_down</item>
+    </style>
+
+    <style name="MyPopUpTheme">
+        <item name="android:background">@color/text_color</item>
+<!--        <item name="android:padding">5dp</item>-->
+<!--        <item name="android:textColor">@color/colorAccent</item>-->
+<!--        <item name="android:textStyle">bold</item>-->
+
+    </style>
+
 </resources>

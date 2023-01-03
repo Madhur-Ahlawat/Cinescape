@@ -209,13 +209,10 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     private var paidBy1: TextView? = null
     private var foodTotalPrice1: TextView? = null
     private var foodPaidby1: TextView? = null
-
     private var categoryName: TextView? = null
 
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentAccountPageBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
         return view!!
@@ -2063,9 +2060,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     }
 
     private fun setSpinner(cinemas: ArrayList<FoodResponse.Output.Cinema>) {
-        val customAdapter = CustomSpinnerAdapter(
-            requireContext(), cinemas
-        )
+        val customAdapter = CustomSpinnerAdapter(requireContext(), cinemas)
         spinnerPref?.adapter = customAdapter
         spinnerPref?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -3132,8 +3127,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     }
 
     override fun onItemClick(view: CountryCodeResponse.Output, check: Boolean) {
-        checkCuntryCode = check
 
+        checkCuntryCode = check
         if (checkCuntryCode == true) {
             binding?.includeProfile?.mobileCode?.setText(view.isdCode)
 //            countryCode1 = binding?.includeProfile?.mobileCode?.text

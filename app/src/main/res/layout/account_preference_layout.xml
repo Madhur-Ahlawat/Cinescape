@@ -138,6 +138,7 @@
         android:layout_marginTop="8dp"
         app:endIconDrawable="@drawable/ic_icons_light_next"
         app:endIconMode="dropdown_menu"
+        app:backgroundTint="@color/white"
         app:endIconTint="@color/text_color"
         app:errorIconDrawable="@color/text_color"
         app:layout_constraintHorizontal_weight="4"
@@ -149,12 +150,24 @@
             android:id="@+id/spinnerPref"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:backgroundTint="@color/white"
+            app:backgroundTint="@color/black1"
+            android:popupBackground="@color/dropDownColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageView
+            android:id="@+id/imageView67"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/arrow_down"
+            android:layout_marginEnd="@dimen/size8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

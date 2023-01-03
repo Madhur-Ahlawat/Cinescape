@@ -255,7 +255,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
         //filter
         imageView33.setOnClickListener {
             isChecked
-            imageView33.setImageResource(R.drawable.ic_icon_awesome_filter)
+            imageView33.setImageResource(R.drawable.filter_icons)
             filterNowShowingDialog(moviesResponse?.output!!)
         }
 
@@ -729,7 +729,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
         textViewDone.setOnClickListener {
             isChecked = false
             if (dataList.size > 0) {
-                imageView33.setImageResource(R.drawable.ic_icon_awesome_filter)
+                imageView33.setImageResource(R.drawable.filter_icons)
                 binding?.recyclerviewCategory?.hide()
                 updateFilterData(dataList, "")
                 mAlertDialog.dismiss()
@@ -815,7 +815,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
         textViewDone.setOnClickListener {
             isChecked = false
             if (dataList.size > 0) {
-                imageView33.setImageResource(R.drawable.ic_icon_awesome_filter)
+                imageView33.setImageResource(R.drawable.filter_icons)
                 binding?.recyclerviewCategory?.hide()
                 updateFilterData(dataList, "")
                 mAlertDialog.dismiss()
@@ -858,7 +858,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
                     //filter
                     imageView33.setOnClickListener {
                         isChecked
-                        imageView33.setImageResource(R.drawable.ic_icon_awesome_filter)
+                        imageView33.setImageResource(R.drawable.filter_icons)
                         filterNowShowingDialog(moviesResponse?.output!!)
                     }
 
@@ -883,7 +883,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
                     //filter
                     imageView33.setOnClickListener {
                         isChecked
-                        imageView33.setImageResource(R.drawable.ic_icon_awesome_filter)
+                        imageView33.setImageResource(R.drawable.filter_icons)
                         filterComingSoonDialog(moviesResponse?.output!!)
                     }
                     nowShowingClick=false

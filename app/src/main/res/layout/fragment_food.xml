@@ -87,7 +87,7 @@
                         android:id="@+id/textToday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/sf_pro_text_bold"
+                        android:fontFamily="@font/sf_pro_text_regular"
                         android:text="@string/today"
                         android:textColor="#ADADAD"
                         android:textSize="@dimen/size16"
@@ -112,9 +112,11 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/textInputLayout"
+                    style="@style/Widget.App.Spinner"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="8dp"
+                    android:backgroundTint="@color/black1"
                     android:background="@drawable/a_edit_bg"
                     app:layout_constraintEnd_toStartOf="@+id/text_find_near_location"
                     app:layout_constraintHorizontal_weight="2"
@@ -128,12 +130,13 @@
                         android:gravity="bottom"
                         android:minHeight="@dimen/dimen30"
                         android:visibility="visible"
-                        app:backgroundTint="@color/white"
+                        app:backgroundTint="@color/black1"
                         android:ellipsize="end"
                         android:lines="1"
                         android:textSize="20sp"
                         android:maxHeight="@dimen/margin20"
                         android:minWidth="@dimen/margin40"
+                        android:popupBackground="@color/dropDownColor"
                         android:scrollHorizontally="false"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -171,6 +174,17 @@
                             tools:ignore="ContentDescription" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <ImageView
+                        android:id="@+id/imageView67"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/arrow_down"
+                        android:layout_marginEnd="@dimen/size8"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

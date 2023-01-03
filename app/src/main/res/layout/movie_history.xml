@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
@@ -170,6 +171,7 @@
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginTop="8dp"
+        app:layout_constraintHorizontal_weight="4"
         app:layout_constraintEnd_toStartOf="@+id/view_categorys"
         app:layout_constraintStart_toStartOf="@+id/textView_date_info"
         app:layout_constraintTop_toBottomOf="@+id/view33_date" />
@@ -178,6 +180,7 @@
         android:id="@+id/view_categorys"
         android:layout_width="0dp"
         android:layout_height="60dp"
+        app:layout_constraintHorizontal_weight="2"
         app:layout_constraintBottom_toBottomOf="@+id/view_experience"
         app:layout_constraintEnd_toEndOf="@+id/textView_time_info"
         app:layout_constraintStart_toEndOf="@+id/view_experience"
@@ -311,7 +314,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/sf_pro_text_regular"
             android:gravity="start"
-            android:text="@string/total_ticket_price"
+            android:text="@string/total_price"
             android:textColor="@color/hint_color"
             android:textSize="@dimen/size12"
             android:textStyle="normal"
@@ -324,7 +327,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="8dp"
-            android:fontFamily="@font/sf_pro_text_regular"
+            android:fontFamily="@font/sf_pro_text_heavy"
             android:lineSpacingExtra="9sp"
             android:text="KD 30.500"
             android:textColor="@color/white"

@@ -153,6 +153,8 @@ class AdapterBookingHistory(private val context: Activity,
         holder.foodList.layoutManager = layoutManager
         holder.foodList.adapter = adapter
 
+        println("foodHistoryList---------->${bookingHistoryItem.concessionFoods}")
+
         //recharge
         holder.payDone.text=bookingHistoryItem.payDone
         holder.rechargePrice.text=bookingHistoryItem.totalPrice

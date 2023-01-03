@@ -24,6 +24,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -223,6 +224,7 @@ class HomeActivity : DaggerAppCompatActivity(),
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
         dialog.window!!.setGravity(Gravity.BOTTOM)
+//        dialog.spinner.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.text_color))
         dialog.show()
         spinner = dialog.spinner
         dialog.text_cancel_goback.setOnClickListener {
