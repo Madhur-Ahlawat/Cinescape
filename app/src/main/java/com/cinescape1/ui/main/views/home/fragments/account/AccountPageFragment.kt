@@ -16,6 +16,7 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Looper
 import android.text.Editable
+import android.text.InputFilter
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.*
@@ -78,6 +79,8 @@ import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.account_history_layout.*
 import kotlinx.android.synthetic.main.account_preference_layout.*
 import kotlinx.android.synthetic.main.account_profile_layout.*
+import kotlinx.android.synthetic.main.account_profile_layout.enter_mobile_numbers
+import kotlinx.android.synthetic.main.account_profile_layout.text_mobile_title
 import kotlinx.android.synthetic.main.account_recharge_card_layout.*
 import kotlinx.android.synthetic.main.account_refund_layout.*
 import kotlinx.android.synthetic.main.alert_booking.view.*
@@ -89,6 +92,7 @@ import kotlinx.android.synthetic.main.cancel_dialog.view.*
 import kotlinx.android.synthetic.main.change_password.*
 import kotlinx.android.synthetic.main.checkout_creditcart_payment_alert.*
 import kotlinx.android.synthetic.main.fragment_account_page.*
+import kotlinx.android.synthetic.main.item_contactus.*
 import kotlinx.android.synthetic.main.seat_category_item.*
 import org.json.JSONArray
 import java.text.ParseException
@@ -1084,12 +1088,11 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         textConfPassword.hide()
         enter_ConfPassword.hide()
 
-        binding?.includeProfile?.mobileCode?.setOnDismissListener {
-            binding?.includeProfile?.mobileCode?.isClickable = true
-            binding?.includeProfile?.mobileCode?.isEnabled = true
-            binding?.includeProfile?.mobileCode?.isFocusable = true
+        binding?.includeProfile?.enterMobileCode?.setOnClickListener {
+//            binding?.includeProfile?.enterMobileCode?.isClickable = true
+//            binding?.includeProfile?.enterMobileCode?.isEnabled = true
+//            binding?.includeProfile?.enterMobileCode?.isFocusable = true
             bottomDialog(countryCodeList)
-            println("countryCodeList21-------->${countryCodeList}")
         }
 
     }
@@ -2861,6 +2864,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 println("LocationResponse--->${it.data.output}")
                                 countryCodeList = it.data.output
+                                binding?.includeProfile?.enterMobileCode?.text = it.data.output[0].isdCode
                                 retrieveCountryList(it.data.output)
 
                             } else {
@@ -2889,7 +2893,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
     private fun retrieveCountryList(output: ArrayList<CountryCodeResponse.Output>) {
 
-        binding?.includeProfile?.mobileCode?.setOnClickListener {
+        binding?.includeProfile?.enterMobileCode?.setOnClickListener {
             bottomDialog(output)
         }
 
@@ -3187,9 +3191,9 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }
 
 //        type=output.
-        binding?.includeProfile?.mobileCode?.setText(output.countryCode)
+        binding?.includeProfile?.enterMobileCode?.setText(output.countryCode)
         binding?.textWalletUserId?.text = getString(R.string.wallet_Id)+" " + output.cardNumber
-        binding?.textUserWalletKd?.text = getString(R.string.wallet_balance) + output.balance
+        binding?.textUserWalletKd?.text = getString(R.string.wallet_balance) + " "+output.balance
 
         gender = output.gender
 
@@ -3213,15 +3217,10 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
     override fun onItemClick(view: CountryCodeResponse.Output, check: Boolean) {
 
-        checkCuntryCode = check
-        if (checkCuntryCode == true) {
-            binding?.includeProfile?.mobileCode?.setText(view.isdCode)
-//            countryCode1 = binding?.includeProfile?.mobileCode?.text
-            countryCode = view.isdCode
-        } else {
-            binding?.includeProfile?.mobileCode?.setText("")
-            countryCode = ""
-        }
+        countryCode = view.isdCode
+        val maxLengthEditText = view.phoneLength
+        enter_mobile_numbers.filters =
+            arrayOf<InputFilter>(InputFilter.LengthFilter(maxLengthEditText))
 
     }
 
@@ -3252,7 +3251,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         //Recycler
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = layoutManager
         countryCodeList = countryList
         edSearch.addTextChangedListener(object : TextWatcher {
@@ -3293,17 +3291,17 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
         cancel.setOnClickListener {
 
-            checkCuntryCode = false
+//            checkCuntryCode = false
             mAlertDialog?.dismiss()
 
-            if (checkCuntryCode == false){
-                binding?.includeProfile?.mobileCode?.setText("")
-            }
+//            if (checkCuntryCode == false){
+//                binding?.includeProfile?.mobileCode?.setText("")
+//            }
 
         }
 
         proceed.setOnClickListener {
-            binding?.includeProfile?.mobileCode?.setText(countryCode)
+            binding?.includeProfile?.enterMobileCode?.text = countryCode
             mAlertDialog?.dismiss()
             edSearch.text.clear()
         }
