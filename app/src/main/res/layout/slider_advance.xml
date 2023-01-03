@@ -65,7 +65,7 @@
                         android:fontFamily="@font/sf_pro_text_heavy"
                         android:gravity="start"
                         android:maxLines="2"
-                        android:text="klkllkm "
+                        tools:text="klkllkm "
                         android:textColor="@color/white"
                         android:textSize="@dimen/size20"
                         app:layout_minWidth="50dp" />
@@ -78,7 +78,6 @@
                         android:layout_marginTop="@dimen/margin12"
                         android:ellipsize="end"
                         android:maxLines="1"
-
                         android:minWidth="50dp"
                         app:layout_minWidth="50dp">
 

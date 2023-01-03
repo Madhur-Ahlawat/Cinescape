@@ -18,8 +18,7 @@ import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
 import com.cinescape1.utils.Constant
 import kotlinx.android.synthetic.main.alert_booking.view.*
 
-class AdapterMultiMovieAlertBooking(
-    context: Context,
+class AdapterMultiMovieAlertBooking(context: Context,
     private var sliderMultiMovieItemList: ArrayList<NextBookingResponse.Current>, var listener: RecycleViewItemClickListener
 ) :
     RecyclerView.Adapter<AdapterMultiMovieAlertBooking.MyViewHolderMultiMovieAlertBooking>() {

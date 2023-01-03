@@ -39,7 +39,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin17"
-        android:layout_marginTop="@dimen/margin12"
+        android:layout_marginTop="@dimen/margin4"
         android:orientation="horizontal"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -54,7 +54,7 @@
     <com.cinescape1.utils.CustomViewPager
         android:id="@+id/viewpagerBack"
         android:layout_width="match_parent"
-        android:layout_height="430dp"
+        android:layout_height="360dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

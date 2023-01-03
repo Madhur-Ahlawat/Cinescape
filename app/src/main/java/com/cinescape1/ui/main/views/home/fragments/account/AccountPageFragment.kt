@@ -135,6 +135,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     private var email: String = ""
     private var mobile: String = ""
     private var countryCode: String = ""
+    private var countryCode1: String = ""
+    private var checkCuntryCode: Boolean = true
     private var dob: String = ""
     private var gender: String = ""
     private var type: String = ""
@@ -1341,7 +1343,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                             ) && !proceedAlertDialog?.cardNumberTextInputEditText?.text.toString()
                                 .isEmpty()
                         ) {
-                            proceedAlertDialog?.image_american_express_card?.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.amerian_card))
+                            proceedAlertDialog?.image_american_express_card?.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.amerian_card)
+                            )
                         } else {
                             proceedAlertDialog?.image_american_express_card?.visibility = View.GONE
                         }
@@ -3129,8 +3132,11 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     }
 
     override fun onItemClick(view: CountryCodeResponse.Output, check: Boolean) {
-        if (check == true) {
+        checkCuntryCode = check
+
+        if (checkCuntryCode == true) {
             binding?.includeProfile?.mobileCode?.setText(view.isdCode)
+//            countryCode1 = binding?.includeProfile?.mobileCode?.text
             countryCode = view.isdCode
         } else {
             binding?.includeProfile?.mobileCode?.setText("")
@@ -3206,8 +3212,14 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         })
 
         cancel.setOnClickListener {
+
+            checkCuntryCode = false
             mAlertDialog?.dismiss()
-            binding?.includeProfile?.mobileCode?.setText(countryCode)
+
+            if (checkCuntryCode == false){
+                binding?.includeProfile?.mobileCode?.setText("")
+            }
+
         }
 
         proceed.setOnClickListener {

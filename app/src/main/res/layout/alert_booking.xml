@@ -155,7 +155,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="@dimen/margin5"
+                        android:layout_marginTop="@dimen/margin12"
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:minWidth="50dp"
@@ -163,22 +163,20 @@
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/ratingUi"
-                            android:layout_width="wrap_content"
+                            android:layout_width="32dp"
                             android:layout_height="wrap_content"
                             app:cardCornerRadius="@dimen/margin3"
-                            app:cardUseCompatPadding="true"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/tv_seat_film_title">
 
                             <TextView
                                 android:id="@+id/text13"
-                                android:layout_width="wrap_content"
-                                android:layout_height="@dimen/size22"
-                                android:fontFamily="@font/sf_pro_text_heavy"
+                                android:layout_width="32dp"
+                                android:layout_height="@dimen/margin17"
+                                android:fontFamily="@font/sf_pro_text_regular"
                                 android:gravity="center"
-                                android:paddingStart="@dimen/margin6"
-                                android:paddingEnd="@dimen/margin6"
+                                android:includeFontPadding="false"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/size11"
                                 tools:ignore="HardcodedText,TextContrastCheck"
@@ -298,7 +296,7 @@
             <ImageView
                 android:id="@+id/text_experience_name"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="18dp"
                 android:layout_marginTop="4dp"
                 android:adjustViewBounds="true"
                 android:text=""

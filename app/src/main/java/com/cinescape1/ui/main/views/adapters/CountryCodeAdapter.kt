@@ -63,12 +63,12 @@ class CountryCodeAdapter(
                 }
                 listener.onItemClick(recyclerData, check)
                 notifyDataSetChanged()
+
             }
 
         } catch (e: Exception) {
             println("CountryCodeException--->${e.message}")
         }
-
     }
 
     override fun getItemCount(): Int {
