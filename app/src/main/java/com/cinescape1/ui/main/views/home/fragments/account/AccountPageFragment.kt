@@ -11,6 +11,7 @@ import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.location.Location
 import android.net.ConnectivityManager
 import android.os.Bundle
@@ -42,10 +43,7 @@ import com.cardinalcommerce.cardinalmobilesdk.models.ValidateResponse
 import com.cardinalcommerce.cardinalmobilesdk.services.CardinalInitService
 import com.cardinalcommerce.shared.userinterfaces.UiCustomization
 import com.cinescape1.R
-import com.cinescape1.data.models.ModelPreferenceAgeRating
-import com.cinescape1.data.models.ModelPreferenceCategory
-import com.cinescape1.data.models.ModelPreferenceExperience
-import com.cinescape1.data.models.ModelPreferenceType
+import com.cinescape1.data.models.*
 import com.cinescape1.data.models.requestModel.*
 import com.cinescape1.data.models.responseModel.*
 import com.cinescape1.data.preference.AppPreferences
@@ -168,6 +166,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     private var seatCategory: String = ""
     private var seatType: String = ""
 
+    private var seatTypeCheck = 0
+
 //    private val experience: ArrayList<String> = ArrayList()
 //    private val seatTypeList: ArrayList<String> = ArrayList()
 //    private val seatCategoryList: ArrayList<String> = ArrayList()
@@ -217,7 +217,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     private var categoryName: TextView? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         binding = FragmentAccountPageBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
         return view!!
@@ -1000,7 +1001,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     })
                 dialog.show()
 
-            } else if (Data(enter_date_births.text.toString()) < 12){
+            } else if (Data(enter_date_births.text.toString()) < 12) {
                 val dialog = OptionDialog(requireActivity(),
                     R.mipmap.ic_launcher,
                     R.string.app_name,
@@ -1012,7 +1013,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     negativeClick = {
                     })
                 dialog.show()
-            }else{
+            } else {
 
                 updateAccount(
                     UpdateAccountRequest(
@@ -1033,30 +1034,28 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
 
 
-            enter_date_births.setOnClickListener {
+        enter_date_births.setOnClickListener {
 
-                var datePicker: DatePickerDialog? = null
-                val calendar = Calendar.getInstance()
-                val day = calendar.get(Calendar.DAY_OF_MONTH)
-                val year = calendar.get(Calendar.YEAR)
-                val month = calendar.get(Calendar.MONTH)
-                val year1 = year - 12
-                datePicker = DatePickerDialog(
-                    requireActivity(),
-                    { view, year, month, dayOfMonth -> // adding the selected date in the edittext
+            var datePicker: DatePickerDialog? = null
+            val calendar = Calendar.getInstance()
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val year1 = year - 12
+            datePicker = DatePickerDialog(
+                requireActivity(),
+                { view, year, month, dayOfMonth -> // adding the selected date in the edittext
 //                        dob_et?.setText(dayOfMonth.toString() + "/" + (month + 1) + "/" + year)
-                        enter_date_births.setText("${Constant().changeFormat("$dayOfMonth-${month + 1}-$year")}")
-                    }, year1, month, day
-                )
-                // set maximum date to be selected as today
-                datePicker.datePicker.maxDate = calendar.timeInMillis
+                    enter_date_births.setText("${Constant().changeFormat("$dayOfMonth-${month + 1}-$year")}")
+                }, year1, month, day
+            )
+            // set maximum date to be selected as today
+            datePicker.datePicker.maxDate = calendar.timeInMillis
 //                datePicker!!.datePicker.minDate = calendar.timeInMillis
-                // show the dialog
-                datePicker.show()
+            // show the dialog
+            datePicker.show()
 
-            }
-
-
+        }
 
 
         //Save Prefrence
@@ -1152,7 +1151,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
             val passWord = dialog.enterNewPassword.text.toString()
             val conPassWord = dialog.enterConfPassword.text.toString()
-            if (dialog.enterOldPassword.text.toString().trim() == ""){
+            if (dialog.enterOldPassword.text.toString().trim() == "") {
                 val dialogs = OptionDialog(requireContext(),
                     R.mipmap.ic_launcher,
                     R.string.app_name,
@@ -1162,7 +1161,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     positiveClick = {},
                     negativeClick = {})
                 dialogs.show()
-            }else if (dialog.enterNewPassword.text.toString().trim() == ""){
+            } else if (dialog.enterNewPassword.text.toString().trim() == "") {
 
                 val dialogs = OptionDialog(requireContext(),
                     R.mipmap.ic_launcher,
@@ -1174,7 +1173,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     negativeClick = {})
                 dialogs.show()
 
-            }else if (dialog.enterConfPassword.text.toString().trim() == ""){
+            } else if (dialog.enterConfPassword.text.toString().trim() == "") {
                 val dialogs = OptionDialog(requireContext(),
                     R.mipmap.ic_launcher,
                     R.string.app_name,
@@ -1184,9 +1183,9 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     positiveClick = {},
                     negativeClick = {})
                 dialogs.show()
-            }else{
+            } else {
 
-                 if (passWord != conPassWord){
+                if (passWord != conPassWord) {
                     val dialogs = OptionDialog(requireContext(),
                         R.mipmap.ic_launcher,
                         R.string.app_name,
@@ -1196,14 +1195,14 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                         positiveClick = {},
                         negativeClick = {})
                     dialogs.show()
-                }else{
-                     changePassword(
-                         ChangePasswordRequest(
-                             passWord, preferences.getString(Constant.USER_ID)!!
-                         )
-                     )
-                     dialog.dismiss()
-                 }
+                } else {
+                    changePassword(
+                        ChangePasswordRequest(
+                            passWord, preferences.getString(Constant.USER_ID)!!
+                        )
+                    )
+                    dialog.dismiss()
+                }
 
             }
 
@@ -1344,7 +1343,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                             ) && !proceedAlertDialog?.cardNumberTextInputEditText?.text.toString()
                                 .isEmpty()
                         ) {
-                            proceedAlertDialog?.image_american_express_card?.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.amerian_card)
+                            proceedAlertDialog?.image_american_express_card?.setImageDrawable(
+                                ContextCompat.getDrawable(requireContext(), R.drawable.amerian_card)
                             )
                         } else {
                             proceedAlertDialog?.image_american_express_card?.visibility = View.GONE
@@ -1404,7 +1404,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                                 .isEmpty()
                         ) {
                             proceedAlertDialog?.image_american_express_card?.setImageDrawable(
-                                ContextCompat.getDrawable(requireContext(), R.drawable.disover_card))
+                                ContextCompat.getDrawable(requireContext(), R.drawable.disover_card)
+                            )
                         } else if (JCB.contains(
                                 proceedAlertDialog?.cardNumberTextInputEditText?.text.toString()
                                     .substring(0, 4)
@@ -1913,7 +1914,10 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                                         .setRegisterForLocationServices(true)
 //
                                     TMXProfiling.getInstance().init(config)
-                                    doProfile(it.data.output.deviceSessionId, it.data.output.merchantId)
+                                    doProfile(
+                                        it.data.output.deviceSessionId,
+                                        it.data.output.merchantId
+                                    )
 
                                     cardinal.init(serverJwt, object : CardinalInitService {
                                         /**
@@ -2212,8 +2216,13 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
         val list: ArrayList<ModelPreferenceCategory> = arrayListOf(
             ModelPreferenceCategory(R.drawable.family_icons, "Family", 0),
-            ModelPreferenceCategory(R.drawable.family_normal_icon, "Bachelor", 0)
-        )
+            ModelPreferenceCategory(R.drawable.family_normal_icon, "Bachelor", 0))
+
+        val listFA: ArrayList<ModelSeatCategoryFA> = arrayListOf(ModelSeatCategoryFA(R.drawable.family_active))
+        val listFN: ArrayList<ModelSeatCategoryFA> = arrayListOf(ModelSeatCategoryFA(R.drawable.family_icons))
+        val listBA: ArrayList<ModelSeatCategoryFA> = arrayListOf(ModelSeatCategoryFA(R.drawable.family_n_active))
+        val listBN: ArrayList<ModelSeatCategoryFA> = arrayListOf(ModelSeatCategoryFA(R.drawable.family_normal_icon))
+
         layout.removeAllViews()
         val viewListForDates = ArrayList<View>()
         for (item in list) {
@@ -2232,92 +2241,128 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             viewListForDates.add(v)
             layout.addView(v)
 
-
             val seat = seatCategory.replace("[", "").replace("]", "")
-//          val seat1 = seat.replace("]","")
-//            textList.toString().replace("[", "").replace("]", "")
             println("SeatCategory212--->${item.cateTypeText}--->${seat}")
 
-//            if (seat == "Family"){
-//                categoryImage.setImageResource(R.drawable.family_active)
-//                categoryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_alert_color_red))
-//            }else{
-//                categoryImage.setImageResource(R.drawable.family_icons)
-//                categoryName.setTextColor(ContextCompat.getColor(
-//                    requireContext(),
-//                    R.color.hint_color
-//                )
-//                )
-//            }
-//
-//            if (seat == "Bachelor"){
-//                categoryImage.setImageResource(R.drawable.family_n_active)
-//                categoryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_alert_color_red))
-//            }else{
-//                categoryImage.setImageResource(R.drawable.family_normal_icon)
-//                categoryName.setTextColor(ContextCompat.getColor(
-//                    requireContext(),
-//                    R.color.hint_color
-//                )
-//                )
-//            }
-
-
             if (item.cateTypeText == seat) {
-//                categoryImage.setImageResource(R.drawable.family_active)
-                categoryImage.setColorFilter(resources.getColor(R.color.text_alert_color_red))
-                categoryName.setTextColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.text_alert_color_red
-                    )
-                )
+//                categoryImage.setColorFilter(resources.getColor(R.color.text_alert_color_red))
+//                categoryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_alert_color_red))
+
+                if (seat == "Family") {
+                    for (items in listFA){
+                        println("SeatListClick22222 ------------->2")
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.family_active).into(categoryImage)
+                    }
+                    categoryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_alert_color_red))
+                }
+
+                if (seat == "Bachelor") {
+                    for (items in listBA){
+                        println("SeatListClick22222 ------------->22")
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.family_n_active).into(categoryImage)
+                    }
+                    categoryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_alert_color_red))
+                }
+
+
             } else {
-                categoryImage.setColorFilter(resources.getColor(R.color.hint_color))
-                categoryName.setTextColor(ContextCompat.getColor(
-                    requireContext(),
-                        R.color.hint_color
-                    )
-                )
+//                categoryImage.setColorFilter(resources.getColor(R.color.hint_color))
+//                categoryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.hint_color))
+
+                if (seat == "Family") {
+                    Glide.with(this).load(listBN[0].imgCate).placeholder(R.drawable.family_icons).into(categoryImage)
+
+//                    for (items in listFN){
+//                        println("SeatListClick22222 ------------->1")
+//                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.family_icons).into(categoryImage)
+//                    }
+                    categoryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.hint_color))
+                }
+
+                if (seat == "Bachelor") {
+                    Glide.with(this).load(listFN[0].imgCate).placeholder(R.drawable.family_normal_icon).into(categoryImage)
+//                    for (items in listBN){
+//                        println("SeatListClick22222 ------------->11")
+//                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.family_normal_icon).into(categoryImage)
+//                    }
+                    categoryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.hint_color))
+                }
+
             }
 
             v.setOnClickListener {
+
                 for (v in viewListForDates) {
                     val categoryImage1: ImageView = v.findViewById(R.id.image_family) as ImageView
                     val categoryName1: TextView = v.findViewById(R.id.category_name) as TextView
+//                  categoryImage1.setColorFilter(getColor(requireContext(), R.color.hint_color))
 
-//                    if (seat == "Family"){
-//                        categoryImage.setImageResource(R.drawable.family_icons)
-//                        categoryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.hint_color))
-//                    }
-//
-//                    if (seat == "Bachelor"){
-//                        categoryImage.setImageResource(R.drawable.family_normal_icon)
-//                        categoryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.hint_color))
-//                    }
+                    if (item.cateTypeText == "Family"){
+                        for (items in listFN){
+                            Glide.with(this).load(listBN[0].imgCate).placeholder(R.drawable.family_normal_icon).into(categoryImage1)
+//                            if (seatTypeCheck == 0){
+//                                Glide.with(this).load(items.imgCate).placeholder(R.drawable.family_icons).into(categoryImage1)
+//                            }else{
+//                                Glide.with(this).load(listBN[0].imgCate).placeholder(R.drawable.family_normal_icon).into(categoryImage1)
+//                            }
+                            println("SeatListClick22222 ------------->listFN1")
+                        }
+                    }
 
-                    categoryImage1.setColorFilter(getColor(requireContext(), R.color.hint_color))
+                    if (item.cateTypeText == "Bachelor"){
+                        for (items in listBN){
+                            println("SeatListClick22222 ------------->listBN1")
+
+                            Glide.with(this).load(listFN[0].imgCate).placeholder(R.drawable.family_icons).into(categoryImage1)
+//                            if (seatTypeCheck == 0){
+//                                Glide.with(this).load(listBN[0].imgCate).placeholder(R.drawable.family_normal_icon).into(categoryImage1)
+//                            }else{
+//                                Glide.with(this).load(listFN[0].imgCate).placeholder(R.drawable.family_icons).into(categoryImage1)
+//                            }
+                        }
+                    }
+
                     categoryName1.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.hint_color))
-
                 }
-                println("SeatListClick1 -------->${v}------>${viewListForDates}")
-
 
                 if (Constant.seatCategoryList.contains(item.cateTypeText)) {
                     Constant.seatCategoryList.remove(item.cateTypeText)
-                    println("SeatListClick21 ------------->${Constant.seatCategoryList}")
-                    categoryImage.setColorFilter(resources.getColor(R.color.hint_color))
+//                  categoryImage.setColorFilter(resources.getColor(R.color.hint_color))
+
+                    if (item.cateTypeText == "Family"){
+                        for (items in listFN){
+                            println("SeatListClick22222 ------------->listFN3")
+                            Glide.with(this).load(listFN[0].imgCate).placeholder(R.drawable.family_icons).into(categoryImage)
+                        }
+                    }
+
+                    if (item.cateTypeText == "Bachelor"){
+                        for (items in listBN){
+                            println("SeatListClick22222 ------------->listFN3")
+                            Glide.with(this).load(listBN[0].imgCate).placeholder(R.drawable.family_normal_icon).into(categoryImage)
+                        }
+                    }
                     categoryName.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.hint_color))
+
                 } else {
                     Constant.seatCategoryList.clear()
                     Constant.seatCategoryList.add(item.cateTypeText)
-                    categoryImage.setColorFilter(resources.getColor(R.color.text_alert_color_red))
-                    categoryName.setTextColor(
-                        ContextCompat.getColorStateList(
-                            requireContext(),
-                            R.color.text_alert_color_red
-                        )
-                    )
+//                    categoryImage.setColorFilter(resources.getColor(R.color.text_alert_color_red))
+                    if (item.cateTypeText == "Family") {
+                        for (items in listFA) {
+                            println("SeatListClick22222 ------------->listFA2")
+                            seatTypeCheck = 1
+                            Glide.with(this).load(items.imgCate).placeholder(R.drawable.family_active).into(categoryImage)
+                        }
+                    }
+
+                    if (item.cateTypeText == "Bachelor") {
+                        for (items in listBA) {
+                            println("SeatListClick22222 ------------->listBA2")
+                            Glide.with(this).load(items.imgCate).placeholder(R.drawable.family_n_active).into(categoryImage)
+                        }
+                    }
+                    categoryName.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.text_alert_color_red))
                     println("SeatListClick2123 ------------->${Constant.seatCategoryList}")
                 }
 
@@ -2401,15 +2446,93 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
     @SuppressLint("InflateParams")
     private fun setExperienceFlexbox(layout: FlexboxLayout, experience: ArrayList<ProfileResponse.Output.Experience>) {
+        val list4dx: ArrayList<ModelExperiences> = arrayListOf(ModelExperiences(R.drawable.fourdx_white))
+        val listStandard: ArrayList<ModelExperiences> = arrayListOf(ModelExperiences(R.drawable.standard_white))
+        val listVip: ArrayList<ModelExperiences> = arrayListOf(ModelExperiences(R.drawable.vip_white))
+        val listImax: ArrayList<ModelExperiences> = arrayListOf(ModelExperiences(R.drawable.imax_white))
+        val list3D: ArrayList<ModelExperiences> = arrayListOf(ModelExperiences(R.drawable.threed_white))
+        val listDolby: ArrayList<ModelExperiences> = arrayListOf(ModelExperiences(R.drawable.dolby_white))
+        val listEleven: ArrayList<ModelExperiences> = arrayListOf(ModelExperiences(R.drawable.eleven_white))
+        val listScreen: ArrayList<ModelExperiences> = arrayListOf(ModelExperiences(R.drawable.screenx_white))
+        val listPremium: ArrayList<ModelExperiences> = arrayListOf(ModelExperiences(R.drawable.premium_white))
+
         layout.removeAllViews()
         val viewListForSeatExperience = ArrayList<View>()
+
         for (data in profileList!!) {
-            val v: View = layoutInflater.inflate(R.layout.experience_item, null)
+            val v: View = layoutInflater.inflate(R.layout.experience_account_item, null)
             val experienceName = v.findViewById(R.id.experience_name) as ImageView
             val experienceText = v.findViewById(R.id.experience_nametxt) as TextView
 
             val lowerCase = data.name.toLowerCase()
             val url = "https://s3.eu-west-1.amazonaws.com/cinescape.uat/experience/${lowerCase}.png"
+            println("data.name--------->${data.name}------>${lowerCase}")
+
+
+            when (data.name) {
+                "4DX" -> {
+                        Glide.with(this).load(list4dx[0].imgCate).placeholder(R.drawable.four_dx).into(experienceName)
+
+                }
+                "STANDARD" -> {
+//                    Glide.with(requireContext()).load(R.drawable.standard).into(experienceName)
+                    for (items in listStandard) {
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.standard).into(experienceName)
+                    }
+
+                }
+
+                "VIP" -> {
+//                    Glide.with(requireContext()).load(R.drawable.vip).into(experienceName)
+                    for (items in listVip) {
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.vip).into(experienceName)
+                    }
+
+
+                }
+                "IMAX" -> {
+//                    Glide.with(requireContext()).load(R.drawable.imax).into(experienceName)
+
+                    for (items in listImax) {
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.imax).into(experienceName)
+                    }
+                }
+                "3D" -> {
+                    for (items in list3D) {
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.threed_black).into(experienceName)
+                    }
+
+                }
+                "DOLBY" -> {
+                    for (items in listDolby) {
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.dolby_black).into(experienceName)
+                    }
+
+                }
+                "ELEVEN" -> {
+
+                    for (items in listEleven) {
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.eleven_black).into(experienceName)
+                    }
+
+
+                }
+                "SCREENX" -> {
+                    for (items in listScreen) {
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.screenx_black).into(experienceName)
+                    }
+
+                }
+                "PREMIUM" -> {
+                    for (items in listPremium) {
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.premium_black).into(experienceName)
+                    }
+
+                }
+
+            }
+
+
             seatAbility = if (data.count > 0) {
                 1
             } else {
@@ -2428,71 +2551,10 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 //            }
 //           experienceName.setImageResource(getMatchIcon(data.name))
 
-            println("data.name--------->${data.name}")
 
-
-            Glide.with(requireContext())
-                .load(url)
-                .error(R.drawable.placeholder_home_small_poster)
-                .into(experienceName)
-
-//            when (data.name) {
-//                "4DX" -> {
-//                    Glide
-//                        .with(this)
-//                        .load(R.drawable.four_dx)
-//                        .into(experienceName)
-//
-//                }
-//                "STANDARD" -> {
-//                    Glide
-//                        .with(this)
-//                        .load(R.drawable.standard)
-//                        .into(experienceName)
-//                }
-//                "VIP" -> {
-//                    Glide
-//                        .with(this)
-//                        .load(R.drawable.vip)
-//                        .into(experienceName)
-//                }
-//                "IMAX" -> {
-//                    Glide
-//                        .with(this)
-//                        .load(R.drawable.imax)
-//                        .into(experienceName)
-//                }
-//                "3D" -> {
-//                    Glide
-//                        .with(this)
-//                        .load(R.drawable.threed_black)
-//                        .into(experienceName)
-//                }
-//                "DOLBY" -> {
-//                    Glide
-//                        .with(this)
-//                        .load(R.drawable.threed_black)
-//                        .into(experienceName)
-//                }
-//                "ELEVEN" -> {
-//                    Glide
-//                        .with(this)
-//                        .load(R.drawable.eleven_black)
-//                        .into(experienceName)
-//                }
-//                "SCREENX" -> {
-//                    Glide
-//                        .with(this)
-//                        .load(R.drawable.screenx_black)
-//                        .into(experienceName)
-//                }
-//                "PREMIUM" -> {
-//                    Glide
-//                        .with(this)
-//                        .load(R.drawable.premium_black)
-//                        .into(experienceName)
-//                }
-//            }
+//            Glide.with(requireContext()).load(url)
+//                .error(R.drawable.placeholder_home_small_poster)
+//                .into(experienceName)
 
 
             layout.addView(v)
@@ -2501,7 +2563,9 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             println("SeatType21--->${data.name}---<${experience}")
             if (data.likes) {
                 experienceName.setColorFilter(
-                    getColor(requireContext(), R.color.text_alert_color_red), android.graphics.PorterDuff.Mode.MULTIPLY)
+                    getColor(requireContext(), R.color.text_alert_color_red),
+                    android.graphics.PorterDuff.Mode.MULTIPLY
+                )
             } else {
                 experienceName.setColorFilter(
                     getColor(requireContext(), R.color.hint_color),
@@ -2740,7 +2804,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                                                     it.data.output.bookingid,
                                                     it.data.output.booktype,
                                                     it.data.output.transid,
-                                                    preferences.getString(Constant.USER_ID).toString()
+                                                    preferences.getString(Constant.USER_ID)
+                                                        .toString()
                                                 ), it.data.output.bookingid
                                             )
                                         } else {
@@ -2752,7 +2817,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                                                     it.data.output.bookingid,
                                                     it.data.output.booktype,
                                                     it.data.output.transid,
-                                                    preferences.getString(Constant.USER_ID).toString()
+                                                    preferences.getString(Constant.USER_ID)
+                                                        .toString()
                                                 )
                                             )
                                         }
@@ -2808,7 +2874,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
-                                    val intent = Intent(requireActivity(), PaymentWebActivity::class.java)
+                                    val intent =
+                                        Intent(requireActivity(), PaymentWebActivity::class.java)
                                     intent.putExtra("From", "recharge")
                                     intent.putExtra("PAY_URL", it.data.output.callingUrl)
                                     intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
@@ -2864,7 +2931,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 println("LocationResponse--->${it.data.output}")
                                 countryCodeList = it.data.output
-                                binding?.includeProfile?.enterMobileCode?.text = it.data.output[0].isdCode
+                                binding?.includeProfile?.enterMobileCode?.text =
+                                    it.data.output[0].isdCode
                                 retrieveCountryList(it.data.output)
 
                             } else {
@@ -3192,8 +3260,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
 //        type=output.
         binding?.includeProfile?.enterMobileCode?.setText(output.countryCode)
-        binding?.textWalletUserId?.text = getString(R.string.wallet_Id)+" " + output.cardNumber
-        binding?.textUserWalletKd?.text = getString(R.string.wallet_balance) + " "+output.balance
+        binding?.textWalletUserId?.text = getString(R.string.wallet_Id) + " " + output.cardNumber
+        binding?.textUserWalletKd?.text = getString(R.string.wallet_balance) + " " + output.balance
 
         gender = output.gender
 

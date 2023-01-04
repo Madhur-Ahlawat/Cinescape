@@ -41,6 +41,14 @@ data class ModelPreferenceCategory(
     var cateTypeText: String,
     var count: Int
 )
+data class ModelSeatCategoryFA(
+    var imgCate: Int
+)
+data class ModelExperiences(
+    var imgCate: Int
+)
+
+
 data class ModelPreferenceType(
     var seatType: String,
     var count: Int
