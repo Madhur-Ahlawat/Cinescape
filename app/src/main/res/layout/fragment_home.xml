@@ -51,6 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/margin15"
                     android:layout_marginEnd="@dimen/margin8"
+                    android:nestedScrollingEnabled="false"
                     android:checked="true"
                     android:contentDescription="@string/contentDes"
                     app:layout_constraintBottom_toBottomOf="parent"

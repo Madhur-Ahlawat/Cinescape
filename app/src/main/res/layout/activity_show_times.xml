@@ -13,7 +13,7 @@
         android:id="@+id/LayoutTime"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <View
             android:id="@+id/view66"
@@ -75,17 +75,17 @@
                     android:id="@+id/text_film_house_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_minWidth="50dp"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size20"
+                    android:includeFontPadding="false"
                     android:fontFamily="@font/sf_pro_text_heavy"
                     android:gravity="start"
-                    tools:text="Gunda Raja "/>
+                    tools:text="Gunda Rajjlknjhjjbhjkbhkbkkjbjkbbkjbklja "/>
 
                 <LinearLayout
                     android:id="@+id/constraintLayout18"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:maxLines="1"
                     android:layout_marginTop="@dimen/margin12"
                     android:ellipsize="end"
@@ -107,7 +107,7 @@
                             android:id="@+id/textView56"
                             android:layout_width="@dimen/margin32"
                             android:layout_height="@dimen/margin17"
-                            android:fontFamily="@font/sf_pro_text_heavy"
+                            android:fontFamily="@font/sf_pro_text_regular"
                             android:includeFontPadding="false"
                             android:gravity="center_vertical"
                             android:paddingStart="@dimen/margin6"
@@ -127,6 +127,7 @@
                 android:id="@+id/titleView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="@dimen/size30"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -135,6 +136,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -159,7 +161,7 @@
                         android:gravity="center"
                         android:text="@string/movie_n_info"
                         android:textAlignment="center"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/size11"
                         android:textStyle="normal"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -283,7 +285,6 @@
                 android:lineSpacingExtra="1sp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/size13"
-                app:layout_constraintBottom_toBottomOf="@+id/titleView"
                 app:layout_constraintEnd_toStartOf="@+id/titleView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
@@ -405,10 +406,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/centerView"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/include" />
 
@@ -430,8 +428,8 @@
                 android:id="@+id/centerView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen30"
                 android:layout_gravity="center_horizontal"
-                app:layout_constraintBottom_toTopOf="@+id/recyclerview_cinema_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recylerview_show_time_date">
@@ -467,13 +465,16 @@
 
             <TextView
                 android:id="@+id/textView110"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:textColor="#C1C1C1"
                 android:textSize="@dimen/size13"
+                android:gravity="center"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
                 android:visibility="gone"
-                android:layout_marginTop="@dimen/margin8"
+                android:layout_marginTop="@dimen/margin5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/centerView"

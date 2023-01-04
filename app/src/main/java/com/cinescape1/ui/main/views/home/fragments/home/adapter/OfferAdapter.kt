@@ -30,7 +30,6 @@ class OfferAdapter(val mContext: Activity, val movieDataList: ArrayList<HomeData
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val obj = movieDataList[position]
-        print("offerData123--->${movieDataList.size}")
         Glide.with(mContext)
             .load(obj.appThumbImageUrl)
             .error(R.drawable.placeholder_home_small_poster)

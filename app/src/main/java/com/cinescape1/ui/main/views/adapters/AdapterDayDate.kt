@@ -53,21 +53,20 @@ class AdapterDayDate(
             holder.views1.show()
         }
 
-
         if (rowIndex == position) {
             holder.consBackground.setBackgroundResource(R.drawable.day_rectangle)
             holder.day.setTextColor(ContextCompat.getColor(context, R.color.white))
             holder.date.setTextColor(ContextCompat.getColor(context, R.color.white))
-            val heavy: Typeface = context.resources.getFont(R.font.sf_pro_text_heavy)
+            val regular: Typeface = context.resources.getFont(R.font.sf_pro_text_regular)
             val bold: Typeface = context.resources.getFont(R.font.sf_pro_text_semibold)
             holder.day.textSize = 13f
             holder.date.textSize = 20f
-            holder.day.typeface = bold
-            holder.date.typeface = heavy
+            holder.day.typeface = regular
+            holder.date.typeface = regular
         } else {
             holder.consBackground.setBackgroundResource(R.drawable.day_un_select_rectangle)
-            holder.day.setTextColor(ContextCompat.getColor(context, R.color.hint_color))
-            holder.date.setTextColor(ContextCompat.getColor(context, R.color.hint_color))
+            holder.day.setTextColor(ContextCompat.getColor(context, R.color.white))
+            holder.date.setTextColor(ContextCompat.getColor(context, R.color.white))
             val regular: Typeface = context.resources.getFont(R.font.sf_pro_text_regular)
             holder.day.typeface = regular
             holder.date.typeface = regular
@@ -86,8 +85,6 @@ class AdapterDayDate(
 
         if (dayDateItem.enable) {
             holder.itemView.setOnClickListener {
-
-//                context.toast("hello")
                 listener.onDateClick(dayDateItem, holder.itemView, position)
                 rowIndex = position
                 backIndex = position
@@ -95,18 +92,16 @@ class AdapterDayDate(
 
             }
         } else {
-//            holder.views1.show()
-            holder.consBackground.setBackgroundResource(R.drawable.primarydark_rectangle)
-            holder.day.setTextColor(ContextCompat.getColor(context, R.color.countrySearch))
-            holder.date.setTextColor(ContextCompat.getColor(context, R.color.countrySearch))
+
+            holder.consBackground.setBackgroundResource(R.drawable.day_un_select_rectangle)
+            holder.day.setTextColor(ContextCompat.getColor(context, R.color.disableColor))
+            holder.date.setTextColor(ContextCompat.getColor(context, R.color.disableColor))
             val regular: Typeface = context.resources.getFont(R.font.sf_pro_text_regular)
             holder.day.typeface = regular
             holder.date.typeface = regular
             holder.day.textSize = 13F
             holder.date.textSize = 16F
         }
-
-//        listenerTypeFace.onTypeFaceFoodDayDate(holder.day, holder.date)
 
     }
 
@@ -124,9 +119,5 @@ class AdapterDayDate(
         var views1: View = view.viewLine
         var consBackground: View = view.consBackground
     }
-
-//    interface TypeFaceListenerDayDate {
-//        fun onTypeFaceFoodDayDate(day: TextView, date: TextView)
-//    }
 
 }

@@ -17,8 +17,7 @@
         android:textColor="@color/white"
         android:textSize="@dimen/size15"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="TextView" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/textView4"
@@ -41,6 +40,7 @@
         android:layout_marginStart="@dimen/margin17"
         android:layout_marginTop="@dimen/margin4"
         android:orientation="horizontal"
+        android:nestedScrollingEnabled="false"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -88,34 +88,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/viewpagerBack" />
 
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="11dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/viewpager">
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search"
-            style="@style/SearchViewStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:contentDescription="@string/contentDes"
-            android:iconifiedByDefault="true"
-            android:queryHint="Search Here"
-            android:visibility="gone"
-            app:queryBackground="@drawable/bg_white_rounded">
-
-            <requestFocus />
-        </androidx.appcompat.widget.SearchView>
-
-    </RelativeLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/consAdvance"
@@ -133,6 +105,8 @@
             android:id="@+id/sliderAdvance"
             android:layout_width="match_parent"
             android:layout_height="165dp"
+            android:fadingEdge="none"
+            android:requiresFadingEdge="none"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

@@ -52,23 +52,6 @@ class HomeParentAdapter(
         val obj = homeDataList[position]
         holder.home_title.text = obj.name
         holder.txtSeeAll.text = mContext.getText(R.string.view_all)
-        holder.search?.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                val params: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.MATCH_PARENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT
-                )
-                params.addRule(RelativeLayout.ALIGN_PARENT_END)
-                holder.search?.layoutParams = params
-            } else {
-                val params: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.WRAP_CONTENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT
-                )
-                params.addRule(RelativeLayout.ALIGN_PARENT_END)
-                holder.search?.layoutParams = params
-            }
-        }
         var movieDataList = ArrayList<HomeDataResponse.MovieData>()
         movieDataList = obj.movieData
 
@@ -80,12 +63,6 @@ class HomeParentAdapter(
                 holder.homeList.show()
 //                holder.viewpagerBack.show()
                 holder.viewpager.show()
-                holder.search.show()
-//                holder.viewpagerBack.layoutDirection = View.LAYOUT_DIRECTION_RTL
-//                val sliderbackAdapter = SliderBackAdapter(mContext, obj.movieData)
-//                holder.viewpagerBack.adapter = sliderbackAdapter
-//                holder.viewpagerBack.setPagingEnabled(false)
-
                 holder.viewpager.adapter = HomeFrontSliderAdapter(mContext, obj.movieData,holder.viewpager)
                 holder.viewpager.offscreenPageLimit = 3
                 holder.viewpager.clipChildren = false
@@ -161,11 +138,13 @@ class HomeParentAdapter(
 //                holder.viewpagerBack.hide()
                 holder.homeList.hide()
                 holder.viewpager.hide()
+                holder.sliderAdvance.beginFakeDrag()
+                holder.sliderAdvance.endFakeDrag()
+
                 val advanceSliderAdapter = AdvanceSliderAdapter(mContext, obj.movieData)
                 holder.sliderAdvance.adapter = advanceSliderAdapter
                 holder.mytablayout.setupWithViewPager(holder.sliderAdvance, true)
-                // The_slide_timer
-                /*After setting the adapter use the timer */
+
                 val pagerLength = obj.movieData.size
                 val handler = Handler()
                 val Update = Runnable {
@@ -182,6 +161,7 @@ class HomeParentAdapter(
                 }, DELAY_MS, PERIOD_MS)
             }
             "homeOnes" -> {
+                holder.homeList.isLayoutFrozen= false
                 val gridLayout = GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
                 holder.homeList?.layoutManager = LinearLayoutManager(mContext)
                 adapter = HomeChildAdapter(mContext, movieDataList, 1, true, this)
@@ -193,7 +173,8 @@ class HomeParentAdapter(
                 holder.home_title.show()
                 holder.homeList.show()
                 holder.viewpager.hide()
-//                holder.viewpagerBack.hide()
+                holder.homeList.isLayoutFrozen= false
+
                 holder.itemView.show()
                 val gridLayout = GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
                 holder.homeList?.layoutManager = LinearLayoutManager(mContext)
@@ -215,6 +196,7 @@ class HomeParentAdapter(
 //                holder.viewpagerBack.hide()
                 holder.itemView.show()
                 holder.txtSeeAll.hide()
+                holder.homeList.isLayoutFrozen= false
 
                 val gridLayout = GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
                 holder.homeList?.layoutManager = LinearLayoutManager(mContext)
@@ -228,7 +210,7 @@ class HomeParentAdapter(
                     holder.home_title.show()
                     holder.homeList.show()
                     holder.viewpager.hide()
-//                    holder.viewpagerBack.hide()
+                    holder.homeList.isLayoutFrozen= false
                     holder.itemView.show()
                     holder.txtSeeAll.show()
 
@@ -260,6 +242,7 @@ class HomeParentAdapter(
 //                    holder.viewpagerBack.hide()
                     holder.itemView.show()
                     holder.txtSeeAll.show()
+                    holder.homeList.isLayoutFrozen= false
 
                     val gridLayout =
                         GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
@@ -294,7 +277,6 @@ class HomeParentAdapter(
         var txtSeeAll = itemView.textView4
         var homeList = itemView.homeList
         var viewpager = itemView.viewpager
-        var search = itemView.search
 //        var viewpagerBack = itemView.viewpagerBack
         var consAdvance = itemView.consAdvance
         var sliderAdvance = itemView.sliderAdvance
