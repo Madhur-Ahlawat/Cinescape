@@ -233,6 +233,7 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
                 }
             }
 
+            mainList.isLayoutFrozen= false
             val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
             mainList?.layoutManager = LinearLayoutManager(context)
             val adapter = HomeParentAdapter(requireActivity(), homeData,this, this)

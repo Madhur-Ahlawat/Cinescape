@@ -18,7 +18,8 @@ import com.cinescape1.utils.show
 class AdapterShowTimesCinemaTitle(
     private var context: Context,
     private var showTimeTitleList: List<CinemaSessionResponse.ExperienceSession>,
-    val listener: CinemaAdapterListener, var typeFaceListener : TypeFaceItem
+    val listener: CinemaAdapterListener,
+    var typeFaceListener: TypeFaceItem
 ) : RecyclerView.Adapter<AdapterShowTimesCinemaTitle.MyViewHolderShowTimesTitle>(),
     AdapterCinemaSessionDimension.SessionAdapterListener {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderShowTimesTitle {
@@ -34,23 +35,46 @@ class AdapterShowTimesCinemaTitle(
         holder.imageCinema.show()
 
         typeFaceListener.onTypeFaceCinemaTittle(holder.textTitle)
-        println("imageTittle--->${showtimeListItem.experienceIcon}")
-        try {
-            Glide.with(context)
-                .load(showtimeListItem.experienceIcon)
-                .into(holder.imageCinema)
-        } catch (e: Exception) {
-            println("exception--->${e.message}")
-        }
+        println("checkCategory--->${showtimeListItem.experience}")
 
+        try {
+            when (showtimeListItem.experience) {
+                "4DX" -> {
+                    Glide.with(context).load(R.drawable.fourdx_gray).into(holder.imageCinema)
+                }
+                "STANDARD" -> {
+                    Glide.with(context).load(R.drawable.standard_gray).into(holder.imageCinema)
+                }
+                "VIP" -> {
+                    Glide.with(context).load(R.drawable.vip_gray).into(holder.imageCinema)
+                }
+                "IMAX" -> {
+                    Glide.with(context).load(R.drawable.imax_gray).into(holder.imageCinema)
+                }
+                "3D" -> {
+                    Glide.with(context).load(R.drawable.threed_gray).into(holder.imageCinema)
+                }
+                "DOLBY" -> {
+                    Glide.with(context).load(R.drawable.dolby_gray).into(holder.imageCinema)
+                }
+                "ELEVEN" -> {
+                    Glide.with(context).load(R.drawable.eleven_gray).into(holder.imageCinema)
+                }
+                "SCREENX" -> {
+                    Glide.with(context).load(R.drawable.screenx_gray).into(holder.imageCinema)
+                }
+                "PREMIUM" -> {
+                    Glide.with(context).load(R.drawable.premium_gray).into(holder.imageCinema)
+                }
+            }
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         holder.recyclerShowTimeDimensions.layoutManager = layoutManager
         val adapter = AdapterCinemaSessionDimension(
-            context,
-            showtimeListItem.shows,
-            this,
-            showtimeListItem.experience,
-            position
+            context, showtimeListItem.shows, this, showtimeListItem.experience, position
         )
         holder.recyclerShowTimeDimensions.adapter = adapter
     }
@@ -67,7 +91,7 @@ class AdapterShowTimesCinemaTitle(
         cinemaId: String,
         showTime: String
     ) {
-        listener.onShowClicked(show, name, position, cinemaPos,cinemaId,  showTime)
+        listener.onShowClicked(show, name, position, cinemaPos, cinemaId, showTime)
     }
 
     interface CinemaAdapterListener {
@@ -88,7 +112,7 @@ class AdapterShowTimesCinemaTitle(
             view.findViewById<View>(R.id.recyler_time_dimension) as RecyclerView
     }
 
-    interface TypeFaceItem{
+    interface TypeFaceItem {
         fun onTypeFaceCinemaTittle(textTitle: TextView)
     }
 

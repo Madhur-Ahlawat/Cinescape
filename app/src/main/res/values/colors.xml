@@ -37,5 +37,6 @@
     <color name="back_70">#B2000000</color>
     <color name="black_grey">#464646</color>
     <color name="lineColor">#667B7A7A</color>
+    <color name="disableColor">#34393939</color>
 
 </resources>
