@@ -1161,6 +1161,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     positiveClick = {},
                     negativeClick = {})
                 dialogs.show()
+
             } else if (dialog.enterNewPassword.text.toString().trim() == "") {
 
                 val dialogs = OptionDialog(requireContext(),

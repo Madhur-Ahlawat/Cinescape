@@ -100,7 +100,7 @@
     <string name="min"> min</string>
     <string name="plus">+</string>
     <string name="cancel">Cancel</string>
-    <string name="cancelComma">Cancel,</string>
+    <string name="cancelComma">Cancel &amp;</string>
     <string name="time_left">TIME LEFT</string>
     <string name="seat">Seat </string>
     <string name="ticket_price">Ticket price</string>

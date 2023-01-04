@@ -21,7 +21,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <TextView
         android:visibility="gone"
         android:id="@+id/text_language"
@@ -108,7 +107,7 @@
         android:gravity="center_horizontal"
         android:lineSpacingExtra="1.5sp"
         android:text="@string/choose_your_preference_from_the_below_options_n_to_help_us_personalize_your_experience"
-        android:textColor="@color/hint_color"
+        android:textColor="@color/white"
         android:textSize="@dimen/size14"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"

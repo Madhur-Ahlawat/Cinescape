@@ -31,8 +31,7 @@ class HomeChildAdapter(
     private var recommendedList: ArrayList<HomeDataResponse.MovieData>,
     private val type: Int,
     private val comingSoon: Boolean,
-    var listener : ImageChangeIcon
-) :
+    var listener : ImageChangeIcon) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {

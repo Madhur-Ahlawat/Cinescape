@@ -144,6 +144,7 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
                                         })
                                     dialog.show()
                                 }
+
                             }
                         }
                         Status.ERROR -> {

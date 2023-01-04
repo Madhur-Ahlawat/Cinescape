@@ -19,7 +19,7 @@
         android:layout_marginEnd="@dimen/margin10"
         android:textAllCaps="true"
         android:textColor="@color/hint_color"
-        android:textSize="@dimen/size18"
+        android:textSize="@dimen/size14"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
