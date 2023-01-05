@@ -504,8 +504,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         view: PaymentListResponse.Output.PayMode,
         knetClick: Boolean,
         creditCardClick: Boolean,
-        cardNo: String
-    ) {
+        cardNo: String) {
+
         binding?.txtProceed?.setOnClickListener {
             if (!knetClick && !creditCardClick) {
                 val dialog = OptionDialog(this,
@@ -1568,16 +1568,14 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
-                                    val intent = Intent(
-                                        applicationContext, PaymentWebActivity::class.java
-                                    )
+
+                                    val intent = Intent(applicationContext, PaymentWebActivity::class.java)
                                     intent.putExtra("PAY_URL", it.data.output.callingUrl)
-                                    intent.putExtra(
-                                        Constant.IntentKey.TRANSACTION_ID, transId.toString()
-                                    )
+                                    intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
                                     intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
                                     startActivity(intent)
                                     finish()
+
                                 } catch (e: Exception) {
                                     println("updateUiCinemaSession ---> ${e.message}")
                                 }

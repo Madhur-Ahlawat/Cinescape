@@ -800,6 +800,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                             loader?.dismiss()
                             resource.data?.let { it ->
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+
                                     val dialog = OptionDialog(requireActivity(),
                                         R.mipmap.ic_launcher,
                                         R.string.app_name,
@@ -1120,7 +1121,6 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
         photoUtils!!.selectImage(requireActivity())
     }
 
-
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -1133,7 +1133,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                     val requestFile: RequestBody = mFileTemp.asRequestBody("multipart/form-data".toMediaTypeOrNull())
                     val file = MultipartBody.Part.createFormData("file", mFileTemp.name, requestFile)
                     frontPhoto = file
-                    println("FrontPhotoListItem --------->${frontPhoto}")
+                    println("FrontPhotoListItem12 --------->${frontPhoto}")
 
 //                    if (null != selectedImageUri) {
 //                        // Get the path from the Uri

@@ -299,7 +299,7 @@
     <string name="enterDobs">You must be 12 years old.</string>
     <string name="enterMo">Please enter mobile number.</string>
     <string name="enterCity">Please enter City Name.</string>
-    <string name="enterUserNames">Please enter mobile UserName.</string>
+    <string name="enterUserNames">Please enter a UserName.</string>
     <string name="enterName">Please enter name</string>
     <string name="enterMSG">Please enter your message</string>
     <string name="enterPhoto">Please upload image</string>

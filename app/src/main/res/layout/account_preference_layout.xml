@@ -87,25 +87,23 @@
             tools:ignore="HardcodedText,TextContrastCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
     <View
         android:id="@+id/viewLang"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="39.7dp"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/UiLanguage"
-        android:background="@color/view_bg_color_line"/>
-
+        android:background="@color/lineColor"/>
 
     <TextView
         android:id="@+id/text_choose_preferencess"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:fontFamily="@font/sf_pro_text_regular"
         android:gravity="center_horizontal"
         android:lineSpacingExtra="1.5sp"
+        android:layout_marginTop="-6dp"
         android:text="@string/choose_your_preference_from_the_below_options_n_to_help_us_personalize_your_experience"
         android:textColor="@color/white"
         android:textSize="@dimen/size14"
@@ -119,7 +117,7 @@
         android:id="@+id/text_locations"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/sf_pro_text_bold"
         android:text="@string/location"
         android:textColor="@color/white"
@@ -149,7 +147,7 @@
             android:id="@+id/spinnerPref"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:backgroundTint="@color/black1"
+            app:backgroundTint="@color/black"
             android:popupBackground="@color/dropDownColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -163,10 +161,11 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:src="@drawable/arrow_down"
-            android:layout_marginEnd="@dimen/size8"
+            android:layout_marginEnd="@dimen/margin32"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -195,7 +194,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="8dp"
-        android:background="@color/view_bg_color_line"
+        android:background="@color/lineColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -246,7 +245,7 @@
         android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:layout_marginTop="8dp"
-        android:background="@color/view_line_color"
+        android:background="@color/lineColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -280,7 +279,7 @@
         android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:layout_marginTop="8dp"
-        android:background="@color/view_bg_color_line"
+        android:background="@color/lineColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/type_list_preference" />
@@ -317,7 +316,7 @@
         android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:layout_marginTop="8dp"
-        android:background="@color/view_bg_color_line"
+        android:background="@color/lineColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/experience_list_preference" />
@@ -356,7 +355,7 @@
         android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:layout_marginTop="8dp"
-        android:background="@color/view_bg_color_line"
+        android:background="@color/lineColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/age_rating_list_preference" />

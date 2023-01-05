@@ -13,7 +13,7 @@
         android:id="@+id/LayoutTime"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <View
             android:id="@+id/view66"
@@ -23,7 +23,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
         <ImageView
             android:id="@+id/image_show"
@@ -48,11 +47,10 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout14"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="110dp"
             android:paddingStart="20dp"
             android:paddingEnd="1dp"
             app:layout_constraintBottom_toBottomOf="@+id/view66"
@@ -87,7 +85,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:maxLines="1"
-                    android:layout_marginTop="@dimen/margin12"
+                    android:layout_marginTop="@dimen/margin4"
                     android:ellipsize="end"
                     android:minWidth="50dp"
                     android:layout_marginStart="8dp"
@@ -136,6 +134,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:visibility="visible"
+                    android:layout_marginTop="@dimen/margin12"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent">

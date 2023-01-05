@@ -51,7 +51,7 @@
             android:padding="@dimen/margin10"
             android:textColor="@color/white"
             android:textSize="@dimen/size16"
-            app:fontFamily="@font/sf_pro_text_semibold"
+            app:fontFamily="@font/sf_pro_text_regular"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title"
@@ -74,7 +74,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/margin40"
                 android:orientation="horizontal"
                 tools:ignore="UselessParent">
 
@@ -83,8 +83,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="start"
-                    android:layout_marginStart="@dimen/margin25"
-                    android:layout_marginEnd="@dimen/margin25"
+                    android:layout_marginStart="129dp"
+                    android:layout_marginEnd="129dp"
                     android:layout_weight="1"
                     android:background="@drawable/btn_corner_bg_red"
                     android:fontFamily="@font/sf_pro_text_semibold"

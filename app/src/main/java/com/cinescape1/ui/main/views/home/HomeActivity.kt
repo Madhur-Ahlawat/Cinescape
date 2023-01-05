@@ -118,7 +118,6 @@ class HomeActivity : DaggerAppCompatActivity(),
             setNextBooking()
         }
 
-
         navigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.homeFragment -> {

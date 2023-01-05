@@ -122,6 +122,7 @@
                 android:id="@+id/view_items"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/back_ui"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -305,7 +306,7 @@
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_marginTop="8dp"
-                    android:background="@color/view_bg_color_line"
+                    android:background="@color/lineColor"
                     app:layout_constraintEnd_toEndOf="@+id/view_mains1"
                     app:layout_constraintStart_toStartOf="@+id/view_mains1"
                     app:layout_constraintTop_toBottomOf="@+id/view_profile" />
@@ -314,7 +315,7 @@
                     android:id="@+id/view_recharge"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="12dp"
                     app:layout_constraintEnd_toEndOf="@+id/view_profile"
                     app:layout_constraintStart_toStartOf="@+id/view_profile"
                     app:layout_constraintTop_toBottomOf="@+id/viewLine" />
@@ -432,6 +433,7 @@
                     android:id="@+id/view2"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/margin12"
                     app:layout_constraintBottom_toBottomOf="@+id/view_mains1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/view_historys"
