@@ -34,8 +34,8 @@
     </style>
 
     <style name="AppTheme.Dialog" parent="Theme.MaterialComponents.Light.Dialog">
-        <item name="android:windowMinWidthMajor">70%</item>
-        <item name="android:windowMinWidthMinor">70%</item>
+        <item name="android:windowMinWidthMajor">98%</item>
+        <item name="android:windowMinWidthMinor">98%</item>
     </style>
 
     //Bottom Dialog

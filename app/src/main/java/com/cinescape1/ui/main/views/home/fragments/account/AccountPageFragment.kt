@@ -216,9 +216,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     private var foodPaidby1: TextView? = null
     private var categoryName: TextView? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentAccountPageBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
         return view!!
@@ -636,6 +634,12 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }
 
         binding?.viewBooking?.setOnClickListener {
+
+            binding?.textUpcomingBooking?.show()
+            binding?.recyclerviewBooking?.show()
+            binding?.recycleUi?.show()
+            binding?.textUpcomingBooking?.text = getString(R.string.your_upcoming_bookings)
+            include_history.hide()
             myNextBooking(
                 NextBookingsRequest(
                     "", "", 0, preferences.getString(Constant.USER_ID).toString(), true
@@ -659,18 +663,13 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             binding?.imageHistory?.setColorFilter(requireActivity().getColor(R.color.text_color))
             binding?.textHistoery?.setTextColor(requireActivity().getColor(R.color.text_color))
 
-            binding?.textUpcomingBooking?.show()
-            binding?.recyclerviewBooking?.show()
-            binding?.recycleUi?.show()
 //            binding?.textUpcomingBooking?.text = bookingText
-            binding?.textUpcomingBooking?.text = getString(R.string.your_upcoming_bookings)
             include_profile.hide()
             text_profile_titles.hide()
             text_make_editable.hide()
             include_preference.hide()
             include_recharge.hide()
             include_refunded.hide()
-            include_history.hide()
         }
 
         radioGroup.setOnCheckedChangeListener { _, _ ->
@@ -833,8 +832,12 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }
 
         binding?.viewHistorys?.setOnClickListener {
+
             binding?.nestedUi?.show()
             binding?.appBarAccount?.show()
+            binding?.recycleUi?.hide()
+//            binding?.textUpcomingBooking?.text = getString(R.string.your_bookings_history)
+
             myBooking(
                 MyBookingRequest(
                     "", "", 0, preferences.getString(Constant.USER_ID).toString()
@@ -856,16 +859,12 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             binding?.textRefund?.setTextColor(requireActivity().getColor(R.color.text_color))
             binding?.imageHistory?.setColorFilter(requireActivity().getColor(R.color.white))
             binding?.textHistoery?.setTextColor(requireActivity().getColor(R.color.white))
-            binding?.textUpcomingBooking?.text = getString(R.string.your_bookings_history)
 
-
-            include_history.hide()
             include_refunded.hide()
             include_recharge.hide()
             include_preference.hide()
             include_profile.hide()
-            binding?.nestedUi?.show()
-            binding?.recycleUi?.show()
+
         }
 
         Proceed_btnUi.setOnClickListener {
@@ -881,6 +880,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     negativeClick = {})
                 dialog.show()
             } else {
+
                 if (rechargeType == "cc") {
                     creditCardDialog()
                 } else {
@@ -890,6 +890,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                         )
                     )
                 }
+
             }
 
         }
@@ -940,6 +941,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     negativeClick = {
                     })
                 dialog.show()
+
             } else if (binding?.includeProfile?.enterFirstName?.text.toString().trim() == "") {
                 val dialog = OptionDialog(requireActivity(),
                     R.mipmap.ic_launcher,
@@ -2749,12 +2751,12 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     }
 
     private fun setBookingHistoryAdapter(output: ArrayList<HistoryResponse.Output>) {
-        binding?.nestedUi?.show()
+//        binding?.nestedUi?.show()
         val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
-        binding?.recyclerviewBooking?.layoutManager = LinearLayoutManager(context)
+        binding?.includeHistory?.recyclerviewBookingHistory?.layoutManager = LinearLayoutManager(context)
         val adapter = AdapterBookingHistory(requireActivity(), output, this)
-        binding?.recyclerviewBooking?.layoutManager = gridLayout
-        binding?.recyclerviewBooking?.adapter = adapter
+        binding?.includeHistory?.recyclerviewBookingHistory?.layoutManager = gridLayout
+        binding?.includeHistory?.recyclerviewBookingHistory?.adapter = adapter
     }
 
 
@@ -2875,13 +2877,14 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
-                                    val intent =
-                                        Intent(requireActivity(), PaymentWebActivity::class.java)
+
+                                    val intent = Intent(requireActivity(), PaymentWebActivity::class.java)
                                     intent.putExtra("From", "recharge")
                                     intent.putExtra("PAY_URL", it.data.output.callingUrl)
                                     intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
                                     intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
                                     startActivity(intent)
+
                                 } catch (e: Exception) {
                                     println("updateUiCinemaSession ---> ${e.message}")
                                 }
@@ -3090,6 +3093,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
+                                    include_history.show()
                                     setBookingHistoryAdapter(it.data.output)
 
                                 } catch (e: Exception) {

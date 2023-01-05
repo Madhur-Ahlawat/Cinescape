@@ -44,10 +44,12 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
         binding = ActivityPaymentWebBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
         setContentView(view)
+
         payUrl = intent.getStringExtra("PAY_URL").toString()
         bookingId = intent.getStringExtra(Constant.IntentKey.BOOKING_ID).toString()
         transId = intent.getStringExtra(Constant.IntentKey.TRANSACTION_ID).toString()
         from = intent.getStringExtra("From").toString()
+
         if (from == "login") {
             binding?.textView109?.text = resources.getString(R.string.terms_amp_condition)
             binding?.viewBack?.show()
@@ -71,6 +73,7 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun loadWebView(url: String) {
+
         try {
             binding?.paymentView?.visibility = View.VISIBLE
             binding?.paymentView?.loadUrl(url)
@@ -94,13 +97,13 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
 //                Utility.dismissDialog()
                 println("url---$url")
                 super.onPageFinished(view, url)
-
                 if (url.contains("knetmobresp")) {
                     val uri: Uri = Uri.parse(url)
                     val args = uri.queryParameterNames
                     println("args---$args")
                     if (uri.getQueryParameter("result") == "success") {
                         if (from == "recharge") {
+                            binding?.paymentView?.hide()
                             val dialog = OptionDialog(this@PaymentWebActivity,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
@@ -117,6 +120,7 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
                         dialog.show()
 
                         } else {
+
                             val intent = Intent(applicationContext, FinalTicketActivity::class.java)
 //                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)

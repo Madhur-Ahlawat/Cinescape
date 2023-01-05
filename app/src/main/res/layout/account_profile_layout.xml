@@ -129,7 +129,7 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_marginTop="2dp"
-            android:background="@color/view_bg_color_line"
+            android:background="@color/lineColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_user_name" />
@@ -200,7 +200,7 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="2dp"
-            android:background="@color/view_bg_color_line"
+            android:background="@color/lineColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view33_first_name" />
@@ -347,7 +347,7 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="2dp"
-            android:background="@color/view_bg_color_line"
+            android:background="@color/lineColor"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -493,7 +493,7 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_marginTop="2dp"
-            android:background="@color/view_bg_color_line"
+            android:background="@color/lineColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_email" />
@@ -537,6 +537,7 @@
             android:textColor="@color/white"
             android:drawablePadding="@dimen/margin8"
             tools:text="+92"
+            android:layout_marginTop="@dimen/margin12"
             app:drawableEndCompat="@drawable/ic_icons_light_next"
             android:layout_marginStart="@dimen/margin12"
             app:layout_constraintBottom_toBottomOf="@+id/text_mobile_title"
@@ -552,19 +553,19 @@
             android:fontFamily="@font/sf_pro_text_regular"
             android:textColorHint="@color/white"
             app:boxStrokeColor="@color/edittext_profile"
-            app:layout_constraintBottom_toBottomOf="@+id/enter_mobile_code"
+            app:layout_constraintBottom_toBottomOf="@+id/text_mobile_title"
             app:layout_constraintEnd_toEndOf="@+id/view_mobile1"
             app:layout_constraintHorizontal_weight="3"
             app:layout_constraintStart_toEndOf="@+id/enter_mobile_code"
-            app:layout_constraintTop_toTopOf="@+id/enter_mobile_code">
+            app:layout_constraintTop_toTopOf="@+id/text_mobile_title">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/enter_mobile_numbers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
-                android:focusableInTouchMode="true"
                 android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:inputType="phone"
                 android:lineSpacingExtra="1.8sp"
                 android:maxLength="12"
@@ -582,7 +583,7 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_marginTop="2dp"
-            android:background="@color/view_bg_color_line"
+            android:background="@color/lineColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_mobile1" />
@@ -642,7 +643,7 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_marginTop="2dp"
-            android:background="@color/view_bg_color_line"
+            android:background="@color/lineColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_date_of_birth" />
@@ -725,7 +726,7 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_marginTop="-2dp"
-            android:background="@color/view_bg_color_line"
+            android:background="@color/lineColor"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -794,7 +795,7 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_marginTop="2dp"
-            android:background="@color/view_bg_color_line"
+            android:background="@color/lineColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_city" />

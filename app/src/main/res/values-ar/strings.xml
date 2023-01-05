@@ -364,8 +364,8 @@
     <string name="youtube_api_key" translatable="false">AIzaSyAD0AZTCMULaXpQfulSKNWuLlLl-nbdSf0</string>
     <string name="select_payment_methods">حدد طرق الدفع</string>
     <string name="offer_applied_for_1_ticket">يسري العرض على تذكرة واحدة *</string>
-    <string name="enterUserName">Fix</string>
-    <string name="enterUserNames">الرجاء إدخال اسم مستخدم الجوال.</string>
+    <string name="enterUserName">يصلح</string>
+    <string name="enterUserNames">الرجاء ادخال اسم المستخدم.</string>
     <string name="enterCity">الرجاء إدخال اسم المدينة.</string>
     <string name="enterDobs">يجب أن يكون عمرك 12 سنة.</string>
     <string name="enterPasswprd">الرجاء إدخال كلمة المرور القديمة.</string>
