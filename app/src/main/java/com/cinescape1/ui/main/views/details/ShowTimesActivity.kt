@@ -70,6 +70,7 @@ import kotlinx.android.synthetic.main.show_times_layout_include.*
 import javax.inject.Inject
 import kotlin.math.abs
 
+
 @Suppress("DEPRECATION", "NAME_SHADOWING")
 class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewItemClickListener,
     AdapterShowTimesCinemaTitle.CinemaAdapterListener, AdapterCinemaSessionScroll.LocationListener,

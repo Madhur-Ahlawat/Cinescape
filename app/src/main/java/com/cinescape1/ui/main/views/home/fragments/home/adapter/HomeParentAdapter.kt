@@ -31,8 +31,9 @@ import kotlin.math.abs
 class HomeParentAdapter(
     private var mContext: Activity,
     private var homeDataList: ArrayList<HomeDataResponse.HomeOne>,
-    var listener: RecycleViewItemClickListener, var listenerTypeface : TypeFaceInter) :
-    RecyclerView.Adapter<HomeParentAdapter.MyViewHolder>(),HomeChildAdapter.ImageChangeIcon {
+    var listener: RecycleViewItemClickListener,
+    var listenerTypeface: TypeFaceInter
+) : RecyclerView.Adapter<HomeParentAdapter.MyViewHolder>(), HomeChildAdapter.ImageChangeIcon {
     var adapter: HomeChildAdapter? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -62,54 +63,54 @@ class HomeParentAdapter(
                 holder.viewpagerBack.adapter = sliderBackAdapter
                 holder.viewpagerBack.setPagingEnabled(false)
 
-                if (Constant.LANGUAGE == "ar"){
+                if (Constant.LANGUAGE == "ar") {
                     LocaleHelper.setLocale(mContext, "ar")
-                }else{
+                } else {
 
                 }
-
-                holder.viewpager.adapter = HomeFrontSliderAdapter(mContext, obj.movieData,holder.viewpager)
+                val pagerAdapter = HomeFrontSliderAdapter(mContext, obj.movieData, holder.viewpager)
+                holder.viewpager.adapter = pagerAdapter
                 holder.viewpager.offscreenPageLimit = 3
                 holder.viewpager.clipChildren = false
                 holder.viewpager.clipToPadding = false
                 holder.viewpager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
                 val transfer = CompositePageTransformer()
-                val nextItemVisiblePx = mContext.resources.getDimension(R.dimen.viewpager_next_item_visible)
-                val currentItemHorizontalMarginPx = mContext.resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
+                val nextItemVisiblePx =
+                    mContext.resources.getDimension(R.dimen.viewpager_next_item_visible)
+                val currentItemHorizontalMarginPx =
+                    mContext.resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
                 val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
                 transfer.addTransformer(object : ViewPager2.PageTransformer,
                     androidx.viewpager2.widget.ViewPager2.PageTransformer {
                     override fun transformPage(page: View, position: Float) {
-                        val r = 1- abs(position)
+                        val r = 1 - abs(position)
                         page.translationX = -pageTranslationX * position
                         page.scaleY = 1 - (0.35f * abs(position))
                     }
                 })
                 holder.viewpager.setPageTransformer(transfer)
 
-                val currentItem=obj.movieData.size+2
-
-                holder.viewpager.registerOnPageChangeCallback(object : androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback() {
+                var index = 0
+                holder.viewpager.registerOnPageChangeCallback(object :
+                    androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback() {
                     override fun onPageSelected(position: Int) {
                         super.onPageSelected(position)
+                        index = position
                         Constant.select_pos = position
                     }
 
                     override fun onPageScrollStateChanged(state: Int) {
                         super.onPageScrollStateChanged(state)
-                        if (state == ViewPager2.SCROLL_STATE_IDLE  || state == ViewPager2.SCROLL_STATE_DRAGGING) {
-//                            if (currentItem==0){
-//                                holder.viewpager.setCurrentItem(-2, true)
-//                            }else if (currentItem == obj.movieData.size -1){
-//                                holder.viewpager.setCurrentItem( 1, false)
-//                            }
-                            when (holder.viewpager.currentItem) {
-                                currentItem - 1 -> holder.viewpager.setCurrentItem(1, true)
-                                0 -> holder.viewpager.setCurrentItem(currentItem - 2, false)
-                            }
+                        if (state == ViewPager.SCROLL_STATE_IDLE) {
+//                            val index: Int = holder.viewpager.currentItem
+                            if (index == 0) holder.viewpager.setCurrentItem(
+                                pagerAdapter.itemCount - 1, false
+                            ) else if (index == pagerAdapter.itemCount - 1)
+                                holder.viewpager.setCurrentItem(0, false)
                         }
                     }
                 })
+
             }
 
             "advance" -> {
@@ -124,7 +125,7 @@ class HomeParentAdapter(
                 holder.myTabLayout.setupWithViewPager(holder.sliderAdvance, true)
             }
             "homeOnes" -> {
-                holder.homeList.isLayoutFrozen= false
+                holder.homeList.isLayoutFrozen = false
                 val gridLayout = GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
                 holder.homeList.layoutManager = LinearLayoutManager(mContext)
                 adapter = HomeChildAdapter(mContext, movieDataList, 1, true, this)
@@ -138,8 +139,9 @@ class HomeParentAdapter(
                     holder.homeTitle.show()
                     holder.homeList.show()
                     holder.viewpager.hide()
-                    holder.homeList.isLayoutFrozen= false
-                    val gridLayout = GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
+                    holder.homeList.isLayoutFrozen = false
+                    val gridLayout =
+                        GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
                     holder.homeList.layoutManager = LinearLayoutManager(mContext)
                     val adapter = OfferAdapter(mContext, obj.offers)
                     holder.homeList.layoutManager = gridLayout
@@ -151,7 +153,7 @@ class HomeParentAdapter(
                         mContext.startActivity(intent)
                     }
 
-                } catch (e:Exception){
+                } catch (e: Exception) {
                     println("errorOffer--->${e.message}")
                 }
 
@@ -161,7 +163,7 @@ class HomeParentAdapter(
                 holder.homeTitle.show()
                 holder.homeList.show()
                 holder.viewpager.hide()
-                holder.homeList.isLayoutFrozen= false
+                holder.homeList.isLayoutFrozen = false
                 holder.itemView.show()
                 holder.txtSeeAll.hide()
 
@@ -178,21 +180,21 @@ class HomeParentAdapter(
                     holder.homeTitle.show()
                     holder.homeList.show()
                     holder.viewpager.hide()
-                    holder.homeList.isLayoutFrozen= false
+                    holder.homeList.isLayoutFrozen = false
                     holder.itemView.show()
                     holder.txtSeeAll.show()
 
                     val gridLayout =
                         GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
                     holder.homeList.layoutManager = LinearLayoutManager(mContext)
-                    adapter = HomeChildAdapter(mContext, obj.movieData, 1,true, this)
+                    adapter = HomeChildAdapter(mContext, obj.movieData, 1, true, this)
                     holder.homeList.layoutManager = gridLayout
                     holder.homeList.adapter = adapter
                     holder.txtSeeAll.setOnClickListener {
                         if (obj.name == mContext.getString(R.string.commingSoon)) {
                             SEE_ALL_TYPE = 1
                             listener.onSeeAllClick(1)
-                        }else{
+                        } else {
                             listener.onSeeAllClick(0)
                             SEE_ALL_TYPE = 0
                         }
@@ -207,11 +209,12 @@ class HomeParentAdapter(
                     holder.homeTitle.show()
                     holder.homeList.show()
                     holder.viewpager.hide()
-                    holder.homeList.isLayoutFrozen= false
+                    holder.homeList.isLayoutFrozen = false
                     holder.itemView.show()
                     holder.txtSeeAll.hide()
 
-                    val gridLayout = GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
+                    val gridLayout =
+                        GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
                     holder.homeList.layoutManager = LinearLayoutManager(mContext)
                     adapter = HomeChildAdapter(mContext, obj.movieData, 1, false, this)
                     holder.homeList.layoutManager = gridLayout
@@ -220,7 +223,7 @@ class HomeParentAdapter(
                         if (obj.name == mContext.getString(R.string.commingSoon)) {
                             SEE_ALL_TYPE = 1
                             listener.onSeeAllClick(1)
-                        }else{
+                        } else {
                             listener.onSeeAllClick(0)
                             SEE_ALL_TYPE = 0
                         }
@@ -249,14 +252,15 @@ class HomeParentAdapter(
     }
 
     interface RecycleViewItemClickListener {
-        fun onSeeAllClick(type:Int)
+        fun onSeeAllClick(type: Int)
     }
 
-    interface TypeFaceInter{
-       fun typeFace(homeTitle : TextView, txtSeeAll : TextView)
+    interface TypeFaceInter {
+        fun typeFace(homeTitle: TextView, txtSeeAll: TextView)
     }
 
     override fun arabicClick(imgArabic: ImageView) {
 
     }
+
 }

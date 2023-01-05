@@ -372,7 +372,6 @@ class HomeActivity : DaggerAppCompatActivity(),
                                 .with(this)
                                 .load(R.drawable.four_dx)
                                 .into(mDialogView.text_experience_name)
-
                         }
                         "STANDARD" -> {
                             Glide

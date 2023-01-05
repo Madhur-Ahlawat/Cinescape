@@ -239,6 +239,7 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
             val adapter = HomeParentAdapter(requireActivity(), homeData,this, this)
             mainList?.layoutManager = gridLayout
             mainList?.adapter = adapter
+            mainList?.overScrollMode = View.OVER_SCROLL_NEVER
             binding?.homeShimmer?.hide()
             binding?.homeUi?.show()
         } catch (e: Exception) {
