@@ -10,12 +10,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.MoviesResponse
-import com.cinescape1.ui.main.views.details.ShowTimesActivity
+import com.cinescape1.ui.main.views.details.nowShowing.ShowTimesActivity
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.LocaleHelper
 import com.cinescape1.utils.hide

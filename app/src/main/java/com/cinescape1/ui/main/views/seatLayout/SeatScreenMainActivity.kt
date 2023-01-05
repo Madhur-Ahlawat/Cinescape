@@ -34,7 +34,7 @@ import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.adapters.CinemaSeatPagerAdapter
 import com.cinescape1.ui.main.views.adapters.cinemaSessionAdapters.AdapterCinemaSessionScroll
 import com.cinescape1.ui.main.views.adapters.seatlayout.SeatShowTimesCinemaAdapter
-import com.cinescape1.ui.main.views.details.ShowTimesActivity
+import com.cinescape1.ui.main.views.details.nowShowing.ShowTimesActivity
 import com.cinescape1.ui.main.views.food.FoodActivity
 import com.cinescape1.ui.main.views.login.LoginActivity
 import com.cinescape1.ui.main.views.seatLayout.viewModel.SeatScreenMainViewModel

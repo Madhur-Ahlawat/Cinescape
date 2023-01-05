@@ -1,8 +1,8 @@
-package com.cinescape1.ui.main.views.details.module
+package com.cinescape1.ui.main.views.details.nowShowing.module
 
 import androidx.lifecycle.ViewModel
 import com.cinescape1.di.ViewModelKey
-import com.cinescape1.ui.main.views.details.viewModel.ShowTimesViewModel
+import com.cinescape1.ui.main.views.details.nowShowing.viewModel.ShowTimesViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

@@ -6,19 +6,20 @@
     android:layout_width="match_parent"
     android:id="@+id/container"
     android:layout_height="wrap_content">
-
+<!--title-->
     <TextView
         android:id="@+id/home_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin16"
-        android:layout_marginTop="@dimen/margin15"
+        android:layout_marginTop="@dimen/margin25"
         android:fontFamily="@font/sf_pro_text_bold"
         android:textColor="@color/white"
         android:textSize="@dimen/size15"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
+<!--See All-->
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
@@ -33,12 +34,13 @@
         tools:ignore="TextContrastCheck"
         tools:text="TextView" />
 
+<!--MovieList-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/homeList"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin17"
-        android:layout_marginTop="@dimen/margin4"
+        android:layout_marginTop="@dimen/margin17"
         android:orientation="horizontal"
         android:overScrollMode="never"
         android:nestedScrollingEnabled="false"
@@ -52,30 +54,7 @@
         tools:itemCount="3"
         tools:listitem="@layout/recommended_item" />
 
-    <com.cinescape1.utils.CustomViewPager
-        android:id="@+id/viewpagerBack"
-        android:layout_width="match_parent"
-        android:layout_height="420dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/movie_default"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/viewpagerBack"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/viewpagerBack"
-        tools:ignore="ContentDescription" />
-
+<!--Slider Front-->
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
@@ -89,13 +68,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/viewpagerBack" />
 
+    <!--Background Slider-->
+    <com.cinescape1.utils.CustomViewPager
+        android:id="@+id/viewpagerBack"
+        android:layout_width="match_parent"
+        android:layout_height="420dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="SpeakableTextPresentCheck" />
 
+<!--Advance Booking -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/consAdvance"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin15"
-        android:layout_marginTop="@dimen/margin8"
+        android:layout_marginTop="@dimen/margin17"
         android:layout_marginEnd="@dimen/margin15"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
@@ -115,7 +108,8 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/my_tablayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="10dp"
+            android:layout_marginTop="@dimen/margin15"
             android:background="@color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

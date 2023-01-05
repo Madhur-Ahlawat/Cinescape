@@ -1,6 +1,5 @@
 package com.cinescape1.ui.main.views.adapters
 import android.annotation.SuppressLint
-import android.app.ActionBar
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
@@ -8,15 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.marginTop
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.HomeDataResponse
-import com.cinescape1.ui.main.views.details.ShowTimesActivity
+import com.cinescape1.ui.main.views.details.nowShowing.ShowTimesActivity
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.LocaleHelper
 import com.cinescape1.utils.hide

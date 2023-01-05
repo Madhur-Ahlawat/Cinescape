@@ -6,10 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.HomeDataResponse
-import com.cinescape1.ui.main.views.details.ShowTimesActivity
+import com.cinescape1.ui.main.views.details.nowShowing.ShowTimesActivity
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.Constant.Companion.select_pos
 import com.github.islamkhsh.CardSliderAdapter

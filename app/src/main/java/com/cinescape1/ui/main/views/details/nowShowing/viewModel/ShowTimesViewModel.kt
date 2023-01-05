@@ -1,4 +1,4 @@
-package com.cinescape1.ui.main.views.cinemaLocation.viewModel
+package com.cinescape1.ui.main.views.details.nowShowing.viewModel
 
 import android.app.Activity
 import androidx.lifecycle.ViewModel
@@ -11,7 +11,25 @@ import com.cinescape1.utils.Status
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
-class CinemaLocationViewModel  @Inject constructor(private val repositories: Repositories) : ViewModel() {
+class ShowTimesViewModel  @Inject constructor(private val repositories: Repositories) : ViewModel() {
+
+    fun getMsessionsNew(context: Activity, request: CinemaSessionRequest) = liveData(Dispatchers.IO) {
+        emit(Result.loading(data = null))
+        try {
+            emit(Result.success(data = repositories.getMsessionsNew(request)))
+        } catch (exception: Exception) {
+            emit(Result.error(exception.message ?: "Error Occurred!", data = null))
+        }
+    }
+
+    fun movieDetails(movieId: String) = liveData(Dispatchers.IO) {
+        emit(Result.loading(data = null))
+        try {
+            emit(Result.success(data = repositories.movieDetails(movieId)))
+        } catch (exception: Exception) {
+            emit(Result.error(exception.message ?: "Error Occurred!", data = null))
+        }
+    }
 
     fun getCinemaData(context: Activity, request: CinemaSessionRequest) = liveData(Dispatchers.IO) {
         emit(Result.loading(data = null))
@@ -41,4 +59,6 @@ class CinemaLocationViewModel  @Inject constructor(private val repositories: Rep
             emit(Result.error(exception.message ?: "Error Occurred!", data = null))
         }
     }
+
+
 }

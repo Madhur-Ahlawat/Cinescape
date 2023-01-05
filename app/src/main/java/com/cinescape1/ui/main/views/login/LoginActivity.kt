@@ -35,7 +35,7 @@ import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.*
 import com.cinescape1.ui.main.views.activeWallet.ActivateWalletActivity
 import com.cinescape1.ui.main.views.adapters.CountryCodeAdapter
-import com.cinescape1.ui.main.views.details.ShowTimesActivity
+import com.cinescape1.ui.main.views.details.nowShowing.ShowTimesActivity
 import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.ui.main.views.login.guest.ContinueGuestActivity
 import com.cinescape1.ui.main.views.login.otpVerification.OtpVerificationActivity

@@ -7,14 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.MoviesResponse
-import com.cinescape1.ui.main.views.details.ShowTimesActivity
+import com.cinescape1.ui.main.views.details.commingSoon.ComingSoonActivity
 import com.cinescape1.utils.Constant
-import com.cinescape1.utils.hide
 
 class ComingSoonChildAdapter(val comingSoon: ArrayList<MoviesResponse.ComingSoons>, val mContext: Context) :
     RecyclerView.Adapter<ComingSoonChildAdapter.MyViewHolderNowShowing>() {
@@ -35,7 +33,7 @@ class ComingSoonChildAdapter(val comingSoon: ArrayList<MoviesResponse.ComingSoon
 
 
         holder.thumbnail.setOnClickListener {
-            val intent = Intent(holder.thumbnail.context, ShowTimesActivity::class.java)
+            val intent = Intent(holder.thumbnail.context, ComingSoonActivity::class.java)
             intent.putExtra(Constant.IntentKey.MOVIE_ID, comingSoonItem.id)
             intent.putExtra("type", "comingSoon")
             holder.thumbnail.context.startActivity(intent)

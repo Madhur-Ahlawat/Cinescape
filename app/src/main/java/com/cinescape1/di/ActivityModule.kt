@@ -3,17 +3,18 @@ package com.cinescape1.di
 import com.cinescape1.di.scoped.ActivityScoped
 import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
 import com.cinescape1.ui.main.modules.*
-import com.cinescape1.ui.main.views.*
 import com.cinescape1.ui.main.views.activeWallet.ActivateWalletActivity
 import com.cinescape1.ui.main.views.activeWallet.module.ActivateWalletModule
-import com.cinescape1.ui.main.views.details.ShowTimesActivity
-import com.cinescape1.ui.main.views.details.module.CinemaLocationModule
-import com.cinescape1.ui.main.views.details.module.ShowTimesModule
+import com.cinescape1.ui.main.views.details.nowShowing.ShowTimesActivity
+import com.cinescape1.ui.main.views.details.nowShowing.module.CinemaLocationModule
+import com.cinescape1.ui.main.views.details.nowShowing.module.ShowTimesModule
 import com.cinescape1.ui.main.views.finalTicket.module.FinalTicketModule
 import com.cinescape1.ui.main.views.food.FoodActivity
 import com.cinescape1.ui.main.views.food.module.FoodModule
 import com.cinescape1.ui.main.views.home.HomeActivity
-import com.cinescape1.ui.main.views.cinemaLocation.CinemaLocationActivity
+import com.cinescape1.ui.main.views.details.cinemaLocation.CinemaLocationActivity
+import com.cinescape1.ui.main.views.details.commingSoon.ComingSoonActivity
+import com.cinescape1.ui.main.views.details.commingSoon.module.ComingSoonModule
 import com.cinescape1.ui.main.views.home.fragments.home.offerDetails.OfferDetailsActivity
 import com.cinescape1.ui.main.views.login.LoginActivity
 import com.cinescape1.ui.main.views.login.resetPassword.ResetPasswordActivity
@@ -128,6 +129,10 @@ abstract class ActivityModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [PaymentListModule::class])
     abstract fun paymentListActivity(): PaymentListActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [ComingSoonModule::class])
+    abstract fun comActivity(): ComingSoonActivity
 
 
 }

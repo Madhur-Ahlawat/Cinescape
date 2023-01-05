@@ -1,22 +1,5 @@
 package com.cinescape1.ui.main.views.adapters.moviesFragmentAdapter
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.content.Intent
-import android.graphics.Color
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.cardview.widget.CardView
-import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.cinescape1.R
-import com.cinescape1.data.models.responseModel.MoviesResponse
-import com.cinescape1.ui.main.views.details.ShowTimesActivity
-import com.cinescape1.utils.Constant
-
 //class AdapterNowShowing(private var nowShowingList: ArrayList<MoviesResponse.Nowshowing>,context:Context) :
 //    RecyclerView.Adapter<AdapterNowShowing.MyViewHolderNowShowing>() {
 //    private var mContext = context

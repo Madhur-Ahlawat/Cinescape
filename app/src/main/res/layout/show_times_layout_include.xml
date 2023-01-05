@@ -48,6 +48,9 @@
                 android:id="@+id/recyclerview_show_times_cast"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/movie_coming_soon_info_cast_item"
                 android:layout_marginTop="12dp"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="@+id/view20"
@@ -188,22 +191,6 @@
                 tools:text="James Bond has left active service. His peace is short-lived when Felix Leiter, an old friend from the CIA, turns up asking for help, leading Bond onto the trail of a mysterious villain armed with dangerous new technology. " />
 
             <TextView
-                android:visibility="gone"
-                android:id="@+id/textView6"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:fontFamily="@font/sf_pro_text_heavy"
-                android:letterSpacing="-0.01"
-                android:text="@string/movieShowing"
-                android:textColor="@color/white"
-                android:textSize="@dimen/size16"
-                android:textStyle="normal"
-                app:layout_constraintEnd_toEndOf="@+id/text_sysnopsis_detail"
-                app:layout_constraintStart_toStartOf="@+id/text_sysnopsis_detail"
-                app:layout_constraintTop_toBottomOf="@+id/text_sysnopsis_detail" />
-
-            <TextView
                 android:id="@+id/textView122"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -228,6 +215,23 @@
                 app:layout_constraintEnd_toEndOf="@+id/view21"
                 app:layout_constraintStart_toStartOf="@+id/textView122"
                 app:layout_constraintTop_toTopOf="@+id/textView10" />
+
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/textView6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/sf_pro_text_heavy"
+                android:letterSpacing="-0.01"
+                android:text="@string/movieShowing"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size16"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="@+id/text_sysnopsis_detail"
+                app:layout_constraintStart_toStartOf="@+id/text_sysnopsis_detail"
+                app:layout_constraintTop_toBottomOf="@+id/text_sysnopsis_detail" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:visibility="gone"

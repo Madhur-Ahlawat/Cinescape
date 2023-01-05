@@ -1,4 +1,4 @@
-package com.cinescape1.ui.main.views.details
+package com.cinescape1.ui.main.views.details.nowShowing
 
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -51,7 +51,7 @@ import com.cinescape1.ui.main.views.adapters.cinemaSessionAdapters.AdapterCinema
 import com.cinescape1.ui.main.views.adapters.showTimesAdapters.AdapterShowTimesCinemaTitle
 import com.cinescape1.ui.main.views.adapters.showTimesAdapters.AdpaterShowTimesCast
 import com.cinescape1.ui.main.views.details.adapter.SimilarMovieAdapter
-import com.cinescape1.ui.main.views.details.viewModel.ShowTimesViewModel
+import com.cinescape1.ui.main.views.details.nowShowing.viewModel.ShowTimesViewModel
 import com.cinescape1.ui.main.views.login.LoginActivity
 import com.cinescape1.ui.main.views.payment.PaymentWebActivity
 import com.cinescape1.ui.main.views.player.PlayerActivity
@@ -711,14 +711,11 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
     @SuppressLint("SetTextI18n")
     private fun setShowTimesCastAdapter(movie: CinemaSessionResponse.Movie) {
-        println("")
         text_genres.text = movie.genre
         textView10.text = movie.language
         textView123.text = movie.subTitle
         text_sysnopsis_detail.text = movie.synopsis
         text_directoe_name.text = movie.director.firstName + " " + movie.director.lastName
-        println("cast---->${movie.cast}")
-
         if (movie.cast.isNotEmpty()) {
             text_cast.show()
             binding?.include?.recyclerviewShowTimesCast?.show()

@@ -95,7 +95,7 @@
                                 android:id="@+id/text13"
                                 android:layout_width="32dp"
                                 android:layout_height="@dimen/margin17"
-                                android:fontFamily="@font/sf_pro_text_regular"
+                                android:fontFamily="@font/sf_pro_text_bold"
                                 android:gravity="center"
                                 android:includeFontPadding="false"
                                 android:textColor="@color/white"

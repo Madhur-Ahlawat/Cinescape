@@ -1,4 +1,4 @@
-package com.cinescape1.ui.main.views.cinemaLocation
+package com.cinescape1.ui.main.views.details.cinemaLocation
 
 import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
@@ -37,7 +37,7 @@ import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.adapters.CinemaDayAdapter
 import com.cinescape1.ui.main.views.adapters.cinemaSessionAdapters.AdapterCinemaSessionScroll
-import com.cinescape1.ui.main.views.cinemaLocation.viewModel.CinemaLocationViewModel
+import com.cinescape1.ui.main.views.details.cinemaLocation.viewModel.CinemaLocationViewModel
 import com.cinescape1.ui.main.views.login.LoginActivity
 import com.cinescape1.ui.main.views.payment.PaymentWebActivity
 import com.cinescape1.ui.main.views.seatLayout.SeatScreenMainActivity
