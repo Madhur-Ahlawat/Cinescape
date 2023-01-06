@@ -24,7 +24,6 @@ import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 import kotlinx.android.synthetic.main.alert_booking.view.*
 
-
 class UpcomingBookingAdapter(
     private val context: Context,
     private var upcomingBookingList: ArrayList<NextBookingResponse.Current> ,

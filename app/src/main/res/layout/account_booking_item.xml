@@ -83,6 +83,7 @@
                     android:layout_width="@dimen/margin32"
                     android:layout_height="@dimen/margin17"
                     app:cardCornerRadius="@dimen/margin3"
+                    android:background="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_seat_film_title">
