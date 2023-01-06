@@ -15,7 +15,7 @@ import com.cinescape1.data.models.responseModel.CinemaSessionResponse
 class AdpaterShowTimesCast(
     private val mContext: Activity,
     private var showTimesCasCastList: ArrayList<CinemaSessionResponse.Cast>,
-   var listener :TypeFaceListenerShowTime ) :
+    var listener :TypeFaceListenerShowTime ) :
     RecyclerView.Adapter<AdpaterShowTimesCast.MyViewHolderShowTimesCast>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderShowTimesCast {

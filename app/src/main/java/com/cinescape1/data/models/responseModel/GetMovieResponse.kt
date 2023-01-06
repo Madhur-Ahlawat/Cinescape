@@ -13,7 +13,7 @@ data class GetMovieResponse(
         val similar: ArrayList<Similar>
     ):Serializable{
         data class Movie(
-            val cast: List<Any>,
+            val cast: ArrayList<CinemaSessionResponse.Cast>,
             val comingSoon: Boolean,
             val director: Director,
             val distributorName: String,
