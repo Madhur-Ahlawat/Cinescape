@@ -28,15 +28,12 @@ class UpcomingBookingAdapter(
     private val context: Context,
     private var upcomingBookingList: ArrayList<NextBookingResponse.Current> ,
     private var listener: RecycleViewItemClickListener,
-    private var listenerMail: ReesendMailItemClickListener,
-
-    ) :
+    private var listenerMail: ReesendMailItemClickListener) :
     RecyclerView.Adapter<UpcomingBookingAdapter.MyViewHolderUpcomingBooking>() {
     private var mContext = context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderUpcomingBooking {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.account_booking_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.account_booking_item, parent, false)
         return MyViewHolderUpcomingBooking(view)
     }
 
@@ -130,7 +127,6 @@ class UpcomingBookingAdapter(
             holder.cardView.hide()
         } else {
             holder.cardView.show()
-
         }
 
         if (foodSelctedItem.addFood==true) {

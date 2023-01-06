@@ -606,7 +606,7 @@
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="2sp"
             android:paddingStart="@dimen/margin4"
-            android:paddingEnd="@dimen/margin10"
+            android:paddingEnd="@dimen/margin2"
             android:text="@string/date_of_birth"
             android:textColor="@color/hint_color"
             android:textSize="@dimen/size14"

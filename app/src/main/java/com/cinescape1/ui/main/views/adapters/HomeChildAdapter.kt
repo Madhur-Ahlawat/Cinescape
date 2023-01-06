@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.HomeDataResponse
+import com.cinescape1.ui.main.views.details.commingSoon.ComingSoonActivity
 import com.cinescape1.ui.main.views.details.nowShowing.ShowTimesActivity
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.LocaleHelper
@@ -106,18 +107,24 @@ class HomeChildAdapter(
                 }
 
                 if (comingSoon) {
+
                     holder.thumbnail.setOnClickListener {
-                        val intent = Intent(holder.thumbnail.context, ShowTimesActivity::class.java)
+                        val intent = Intent(holder.thumbnail.context, ComingSoonActivity::class.java)
                         intent.putExtra(Constant.IntentKey.MOVIE_ID, photoItem.id)
                         intent.putExtra("type", "comingSoon")
+                        println("ComingSoonActivity2121--------->${"yes1"}")
                         holder.thumbnail.context.startActivity(intent)
                     }
+
                 } else {
+
                     holder.thumbnail.setOnClickListener {
+                        println("ComingSoonActivity2121--------->${"No1"}")
                         val intent = Intent(holder.thumbnail.context, ShowTimesActivity::class.java)
                         intent.putExtra(Constant.IntentKey.MOVIE_ID, photoItem.id)
                         holder.thumbnail.context.startActivity(intent)
                     }
+
                 }
 
 

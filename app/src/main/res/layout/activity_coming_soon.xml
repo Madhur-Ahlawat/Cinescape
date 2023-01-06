@@ -46,6 +46,18 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
 
+
+        <ImageView
+            android:id="@+id/imageBack"
+            android:layout_width="@dimen/margin40"
+            android:layout_height="@dimen/margin20"
+            android:layout_marginTop="@dimen/margin40"
+            android:layout_marginStart="@dimen/margin30"
+            app:layout_constraintStart_toStartOf="@+id/view66"
+            app:layout_constraintTop_toTopOf="@+id/view66"
+            app:srcCompat="@drawable/ic_back_button"
+            tools:ignore="ContentDescription" />
+
         <ImageView
             android:id="@+id/imageView26"
             android:layout_width="wrap_content"
@@ -204,6 +216,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/size13"
                 app:layout_constraintEnd_toStartOf="@+id/titleView"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
                 tools:ignore="HardcodedText"
@@ -234,6 +247,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout30"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginStart="16dp"

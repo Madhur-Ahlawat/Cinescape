@@ -9,9 +9,9 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import android.location.Location
 import android.net.ConnectivityManager
 import android.os.Bundle
@@ -33,6 +33,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.cardinalcommerce.cardinalmobilesdk.Cardinal
 import com.cardinalcommerce.cardinalmobilesdk.enums.CardinalEnvironment
 import com.cardinalcommerce.cardinalmobilesdk.enums.CardinalRenderType
@@ -92,12 +95,14 @@ import kotlinx.android.synthetic.main.checkout_creditcart_payment_alert.*
 import kotlinx.android.synthetic.main.fragment_account_page.*
 import kotlinx.android.synthetic.main.item_contactus.*
 import kotlinx.android.synthetic.main.seat_category_item.*
+import okhttp3.internal.notify
 import org.json.JSONArray
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+
 
 @Suppress("DEPRECATION")
 class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemClickListener,
@@ -1016,7 +1021,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     })
                 dialog.show()
             } else {
-
                 updateAccount(
                     UpdateAccountRequest(
                         enter_city.text.toString(),
@@ -1033,8 +1037,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             }
 
         }
-
-
 
         enter_date_births.setOnClickListener {
 
@@ -1103,20 +1105,17 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     fun Data(date: String?): Int {
         if (!TextUtils.isEmpty(date)) {
             val cal = Calendar.getInstance()
-            val dateInString = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(Date())
-                .format(cal.time)
+            val dateInString = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(Date()).format(cal.time)
             val formatter = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH)
             println("dateInString---$formatter")
             var parsedDate: Date? = null
             var Date: Date? = null
-
             try {
                 parsedDate = formatter.parse(dateInString)
                 Date = formatter.parse(date)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-
             if (parsedDate != null && Date != null) {
                 return getDiffYears(Date, parsedDate)
             }
@@ -2255,6 +2254,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     for (items in listFA){
                         println("SeatListClick22222 ------------->2")
                         Glide.with(this).load(items.imgCate).placeholder(R.drawable.family_active).into(categoryImage)
+//                        categoryImage.setImageResource(R.drawable.family_active)
                     }
                     categoryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_alert_color_red))
                 }
@@ -2263,6 +2263,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     for (items in listBA){
                         println("SeatListClick22222 ------------->22")
                         Glide.with(this).load(items.imgCate).placeholder(R.drawable.family_n_active).into(categoryImage)
+//                        categoryImage.setImageResource(R.drawable.family_n_active)
                     }
                     categoryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_alert_color_red))
                 }
@@ -2354,15 +2355,28 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     if (item.cateTypeText == "Family") {
                         for (items in listFA) {
                             println("SeatListClick22222 ------------->listFA2")
-                            seatTypeCheck = 1
-                            Glide.with(this).load(items.imgCate).placeholder(R.drawable.family_active).into(categoryImage)
+//                            seatTypeCheck = 1
+                            Glide.with(this).load(items.imgCate).dontAnimate().placeholder(R.drawable.family_active).into(categoryImage)
                         }
                     }
 
                     if (item.cateTypeText == "Bachelor") {
                         for (items in listBA) {
                             println("SeatListClick22222 ------------->listBA2")
-                            Glide.with(this).load(items.imgCate).placeholder(R.drawable.family_n_active).into(categoryImage)
+                            Glide.with(this).load(items.imgCate).dontAnimate().placeholder(R.drawable.family_n_active).into(categoryImage)
+
+//                            GlideApp.with(SOMETHING)
+//                                .load("WHAT")
+//                                .dontAnimate()
+//                                .let { request ->
+//                                    if(imageView.drawable != null) {
+//                                        request.placeholder(imageView.drawable.constantState?.newDrawable()?.mutate())
+//                                    } else {
+//                                        request
+//                                    }
+//                                }
+//                                .into(imageView)
+
                         }
                     }
                     categoryName.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.text_alert_color_red))
@@ -2751,7 +2765,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     }
 
     private fun setBookingHistoryAdapter(output: ArrayList<HistoryResponse.Output>) {
-//        binding?.nestedUi?.show()
+        binding?.nestedUi?.show()
         val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
         binding?.includeHistory?.recyclerviewBookingHistory?.layoutManager = LinearLayoutManager(context)
         val adapter = AdapterBookingHistory(requireActivity(), output, this)
@@ -3094,8 +3108,13 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
                                     include_history.show()
-                                    setBookingHistoryAdapter(it.data.output)
-
+                                    val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
+                                    binding?.includeHistory?.recyclerviewBookingHistory?.layoutManager = LinearLayoutManager(context)
+                                    val adapter = AdapterBookingHistory(requireActivity(), it.data.output, this)
+                                    binding?.includeHistory?.recyclerviewBookingHistory?.layoutManager = gridLayout
+                                    binding?.includeHistory?.recyclerviewBookingHistory?.adapter = adapter
+//                                    setBookingHistoryAdapter(it.data.output)
+                                    println("BookingHistorySuccess-------->${"yes"}")
                                 } catch (e: Exception) {
                                     println("updateUiCinemaSession ---> ${e.message}")
                                 }

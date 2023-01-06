@@ -35,6 +35,7 @@ import javax.inject.Inject
 @Suppress("DEPRECATION")
 class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickListener,
     HomeParentAdapter.TypeFaceInter, HomeChildAdapter.ImageChangeIcon {
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject
@@ -43,7 +44,6 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
     private var binding: FragmentHomeBinding? = null
     private var loader: LoaderDialog? = null
     private var broadcastReceiver: BroadcastReceiver? = null
-
     var homeTitle1: TextView? = null
     var txtSeeAll1: TextView? = null
 
@@ -82,6 +82,7 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
                 homeTitle1?.typeface = bold
                 txtSeeAll1?.typeface = regular
             }
+
             else -> {
                 LocaleHelper.setLocale(requireActivity(), "en")
                 Constant.LANGUAGE = "${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}"
@@ -92,7 +93,6 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
 
                 binding?.textSwitcher?.typeface = regular
                 binding?.textArabic?.typeface = medium
-
                 homeTitle1?.typeface = bold
                 txtSeeAll1?.typeface = regular
 
