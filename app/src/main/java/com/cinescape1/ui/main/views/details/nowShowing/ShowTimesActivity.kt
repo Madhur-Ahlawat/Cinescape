@@ -145,7 +145,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 textView10?.typeface = regular
                 text_synopsis?.typeface = bold
                 text_sysnopsis_detail?.typeface = regular
-
                 textTitle5?.typeface = bold
 
             }
@@ -325,7 +324,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 binding?.search?.layoutParams = params
             }
         }
-
 
         binding?.view68?.setOnClickListener {
             Toast.makeText(

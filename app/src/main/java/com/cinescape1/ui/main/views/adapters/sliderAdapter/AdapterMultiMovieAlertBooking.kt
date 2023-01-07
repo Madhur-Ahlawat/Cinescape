@@ -39,6 +39,7 @@ class AdapterMultiMovieAlertBooking(context: Context,
         holder.title.isSelected = true
 
         holder.title.text = showtimeListItem.moviename
+        holder.title.text = showtimeListItem.moviename
         holder.location.text = showtimeListItem.cinemaname
         holder.screen.text = showtimeListItem.screenId.toString()
         holder.date.text = showtimeListItem.showDate

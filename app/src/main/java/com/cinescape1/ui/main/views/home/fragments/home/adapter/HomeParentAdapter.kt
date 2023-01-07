@@ -184,8 +184,7 @@ class HomeParentAdapter(
                     holder.itemView.show()
                     holder.txtSeeAll.show()
 
-                    val gridLayout =
-                        GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
+                    val gridLayout = GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
                     holder.homeList.layoutManager = LinearLayoutManager(mContext)
                     adapter = HomeChildAdapter(mContext, obj.movieData, 1, true, this)
                     holder.homeList.layoutManager = gridLayout

@@ -36,6 +36,7 @@ class ComingSoonChildAdapter(val comingSoon: ArrayList<MoviesResponse.ComingSoon
             val intent = Intent(holder.thumbnail.context, ComingSoonActivity::class.java)
             intent.putExtra(Constant.IntentKey.MOVIE_ID, comingSoonItem.id)
             intent.putExtra("type", "comingSoon")
+            println("ComingSoonActivity2121--------->${"yes"}")
             holder.thumbnail.context.startActivity(intent)
         }
     }

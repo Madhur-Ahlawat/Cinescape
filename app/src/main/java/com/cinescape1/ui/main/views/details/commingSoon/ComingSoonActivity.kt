@@ -139,6 +139,11 @@ class ComingSoonActivity : DaggerAppCompatActivity(),
 
         setContentView(view)
         movieDetails(intent.getStringExtra(Constant.IntentKey.MOVIE_ID).toString())
+
+        binding?.imageBack?.setOnClickListener {
+            onBackPressed()
+        }
+
     }
 
     private fun movieDetails(movieId: String) {
