@@ -210,6 +210,7 @@ class ComingSoonActivity : DaggerAppCompatActivity(),
         binding?.LayoutTime?.show()
         binding?.textFilmHouseName?.text = output.movie.title
         binding?.textFilmHouseName?.isSelected = true
+
         binding?.view67?.setOnClickListener {
             val shareIntent = Intent(Intent.ACTION_SEND)
             shareIntent.type = "text/plain"
@@ -219,8 +220,8 @@ class ComingSoonActivity : DaggerAppCompatActivity(),
             startActivity(Intent.createChooser(shareIntent, "Share via"))
         }
 
-        if (output.movie.language != null) binding?.textMovieType?.text =
-            "" + output.movie.genre + " | " + output.movie.runTime + " " + getString(
+        if (output.movie.language != null)
+            binding?.textMovieType?.text = "" + output.movie.genre + " | " + output.movie.runTime + " " + getString(
                 R.string.min
             )
 
@@ -235,7 +236,9 @@ class ComingSoonActivity : DaggerAppCompatActivity(),
             }
         }
 
-        Glide.with(this).load(output.movie.mobimgbig).placeholder(R.drawable.movie_details)
+        Glide.with(this)
+            .load(output.movie.mobimgbig)
+            .placeholder(R.drawable.movie_details)
             .into(binding?.imageShow!!)
 
         text_genres.text = output.movie.genre

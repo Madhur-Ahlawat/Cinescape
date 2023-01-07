@@ -36,13 +36,13 @@ import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.databinding.FragmentMoviesBinding
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
-import com.cinescape1.ui.main.views.home.viewModel.HomeViewModel
 import com.cinescape1.ui.main.views.adapters.MovieTypeAdapter
 import com.cinescape1.ui.main.views.adapters.filterAdapter.AdapterFilterTitle
+import com.cinescape1.ui.main.views.adapters.moviesFragmentAdapter.AdvanceBookingAdapter
 import com.cinescape1.ui.main.views.home.fragments.movie.adapter.AdapterComingSoon
 import com.cinescape1.ui.main.views.home.fragments.movie.adapter.AdapterFilterCategory
 import com.cinescape1.ui.main.views.home.fragments.movie.adapter.AdapterNowShowing
-import com.cinescape1.ui.main.views.adapters.moviesFragmentAdapter.AdvanceBookingAdapter
+import com.cinescape1.ui.main.views.home.viewModel.HomeViewModel
 import com.cinescape1.utils.*
 import com.google.android.material.tabs.TabLayout
 import dagger.android.support.DaggerFragment
@@ -52,10 +52,8 @@ import javax.inject.Inject
 
 class MoviesFragment(val type: Int) : DaggerFragment(),
     AdapterFilterCategory.RecycleViewItemClickListener,
-    MovieTypeAdapter.RecycleViewItemClickListener,
-    MovieTypeAdapter.TypeFaceListener,
-    AdvanceBookingAdapter.TypefaceListener1,
-    AdapterComingSoon.TypefaceListener2 {
+    MovieTypeAdapter.RecycleViewItemClickListener, MovieTypeAdapter.TypeFaceListener,
+    AdvanceBookingAdapter.TypefaceListener1, AdapterComingSoon.TypefaceListener2 {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -81,33 +79,31 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
     private var broadcastReceiver: BroadcastReceiver? = null
 
     //Filter Params
-    var filterDataList: ArrayList<FilterTypeModel> = ArrayList()
-    var exp_data = "ALL"
-    var cinema_data = "ALL"
-    var timing_data = "ALL"
-    var rating_data = "ALL"
-    var genre_data = "ALL"
-    var language_data = "ALL"
+    private var filterDataList: ArrayList<FilterTypeModel> = ArrayList()
+    private var expData = "ALL"
+    private var cinemaData = "ALL"
+    private var timingData = "ALL"
+    private var ratingData = "ALL"
+    private var genreData = "ALL"
+    private var languageData = "ALL"
 
     private val list = ArrayList<MovieTypeModel>()
 
-    var textTittle: TextView? = null
+    private var textTittle: TextView? = null
 
-    var movieTitle1: TextView? = null
-    var movieTitle2: TextView? = null
-    var movieCategory1: TextView? = null
-    var type11: TextView? = null
+    private var movieTitle1: TextView? = null
+    private var movieTitle2: TextView? = null
+    private var movieCategory1: TextView? = null
+    private var type11: TextView? = null
 
-    var movieTitle11: TextView? = null
-    var movieCategory11: TextView? = null
-    var type111: TextView? = null
-    var tag11: TextView? = null
+    private var movieTitle11: TextView? = null
+    private var movieCategory11: TextView? = null
+    private var type111: TextView? = null
+    private var tag11: TextView? = null
 
     @SuppressLint("ResourceAsColor")
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentMoviesBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
@@ -237,7 +233,11 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
                 binding?.searchMovie?.layoutParams = params
             }
         }
-        movesData(MovieRequest(cinema_data,exp_data,genre_data,language_data,rating_data, timing_data))
+        movesData(
+            MovieRequest(
+                cinemaData, expData, genreData, languageData, ratingData, timingData
+            )
+        )
         movedNext()
         broadcastReceiver = MyReceiver()
         broadcastIntent()
@@ -245,8 +245,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
 
     private fun broadcastIntent() {
         requireActivity().registerReceiver(
-            broadcastReceiver,
-            IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+            broadcastReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
         )
     }
 
@@ -281,8 +280,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
         movieSearch.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
                 if (movieSearch.compoundDrawables[2] != null) {
-                    if (event.x >= movieSearch.right - movieSearch.left - movieSearch.compoundDrawables[2].bounds.width()
-                    ) {
+                    if (event.x >= movieSearch.right - movieSearch.left - movieSearch.compoundDrawables[2].bounds.width()) {
                         movieSearch.text.clear()
                         searchMovieUi.hide()
                         searchUi.hide()
@@ -300,85 +298,83 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
     }
 
     private fun movesData(movieRequest: MovieRequest) {
-        homeViewModel.getMoviesData(movieRequest)
-            .observe(requireActivity()) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            if (Constant.SUCCESS_CODE == it.data?.data?.code && Constant.status == it.data.data.result) {
-                                try {
-                                    binding?.recyclerType?.show()
-                                    binding?.filterUi?.show()
-                                    moviesResponse = it.data.data
-                                    comingSoonFilter = it.data.data.output.comingsoon
-                                    println("now--->${nowShowingClick}--->Com--->${commingSoonClick}--->Adv--->${advanceClick}")
-                                    if (commingSoonClick){
-                                        comingSoon(it.data.data.output.comingsoon)
-                                    }else if (advanceClick) {
-                                        advanceBooking(moviesResponse?.output?.advanceBooking!!)
-                                    }else if (nowShowingClick){
+        homeViewModel.getMoviesData(movieRequest).observe(requireActivity()) {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        if (Constant.SUCCESS_CODE == it.data?.data?.code && Constant.status == it.data.data.result) {
+                            try {
+                                binding?.recyclerType?.show()
+                                binding?.filterUi?.show()
+                                moviesResponse = it.data.data
+                                comingSoonFilter = it.data.data.output.comingsoon
+                                println("now--->${nowShowingClick}--->Com--->${commingSoonClick}--->Adv--->${advanceClick}")
+                                if (commingSoonClick) {
+                                    comingSoon(it.data.data.output.comingsoon)
+                                } else if (advanceClick) {
+                                    advanceBooking(moviesResponse?.output?.advanceBooking!!)
+                                } else if (nowShowingClick) {
+                                    nowSowing(it.data.data.output.nowshowing)
+                                } else {
+                                    if (Constant.SEE_ALL_TYPE == 0) {
                                         nowSowing(it.data.data.output.nowshowing)
-                                    }else{
-                                        if (Constant.SEE_ALL_TYPE == 0) {
-                                            nowSowing(it.data.data.output.nowshowing)
-                                        } else {
-                                            comingSoon(it.data.data.output.comingsoon)
-                                        }
+                                    } else {
+                                        comingSoon(it.data.data.output.comingsoon)
                                     }
-                                } catch (e: Exception) {
-                                    println("MovieException----${e.message}")
                                 }
-                            } else {
-                                val dialog = OptionDialog(requireActivity(),
-                                    R.mipmap.ic_launcher,
-                                    R.string.app_name,
-                                    it.data?.data?.msg!!,
-                                    positiveBtnText = R.string.ok,
-                                    negativeBtnText = R.string.no,
-                                    positiveClick = {
-
-                                    },
-                                    negativeClick = {
-                                    })
-                                dialog.show()
+                            } catch (e: Exception) {
+                                println("MovieException----${e.message}")
                             }
-                        }
-                        Status.ERROR -> {
-                            loader?.dismiss()
+                        } else {
                             val dialog = OptionDialog(requireActivity(),
                                 R.mipmap.ic_launcher,
                                 R.string.app_name,
-                                it.data?.message ?: "Something went wrong",
+                                it.data?.data?.msg!!,
                                 positiveBtnText = R.string.ok,
                                 negativeBtnText = R.string.no,
                                 positiveClick = {
 
                                 },
-                                negativeClick = {
-                                })
+                                negativeClick = {})
                             dialog.show()
                         }
-                        Status.LOADING -> {
-                            if (isAdded) {
-                                loader = LoaderDialog(R.string.pleasewait)
-                                loader?.show(requireActivity().supportFragmentManager, null)
-                            }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(requireActivity(),
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.data?.message ?: "Something went wrong",
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {
+
+                            },
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                        if (isAdded) {
+                            loader = LoaderDialog(R.string.pleasewait)
+                            loader?.show(requireActivity().supportFragmentManager, null)
                         }
                     }
                 }
             }
+        }
     }
 
     private fun advanceBooking(advanceBooking: List<MoviesResponse.AdvanceBooking>) {
         binding?.filterUi?.hide()
-        if (advanceBooking.isNullOrEmpty()) {
+        if (advanceBooking.isEmpty()) {
             binding?.fragmentMovie?.hide()
             binding?.noData?.show()
         } else {
             binding?.noData?.hide()
             binding?.fragmentMovie?.show()
-            val gridLayout = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+            val gridLayout =
+                GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
             val adapter = AdvanceBookingAdapter(advanceBooking, requireActivity(), this)
             binding?.fragmentMovie?.layoutManager = gridLayout
             binding?.fragmentMovie?.adapter = adapter
@@ -386,11 +382,9 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
     }
 
     private fun comingSoon(comings: ArrayList<MoviesResponse.Comingsoon>) {
-        commingSoonClick= true
-
+        commingSoonClick = true
         val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
         binding?.fragmentMovie?.layoutManager = gridLayout
-
         val comingSoonList: ArrayList<MoviesResponse.Comingsoon>
         if (comings.size > 0) {
             binding?.noData?.hide()
@@ -406,12 +400,11 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             binding?.fragmentMovie?.adapter = adapter
             binding?.noData?.show()
             binding?.fragmentMovie?.hide()
-            toast("No movie available!")
         }
     }
 
     private fun nowSowing(nowShowing: ArrayList<MoviesResponse.Nowshowing>) {
-        commingSoonClick= false
+        commingSoonClick = false
         val gridLayout = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
         binding?.fragmentMovie?.setHasFixedSize(true)
         var comingSoonList: ArrayList<MoviesResponse.Nowshowing>
@@ -475,12 +468,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
         filterDataList = getFinalFilterList(dataList, crossItem)
         movesData(
             MovieRequest(
-                cinema_data,
-                exp_data,
-                genre_data,
-                language_data,
-                rating_data,
-                timing_data
+                cinemaData, expData, genreData, languageData, ratingData, timingData
             )
         )
         if (filterDataList.size > 0) {
@@ -491,7 +479,8 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
 
     private fun updateFilterView(filterDataList: ArrayList<FilterTypeModel>) {
         val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.HORIZONTAL, false)
-        adapterFilterCategory = AdapterFilterCategory(requireActivity(), getList(filterDataList), this)
+        adapterFilterCategory =
+            AdapterFilterCategory(requireActivity(), getList(filterDataList), this)
         binding?.recyclerviewCategory?.layoutManager = gridLayout
         binding?.recyclerviewCategory?.adapter = adapterFilterCategory
     }
@@ -506,8 +495,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
     }
 
     private fun getFinalFilterList(
-        dataList: ArrayList<FilterModel>,
-        crossItem: String
+        dataList: ArrayList<FilterModel>, crossItem: String
     ): ArrayList<FilterTypeModel> {
         val list = ArrayList<FilterTypeModel>()
         val list1 = ArrayList<String>()
@@ -517,63 +505,59 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
         for (data in dataList) {
             when (data.type) {
                 1 -> {
-                    if (data.selectedList.contains(crossItem.split("-")[0]))
-                        data.selectedList.remove(crossItem.split("-")[0])
+                    if (data.selectedList.contains(crossItem.split("-")[0])) data.selectedList.remove(
+                        crossItem.split("-")[0]
+                    )
                     list.add(FilterTypeModel(1, data.selectedList))
-                    exp_data = if (data.selectedList.size == 0)
-                        "ALL"
+                    expData = if (data.selectedList.size == 0) "ALL"
                     else TextUtils.join(",", data.selectedList)
                 }
                 2 -> {
                     println("ExperienceClick2---------->Yes")
 
-                    if (data.selectedList.contains(crossItem))
-                        data.selectedList.remove(crossItem)
+                    if (data.selectedList.contains(crossItem)) data.selectedList.remove(crossItem)
                     for (item in data.selectedList) {
                         list1.add(item.split("-")[1])
                         list11.add(item)
                     }
                     list.add(FilterTypeModel(2, list11))
-                    cinema_data = if (list1.size == 0)
-                        "ALL"
+                    cinemaData = if (list1.size == 0) "ALL"
                     else TextUtils.join(",", list1)
                 }
                 3 -> {
                     println("ExperienceClick3---------->Yes")
-                    if (data.selectedList.contains(crossItem))
-                        data.selectedList.remove(crossItem)
+                    if (data.selectedList.contains(crossItem)) data.selectedList.remove(crossItem)
                     for (item in data.selectedList) {
                         list2.add(item.split("-")[1])
                         list22.add(item)
                     }
                     list.add(FilterTypeModel(3, list22))
-                    timing_data = if (list2.size == 0)
-                        "ALL"
+                    timingData = if (list2.size == 0) "ALL"
                     else TextUtils.join(",", list2)
                 }
                 4 -> {
                     println("ExperienceClick4---------->Yes")
-                    if (data.selectedList.contains(crossItem.split("-")[0]))
-                        data.selectedList.remove(crossItem.split("-")[0])
+                    if (data.selectedList.contains(crossItem.split("-")[0])) data.selectedList.remove(
+                        crossItem.split("-")[0]
+                    )
                     list.add(FilterTypeModel(4, data.selectedList))
-                    rating_data = if (data.selectedList.size == 0)
-                        "ALL"
+                    ratingData = if (data.selectedList.size == 0) "ALL"
                     else TextUtils.join(",", data.selectedList)
                 }
                 5 -> {
-                    if (data.selectedList.contains(crossItem.split("-")[0]))
-                        data.selectedList.remove(crossItem.split("-")[0])
+                    if (data.selectedList.contains(crossItem.split("-")[0])) data.selectedList.remove(
+                        crossItem.split("-")[0]
+                    )
                     list.add(FilterTypeModel(5, data.selectedList))
-                    genre_data = if (data.selectedList.size == 0)
-                        "ALL"
+                    genreData = if (data.selectedList.size == 0) "ALL"
                     else TextUtils.join(",", data.selectedList)
                 }
                 6 -> {
-                    if (data.selectedList.contains(crossItem.split("-")[0]))
-                        data.selectedList.remove(crossItem.split("-")[0])
+                    if (data.selectedList.contains(crossItem.split("-")[0])) data.selectedList.remove(
+                        crossItem.split("-")[0]
+                    )
                     list.add(FilterTypeModel(6, data.selectedList))
-                    language_data = if (data.selectedList.size == 0)
-                        "ALL"
+                    languageData = if (data.selectedList.size == 0) "ALL"
                     else TextUtils.join(",", data.selectedList)
                 }
             }
@@ -594,7 +578,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             .setView(mDialogView)
         val mAlertDialog = mBuilder.show()
 
-     //Outside Clickable  False
+        //Outside Clickable  False
         mAlertDialog.setCancelable(true)
         mAlertDialog.setCanceledOnTouchOutside(true)
         mAlertDialog.show()
@@ -693,7 +677,8 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             )
         }
 
-        val recyclerviewExperience = mDialogView.findViewById<View>(R.id.recyclerview_filter_title) as RecyclerView
+        val recyclerviewExperience =
+            mDialogView.findViewById<View>(R.id.recyclerview_filter_title) as RecyclerView
         val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
         recyclerviewExperience.layoutManager = LinearLayoutManager(context)
         adapterFilterTitle = AdapterFilterTitle(requireActivity(), dataList, filterDataList)
@@ -706,12 +691,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
         textReset.setOnClickListener {
             movesData(
                 MovieRequest(
-                    "ALL",
-                    "ALL",
-                    "ALL",
-                    "ALL",
-                    "ALL",
-                    "ALL"
+                    "ALL", "ALL", "ALL", "ALL", "ALL", "ALL"
                 )
             )
 
@@ -782,7 +762,8 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             )
         }
 
-        val recyclerviewExperience = mDialogView.findViewById<View>(R.id.recyclerview_filter_title) as RecyclerView
+        val recyclerviewExperience =
+            mDialogView.findViewById<View>(R.id.recyclerview_filter_title) as RecyclerView
         val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
         recyclerviewExperience.layoutManager = LinearLayoutManager(context)
         adapterFilterTitle = AdapterFilterTitle(requireActivity(), dataList, filterDataList)
@@ -800,12 +781,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             binding?.recyclerviewCategory?.hide()
             movesData(
                 MovieRequest(
-                    "ALL",
-                    "ALL",
-                    "ALL",
-                    "ALL",
-                    "ALL",
-                    "ALL"
+                    "ALL", "ALL", "ALL", "ALL", "ALL", "ALL"
                 )
             )
             mAlertDialog.dismiss()
@@ -829,12 +805,12 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
         adapterFilterCategory?.notifyDataSetChanged()
         adapterFilterTitle?.notifyDataSetChanged()
         binding?.recyclerviewCategory?.hide()
-         exp_data = "ALL"
-         cinema_data = "ALL"
-         timing_data = "ALL"
-         rating_data = "ALL"
-         genre_data = "ALL"
-         language_data = "ALL"
+        expData = "ALL"
+        cinemaData = "ALL"
+        timingData = "ALL"
+        ratingData = "ALL"
+        genreData = "ALL"
+        languageData = "ALL"
 
         if (isAdded) {
             val smoothScroller: SmoothScroller =
@@ -852,9 +828,9 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             0 -> {
                 try {
                     binding?.filterUi?.show()
-                    nowShowingClick=true
-                    commingSoonClick= false
-                    advanceClick=false
+                    nowShowingClick = true
+                    commingSoonClick = false
+                    advanceClick = false
                     //filter
                     imageView33.setOnClickListener {
                         isChecked
@@ -864,12 +840,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
 
                     movesData(
                         MovieRequest(
-                            cinema_data,
-                            exp_data,
-                            genre_data,
-                            language_data,
-                            rating_data,
-                            timing_data
+                            cinemaData, expData, genreData, languageData, ratingData, timingData
                         )
                     )
 //                    nowSowing(moviesResponse?.output?.nowshowing!!)
@@ -886,18 +857,13 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
                         imageView33.setImageResource(R.drawable.filter_icons)
                         filterComingSoonDialog(moviesResponse?.output!!)
                     }
-                    nowShowingClick=false
-                    commingSoonClick= true
-                    advanceClick=false
+                    nowShowingClick = false
+                    commingSoonClick = true
+                    advanceClick = false
 
                     movesData(
                         MovieRequest(
-                            cinema_data,
-                            exp_data,
-                            genre_data,
-                            language_data,
-                            rating_data,
-                            timing_data
+                            cinemaData, expData, genreData, languageData, ratingData, timingData
                         )
                     )
 //                    comingSoon(moviesResponse?.output?.comingsoon!!)
@@ -908,18 +874,13 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             2 -> {
                 try {
                     binding?.filterUi?.hide()
-                    nowShowingClick=false
-                    commingSoonClick= false
-                    advanceClick=true
+                    nowShowingClick = false
+                    commingSoonClick = false
+                    advanceClick = true
 
                     movesData(
                         MovieRequest(
-                            cinema_data,
-                            exp_data,
-                            genre_data,
-                            language_data,
-                            rating_data,
-                            timing_data
+                            cinemaData, expData, genreData, languageData, ratingData, timingData
                         )
                     )
                 } catch (e: Exception) {
@@ -930,9 +891,8 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
     }
 
     override fun typeFaceAdvanceBooking(
-        movieTitle: TextView,
-        movieCategory: TextView,
-        type: TextView) {
+        movieTitle: TextView, movieCategory: TextView, type: TextView
+    ) {
         movieTitle1 = movieTitle
         movieCategory1 = movieCategory
         type11 = type

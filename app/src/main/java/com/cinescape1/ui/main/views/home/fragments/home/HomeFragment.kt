@@ -52,7 +52,6 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
         savedInstanceState: Bundle?): View {
         binding = FragmentHomeBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
-
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(requireActivity(), "ar")
