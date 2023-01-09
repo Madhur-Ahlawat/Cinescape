@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="645dp"
     android:background="@color/transparent"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/alert_bg">
+        android:background="@drawable/alert_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/text_food_prefeered_location"
@@ -22,7 +26,7 @@
             android:gravity="center_horizontal"
             android:text="@string/filters"
             android:textColor="@color/white"
-            android:textSize="@dimen/size20"
+            android:textSize="@dimen/size18"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,100 +42,114 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_filter_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@+id/view15"
-            app:layout_constraintStart_toStartOf="@+id/view15"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
-        <View
-            android:id="@+id/view15"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="600dp"
+            android:background="@drawable/alert_bg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_food_prefeered_location" />
-
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="44dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="14dp"
-            android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/recyclerview_filter_title"
-            app:layout_constraintStart_toStartOf="@+id/recyclerview_filter_title"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerview_filter_title">
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/text_reset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/view_reset_done"
-                app:layout_constraintStart_toStartOf="@+id/view15"
-                app:layout_constraintTop_toTopOf="@+id/view_reset_done">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/alert_bg">
 
-                <TextView
-                    android:id="@+id/filter"
-                    android:layout_width="wrap_content"
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview_filter_title"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sf_pro_text_regular"
-                    android:gravity="end"
-                    android:paddingStart="0dp"
-                    android:paddingEnd="@dimen/margin20"
-                    android:text="@string/all_filters"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/size14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/view15"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/recyclerview_filter_title" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:fontFamily="@font/sf_pro_text_bold"
-                    android:text="@string/reset"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/size16"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/filter"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/textView_done"
-                android:layout_width="87dp"
-                android:layout_height="33dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                app:cardBackgroundColor="#e12329"
-                app:cardCornerRadius="@dimen/margin5"
-                app:layout_constraintBottom_toBottomOf="@+id/text_reset"
-                app:layout_constraintStart_toEndOf="@+id/text_reset"
-                app:layout_constraintTop_toTopOf="@+id/text_reset">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/sf_pro_text_bold"
+                <LinearLayout
+                    android:id="@+id/linearLayout9"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="14dp"
                     android:gravity="center"
-                    android:text="@string/done"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/size14" />
-            </androidx.cardview.widget.CardView>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/recyclerview_filter_title"
+                    app:layout_constraintStart_toStartOf="@+id/recyclerview_filter_title"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerview_filter_title">
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/text_reset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/view_reset_done"
+                        app:layout_constraintStart_toStartOf="@+id/view15"
+                        app:layout_constraintTop_toTopOf="@+id/view_reset_done">
 
-        </LinearLayout>
+                        <TextView
+                            android:id="@+id/filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_text_regular"
+                            android:gravity="end"
+                            android:paddingStart="0dp"
+                            android:paddingEnd="@dimen/margin20"
+                            android:text="@string/all_filters"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/size14"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:fontFamily="@font/sf_pro_text_bold"
+                            android:text="@string/reset"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/size16"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/filter"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/textView_done"
+                        android:layout_width="87dp"
+                        android:layout_height="33dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        app:cardBackgroundColor="#e12329"
+                        app:cardCornerRadius="@dimen/margin5"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_reset"
+                        app:layout_constraintStart_toEndOf="@+id/text_reset"
+                        app:layout_constraintTop_toTopOf="@+id/text_reset">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/sf_pro_text_bold"
+                            android:gravity="center"
+                            android:text="@string/done"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/size14" />
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

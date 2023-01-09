@@ -37,8 +37,7 @@ class HomeParentAdapter(
     var adapter: HomeChildAdapter? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.home_parrent_list, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.home_parrent_list, parent, false)
         return MyViewHolder(view)
     }
 

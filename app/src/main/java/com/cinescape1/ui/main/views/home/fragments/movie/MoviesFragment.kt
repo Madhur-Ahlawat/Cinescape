@@ -572,12 +572,12 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
 
     private fun filterNowShowingDialog(output: MoviesResponse.Output) {
         dataList.clear()
-        val mDialogView =
-            LayoutInflater.from(requireContext()).inflate(R.layout.filter_alert_page_dailog, null)
+        val mDialogView = LayoutInflater.from(requireContext()).inflate(R.layout.filter_alert_page_dailog, null)
         val mBuilder = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogFilter)
             .setView(mDialogView)
-        val mAlertDialog = mBuilder.show()
 
+        val mAlertDialog = mBuilder.show()
+        mAlertDialog.window?.setGravity(Gravity.BOTTOM)
         //Outside Clickable  False
         mAlertDialog.setCancelable(true)
         mAlertDialog.setCanceledOnTouchOutside(true)

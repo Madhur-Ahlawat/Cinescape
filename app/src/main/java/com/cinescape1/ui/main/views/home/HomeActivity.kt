@@ -155,6 +155,15 @@ class HomeActivity : DaggerAppCompatActivity(),
         broadcastReceiver = MyReceiver()
         broadcastIntent()
         foodResponse()
+
+
+            binding?.imageView42?.setOnClickListener {
+                if (DialogShow){
+                    println("DialogShow21--------yes")
+                mAlertDialog?.show()
+            }
+        }
+
     }
 
     private fun foodResponse() {
@@ -344,7 +353,6 @@ class HomeActivity : DaggerAppCompatActivity(),
                         LayoutInflater.from(this).inflate(R.layout.alert_booking, null)
                     val mBuilder = AlertDialog.Builder(this, R.style.NewDialog).setView(mDialogView)
                     mAlertDialog = mBuilder.show()
-                    mAlertDialog?.show()
                     mAlertDialog?.window?.setBackgroundDrawableResource(R.color.black70)
                     mDialogView.text_bombshell.isSelected = true
                     mDialogView.text_location_name.text = output.output[0].cinemaname
@@ -437,36 +445,30 @@ class HomeActivity : DaggerAppCompatActivity(),
                     mDialogView.image_booking_alert.setOnClickListener {
                         val intent = Intent(this, FinalTicketActivity::class.java)
                         intent.putExtra(Constant.IntentKey.BOOKING_ID, output.output[0].bookingId)
-                        intent.putExtra(
-                            Constant.IntentKey.TRANSACTION_ID,
-                            output.output[0].transId.toString())
+                        intent.putExtra(Constant.IntentKey.TRANSACTION_ID, output.output[0].transId.toString())
                         intent.putExtra(Constant.IntentKey.BOOK_TYPE, output.output[0].bookingType)
                         intent.putExtra("FROM", "MTicket")
                         startActivity(intent)
-
                     }
+                    mAlertDialog?.show()
                 }
                 val handler = Handler(Looper.getMainLooper())
                 handler.postDelayed(runnable, 2000)
             }
             else -> {
                 val runnable = Runnable {
-                    val mDialogView =
-                        LayoutInflater.from(this).inflate(R.layout.alert_booking2, null)
+                    val mDialogView = LayoutInflater.from(this).inflate(R.layout.alert_booking2, null)
                     val mBuilder = AlertDialog.Builder(this, R.style.NewDialog).setView(mDialogView)
                     mAlertDialog = mBuilder.show()
                     mAlertDialog?.show()
-
                     mBuilder.setCancelable(false)
                     mAlertDialog?.setCanceledOnTouchOutside(false)
                     mAlertDialog?.window?.setBackgroundDrawableResource(R.color.black70)
                     mDialogView.img_cross_icon.setOnClickListener {
                         mAlertDialog?.dismiss()
                     }
-                    mDialogView.text_have_upcoming_booking.text =
-                        getString(R.string.upcoming_booking)
-                    val recyclerViewAlertBooking =
-                        mDialogView.findViewById<View>(R.id.recyclerViewAlertBooking) as RecyclerView
+                    mDialogView.text_have_upcoming_booking.text = getString(R.string.upcoming_booking)
+                    val recyclerViewAlertBooking = mDialogView.findViewById<View>(R.id.recyclerViewAlertBooking) as RecyclerView
                     val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
                     val adapter = AdapterMultiMovieAlertBooking(this, output.output, this)
 

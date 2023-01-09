@@ -261,6 +261,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
             startActivity(Intent.createChooser(shareIntent, "Share using"))
         }
         binding?.imageView8?.setOnClickListener {
+            Constant.IntentKey.DialogShow = true
             val intent = Intent(this@FinalTicketActivity, HomeActivity::class.java)
             startActivity(intent)
             finish()

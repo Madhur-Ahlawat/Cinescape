@@ -33,11 +33,11 @@ class FilterExperiencesAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    override fun onBindViewHolder(
-        holder: TodoViewHolder, @SuppressLint("RecyclerView") position: Int
+    override fun onBindViewHolder(holder: TodoViewHolder, @SuppressLint("RecyclerView") position: Int
     ) {
         val obj = items[position]
-
+        println("FilterExperience------>${obj}")
+        
         when (obj) {
             "4DX" -> {
                 Glide.with(mContext).load(R.drawable.fourdx_gray).into(holder.todoTitle)
@@ -72,68 +72,69 @@ class FilterExperiencesAdapter(
         holder.layoutFilterBg.setOnClickListener {
             if (selected.contains(obj)) {
                 selected.remove(obj)
-                when (obj) {
-                    "4DX" -> {
-                        Glide.with(mContext).load(R.drawable.fourdx_gray).into(holder.todoTitle)
-                    }
-                    "STANDARD" -> {
-                        Glide.with(mContext).load(R.drawable.standard_gray).into(holder.todoTitle)
-                    }
-                    "VIP" -> {
-                        Glide.with(mContext).load(R.drawable.vip_gray).into(holder.todoTitle)
-                    }
-                    "IMAX" -> {
-                        Glide.with(mContext).load(R.drawable.imax_gray).into(holder.todoTitle)
-                    }
-                    "3D" -> {
-                        Glide.with(mContext).load(R.drawable.threed_gray).into(holder.todoTitle)
-                    }
-                    "DOLBY" -> {
-                        Glide.with(mContext).load(R.drawable.dolby_gray).into(holder.todoTitle)
-                    }
-                    "ELEVEN" -> {
-                        Glide.with(mContext).load(R.drawable.eleven_gray).into(holder.todoTitle)
-                    }
-                    "SCREENX" -> {
-                        Glide.with(mContext).load(R.drawable.screenx_gray).into(holder.todoTitle)
-                    }
-                    "PREMIUM" -> {
-                        Glide.with(mContext).load(R.drawable.premium_gray).into(holder.todoTitle)
-                    }
-                }
+
+//                when (obj) {
+//                    "4DX" -> {
+//                        Glide.with(mContext).load(R.drawable.fourdx_gray).into(holder.todoTitle)
+//                    }
+//                    "STANDARD" -> {
+//                        Glide.with(mContext).load(R.drawable.standard_gray).into(holder.todoTitle)
+//                    }
+//                    "VIP" -> {
+//                        Glide.with(mContext).load(R.drawable.vip_gray).into(holder.todoTitle)
+//                    }
+//                    "IMAX" -> {
+//                        Glide.with(mContext).load(R.drawable.imax_gray).into(holder.todoTitle)
+//                    }
+//                    "3D" -> {
+//                        Glide.with(mContext).load(R.drawable.threed_gray).into(holder.todoTitle)
+//                    }
+//                    "DOLBY" -> {
+//                        Glide.with(mContext).load(R.drawable.dolby_gray).into(holder.todoTitle)
+//                    }
+//                    "ELEVEN" -> {
+//                        Glide.with(mContext).load(R.drawable.eleven_gray).into(holder.todoTitle)
+//                    }
+//                    "SCREENX" -> {
+//                        Glide.with(mContext).load(R.drawable.screenx_gray).into(holder.todoTitle)
+//                    }
+//                    "PREMIUM" -> {
+//                        Glide.with(mContext).load(R.drawable.premium_gray).into(holder.todoTitle)
+//                    }
+//                }
                 holder.layoutFilterBg.setBackgroundResource(R.drawable.filter_unselect)
 
             } else {
                 selected.add(obj.toString())
-                when (obj) {
-                    "4DX" -> {
-                        Glide.with(mContext).load(R.drawable.fourdx_white).into(holder.todoTitle)
-                    }
-                    "STANDARD" -> {
-                        Glide.with(mContext).load(R.drawable.standard_white).into(holder.todoTitle)
-                    }
-                    "VIP" -> {
-                        Glide.with(mContext).load(R.drawable.vip_white).into(holder.todoTitle)
-                    }
-                    "IMAX" -> {
-                        Glide.with(mContext).load(R.drawable.imax_white).into(holder.todoTitle)
-                    }
-                    "3D" -> {
-                        Glide.with(mContext).load(R.drawable.threed_white).into(holder.todoTitle)
-                    }
-                    "DOLBY" -> {
-                        Glide.with(mContext).load(R.drawable.dolby_white).into(holder.todoTitle)
-                    }
-                    "ELEVEN" -> {
-                        Glide.with(mContext).load(R.drawable.eleven_white).into(holder.todoTitle)
-                    }
-                    "SCREENX" -> {
-                        Glide.with(mContext).load(R.drawable.screenx_white).into(holder.todoTitle)
-                    }
-                    "PREMIUM" -> {
-                        Glide.with(mContext).load(R.drawable.premium_white).into(holder.todoTitle)
-                    }
-                }
+//                when (obj) {
+//                    "4DX" -> {
+//                        Glide.with(mContext).load(R.drawable.fourdx_white).into(holder.todoTitle)
+//                    }
+//                    "STANDARD" -> {
+//                        Glide.with(mContext).load(R.drawable.standard_white).into(holder.todoTitle)
+//                    }
+//                    "VIP" -> {
+//                        Glide.with(mContext).load(R.drawable.vip_white).into(holder.todoTitle)
+//                    }
+//                    "IMAX" -> {
+//                        Glide.with(mContext).load(R.drawable.imax_white).into(holder.todoTitle)
+//                    }
+//                    "3D" -> {
+//                        Glide.with(mContext).load(R.drawable.threed_white).into(holder.todoTitle)
+//                    }
+//                    "DOLBY" -> {
+//                        Glide.with(mContext).load(R.drawable.dolby_white).into(holder.todoTitle)
+//                    }
+//                    "ELEVEN" -> {
+//                        Glide.with(mContext).load(R.drawable.eleven_white).into(holder.todoTitle)
+//                    }
+//                    "SCREENX" -> {
+//                        Glide.with(mContext).load(R.drawable.screenx_white).into(holder.todoTitle)
+//                    }
+//                    "PREMIUM" -> {
+//                        Glide.with(mContext).load(R.drawable.premium_white).into(holder.todoTitle)
+//                    }
+//                }
                 holder.layoutFilterBg.setBackgroundResource(R.drawable.filter_select)
             }
         }

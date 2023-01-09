@@ -56,33 +56,34 @@
 
                     <TextView
                         android:id="@+id/text_bombshell"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         android:ellipsize="end"
                         android:fontFamily="@font/sf_pro_text_semibold"
                         android:gravity="start"
-                        android:maxLines="2"
                         android:includeFontPadding="false"
-                        tools:text="klkllkm "
+                        android:maxLines="1"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/size18"
-                        app:layout_minWidth="50dp" />
+                        android:textSize="@dimen/size17"
+                        android:layout_marginEnd="@dimen/margin12"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/constraintLayout18"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_minWidth="50dp"
+                        tools:text="klkllkm " />
 
                     <LinearLayout
                         android:id="@+id/constraintLayout18"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:minWidth="50dp"
-                        app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="@+id/text_bombshell"
-                        app:layout_constraintStart_toEndOf="@+id/text_bombshell"
-                        app:layout_minWidth="50dp">
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_minWidth="@dimen/margin36">
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/ratingUi"
@@ -107,14 +108,9 @@
 
                         </androidx.cardview.widget.CardView>
 
-
                     </LinearLayout>
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
             </com.google.android.flexbox.FlexboxLayout>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -122,8 +118,8 @@
             android:id="@+id/view_location1"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_marginStart="@dimen/margin10"
-            android:layout_marginTop="17dp"
+            android:layout_marginStart="@dimen/margin14"
+            android:layout_marginTop="@dimen/margin12"
             app:layout_constraintEnd_toStartOf="@+id/view3"
             app:layout_constraintHorizontal_weight="5"
             app:layout_constraintStart_toStartOf="@+id/image_booking_alert"
@@ -135,10 +131,11 @@
             android:layout_height="0dp"
             android:maxLines="1"
             android:ellipsize="end"
-            android:fontFamily="@font/sf_pro_text_semibold"
+            android:fontFamily="@font/sf_pro_text_bold"
             android:text="@string/cinescape_al_muhallab"
             android:textColor="@color/black"
             android:textSize="@dimen/size14"
+            android:includeFontPadding="false"
             app:layout_constraintBottom_toBottomOf="@+id/view_location1"
             app:layout_constraintEnd_toEndOf="@+id/view_location1"
             app:layout_constraintHorizontal_bias="0.0"
@@ -249,12 +246,12 @@
         <View
             android:id="@+id/view5"
             android:layout_width="0dp"
-            android:layout_height="70dp"
+            android:layout_height="55dp"
             android:layout_marginTop="25dp"
-            android:layout_marginBottom="@dimen/margin10"
+            android:layout_marginBottom="@dimen/margin6"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/view6"
-            app:layout_constraintHorizontal_weight="4.2"
+            app:layout_constraintHorizontal_weight="5.6"
             app:layout_constraintStart_toStartOf="@+id/text_location_name"
             app:layout_constraintTop_toBottomOf="@+id/view_location1"
             app:layout_constraintVertical_bias="0.0" />
@@ -265,7 +262,7 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/view5"
             app:layout_constraintEnd_toStartOf="@+id/view7"
-            app:layout_constraintHorizontal_weight="3"
+            app:layout_constraintHorizontal_weight="2.8"
             app:layout_constraintStart_toEndOf="@+id/view5"
             app:layout_constraintTop_toTopOf="@+id/view5"
             app:layout_constraintVertical_bias="0.0" />
@@ -277,7 +274,7 @@
             android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/view6"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="6"
+            app:layout_constraintHorizontal_weight="5.8"
             app:layout_constraintStart_toEndOf="@+id/view6"
             app:layout_constraintTop_toTopOf="@+id/view6" />
 
@@ -300,11 +297,12 @@
             android:id="@+id/text_date_visible"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/sf_pro_text_semibold"
+            android:fontFamily="@font/sf_pro_text_bold"
             android:text="@string/_04_nov_2020"
             android:textColor="@color/black"
             android:textSize="@dimen/size14"
             android:textStyle="bold"
+            android:includeFontPadding="false"
             app:layout_constraintEnd_toEndOf="@+id/view5"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/view5"
@@ -329,10 +327,11 @@
             android:id="@+id/text_time_visible"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/sf_pro_text_semibold"
+            android:fontFamily="@font/sf_pro_text_bold"
             android:textColor="@color/black"
             android:textSize="@dimen/size14"
             android:textStyle="bold"
+            android:includeFontPadding="false"
             app:layout_constraintBottom_toBottomOf="@+id/view6"
             app:layout_constraintEnd_toEndOf="@+id/view6"
             app:layout_constraintHorizontal_bias="0.0"
@@ -344,9 +343,7 @@
         <TextView
             android:id="@+id/go_to_booking_btn1"
             android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="@dimen/margin25"
-            android:layout_marginBottom="8dp"
+            android:layout_height="30dp"
             android:background="@drawable/btn_corner_bg_red"
             android:fontFamily="@font/sf_pro_text_bold"
             android:gravity="center"
@@ -359,5 +356,4 @@
             app:layout_constraintStart_toStartOf="@+id/view7" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    style="@style/DialogAnimation"
     android:background="#1d1d1d">
 
     <View
@@ -22,12 +24,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
-        android:layout_marginTop="@dimen/margin8"
+        android:layout_marginTop="@dimen/margin12"
         android:fontFamily="@font/sf_pro_text_bold"
         android:text="@string/location"
         android:textColor="@color/white"
         android:textSize="@dimen/size18"
         android:textStyle="bold"
+        android:layout_marginStart="@dimen/margin12"
         app:layout_constraintBottom_toBottomOf="@+id/view_titles"
         app:layout_constraintEnd_toStartOf="@+id/imageView50"
         app:layout_constraintStart_toStartOf="@+id/view_titles"
@@ -65,7 +68,7 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginTop="4dp"
-        android:background="@color/view_bg_color_line"
+        android:background="@color/lineColor"
         app:layout_constraintEnd_toEndOf="@+id/recyclerView_filter_expand"
         app:layout_constraintStart_toStartOf="@+id/recyclerView_filter_expand"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView_filter_expand" />
@@ -91,14 +94,15 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin30"/>
+
     <View
         android:id="@+id/view17"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="@dimen/margin10"
-        android:background="@color/view_bg_color_line"
+        android:layout_marginTop="@dimen/margin16"
+        android:background="@color/lineColor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/viewSpace"
         app:layout_constraintTop_toBottomOf="@+id/viewSpace" />
 
     <ImageView
@@ -106,6 +110,7 @@
         android:layout_width="@dimen/size11"
         android:layout_height="@dimen/size11"
         android:layout_marginEnd="33dp"
+        android:layout_marginTop="@dimen/margin8"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/image_arrow_up"
         app:layout_constraintEnd_toStartOf="@+id/image_arrow_up"
