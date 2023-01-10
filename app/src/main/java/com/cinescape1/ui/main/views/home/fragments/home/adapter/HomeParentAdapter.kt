@@ -3,16 +3,20 @@ package com.cinescape1.ui.main.views.home.fragments.home.adapter
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.graphics.ColorUtils
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.CompositePageTransformer
+import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.HomeDataResponse
 import com.cinescape1.ui.main.views.adapters.*
@@ -53,20 +57,17 @@ class HomeParentAdapter(
             "slider" -> {
                 holder.homeTitle.hide()
                 holder.txtSeeAll.hide()
-                holder.homeList.show()
-                holder.viewpagerBack.visibility = View.INVISIBLE
+                holder.homeList.hide()
+                holder.viewpagerBack.show()
                 holder.viewpager.show()
-
-                holder.viewpagerBack.layoutDirection = View.LAYOUT_DIRECTION_RTL
-                val sliderBackAdapter = SliderBackAdapter(mContext, obj.movieData)
-                holder.viewpagerBack.adapter = sliderBackAdapter
-                holder.viewpagerBack.setPagingEnabled(false)
+                holder.consAdvance.hide()
 
                 if (Constant.LANGUAGE == "ar") {
                     LocaleHelper.setLocale(mContext, "ar")
                 } else {
-
+                    LocaleHelper.setLocale(mContext, "en")
                 }
+
                 val pagerAdapter = HomeFrontSliderAdapter(mContext, obj.movieData, holder.viewpager)
                 holder.viewpager.adapter = pagerAdapter
                 holder.viewpager.offscreenPageLimit = 3
@@ -78,6 +79,7 @@ class HomeParentAdapter(
                     mContext.resources.getDimension(R.dimen.viewpager_next_item_visible)
                 val currentItemHorizontalMarginPx =
                     mContext.resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
+
                 val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
                 transfer.addTransformer(object : ViewPager2.PageTransformer,
                     androidx.viewpager2.widget.ViewPager2.PageTransformer {
@@ -96,6 +98,24 @@ class HomeParentAdapter(
                         super.onPageSelected(position)
                         index = position
                         Constant.select_pos = position
+
+                        println("colorCode--->${obj.movieData[position].sliderimgurl}---position--->${position}")
+                        val colorCode=obj.movieData[position].sliderimgurl
+
+                        try {
+                            val startColor = Color.parseColor(colorCode)
+                            val endColor = Color.parseColor("#000000")
+                            val mDrawable = GradientDrawable(
+                                GradientDrawable.Orientation.TOP_BOTTOM,
+                                intArrayOf(startColor, endColor)
+                            )
+                            holder.viewpagerBack.setBackgroundDrawable(mDrawable)
+
+                        }catch (e:Exception){
+                            println("exception---->${e.message}")
+                            e.printStackTrace()
+                        }
+                        
                     }
 
                     override fun onPageScrollStateChanged(state: Int) {
@@ -119,11 +139,14 @@ class HomeParentAdapter(
                 holder.sliderAdvance.show()
                 holder.homeList.hide()
                 holder.viewpager.hide()
+                holder.viewpagerBack.hide()
                 val advanceSliderAdapter = AdvanceSliderAdapter(mContext, obj.movieData)
                 holder.sliderAdvance.adapter = advanceSliderAdapter
                 holder.myTabLayout.setupWithViewPager(holder.sliderAdvance, true)
             }
             "homeOnes" -> {
+                holder.viewpager.hide()
+                holder.viewpagerBack.hide()
                 holder.homeList.isLayoutFrozen = false
                 val gridLayout = GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
                 holder.homeList.layoutManager = LinearLayoutManager(mContext)
@@ -138,6 +161,8 @@ class HomeParentAdapter(
                     holder.homeTitle.show()
                     holder.homeList.show()
                     holder.viewpager.hide()
+                    holder.viewpager.hide()
+                    holder.viewpagerBack.hide()
                     holder.homeList.isLayoutFrozen = false
                     val gridLayout =
                         GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
@@ -166,6 +191,8 @@ class HomeParentAdapter(
                 holder.itemView.show()
                 holder.txtSeeAll.hide()
 
+                holder.viewpager.hide()
+                holder.viewpagerBack.hide()
                 val gridLayout = GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
                 holder.homeList.layoutManager = LinearLayoutManager(mContext)
                 val adapter = HomeMovieAdapter(mContext, obj.cinemas)
@@ -178,7 +205,9 @@ class HomeParentAdapter(
                     holder.itemView.show()
                     holder.homeTitle.show()
                     holder.homeList.show()
+
                     holder.viewpager.hide()
+                    holder.viewpagerBack.hide()
                     holder.homeList.isLayoutFrozen = false
                     holder.itemView.show()
                     holder.txtSeeAll.show()
@@ -206,7 +235,9 @@ class HomeParentAdapter(
                     holder.itemView.show()
                     holder.homeTitle.show()
                     holder.homeList.show()
+
                     holder.viewpager.hide()
+                    holder.viewpagerBack.hide()
                     holder.homeList.isLayoutFrozen = false
                     holder.itemView.show()
                     holder.txtSeeAll.hide()

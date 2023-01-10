@@ -28,19 +28,21 @@ import kotlinx.android.synthetic.main.home_slider_item.view.*
     }
 
     override fun bindVH(holder: SliderViewHolder, position: Int) {
-        //TODO bind item object with item layout view
         val obj = movies[position]
         holder.image.adjustViewBounds = true
-        println("viewpager.currentItem---"+viewpager.currentItem+"----"+select_pos)
         if (select_pos!=viewpager.currentItem){
             holder.itemView.scaleY = 0.5f
         }else{
             holder.itemView.scaleY = 1f
         }
+
         if (obj.mobimgsmall.isEmpty()) {
             holder.image.setImageResource(R.drawable.pos_not_avilbale)
         } else {
-            Picasso.get().load(obj.mobimgsmall).placeholder(R.drawable.pos_not_avilbale).into(holder.image)
+            Picasso.get()
+                .load(obj.mobimgsmall)
+                .placeholder(R.drawable.pos_not_avilbale)
+                .into(holder.image)
         }
 
         holder.image.setOnClickListener {
