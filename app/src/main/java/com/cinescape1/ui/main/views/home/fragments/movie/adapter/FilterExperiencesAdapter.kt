@@ -6,14 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.MoviesResponse
 import kotlinx.android.synthetic.main.alert_booking.view.*
 import java.util.*
+
 
 class FilterExperiencesAdapter(
     private val mContext: Activity,
@@ -33,8 +34,7 @@ class FilterExperiencesAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    override fun onBindViewHolder(holder: TodoViewHolder, @SuppressLint("RecyclerView") position: Int
-    ) {
+    override fun onBindViewHolder(holder: TodoViewHolder, @SuppressLint("RecyclerView") position: Int) {
         val obj = items[position]
         println("FilterExperience------>${obj}")
         
@@ -57,6 +57,7 @@ class FilterExperiencesAdapter(
             "DOLBY" -> {
                 Glide.with(mContext).load(R.drawable.dolby_gray).into(holder.todoTitle)
             }
+
             "ELEVEN" -> {
                 Glide.with(mContext).load(R.drawable.eleven_gray).into(holder.todoTitle)
             }
@@ -102,7 +103,9 @@ class FilterExperiencesAdapter(
 //                        Glide.with(mContext).load(R.drawable.premium_gray).into(holder.todoTitle)
 //                    }
 //                }
+
                 holder.layoutFilterBg.setBackgroundResource(R.drawable.filter_unselect)
+                holder.todoTitle.setColorFilter(ContextCompat.getColor(mContext, R.color.gray))
 
             } else {
                 selected.add(obj.toString())
@@ -136,6 +139,8 @@ class FilterExperiencesAdapter(
 //                    }
 //                }
                 holder.layoutFilterBg.setBackgroundResource(R.drawable.filter_select)
+                holder.todoTitle.setColorFilter(ContextCompat.getColor(mContext, R.color.colorWhite))
+
             }
         }
     }

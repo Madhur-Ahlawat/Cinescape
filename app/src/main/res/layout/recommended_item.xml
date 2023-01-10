@@ -32,7 +32,6 @@
                 app:srcCompat="@drawable/img_demo"
                 tools:ignore="ContentDescription" />
 
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="55dp"

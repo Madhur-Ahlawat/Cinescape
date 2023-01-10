@@ -36,11 +36,13 @@
     <dimen name="margin2">2dp</dimen>
     <dimen name="margin12">12dp</dimen>
     <dimen name="margin20">20dp</dimen>
+    <dimen name="margin22">22dp</dimen>
     <dimen name="margin27">27dp</dimen>
     <dimen name="margin30">30dp</dimen>
     <dimen name="margin25">25dp</dimen>
     <dimen name="margin40">40dp</dimen>
     <dimen name="margin45">45dp</dimen>
+    <dimen name="margin47">47dp</dimen>
     <dimen name="margin43">43dp</dimen>
     <dimen name="margin48">48dp</dimen>
     <dimen name="margin36">36dp</dimen>
