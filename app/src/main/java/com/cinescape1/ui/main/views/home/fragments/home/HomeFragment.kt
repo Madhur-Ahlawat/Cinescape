@@ -38,6 +38,7 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
     @Inject
     lateinit var preferences: AppPreferences
     private val homeViewModel: HomeViewModel by viewModels { viewModelFactory }

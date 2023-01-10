@@ -1,9 +1,11 @@
 package com.cinescape1.ui.main.views.adapters.moviesFragmentAdapter
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,10 +23,12 @@ import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 import com.haozhang.lib.SlantedTextView
 
-class AdvanceBookingAdapter(private var nowShowingList: List<MoviesResponse.AdvanceBooking>, context:Context,
-                           var listener : TypefaceListener1) :
+class AdvanceBookingAdapter(private var nowShowingList: List<MoviesResponse.AdvanceBooking>, context: Activity,
+                            var listener : TypefaceListener1) :
     RecyclerView.Adapter<AdvanceBookingAdapter.MyViewHolderNowShowing>() {
     private var mContext = context
+    private val displayMetrics = DisplayMetrics()
+    private var screenWidth = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderNowShowing {
         val view = LayoutInflater.from(parent.context)
@@ -34,6 +38,11 @@ class AdvanceBookingAdapter(private var nowShowingList: List<MoviesResponse.Adva
 
     override fun onBindViewHolder(holder: MyViewHolderNowShowing, position: Int) {
         val comingSoonItem = nowShowingList[position]
+
+       mContext.windowManager.defaultDisplay.getMetrics(displayMetrics)
+        screenWidth = displayMetrics.widthPixels
+        holder.thumbnail.layoutParams.width = ((screenWidth)/2.2f).toInt()
+
         holder.movieTitle.isSelected=true
         holder.movieCategory.isSelected=true
 

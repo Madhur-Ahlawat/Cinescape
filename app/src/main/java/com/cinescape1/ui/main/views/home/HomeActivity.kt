@@ -13,10 +13,12 @@ import android.graphics.drawable.ColorDrawable
 import android.location.Location
 import android.location.LocationManager
 import android.net.ConnectivityManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
+import android.util.DisplayMetrics
 import android.view.*
 import android.widget.AdapterView
 import android.widget.Toast
@@ -24,7 +26,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -61,6 +62,7 @@ import kotlinx.android.synthetic.main.alert_booking.view.*
 import kotlinx.android.synthetic.main.alert_booking2.view.*
 import kotlinx.android.synthetic.main.fragment_food.*
 import javax.inject.Inject
+
 
 @Suppress("DEPRECATION")
 class HomeActivity : DaggerAppCompatActivity(),
@@ -158,13 +160,33 @@ class HomeActivity : DaggerAppCompatActivity(),
 
 
             binding?.imageView42?.setOnClickListener {
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    if (mAlertDialog?.window != null) {
+                        // Flag
+                        mAlertDialog?.window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                        // DeviceScreenHeight
+                        val displayMetrics = DisplayMetrics()
+                        windowManager.defaultDisplay.getMetrics(displayMetrics)
+                        val deviceScreenHeight = displayMetrics.heightPixels
+                        // Change height child At index zero
+                        (mAlertDialog?.window?.decorView?.rootView as ViewGroup).getChildAt(0).layoutParams.height =
+                            deviceScreenHeight
+                    }
+                }
+
                 if (DialogShow){
                     println("DialogShow21--------yes")
                 mAlertDialog?.show()
+                    setStatusBarColorIfPossible(R.color.black70)
             }
         }
 
+
+
     }
+
+
 
     private fun foodResponse() {
         homeViewModel.foodResponse()
@@ -335,6 +357,12 @@ class HomeActivity : DaggerAppCompatActivity(),
                 }
             }
     }
+    fun setStatusBarColorIfPossible(color: Int) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = color
+        }
+    }
 
     private fun retrieveNextBookedResponse(output: NextBookingResponse) {
         println("OutputSize--->${output.output.size}")
@@ -352,8 +380,25 @@ class HomeActivity : DaggerAppCompatActivity(),
                     val mDialogView =
                         LayoutInflater.from(this).inflate(R.layout.alert_booking, null)
                     val mBuilder = AlertDialog.Builder(this, R.style.NewDialog).setView(mDialogView)
+
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                        if (mAlertDialog?.window != null) {
+//                            // Flag
+//                            mAlertDialog?.window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+//                            // DeviceScreenHeight
+//                            val displayMetrics = DisplayMetrics()
+//                            windowManager.defaultDisplay.getMetrics(displayMetrics)
+//                            val deviceScreenHeight = displayMetrics.heightPixels
+//                            // Change height child At index zero
+//                            (mAlertDialog?.window?.decorView?.rootView as ViewGroup).getChildAt(0).layoutParams.height =
+//                                deviceScreenHeight
+//                        }
+//                    }
+//                    mAlertDialog?.window?.setBackgroundDrawableResource(R.color.black70)
+//                    setStatusBarColorIfPossible(R.color.black70)
+
                     mAlertDialog = mBuilder.show()
-                    mAlertDialog?.window?.setBackgroundDrawableResource(R.color.black70)
+
                     mDialogView.text_bombshell.isSelected = true
                     mDialogView.text_location_name.text = output.output[0].cinemaname
                     mDialogView.text_screen_number.text = output.output[0].screenId.toString()
@@ -459,11 +504,28 @@ class HomeActivity : DaggerAppCompatActivity(),
                 val runnable = Runnable {
                     val mDialogView = LayoutInflater.from(this).inflate(R.layout.alert_booking2, null)
                     val mBuilder = AlertDialog.Builder(this, R.style.NewDialog).setView(mDialogView)
+
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                        if (mAlertDialog?.window != null) {
+//                            // Flag
+//                            mAlertDialog?.window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+//                            // DeviceScreenHeight
+//                            val displayMetrics = DisplayMetrics()
+//                            windowManager.defaultDisplay.getMetrics(displayMetrics)
+//                            val deviceScreenHeight = displayMetrics.heightPixels
+//                            // Change height child At index zero
+//                            (mAlertDialog?.window?.decorView?.rootView as ViewGroup).getChildAt(0).layoutParams.height =
+//                                deviceScreenHeight
+//                        }
+//                    }
+//                    mAlertDialog?.window?.setBackgroundDrawableResource(R.color.black70)
+//                    setStatusBarColorIfPossible(R.color.black70)
+
                     mAlertDialog = mBuilder.show()
                     mAlertDialog?.show()
                     mBuilder.setCancelable(false)
                     mAlertDialog?.setCanceledOnTouchOutside(false)
-                    mAlertDialog?.window?.setBackgroundDrawableResource(R.color.black70)
+
                     mDialogView.img_cross_icon.setOnClickListener {
                         mAlertDialog?.dismiss()
                     }
@@ -472,11 +534,8 @@ class HomeActivity : DaggerAppCompatActivity(),
                     val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
                     val adapter = AdapterMultiMovieAlertBooking(this, output.output, this)
 
-                    recyclerViewAlertBooking.layoutManager = LinearLayoutManager(
-                        this,
-                        LinearLayoutManager.HORIZONTAL,
-                        false
-                    )
+                    recyclerViewAlertBooking.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
                     val snapHelper = PagerSnapHelper()
                     snapHelper.attachToRecyclerView(recyclerViewAlertBooking)
                     recyclerViewAlertBooking.layoutManager = gridLayout

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,8 @@ class AdapterNowShowing(
     context: Activity) :
     RecyclerView.Adapter<AdapterNowShowing.MyViewHolderNowShowing>() {
     private var mContext = context
+    private val displayMetrics = DisplayMetrics()
+    private var screenWidth = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderNowShowing {
         val view = LayoutInflater.from(parent.context)
@@ -36,6 +39,13 @@ class AdapterNowShowing(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolderNowShowing, position: Int) {
         val comingSoonItem = nowShowingList[position]
+
+        mContext.windowManager.defaultDisplay.getMetrics(displayMetrics)
+        screenWidth = displayMetrics.widthPixels
+        holder.thumbnail.layoutParams.width = ((screenWidth)/2.2f).toInt()
+
+        println("NowShowingScreenWidth-------->${screenWidth}")
+
         Glide.with(mContext)
             .load(comingSoonItem.mobimgsmall)
             .error(R.drawable.app_icon)

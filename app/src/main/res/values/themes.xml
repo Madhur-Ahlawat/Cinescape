@@ -119,4 +119,12 @@
 
     </style>
 
+    <style name="MyDialogStyle" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/black1</item>
+
+    </style>
+
 </resources>
