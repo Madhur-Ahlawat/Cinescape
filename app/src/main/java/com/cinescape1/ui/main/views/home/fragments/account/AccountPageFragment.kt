@@ -171,7 +171,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     private var seatCategory: String = ""
     private var seatType: String = ""
 
-    private var seatTypeCheck = 0
+    private var historyCheck = 0
 
 //    private val experience: ArrayList<String> = ArrayList()
 //    private val seatTypeList: ArrayList<String> = ArrayList()
@@ -639,7 +639,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }
 
         binding?.viewBooking?.setOnClickListener {
-
             binding?.textUpcomingBooking?.show()
             binding?.recyclerviewBooking?.show()
             binding?.recycleUi?.show()
@@ -650,6 +649,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     "", "", 0, preferences.getString(Constant.USER_ID).toString(), true
                 )
             )
+
             binding?.imageUserProfile?.setColorFilter(requireActivity().getColor(R.color.text_color))
             binding?.textProfileTitle?.setTextColor(requireActivity().getColor(R.color.text_color))
 
@@ -841,13 +841,12 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             binding?.nestedUi?.show()
             binding?.appBarAccount?.show()
             binding?.recycleUi?.hide()
-//            binding?.textUpcomingBooking?.text = getString(R.string.your_bookings_history)
+//          binding?.textUpcomingBooking?.text = getString(R.string.your_bookings_history)
+            if (historyCheck == 0){
+                myBooking(
+                    MyBookingRequest("", "", 0, preferences.getString(Constant.USER_ID).toString()))
+            }
 
-            myBooking(
-                MyBookingRequest(
-                    "", "", 0, preferences.getString(Constant.USER_ID).toString()
-                )
-            )
             binding?.imageUserProfile?.setColorFilter(requireActivity().getColor(R.color.text_color))
             binding?.textProfileTitle?.setTextColor(requireActivity().getColor(R.color.text_color))
 
@@ -873,7 +872,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }
 
         Proceed_btnUi.setOnClickListener {
-
             if (clickEnable == 0) {
                 val dialog = OptionDialog(requireContext(),
                     R.mipmap.ic_launcher,
@@ -3107,6 +3105,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
+                                    historyCheck = 1
                                     include_history.show()
                                     val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
                                     binding?.includeHistory?.recyclerviewBookingHistory?.layoutManager = LinearLayoutManager(context)
@@ -3115,6 +3114,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                                     binding?.includeHistory?.recyclerviewBookingHistory?.adapter = adapter
 //                                    setBookingHistoryAdapter(it.data.output)
                                     println("BookingHistorySuccess-------->${"yes"}")
+
                                 } catch (e: Exception) {
                                     println("updateUiCinemaSession ---> ${e.message}")
                                 }
@@ -3138,10 +3138,12 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                         dialog.show()
                     }
                     Status.LOADING -> {
+
                         if (isAdded) {
                             loader = LoaderDialog(R.string.pleasewait)
                             loader?.show(requireActivity().supportFragmentManager, null)
                         }
+
                     }
                 }
             }
@@ -3158,6 +3160,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
                                     retrieveNextBookedResponse(it.data)
+
+
                                 } catch (e: Exception) {
                                     println("updateUiCinemaSession ---> ${e.message}")
                                 }

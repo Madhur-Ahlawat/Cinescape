@@ -31,8 +31,7 @@ class AdvanceBookingAdapter(private var nowShowingList: List<MoviesResponse.Adva
     private var screenWidth = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderNowShowing {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.movie_now_showing_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_now_showing_item, parent, false)
         return MyViewHolderNowShowing(view)
     }
 

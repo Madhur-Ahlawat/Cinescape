@@ -128,7 +128,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
                 val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
                 binding?.textFilmHouseName?.typeface = bold // heavy
-                binding?.textView56?.typeface = bold // heavy
+                binding?.textView56?.typeface = regular // heavy
                 binding?.textMoreInfo?.typeface = regular
                 binding?.textShare?.typeface = regular
                 binding?.textNotify?.typeface = regular
@@ -157,7 +157,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
 
                 binding?.textFilmHouseName?.typeface = heavy // heavy
-                binding?.textView56?.typeface = heavy // heavy
+                binding?.textView56?.typeface = regular // heavy
                 binding?.textMoreInfo?.typeface = regular
                 binding?.textShare?.typeface = regular
                 binding?.textNotify?.typeface = regular
@@ -187,7 +187,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
 
                 binding?.textFilmHouseName?.typeface = heavy // heavy
-                binding?.textView56?.typeface = heavy // heavy
+                binding?.textView56?.typeface = regular // heavy
                 binding?.textMoreInfo?.typeface = regular
                 binding?.textShare?.typeface = regular
                 binding?.textNotify?.typeface = regular

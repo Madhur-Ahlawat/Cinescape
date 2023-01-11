@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_title"
@@ -34,7 +35,7 @@
             app:layout_constraintTop_toBottomOf="@+id/txt_title"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_width="wrap_content"
-            android:layout_height="28dp"
+            android:layout_height="@dimen/margin18"
             android:adjustViewBounds="true"
             tools:ignore="ContentDescription" />
 

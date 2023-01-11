@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="@dimen/margin27"
+    android:layout_marginEnd="@dimen/margin16"
     android:background="@color/black">
 
 
@@ -15,8 +15,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/backUi"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
             android:layout_margin="@dimen/size1"
             android:background="@drawable/curv_movie"
             android:padding="@dimen/size1"
@@ -26,8 +26,8 @@
 
             <ImageView
                 android:id="@+id/image_cast"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/contentDes"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -36,7 +36,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/app_icon" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         <TextView
             android:id="@+id/text_movie_cast_name"

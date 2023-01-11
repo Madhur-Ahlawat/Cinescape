@@ -42,7 +42,7 @@ class AdapterShowTimesCinemaTitle(
                 "4DX" -> {
                     Glide.with(context).load(R.drawable.fourdx_gray).into(holder.imageCinema)
                 }
-                "STANDARD" -> {
+                "Standard" -> {
                     Glide.with(context).load(R.drawable.standard_gray).into(holder.imageCinema)
                 }
                 "VIP" -> {

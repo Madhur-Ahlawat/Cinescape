@@ -35,7 +35,7 @@
                 android:id="@+id/text_cast"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="@dimen/margin12"
                 android:fontFamily="@font/sf_pro_text_bold"
                 android:text="@string/cast"
                 android:visibility="gone"
@@ -64,7 +64,7 @@
                 android:layout_height="70dp"
                 android:layout_marginTop="24dp"
                 app:layout_constraintEnd_toStartOf="@+id/view13"
-                app:layout_constraintHorizontal_weight="3"
+                app:layout_constraintHorizontal_weight="4"
                 app:layout_constraintStart_toStartOf="@+id/recyclerview_show_times_cast"
                 app:layout_constraintTop_toBottomOf="@+id/recyclerview_show_times_cast" />
 
@@ -74,7 +74,7 @@
                 android:layout_height="70dp"
                 app:layout_constraintBottom_toBottomOf="@+id/view12"
                 app:layout_constraintEnd_toEndOf="@+id/view20"
-                app:layout_constraintHorizontal_weight="4.3"
+                app:layout_constraintHorizontal_weight="4"
                 app:layout_constraintStart_toEndOf="@+id/view12"
                 app:layout_constraintTop_toTopOf="@+id/view12"
                 app:layout_constraintVertical_bias="1.0" />
@@ -161,7 +161,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView8"
                 tools:text="English" />
 
-
             <TextView
                 android:id="@+id/text_synopsis"
                 android:layout_width="0dp"
@@ -181,10 +180,14 @@
                 android:id="@+id/text_sysnopsis_detail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin12"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:lineSpacingExtra="1.3sp"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/size15"
+                android:paddingBottom="@dimen/margin30"
+                android:justificationMode="inter_word"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/text_synopsis"
                 app:layout_constraintStart_toStartOf="@+id/text_synopsis"
                 app:layout_constraintTop_toBottomOf="@+id/text_synopsis"

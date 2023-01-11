@@ -196,6 +196,7 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
         binding?.imageView25?.setOnClickListener {
             onBackPressed()
         }
+
     }
 
 

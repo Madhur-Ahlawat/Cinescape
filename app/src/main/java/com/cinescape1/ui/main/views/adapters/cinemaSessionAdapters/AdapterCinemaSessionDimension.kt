@@ -19,12 +19,10 @@ class AdapterCinemaSessionDimension(
     private var showtimeList: ArrayList<CinemaSessionResponse.Show>,
     val listener: SessionAdapterListener,
     val name: String,
-    private val cinemaPos: Int
-) : RecyclerView.Adapter<AdapterCinemaSessionDimension.MyViewHolderCinemaSession>() {
+    private val cinemaPos: Int) : RecyclerView.Adapter<AdapterCinemaSessionDimension.MyViewHolderCinemaSession>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderCinemaSession {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_cinema_time, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_cinema_time, parent, false)
         return MyViewHolderCinemaSession(view)
     }
 

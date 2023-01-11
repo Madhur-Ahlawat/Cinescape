@@ -32,7 +32,7 @@ class AdapterBookingHistory(private val context: Activity,
     @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     override fun onBindViewHolder(holder: MyViewHolderBookingHistory, @SuppressLint("RecyclerView") position: Int) {
         val bookingHistoryItem = bookingHistoryList[position]
-        println("Booktype--->${bookingHistoryItem.bookingType}")
+        println("BookType--->${bookingHistoryItem.bookingType}")
 
         if (Constant.LANGUAGE == "ar"){
             LocaleHelper.setLocale(context, "ar")
@@ -126,6 +126,7 @@ class AdapterBookingHistory(private val context: Activity,
                 holder.textBookingHistoryTitle.text=bookingHistoryItem.bookingType
             }
         }
+
         holder.textBookingHistoryDate.text = bookingHistoryItem.showDate
         holder.textBookingHistoryTime.text = bookingHistoryItem.showTime
 
