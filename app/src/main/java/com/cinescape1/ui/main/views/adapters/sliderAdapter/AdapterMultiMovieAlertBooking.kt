@@ -80,7 +80,7 @@ class AdapterMultiMovieAlertBooking(context: Context,
                     .into(holder.experience)
 
             }
-            "STANDARD" -> {
+            "Standard" -> {
                 Glide
                     .with(mContext)
                     .load(R.drawable.standard)

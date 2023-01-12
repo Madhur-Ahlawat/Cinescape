@@ -39,10 +39,7 @@ import kotlinx.android.synthetic.main.home_slider_item.view.*
         if (obj.mobimgsmall.isEmpty()) {
             holder.image.setImageResource(R.drawable.pos_not_avilbale)
         } else {
-            Picasso.get()
-                .load(obj.mobimgsmall)
-                .placeholder(R.drawable.pos_not_avilbale)
-                .into(holder.image)
+            Picasso.get().load(obj.mobimgsmall).placeholder(R.drawable.pos_not_avilbale).into(holder.image)
         }
 
         holder.image.setOnClickListener {

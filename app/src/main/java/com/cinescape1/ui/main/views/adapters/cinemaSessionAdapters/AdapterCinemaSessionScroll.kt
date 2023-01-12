@@ -26,12 +26,10 @@ import com.haozhang.lib.SlantedTextView
 class AdapterCinemaSessionScroll(
     private val context: Context,
     private var cinemaSessionList: ArrayList<CSessionResponse.Output.DaySession>,
-    private val listener: LocationListener, var listenerSession : TypeFaceSession
-) :
+    private val listener: LocationListener, var listenerSession : TypeFaceSession) :
     RecyclerView.Adapter<AdapterCinemaSessionScroll.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view =
-            LayoutInflater.from(parent.context)
+        val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.showtimes_scroll_item, parent, false)
         return ViewHolder(view)
     }
@@ -40,6 +38,24 @@ class AdapterCinemaSessionScroll(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val showtimeListItem = cinemaSessionList[position]
         try {
+
+            Glide.with(context)
+                .load(showtimeListItem.movie.mobimgsmall)
+                .error(R.drawable.pos_not_avilbale)
+                .into(holder.image)
+
+            holder.cateogry.text = showtimeListItem.movie.rating
+            holder.genre.text = showtimeListItem.movie.genre
+            listenerSession.onTypeFaceSession(holder.name, holder.genre, holder.cateogry, holder.duration)
+
+            val ratingColor=showtimeListItem.movie.ratingColor
+            holder.cateogry.setBackgroundColor(Color.parseColor(ratingColor))
+
+            if (showtimeListItem.movie.language == ""){
+                holder.duration.text = "" + showtimeListItem.movie.runTime + " min."
+            }else{
+                holder.duration.text = showtimeListItem.movie.language + " | " + showtimeListItem.movie.runTime + " min."
+            }
 
             if (showtimeListItem.movie.title == null){
                 println("showtimeListItem.movie.title -------->${showtimeListItem.movie.title}")
@@ -97,28 +113,6 @@ class AdapterCinemaSessionScroll(
 //            }
 
         }
-
-
-
-        if (showtimeListItem.movie.language == null){
-            holder.duration.text = "" + showtimeListItem.movie.runTime + " min."
-        }else{
-            holder.duration.text = showtimeListItem.movie.language + " | " + showtimeListItem.movie.runTime + " min."
-        }
-
-
-        holder.cateogry.text = showtimeListItem.movie.rating
-        holder.genre.text = showtimeListItem.movie.genre
-        listenerSession.onTypeFaceSession(holder.name, holder.genre, holder.cateogry, holder.duration)
-
-
-        val ratingColor=showtimeListItem.movie.ratingColor
-        holder.cateogry.setBackgroundColor(Color.parseColor(ratingColor))
-
-        Glide.with(context)
-            .load(showtimeListItem.movie.mobimgsmall)
-            .error(R.drawable.pos_not_avilbale)
-            .into(holder.image)
 
 
         if (showtimeListItem.movie.tag == "") {

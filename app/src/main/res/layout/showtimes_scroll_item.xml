@@ -217,7 +217,6 @@
                 app:layout_constraintStart_toStartOf="@+id/constraintLayout18"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout18" />
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -234,7 +233,5 @@
             app:reverseLayout="true"
             tools:itemCount="5"
             tools:listitem="@layout/item_cinema_time" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

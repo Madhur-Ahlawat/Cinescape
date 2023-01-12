@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.location.Location
@@ -33,6 +34,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.cinescape1.R
 import com.cinescape1.data.models.ModelPreferenceExperience
 import com.cinescape1.data.models.requestModel.NextBookingsRequest
@@ -61,6 +64,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.alert_booking.view.*
 import kotlinx.android.synthetic.main.alert_booking2.view.*
 import kotlinx.android.synthetic.main.fragment_food.*
+import java.security.MessageDigest
 import javax.inject.Inject
 
 
@@ -403,9 +407,12 @@ class HomeActivity : DaggerAppCompatActivity(),
                     }
 
                     Glide.with(this)
-                        .load(output.output[0].posterhori)
+                        .load(output.output[0].posterhori).transform(CutOffLogo())
                         .placeholder(R.drawable.movie_default)
                         .into(mDialogView.image_booking_alert)
+
+                    println("output.output[0].experience------->${output.output[0].experience}")
+                    println("output.output[0].experience12------->${output.output[0].posterhori}")
 
                     when (output.output[0].experience) {
                         "4DX" -> {
@@ -414,7 +421,7 @@ class HomeActivity : DaggerAppCompatActivity(),
                                 .load(R.drawable.four_dx)
                                 .into(mDialogView.text_experience_name)
                         }
-                        "STANDARD" -> {
+                        "Standard" -> {
                             Glide
                                 .with(this)
                                 .load(R.drawable.standard)
@@ -635,4 +642,21 @@ class HomeActivity : DaggerAppCompatActivity(),
 
     }
 
+    class CutOffLogo : BitmapTransformation() {
+        override fun transform(
+            pool: BitmapPool,
+            toTransform: Bitmap,
+            outWidth: Int,
+            outHeight: Int
+        ): Bitmap =
+            Bitmap.createBitmap(
+                toTransform,
+                0,
+                0,
+                toTransform.width,
+                toTransform.height - 200   // numer of pixels
+            )
+
+        override fun updateDiskCacheKey(messageDigest: MessageDigest) {}
+    }
 }

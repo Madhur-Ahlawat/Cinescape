@@ -90,10 +90,9 @@
 
             <ImageView
                 android:id="@+id/image_booking_alert"
-                android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                android:scaleType="centerCrop"
                 android:layout_marginBottom="17dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/contentDes"
@@ -107,9 +106,9 @@
             <View
                 android:id="@+id/view107"
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="0dp"
                 android:layout_marginTop="14dp"
-                android:layout_marginBottom="17dp"
+                android:layout_marginBottom="12dp"
                 android:background="@drawable/booking_alert_gradient"
                 app:layout_constraintBottom_toTopOf="@+id/view_location1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -137,13 +136,13 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:showDivider="middle">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content">-->
 
                         <TextView
                             android:id="@+id/text_bombshell"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:fontFamily="@font/sf_pro_text_heavy"
@@ -195,7 +194,7 @@
 
                             </androidx.cardview.widget.CardView>
                         </LinearLayout>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
                 </com.google.android.flexbox.FlexboxLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -281,7 +280,7 @@
                 android:id="@+id/view4"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginEnd="17dp"
+                android:layout_marginEnd="12dp"
                 app:layout_constraintBottom_toBottomOf="@+id/view3"
                 app:layout_constraintEnd_toEndOf="@+id/image_booking_alert"
                 app:layout_constraintHorizontal_weight="3"
@@ -306,6 +305,8 @@
                 android:layout_width="0dp"
                 android:layout_height="16dp"
                 android:layout_marginTop="4dp"
+                android:layout_marginEnd="@dimen/margin12"
+                android:layout_marginStart="-10dp"
                 android:adjustViewBounds="true"
                 android:src="@drawable/ic_screenx_icon"
                 app:layout_constraintEnd_toEndOf="@+id/view4"
@@ -429,16 +430,16 @@
             <TextView
                 android:id="@+id/go_to_booking_btn1"
                 android:layout_width="0dp"
-                android:layout_height="28dp"
+                android:layout_height="34dp"
                 android:background="@drawable/btn_corner_bg_red"
                 android:fontFamily="@font/sf_pro_text_bold"
                 android:gravity="center"
                 android:text="@string/go_to_booking"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="@dimen/size13"
-                android:layout_marginStart="@dimen/margin6"
-                android:layout_marginEnd="@dimen/margin6"
+                android:textSize="@dimen/size11"
+                android:layout_marginStart="@dimen/margin8"
+                android:layout_marginEnd="@dimen/margin8"
                 app:layout_constraintBottom_toBottomOf="@+id/text_time_visible"
                 app:layout_constraintEnd_toEndOf="@+id/view7"
                 app:layout_constraintStart_toStartOf="@+id/view7" />
