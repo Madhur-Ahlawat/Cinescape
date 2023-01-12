@@ -152,7 +152,7 @@
                             android:maxLines="1"
                             android:layout_marginEnd="@dimen/margin8"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/size20"
+                            android:textSize="@dimen/size16"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/constraintLayout18"
                             app:layout_constraintStart_toStartOf="parent"
@@ -258,8 +258,8 @@
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:text="@string/screen"
                 android:textSize="@dimen/size13"
-                app:layout_constraintEnd_toEndOf="@+id/view3"
                 app:layout_constraintStart_toStartOf="@+id/view3"
+                app:layout_constraintEnd_toEndOf="@+id/view3"
                 app:layout_constraintTop_toTopOf="@+id/view3" />
 
             <TextView
@@ -293,12 +293,12 @@
                 android:id="@+id/text_expereince"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:fontFamily="@font/sf_pro_text_regular"
+                android:paddingStart="@dimen/margin4"
                 android:text="@string/experience"
                 android:textSize="@dimen/size13"
                 app:layout_constraintEnd_toEndOf="@+id/view4"
-                app:layout_constraintStart_toEndOf="@+id/text_screen"
+                app:layout_constraintStart_toStartOf="@+id/view4"
                 app:layout_constraintTop_toTopOf="@+id/view4" />
 
             <ImageView
@@ -429,7 +429,7 @@
             <TextView
                 android:id="@+id/go_to_booking_btn1"
                 android:layout_width="0dp"
-                android:layout_height="30dp"
+                android:layout_height="28dp"
                 android:background="@drawable/btn_corner_bg_red"
                 android:fontFamily="@font/sf_pro_text_bold"
                 android:gravity="center"
@@ -437,6 +437,8 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/size13"
+                android:layout_marginStart="@dimen/margin6"
+                android:layout_marginEnd="@dimen/margin6"
                 app:layout_constraintBottom_toBottomOf="@+id/text_time_visible"
                 app:layout_constraintEnd_toEndOf="@+id/view7"
                 app:layout_constraintStart_toStartOf="@+id/view7" />

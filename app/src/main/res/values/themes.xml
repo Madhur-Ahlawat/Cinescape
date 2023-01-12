@@ -96,6 +96,12 @@
         <item name="android:windowBackground">@drawable/popup_background</item>
     </style>
 
+    <style name="YourThemeName" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">#CC8800</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+
     <style name="CustomAlertDialogFilter" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@color/transparent</item>
         <item name="android:layout_width">match_parent</item>

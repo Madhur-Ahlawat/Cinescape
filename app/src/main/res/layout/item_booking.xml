@@ -64,7 +64,7 @@
                         android:includeFontPadding="false"
                         android:maxLines="1"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/size17"
+                        android:textSize="@dimen/size15"
                         android:layout_marginEnd="@dimen/margin12"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/constraintLayout18"
@@ -161,7 +161,7 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/view_location1"
             app:layout_constraintEnd_toStartOf="@+id/view4"
-            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintHorizontal_weight="1.6"
             app:layout_constraintStart_toEndOf="@+id/view_location1"
             app:layout_constraintTop_toTopOf="@+id/view_location1"
             app:layout_constraintVertical_bias="0.0" />
@@ -212,8 +212,10 @@
             android:fontFamily="@font/sf_pro_text_regular"
             android:text="@string/experience"
             android:textSize="@dimen/size13"
+            android:paddingStart="@dimen/margin4"
+            android:paddingEnd="@dimen/size1"
             app:layout_constraintEnd_toEndOf="@+id/view4"
-            app:layout_constraintStart_toEndOf="@+id/text_screen"
+            app:layout_constraintStart_toStartOf="@+id/view4"
             app:layout_constraintTop_toTopOf="@+id/view4" />
 
         <ImageView
@@ -343,7 +345,9 @@
         <TextView
             android:id="@+id/go_to_booking_btn1"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="28dp"
+            android:layout_marginEnd="@dimen/margin6"
+            android:layout_marginStart="@dimen/margin6"
             android:background="@drawable/btn_corner_bg_red"
             android:fontFamily="@font/sf_pro_text_bold"
             android:gravity="center"

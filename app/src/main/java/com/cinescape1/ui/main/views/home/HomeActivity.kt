@@ -379,25 +379,14 @@ class HomeActivity : DaggerAppCompatActivity(),
                 val runnable = Runnable {
                     val mDialogView =
                         LayoutInflater.from(this).inflate(R.layout.alert_booking, null)
-                    val mBuilder = AlertDialog.Builder(this, R.style.NewDialog).setView(mDialogView)
-
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                        if (mAlertDialog?.window != null) {
-//                            // Flag
-//                            mAlertDialog?.window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-//                            // DeviceScreenHeight
-//                            val displayMetrics = DisplayMetrics()
-//                            windowManager.defaultDisplay.getMetrics(displayMetrics)
-//                            val deviceScreenHeight = displayMetrics.heightPixels
-//                            // Change height child At index zero
-//                            (mAlertDialog?.window?.decorView?.rootView as ViewGroup).getChildAt(0).layoutParams.height =
-//                                deviceScreenHeight
-//                        }
-//                    }
-//                    mAlertDialog?.window?.setBackgroundDrawableResource(R.color.black70)
-//                    setStatusBarColorIfPossible(R.color.black70)
-
+                    mAlertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    val mBuilder = AlertDialog.Builder(this, R.style.YourThemeName).setView(mDialogView)
+                    mAlertDialog = mBuilder.create()
                     mAlertDialog = mBuilder.show()
+
+                    mAlertDialog?.show()
+//                    mBuilder.setCancelable(false)
+//                    mAlertDialog?.setCanceledOnTouchOutside(false)
 
                     mDialogView.text_bombshell.isSelected = true
                     mDialogView.text_location_name.text = output.output[0].cinemaname
@@ -503,28 +492,14 @@ class HomeActivity : DaggerAppCompatActivity(),
             else -> {
                 val runnable = Runnable {
                     val mDialogView = LayoutInflater.from(this).inflate(R.layout.alert_booking2, null)
-                    val mBuilder = AlertDialog.Builder(this, R.style.NewDialog).setView(mDialogView)
-
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                        if (mAlertDialog?.window != null) {
-//                            // Flag
-//                            mAlertDialog?.window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-//                            // DeviceScreenHeight
-//                            val displayMetrics = DisplayMetrics()
-//                            windowManager.defaultDisplay.getMetrics(displayMetrics)
-//                            val deviceScreenHeight = displayMetrics.heightPixels
-//                            // Change height child At index zero
-//                            (mAlertDialog?.window?.decorView?.rootView as ViewGroup).getChildAt(0).layoutParams.height =
-//                                deviceScreenHeight
-//                        }
-//                    }
-//                    mAlertDialog?.window?.setBackgroundDrawableResource(R.color.black70)
-//                    setStatusBarColorIfPossible(R.color.black70)
-
+                    mAlertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    val mBuilder = AlertDialog.Builder(this, R.style.YourThemeName).setView(mDialogView)
+                    mAlertDialog = mBuilder.create()
                     mAlertDialog = mBuilder.show()
+
                     mAlertDialog?.show()
-                    mBuilder.setCancelable(false)
-                    mAlertDialog?.setCanceledOnTouchOutside(false)
+//                    mBuilder.setCancelable(false)
+//                    mAlertDialog?.setCanceledOnTouchOutside(false)
 
                     mDialogView.img_cross_icon.setOnClickListener {
                         mAlertDialog?.dismiss()
@@ -634,11 +609,7 @@ class HomeActivity : DaggerAppCompatActivity(),
         )
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSION_ID) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {

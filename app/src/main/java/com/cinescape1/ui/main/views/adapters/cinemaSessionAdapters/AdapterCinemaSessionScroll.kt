@@ -39,7 +39,18 @@ class AdapterCinemaSessionScroll(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val showtimeListItem = cinemaSessionList[position]
-        holder.name.text = showtimeListItem.movie.title
+        try {
+
+            if (showtimeListItem.movie.title == null){
+                println("showtimeListItem.movie.title -------->${showtimeListItem.movie.title}")
+            }else{
+                holder.name.text = showtimeListItem.movie.title
+            }
+
+        }catch (e : Exception){
+            println("showtimeListItem.movie.titleError -------->${e.message}")
+        }
+
 
         if (Constant.LANGUAGE == "ar"){
             LocaleHelper.setLocale(context, "ar")
