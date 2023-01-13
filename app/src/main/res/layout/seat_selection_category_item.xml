@@ -12,13 +12,12 @@
         android:id="@+id/tv_seat_selectiopn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:gravity="center_horizontal"
         android:letterSpacing="-0.02"
         android:lineSpacingExtra="6sp"
         android:fontFamily="@font/sf_pro_text_semibold"
         android:text="@string/standard"
-        android:textAllCaps="true"
+        android:textAllCaps="false"
         android:textColor="@color/hint_color"
         android:textSize="@dimen/size14"
         app:layout_constraintEnd_toEndOf="@+id/image_seat_selection"
@@ -28,15 +27,15 @@
 
     <ImageView
         android:id="@+id/image_seat_selection"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:padding="@dimen/margin5"
         android:adjustViewBounds="true"
         android:contentDescription="@string/contentDes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_img_bachelor"
+        app:srcCompat="@drawable/bachlor"
         tools:ignore="ImageContrastCheck" />
 
     <TextView

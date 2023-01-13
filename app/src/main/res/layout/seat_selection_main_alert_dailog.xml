@@ -17,23 +17,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="34dp"
-        android:fontFamily="@font/sf_pro_text_bold"
-        android:gravity="center_horizontal"
-        android:letterSpacing="-0.01"
-        android:text="@string/select_seat_category"
-        android:textColor="@color/white"
-        android:textSize="@dimen/size18"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView2"
         android:layout_width="match_parent"
@@ -44,7 +27,7 @@
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout8"
         app:layout_constraintEnd_toEndOf="@+id/view100"
         app:layout_constraintStart_toStartOf="@+id/view100"
-        app:layout_constraintTop_toBottomOf="@+id/textView5">
+        app:layout_constraintTop_toTopOf="@+id/view100">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -72,6 +55,22 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
 
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:fontFamily="@font/sf_pro_text_bold"
+                        android:gravity="center_horizontal"
+                        android:letterSpacing="-0.01"
+                        android:text="@string/select_seat_category"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size15"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <com.google.android.flexbox.FlexboxLayout
                         android:id="@+id/select_seat_category"
                         android:layout_width="wrap_content"
@@ -83,14 +82,14 @@
                         app:flow_horizontalAlign="center"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="1dp"
                         android:layout_marginTop="24dp"
-                        android:background="@color/view_bg_color_line"
+                        android:background="@color/lineColor"
                         android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -192,7 +191,7 @@
                     <View
                         android:id="@+id/view_increase_decrease"
                         android:layout_width="119dp"
-                        android:layout_height="38dp"
+                        android:layout_height="36dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="23dp"
                         android:background="@drawable/seat_cat_item_bg"
@@ -201,8 +200,8 @@
 
                     <ImageView
                         android:id="@+id/text_decrease"
-                        android:layout_width="30dp"
-                        android:layout_height="32dp"
+                        android:layout_width="28dp"
+                        android:layout_height="30dp"
                         android:layout_marginStart="0dp"
                         android:adjustViewBounds="true"
                         android:clickable="false"
@@ -238,7 +237,7 @@
                         android:id="@+id/text_increase"
                         android:padding="@dimen/margin8"
                         android:layout_width="30dp"
-                        android:layout_height="32dp"
+                        android:layout_height="30dp"
                         android:layout_marginEnd="0dp"
                         android:adjustViewBounds="true"
                         android:backgroundTint="@color/white"
@@ -278,7 +277,7 @@
                         android:fontFamily="@font/sf_pro_text_bold"
                         android:letterSpacing="-0.02"
                         android:lineSpacingExtra="4.5sp"
-                        android:textColor="#a8a8a8"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/size13"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_total_ticket_price_title"
                         app:layout_constraintEnd_toEndOf="@+id/view_increase_decrease"
@@ -407,14 +406,17 @@
                 <View
                     android:id="@+id/vw_category"
                     android:layout_width="0dp"
-                    android:layout_height="80dp"
+                    android:layout_height="0dp"
                     android:visibility="visible"
+                    android:layout_marginTop="@dimen/margin4"
+                    app:layout_constraintBottom_toBottomOf="@+id/consType"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/view_gift" />
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/consType"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
@@ -426,20 +428,21 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/rating_ui"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="@dimen/margin2"
-                        android:layout_margin="@dimen/margin2"
+                        android:layout_width="40dp"
+                        android:layout_height="32dp"
+                        app:cardCornerRadius="@dimen/margin6"
+                        app:cardBackgroundColor="@android:color/transparent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/text_category_decription">
 
                         <TextView
                             android:id="@+id/text_age_category"
-                            android:layout_width="wrap_content"
-                            android:layout_height="17dp"
-                            android:fontFamily="@font/sf_pro_text_heavy"
+                            android:layout_width="44dp"
+                            android:layout_height="36dp"
+                            android:fontFamily="@font/sf_pro_text_regular"
                             android:includeFontPadding="false"
-                            android:gravity="center_vertical"
+                            android:gravity="center"
+                            android:layout_gravity="center"
                             android:paddingStart="@dimen/margin5"
                             android:paddingEnd="@dimen/margin5"
                             android:textColor="@color/white"
@@ -460,7 +463,6 @@
                         android:fontFamily="@font/sf_pro_text_regular"
                         android:letterSpacing="-0.01"
                         android:lineSpacingExtra="1.5sp"
-                        android:maxLines="2"
                         android:paddingStart="@dimen/margin10"
                         android:paddingEnd="@dimen/margin10"
                         android:text="Under 18 needs to be accompanied by parents or any adult age 18 and over."
@@ -478,39 +480,38 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/consTermCondition"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/margin40"
+                    android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/vw_category">
 
                     <TextView
                         android:id="@+id/text_terms_conditions"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="1.8sp"
-                        android:paddingStart="@dimen/margin8"
-                        android:paddingEnd="0dp"
+                        android:layout_marginStart="@dimen/margin40"
+                        android:layout_marginTop="@dimen/margin8"
                         android:text="@string/by_clicking_proceed_i_agree_to_the"
                         android:textColor="@color/hint_color"
                         android:textSize="@dimen/size12"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/text_terms_conditions1"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_text_bold"
                         android:lineSpacingExtra="1.8sp"
                         android:paddingStart="@dimen/margin8"
                         android:paddingEnd="0dp"
                         android:text="@string/terms_amp_conditions"
                         android:textColor="@color/hint_color"
                         android:textSize="@dimen/size12"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/text_terms_conditions"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintEnd_toEndOf="@+id/text_terms_conditions"
+                        app:layout_constraintStart_toStartOf="@+id/text_terms_conditions"
+                        app:layout_constraintTop_toBottomOf="@+id/text_terms_conditions" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -518,8 +519,8 @@
                     android:id="@+id/view42lines"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/margin2"
-                    android:background="@color/view_bg_color_line"
+                    android:layout_marginTop="@dimen/margin16"
+                    android:background="@color/lineColor"
                     android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="@+id/vw_category"
                     app:layout_constraintStart_toStartOf="@+id/vw_category"
@@ -804,8 +805,8 @@
 
         <TextView
             android:id="@+id/text_proceeds"
-            android:layout_width="110dp"
-            android:layout_height="36dp"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/btn_corner_bg_red"

@@ -71,12 +71,12 @@ class AdapterShowTimesCinemaTitle(
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         holder.recyclerShowTimeDimensions.layoutManager = layoutManager
-        val adapter = AdapterCinemaSessionDimension(
-            context, showtimeListItem.shows, this, showtimeListItem.experience, position
-        )
+        val adapter = AdapterCinemaSessionDimension(context, showtimeListItem.shows, this, showtimeListItem.experience, position)
         holder.recyclerShowTimeDimensions.adapter = adapter
+
     }
 
     override fun getItemCount(): Int {

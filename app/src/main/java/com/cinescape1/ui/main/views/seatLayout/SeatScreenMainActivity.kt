@@ -102,7 +102,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                 val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
 
                 binding?.tvSeatFilmTitle?.typeface = bold // heavy
-                binding?.tvSeatFilmType?.typeface = bold // heavy
+                binding?.tvSeatFilmType?.typeface = regular
                 binding?.tvCinemaName?.typeface = bold
                 binding?.tvSeatTimingDate?.typeface = bold
                 binding?.textType?.typeface = regular
@@ -124,7 +124,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                 val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
 
                 binding?.tvSeatFilmTitle?.typeface = heavy // heavy
-                binding?.tvSeatFilmType?.typeface = heavy // heavy
+                binding?.tvSeatFilmType?.typeface = regular
                 binding?.tvCinemaName?.typeface = bold
                 binding?.tvSeatTimingDate?.typeface = bold
                 binding?.textType?.typeface = regular
@@ -146,7 +146,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                 val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
 
                 binding?.tvSeatFilmTitle?.typeface = heavy // heavy
-                binding?.tvSeatFilmType?.typeface = heavy // heavy
+                binding?.tvSeatFilmType?.typeface = regular
                 binding?.tvCinemaName?.typeface = bold
                 binding?.tvSeatTimingDate?.typeface = bold
                 binding?.textType?.typeface = regular

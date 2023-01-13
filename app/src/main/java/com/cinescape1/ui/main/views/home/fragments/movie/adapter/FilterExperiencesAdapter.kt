@@ -37,13 +37,23 @@ class FilterExperiencesAdapter(
     override fun onBindViewHolder(holder: TodoViewHolder, @SuppressLint("RecyclerView") position: Int) {
         val obj = items[position]
         println("FilterExperience------>${obj}")
-        
+        println("ExperienceSelected- ------->${selected.contains(obj)}")
+
+
         when (obj) {
             "4DX" -> {
                 Glide.with(mContext).load(R.drawable.fourdx_gray).into(holder.todoTitle)
             }
             "STANDARD" -> {
-                Glide.with(mContext).load(R.drawable.standard_gray).into(holder.todoTitle)
+
+//                if (selected[position] == "STANDARD"){
+//                    holder.layoutFilterBg.setBackgroundResource(R.drawable.filter_select)
+//                    holder.todoTitle.setColorFilter(ContextCompat.getColor(mContext, R.color.colorWhite))
+//                    Glide.with(mContext).load(R.drawable.standard_gray).into(holder.todoTitle)
+//                }else{
+                    Glide.with(mContext).load(R.drawable.standard_gray).into(holder.todoTitle)
+//                }
+
             }
             "VIP" -> {
                 Glide.with(mContext).load(R.drawable.vip_gray).into(holder.todoTitle)
@@ -68,7 +78,8 @@ class FilterExperiencesAdapter(
                 Glide.with(mContext).load(R.drawable.premium_gray).into(holder.todoTitle)
             }
         }
-        holder.layoutFilterBg.setBackgroundResource(R.drawable.filter_unselect)
+
+//        holder.layoutFilterBg.setBackgroundResource(R.drawable.filter_unselect)
 
         holder.layoutFilterBg.setOnClickListener {
             if (selected.contains(obj)) {
@@ -138,10 +149,20 @@ class FilterExperiencesAdapter(
 //                        Glide.with(mContext).load(R.drawable.premium_white).into(holder.todoTitle)
 //                    }
 //                }
+                println("ExperienceSelected- ------->${selected[position]}")
                 holder.layoutFilterBg.setBackgroundResource(R.drawable.filter_select)
                 holder.todoTitle.setColorFilter(ContextCompat.getColor(mContext, R.color.colorWhite))
 
             }
+        }
+
+
+        if (selected.contains(obj)){
+            holder.layoutFilterBg.setBackgroundResource(R.drawable.filter_select)
+            holder.todoTitle.setColorFilter(ContextCompat.getColor(mContext, R.color.colorWhite))
+        }else{
+            holder.layoutFilterBg.setBackgroundResource(R.drawable.filter_unselect)
+            holder.todoTitle.setColorFilter(ContextCompat.getColor(mContext, R.color.gray))
         }
     }
 

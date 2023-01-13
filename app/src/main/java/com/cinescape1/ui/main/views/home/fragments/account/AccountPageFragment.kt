@@ -815,7 +815,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             binding?.imagePreference?.setColorFilter(requireActivity().getColor(R.color.text_color))
             binding?.textPreference?.setTextColor(requireActivity().getColor(R.color.text_color))
 
-            binding?.imageRecharageWallet?.setImageResource(R.drawable.ic_recharge)
+            binding?.imageRecharageWallet?.setImageResource(R.drawable.recharge_wallet_normal)
             binding?.textRecharageWallet?.setTextColor(requireActivity().getColor(R.color.text_color))
 
             binding?.imageRefundCoin?.setColorFilter(requireActivity().getColor(R.color.white))
@@ -856,7 +856,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             binding?.imagePreference?.setColorFilter(requireActivity().getColor(R.color.text_color))
             binding?.textPreference?.setTextColor(requireActivity().getColor(R.color.text_color))
 
-            binding?.imageRecharageWallet?.setImageResource(R.drawable.ic_recharge)
+            binding?.imageRecharageWallet?.setImageResource(R.drawable.recharge_wallet_normal)
             binding?.textRecharageWallet?.setTextColor(requireActivity().getColor(R.color.text_color))
 
             binding?.imageRefundCoin?.setColorFilter(requireActivity().getColor(R.color.text_color))
@@ -2438,19 +2438,12 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                 if (Constant.seatTypeList.contains(type_item.seatType)) {
                     Constant.seatTypeList.remove(type_item.seatType)
                     println("SeatListClick21 ------------->yes")
-                    typeName.setTextColor(
-                        ContextCompat.getColorStateList(
-                            requireContext(),
-                            R.color.hint_color
-                        )
-                    )
+                    typeName.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.hint_color))
+
                 } else {
                     Constant.seatTypeList.clear()
                     Constant.seatTypeList.add(type_item.seatType)
-                    typeName.setTextColor(
-                        ContextCompat.getColorStateList(
-                            requireContext(),
-                            R.color.text_alert_color_red
+                    typeName.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.text_alert_color_red
                         )
                     )
                     println("SeatListClick21 ------------->no")
@@ -2485,6 +2478,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
 
             when (data.name) {
+
                 "4DX" -> {
                         Glide.with(this).load(list4dx[0].imgCate).placeholder(R.drawable.four_dx).into(experienceName)
 
