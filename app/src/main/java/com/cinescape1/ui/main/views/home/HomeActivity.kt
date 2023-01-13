@@ -643,13 +643,8 @@ class HomeActivity : DaggerAppCompatActivity(),
     }
 
     class CutOffLogo : BitmapTransformation() {
-        override fun transform(
-            pool: BitmapPool,
-            toTransform: Bitmap,
-            outWidth: Int,
-            outHeight: Int
-        ): Bitmap =
-            Bitmap.createBitmap(
+        override fun transform(pool: BitmapPool, toTransform: Bitmap, outWidth: Int,
+                               outHeight: Int): Bitmap = Bitmap.createBitmap(
                 toTransform,
                 0,
                 0,

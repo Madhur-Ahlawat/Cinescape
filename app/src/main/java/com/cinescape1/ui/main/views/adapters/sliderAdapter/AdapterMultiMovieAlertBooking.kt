@@ -3,6 +3,7 @@ package com.cinescape1.ui.main.views.adapters.sliderAdapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -12,11 +13,15 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.NextBookingResponse
 import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
+import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.utils.Constant
 import kotlinx.android.synthetic.main.alert_booking.view.*
+import java.security.MessageDigest
 
 class AdapterMultiMovieAlertBooking(context: Context,
     private var sliderMultiMovieItemList: ArrayList<NextBookingResponse.Current>, var listener: RecycleViewItemClickListener
@@ -63,9 +68,10 @@ class AdapterMultiMovieAlertBooking(context: Context,
         }
 
         Glide.with(mContext)
-            .load(showtimeListItem.posterhori)
+            .load(showtimeListItem.posterhori).transform(CutOffLogo())
             .placeholder(R.drawable.movie_default)
             .into(holder.image)
+        println("showtimeListItem.posterhori------->${showtimeListItem.posterhori}")
 
         Glide.with(mContext)
             .load(showtimeListItem.experienceIcon)
@@ -163,4 +169,19 @@ class AdapterMultiMovieAlertBooking(context: Context,
     interface RecycleViewItemClickListener {
         fun onDateClick(showtimeListItem: NextBookingResponse.Current)
     }
+
+
+    class CutOffLogo : BitmapTransformation() {
+        override fun transform(pool: BitmapPool, toTransform: Bitmap, outWidth: Int,
+                               outHeight: Int): Bitmap = Bitmap.createBitmap(
+            toTransform,
+            0,
+            0,
+            toTransform.width,
+            toTransform.height - 200   // numer of pixels
+        )
+
+        override fun updateDiskCacheKey(messageDigest: MessageDigest) {}
+    }
+
 }
