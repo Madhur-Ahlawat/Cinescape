@@ -518,6 +518,7 @@ class HomeActivity : DaggerAppCompatActivity(),
 
                     recyclerViewAlertBooking.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
+                    //buh
                     val snapHelper = PagerSnapHelper()
                     snapHelper.attachToRecyclerView(recyclerViewAlertBooking)
                     recyclerViewAlertBooking.layoutManager = gridLayout
