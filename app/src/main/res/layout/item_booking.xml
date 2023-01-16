@@ -168,12 +168,11 @@
 
         <TextView
             android:id="@+id/text_screen"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sf_pro_text_regular"
             android:text="@string/screen"
             android:textSize="@dimen/size13"
-            app:layout_constraintEnd_toEndOf="@+id/view3"
             app:layout_constraintStart_toStartOf="@+id/view3"
             app:layout_constraintTop_toTopOf="@+id/view3" />
 
@@ -206,15 +205,14 @@
 
         <TextView
             android:id="@+id/text_expereince"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
             android:fontFamily="@font/sf_pro_text_regular"
-            android:text="@string/experience"
-            android:textSize="@dimen/size13"
             android:paddingStart="@dimen/margin4"
             android:paddingEnd="@dimen/size1"
-            app:layout_constraintEnd_toEndOf="@+id/view4"
+            android:text="@string/experience"
+            android:textSize="@dimen/size13"
             app:layout_constraintStart_toStartOf="@+id/view4"
             app:layout_constraintTop_toTopOf="@+id/view4" />
 

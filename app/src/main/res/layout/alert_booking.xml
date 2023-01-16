@@ -212,13 +212,14 @@
             <TextView
                 android:id="@+id/text_location_name"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:fontFamily="@font/sf_pro_text_bold"
                 android:text="@string/cinescape_al_muhallab"
                 android:textColor="@color/black"
                 android:textSize="@dimen/size14"
+                android:gravity="center"
                 android:includeFontPadding="false"
                 app:layout_constraintBottom_toBottomOf="@+id/view_location1"
                 app:layout_constraintEnd_toEndOf="@+id/view_location1"
@@ -234,6 +235,7 @@
                 android:text="@string/location"
                 android:textColor="@color/text_alert_color"
                 android:textSize="@dimen/size13"
+                android:includeFontPadding="false"
                 app:layout_constraintEnd_toEndOf="@+id/view_location1"
                 app:layout_constraintStart_toStartOf="@+id/view_location1"
                 app:layout_constraintTop_toTopOf="@+id/view_location1"
@@ -252,13 +254,12 @@
 
             <TextView
                 android:id="@+id/text_screen"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:text="@string/screen"
                 android:textSize="@dimen/size13"
                 app:layout_constraintStart_toStartOf="@+id/view3"
-                app:layout_constraintEnd_toEndOf="@+id/view3"
                 app:layout_constraintTop_toTopOf="@+id/view3" />
 
             <TextView
@@ -269,6 +270,7 @@
                 android:text="@string/_9"
                 android:textColor="@color/black"
                 android:textSize="@dimen/size14"
+                android:includeFontPadding="false"
                 app:layout_constraintBottom_toBottomOf="@+id/view3"
                 app:layout_constraintEnd_toEndOf="@+id/view3"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -290,13 +292,12 @@
 
             <TextView
                 android:id="@+id/text_expereince"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:paddingStart="@dimen/margin4"
                 android:text="@string/experience"
                 android:textSize="@dimen/size13"
-                app:layout_constraintEnd_toEndOf="@+id/view4"
                 app:layout_constraintStart_toStartOf="@+id/view4"
                 app:layout_constraintTop_toTopOf="@+id/view4" />
 
