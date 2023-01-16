@@ -515,17 +515,13 @@ class HomeActivity : DaggerAppCompatActivity(),
                     val recyclerViewAlertBooking = mDialogView.findViewById<View>(R.id.recyclerViewAlertBooking) as RecyclerView
                     val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
                     val adapter = AdapterMultiMovieAlertBooking(this, output.output, this)
-
                     recyclerViewAlertBooking.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-
-                    //buh
                     val snapHelper = PagerSnapHelper()
                     snapHelper.attachToRecyclerView(recyclerViewAlertBooking)
                     recyclerViewAlertBooking.layoutManager = gridLayout
                     recyclerViewAlertBooking.adapter = adapter
                     adapter.renewItems(output.output)
                     mDialogView.textView_dots.attachToRecyclerView(recyclerViewAlertBooking)
-
                 }
                 val handler = Handler(Looper.getMainLooper())
                 handler.postDelayed(runnable, 2000)
