@@ -49,7 +49,6 @@ class AdapterFilterTitle(
             val regular = ResourcesCompat.getFont(mContext, R.font.gess_light)
             val bold = ResourcesCompat.getFont(mContext, R.font.gess_bold)
             val medium = ResourcesCompat.getFont(mContext, R.font.gess_medium)
-
             holder.textTitleFilter.typeface = bold
 
         }else if (Constant.LANGUAGE == "en"){
@@ -66,9 +65,7 @@ class AdapterFilterTitle(
             val bold = ResourcesCompat.getFont(mContext, R.font.sf_pro_text_bold)
             val heavy = ResourcesCompat.getFont(mContext, R.font.sf_pro_text_heavy)
             val medium = ResourcesCompat.getFont(mContext, R.font.sf_pro_text_medium)
-
             holder.textTitleFilter.typeface = bold
-
         }
 
         try {

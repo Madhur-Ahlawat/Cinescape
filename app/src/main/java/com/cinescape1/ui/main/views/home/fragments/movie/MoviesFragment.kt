@@ -458,6 +458,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             binding?.fragmentMovie?.adapter = adapter
             binding?.noData?.show()
             binding?.fragmentMovie?.hide()
+//            binding?.filterUi?.hide()
 //            toast("No movie available!")
 
         }
@@ -719,15 +720,13 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
 
     private fun filterComingSoonDialog(output: MoviesResponse.Output) {
         dataList.clear()
-        val mDialogView =
-            LayoutInflater.from(requireContext()).inflate(R.layout.filter_alert_page_dailog, null)
-        val mBuilder = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogFilter)
-            .setView(mDialogView)
+        val mDialogView = LayoutInflater.from(requireContext()).inflate(R.layout.filter_alert_page_dailog, null)
+        val mBuilder = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogFilter).setView(mDialogView)
         val mAlertDialog = mBuilder.show()
 
 //Outside Clickable  False
         mAlertDialog.setCancelable(true)
-        mAlertDialog.setCanceledOnTouchOutside(true)
+        mAlertDialog.setCanceledOnTouchOutside(false)
         mAlertDialog.show()
         val selectedList2 = arrayListOf<String>()
         val selectedList3 = arrayListOf<String>()
@@ -851,22 +850,22 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             1 -> {
                 try {
                     binding?.filterUi?.show()
+                    nowShowingClick = false
+                    commingSoonClick = true
+                    advanceClick = false
                     //filter
                     imageView33.setOnClickListener {
                         isChecked
                         imageView33.setImageResource(R.drawable.filter_icons)
                         filterComingSoonDialog(moviesResponse?.output!!)
                     }
-                    nowShowingClick = false
-                    commingSoonClick = true
-                    advanceClick = false
+
 
                     movesData(
-                        MovieRequest(
-                            cinemaData, expData, genreData, languageData, ratingData, timingData
-                        )
-                    )
+                        MovieRequest(cinemaData, expData, genreData, languageData, ratingData, timingData))
+
 //                    comingSoon(moviesResponse?.output?.comingsoon!!)
+
                 } catch (e: Exception) {
                     println("Exception--->${e.message}")
                 }

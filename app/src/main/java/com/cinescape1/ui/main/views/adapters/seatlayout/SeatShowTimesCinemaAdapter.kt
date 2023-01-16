@@ -21,12 +21,16 @@ class SeatShowTimesCinemaAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolderShowTimesTitle, position: Int) {
+
         val showtimeListItem = showTimeTitleList[position]
         holder.textTitle.text = showtimeListItem.cinema.name
+        println("CinemasTittleName------------>${showtimeListItem.cinema.name} ---->yes")
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL ,false)
         holder.recyclerShowTimeDimensions.layoutManager = layoutManager
         val adapter = SeatLayoutCinemaSessionAdapter(context,showtimeListItem.shows,this,showtimeListItem.cinema.name,position)
         holder.recyclerShowTimeDimensions.adapter = adapter
+
+        println("CinemasTittleName212------------>${showtimeListItem.shows} ---->yes")
     }
 
     override fun getItemCount(): Int {

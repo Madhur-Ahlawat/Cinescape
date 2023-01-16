@@ -149,7 +149,7 @@ class FilterExperiencesAdapter(
 //                        Glide.with(mContext).load(R.drawable.premium_white).into(holder.todoTitle)
 //                    }
 //                }
-                println("ExperienceSelected- ------->${selected[position]}")
+//                println("ExperienceSelected- ------->${selected[position]}")
                 holder.layoutFilterBg.setBackgroundResource(R.drawable.filter_select)
                 holder.todoTitle.setColorFilter(ContextCompat.getColor(mContext, R.color.colorWhite))
 

@@ -11,7 +11,7 @@
         android:id="@+id/SeatnestedScroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -552,7 +552,7 @@
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_marginTop="16dp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:background="@color/view_bg_color_line"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -567,7 +567,7 @@
                     android:lineSpacingExtra="0.1dp"
                     android:text="@string/screen"
                     android:textAllCaps="true"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/size13"
                     app:layout_constraintBottom_toBottomOf="@+id/img_demo_seat"
                     app:layout_constraintEnd_toEndOf="@+id/img_demo_seat"
@@ -575,9 +575,7 @@
                     app:layout_constraintTop_toTopOf="@+id/img_demo_seat"
                     tools:ignore="TextContrastCheck" />
 
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
@@ -756,5 +754,4 @@
             app:layout_constraintTop_toTopOf="@+id/view_proceed" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

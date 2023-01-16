@@ -4,13 +4,11 @@
         android:color="#1d1d1d"
         />
 
-    <solid android:color="#1d1d1d"
-        />
+    <solid android:color="#1d1d1d" />
 
-
+<!--    android:bottomLeftRadius="@dimen/margin20"-->
+<!--    android:bottomRightRadius="@dimen/margin20"-->
      <corners
-        android:bottomLeftRadius="@dimen/margin20"
-        android:bottomRightRadius="@dimen/margin20"
         android:topLeftRadius="@dimen/margin20"
         android:topRightRadius="@dimen/margin20" />
 </shape>
