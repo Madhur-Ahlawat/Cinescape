@@ -87,8 +87,6 @@
                             app:slantedText="abcdefg" />
 
                     </RelativeLayout>
-
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -132,6 +130,9 @@
                     android:layout_marginEnd="@dimen/margin2"
                     android:ellipsize="end"
                     android:focusable="true"
+                    android:gravity="start"
+                    android:paddingStart="@dimen/margin6"
+                    android:paddingEnd="0dp"
                     android:focusableInTouchMode="true"
                     android:fontFamily="@font/sf_pro_text_regular"
                     android:freezesText="true"

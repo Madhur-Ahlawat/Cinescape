@@ -31,8 +31,7 @@ class AdapterNowShowing(
     private var screenWidth = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderNowShowing {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.movie_now_showing_item_tesy, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_now_showing_item_tesy, parent, false)
         return MyViewHolderNowShowing(view)
     }
 

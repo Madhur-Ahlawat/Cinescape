@@ -469,6 +469,7 @@
                         android:paddingStart="@dimen/margin10"
                         android:paddingEnd="@dimen/margin10"
                         android:gravity="top"
+                        android:minLines="4"
                         android:text="Under 18 needs to be accompanied by parents or any adult age 18 and over."
                         android:textColor="@color/text_color"
                         android:textSize="@dimen/size14"
@@ -493,6 +494,7 @@
                         android:id="@+id/text_terms_conditions"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_text_regular"
                         android:layout_marginTop="@dimen/margin8"
                         android:lineSpacingExtra="1.8sp"
                         android:text="@string/by_clicking_proceed_i_agree_to_the"
@@ -512,9 +514,9 @@
                         android:text="@string/terms_amp_conditions"
                         android:textColor="@color/hint_color"
                         android:textSize="@dimen/size12"
-                        app:layout_constraintEnd_toEndOf="@+id/text_terms_conditions"
-                        app:layout_constraintStart_toStartOf="@+id/text_terms_conditions"
-                        app:layout_constraintTop_toBottomOf="@+id/text_terms_conditions" />
+                        app:layout_constraintBottom_toBottomOf="@+id/text_terms_conditions"
+                        app:layout_constraintStart_toEndOf="@+id/text_terms_conditions"
+                        app:layout_constraintTop_toTopOf="@+id/text_terms_conditions" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

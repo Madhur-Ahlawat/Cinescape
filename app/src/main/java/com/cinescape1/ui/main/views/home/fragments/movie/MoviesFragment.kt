@@ -580,9 +580,10 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
         val mAlertDialog = mBuilder.show()
         mAlertDialog.window?.setGravity(Gravity.BOTTOM)
         //Outside Clickable  False
-        mAlertDialog.setCancelable(true)
-        mAlertDialog.setCanceledOnTouchOutside(true)
+        mAlertDialog.setCancelable(false)
+        mAlertDialog.setCanceledOnTouchOutside(false)
         mAlertDialog.show()
+
         val selectedList = arrayListOf<String>()
         val selectedList1 = arrayListOf<String>()
         val selectedList2 = arrayListOf<String>()
@@ -723,9 +724,9 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
         val mDialogView = LayoutInflater.from(requireContext()).inflate(R.layout.filter_alert_page_dailog, null)
         val mBuilder = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogFilter).setView(mDialogView)
         val mAlertDialog = mBuilder.show()
-
-//Outside Clickable  False
-        mAlertDialog.setCancelable(true)
+        mAlertDialog.window?.setGravity(Gravity.BOTTOM)
+        //Outside Clickable  False
+        mAlertDialog.setCancelable(false)
         mAlertDialog.setCanceledOnTouchOutside(false)
         mAlertDialog.show()
         val selectedList2 = arrayListOf<String>()
