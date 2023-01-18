@@ -966,28 +966,115 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             tvSeatSelection.text = item.seatType
             selectSeatCategory.addView(v)
 
-//            if (output.seatTypes.size > 0 && output.seatTypes.size == 1){
-//
-//                bottomCategory.show()
-//                areaCode = item.areacode
-//                ttType = item.ttypeCode
-//                seatCat = item.seatType
-////              toast("type--2->${seatCat}")
-//                totalPriceResponse = item.priceInt
-//                num = 1
-//                txtNumber.text = num.toString()
-//                btnDecrease.invisible()
-//                totalPrice.text = getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format((totalPriceResponse * num) / 100)
-//
-//                imageSeatSelection.setColorFilter(ContextCompat.getColor(this, R.color.text_alert_color_red),
-//                    android.graphics.PorterDuff.Mode.MULTIPLY)
-////                imageSeatSelection.setColorFilter(getColor(R.color.text_alert_color_red))
-//                tvSeatSelection.setTextColor(getColor(R.color.text_alert_color_red))
-//                tvSeatAvailable2.setTextColor(getColor(R.color.text_alert_color_red))
-//                tvKdPrice2.setTextColor(getColor(R.color.text_alert_color_red))
-//                // for second
-//
-//            }else{
+            if (output.seatTypes.size > 0 && output.seatTypes.size == 1){
+
+                bottomCategory.show()
+                areaCode = item.areacode
+                ttType = item.ttypeCode
+                seatCat = item.seatType
+//              toast("type--2->${seatCat}")
+                totalPriceResponse = item.priceInt
+                num = 1
+                txtNumber.text = num.toString()
+                btnDecrease.invisible()
+                totalPrice.text = getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format((totalPriceResponse * num) / 100)
+
+                imageSeatSelection.setColorFilter(ContextCompat.getColor(this, R.color.text_alert_color_red),
+                    android.graphics.PorterDuff.Mode.MULTIPLY)
+//                imageSeatSelection.setColorFilter(getColor(R.color.text_alert_color_red))
+                tvSeatSelection.setTextColor(getColor(R.color.text_alert_color_red))
+                tvSeatAvailable2.setTextColor(getColor(R.color.text_alert_color_red))
+                tvKdPrice2.setTextColor(getColor(R.color.text_alert_color_red))
+                if (item.seatTypes.isNotEmpty()) {
+                    categoryClick = false
+                    btnDecrease.isEnabled = false
+                    btnIncrease.isEnabled = false
+                    btnDecrease.isClickable = false
+                    btnIncrease.isClickable = false
+                    clickUi.hide()
+                } else {
+                    categoryClick = true
+                    clickUi.show()
+                    btnDecrease.isEnabled = true
+                    btnIncrease.isEnabled = true
+                    btnDecrease.isClickable = true
+                    btnIncrease.isClickable = true
+                }
+
+                selectSeatClick + 1
+                val selectSeatType = mDialogView.findViewById<FlexboxLayout>(R.id.select_seat_type)
+                val tvSelectSeatType = mDialogView.findViewById<TextView>(R.id.tv_select_seat_type)
+                val view2sLine = mDialogView.findViewById<View>(R.id.view2s_line)
+                val viewListForDates = ArrayList<View>()
+
+                for (data in item.seatTypes){
+                    val v: View = LayoutInflater.from(this).inflate(R.layout.seat_selection_type_item, selectSeatType, false)
+                    viewListForDates.add(v)
+                    val imgSeatSelectionType: ImageView =
+                        v.findViewById(R.id.img_seat_selection_type)
+                    val imgMetroInfo: ImageView = v.findViewById(R.id.img_metro_info)
+                    val textSeatType: TextView = v.findViewById(R.id.textseat_type)
+                    val tvSeatAvailable: TextView = v.findViewById(R.id.tv_seat_avialable)
+                    val tvKdPrice: TextView = v.findViewById(R.id.tv_kd_price)
+
+                    selectSeatType.show()
+                    Glide.with(this).load(data.icon).into(imgSeatSelectionType)
+                    imgMetroInfo.setImageResource(R.drawable.ic_icon_metro_info)
+                    tvKdPrice.text = data.price.toString()
+                    tvSeatAvailable.text = data.count
+                    println("ImageUrlLinkSeat -------->${data.icon}------->${data.price}")
+
+                    selectSeatType.addView(v)
+                    if (item.seatTypes.size > 0 && item.seatTypes.size == 1) {
+                        selectSeatType.show()
+                        bottomCategory.show()
+                        view2sLine.show()
+                        areaCode = data.areacode
+                        ttType = data.ttypeCode
+                        seatType = data.seatType
+                        totalPriceResponse = data.priceInt
+                        imgSeatSelectionType.setColorFilter(
+                            ContextCompat.getColor(this, R.color.text_alert_color_red),
+                            android.graphics.PorterDuff.Mode.MULTIPLY
+                        )
+                        Glide.with(this).load(data.icon).into(imgSeatSelectionType)
+                        textSeatType.setTextColor(getColor(R.color.text_alert_color_red))
+                        tvSeatAvailable.setTextColor(getColor(R.color.text_alert_color_red))
+                        tvKdPrice.setTextColor(getColor(R.color.text_alert_color_red))
+
+                        if (item.seatTypes.isNotEmpty()) {
+                            categoryClick = true
+                            clickUi.show()
+                            num = 1
+                            txtNumber.text = num.toString()
+                            btnDecrease.invisible()
+
+                            totalPrice.text =
+                                getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format(
+                                    (totalPriceResponse * num) / 100
+                                )
+                            btnDecrease.isEnabled = true
+                            btnIncrease.isEnabled = true
+                            btnDecrease.isClickable = true
+                            btnIncrease.isClickable = true
+                        } else {
+                            categoryClick = false
+                            clickUi.hide()
+                            btnDecrease.isEnabled = false
+                            btnIncrease.isEnabled = false
+                            btnDecrease.isClickable = false
+                            btnIncrease.isClickable = false
+                        }
+                    }
+
+
+                }
+
+
+
+                // for second
+
+            }else{
 
                 v.setOnClickListener {
                     areaCode = item.areacode
@@ -1028,19 +1115,17 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                         tvSeatAvailable11 = v.findViewById(R.id.tv_seat_avialable) as TextView
                         tvKdPrice11 = v.findViewById(R.id.tv_kd_price) as TextView
 //                    imageSeatSelection1.setColorFilter(getColor(R.color.hint_color))
-
-                        imageSeatSelection1.setColorFilter(
-                            ContextCompat.getColor(this, R.color.hint_color),
-                            android.graphics.PorterDuff.Mode.MULTIPLY)
+                        imageSeatSelection1.setColorFilter(ContextCompat.getColor(this, R.color.hint_color), android.graphics.PorterDuff.Mode.MULTIPLY)
 //                    Glide.with(this).load(item.icon).into(imageSeatSelection)
 
+                        println("ClickItemFirst--->${"yesNormal"}")
                         tvSeatSelection1.setTextColor(getColor(R.color.hint_color))
                         tvSeatAvailable11.setTextColor(getColor(R.color.hint_color))
                         tvKdPrice11.setTextColor(getColor(R.color.hint_color))
 
                     }
 
-                    println("item.iconActive--->${item.iconActive}")
+                    println("ClickItemFirst--->${"yesred"}")
 //                 Glide.with(this).load(item.iconActive).into(imageSeatSelection)
                     imageSeatSelection.setColorFilter(ContextCompat.getColor(this, R.color.text_alert_color_red),
                         android.graphics.PorterDuff.Mode.MULTIPLY)
@@ -1075,23 +1160,28 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                                 } else {
                                     textSeatType.text = data.seatTypeStr
                                 }
+
                                 selectSeatType.show()
                                 Glide.with(this).load(data.icon).into(imgSeatSelectionType)
-
                                 imgMetroInfo.setImageResource(R.drawable.ic_icon_metro_info)
                                 tvKdPrice.text = data.price.toString()
                                 tvSeatAvailable.text = data.count
                                 selectSeatType.addView(v)
 
-                                v.setOnClickListener {
-                                    var tvSeatSelection1: TextView?
-                                    var tvSeatAvailable1: TextView?
-                                    var tvKdPrice1: TextView?
-
+                                if (item.seatTypes.size > 0 && item.seatTypes.size == 1){
+                                    selectSeatType.show()
                                     areaCode = data.areacode
                                     ttType = data.ttypeCode
                                     seatType = data.seatType
                                     totalPriceResponse = data.priceInt
+                                    imgSeatSelectionType.setColorFilter(
+                                        ContextCompat.getColor(this, R.color.text_alert_color_red),
+                                        android.graphics.PorterDuff.Mode.MULTIPLY)
+
+//                                Glide.with(this).load(data.iconActive).into(imgSeatSelectionType)
+                                    textSeatType.setTextColor(getColor(R.color.text_alert_color_red))
+                                    tvSeatAvailable.setTextColor(getColor(R.color.text_alert_color_red))
+                                    tvKdPrice.setTextColor(getColor(R.color.text_alert_color_red))
 
                                     if (item.seatTypes.isNotEmpty()) {
                                         categoryClick = true
@@ -1117,28 +1207,66 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                                         btnIncrease.isClickable = false
                                     }
 
-                                    for (v in viewListForDates) {
-                                        tvSeatSelection1 =
-                                            v.findViewById(R.id.textseat_type) as TextView
-                                        tvSeatAvailable1 =
-                                            v.findViewById(R.id.tv_seat_avialable) as TextView
-                                        tvKdPrice1 = v.findViewById(R.id.tv_kd_price) as TextView
 
-                                        tvSeatSelection1!!.setTextColor(getColor(R.color.hint_color))
-                                        tvSeatAvailable1.setTextColor(getColor(R.color.hint_color))
-                                        tvKdPrice1.setTextColor(getColor(R.color.hint_color))
-                                    }
+                                }else{
+                                    v.setOnClickListener {
+                                        var tvSeatSelection1: TextView?
+                                        var tvSeatAvailable1: TextView?
+                                        var tvKdPrice1: TextView?
 
-                                    imgSeatSelectionType.setColorFilter(
-                                        ContextCompat.getColor(this, R.color.text_alert_color_red),
-                                        android.graphics.PorterDuff.Mode.MULTIPLY)
+                                        areaCode = data.areacode
+                                        ttType = data.ttypeCode
+                                        seatType = data.seatType
+                                        totalPriceResponse = data.priceInt
+
+                                        if (item.seatTypes.isNotEmpty()) {
+                                            categoryClick = true
+                                            clickUi.show()
+                                            num = 1
+                                            txtNumber.text = num.toString()
+                                            btnDecrease.invisible()
+
+                                            totalPrice.text =
+                                                getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format(
+                                                    (totalPriceResponse * num) / 100
+                                                )
+                                            btnDecrease.isEnabled = true
+                                            btnIncrease.isEnabled = true
+                                            btnDecrease.isClickable = true
+                                            btnIncrease.isClickable = true
+                                        } else {
+                                            categoryClick = false
+                                            clickUi.hide()
+                                            btnDecrease.isEnabled = false
+                                            btnIncrease.isEnabled = false
+                                            btnDecrease.isClickable = false
+                                            btnIncrease.isClickable = false
+                                        }
+
+                                        for (v in viewListForDates) {
+                                            tvSeatSelection1 =
+                                                v.findViewById(R.id.textseat_type) as TextView
+                                            tvSeatAvailable1 =
+                                                v.findViewById(R.id.tv_seat_avialable) as TextView
+                                            tvKdPrice1 = v.findViewById(R.id.tv_kd_price) as TextView
+
+                                            tvSeatSelection1!!.setTextColor(getColor(R.color.hint_color))
+                                            tvSeatAvailable1.setTextColor(getColor(R.color.hint_color))
+                                            tvKdPrice1.setTextColor(getColor(R.color.hint_color))
+                                        }
+
+                                        imgSeatSelectionType.setColorFilter(
+                                            ContextCompat.getColor(this, R.color.text_alert_color_red),
+                                            android.graphics.PorterDuff.Mode.MULTIPLY)
 
 //                                Glide.with(this).load(data.iconActive).into(imgSeatSelectionType)
-                                    textSeatType.setTextColor(getColor(R.color.text_alert_color_red))
-                                    tvSeatAvailable.setTextColor(getColor(R.color.text_alert_color_red))
-                                    tvKdPrice.setTextColor(getColor(R.color.text_alert_color_red))
+                                        textSeatType.setTextColor(getColor(R.color.text_alert_color_red))
+                                        tvSeatAvailable.setTextColor(getColor(R.color.text_alert_color_red))
+                                        tvKdPrice.setTextColor(getColor(R.color.text_alert_color_red))
 
+                                    }
                                 }
+
 
                             } catch (e: Exception) {
                                 e.printStackTrace()
@@ -1151,7 +1279,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                         view2sLine.hide()
                     }
                 }
-
+        }
 
 
 

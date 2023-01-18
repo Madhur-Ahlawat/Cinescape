@@ -77,8 +77,8 @@
 
                         <com.haozhang.lib.SlantedTextView
                             android:id="@+id/tag"
-                            android:layout_width="@dimen/margin47"
-                            android:layout_height="@dimen/margin47"
+                            android:layout_width="@dimen/margin49"
+                            android:layout_height="@dimen/margin49"
                             android:fontFamily="@font/sf_pro_text_medium"
                             app:slantedMode="left"
                             app:slantedLength="@dimen/margin20"
@@ -88,8 +88,6 @@
 
                     </RelativeLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
             </androidx.cardview.widget.CardView>
 
             <TextView
@@ -150,7 +148,7 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/rating_ui"
-                    android:layout_width="@dimen/margin32"
+                    android:layout_width="@dimen/margin27"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin2"
                     app:cardCornerRadius="2dp"
@@ -161,13 +159,11 @@
 
                     <TextView
                         android:id="@+id/movieRating"
-                        android:layout_width="32dp"
-                        android:layout_height="@dimen/margin17"
+                        android:layout_width="@dimen/margin27"
+                        android:layout_height="@dimen/margin14"
                         android:fontFamily="@font/sf_pro_text_regular"
                         android:gravity="center"
                         android:includeFontPadding="false"
-                        android:paddingStart="@dimen/margin5"
-                        android:paddingEnd="@dimen/margin3"
                         android:textColor="@color/white"
                         android:textSize="@dimen/size10"
                         tools:text="18+" />
@@ -177,9 +173,6 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.cardview.widget.CardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

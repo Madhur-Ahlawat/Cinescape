@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
@@ -10,27 +11,26 @@
         android:id="@+id/tv_category_titles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:background="@drawable/a_category_filter_bg"
         android:fontFamily="@font/sf_pro_text_regular"
         android:letterSpacing="-0.02"
         android:lineSpacingExtra="6sp"
-        android:paddingStart="@dimen/margin10"
-        android:paddingEnd="@dimen/margin10"
+        android:paddingStart="@dimen/margin6"
+        android:paddingEnd="@dimen/margin6"
         android:textColor="#adadad"
         android:gravity="center"
         android:textSize="@dimen/size14"
+        android:layout_marginBottom="@dimen/margin20"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="English" />
 
-
     <ImageView
         android:id="@+id/imageView15"
-        android:layout_width="@dimen/size16"
-        android:layout_height="@dimen/size16"
+        android:layout_width="@dimen/size15"
+        android:layout_height="@dimen/size15"
         android:layout_marginBottom="24dp"
         android:adjustViewBounds="true"
         android:padding="2dp"
@@ -42,4 +42,4 @@
         android:src="@drawable/ic_close_icons_light"
         tools:ignore="ContentDescription"
         app:tint="@color/white" />
-</androidx.constraintlayout.widget.ConstraintLayout><!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+</androidx.constraintlayout.widget.ConstraintLayout>

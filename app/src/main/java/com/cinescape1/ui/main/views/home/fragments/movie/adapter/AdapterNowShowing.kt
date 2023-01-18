@@ -42,13 +42,8 @@ class AdapterNowShowing(
         mContext.windowManager.defaultDisplay.getMetrics(displayMetrics)
         screenWidth = displayMetrics.widthPixels
         holder.thumbnail.layoutParams.width = ((screenWidth)/2.2f).toInt()
-
         println("NowShowingScreenWidth-------->${screenWidth}")
-
-        Glide.with(mContext)
-            .load(comingSoonItem.mobimgsmall)
-            .error(R.drawable.app_icon)
-            .into(holder.thumbnail)
+        Glide.with(mContext).load(comingSoonItem.mobimgsmall).error(R.drawable.app_icon).into(holder.thumbnail)
 
         holder.movieTitle.text = comingSoonItem.title
         holder.type.text = comingSoonItem.rating
