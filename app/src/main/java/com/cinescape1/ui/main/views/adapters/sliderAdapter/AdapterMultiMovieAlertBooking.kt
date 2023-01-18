@@ -1,7 +1,7 @@
 package com.cinescape1.ui.main.views.adapters.sliderAdapter
 
 import android.annotation.SuppressLint
-import android.content.Context
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -18,16 +18,16 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.NextBookingResponse
 import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
-import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.utils.Constant
 import kotlinx.android.synthetic.main.alert_booking.view.*
 import java.security.MessageDigest
 
-class AdapterMultiMovieAlertBooking(context: Context,
-    private var sliderMultiMovieItemList: ArrayList<NextBookingResponse.Current>, var listener: RecycleViewItemClickListener
+class AdapterMultiMovieAlertBooking(
+    private var context: Activity,
+    private var sliderMultiMovieItemList: ArrayList<NextBookingResponse.Current>,
+    var listener: RecycleViewItemClickListener
 ) :
     RecyclerView.Adapter<AdapterMultiMovieAlertBooking.MyViewHolderMultiMovieAlertBooking>() {
-    private var mContext = context
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -41,8 +41,80 @@ class AdapterMultiMovieAlertBooking(context: Context,
     override fun onBindViewHolder(holder: MyViewHolderMultiMovieAlertBooking, position: Int) {
         val showtimeListItem = sliderMultiMovieItemList[position]
 
-        holder.title.isSelected = true
+        if (position==0){
+            Glide.with(context)
+                .load(showtimeListItem.posterhori)
+                .transform(CutOffLogo())
+                .placeholder(R.drawable.placeholder_movie_alert_poster)
+                .into(holder.image)
+        }else{
+            Glide.with(context)
+                .load(showtimeListItem.posterhori)
+                .transform(CutOffLogo())
+                .placeholder(R.drawable.placeholder_movie_alert_poster)
+                .into(holder.image)
+        }
 
+
+        when (showtimeListItem.experience) {
+            "4DX" -> {
+                Glide
+                    .with(context)
+                    .load(R.drawable.four_dx)
+                    .into(holder.experience)
+
+            }
+            "Standard" -> {
+                Glide
+                    .with(context)
+                    .load(R.drawable.standard)
+                    .into(holder.experience)
+            }
+            "VIP" -> {
+                Glide
+                    .with(context)
+                    .load(R.drawable.vip)
+                    .into(holder.experience)
+            }
+            "IMAX" -> {
+                Glide
+                    .with(context)
+                    .load(R.drawable.imax)
+                    .into(holder.experience)
+            }
+            "3D" -> {
+                Glide
+                    .with(context)
+                    .load(R.drawable.threed_black)
+                    .into(holder.experience)
+            }
+            "DOLBY" -> {
+                Glide
+                    .with(context)
+                    .load(R.drawable.dolby_black)
+                    .into(holder.experience)
+            }
+            "ELEVEN" -> {
+                Glide
+                    .with(context)
+                    .load(R.drawable.eleven_black)
+                    .into(holder.experience)
+            }
+            "SCREENX" -> {
+                Glide
+                    .with(context)
+                    .load(R.drawable.screenx_black)
+                    .into(holder.experience)
+            }
+            "PREMIUM" -> {
+                Glide
+                    .with(context)
+                    .load(R.drawable.premium_black)
+                    .into(holder.experience)
+            }
+        }
+
+        holder.title.isSelected = true
         holder.title.text = showtimeListItem.moviename
         holder.title.text = showtimeListItem.moviename
         holder.location.text = showtimeListItem.cinemaname
@@ -50,7 +122,7 @@ class AdapterMultiMovieAlertBooking(context: Context,
         holder.date.text = showtimeListItem.showDate
         holder.time.text = showtimeListItem.showTime
         holder.rating.text = showtimeListItem.mcensor
-        val ratingColor=showtimeListItem.ratingColor
+        val ratingColor = showtimeListItem.ratingColor
 
         try {
             holder.rating.setBackgroundColor(Color.parseColor(ratingColor))
@@ -58,90 +130,16 @@ class AdapterMultiMovieAlertBooking(context: Context,
             e.printStackTrace()
         }
 
-        holder.image.setOnClickListener {
-            val intent = Intent(mContext, FinalTicketActivity::class.java)
-            intent.putExtra(Constant.IntentKey.BOOKING_ID, showtimeListItem.bookingId)
-            intent.putExtra(Constant.IntentKey.TRANSACTION_ID, showtimeListItem.transId.toString())
-            intent.putExtra(Constant.IntentKey.BOOK_TYPE, showtimeListItem.bookingType)
-            intent.putExtra("FROM", "MTicket")
-            mContext.startActivity(intent)
-        }
-
-        Glide.with(mContext)
-            .load(showtimeListItem.posterhori).transform(CutOffLogo())
-            .placeholder(R.drawable.movie_default)
-            .into(holder.image)
-        println("showtimeListItem.posterhori------->${showtimeListItem.posterhori}")
-
-        Glide.with(mContext)
-            .load(showtimeListItem.experienceIcon)
-            .into(holder.experience)
-
-
-        when (showtimeListItem.experience) {
-            "4DX" -> {
-                Glide
-                    .with(mContext)
-                    .load(R.drawable.four_dx)
-                    .into(holder.experience)
-
-            }
-            "Standard" -> {
-                Glide
-                    .with(mContext)
-                    .load(R.drawable.standard)
-                    .into(holder.experience)
-            }
-            "VIP" -> {
-                Glide
-                    .with(mContext)
-                    .load(R.drawable.vip)
-                    .into(holder.experience)
-            }
-            "IMAX" -> {
-                Glide
-                    .with(mContext)
-                    .load(R.drawable.imax)
-                    .into(holder.experience)
-            }
-            "3D" -> {
-                Glide
-                    .with(mContext)
-                    .load(R.drawable.threed_black)
-                    .into(holder.experience)
-            }
-            "DOLBY" -> {
-                Glide
-                    .with(mContext)
-                    .load(R.drawable.dolby_black)
-                    .into(holder.experience)
-            }
-            "ELEVEN" -> {
-                Glide
-                    .with(mContext)
-                    .load(R.drawable.eleven_black)
-                    .into(holder.experience)
-            }
-            "SCREENX" -> {
-                Glide
-                    .with(mContext)
-                    .load(R.drawable.screenx_black)
-                    .into(holder.experience)
-            }
-            "PREMIUM" -> {
-                Glide
-                    .with(mContext)
-                    .load(R.drawable.premium_black)
-                    .into(holder.experience)
-            }
-        }
-
-
-        holder.bookings.text = mContext.getString(R.string.go_to_bookings)
+        holder.bookings.text = context.getString(R.string.go_to_bookings)
         holder.bookings.setOnClickListener {
+            Constant.IntentKey.BACKFinlTicket += 1
             listener.onDateClick(showtimeListItem)
         }
 
+        holder.image.setOnClickListener {
+            listener.onItemClick(showtimeListItem)
+
+        }
     }
 
     override fun getItemCount(): Int {
@@ -166,22 +164,31 @@ class AdapterMultiMovieAlertBooking(context: Context,
         var ratingUi: CardView = view.ratingUi
         var bookings: TextView = view.go_to_booking_btn1
     }
+
     interface RecycleViewItemClickListener {
         fun onDateClick(showtimeListItem: NextBookingResponse.Current)
+        fun onItemClick(showtimeListItem: NextBookingResponse.Current)
     }
+
 
 
     class CutOffLogo : BitmapTransformation() {
-        override fun transform(pool: BitmapPool, toTransform: Bitmap, outWidth: Int,
-                               outHeight: Int): Bitmap = Bitmap.createBitmap(
-            toTransform,
-            0,
-            0,
-            toTransform.width,
-            toTransform.height - 200   // numer of pixels
-        )
+        override fun updateDiskCacheKey(messageDigest: MessageDigest) {
 
-        override fun updateDiskCacheKey(messageDigest: MessageDigest) {}
+        }
+
+        override fun transform(
+            pool: BitmapPool, toTransform: Bitmap,
+            outWidth: Int, outHeight: Int
+        ): Bitmap {
+            return Bitmap.createBitmap(
+                toTransform,
+                0,
+                0,
+                toTransform.width,
+                toTransform.height - 200
+            )
+        }
     }
-
 }
+

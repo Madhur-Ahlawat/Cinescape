@@ -136,10 +136,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:showDivider="middle">
 
-<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content">-->
-
                         <TextView
                             android:id="@+id/text_bombshell"
                             android:layout_width="wrap_content"
@@ -219,7 +215,7 @@
                 android:text="@string/cinescape_al_muhallab"
                 android:textColor="@color/black"
                 android:textSize="@dimen/size14"
-                android:gravity="center"
+                android:gravity="start"
                 android:includeFontPadding="false"
                 app:layout_constraintBottom_toBottomOf="@+id/view_location1"
                 app:layout_constraintEnd_toEndOf="@+id/view_location1"
@@ -235,7 +231,6 @@
                 android:text="@string/location"
                 android:textColor="@color/text_alert_color"
                 android:textSize="@dimen/size13"
-                android:includeFontPadding="false"
                 app:layout_constraintEnd_toEndOf="@+id/view_location1"
                 app:layout_constraintStart_toStartOf="@+id/view_location1"
                 app:layout_constraintTop_toTopOf="@+id/view_location1"
@@ -254,11 +249,13 @@
 
             <TextView
                 android:id="@+id/text_screen"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:text="@string/screen"
+                android:textColor="@color/text_alert_color"
                 android:textSize="@dimen/size13"
+                app:layout_constraintEnd_toStartOf="@+id/text_expereince"
                 app:layout_constraintStart_toStartOf="@+id/view3"
                 app:layout_constraintTop_toTopOf="@+id/view3" />
 
@@ -266,17 +263,16 @@
                 android:id="@+id/text_screen_number"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_pro_text_semibold"
+                android:fontFamily="@font/sf_pro_text_bold"
+                android:includeFontPadding="false"
                 android:text="@string/_9"
                 android:textColor="@color/black"
                 android:textSize="@dimen/size14"
-                android:includeFontPadding="false"
                 app:layout_constraintBottom_toBottomOf="@+id/view3"
                 app:layout_constraintEnd_toEndOf="@+id/view3"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/view3"
-                app:layout_constraintTop_toBottomOf="@+id/text_screen"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@+id/text_screen" />
 
             <View
                 android:id="@+id/view4"
@@ -292,26 +288,26 @@
 
             <TextView
                 android:id="@+id/text_expereince"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_pro_text_regular"
                 android:paddingStart="@dimen/margin4"
+                android:paddingEnd="1dp"
+                android:fontFamily="@font/sf_pro_text_regular"
                 android:text="@string/experience"
+                android:textColor="@color/text_alert_color"
                 android:textSize="@dimen/size13"
+                app:layout_constraintEnd_toEndOf="@+id/view4"
                 app:layout_constraintStart_toStartOf="@+id/view4"
                 app:layout_constraintTop_toTopOf="@+id/view4" />
 
             <ImageView
                 android:id="@+id/text_experience_name"
-                android:layout_width="0dp"
-                android:layout_height="16dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="@dimen/margin12"
-                android:layout_marginStart="-10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="17dp"
+                android:layout_marginStart="5dp"
                 android:adjustViewBounds="true"
-                android:src="@drawable/ic_screenx_icon"
-                app:layout_constraintEnd_toEndOf="@+id/view4"
-                app:layout_constraintHorizontal_bias="0.0"
+                android:src="@drawable/standard"
+                app:layout_constraintBottom_toBottomOf="@+id/view4"
                 app:layout_constraintStart_toStartOf="@+id/view4"
                 app:layout_constraintTop_toBottomOf="@+id/text_expereince"
                 tools:ignore="ContentDescription" />

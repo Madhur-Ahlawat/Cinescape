@@ -9,24 +9,26 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/image_booking_alert"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="210dp"
             android:layout_marginBottom="17dp"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             android:contentDescription="@string/contentDes"
             app:layout_constraintBottom_toTopOf="@+id/view_location1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@drawable/bombshell_alert" />
-
-
+            tools:srcCompat="@drawable/placeholder_movie_alert_poster" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -50,69 +52,65 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:showDivider="middle">
 
-<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content">-->
+                <TextView
+                    android:id="@+id/text_bombshell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin12"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/sf_pro_text_semibold"
+                    android:gravity="start"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size15"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/constraintLayout18"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_minWidth="50dp"
+                    tools:text="AKash " />
 
-                    <TextView
-                        android:id="@+id/text_bombshell"
-                        android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/constraintLayout18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:minWidth="50dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_bombshell"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_minWidth="@dimen/margin36">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/ratingUi"
+                        android:layout_width="32dp"
                         android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/sf_pro_text_semibold"
-                        android:gravity="start"
-                        android:includeFontPadding="false"
-                        android:maxLines="1"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/size15"
-                        android:layout_marginEnd="@dimen/margin12"
+                        app:cardCornerRadius="@dimen/margin3"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/constraintLayout18"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_minWidth="50dp"
-                        tools:text="klkllkm " />
-
-                    <LinearLayout
-                        android:id="@+id/constraintLayout18"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:minWidth="50dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_bombshell"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_minWidth="@dimen/margin36">
+                        app:layout_constraintTop_toTopOf="@+id/tv_seat_film_title">
 
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/ratingUi"
+                        <TextView
+                            android:id="@+id/text13"
                             android:layout_width="32dp"
-                            android:layout_height="wrap_content"
-                            app:cardCornerRadius="@dimen/margin3"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/tv_seat_film_title">
+                            android:layout_height="@dimen/margin17"
+                            android:fontFamily="@font/sf_pro_text_regular"
+                            android:gravity="center"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/size11"
+                            tools:ignore="HardcodedText,TextContrastCheck"
+                            tools:text="13+" />
 
-                            <TextView
-                                android:id="@+id/text13"
-                                android:layout_width="32dp"
-                                android:layout_height="@dimen/margin17"
-                                android:fontFamily="@font/sf_pro_text_regular"
-                                android:gravity="center"
-                                android:includeFontPadding="false"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/size11"
-                                tools:ignore="HardcodedText,TextContrastCheck"
-                                tools:text="13+" />
+                    </androidx.cardview.widget.CardView>
 
-                        </androidx.cardview.widget.CardView>
+                </LinearLayout>
 
-                    </LinearLayout>
-<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
             </com.google.android.flexbox.FlexboxLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
             android:id="@+id/view_location1"
@@ -128,14 +126,15 @@
         <TextView
             android:id="@+id/text_location_name"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:maxLines="1"
+            android:layout_height="wrap_content"
             android:ellipsize="end"
             android:fontFamily="@font/sf_pro_text_bold"
+            android:gravity="start"
+            android:includeFontPadding="false"
+            android:maxLines="1"
             android:text="@string/cinescape_al_muhallab"
             android:textColor="@color/black"
             android:textSize="@dimen/size14"
-            android:includeFontPadding="false"
             app:layout_constraintBottom_toBottomOf="@+id/view_location1"
             app:layout_constraintEnd_toEndOf="@+id/view_location1"
             app:layout_constraintHorizontal_bias="0.0"
@@ -161,7 +160,7 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/view_location1"
             app:layout_constraintEnd_toStartOf="@+id/view4"
-            app:layout_constraintHorizontal_weight="1.6"
+            app:layout_constraintHorizontal_weight="2"
             app:layout_constraintStart_toEndOf="@+id/view_location1"
             app:layout_constraintTop_toTopOf="@+id/view_location1"
             app:layout_constraintVertical_bias="0.0" />
@@ -181,6 +180,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sf_pro_text_bold"
+            android:includeFontPadding="false"
             android:text="@string/_9"
             android:textColor="@color/black"
             android:textSize="@dimen/size14"
@@ -188,14 +188,13 @@
             app:layout_constraintEnd_toEndOf="@+id/view3"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/view3"
-            app:layout_constraintTop_toBottomOf="@+id/text_screen"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/text_screen" />
 
         <View
             android:id="@+id/view4"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginEnd="@dimen/margin12"
+            android:layout_marginEnd="12dp"
             app:layout_constraintBottom_toBottomOf="@+id/view3"
             app:layout_constraintEnd_toEndOf="@+id/image_booking_alert"
             app:layout_constraintHorizontal_weight="3"
@@ -207,10 +206,9 @@
             android:id="@+id/text_expereince"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
             android:fontFamily="@font/sf_pro_text_regular"
             android:paddingStart="@dimen/margin4"
-            android:paddingEnd="@dimen/size1"
+            android:paddingEnd="1dp"
             android:text="@string/experience"
             android:textSize="@dimen/size13"
             app:layout_constraintStart_toStartOf="@+id/view4"
@@ -218,26 +216,23 @@
 
         <ImageView
             android:id="@+id/text_experience_name"
-            android:layout_width="0dp"
-            android:layout_height="18dp"
-            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="17dp"
+            android:layout_marginStart="5dp"
             android:adjustViewBounds="true"
-            android:layout_marginEnd="@dimen/margin12"
-            android:layout_marginStart="-10dp"
-            android:src="@drawable/ic_screenx_icon"
-            app:layout_constraintEnd_toEndOf="@+id/view4"
-            app:layout_constraintHorizontal_bias="0.0"
+            android:src="@drawable/standard"
+            app:layout_constraintBottom_toBottomOf="@+id/view4"
             app:layout_constraintStart_toStartOf="@+id/view4"
             app:layout_constraintTop_toBottomOf="@+id/text_expereince"
             tools:ignore="ContentDescription" />
 
         <ImageView
-            android:visibility="gone"
             android:id="@+id/experience_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
             android:layout_marginTop="4dp"
+            android:adjustViewBounds="true"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/view4"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/view4"
@@ -249,7 +244,7 @@
             android:id="@+id/view5"
             android:layout_width="0dp"
             android:layout_height="55dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="@dimen/margin20"
             android:layout_marginBottom="@dimen/margin6"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/view6"
@@ -264,7 +259,7 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/view5"
             app:layout_constraintEnd_toStartOf="@+id/view7"
-            app:layout_constraintHorizontal_weight="2.8"
+            app:layout_constraintHorizontal_weight="3"
             app:layout_constraintStart_toEndOf="@+id/view5"
             app:layout_constraintTop_toTopOf="@+id/view5"
             app:layout_constraintVertical_bias="0.0" />
@@ -273,12 +268,13 @@
             android:id="@+id/view7"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="4dp"
             app:layout_constraintBottom_toBottomOf="@+id/view6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="5.8"
             app:layout_constraintStart_toEndOf="@+id/view6"
-            app:layout_constraintTop_toTopOf="@+id/view6" />
+            app:layout_constraintTop_toTopOf="@+id/view6"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/text_date"
@@ -299,12 +295,12 @@
             android:id="@+id/text_date_visible"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/sf_pro_text_bold"
+            android:fontFamily="@font/sfprodisplay_bold"
+            android:includeFontPadding="false"
             android:text="@string/_04_nov_2020"
             android:textColor="@color/black"
             android:textSize="@dimen/size14"
             android:textStyle="bold"
-            android:includeFontPadding="false"
             app:layout_constraintEnd_toEndOf="@+id/view5"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/view5"
@@ -330,10 +326,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sf_pro_text_bold"
+            android:includeFontPadding="false"
             android:textColor="@color/black"
             android:textSize="@dimen/size14"
             android:textStyle="bold"
-            android:includeFontPadding="false"
             app:layout_constraintBottom_toBottomOf="@+id/view6"
             app:layout_constraintEnd_toEndOf="@+id/view6"
             app:layout_constraintHorizontal_bias="0.0"
@@ -346,8 +342,8 @@
             android:id="@+id/go_to_booking_btn1"
             android:layout_width="0dp"
             android:layout_height="34dp"
-            android:layout_marginEnd="@dimen/margin8"
             android:layout_marginStart="@dimen/margin8"
+            android:layout_marginEnd="@dimen/margin8"
             android:background="@drawable/btn_corner_bg_red"
             android:fontFamily="@font/sf_pro_text_bold"
             android:gravity="center"
@@ -360,4 +356,5 @@
             app:layout_constraintStart_toStartOf="@+id/view7" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

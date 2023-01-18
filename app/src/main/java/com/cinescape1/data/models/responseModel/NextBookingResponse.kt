@@ -6,10 +6,6 @@ data class NextBookingResponse(
     val output: ArrayList<Current>,
     val result: String
 ){
-//    data class Output(
-//        val current: ArrayList<Current>
-//    )
-
     data class Current(
         val bookingId: String,
         val bookingType: String,
