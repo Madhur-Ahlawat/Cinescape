@@ -34,6 +34,7 @@ import com.cinescape1.ui.main.views.finalTicket.model.FinalTicketLocalModel
 import com.cinescape1.ui.main.views.finalTicket.viewModel.FinalTicketViewModel
 import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.utils.*
+import com.cinescape1.utils.Constant.IntentKey.Companion.BACKFinlTicket
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.cancel_dialog.*
 import javax.inject.Inject
@@ -482,7 +483,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        super.onBackPressed()
+        BACKFinlTicket += 1
         val intent = Intent(applicationContext, HomeActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)

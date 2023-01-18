@@ -22,6 +22,7 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
+import com.cinescape1.data.models.responseModel.NextBookingResponse
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -205,6 +206,9 @@ class Constant {
             const val SELECT_LANGUAGE = "select_language"
             var OPEN_FROM: Int = 0
             var DialogShow: Boolean = true
+            var BOOKINGClick: Int=0
+            var BACKFinlTicket: Int=0
+            var NextBookingsResponse: NextBookingResponse?=null
             var USER_ID: String = ""
             var LANGUAGE_SELECT = "en"
             var TimerTime: Long = 360

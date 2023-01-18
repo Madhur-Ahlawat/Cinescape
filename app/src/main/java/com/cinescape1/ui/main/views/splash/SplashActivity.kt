@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Handler
@@ -18,6 +19,8 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.cinescape1.R
 import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.di.scoped.ActivityScoped
@@ -172,10 +175,9 @@ class SplashActivity : DaggerAppCompatActivity() {
     }
 
     private fun openMovieForYou() {
-        println("LoginCheck--->${preferences.getString(Constant.USER_ID)}")
+        Constant.IntentKey.BACKFinlTicket +=0
         val runnable = Runnable {
             if (preferences.getBoolean(Constant.IS_LOGIN)) {
-//                val intent = Intent(this@SplashActivity, PaymentListActivity::class.java)
                 val intent = Intent(this@SplashActivity, HomeActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -209,7 +211,6 @@ class SplashActivity : DaggerAppCompatActivity() {
         }
         restart?.setOnClickListener { v: View? ->
             recreate()
-            Log.d("clickedButton", "yes")
         }
     }
 }
