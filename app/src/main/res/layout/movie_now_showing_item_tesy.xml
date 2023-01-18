@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/black"
+    android:layout_marginStart="@dimen/margin4"
     android:layout_marginTop="@dimen/margin12"
     android:layout_marginBottom="@dimen/margin30">
 

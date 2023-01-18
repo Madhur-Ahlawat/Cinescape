@@ -60,6 +60,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
 
     @Inject
     lateinit var preferences: AppPreferences
+
     private val homeViewModel: HomeViewModel by viewModels { viewModelFactory }
     private var binding: FragmentMoviesBinding? = null
     private val dataList: ArrayList<FilterModel> = ArrayList()

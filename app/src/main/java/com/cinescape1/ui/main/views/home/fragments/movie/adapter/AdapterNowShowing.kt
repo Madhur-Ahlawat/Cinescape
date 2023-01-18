@@ -23,8 +23,7 @@ import com.cinescape1.utils.show
 import com.haozhang.lib.SlantedTextView
 
 class AdapterNowShowing(
-    private var nowShowingList: ArrayList<MoviesResponse.Nowshowing>,
-    context: Activity) :
+    private var nowShowingList: ArrayList<MoviesResponse.Nowshowing>, context: Activity) :
     RecyclerView.Adapter<AdapterNowShowing.MyViewHolderNowShowing>() {
     private var mContext = context
     private val displayMetrics = DisplayMetrics()
@@ -41,7 +40,7 @@ class AdapterNowShowing(
 
         mContext.windowManager.defaultDisplay.getMetrics(displayMetrics)
         screenWidth = displayMetrics.widthPixels
-        holder.thumbnail.layoutParams.width = ((screenWidth)/2.2f).toInt()
+        holder.thumbnail.layoutParams.width = ((screenWidth)/2.28f).toInt()
         println("NowShowingScreenWidth-------->${screenWidth}")
         Glide.with(mContext).load(comingSoonItem.mobimgsmall).error(R.drawable.app_icon).into(holder.thumbnail)
 
@@ -58,13 +57,12 @@ class AdapterNowShowing(
 
             } else if (Constant.LANGUAGE == "en") {
                 LocaleHelper.setLocale(mContext, "en")
-
                 holder.imageView60.setImageResource(R.drawable.en_tab)
                 holder.tag.text = comingSoonItem.tag
                 holder.tag.setSlantedBackgroundColor(Color.parseColor(comingSoonItem.tagColor))
                 holder.tag.mode = SlantedTextView.MODE_LEFT
-
             }
+
         }
 
 
