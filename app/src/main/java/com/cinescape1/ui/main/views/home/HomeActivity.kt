@@ -89,7 +89,7 @@ class HomeActivity : DaggerAppCompatActivity(),
     private var spinner: AppCompatSpinner? = null
     private var locationlist = ArrayList<FoodResponse.Output.Cinema>()
     private var broadcastReceiver: BroadcastReceiver? = null
-    private  var buttonClick= false
+    private var buttonClick = false
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -163,8 +163,8 @@ class HomeActivity : DaggerAppCompatActivity(),
         binding?.imageView42?.setOnClickListener {
 
             BACKFinlTicket = 0
-            if (NextBookingsResponse != null && buttonClick==false) {
-                buttonClick= true
+            if (NextBookingsResponse != null && buttonClick == false) {
+                buttonClick = true
                 retrieveNextBookedResponse(NextBookingsResponse!!)
             }
         }
@@ -203,7 +203,6 @@ class HomeActivity : DaggerAppCompatActivity(),
                                         negativeClick = {
                                         })
                                     dialog.show()
-
                                 }
                             }
                         }
@@ -233,14 +232,13 @@ class HomeActivity : DaggerAppCompatActivity(),
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.fragment_food)
-        dialog.window!!.setLayout(
+        dialog.window?.setLayout(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
-        dialog.window!!.setGravity(Gravity.BOTTOM)
-//        dialog.spinner.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.text_color))
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
+        dialog.window?.setGravity(Gravity.BOTTOM)
         dialog.show()
         spinner = dialog.spinner
         dialog.text_cancel_goback.setOnClickListener {
@@ -319,11 +317,9 @@ class HomeActivity : DaggerAppCompatActivity(),
                         Status.SUCCESS -> {
                             resource.data?.let { it ->
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    try {
-                                        retrieveNextBookedResponse(it.data)
-                                    } catch (e: Exception) {
-                                        e.printStackTrace()
-                                    }
+
+                                    retrieveNextBookedResponse(it.data)
+
                                 }
                             }
                         }
@@ -337,7 +333,7 @@ class HomeActivity : DaggerAppCompatActivity(),
     }
 
     private fun retrieveNextBookedResponse(output: NextBookingResponse) {
-        println("callTime---->$1")
+        buttonClick = true
         if (output.output.isEmpty()) {
             binding?.imageView42?.hide()
         } else {
@@ -355,7 +351,8 @@ class HomeActivity : DaggerAppCompatActivity(),
                     val mDialogView =
                         LayoutInflater.from(this).inflate(R.layout.alert_booking, null)
                     mAlertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                    val mBuilder = AlertDialog.Builder(this, R.style.YourThemeName).setView(mDialogView)
+                    val mBuilder =
+                        AlertDialog.Builder(this, R.style.YourThemeName).setView(mDialogView)
                     mAlertDialog = mBuilder.create()
 
                     if (BACKFinlTicket == 0) {
@@ -380,21 +377,20 @@ class HomeActivity : DaggerAppCompatActivity(),
                     mDialogView.image_cross_icon.setOnClickListener {
                         //dismiss dialog
                         mAlertDialog?.dismiss()
-                        buttonClick= false
-
+                        buttonClick = false
                     }
 
                     mDialogView.go_to_booking_btn1.setOnClickListener {
                         setCurrentFragment(AccountPageFragment())
                         binding?.navigationView?.selectedItemId = R.id.accountFragment
                         mAlertDialog?.dismiss()
-                        buttonClick= false
+                        buttonClick = false
 
                     }
 
                     mDialogView.image_booking_alert.setOnClickListener {
                         BACKFinlTicket += 1
-                        buttonClick= false
+                        buttonClick = false
                         val intent = Intent(this, FinalTicketActivity::class.java)
                         intent.putExtra(Constant.IntentKey.BOOKING_ID, output.output[0].bookingId)
                         intent.putExtra(
@@ -489,7 +485,7 @@ class HomeActivity : DaggerAppCompatActivity(),
                     }
 
                     mDialogView.img_cross_icon.setOnClickListener {
-                        buttonClick= false
+                        buttonClick = false
                         mAlertDialog?.dismiss()
                     }
 
@@ -502,6 +498,7 @@ class HomeActivity : DaggerAppCompatActivity(),
                     recyclerViewAlertBooking.layoutManager =
                         LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
+
                     //buh
                     val snapHelper = PagerSnapHelper()
                     snapHelper.attachToRecyclerView(recyclerViewAlertBooking)
@@ -509,6 +506,7 @@ class HomeActivity : DaggerAppCompatActivity(),
                     recyclerViewAlertBooking.adapter = adapter
                     adapter.renewItems(output.output)
                     mDialogView.textView_dots.attachToRecyclerView(recyclerViewAlertBooking)
+
 
                 }
                 val handler = Handler(Looper.getMainLooper())
@@ -528,14 +526,14 @@ class HomeActivity : DaggerAppCompatActivity(),
     }
 
     override fun onDateClick(showtimeListItem: NextBookingResponse.Current) {
-        buttonClick= false
+        buttonClick = false
         binding?.navigationView?.selectedItemId = R.id.accountFragment
         setCurrentFragment(AccountPageFragment())
         mAlertDialog?.dismiss()
     }
 
     override fun onItemClick(showtimeListItem: NextBookingResponse.Current) {
-        buttonClick= false
+        buttonClick = false
         BACKFinlTicket += 1
         mAlertDialog?.dismiss()
         val intent = Intent(this, FinalTicketActivity::class.java)
@@ -561,9 +559,9 @@ class HomeActivity : DaggerAppCompatActivity(),
         override fun updateDiskCacheKey(messageDigest: MessageDigest) {}
     }
 
-    override fun onResume() {
-        super.onResume()
-        movedNext()
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        movedNext()
+//    }
 
 }
