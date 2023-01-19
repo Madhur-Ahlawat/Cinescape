@@ -20,10 +20,8 @@ import com.cinescape1.utils.show
 import com.cinescape1.utils.toast
 import kotlinx.android.synthetic.main.showtime_day_date_item.view.*
 
-class AdapterDayDate(
-    var context: Activity, private var dayDateList: ArrayList<CinemaSessionResponse.Days>,
-    var listener: RecycleViewItemClickListener
-) : RecyclerView.Adapter<AdapterDayDate.MyViewHolderDayDate>() {
+class AdapterDayDate(var context: Activity, private var dayDateList: ArrayList<CinemaSessionResponse.Days>,
+    var listener: RecycleViewItemClickListener) : RecyclerView.Adapter<AdapterDayDate.MyViewHolderDayDate>() {
     var mContext: Activity = context
     private var rowIndex = 0
     private var backIndex = 0
@@ -89,24 +87,41 @@ class AdapterDayDate(
                 rowIndex = position
                 backIndex = position
                 notifyDataSetChanged()
-
             }
+
         } else {
 
             holder.consBackground.setBackgroundResource(R.drawable.day_un_select_rectangle)
-            holder.day.setTextColor(ContextCompat.getColor(context, R.color.disableColor))
-            holder.date.setTextColor(ContextCompat.getColor(context, R.color.disableColor))
+//            holder.day.setTextColor(ContextCompat.getColor(context, R.color.disableColor))
+//            holder.date.setTextColor(ContextCompat.getColor(context, R.color.disableColor))
+
+            holder.day.setTextColor(ContextCompat.getColor(context, R.color.lineColor))
+            holder.date.setTextColor(ContextCompat.getColor(context, R.color.lineColor))
+
+
             val regular: Typeface = context.resources.getFont(R.font.sf_pro_text_regular)
             holder.day.typeface = regular
             holder.date.typeface = regular
             holder.day.textSize = 13F
             holder.date.textSize = 16F
+
+//            holder.day.alpha = 0.3f
+//            holder.date.alpha = 0.3f
+
         }
 
     }
 
     override fun getItemCount(): Int {
         return dayDateList.size
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 
     interface RecycleViewItemClickListener {

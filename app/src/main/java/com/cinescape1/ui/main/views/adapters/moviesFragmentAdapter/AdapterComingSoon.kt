@@ -1,6 +1,7 @@
 package com.cinescape1.ui.main.views.adapters.moviesFragmentAdapter
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +14,7 @@ import com.cinescape1.data.models.responseModel.MoviesResponse
 
 class AdapterComingSoon(
     private var nowShowingList: ArrayList<MoviesResponse.Comingsoon>,
-    context: Context
+    context: Activity
 ) :
     RecyclerView.Adapter<AdapterComingSoon.MyViewHolderNowShowing>() {
     private var mContext = context

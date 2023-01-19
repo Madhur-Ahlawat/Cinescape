@@ -103,9 +103,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
     private var tag11: TextView? = null
 
     @SuppressLint("ResourceAsColor")
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentMoviesBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
         when {
@@ -152,8 +150,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
                 type111?.typeface = medium
                 tag11?.typeface = regular
 
-            }
-            else -> {
+            }else -> {
                 LocaleHelper.setLocale(requireActivity(), "en")
                 Constant.LANGUAGE = "${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}"
                 val regular = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_regular)
@@ -207,7 +204,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
         }
 
         //AppBar Hide
-// Show status bar
+     // Show status bar
         requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         requireActivity().window.statusBarColor = Color.BLACK

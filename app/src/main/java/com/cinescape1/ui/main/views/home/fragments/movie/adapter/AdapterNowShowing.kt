@@ -70,7 +70,6 @@ class AdapterNowShowing(
         holder.type.setBackgroundColor(Color.parseColor(ratingColor))
 
         if (comingSoonItem.language == null) {
-
             holder.movieCategory.text = "" + " | " + comingSoonItem.genre
         } else {
             holder.movieCategory.text = comingSoonItem.language + " | " + comingSoonItem.genre

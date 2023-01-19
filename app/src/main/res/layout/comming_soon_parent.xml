@@ -14,7 +14,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
         <TextView
             android:id="@+id/textView121"
             android:layout_width="wrap_content"
@@ -24,6 +23,7 @@
             android:fontFamily="@font/sf_pro_text_bold"
             android:textSize="@dimen/size14"
             tools:text="TextView"
+            android:layout_marginStart="@dimen/margin8"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,5 +41,6 @@
             app:layout_constraintTop_toBottomOf="@+id/textView121"
             tools:itemCount="3"
             tools:listitem="@layout/com_soon_item" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

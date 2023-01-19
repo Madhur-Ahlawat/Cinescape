@@ -19,8 +19,7 @@ class AdapterShowTimesCinemaTitle(
     private var context: Context,
     private var showTimeTitleList: List<CinemaSessionResponse.ExperienceSession>,
     val listener: CinemaAdapterListener,
-    var typeFaceListener: TypeFaceItem
-) : RecyclerView.Adapter<AdapterShowTimesCinemaTitle.MyViewHolderShowTimesTitle>(),
+    var typeFaceListener: TypeFaceItem) : RecyclerView.Adapter<AdapterShowTimesCinemaTitle.MyViewHolderShowTimesTitle>(),
     AdapterCinemaSessionDimension.SessionAdapterListener {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderShowTimesTitle {
         val view = LayoutInflater.from(parent.context)

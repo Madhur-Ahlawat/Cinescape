@@ -58,10 +58,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/view_titles"
         app:layout_constraintStart_toStartOf="@+id/view_titles"
-        app:layout_constraintTop_toBottomOf="@+id/view_titles">
-
-
-    </androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintTop_toBottomOf="@+id/view_titles"/>
 
     <View
         android:id="@+id/view17_lines11"
@@ -78,7 +75,7 @@
         android:visibility="gone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin12"
+        android:layout_marginTop="@dimen/margin20"
         app:alignContent="stretch"
         app:alignItems="stretch"
         app:flexWrap="wrap"
@@ -99,7 +96,7 @@
         android:id="@+id/view17"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="@dimen/margin18"
+        android:layout_marginTop="@dimen/margin25"
         android:background="@color/lineColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/viewSpace"

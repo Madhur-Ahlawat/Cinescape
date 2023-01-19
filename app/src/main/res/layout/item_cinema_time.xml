@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin6"
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.cardview.widget.CardView
@@ -25,7 +26,6 @@
             android:background="#1C1C1C"
             tools:ignore="RtlSymmetry">
 
-
             <View
                 android:id="@+id/view92"
                 android:layout_width="match_parent"
@@ -34,7 +34,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
 
             <TextView
                 android:id="@+id/text_times"
@@ -55,14 +54,15 @@
 
             <TextView
                 android:id="@+id/text_movies_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/margin13"
+                android:layout_height="@dimen/margin20"
                 android:layout_marginTop="8dp"
                 android:background="#e12329"
                 android:fontFamily="@font/sf_pro_text_semibold"
-                android:gravity="center"
+                android:gravity="top"
+                android:includeFontPadding="false"
                 android:paddingStart="@dimen/margin3"
-                android:paddingEnd="@dimen/margin4"
+                android:paddingTop="@dimen/margin1"
                 android:text="P"
                 android:textColor="@color/white"
                 android:textSize="@dimen/size10"

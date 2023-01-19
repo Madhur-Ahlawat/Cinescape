@@ -71,7 +71,6 @@ import kotlinx.android.synthetic.main.show_times_layout_include.*
 import javax.inject.Inject
 import kotlin.math.abs
 
-
 @Suppress("DEPRECATION", "NAME_SHADOWING")
 class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewItemClickListener,
     AdapterShowTimesCinemaTitle.CinemaAdapterListener, AdapterCinemaSessionScroll.LocationListener,
@@ -847,8 +846,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         if (Constant.SEAT_SESSION_CLICK == 1) {
             Constant.SEAT_SESSION_CLICK = 0
             showPose = data?.getIntExtra("CINEMA_POS", 0)!!
-            getSeatLayout(
-                SeatLayoutRequest(
+            getSeatLayout(SeatLayoutRequest(
                     data.getStringExtra("CINEMAID").toString(),
                     dateTime,
                     movieID,
