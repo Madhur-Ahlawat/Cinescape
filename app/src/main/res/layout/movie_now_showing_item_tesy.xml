@@ -56,10 +56,10 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="55dp"
+                        android:layout_height="56dp"
                         android:layout_marginEnd="@dimen/margin8"
                         android:layout_marginBottom="@dimen/margin8"
-                        android:layout_marginTop="@dimen/margin6"
+                        android:layout_marginTop="@dimen/margin4"
                         android:layout_marginStart="-1dp"
                         android:rotation="10"
                         app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +68,7 @@
                         <ImageView
                             android:id="@+id/imageView60"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/margin36"
+                            android:layout_height="@dimen/margin37"
                             android:visibility="invisible"
                             android:layout_alignParentTop="true"
                             app:layout_constraintStart_toStartOf="parent"
@@ -86,8 +86,8 @@
                             app:slantedTextSize="@dimen/size8"
                             app:slantedTextColor="@color/white"
                             app:slantedText="abcdefg" />
-
                     </RelativeLayout>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
@@ -153,6 +153,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin2"
                     app:cardCornerRadius="2dp"
+                    android:backgroundTint="@color/transparent"
+                    android:background="@color/transparent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/text_movie_category"
@@ -168,7 +170,6 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/size10"
                         tools:text="18+" />
-
 
                 </androidx.cardview.widget.CardView>
 

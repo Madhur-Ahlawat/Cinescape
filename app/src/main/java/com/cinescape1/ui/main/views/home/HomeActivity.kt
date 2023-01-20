@@ -58,7 +58,6 @@ import kotlinx.android.synthetic.main.fragment_food.*
 import java.security.MessageDigest
 import javax.inject.Inject
 
-
 @Suppress("DEPRECATION")
 class HomeActivity : DaggerAppCompatActivity(),
     AdapterMultiMovieAlertBooking.RecycleViewItemClickListener {
@@ -107,6 +106,7 @@ class HomeActivity : DaggerAppCompatActivity(),
         }
 
         navigationView.setOnNavigationItemSelectedListener {
+
             when (it.itemId) {
                 R.id.homeFragment -> {
                     BACKFinlTicket += 1
@@ -115,13 +115,17 @@ class HomeActivity : DaggerAppCompatActivity(),
                     setCurrentFragment(HomeFragment())
                 }
                 R.id.movieFragment -> {
+                    buttonClick = 1
                     BACKFinlTicket += 1
                     binding?.imageView42?.hide()
+                    println("NotiIconVisible--------->MovieFrag")
                     setCurrentFragment(MoviesFragment(0))
                 }
                 R.id.foodFragment -> {
+                    buttonClick = 1
                     BACKFinlTicket += 1
                     binding?.imageView42?.hide()
+                    println("NotiIconVisible--------->FoodFrag")
                     if (!preferences.getBoolean(Constant.IS_LOGIN)) {
                         startActivity(
                             Intent(this, LoginActivity::class.java)
@@ -133,11 +137,13 @@ class HomeActivity : DaggerAppCompatActivity(),
                     }
                 }
                 R.id.accountFragment -> {
+                    buttonClick = 1
                     BACKFinlTicket += 1
                     binding?.imageView42?.hide()
                     setCurrentFragment(AccountPageFragment())
                 }
                 R.id.moreFragment -> {
+                    buttonClick = 1
                     BACKFinlTicket += 1
                     binding?.imageView42?.hide()
                     setCurrentFragment(MorePageFragment())
@@ -154,10 +160,13 @@ class HomeActivity : DaggerAppCompatActivity(),
     }
 
     private fun manageBooking() {
-        if (NextBookingsResponse != null&& buttonClick==0){
+        if (NextBookingsResponse != null && buttonClick==0){
             binding?.imageView42?.show()
+
+            println("NotiIconVisible--------->Yes")
         }else{
             binding?.imageView42?.hide()
+            println("NotiIconVisible--------->no")
         }
 
         binding?.imageView42?.setOnClickListener {
@@ -332,10 +341,13 @@ class HomeActivity : DaggerAppCompatActivity(),
     }
 
     private fun retrieveNextBookedResponse(output: NextBookingResponse) {
+
         if (output != null && buttonClick==0){
             binding?.imageView42?.show()
+            println("NotiIconVisible1--------->Yes")
         }else{
             binding?.imageView42?.hide()
+            println("NotiIconVisible1--------->no")
         }
 
         binding?.imageView42?.setOnClickListener {
@@ -345,13 +357,13 @@ class HomeActivity : DaggerAppCompatActivity(),
                 bookingsPopup(output)
             }
         }
+
     }
 
     private  fun bookingsPopup(output: NextBookingResponse){
         when (output.output.size) {
             1 -> {
-                    val mDialogView =
-                        LayoutInflater.from(this).inflate(R.layout.alert_booking, null)
+                    val mDialogView = LayoutInflater.from(this).inflate(R.layout.alert_booking, null)
                     mAlertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                     val mBuilder =
                         AlertDialog.Builder(this, R.style.YourThemeName).setView(mDialogView)

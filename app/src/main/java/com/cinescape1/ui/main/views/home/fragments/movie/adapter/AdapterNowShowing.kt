@@ -40,8 +40,10 @@ class AdapterNowShowing(
 
         mContext.windowManager.defaultDisplay.getMetrics(displayMetrics)
         screenWidth = displayMetrics.widthPixels
-        holder.thumbnail.layoutParams.width = ((screenWidth)/2.28f).toInt()
-        println("NowShowingScreenWidth-------->${screenWidth}")
+        holder.thumbnail.layoutParams.width = ((screenWidth)/2.29f).toInt()
+
+        println("NowShowingScreenWidth-------->${screenWidth}--------->${comingSoonItem.mobimgsmall}")
+
         Glide.with(mContext).load(comingSoonItem.mobimgsmall).error(R.drawable.app_icon).into(holder.thumbnail)
 
         holder.movieTitle.text = comingSoonItem.title
@@ -76,22 +78,24 @@ class AdapterNowShowing(
         }
 
         if (comingSoonItem.tag == "") {
-//                    holder.background.hide()
+//          holder.background.hide()
             holder.tag.hide()
         } else {
-//                    holder.background.show()
+//          holder.background.show()
             holder.tag.show()
             holder.tag.text = comingSoonItem.tag
             val tagColor = comingSoonItem.tagColor
             holder.tag.setSlantedBackgroundColor(Color.parseColor(comingSoonItem.tagColor))
-//                    holder.background.setColorFilter(Color.parseColor(tagColor))
+//          holder.background.setColorFilter(Color.parseColor(tagColor))
         }
 
 
         holder.thumbnail.setOnClickListener {
+
             val intent = Intent(holder.thumbnail.context, ShowTimesActivity::class.java)
             intent.putExtra(Constant.IntentKey.MOVIE_ID, comingSoonItem.id)
             holder.thumbnail.context.startActivity(intent)
+
         }
 
     }

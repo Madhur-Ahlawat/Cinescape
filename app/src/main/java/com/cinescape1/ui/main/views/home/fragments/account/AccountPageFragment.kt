@@ -103,7 +103,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
-
+import kotlin.collections.ArrayList
 
 @Suppress("DEPRECATION")
 class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemClickListener,
@@ -560,11 +560,19 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             }
         }
 
-        myNextBooking(
-            NextBookingsRequest(
-                "", "", 0, preferences.getString(Constant.USER_ID).toString(), true
+        getProfile(
+            ProfileRequest(
+                "",
+                "",
+                preferences.getString(Constant.USER_ID).toString()
             )
         )
+
+//        myNextBooking(
+//            NextBookingsRequest(
+//                "", "", 0, preferences.getString(Constant.USER_ID).toString(), true
+//            )
+//        )
 
         println("CheckLogin--->${preferences.getString(Constant.TYPE_LOGIN)}")
         if (preferences.getString(Constant.TYPE_LOGIN) == "GUEST") {
@@ -1064,8 +1072,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         //Save Prefrence
         textView3.setOnClickListener {
 //            try {
-            updatePreference(
-                PreferenceRequest(
+            updatePreference(PreferenceRequest(
                     arbic,
                     cinema,
                     Constant.experience.toString(),
@@ -1082,7 +1089,10 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         broadcastReceiver = MyReceiver()
         broadcastIntent()
         getAmountLoad()
-        loadLocation()
+
+        // Location Current
+//        loadLocation()
+
         CinemaResponse()
         countryCodeLoad()
         view39_line.hide()
@@ -1843,8 +1853,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                                     clickEnable = 0
                                     getProfile(
                                         ProfileRequest(
-                                            latitude,
-                                            longitude,
+                                            "",
+                                            "",
                                             preferences.getString(Constant.USER_ID).toString()
                                         )
                                     )
@@ -2069,6 +2079,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     }
 
     private fun setSpinner(cinemas: ArrayList<FoodResponse.Output.Cinema>) {
+
         val customAdapter = CustomSpinnerAdapter(requireContext(), cinemas)
         spinnerPref?.adapter = customAdapter
         spinnerPref?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -2127,10 +2138,11 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 //                        val longi = locationResult.locations[latestlocIndex].longitude
                             latitude = locationResult.locations[latestIndex].latitude.toString()
                             longitude = locationResult.locations[latestIndex].longitude.toString()
+
                             getProfile(
                                 ProfileRequest(
-                                    latitude,
-                                    longitude,
+                                    "",
+                                    "",
                                     preferences.getString(Constant.USER_ID).toString()
                                 )
                             )
@@ -2169,8 +2181,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                                     positiveClick = {
                                         getProfile(
                                             ProfileRequest(
-                                                latitude,
-                                                longitude,
+                                                "",
+                                                "",
                                                 preferences.getString(Constant.USER_ID).toString()
                                             )
                                         )
@@ -3209,6 +3221,12 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                         loader?.dismiss()
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                myNextBooking(
+                                    NextBookingsRequest(
+                                        "", "", 0, preferences.getString(Constant.USER_ID).toString(), true
+                                    )
+                                )
+
                                 profileList = it.data.output.experience
                                 ageRatingList = it.data.output.rating
                                 setExperienceFlexbox(
@@ -3247,8 +3265,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     Status.LOADING -> {
 
                         if (isAdded) {
-//                            loader = LoaderDialog(R.string.pleasewait)
-//                            loader?.show(requireActivity().supportFragmentManager, null)
+                            loader = LoaderDialog(R.string.pleasewait)
+                            loader?.show(requireActivity().supportFragmentManager, null)
                         }
 
                     }
@@ -3307,18 +3325,13 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     }
 
     override fun onItemClick(view: CountryCodeResponse.Output, check: Boolean) {
-
         countryCode = view.isdCode
         val maxLengthEditText = view.phoneLength
-        enter_mobile_numbers.filters =
-            arrayOf<InputFilter>(InputFilter.LengthFilter(maxLengthEditText))
-
+        enter_mobile_numbers.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxLengthEditText))
     }
 
     private fun broadcastIntent() {
-        requireActivity().registerReceiver(
-            broadcastReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
-        )
+        requireActivity().registerReceiver(broadcastReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
     }
 
     override fun onItemClick(view: String) {
@@ -3444,7 +3457,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             clickEnable = 0
             getProfile(
                 ProfileRequest(
-                    latitude, longitude, preferences.getString(Constant.USER_ID).toString()
+                    "", "", preferences.getString(Constant.USER_ID).toString()
                 )
             )
 

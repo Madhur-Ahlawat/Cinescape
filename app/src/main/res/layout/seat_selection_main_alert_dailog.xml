@@ -84,7 +84,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-
                     <View
                         android:layout_width="0dp"
                         android:layout_height="1dp"
@@ -455,7 +454,6 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             tools:text="18+" />
-
                     </androidx.cardview.widget.CardView>
 
                     <TextView
@@ -471,7 +469,7 @@
                         android:paddingStart="@dimen/margin10"
                         android:paddingEnd="@dimen/margin10"
                         android:text="Under 18 needs to be accompanied by parents or any adult age 18 and over."
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/size14"
                         android:textStyle="normal"
                         android:visibility="visible"
@@ -499,7 +497,7 @@
                         android:includeFontPadding="false"
                         android:lineSpacingExtra="1.8sp"
                         android:text="@string/by_clicking_proceed_i_agree_to_the"
-                        android:textColor="@color/hint_color"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/size12"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -514,7 +512,7 @@
                         android:paddingStart="@dimen/margin3"
                         android:paddingEnd="0dp"
                         android:text="@string/terms_amp_conditions"
-                        android:textColor="@color/hint_color"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/size11"
                         app:layout_constraintBottom_toBottomOf="@+id/text_terms_conditions"
                         app:layout_constraintEnd_toEndOf="parent"

@@ -101,6 +101,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
     private var movieCategory11: TextView? = null
     private var type111: TextView? = null
     private var tag11: TextView? = null
+    private var notificationIcon: ConstraintLayout? = null
 
     @SuppressLint("ResourceAsColor")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -174,6 +175,9 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             }
         }
 
+        notificationIcon = requireActivity().findViewById(R.id.imageView42)
+        notificationIcon?.hide()
+
         return view!!
     }
 
@@ -190,6 +194,8 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
         list.add(MovieTypeModel(getString(R.string.commingSoon)))
         list.add(MovieTypeModel(getString(R.string.advanceBooking)))
 
+        notificationIcon = requireActivity().findViewById(R.id.imageView42)
+        notificationIcon?.hide()
 
         val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.HORIZONTAL, false)
         binding?.recyclerType?.layoutManager = LinearLayoutManager(context)

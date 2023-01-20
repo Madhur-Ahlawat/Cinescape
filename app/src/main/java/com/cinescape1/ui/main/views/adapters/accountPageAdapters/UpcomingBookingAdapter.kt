@@ -205,11 +205,18 @@ class UpcomingBookingAdapter(
     }
     interface ReesendMailItemClickListener {
         fun resenDmail(foodSelctedItem: NextBookingResponse.Current)
-
     }
 
     override fun getItemCount(): Int {
         return if (upcomingBookingList.isNotEmpty()) upcomingBookingList.size else 0
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 
     @SuppressLint("NotifyDataSetChanged")
