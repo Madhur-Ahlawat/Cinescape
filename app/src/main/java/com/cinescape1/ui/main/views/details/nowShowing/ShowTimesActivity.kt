@@ -905,6 +905,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
         ratingDesc.text = output.movie.ratingDescription
         println("movie.ratingDescription21 ------->${output.movie.ratingDescription}")
+        println("ratingDescription21 ------->${output.movie.ratingColor}")
 
         if (output.movie.rating.isEmpty()) {
             rating.hide()
