@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:id="@+id/container"
     android:layout_height="wrap_content">
+
 <!--title-->
     <TextView
         android:id="@+id/home_title"
@@ -31,8 +32,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/home_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/home_title"
-        tools:ignore="TextContrastCheck"
-        tools:text="TextView" />
+        tools:ignore="TextContrastCheck" />
 
 <!--MovieList-->
     <androidx.recyclerview.widget.RecyclerView
@@ -50,10 +50,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/home_title"
-        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck"
-        tools:itemCount="3"
-        tools:listitem="@layout/recommended_item" />
+        tools:itemCount="3" />
 
+<!--    tools:listitem="@layout/recommended_item"-->
     <!--Background Slider-->
     <LinearLayout
         android:id="@+id/viewpagerBack"
@@ -66,7 +65,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<!--Slider Front-->
+    <View
+        android:id="@+id/view104"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@+id/viewpagerBack"
+        android:background="@drawable/movie_info_page_gradient"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"/>
+
+
+    <!--Slider Front-->
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
@@ -79,6 +87,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/viewpagerBack" />
+
 
 <!--Advance Booking -->
     <androidx.constraintlayout.widget.ConstraintLayout
