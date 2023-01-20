@@ -71,7 +71,6 @@ import kotlinx.android.synthetic.main.show_times_layout_include.*
 import javax.inject.Inject
 import kotlin.math.abs
 
-
 @Suppress("DEPRECATION", "NAME_SHADOWING")
 class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewItemClickListener,
     AdapterShowTimesCinemaTitle.CinemaAdapterListener, AdapterCinemaSessionScroll.LocationListener,
@@ -847,8 +846,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         if (Constant.SEAT_SESSION_CLICK == 1) {
             Constant.SEAT_SESSION_CLICK = 0
             showPose = data?.getIntExtra("CINEMA_POS", 0)!!
-            getSeatLayout(
-                SeatLayoutRequest(
+            getSeatLayout(SeatLayoutRequest(
                     data.getStringExtra("CINEMAID").toString(),
                     dateTime,
                     movieID,
@@ -899,17 +897,15 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
         text_terms_conditions1.underline()
         consTermCondition.setOnClickListener {
-            val intent = Intent(
-                this, PaymentWebActivity::class.java
-            )
+            val intent = Intent(this, PaymentWebActivity::class.java)
             intent.putExtra("From", "login")
             intent.putExtra("PAY_URL", Constant.termsConditions)
             startActivity(intent)
         }
 
         ratingDesc.text = output.movie.ratingDescription
-
         println("movie.ratingDescription21 ------->${output.movie.ratingDescription}")
+        println("ratingDescription21 ------->${output.movie.ratingColor}")
 
         if (output.movie.rating.isEmpty()) {
             rating.hide()
@@ -917,10 +913,9 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             rating.show()
             rating.text = output.movie.rating
         }
+
         val ratingColor = output.movie.ratingColor
         rating.setBackgroundColor(Color.parseColor(ratingColor))
-
-//        ratingCard.setBackgroundColor(Color.parseColor(ratingColor))
 
         val btnDecrease: ImageView = mDialogView.findViewById(R.id.text_decrease)
         val txtNumber: TextView = mDialogView.findViewById(R.id.text_number)
@@ -946,6 +941,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             val tvSeatSelection: TextView = v.findViewById(R.id.tv_seat_selectiopn)
             val tvSeatAvailable2: TextView = v.findViewById(R.id.tv_seat_avialable)
             val tvKdPrice2: TextView = v.findViewById(R.id.tv_kd_price)
+
             Glide.with(this).load(item.icon).into(imageSeatSelection)
 
             println("SeatCategory.icon ---------->${item.icon}")
@@ -968,24 +964,26 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
             tvSeatSelection.text = item.seatType
             selectSeatCategory.addView(v)
-            v.setOnClickListener {
+
+            if (output.seatTypes.size > 0 && output.seatTypes.size == 1){
+
+                bottomCategory.show()
                 areaCode = item.areacode
                 ttType = item.ttypeCode
                 seatCat = item.seatType
-//                toast("type--2->${seatCat}")
-
+//              toast("type--2->${seatCat}")
                 totalPriceResponse = item.priceInt
                 num = 1
                 txtNumber.text = num.toString()
                 btnDecrease.invisible()
+                totalPrice.text = getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format((totalPriceResponse * num) / 100)
 
-                totalPrice.text =
-                    getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format((totalPriceResponse * num) / 100)
-
-                var imageSeatSelection1: ImageView?
-                var tvSeatSelection1: TextView?
-                var tvSeatAvailable11: TextView?
-                var tvKdPrice11: TextView?
+                imageSeatSelection.setColorFilter(ContextCompat.getColor(this, R.color.text_alert_color_red),
+                    android.graphics.PorterDuff.Mode.MULTIPLY)
+//                imageSeatSelection.setColorFilter(getColor(R.color.text_alert_color_red))
+                tvSeatSelection.setTextColor(getColor(R.color.text_alert_color_red))
+                tvSeatAvailable2.setTextColor(getColor(R.color.text_alert_color_red))
+                tvKdPrice2.setTextColor(getColor(R.color.text_alert_color_red))
                 if (item.seatTypes.isNotEmpty()) {
                     categoryClick = false
                     btnDecrease.isEnabled = false
@@ -1002,138 +1000,287 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                     btnIncrease.isClickable = true
                 }
 
-                for (v in viewListForDates) {
-                    imageSeatSelection1 = v.findViewById(R.id.image_seat_selection) as ImageView
-                    tvSeatSelection1 = v.findViewById(R.id.tv_seat_selectiopn) as TextView
-                    tvSeatAvailable11 = v.findViewById(R.id.tv_seat_avialable) as TextView
-                    tvKdPrice11 = v.findViewById(R.id.tv_kd_price) as TextView
-
-//                    imageSeatSelection1.setColorFilter(getColor(R.color.hint_color))
-
-                    imageSeatSelection1.setColorFilter(
-                        ContextCompat.getColor(this, R.color.hint_color),
-                        android.graphics.PorterDuff.Mode.MULTIPLY)
-//                    Glide.with(this).load(item.icon).into(imageSeatSelection)
-
-                    tvSeatSelection1.setTextColor(getColor(R.color.hint_color))
-                    tvSeatAvailable11.setTextColor(getColor(R.color.hint_color))
-                    tvKdPrice11.setTextColor(getColor(R.color.hint_color))
-                }
-
-                println("item.iconActive--->${item.iconActive}")
-//                Glide.with(this).load(item.iconActive).into(imageSeatSelection)
-                imageSeatSelection.setColorFilter(
-                    ContextCompat.getColor(this, R.color.text_alert_color_red),
-                    android.graphics.PorterDuff.Mode.MULTIPLY)
-
-//                imageSeatSelection.setColorFilter(getColor(R.color.text_alert_color_red))
-                tvSeatSelection.setTextColor(getColor(R.color.text_alert_color_red))
-                tvSeatAvailable2.setTextColor(getColor(R.color.text_alert_color_red))
-                tvKdPrice2.setTextColor(getColor(R.color.text_alert_color_red))
-
                 selectSeatClick + 1
                 val selectSeatType = mDialogView.findViewById<FlexboxLayout>(R.id.select_seat_type)
                 val tvSelectSeatType = mDialogView.findViewById<TextView>(R.id.tv_select_seat_type)
                 val view2sLine = mDialogView.findViewById<View>(R.id.view2s_line)
-                selectSeatType.removeAllViews()
-                if (item.seatTypes.isNotEmpty()) {
-                    val viewListForDates = ArrayList<View>()
+                val viewListForDates = ArrayList<View>()
+
+                for (data in item.seatTypes){
+                    val v: View = LayoutInflater.from(this).inflate(R.layout.seat_selection_type_item, selectSeatType, false)
+                    viewListForDates.add(v)
+                    val imgSeatSelectionType: ImageView =
+                        v.findViewById(R.id.img_seat_selection_type)
+                    val imgMetroInfo: ImageView = v.findViewById(R.id.img_metro_info)
+                    val textSeatType: TextView = v.findViewById(R.id.textseat_type)
+                    val tvSeatAvailable: TextView = v.findViewById(R.id.tv_seat_avialable)
+                    val tvKdPrice: TextView = v.findViewById(R.id.tv_kd_price)
+
                     selectSeatType.show()
-                    bottomCategory.show()
-                    view2sLine.show()
-                    for (data in item.seatTypes) {
-                        try {
-                            selectSeatType.show()
-                            val v: View = LayoutInflater.from(this)
-                                .inflate(R.layout.seat_selection_type_item, selectSeatType, false)
-                            viewListForDates.add(v)
-                            val imgSeatSelectionType: ImageView =
-                                v.findViewById(R.id.img_seat_selection_type)
-                            val imgMetroInfo: ImageView = v.findViewById(R.id.img_metro_info)
-                            val textSeatType: TextView = v.findViewById(R.id.textseat_type)
-                            val tvSeatAvailable: TextView = v.findViewById(R.id.tv_seat_avialable)
-                            val tvKdPrice: TextView = v.findViewById(R.id.tv_kd_price)
-                            if (languageCheck == "en") {
-                                textSeatType.text = data.seatType
-                            } else {
-                                textSeatType.text = data.seatTypeStr
-                            }
-                            selectSeatType.show()
-                            Glide.with(this).load(data.icon).into(imgSeatSelectionType)
+                    Glide.with(this).load(data.icon).into(imgSeatSelectionType)
+                    imgMetroInfo.setImageResource(R.drawable.ic_icon_metro_info)
+                    tvKdPrice.text = data.price.toString()
+                    tvSeatAvailable.text = data.count
+                    println("ImageUrlLinkSeat -------->${data.icon}------->${data.price}")
 
-                            imgMetroInfo.setImageResource(R.drawable.ic_icon_metro_info)
-                            tvKdPrice.text = data.price.toString()
-                            tvSeatAvailable.text = data.count
-                            selectSeatType.addView(v)
+                    selectSeatType.addView(v)
+                    if (item.seatTypes.size > 0 && item.seatTypes.size == 1) {
+                        selectSeatType.show()
+                        bottomCategory.show()
+                        view2sLine.show()
+                        areaCode = data.areacode
+                        ttType = data.ttypeCode
+                        seatType = data.seatType
+                        totalPriceResponse = data.priceInt
+                        imgSeatSelectionType.setColorFilter(
+                            ContextCompat.getColor(this, R.color.text_alert_color_red),
+                            android.graphics.PorterDuff.Mode.MULTIPLY
+                        )
+                        Glide.with(this).load(data.icon).into(imgSeatSelectionType)
+                        textSeatType.setTextColor(getColor(R.color.text_alert_color_red))
+                        tvSeatAvailable.setTextColor(getColor(R.color.text_alert_color_red))
+                        tvKdPrice.setTextColor(getColor(R.color.text_alert_color_red))
 
-                            v.setOnClickListener {
-                                var tvSeatSelection1: TextView?
-                                var tvSeatAvailable1: TextView?
-                                var tvKdPrice1: TextView?
+                        if (item.seatTypes.isNotEmpty()) {
+                            categoryClick = true
+                            clickUi.show()
+                            num = 1
+                            txtNumber.text = num.toString()
+                            btnDecrease.invisible()
 
-                                areaCode = data.areacode
-                                ttType = data.ttypeCode
-                                seatType = data.seatType
-                                totalPriceResponse = data.priceInt
-
-                                if (item.seatTypes.isNotEmpty()) {
-                                    categoryClick = true
-                                    clickUi.show()
-                                    num = 1
-                                    txtNumber.text = num.toString()
-                                    btnDecrease.invisible()
-
-                                    totalPrice.text =
-                                        getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format(
-                                            (totalPriceResponse * num) / 100
-                                        )
-                                    btnDecrease.isEnabled = true
-                                    btnIncrease.isEnabled = true
-                                    btnDecrease.isClickable = true
-                                    btnIncrease.isClickable = true
-                                } else {
-                                    categoryClick = false
-                                    clickUi.hide()
-                                    btnDecrease.isEnabled = false
-                                    btnIncrease.isEnabled = false
-                                    btnDecrease.isClickable = false
-                                    btnIncrease.isClickable = false
-                                }
-
-                                for (v in viewListForDates) {
-                                    tvSeatSelection1 =
-                                        v.findViewById(R.id.textseat_type) as TextView
-                                    tvSeatAvailable1 =
-                                        v.findViewById(R.id.tv_seat_avialable) as TextView
-                                    tvKdPrice1 = v.findViewById(R.id.tv_kd_price) as TextView
-
-                                    tvSeatSelection1!!.setTextColor(getColor(R.color.hint_color))
-                                    tvSeatAvailable1.setTextColor(getColor(R.color.hint_color))
-                                    tvKdPrice1.setTextColor(getColor(R.color.hint_color))
-                                }
-
-                                imgSeatSelectionType.setColorFilter(
-                                    ContextCompat.getColor(this, R.color.text_alert_color_red),
-                                    android.graphics.PorterDuff.Mode.MULTIPLY)
-
-//                                Glide.with(this).load(data.iconActive).into(imgSeatSelectionType)
-
-                                textSeatType.setTextColor(getColor(R.color.text_alert_color_red))
-                                tvSeatAvailable.setTextColor(getColor(R.color.text_alert_color_red))
-                                tvKdPrice.setTextColor(getColor(R.color.text_alert_color_red))
-                            }
-
-                        } catch (e: Exception) {
-                            e.printStackTrace()
+                            totalPrice.text =
+                                getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format(
+                                    (totalPriceResponse * num) / 100
+                                )
+                            btnDecrease.isEnabled = true
+                            btnIncrease.isEnabled = true
+                            btnDecrease.isClickable = true
+                            btnIncrease.isClickable = true
+                        } else {
+                            categoryClick = false
+                            clickUi.hide()
+                            btnDecrease.isEnabled = false
+                            btnIncrease.isEnabled = false
+                            btnDecrease.isClickable = false
+                            btnIncrease.isClickable = false
                         }
+                    }
+
+
+                }
+
+
+
+                // for second
+
+            }else{
+
+                v.setOnClickListener {
+                    areaCode = item.areacode
+                    ttType = item.ttypeCode
+                    seatCat = item.seatType
+//              toast("type--2->${seatCat}")
+
+                    totalPriceResponse = item.priceInt
+                    num = 1
+                    txtNumber.text = num.toString()
+                    btnDecrease.invisible()
+                    totalPrice.text = getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format((totalPriceResponse * num) / 100)
+
+                    var imageSeatSelection1: ImageView?
+                    var tvSeatSelection1: TextView?
+                    var tvSeatAvailable11: TextView?
+                    var tvKdPrice11: TextView?
+                    if (item.seatTypes.isNotEmpty()) {
+                        categoryClick = false
+                        btnDecrease.isEnabled = false
+                        btnIncrease.isEnabled = false
+                        btnDecrease.isClickable = false
+                        btnIncrease.isClickable = false
+                        clickUi.hide()
+                    } else {
+
+                        categoryClick = true
+                        clickUi.show()
+                        btnDecrease.isEnabled = true
+                        btnIncrease.isEnabled = true
+                        btnDecrease.isClickable = true
+                        btnIncrease.isClickable = true
+                    }
+
+                    for (v in viewListForDates) {
+                        imageSeatSelection1 = v.findViewById(R.id.image_seat_selection) as ImageView
+                        tvSeatSelection1 = v.findViewById(R.id.tv_seat_selectiopn) as TextView
+                        tvSeatAvailable11 = v.findViewById(R.id.tv_seat_avialable) as TextView
+                        tvKdPrice11 = v.findViewById(R.id.tv_kd_price) as TextView
+//                    imageSeatSelection1.setColorFilter(getColor(R.color.hint_color))
+                        imageSeatSelection1.setColorFilter(ContextCompat.getColor(this, R.color.hint_color), android.graphics.PorterDuff.Mode.MULTIPLY)
+//                    Glide.with(this).load(item.icon).into(imageSeatSelection)
+
+                        println("ClickItemFirst--->${"yesNormal"}")
+                        tvSeatSelection1.setTextColor(getColor(R.color.hint_color))
+                        tvSeatAvailable11.setTextColor(getColor(R.color.hint_color))
+                        tvKdPrice11.setTextColor(getColor(R.color.hint_color))
 
                     }
-                } else {
-                    selectSeatType.invisible()
-                    tvSelectSeatType.hide()
-                    view2sLine.hide()
+
+                    println("ClickItemFirst--->${"yesred"}")
+//                 Glide.with(this).load(item.iconActive).into(imageSeatSelection)
+                    imageSeatSelection.setColorFilter(ContextCompat.getColor(this, R.color.text_alert_color_red),
+                        android.graphics.PorterDuff.Mode.MULTIPLY)
+
+//                imageSeatSelection.setColorFilter(getColor(R.color.text_alert_color_red))
+                    tvSeatSelection.setTextColor(getColor(R.color.text_alert_color_red))
+                    tvSeatAvailable2.setTextColor(getColor(R.color.text_alert_color_red))
+                    tvKdPrice2.setTextColor(getColor(R.color.text_alert_color_red))
+
+                    selectSeatClick + 1
+                    val selectSeatType = mDialogView.findViewById<FlexboxLayout>(R.id.select_seat_type)
+                    val tvSelectSeatType = mDialogView.findViewById<TextView>(R.id.tv_select_seat_type)
+                    val view2sLine = mDialogView.findViewById<View>(R.id.view2s_line)
+                    selectSeatType.removeAllViews()
+                    if (item.seatTypes.isNotEmpty()) {
+                        val viewListForDates = ArrayList<View>()
+                        selectSeatType.show()
+                        bottomCategory.show()
+                        view2sLine.show()
+                        for (data in item.seatTypes) {
+                            try {
+                                val v: View = LayoutInflater.from(this).inflate(R.layout.seat_selection_type_item, selectSeatType, false)
+                                viewListForDates.add(v)
+                                val imgSeatSelectionType: ImageView =
+                                    v.findViewById(R.id.img_seat_selection_type)
+                                val imgMetroInfo: ImageView = v.findViewById(R.id.img_metro_info)
+                                val textSeatType: TextView = v.findViewById(R.id.textseat_type)
+                                val tvSeatAvailable: TextView = v.findViewById(R.id.tv_seat_avialable)
+                                val tvKdPrice: TextView = v.findViewById(R.id.tv_kd_price)
+                                if (languageCheck == "en") {
+                                    textSeatType.text = data.seatType
+                                } else {
+                                    textSeatType.text = data.seatTypeStr
+                                }
+
+                                selectSeatType.show()
+                                Glide.with(this).load(data.icon).into(imgSeatSelectionType)
+                                imgMetroInfo.setImageResource(R.drawable.ic_icon_metro_info)
+                                tvKdPrice.text = data.price.toString()
+                                tvSeatAvailable.text = data.count
+                                selectSeatType.addView(v)
+
+                                if (item.seatTypes.size > 0 && item.seatTypes.size == 1){
+                                    selectSeatType.show()
+                                    areaCode = data.areacode
+                                    ttType = data.ttypeCode
+                                    seatType = data.seatType
+                                    totalPriceResponse = data.priceInt
+                                    imgSeatSelectionType.setColorFilter(
+                                        ContextCompat.getColor(this, R.color.text_alert_color_red),
+                                        android.graphics.PorterDuff.Mode.MULTIPLY)
+
+//                                Glide.with(this).load(data.iconActive).into(imgSeatSelectionType)
+                                    textSeatType.setTextColor(getColor(R.color.text_alert_color_red))
+                                    tvSeatAvailable.setTextColor(getColor(R.color.text_alert_color_red))
+                                    tvKdPrice.setTextColor(getColor(R.color.text_alert_color_red))
+
+                                    if (item.seatTypes.isNotEmpty()) {
+                                        categoryClick = true
+                                        clickUi.show()
+                                        num = 1
+                                        txtNumber.text = num.toString()
+                                        btnDecrease.invisible()
+
+                                        totalPrice.text =
+                                            getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format(
+                                                (totalPriceResponse * num) / 100
+                                            )
+                                        btnDecrease.isEnabled = true
+                                        btnIncrease.isEnabled = true
+                                        btnDecrease.isClickable = true
+                                        btnIncrease.isClickable = true
+                                    } else {
+                                        categoryClick = false
+                                        clickUi.hide()
+                                        btnDecrease.isEnabled = false
+                                        btnIncrease.isEnabled = false
+                                        btnDecrease.isClickable = false
+                                        btnIncrease.isClickable = false
+                                    }
+
+
+                                }else{
+                                    v.setOnClickListener {
+                                        var tvSeatSelection1: TextView?
+                                        var tvSeatAvailable1: TextView?
+                                        var tvKdPrice1: TextView?
+
+                                        areaCode = data.areacode
+                                        ttType = data.ttypeCode
+                                        seatType = data.seatType
+                                        totalPriceResponse = data.priceInt
+
+                                        if (item.seatTypes.isNotEmpty()) {
+                                            categoryClick = true
+                                            clickUi.show()
+                                            num = 1
+                                            txtNumber.text = num.toString()
+                                            btnDecrease.invisible()
+
+                                            totalPrice.text =
+                                                getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format(
+                                                    (totalPriceResponse * num) / 100
+                                                )
+                                            btnDecrease.isEnabled = true
+                                            btnIncrease.isEnabled = true
+                                            btnDecrease.isClickable = true
+                                            btnIncrease.isClickable = true
+                                        } else {
+                                            categoryClick = false
+                                            clickUi.hide()
+                                            btnDecrease.isEnabled = false
+                                            btnIncrease.isEnabled = false
+                                            btnDecrease.isClickable = false
+                                            btnIncrease.isClickable = false
+                                        }
+
+                                        for (v in viewListForDates) {
+                                            tvSeatSelection1 =
+                                                v.findViewById(R.id.textseat_type) as TextView
+                                            tvSeatAvailable1 =
+                                                v.findViewById(R.id.tv_seat_avialable) as TextView
+                                            tvKdPrice1 = v.findViewById(R.id.tv_kd_price) as TextView
+
+                                            tvSeatSelection1!!.setTextColor(getColor(R.color.hint_color))
+                                            tvSeatAvailable1.setTextColor(getColor(R.color.hint_color))
+                                            tvKdPrice1.setTextColor(getColor(R.color.hint_color))
+                                        }
+
+                                        imgSeatSelectionType.setColorFilter(
+                                            ContextCompat.getColor(this, R.color.text_alert_color_red),
+                                            android.graphics.PorterDuff.Mode.MULTIPLY)
+
+//                                Glide.with(this).load(data.iconActive).into(imgSeatSelectionType)
+                                        textSeatType.setTextColor(getColor(R.color.text_alert_color_red))
+                                        tvSeatAvailable.setTextColor(getColor(R.color.text_alert_color_red))
+                                        tvKdPrice.setTextColor(getColor(R.color.text_alert_color_red))
+
+                                    }
+                                }
+
+
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+
+                        }
+                    } else {
+                        selectSeatType.invisible()
+                        tvSelectSeatType.hide()
+                        view2sLine.hide()
+                    }
                 }
-            }
+        }
+
+
 
             btnDecrease.setOnClickListener {
                 if (totalPriceResponse < 0) {

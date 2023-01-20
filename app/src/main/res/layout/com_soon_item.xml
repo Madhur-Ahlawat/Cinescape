@@ -4,10 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin3">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="110dp"
+        android:layout_width="104dp"
         android:layout_height="155dp"
         app:cardBackgroundColor="@color/black"
         app:cardCornerRadius="8dp"
@@ -23,7 +24,7 @@
 
             <ImageView
                 android:id="@+id/imageView62"
-                android:layout_width="110dp"
+                android:layout_width="104dp"
                 android:layout_height="155dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"

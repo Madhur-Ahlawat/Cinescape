@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin12"
+    android:layout_marginBottom="@dimen/margin12"
     android:background="@drawable/account_bg_layout">
 
     <ImageView

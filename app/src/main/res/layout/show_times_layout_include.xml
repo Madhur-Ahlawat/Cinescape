@@ -61,7 +61,7 @@
             <View
                 android:id="@+id/view12"
                 android:layout_width="0dp"
-                android:layout_height="70dp"
+                android:layout_height="65dp"
                 android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toStartOf="@+id/view13"
                 app:layout_constraintHorizontal_weight="4"
@@ -71,7 +71,7 @@
             <View
                 android:id="@+id/view13"
                 android:layout_width="0dp"
-                android:layout_height="70dp"
+                android:layout_height="65dp"
                 app:layout_constraintBottom_toBottomOf="@+id/view12"
                 app:layout_constraintEnd_toEndOf="@+id/view20"
                 app:layout_constraintHorizontal_weight="4"
@@ -99,6 +99,7 @@
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/size16"
                 android:textStyle="normal"
+                android:includeFontPadding="false"
                 app:layout_constraintEnd_toEndOf="@+id/view12"
                 app:layout_constraintStart_toStartOf="@+id/view20"
                 app:layout_constraintTop_toBottomOf="@+id/text_director"
@@ -123,6 +124,7 @@
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/size15"
+                android:includeFontPadding="false"
                 app:layout_constraintEnd_toEndOf="@+id/textView122"
                 app:layout_constraintStart_toStartOf="@+id/view13"
                 app:layout_constraintTop_toBottomOf="@+id/text_genre"
@@ -131,7 +133,7 @@
             <View
                 android:id="@+id/view21"
                 android:layout_width="0dp"
-                android:layout_height="65dp"
+                android:layout_height="60dp"
                 android:layout_marginTop="@dimen/margin15"
                 app:layout_constraintEnd_toEndOf="@+id/view20"
                 app:layout_constraintStart_toStartOf="@+id/view20"
@@ -156,6 +158,7 @@
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/size15"
+                android:includeFontPadding="false"
                 app:layout_constraintEnd_toStartOf="@+id/textView123"
                 app:layout_constraintStart_toStartOf="@+id/view21"
                 app:layout_constraintTop_toBottomOf="@+id/textView8"
@@ -210,14 +213,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_text_regular"
-                tools:text="@string/joy_rayce"
+                android:includeFontPadding="false"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/size16"
                 android:textStyle="normal"
-                app:layout_constraintBottom_toBottomOf="@+id/view21"
                 app:layout_constraintEnd_toEndOf="@+id/view21"
                 app:layout_constraintStart_toStartOf="@+id/textView122"
-                app:layout_constraintTop_toTopOf="@+id/textView10" />
+                app:layout_constraintTop_toTopOf="@+id/textView10"
+                tools:text="@string/joy_rayce" />
 
 
             <TextView

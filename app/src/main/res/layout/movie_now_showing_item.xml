@@ -74,8 +74,8 @@
 
                         <com.haozhang.lib.SlantedTextView
                             android:id="@+id/tag"
-                            android:layout_width="@dimen/margin47"
-                            android:layout_height="@dimen/margin47"
+                            android:layout_width="@dimen/margin49"
+                            android:layout_height="@dimen/margin49"
                             android:fontFamily="@font/sf_pro_text_medium"
                             app:slantedMode="left"
                             app:slantedLength="@dimen/margin20"
@@ -156,6 +156,9 @@
                     android:layout_marginEnd="@dimen/margin2"
                     android:ellipsize="end"
                     android:focusable="true"
+                    android:gravity="start"
+                    android:paddingStart="@dimen/margin6"
+                    android:paddingEnd="0dp"
                     android:focusableInTouchMode="true"
                     android:fontFamily="@font/sf_pro_text_regular"
                     android:freezesText="true"

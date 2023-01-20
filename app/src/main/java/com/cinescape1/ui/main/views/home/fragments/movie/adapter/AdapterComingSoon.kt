@@ -1,6 +1,7 @@
 package com.cinescape1.ui.main.views.home.fragments.movie.adapter
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -14,13 +15,12 @@ import com.cinescape1.ui.main.views.adapters.moviesFragmentAdapter.ComingSoonChi
 
 class AdapterComingSoon(
     private var nowShowingList: ArrayList<MoviesResponse.Comingsoon>,
-    context: Context, var listener: TypefaceListener2) :
+    context: Activity, var listener: TypefaceListener2) :
     RecyclerView.Adapter<AdapterComingSoon.MyViewHolderNowShowing>() {
     private var mContext = context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderNowShowing {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.comming_soon_parent, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.comming_soon_parent, parent, false)
         return MyViewHolderNowShowing(view)
     }
 
