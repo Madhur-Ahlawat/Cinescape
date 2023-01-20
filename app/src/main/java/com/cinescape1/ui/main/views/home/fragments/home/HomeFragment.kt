@@ -103,6 +103,10 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+//        requireActivity().window.statusBarColor = this.resources.getColor(R.color.red)
+
         //AppBar Hide
         requireActivity().window.apply {
             clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
@@ -110,6 +114,7 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
             statusBarColor = Color.TRANSPARENT
         }
+
         getHomeData()
         broadcastReceiver = MyReceiver()
         broadcastIntent()

@@ -91,10 +91,9 @@
             <ImageView
                 android:id="@+id/image_booking_alert"
                 android:layout_width="match_parent"
-                android:layout_height="210dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
                 android:layout_marginBottom="17dp"
-                android:scaleType="fitXY"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/contentDes"
                 app:layout_constraintBottom_toTopOf="@+id/view_location1"
@@ -103,6 +102,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/upcoming_booking"
                 tools:srcCompat="@drawable/bombshell_alert" />
+
 
             <View
                 android:id="@+id/view107"
@@ -191,9 +191,9 @@
 
                             </androidx.cardview.widget.CardView>
                         </LinearLayout>
-<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
                 </com.google.android.flexbox.FlexboxLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <View
                 android:id="@+id/view_location1"
@@ -226,13 +226,12 @@
 
             <TextView
                 android:id="@+id/text_location2"
-                android:layout_width="0dp"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:text="@string/location"
                 android:textColor="@color/text_alert_color"
                 android:textSize="@dimen/size13"
-                app:layout_constraintEnd_toEndOf="@+id/view_location1"
                 app:layout_constraintStart_toStartOf="@+id/view_location1"
                 app:layout_constraintTop_toTopOf="@+id/view_location1"
                 tools:ignore="TextContrastCheck" />
@@ -250,7 +249,7 @@
 
             <TextView
                 android:id="@+id/text_screen"
-                android:layout_width="0dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:text="@string/screen"
@@ -258,7 +257,8 @@
                 android:textSize="@dimen/size13"
                 app:layout_constraintEnd_toStartOf="@+id/text_expereince"
                 app:layout_constraintStart_toStartOf="@+id/view3"
-                app:layout_constraintTop_toTopOf="@+id/view3" />
+                app:layout_constraintTop_toTopOf="@+id/view3"
+                tools:ignore="TextContrastCheck"/>
 
             <TextView
                 android:id="@+id/text_screen_number"
@@ -272,7 +272,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/view3"
                 app:layout_constraintEnd_toEndOf="@+id/view3"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/view3"
+                app:layout_constraintStart_toStartOf="@+id/text_screen"
                 app:layout_constraintTop_toBottomOf="@+id/text_screen" />
 
             <View
@@ -289,27 +289,25 @@
 
             <TextView
                 android:id="@+id/text_expereince"
-                android:layout_width="0dp"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
-                android:paddingStart="@dimen/margin4"
-                android:paddingEnd="1dp"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:text="@string/experience"
                 android:textColor="@color/text_alert_color"
                 android:textSize="@dimen/size13"
                 app:layout_constraintEnd_toEndOf="@+id/view4"
                 app:layout_constraintStart_toStartOf="@+id/view4"
-                app:layout_constraintTop_toTopOf="@+id/view4" />
+                app:layout_constraintTop_toTopOf="@+id/view4"
+                tools:ignore="TextContrastCheck"/>
 
             <ImageView
                 android:id="@+id/text_experience_name"
                 android:layout_width="wrap_content"
                 android:layout_height="17dp"
-                android:layout_marginStart="5dp"
                 android:adjustViewBounds="true"
                 android:src="@drawable/standard"
                 app:layout_constraintBottom_toBottomOf="@+id/view4"
-                app:layout_constraintStart_toStartOf="@+id/view4"
+                app:layout_constraintStart_toStartOf="@+id/text_expereince"
                 app:layout_constraintTop_toBottomOf="@+id/text_expereince"
                 tools:ignore="ContentDescription" />
 

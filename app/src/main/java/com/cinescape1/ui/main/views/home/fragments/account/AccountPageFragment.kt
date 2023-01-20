@@ -64,6 +64,7 @@ import com.cinescape1.ui.main.views.home.fragments.account.viewModel.AccountFrag
 import com.cinescape1.ui.main.views.login.LoginActivity
 import com.cinescape1.ui.main.views.payment.PaymentWebActivity
 import com.cinescape1.utils.*
+import com.cinescape1.utils.Constant.IntentKey.Companion.NextBookingsResponse
 import com.cinescape1.utils.Constant.IntentKey.Companion.OPEN_FROM
 import com.google.android.flexbox.FlexboxLayout
 import com.google.android.gms.location.LocationCallback
@@ -3416,6 +3417,10 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             FirebaseAuth.getInstance().signOut()
             preferences.clearData()
 
+            Constant.IntentKey.BOOKINGClick=0
+            Constant.IntentKey.BACKFinlTicket = 0
+            NextBookingsResponse=null
+
             val intent = Intent(requireContext(), LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
@@ -3427,7 +3432,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }
 
     }
-
     override fun onResume() {
         super.onResume()
         if (OPEN_FROM == 1) {

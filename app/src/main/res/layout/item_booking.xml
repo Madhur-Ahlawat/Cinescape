@@ -18,10 +18,9 @@
         <ImageView
             android:id="@+id/image_booking_alert"
             android:layout_width="match_parent"
-            android:layout_height="210dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="17dp"
             android:adjustViewBounds="true"
-            android:scaleType="fitXY"
             android:contentDescription="@string/contentDes"
             app:layout_constraintBottom_toTopOf="@+id/view_location1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -29,6 +28,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@drawable/placeholder_movie_alert_poster" />
+
+        <View
+            android:id="@+id/view107"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/booking_alert_gradient"
+            app:layout_constraintBottom_toTopOf="@+id/view_location1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -112,6 +123,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
         <View
             android:id="@+id/view_location1"
             android:layout_width="0dp"
@@ -127,14 +139,14 @@
             android:id="@+id/text_location_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             android:ellipsize="end"
             android:fontFamily="@font/sf_pro_text_bold"
-            android:gravity="start"
-            android:includeFontPadding="false"
-            android:maxLines="1"
             android:text="@string/cinescape_al_muhallab"
             android:textColor="@color/black"
             android:textSize="@dimen/size14"
+            android:gravity="start"
+            android:includeFontPadding="false"
             app:layout_constraintBottom_toBottomOf="@+id/view_location1"
             app:layout_constraintEnd_toEndOf="@+id/view_location1"
             app:layout_constraintHorizontal_bias="0.0"
@@ -143,13 +155,12 @@
 
         <TextView
             android:id="@+id/text_location2"
-            android:layout_width="0dp"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sf_pro_text_regular"
             android:text="@string/location"
             android:textColor="@color/text_alert_color"
             android:textSize="@dimen/size13"
-            app:layout_constraintEnd_toEndOf="@+id/view_location1"
             app:layout_constraintStart_toStartOf="@+id/view_location1"
             app:layout_constraintTop_toTopOf="@+id/view_location1"
             tools:ignore="TextContrastCheck" />
@@ -167,13 +178,16 @@
 
         <TextView
             android:id="@+id/text_screen"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sf_pro_text_regular"
             android:text="@string/screen"
+            android:textColor="@color/text_alert_color"
             android:textSize="@dimen/size13"
+            app:layout_constraintEnd_toStartOf="@+id/text_expereince"
             app:layout_constraintStart_toStartOf="@+id/view3"
-            app:layout_constraintTop_toTopOf="@+id/view3" />
+            app:layout_constraintTop_toTopOf="@+id/view3"
+            tools:ignore="TextContrastCheck"/>
 
         <TextView
             android:id="@+id/text_screen_number"
@@ -187,7 +201,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/view3"
             app:layout_constraintEnd_toEndOf="@+id/view3"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/view3"
+            app:layout_constraintStart_toStartOf="@+id/text_screen"
             app:layout_constraintTop_toBottomOf="@+id/text_screen" />
 
         <View
@@ -204,35 +218,35 @@
 
         <TextView
             android:id="@+id/text_expereince"
-            android:layout_width="wrap_content"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sf_pro_text_regular"
-            android:paddingStart="@dimen/margin4"
-            android:paddingEnd="1dp"
             android:text="@string/experience"
+            android:textColor="@color/text_alert_color"
             android:textSize="@dimen/size13"
+            app:layout_constraintEnd_toEndOf="@+id/view4"
             app:layout_constraintStart_toStartOf="@+id/view4"
-            app:layout_constraintTop_toTopOf="@+id/view4" />
+            app:layout_constraintTop_toTopOf="@+id/view4"
+            tools:ignore="TextContrastCheck"/>
 
         <ImageView
             android:id="@+id/text_experience_name"
             android:layout_width="wrap_content"
             android:layout_height="17dp"
-            android:layout_marginStart="5dp"
             android:adjustViewBounds="true"
             android:src="@drawable/standard"
             app:layout_constraintBottom_toBottomOf="@+id/view4"
-            app:layout_constraintStart_toStartOf="@+id/view4"
+            app:layout_constraintStart_toStartOf="@+id/text_expereince"
             app:layout_constraintTop_toBottomOf="@+id/text_expereince"
             tools:ignore="ContentDescription" />
 
         <ImageView
+            android:visibility="gone"
             android:id="@+id/experience_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
             android:adjustViewBounds="true"
-            android:visibility="gone"
+            android:layout_marginTop="4dp"
             app:layout_constraintEnd_toEndOf="@+id/view4"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/view4"
@@ -296,11 +310,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sfprodisplay_bold"
-            android:includeFontPadding="false"
             android:text="@string/_04_nov_2020"
             android:textColor="@color/black"
             android:textSize="@dimen/size14"
             android:textStyle="bold"
+            android:includeFontPadding="false"
             app:layout_constraintEnd_toEndOf="@+id/view5"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/view5"
@@ -326,10 +340,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sf_pro_text_bold"
-            android:includeFontPadding="false"
             android:textColor="@color/black"
             android:textSize="@dimen/size14"
             android:textStyle="bold"
+            android:includeFontPadding="false"
             app:layout_constraintBottom_toBottomOf="@+id/view6"
             app:layout_constraintEnd_toEndOf="@+id/view6"
             app:layout_constraintHorizontal_bias="0.0"
@@ -342,8 +356,6 @@
             android:id="@+id/go_to_booking_btn1"
             android:layout_width="0dp"
             android:layout_height="34dp"
-            android:layout_marginStart="@dimen/margin8"
-            android:layout_marginEnd="@dimen/margin8"
             android:background="@drawable/btn_corner_bg_red"
             android:fontFamily="@font/sf_pro_text_bold"
             android:gravity="center"
@@ -351,6 +363,8 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="@dimen/size11"
+            android:layout_marginStart="@dimen/margin8"
+            android:layout_marginEnd="@dimen/margin8"
             app:layout_constraintBottom_toBottomOf="@+id/text_time_visible"
             app:layout_constraintEnd_toEndOf="@+id/view7"
             app:layout_constraintStart_toStartOf="@+id/view7" />

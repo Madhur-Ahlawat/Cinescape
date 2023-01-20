@@ -28,7 +28,10 @@ class AdapterMultiMovieAlertBooking(
     var listener: RecycleViewItemClickListener
 ) :
     RecyclerView.Adapter<AdapterMultiMovieAlertBooking.MyViewHolderMultiMovieAlertBooking>() {
-
+    companion object {
+        var height = 0
+        var width = 0
+    }
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -41,18 +44,17 @@ class AdapterMultiMovieAlertBooking(
     override fun onBindViewHolder(holder: MyViewHolderMultiMovieAlertBooking, position: Int) {
         val showtimeListItem = sliderMultiMovieItemList[position]
 
-        if (position==0){
+        println("imageUrl---->${showtimeListItem.posterhori}")
+
+        try {
             Glide.with(context)
                 .load(showtimeListItem.posterhori)
-                .transform(CutOffLogo())
+                .transform(CutOffLogo(position))
                 .placeholder(R.drawable.placeholder_movie_alert_poster)
                 .into(holder.image)
-        }else{
-            Glide.with(context)
-                .load(showtimeListItem.posterhori)
-                .transform(CutOffLogo())
-                .placeholder(R.drawable.placeholder_movie_alert_poster)
-                .into(holder.image)
+
+        }catch (e:java.lang.Exception){
+            e.printStackTrace()
         }
 
 
@@ -130,6 +132,9 @@ class AdapterMultiMovieAlertBooking(
             e.printStackTrace()
         }
 
+
+
+
         holder.bookings.text = context.getString(R.string.go_to_bookings)
         holder.bookings.setOnClickListener {
             Constant.IntentKey.BACKFinlTicket += 1
@@ -169,10 +174,7 @@ class AdapterMultiMovieAlertBooking(
         fun onDateClick(showtimeListItem: NextBookingResponse.Current)
         fun onItemClick(showtimeListItem: NextBookingResponse.Current)
     }
-
-
-
-    class CutOffLogo : BitmapTransformation() {
+    class CutOffLogo(val position: Int) : BitmapTransformation() {
         override fun updateDiskCacheKey(messageDigest: MessageDigest) {
 
         }
@@ -181,12 +183,19 @@ class AdapterMultiMovieAlertBooking(
             pool: BitmapPool, toTransform: Bitmap,
             outWidth: Int, outHeight: Int
         ): Bitmap {
+//            (amount / 100.0f) * 10;
+            if (position==0){
+                height = (toTransform.height * 70) / 100
+                width = toTransform.width
+            }
+            println("toTransform.height--->${toTransform.width}----$width")
+
             return Bitmap.createBitmap(
                 toTransform,
                 0,
                 0,
-                toTransform.width,
-                toTransform.height - 200
+                width,
+                height
             )
         }
     }
