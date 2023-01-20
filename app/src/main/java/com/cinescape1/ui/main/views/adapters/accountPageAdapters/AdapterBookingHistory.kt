@@ -229,6 +229,14 @@ class AdapterBookingHistory(private val context: Activity,
          return bookingHistoryList.size
      }
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
       @SuppressLint("NotifyDataSetChanged")
       fun loadNewData(newFoodSelectors: List<HistoryResponse.Output>) {
           bookingHistoryList = newFoodSelectors as ArrayList<HistoryResponse.Output>

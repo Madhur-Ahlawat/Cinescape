@@ -116,6 +116,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
     @Inject
     lateinit var preferences: AppPreferences
+
     private var binding: FragmentAccountPageBinding? = null
     private var loader: LoaderDialog? = null
     private var profileList: ArrayList<ProfileResponse.Output.Experience>? = null
@@ -232,6 +233,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         // Show status bar
         requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -1079,10 +1081,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     Constant.ageRating.toString(),
                     Constant.seatCategoryList.toString(),
                     Constant.seatTypeList.toString(),
-                    preferences.getString(Constant.USER_ID).toString()
-                )
-            )
-
+                    preferences.getString(Constant.USER_ID).toString()))
 
         }
 

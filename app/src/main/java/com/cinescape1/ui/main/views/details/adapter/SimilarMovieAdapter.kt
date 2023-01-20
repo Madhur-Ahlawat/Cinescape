@@ -14,8 +14,7 @@ import com.cinescape1.data.models.responseModel.GetMovieResponse
 class SimilarMovieAdapter(
     private val context: Context,
     private val items: ArrayList<GetMovieResponse.Output.Similar>,
-    private val listner: RecycleViewItemClickListener
-) :
+    private val listner: RecycleViewItemClickListener) :
     RecyclerView.Adapter<SimilarMovieAdapter.TodoViewHolder>() {
 
 

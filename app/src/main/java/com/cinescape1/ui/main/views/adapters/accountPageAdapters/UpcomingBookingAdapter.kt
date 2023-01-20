@@ -141,6 +141,7 @@ class UpcomingBookingAdapter(
             }
 
         }else if (foodSelctedItem.foodPickup==true) {
+
             holder.btClick.show()
             holder.btClick.text = mContext.resources.getString(R.string.food_pickup_info)
             holder.btClick.setOnClickListener {
@@ -164,6 +165,7 @@ class UpcomingBookingAdapter(
                 }
             }
         }else{
+
             holder.btClick.hide()
         }
 
@@ -198,11 +200,11 @@ class UpcomingBookingAdapter(
         }
 
     }
+
     interface RecycleViewItemClickListener {
         fun cancelReserv(foodSelctedItem: NextBookingResponse.Current)
-
-
     }
+
     interface ReesendMailItemClickListener {
         fun resenDmail(foodSelctedItem: NextBookingResponse.Current)
     }
