@@ -39,6 +39,8 @@ class CinemaDayAdapter(
     @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolderDayDate, @SuppressLint("RecyclerView") position: Int) {
         val dayDateItem = dayDateList[position]
+        holder.day.text = dayDateItem.wd
+        holder.date.text = dayDateItem.d
         viewHide = dayDateList.size-1
 
         listenerDay.onTypeFaceDay(holder.day, holder.date)
@@ -50,45 +52,44 @@ class CinemaDayAdapter(
         }
 
 
-        holder.day.text = dayDateItem.wd
-        holder.date.text = dayDateItem.d
         if (rowIndex == position){
-            holder.consBackground.background = ContextCompat.getDrawable(context, R.drawable.day_rectangle)
+//            holder.consBackground.background = ContextCompat.getDrawable(context, R.drawable.day_rectangle)
+            holder.consBackground.setBackgroundResource(R.drawable.day_rectangle)
             holder.day.setTextColor(ContextCompat.getColor(context, R.color.white))
             holder.date.setTextColor(ContextCompat.getColor(context, R.color.white))
             val heavy: Typeface = context.resources.getFont(R.font.sf_pro_text_heavy)
             val bold: Typeface = context.resources.getFont(R.font.sf_pro_text_semibold)
+            val regular: Typeface = context.resources.getFont(R.font.sf_pro_text_regular)
             holder.day.textSize = 13f
             holder.date.textSize = 20f
-            holder.day.typeface = bold
-            holder.date.typeface = heavy
-        }
-        else {
-//            holder.views1.show()
-            holder.consBackground.background = ContextCompat.getDrawable(context, R.drawable.day_un_select_rectangle)
-            holder.day.setTextColor(ContextCompat.getColor(context, R.color.text_color))
-            val regular: Typeface = context.resources.getFont(R.font.sf_pro_text_regular)
             holder.day.typeface = regular
             holder.date.typeface = regular
-            holder.day.textSize = 13F
-            holder.date.textSize = 16F
+
+        } else {
+//            holder.views1.show()
+            holder.consBackground.setBackgroundResource(R.drawable.day_un_select_rectangle)
+            holder.day.setTextColor(ContextCompat.getColor(context, R.color.white))
+            holder.date.setTextColor(ContextCompat.getColor(context, R.color.white))
+            val regular: Typeface = context.resources.getFont(R.font.sf_pro_text_regular)
+            holder.day.includeFontPadding = false
+            holder.day.typeface = regular
+            holder.date.typeface = regular
+            holder.day.textSize = 13f
+            holder.date.textSize = 20f
         }
 
         when (backIndex) {
-            position+1 -> {
+            position + 1 -> {
                 holder.views1.visibility = View.INVISIBLE
             }
             position -> {
                 holder.views1.visibility = View.INVISIBLE
             }
-            else -> {
-//                holder.views1.visibility = View.VISIBLE
-            }
         }
 
         if (dayDateItem.enable) {
-            holder.itemView.setOnClickListener {
 
+            holder.itemView.setOnClickListener {
                 listener.onMovieDateClick(dayDateItem,holder.itemView,position)
                 rowIndex = position
                 backIndex = position
@@ -97,9 +98,14 @@ class CinemaDayAdapter(
 
         } else {
 //            holder.views1.show()
-            holder.consBackground.setBackgroundResource(R.drawable.primarydark_rectangle)
-            holder.day.setTextColor(ContextCompat.getColor(context, R.color.countrySearch))
-            holder.date.setTextColor(ContextCompat.getColor(context, R.color.countrySearch))
+            holder.consBackground.setBackgroundResource(R.drawable.day_un_select_rectangle)
+//            holder.day.setTextColor(ContextCompat.getColor(context, R.color.disableColor))
+//            holder.date.setTextColor(ContextCompat.getColor(context, R.color.disableColor))
+
+            holder.day.setTextColor(ContextCompat.getColor(context, R.color.lineColor))
+            holder.date.setTextColor(ContextCompat.getColor(context, R.color.lineColor))
+
+
             val regular: Typeface = context.resources.getFont(R.font.sf_pro_text_regular)
             holder.day.typeface = regular
             holder.date.typeface = regular
@@ -114,13 +120,20 @@ class CinemaDayAdapter(
 //            notifyDataSetChanged()
 //        }
 
-
-
     }
 
     override fun getItemCount(): Int {
         return  dayDateList.size
     }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
     interface RecycleViewItemClickListener {
         fun onMovieDateClick(dayDateItem: CSessionResponse.Output.Day, itemView: View, position: Int)
 

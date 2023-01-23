@@ -56,7 +56,7 @@
                     android:layout_height="55dp"
                     android:layout_marginEnd="@dimen/margin12"
                     android:layout_marginBottom="@dimen/margin12"
-                    android:layout_marginTop="-3dp"
+                    android:layout_marginTop="-5dp"
                     android:layout_marginStart="-1dp"
                     android:rotation="8"
                     app:layout_constraintStart_toStartOf="parent"
@@ -75,8 +75,8 @@
 
                     <com.haozhang.lib.SlantedTextView
                         android:id="@+id/tag"
-                        android:layout_width="@dimen/margin45"
-                        android:layout_height="@dimen/margin45"
+                        android:layout_width="@dimen/margin47"
+                        android:layout_height="@dimen/margin47"
                         android:fontFamily="@font/sf_pro_text_medium"
                         app:slantedMode="left"
                         app:slantedLength="@dimen/margin18"

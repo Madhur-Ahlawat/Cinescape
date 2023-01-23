@@ -383,18 +383,30 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
     }
 
     private fun movedNext() {
+
         binding?.txtProceed?.setOnClickListener {
-            val intent = Intent(this, PaymentListActivity::class.java)
-            intent.putExtra("CINEMA_ID", cinemaId)
-            intent.putExtra("SESSION_ID", sessionId)
-            intent.putExtra("TRANS_ID", transId)
-            intent.putExtra("bookingId", bookingIdNEw)
-            intent.putExtra("BOOKING", bookType)
-            intent.putExtra("image", image)
-            intent.putExtra("paidPrice", paidPrice)
-            Constant.IntentKey.TimerTime = timeCount
-            startActivity(intent)
-            finish()
+
+            try {
+                val intent = Intent(this, PaymentListActivity::class.java)
+                intent.putExtra("CINEMA_ID", cinemaId)
+                intent.putExtra("SESSION_ID", sessionId)
+                intent.putExtra("TRANS_ID", transId)
+                intent.putExtra("bookingId", bookingIdNEw)
+                intent.putExtra("BOOKING", bookType)
+                intent.putExtra("image", image)
+                intent.putExtra("paidPrice", paidPrice)
+                Constant.IntentKey.TimerTime = timeCount
+
+                println("ListOfIdIntent-------->${cinemaId},--${sessionId}" +
+                        ",--${transId},---${bookingIdNEw},-----${bookType}," +
+                        "-----${image},----${paidPrice},--------${timeCount}")
+
+                startActivity(intent)
+                finish()
+            }catch (e : Exception){
+                println("ListOfIdIntentError---->${e.message}")
+            }
+
         }
 
         binding?.viewCancel?.setOnClickListener {

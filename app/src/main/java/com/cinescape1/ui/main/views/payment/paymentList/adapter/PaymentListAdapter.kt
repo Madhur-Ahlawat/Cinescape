@@ -22,7 +22,6 @@ import com.cinescape1.utils.show
 import kotlinx.android.synthetic.main.account_preference_layout.*
 import java.util.regex.Pattern
 
-
 class PaymentListAdapter(
     private val context: Activity,
     private val payMode: ArrayList<PaymentListResponse.Output.PayMode>,
@@ -129,8 +128,7 @@ class PaymentListAdapter(
 
                 if (this.payType == "GATEWAY") {
                     println("imageUrl----1>${this.respPayModes.size}")
-                    Glide.with(context).load(this.respPayModes[1].imageUrl)
-                        .into(binding.imageCreditCard)
+                    Glide.with(context).load(this.respPayModes[1].imageUrl).into(binding.imageCreditCard)
                     Glide.with(context).load(this.respPayModes[0].imageUrl).into(binding.imageKnet)
                 }
 
@@ -141,8 +139,7 @@ class PaymentListAdapter(
                     knetClick = false
                     binding.imageCreditCard.setImageResource(0)
                     binding.imageKnet.setImageResource(0)
-                    Glide.with(context).load(this.respPayModes[1].activeImageUrl)
-                        .into(binding.imageCreditCard)
+                    Glide.with(context).load(this.respPayModes[1].activeImageUrl).into(binding.imageCreditCard)
                     Glide.with(context).load(this.respPayModes[0].imageUrl).into(binding.imageKnet)
 
                     binding.textKnetName.setTextColor(context.getColor(R.color.hint_color))
@@ -154,10 +151,8 @@ class PaymentListAdapter(
                 binding.knet.setOnClickListener {
                     knetClick = true
                     creditCardClick = false
-                    Glide.with(context).load(this.respPayModes[0].activeImageUrl)
-                        .into(binding.imageKnet)
-                    Glide.with(context).load(this.respPayModes[1].imageUrl)
-                        .into(binding.imageCreditCard)
+                    Glide.with(context).load(this.respPayModes[0].activeImageUrl).into(binding.imageKnet)
+                    Glide.with(context).load(this.respPayModes[1].imageUrl).into(binding.imageCreditCard)
 
                     binding.textKnetName.setTextColor(context.getColor(R.color.white))
                     binding.textCreditCardName.setTextColor(context.getColor(R.color.hint_color))
@@ -246,9 +241,7 @@ class PaymentListAdapter(
                                     private val pattern: Pattern =
                                         Pattern.compile("^(\\d{4}$space{1}){0,3}\\d{1,4}$") // check whether we need to modify or not
 
-                                    override fun onTextChanged(
-                                        s: CharSequence, st: Int, be: Int, count: Int
-                                    ) {
+                                    override fun onTextChanged(s: CharSequence, st: Int, be: Int, count: Int) {
                                         val currentText: String = binding.bankEdit.text.toString()
                                         if (currentText.isEmpty() || pattern.matcher(currentText)
                                                 .matches()
@@ -265,9 +258,8 @@ class PaymentListAdapter(
                                             i += 4
                                         }
                                         binding.bankEdit.setText(formatted)
-                                        binding.bankEdit.setSelection(
-                                            binding.bankEdit.text.toString().length
-                                        )
+                                        binding.bankEdit.setSelection(binding.bankEdit.text.toString().length)
+
                                     }
 
                                     override fun beforeTextChanged(
@@ -362,6 +354,7 @@ class PaymentListAdapter(
                             }
                         }
                         "WALLET" -> {
+
                             if (binding.wallet.visibility == View.GONE) {
                                 binding.wallet.show()
                                 binding.imageView63.setImageResource(R.drawable.arrow_up)
@@ -379,6 +372,7 @@ class PaymentListAdapter(
                             }
                         }
                         "GATEWAY" -> {
+
                             if (binding.cardUi.visibility == View.GONE) {
                                 binding.imageView63.setImageResource(R.drawable.arrow_up)
                                 binding.cardUi.show()

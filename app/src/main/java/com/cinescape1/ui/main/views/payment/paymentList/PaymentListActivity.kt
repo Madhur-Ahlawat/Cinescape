@@ -210,11 +210,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     override fun walletItemApply(view: PaymentListResponse.Output.PayMode) {
-        walletPay(
-            HmacKnetRequest(
-                bookingId, bookType, transId, preferences.getString(Constant.USER_ID).toString()
-            )
-        )
+        walletPay(HmacKnetRequest(
+                bookingId, bookType, transId, preferences.getString(Constant.USER_ID).toString()))
     }
 
     override fun bankItemApply(
@@ -228,10 +225,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         knet: LinearLayout,
         walletApply: TextView,
         offerApply: TextView,
-        offerEditText: EditText
-    ) {
-        bankOfferApply(
-            BankOfferRequest(
+        offerEditText: EditText) {
+        bankOfferApply(BankOfferRequest(
                 bookingId,
                 cardNo,
                 offerId,
@@ -251,8 +246,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         knet: LinearLayout,
         walletApply: TextView,
         offerApply: TextView,
-        offerEditText: EditText
-    ) {
+        offerEditText: EditText) {
         summeryViewModel.bankApply(bankOfferRequest).observe(this) {
             it?.let { resource ->
                 when (resource.status) {
@@ -268,7 +262,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 chekbox.show()
                                 offerApplied = true
                                 adapter?.notifyDataSetChanged()
-//                             bank  Clickable false
+
+//                             //bank  Clickable false
                                 bankEdit.isClickable = false
                                 bankEdit.isEnabled = false
                                 bankEdit.isFocusable = false
@@ -288,7 +283,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 offerApply.isEnabled = false
                                 offerApply.isFocusable = false
 
-//                          offer EditText
+//                          //offer EditText
                                 offerEditText.isClickable = false
                                 offerEditText.isEnabled = false
                                 offerEditText.isFocusable = false
@@ -309,6 +304,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             negativeClick = {})
                         dialog.show()
                     }
+
                     Status.LOADING -> {
                         loader = LoaderDialog(R.string.pleasewait)
                         loader?.show(supportFragmentManager, null)
@@ -329,8 +325,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         knet: LinearLayout,
         walletApply: TextView,
         offerApply: TextView,
-        offerEditText: EditText
-    ) {
+        offerEditText: EditText) {
         bankOfferRemove(
             BankOfferRequest(
                 bookingId,
@@ -352,8 +347,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         knet: LinearLayout,
         walletApply: TextView,
         offerApply: TextView,
-        offerEditText: EditText
-    ) {
+        offerEditText: EditText) {
         summeryViewModel.bankRemove(bankOfferRequest).observe(this) {
             it?.let { resource ->
                 when (resource.status) {
@@ -361,6 +355,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         loader?.dismiss()
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                
                                 msg.hide()
                                 bankOfferClick = false
                                 //bank
@@ -398,6 +393,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 offerEditText.isFocusable = true
                                 offerEditText.isFocusableInTouchMode = true
                                 offerEditText.inputType = InputType.TYPE_NULL
+
                             }
                         }
                     }
@@ -1255,13 +1251,10 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     override fun onKnitItemClick(
-        view: PaymentListResponse.Output.PayMode, creditCardClick1: Boolean, knetClick1: Boolean
-    ) {
-
+        view: PaymentListResponse.Output.PayMode, creditCardClick1: Boolean, knetClick1: Boolean) {
         val knetClick = knetClick1
         val creditCardClick = creditCardClick1
         paymentOptionClick(view, knetClick, creditCardClick, "")
-
 
     }
 

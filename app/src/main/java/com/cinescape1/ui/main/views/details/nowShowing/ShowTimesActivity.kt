@@ -819,8 +819,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         position: Int,
         cinemaPos: Int,
         cinemaId: String,
-        showTime1: String
-    ) {
+        showTime1: String) {
         showTime = showTime1
         showPose = cinemaPos
         cinemaID = cinemaId
@@ -1492,8 +1491,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         position: Int,
         cinemaPos: Int,
         movieCinemaId: String,
-        showTime: String
-    ) {
+        showTime: String) {
         showPose = cinemaPos
         cinemaID = show.cinemaId
         sessionID = show.sessionId
@@ -1517,7 +1515,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         val intent = Intent(this@ShowTimesActivity, ShowTimesActivity::class.java)
         intent.putExtra(Constant.IntentKey.MOVIE_ID, view.id)
         startActivity(intent)
-
     }
 
     fun TextView.underline() {

@@ -14,29 +14,29 @@
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
             android:id="@+id/consBackground"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/text_day"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:gravity="center"
-                android:textColor="#ADADAD"
                 android:includeFontPadding="false"
+                android:textAlignment="center"
+                android:textColor="#393939"
                 android:textSize="@dimen/size13"
-                android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -44,21 +44,21 @@
 
             <TextView
                 android:id="@+id/text_date"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="2dp"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:includeFontPadding="false"
                 android:textAlignment="center"
-                android:textColor="#ADADAD"
+                android:textColor="#393939"
                 android:textSize="@dimen/size16"
-                android:textStyle="normal"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/text_day"
-                app:layout_constraintStart_toStartOf="@+id/text_day"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_day"
                 tools:text="22" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
@@ -66,8 +66,8 @@
         android:layout_width="0.5dp"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/margin8"
+        android:layout_marginEnd="2dp"
         android:layout_marginBottom="@dimen/margin8"
-        android:layout_marginEnd="3dp"
         android:background="@color/lineColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
