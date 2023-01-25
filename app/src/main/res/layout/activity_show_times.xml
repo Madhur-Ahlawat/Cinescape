@@ -99,9 +99,10 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/ratingUi"
-                        android:layout_width="@dimen/margin27"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:cardCornerRadius="@dimen/margin2"
+                        android:minWidth="@dimen/margin27"
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -111,10 +112,11 @@
 
                         <TextView
                             android:id="@+id/textView56"
-                            android:layout_width="@dimen/margin27"
+                            android:layout_width="wrap_content"
                             android:layout_height="@dimen/margin15"
                             android:fontFamily="@font/sf_pro_text_regular"
                             android:gravity="center"
+                            android:minWidth="@dimen/margin27"
                             android:includeFontPadding="false"
                             android:paddingStart="@dimen/margin6"
                             android:paddingEnd="@dimen/margin6"

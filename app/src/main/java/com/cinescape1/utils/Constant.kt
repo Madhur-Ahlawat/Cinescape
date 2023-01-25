@@ -190,7 +190,11 @@ class Constant {
         const val CREDITCARDID = "402"
          var LANGUAGE = "language"
 
+        var walletCheck = 0
+
     }
+
+
 
     // public static String BI_PT="bi_pt";
     interface IntentKey {

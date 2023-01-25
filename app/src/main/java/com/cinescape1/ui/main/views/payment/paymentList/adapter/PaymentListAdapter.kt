@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -25,8 +26,7 @@ import java.util.regex.Pattern
 class PaymentListAdapter(
     private val context: Activity,
     private val payMode: ArrayList<PaymentListResponse.Output.PayMode>,
-    private val listner: RecycleViewItemClickListener
-) : RecyclerView.Adapter<PaymentListAdapter.ViewHolder>(),
+    private val listner: RecycleViewItemClickListener) : RecyclerView.Adapter<PaymentListAdapter.ViewHolder>(),
     GiftCardAdapter.RecycleViewItemClickListener {
     private var clickName = ""
     private var clickId = ""
@@ -137,11 +137,15 @@ class PaymentListAdapter(
                     knetClick = false
                     binding.imageCreditCard.setImageResource(0)
                     binding.imageKnet.setImageResource(0)
-                    Glide.with(context).load(this.respPayModes[1].activeImageUrl).into(binding.imageCreditCard)
-                    Glide.with(context).load(this.respPayModes[0].imageUrl).into(binding.imageKnet)
 
-                    binding.textKnetName.setTextColor(context.getColor(R.color.hint_color))
-                    binding.textCreditCardName.setTextColor(context.getColor(R.color.white))
+//                    Glide.with(context).load(this.respPayModes[1].activeImageUrl).into(binding.imageCreditCard)
+//                    Glide.with(context).load(this.respPayModes[0].imageUrl).into(binding.imageKnet)
+
+                    binding.imageCreditCard.setColorFilter(ContextCompat.getColor(context, R.color.red))
+                    binding.imageKnet.setColorFilter(ContextCompat.getColor(context, R.color.white))
+
+                    binding.textKnetName.setTextColor(context.getColor(R.color.white))
+                    binding.textCreditCardName.setTextColor(context.getColor(R.color.red))
                     listner.onCreditCardItemClick(this, cardNo, creditCardClick, knetClick)
                     notifyDataSetChanged()
                 }
@@ -149,11 +153,14 @@ class PaymentListAdapter(
                 binding.knet.setOnClickListener {
                     knetClick = true
                     creditCardClick = false
-                    Glide.with(context).load(this.respPayModes[0].activeImageUrl).into(binding.imageKnet)
-                    Glide.with(context).load(this.respPayModes[1].imageUrl).into(binding.imageCreditCard)
+//                    Glide.with(context).load(this.respPayModes[0].activeImageUrl).into(binding.imageKnet)
+//                    Glide.with(context).load(this.respPayModes[1].imageUrl).into(binding.imageCreditCard)
 
-                    binding.textKnetName.setTextColor(context.getColor(R.color.white))
-                    binding.textCreditCardName.setTextColor(context.getColor(R.color.hint_color))
+                    binding.imageCreditCard.setColorFilter(ContextCompat.getColor(context, R.color.white))
+                    binding.imageKnet.setColorFilter(ContextCompat.getColor(context, R.color.red))
+
+                    binding.textKnetName.setTextColor(context.getColor(R.color.red))
+                    binding.textCreditCardName.setTextColor(context.getColor(R.color.white))
                     listner.onKnitItemClick(this, creditCardClick, knetClick)
                     notifyDataSetChanged()
                 }
@@ -190,6 +197,7 @@ class PaymentListAdapter(
                                 binding.bankApply.setOnClickListener {
                                     cardNo = binding.bankEdit.text.toString().replace(" ", "")
                                     if (cardNo == "") {
+
                                         val dialog = OptionDialog(context,
                                             R.mipmap.ic_launcher,
                                             R.string.app_name,
@@ -199,6 +207,7 @@ class PaymentListAdapter(
                                             positiveClick = {},
                                             negativeClick = {})
                                         dialog.show()
+
                                     } else if (cardNo.length != 16) {
                                         val dialog = OptionDialog(context,
                                             R.mipmap.ic_launcher,
@@ -210,12 +219,14 @@ class PaymentListAdapter(
                                             negativeClick = {})
                                         dialog.show()
                                     } else {
+
                                         listner.bankItemApply(
                                             offerId,
                                             cardNo,
                                             binding.checkBox,
                                             binding.imageView64,
                                             binding.bankApply,
+                                            binding.banksCancel,
                                             binding.bankEdit,
                                             binding.editTextTextPersonName2,
                                             binding.knet,
@@ -223,6 +234,7 @@ class PaymentListAdapter(
                                             binding.textView157,
                                             binding.offerEditText
                                         )
+
                                     }
                                 }
 
@@ -267,21 +279,28 @@ class PaymentListAdapter(
                                 })
 
                                 //remove
-                                binding.imageView64.setOnClickListener {
+                                binding.banksCancel.setOnClickListener {
                                     cardNo = binding.bankEdit.text.toString().replace(" ", "")
+
+                                    binding.bankEdit.isClickable = true
+                                    binding.bankEdit.isFocusable = true
+                                    binding.bankEdit.isEnabled = true
+                                    binding.bankEdit.isFocusableInTouchMode = true
+
                                     listner.bankItemRemove(
                                         offerId,
                                         cardNo,
                                         binding.checkBox,
                                         binding.imageView64,
                                         binding.bankApply,
+                                        binding.banksCancel,
                                         binding.bankEdit,
                                         binding.editTextTextPersonName2,
                                         binding.knet,
                                         binding.textView158,
                                         binding.textView157,
-                                        binding.offerEditText
-                                    )
+                                        binding.offerEditText)
+
                                 }
 
                             } else {
@@ -357,10 +376,35 @@ class PaymentListAdapter(
 
                                 binding.textView158.text = context.getString(R.string.wallet_balance) + this.respPayModes[0].balance
 
+                                // apply
                                 binding.textView159.setOnClickListener {
-
                                     listner.walletItemApply(this)
+//                                    binding.cancelBtn.show()
+//                                    binding.textView159.hide()
+
+//                                    creditCardClick = false
+//                                    knetClick = false
+//                                    Glide.with(context).load(this.respPayModes[1].imageUrl).into(binding.imageCreditCard)
+//                                    Glide.with(context).load(this.respPayModes[0].imageUrl).into(binding.imageKnet)
+
+//                                    binding.imageCreditCard.setColorFilter(ContextCompat.getColor(context, R.color.white))
+//                                    binding.imageKnet.setColorFilter(ContextCompat.getColor(context, R.color.white))
+//
+//                                    binding.textKnetName.setTextColor(context.getColor(R.color.white))
+//                                    binding.textCreditCardName.setTextColor(context.getColor(R.color.white))
+
+//                                    listner.onCreditCardItemClick(this, cardNo, creditCardClick, knetClick)
+//                                    listner.onKnitItemClick(this, creditCardClick, knetClick)
+//                                    notifyDataSetChanged()
+
                                 }
+
+                                binding.cancelBtn.setOnClickListener {
+                                    binding.cancelBtn.hide()
+                                    binding.textView159.show()
+
+                                }
+
 
                             } else {
                                 binding.imageView63.setImageResource(R.drawable.arrow_down)
@@ -374,30 +418,33 @@ class PaymentListAdapter(
                             if (binding.cardUi.visibility == View.GONE) {
                                 binding.imageView63.setImageResource(R.drawable.arrow_up)
                                 binding.cardUi.show()
+
                                 binding.creditCard.setOnClickListener {
                                     creditCardClick = true
                                     knetClick = false
-                                    Glide.with(context).load(this.respPayModes[1].activeImageUrl)
-                                        .into(binding.imageCreditCard)
-                                    Glide.with(context).load(this.respPayModes[0].imageUrl)
-                                        .into(binding.imageKnet)
 
-                                    binding.textKnetName.setTextColor(context.getColor(R.color.hint_color))
-                                    binding.textCreditCardName.setTextColor(context.getColor(R.color.white))
-                                    listner.onCreditCardItemClick(
-                                        this, cardNo, creditCardClick, knetClick
-                                    )
+//                                  Glide.with(context).load(this.respPayModes[1].activeImageUrl).into(binding.imageCreditCard)
+//                                  Glide.with(context).load(this.respPayModes[0].imageUrl).into(binding.imageKnet)
+
+                                    binding.imageCreditCard.setColorFilter(ContextCompat.getColor(context, R.color.red))
+                                    binding.imageKnet.setColorFilter(ContextCompat.getColor(context, R.color.white))
+
+                                    binding.textKnetName.setTextColor(context.getColor(R.color.white))
+                                    binding.textCreditCardName.setTextColor(context.getColor(R.color.red))
+                                    listner.onCreditCardItemClick(this, cardNo, creditCardClick, knetClick)
+
                                 }
                                 binding.knet.setOnClickListener {
                                     knetClick = true
                                     creditCardClick = false
-                                    Glide.with(context).load(this.respPayModes[0].activeImageUrl)
-                                        .into(binding.imageKnet)
-                                    Glide.with(context).load(this.respPayModes[1].imageUrl)
-                                        .into(binding.imageCreditCard)
+//                                    Glide.with(context).load(this.respPayModes[0].activeImageUrl).into(binding.imageKnet)
+//                                    Glide.with(context).load(this.respPayModes[1].imageUrl).into(binding.imageCreditCard)
 
-                                    binding.textKnetName.setTextColor(context.getColor(R.color.white))
-                                    binding.textCreditCardName.setTextColor(context.getColor(R.color.hint_color))
+                                    binding.imageCreditCard.setColorFilter(ContextCompat.getColor(context, R.color.white))
+                                    binding.imageKnet.setColorFilter(ContextCompat.getColor(context, R.color.red))
+
+                                    binding.textKnetName.setTextColor(context.getColor(R.color.red))
+                                    binding.textCreditCardName.setTextColor(context.getColor(R.color.white))
 
                                     listner.onKnitItemClick(this, creditCardClick, knetClick)
                                 }
@@ -427,6 +474,7 @@ class PaymentListAdapter(
             binding: ImageView,
             checkBox: ImageView,
             imageView64: TextView,
+            banksCancel: TextView,
             bankEdit: EditText,
             editTextTextPersonName2: TextView,
             knet: LinearLayout,
@@ -441,6 +489,7 @@ class PaymentListAdapter(
             binding: ImageView,
             imageView64: ImageView,
             bankApply: TextView,
+            banksCancel: TextView,
             bankEdit: EditText,
             editTextTextPersonName2: TextView,
             knet: LinearLayout,

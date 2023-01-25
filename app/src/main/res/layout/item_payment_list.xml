@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginTop="@dimen/margin8"
         android:fontFamily="@font/sf_pro_text_regular"
         android:textColor="@color/white"
         android:textSize="@dimen/size17"
@@ -27,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:padding="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/arrow_down"
@@ -82,6 +84,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout24">
 
+<!--                android:hint="____ - ____ - ____ - ____"-->
                 <EditText
                     android:id="@+id/bankEdit"
                     android:layout_width="match_parent"
@@ -92,9 +95,10 @@
                     android:textColor="#7B7A7A"
                     android:textSize="@dimen/size15"
                     android:inputType="number"
-                    android:hint="____ - ____ - ____ - ____"
+                    android:hint="@string/enter_bank_card"
                     android:maxLength="19"
                     android:maxLines="1"
+                    android:textColorHint="@color/hint_color"
                     app:hintTextColor="@color/editColor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -168,12 +172,12 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/bankCancel"
+                    android:id="@+id/banksCancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin32"
                     android:fontFamily="@font/sf_pro_text_regular"
-                    android:text="@string/apply"
+                    android:text="@string/cancel"
                     android:textColor="@color/red"
                     android:textSize="@dimen/size15"
                     android:visibility="gone"
@@ -182,6 +186,7 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -418,7 +423,7 @@
                         android:letterSpacing="-0.01"
                         android:lineSpacingExtra="1.8sp"
                         android:text="@string/kent"
-                        android:textColor="@color/hint_color"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/size16"
                         android:textStyle="normal"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -463,7 +468,7 @@
                         android:letterSpacing="-0.01"
                         android:lineSpacingExtra="1.8sp"
                         android:text="@string/credit_card"
-                        android:textColor="@color/hint_color"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/size16"
                         android:textStyle="normal"
                         app:layout_constraintEnd_toEndOf="parent"

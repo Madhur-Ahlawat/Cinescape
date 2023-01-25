@@ -210,8 +210,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     override fun walletItemApply(view: PaymentListResponse.Output.PayMode) {
-        walletPay(HmacKnetRequest(
-                bookingId, bookType, transId, preferences.getString(Constant.USER_ID).toString()))
+
+        walletPay(HmacKnetRequest(bookingId, bookType, transId, preferences.getString(Constant.USER_ID).toString()))
     }
 
     override fun bankItemApply(
@@ -220,19 +220,21 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         check: ImageView,
         close: ImageView,
         apply: TextView,
+        bankCancel: TextView,
         bankEdit: EditText,
         msg: TextView,
         knet: LinearLayout,
         walletApply: TextView,
         offerApply: TextView,
         offerEditText: EditText) {
+
         bankOfferApply(BankOfferRequest(
                 bookingId,
                 cardNo,
                 offerId,
                 transId,
                 preferences.getString(Constant.USER_ID).toString()
-            ), check, close, apply, bankEdit, msg, knet, walletApply, offerApply, offerEditText
+            ), check, close, apply,bankCancel, bankEdit, msg, knet, walletApply, offerApply, offerEditText
         )
     }
 
@@ -241,6 +243,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         chekbox: ImageView,
         close: ImageView,
         apply: TextView,
+        bankCancel: TextView,
         bankEdit: EditText,
         msg: TextView,
         knet: LinearLayout,
@@ -258,8 +261,10 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 msg.show()
                                 msg.text = it.data.output.MSG
                                 apply.hide()
-                                close.show()
-                                chekbox.show()
+                                close.hide()
+                                chekbox.hide()
+
+                                bankCancel.show()
                                 offerApplied = true
                                 adapter?.notifyDataSetChanged()
 
@@ -320,6 +325,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         check: ImageView,
         close: ImageView,
         apply: TextView,
+        banksCancel: TextView,
         bankEdit: EditText,
         msg: TextView,
         knet: LinearLayout,
@@ -333,7 +339,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 offerId,
                 transId,
                 preferences.getString(Constant.USER_ID).toString()
-            ), check, close, apply, bankEdit, msg, knet, walletApply, offerApply, offerEditText
+            ), check, close, apply,banksCancel, bankEdit, msg, knet, walletApply, offerApply, offerEditText
         )
     }
 
@@ -342,6 +348,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         checkbox: ImageView,
         close: ImageView,
         apply: TextView,
+        banksCancel: TextView,
         bankEdit: EditText,
         msg: TextView,
         knet: LinearLayout,
@@ -361,6 +368,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 apply.show()
                                 close.hide()
                                 checkbox.hide()
+
+                                banksCancel.hide()
                                 offerApplied = false
                                 adapter?.notifyDataSetChanged()
                                 bankEdit.text.clear()
@@ -1631,8 +1640,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 override fun onTick(millisUntilFinished: Long) {
                                     val second = millisUntilFinished / 1000 % 60
                                     val minutes = millisUntilFinished / (1000 * 60) % 60
-                                    val display =
-                                        java.lang.String.format("%02d:%02d", minutes, second)
+                                    val display = java.lang.String.format("%02d:%02d", minutes, second)
 
                                     textView111?.text = display
                                     Constant.IntentKey.TimerExtand = minutes * 60 + second
@@ -1652,7 +1660,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                         },
                                         negativeClick = {})
                                     dialog.show()
-
                                 }
                             }.start()
                         } else if (Constant.IntentKey.TimerExtandCheck && Constant.IntentKey.TimerExtand < 0) {
