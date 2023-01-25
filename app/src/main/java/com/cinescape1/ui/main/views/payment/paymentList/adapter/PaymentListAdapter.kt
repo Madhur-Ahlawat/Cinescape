@@ -41,17 +41,15 @@ class PaymentListAdapter(
 
     @SuppressLint("InflateParams")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemPaymentListBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
-        )
+        val binding = ItemPaymentListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
-
     }
 
     @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
         with(holder) {
             with(payMode[position]) {
+
                 //title
                 binding.textView156.text = this.name
                 //wallet
@@ -170,9 +168,7 @@ class PaymentListAdapter(
                                 binding.bankOffer.show()
                                 val list: ArrayList<PaymentListResponse.Output.PayMode.RespPayMode.PayModeBank> =
                                     this.respPayModes[0].payModeBanks
-                                val customAdapter = BankOfferAdapter(
-                                    context, list
-                                )
+                                val customAdapter = BankOfferAdapter(context, list)
 
                                 binding.spinner2.adapter = customAdapter
                                 binding.spinner2.onItemSelectedListener =
@@ -359,11 +355,13 @@ class PaymentListAdapter(
                                 binding.wallet.show()
                                 binding.imageView63.setImageResource(R.drawable.arrow_up)
 
-                                binding.textView158.text =
-                                    context.getString(R.string.wallet_balance) + this.respPayModes[0].balance
+                                binding.textView158.text = context.getString(R.string.wallet_balance) + this.respPayModes[0].balance
+
                                 binding.textView159.setOnClickListener {
+
                                     listner.walletItemApply(this)
                                 }
+
                             } else {
                                 binding.imageView63.setImageResource(R.drawable.arrow_down)
 

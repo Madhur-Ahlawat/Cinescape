@@ -355,7 +355,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         loader?.dismiss()
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                
                                 msg.hide()
                                 bankOfferClick = false
                                 //bank
@@ -370,7 +369,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 bankEdit.isEnabled = true
                                 bankEdit.isFocusableInTouchMode = true
                                 bankEdit.inputType = InputType.TYPE_NULL
-
 
                                 //knet
                                 knet.isClickable = true
