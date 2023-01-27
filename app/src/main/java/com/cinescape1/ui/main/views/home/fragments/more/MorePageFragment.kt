@@ -26,6 +26,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -269,6 +270,9 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
 
             }
         }
+        //Image hide Home
+        (requireActivity().findViewById(R.id.imageView42) as ConstraintLayout).hide()
+
         mobile = preferences.getString(Constant.MOBILE).toString()
         contactEmail.setText(preferences.getString(Constant.USER_EMAIL))
         enterUsername.setText(preferences.getString(Constant.USER_NAME))

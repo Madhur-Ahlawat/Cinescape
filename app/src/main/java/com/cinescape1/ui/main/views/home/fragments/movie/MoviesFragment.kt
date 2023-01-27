@@ -174,11 +174,16 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
             }
         }
 
+
         return view!!
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        (requireActivity().findViewById(R.id.imageView42) as ConstraintLayout).hide()
+
         viewPager = view.findViewById(R.id.viewpager)
         tabLayout = view.findViewById(R.id.tab_layout)
         filter = view.findViewById(R.id.filter)

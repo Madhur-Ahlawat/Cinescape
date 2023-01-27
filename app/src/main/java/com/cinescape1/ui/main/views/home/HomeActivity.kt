@@ -10,8 +10,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.*
 import android.widget.AdapterView
 import androidx.activity.viewModels
@@ -116,11 +114,13 @@ class HomeActivity : DaggerAppCompatActivity(),
                 }
                 R.id.movieFragment -> {
                     BACKFinlTicket += 1
+                    buttonClick = 1
                     binding?.imageView42?.hide()
                     setCurrentFragment(MoviesFragment(0))
                 }
                 R.id.foodFragment -> {
                     BACKFinlTicket += 1
+                    buttonClick = 1
                     binding?.imageView42?.hide()
                     if (!preferences.getBoolean(Constant.IS_LOGIN)) {
                         startActivity(
@@ -134,11 +134,13 @@ class HomeActivity : DaggerAppCompatActivity(),
                 }
                 R.id.accountFragment -> {
                     BACKFinlTicket += 1
+                    buttonClick = 1
                     binding?.imageView42?.hide()
                     setCurrentFragment(AccountPageFragment())
                 }
                 R.id.moreFragment -> {
                     BACKFinlTicket += 1
+                    buttonClick = 1
                     binding?.imageView42?.hide()
                     setCurrentFragment(MorePageFragment())
                 }
@@ -154,7 +156,7 @@ class HomeActivity : DaggerAppCompatActivity(),
     }
 
     private fun manageBooking() {
-        if (NextBookingsResponse != null&& buttonClick==0){
+        if (NextBookingsResponse != null && buttonClick==0){
             binding?.imageView42?.show()
         }else{
             binding?.imageView42?.hide()
@@ -306,6 +308,7 @@ class HomeActivity : DaggerAppCompatActivity(),
         )
     }
 
+
     private fun myNextBooking(request: NextBookingsRequest) {
         homeViewModel.getNextBookingData(request)
             .observe(this) {
@@ -318,6 +321,8 @@ class HomeActivity : DaggerAppCompatActivity(),
                                         retrieveNextBookedResponse(it.data)
                                         NextBookingsResponse = it.data
                                         BOOKINGClick += 1
+                                    }else{
+                                        NextBookingsResponse = it.data
                                     }
                                 }
                             }
@@ -345,6 +350,7 @@ class HomeActivity : DaggerAppCompatActivity(),
                 bookingsPopup(output)
             }
         }
+
     }
 
     private  fun bookingsPopup(output: NextBookingResponse){
@@ -559,6 +565,7 @@ class HomeActivity : DaggerAppCompatActivity(),
     override fun onResume() {
         super.onResume()
         buttonClick = 0
+        setNextBooking()
         manageBooking()
     }
 }
