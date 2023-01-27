@@ -35,9 +35,9 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
+                android:layout_marginStart="-1dp"
                 android:layout_marginEnd="@dimen/margin12"
                 android:layout_marginBottom="@dimen/margin12"
-                android:layout_marginStart="-1dp"
                 android:rotation="8"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -46,8 +46,8 @@
                     android:id="@+id/imageView60"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/margin32"
-                    android:visibility="gone"
                     android:layout_alignParentTop="true"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/en_tab"
@@ -58,11 +58,11 @@
                     android:layout_width="@dimen/margin45"
                     android:layout_height="@dimen/margin45"
                     android:fontFamily="@font/sf_pro_text_medium"
-                    app:slantedMode="left"
                     app:slantedLength="@dimen/margin18"
-                    app:slantedTextSize="@dimen/size7"
+                    app:slantedMode="left"
+                    app:slantedText="abcdefg"
                     app:slantedTextColor="@color/white"
-                    app:slantedText="abcdefg" />
+                    app:slantedTextSize="@dimen/size7" />
 
             </RelativeLayout>
 
