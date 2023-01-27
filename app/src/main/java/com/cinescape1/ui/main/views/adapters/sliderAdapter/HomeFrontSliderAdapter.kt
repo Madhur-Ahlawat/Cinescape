@@ -30,11 +30,11 @@ import kotlinx.android.synthetic.main.home_slider_item.view.*
     override fun bindVH(holder: SliderViewHolder, position: Int) {
         val obj = movies[position]
         holder.image.adjustViewBounds = true
-        if (select_pos!=viewpager.currentItem){
-            holder.itemView.scaleY = 0.5f
-        }else{
-            holder.itemView.scaleY = 1f
-        }
+//        if (select_pos!=viewpager.currentItem){
+//            holder.itemView.scaleY = 0.5f
+//        }else{
+//            holder.itemView.scaleY = 1f
+//        }
 
         if (obj.mobimgsmall.isEmpty()) {
             holder.image.setImageResource(R.drawable.pos_not_avilbale)

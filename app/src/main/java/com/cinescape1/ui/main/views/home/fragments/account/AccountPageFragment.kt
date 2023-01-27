@@ -23,6 +23,7 @@ import android.text.TextWatcher
 import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
@@ -531,6 +532,9 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         enter_last_name.setText(lastName)
         enter_emails.setText(email)
         enter_mobile_numbers.setText(mobile)
+
+//Image hide Home
+        (requireActivity().findViewById(R.id.imageView42) as ConstraintLayout).hide()
 
         binding?.imageSwitcherLang?.setOnCheckedChangeListener { _, b ->
             if (b) {
@@ -3674,6 +3678,4 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             }
         }
     }
-
-
 }

@@ -10,13 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.graphics.ColorUtils
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.CompositePageTransformer
-import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.HomeDataResponse
 import com.cinescape1.ui.main.views.adapters.*
@@ -30,6 +27,7 @@ import com.cinescape1.utils.show
 import com.github.islamkhsh.viewpager2.ViewPager2
 import kotlinx.android.synthetic.main.home_parrent_list.view.*
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.abs
 
 class HomeParentAdapter(
@@ -44,7 +42,6 @@ class HomeParentAdapter(
         val view = LayoutInflater.from(parent.context).inflate(R.layout.home_parrent_list, parent, false)
         return MyViewHolder(view)
     }
-
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val obj = homeDataList[position]
@@ -70,6 +67,10 @@ class HomeParentAdapter(
 
                 val pagerAdapter = HomeFrontSliderAdapter(mContext, obj.movieData, holder.viewpager)
                 holder.viewpager.adapter = pagerAdapter
+
+//                holder.viewpager.currentItem=1
+                onInfinitePageChangeCallback(obj.movieData.size + 2, holder, obj.movieData)
+
                 holder.viewpager.offscreenPageLimit = 3
                 holder.viewpager.clipChildren = false
                 holder.viewpager.clipToPadding = false
@@ -91,47 +92,7 @@ class HomeParentAdapter(
                 })
                 holder.viewpager.setPageTransformer(transfer)
 
-                var index = 0
-                holder.viewpager.registerOnPageChangeCallback(object :
-                    androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback() {
-                    override fun onPageSelected(position: Int) {
-                        super.onPageSelected(position)
-                        index = position
-                        Constant.select_pos = position
-
-                        println("colorCode--->${obj.movieData[position].sliderimgurl}---position--->${position}")
-                        val colorCode=obj.movieData[position].sliderimgurl
-
-                        try {
-                            val startColor = Color.parseColor(colorCode)
-                            val endColor = Color.parseColor("#000000")
-                            val mDrawable = GradientDrawable(
-                                GradientDrawable.Orientation.TOP_BOTTOM,
-                                intArrayOf(startColor, endColor)
-                            )
-                            holder.viewpagerBack.setBackgroundDrawable(mDrawable)
-
-                        }catch (e:Exception){
-                            println("exception---->${e.message}")
-                            e.printStackTrace()
-                        }
-                        
-                    }
-
-                    override fun onPageScrollStateChanged(state: Int) {
-                        super.onPageScrollStateChanged(state)
-                        if (state == ViewPager.SCROLL_STATE_IDLE) {
-//                            val index: Int = holder.viewpager.currentItem
-                            if (index == 0) holder.viewpager.setCurrentItem(
-                                pagerAdapter.itemCount - 1, false
-                            ) else if (index == pagerAdapter.itemCount - 1)
-                                holder.viewpager.setCurrentItem(0, false)
-                        }
-                    }
-                })
-
             }
-
             "advance" -> {
                 holder.homeTitle.show()
                 holder.txtSeeAll.hide()
@@ -199,7 +160,6 @@ class HomeParentAdapter(
                 holder.homeList.layoutManager = gridLayout
                 holder.homeList.adapter = adapter
             }
-
             "comingSoon" -> {
                 if (obj.movieData.isNotEmpty()) {
                     holder.itemView.show()
@@ -263,6 +223,53 @@ class HomeParentAdapter(
             }
         }
     }
+
+    var index = 0
+    private fun onInfinitePageChangeCallback(
+        listSize: Int,
+        holder: MyViewHolder,
+        movieData: ArrayList<HomeDataResponse.MovieData>
+    ) {
+        holder.viewpager.registerOnPageChangeCallback(object : androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback(){
+            override fun onPageScrollStateChanged(state: Int) {
+                super.onPageScrollStateChanged(state)
+
+
+                if (state == ViewPager2.SCROLL_STATE_IDLE) {
+                    when (holder.viewpager.currentItem) {
+                        listSize - 1 -> holder.viewpager.setCurrentItem(1, false)
+                        0 -> holder.viewpager.setCurrentItem(listSize - 2, false)
+                    }
+                }
+
+            }
+
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                        index=position
+                        Constant.select_pos = position
+                        val colorCode=movieData[position].sliderimgurl
+                        try {
+                            val startColor = Color.parseColor(colorCode)
+                            val endColor = Color.parseColor("#000000")
+                            val mDrawable = GradientDrawable(
+                                GradientDrawable.Orientation.TOP_BOTTOM,
+                                intArrayOf(startColor, endColor)
+                            )
+                            holder.viewpagerBack.setBackgroundDrawable(mDrawable)
+
+                        }catch (e:Exception){
+                            e.printStackTrace()
+                        }
+
+//                if (position != 0 && position != listSize - 1) {
+//                    // pageIndicatorView.setSelected(position-1)
+//                }
+            }
+        })
+
+    }
+
 
     override fun getItemCount(): Int {
         return homeDataList.size

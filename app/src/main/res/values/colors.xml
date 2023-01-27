@@ -5,6 +5,7 @@
     <color name="transparentHome">#aa000000</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="black50">#80000000</color>
     <color name="white">#FFFFFF</color>
     <color name="black1">#1d1d1d</color>
     <color name="yellow">#FFA700</color>

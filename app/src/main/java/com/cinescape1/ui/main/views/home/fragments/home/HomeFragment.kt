@@ -105,14 +105,14 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
         super.onViewCreated(view, savedInstanceState)
 
 
-//        requireActivity().window.statusBarColor = this.resources.getColor(R.color.red)
+        requireActivity().window.statusBarColor = this.resources.getColor(R.color.black50)
 
         //AppBar Hide
         requireActivity().window.apply {
             clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-            statusBarColor = Color.TRANSPARENT
+//            statusBarColor = Color.TRANSPARENT
         }
 
         getHomeData()
@@ -275,7 +275,6 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
     }
 
     override fun arabicClick(imgArabic: ImageView) {
-
            if (preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar")  {
                 LocaleHelper.setLocale(requireActivity(), "ar")
                 imgArabic.setImageResource(R.drawable.arebic_red_icon)
