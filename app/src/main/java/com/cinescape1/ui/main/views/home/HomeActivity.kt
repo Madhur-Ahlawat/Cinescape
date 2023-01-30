@@ -573,10 +573,12 @@ class HomeActivity : DaggerAppCompatActivity(),
         override fun updateDiskCacheKey(messageDigest: MessageDigest) {}
     }
 
-    override fun onResume() {
-        super.onResume()
-        buttonClick = 0
-        setNextBooking()
-        manageBooking()
-    }
+
+//    override fun onResume() {
+//        super.onResume()
+//        buttonClick = 0
+//        setNextBooking()
+//        manageBooking()
+//    }
+
 }

@@ -260,7 +260,6 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
     }
 
 
-
     override fun onSeeAllClick(type:Int) {
         val navView = requireActivity().findViewById(R.id.navigationView) as BottomNavigationView
         val item = navView.getChildAt(0) as BottomNavigationMenuView
