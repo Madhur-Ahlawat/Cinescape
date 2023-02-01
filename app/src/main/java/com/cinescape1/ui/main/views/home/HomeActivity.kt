@@ -40,6 +40,7 @@ import com.cinescape1.ui.main.views.home.fragments.account.AccountPageFragment
 import com.cinescape1.ui.main.views.home.fragments.home.HomeFragment
 import com.cinescape1.ui.main.views.home.fragments.more.MorePageFragment
 import com.cinescape1.ui.main.views.home.fragments.movie.MoviesFragment
+import com.cinescape1.ui.main.views.home.fragments.movie.MoviesFragment.Companion.positionState
 import com.cinescape1.ui.main.views.home.viewModel.HomeViewModel
 import com.cinescape1.ui.main.views.login.LoginActivity
 import com.cinescape1.utils.*
@@ -106,9 +107,9 @@ class HomeActivity : DaggerAppCompatActivity(),
                     binding?.imageView42?.show()
                 }
             }
-
             setCurrentFragment(HomeFragment())
         }
+
 
         navigationView.setOnNavigationItemSelectedListener {
 
@@ -120,6 +121,7 @@ class HomeActivity : DaggerAppCompatActivity(),
                     setCurrentFragment(HomeFragment())
                 }
                 R.id.movieFragment -> {
+                    positionState = 0
                     buttonClick = 1
                     BACKFinlTicket += 1
                     buttonClick = 1
@@ -161,7 +163,6 @@ class HomeActivity : DaggerAppCompatActivity(),
             true
         }
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-
         broadcastReceiver = MyReceiver()
         broadcastIntent()
         foodResponse()
@@ -169,6 +170,7 @@ class HomeActivity : DaggerAppCompatActivity(),
     }
 
     private fun manageBooking() {
+
         if (NextBookingsResponse != null && buttonClick==0){
             binding?.imageView42?.show()
 

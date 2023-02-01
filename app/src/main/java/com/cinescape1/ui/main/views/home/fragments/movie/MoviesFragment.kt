@@ -103,6 +103,10 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
     private var tag11: TextView? = null
     private var notificationIcon: ConstraintLayout? = null
 
+    companion object{
+        var positionState = 0
+    }
+
     @SuppressLint("ResourceAsColor")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentMoviesBinding.inflate(layoutInflater, null, false)
@@ -198,27 +202,19 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
         notificationIcon?.hide()
         val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.HORIZONTAL, false)
         binding?.recyclerType?.layoutManager = LinearLayoutManager(context)
-        if (Constant.SEE_ALL_TYPE == 0) {
-            val adapter = MovieTypeAdapter(list, requireActivity(), this, this,0)
-            binding?.recyclerType?.layoutManager = gridLayout
-            binding?.recyclerType?.adapter = adapter
-        }else{
-            val adapter = MovieTypeAdapter(list, requireActivity(), this, this,1)
-            binding?.recyclerType?.layoutManager = gridLayout
-            binding?.recyclerType?.adapter = adapter
-        }
 
-        if (Constant.SEE_ALL_TYPE == 0) {
+            val adapter = MovieTypeAdapter(list, requireActivity(), this, this, positionState)
+            binding?.recyclerType?.layoutManager = gridLayout
+            binding?.recyclerType?.adapter = adapter
+
+        println("ComingSoonTab123----------->$positionState")
+
+        if (positionState == 0) {
+            positionState =0
             binding?.recyclerType?.scrollToPosition(0)
-            println("ComingSoonTab21----------->yes")
         } else {
+            positionState = 1
             binding?.recyclerType?.scrollToPosition(1)
-            binding?.fragmentMovie?.show()
-            binding?.movieLayout?.show()
-            commingSoonClick = true
-            nowShowingClick = false
-            advanceClick = false
-            println("ComingSoonTab----------->yes")
         }
 
         //AppBar Hide
@@ -337,7 +333,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
                                 } else if (nowShowingClick) {
                                     nowSowing(it.data.data.output.nowshowing)
                                 } else {
-                                    if (Constant.SEE_ALL_TYPE == 0) {
+                                    if (positionState == 0) {
                                         nowSowing(it.data.data.output.nowshowing)
                                         println("ComingSoonTab21----------->yes")
                                     } else {
@@ -820,7 +816,6 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
     }
 
     override fun onMovieTypeClick(position: Int) {
-
         dataList.clear()
         filterDataList.clear()
         adapterFilterCategory?.notifyDataSetChanged()

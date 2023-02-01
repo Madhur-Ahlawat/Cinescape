@@ -19,6 +19,7 @@ import com.cinescape1.data.models.responseModel.HomeDataResponse
 import com.cinescape1.ui.main.views.adapters.*
 import com.cinescape1.ui.main.views.adapters.sliderAdapter.HomeFrontSliderAdapter
 import com.cinescape1.ui.main.views.home.fragments.home.seeAll.SeeAllActivity
+import com.cinescape1.ui.main.views.home.fragments.movie.MoviesFragment
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.Constant.Companion.SEE_ALL_TYPE
 import com.cinescape1.utils.LocaleHelper
@@ -81,6 +82,7 @@ class HomeParentAdapter(
                 val currentItemHorizontalMarginPx =
                     mContext.resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
 
+
                 val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
                 transfer.addTransformer(object : ViewPager2.PageTransformer,
                     androidx.viewpager2.widget.ViewPager2.PageTransformer {
@@ -88,6 +90,8 @@ class HomeParentAdapter(
                         val r = 1 - abs(position)
                         page.translationX = -pageTranslationX * position
                         page.scaleY = 1 - (0.35f * abs(position))
+
+                        println("FrontSliderPositionY---------->${page.scaleY}-----positionX--->${page.translationX}")
                     }
                 })
                 holder.viewpager.setPageTransformer(transfer)
@@ -179,10 +183,13 @@ class HomeParentAdapter(
                     holder.homeList.adapter = adapter
                     holder.txtSeeAll.setOnClickListener {
                         if (obj.name == mContext.getString(R.string.commingSoon)) {
-                            SEE_ALL_TYPE = 1
+                            Constant.SEE_ALL_TYPES = 1
                             listener.onSeeAllClick(1)
+                            MoviesFragment.positionState = 1
+                            SEE_ALL_TYPE = 1
                         } else {
                             listener.onSeeAllClick(0)
+                            MoviesFragment.positionState = 0
                             SEE_ALL_TYPE = 0
                         }
                     }
@@ -212,8 +219,10 @@ class HomeParentAdapter(
                         if (obj.name == mContext.getString(R.string.commingSoon)) {
                             SEE_ALL_TYPE = 1
                             listener.onSeeAllClick(1)
+                            MoviesFragment.positionState = 1
                         } else {
                             listener.onSeeAllClick(0)
+                            MoviesFragment.positionState = 0
                             SEE_ALL_TYPE = 0
                         }
                     }
@@ -228,18 +237,34 @@ class HomeParentAdapter(
     private fun onInfinitePageChangeCallback(
         listSize: Int,
         holder: MyViewHolder,
-        movieData: ArrayList<HomeDataResponse.MovieData>
-    ) {
+        movieData: ArrayList<HomeDataResponse.MovieData>) {
         holder.viewpager.registerOnPageChangeCallback(object : androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback(){
             override fun onPageScrollStateChanged(state: Int) {
                 super.onPageScrollStateChanged(state)
 
-
                 if (state == ViewPager2.SCROLL_STATE_IDLE) {
+                    println("FrontSliderPageSelected213---------->${listSize}----->${holder.viewpager.currentItem}")
+
+//                    if (index == 0){
+//                        holder.viewpager.setCurrentItem(listSize - 2, false)
+//                    }else if (index == listSize - 1){
+//                        holder.viewpager.setCurrentItem(1, false)
+//                    }
+
                     when (holder.viewpager.currentItem) {
-                        listSize - 1 -> holder.viewpager.setCurrentItem(1, false)
-                        0 -> holder.viewpager.setCurrentItem(listSize - 2, false)
+                        listSize - 1 -> {
+                            holder.viewpager.setCurrentItem(1, false)
+                            println("FrontSliderPageSelected21---------->${listSize}----->${holder.viewpager.currentItem}")
+                        }
+
+                        0 ->{
+                            holder.viewpager.setCurrentItem(listSize - 2, false)
+                            println("FrontSliderPageSelected212---------->${listSize}----->${holder.viewpager.currentItem}")
+                        }
+
                     }
+
+
                 }
 
             }
@@ -249,6 +274,8 @@ class HomeParentAdapter(
                         index=position
                         Constant.select_pos = position
                         val colorCode=movieData[position].sliderimgurl
+                println("FrontSliderPageSelected---------->${index}-----onPageSelected--->${colorCode}")
+
                         try {
                             val startColor = Color.parseColor(colorCode)
                             val endColor = Color.parseColor("#000000")

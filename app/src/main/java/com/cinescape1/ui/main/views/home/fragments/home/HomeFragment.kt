@@ -265,7 +265,6 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
         val item = navView.getChildAt(0) as BottomNavigationMenuView
         val itemView = item.getChildAt(1)
         itemView.performClick()
-
     }
 
     override fun typeFace(homeTitle: TextView, txtSeeAll: TextView) {

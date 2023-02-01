@@ -150,6 +150,7 @@ class Constant {
         const val RESULT_OK = -1
         const val IMAGE_COUNT = "count"
         var SEE_ALL_TYPE = 0
+        var SEE_ALL_TYPES = 0
         var SEAT_SESSION_CLICK = 0
         var ON_BACK_FOOD = 0
         var FNB = "fnb"
