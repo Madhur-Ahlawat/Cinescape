@@ -100,6 +100,13 @@ class HomeActivity : DaggerAppCompatActivity(),
             setCurrentFragment(AccountPageFragment())
             binding?.navigationView?.selectedItemId = R.id.accountFragment
         } else {
+
+            if (preferences.getBoolean(Constant.IS_LOGIN)){
+                if (Constant.IntentKey.DialogShow == true){
+                    binding?.imageView42?.show()
+                }
+            }
+
             setCurrentFragment(HomeFragment())
         }
 
@@ -547,6 +554,7 @@ class HomeActivity : DaggerAppCompatActivity(),
     }
 
     override fun onItemClick(showtimeListItem: NextBookingResponse.Current) {
+
         buttonClick = 0
         BACKFinlTicket += 1
         mAlertDialog?.dismiss()
@@ -556,13 +564,13 @@ class HomeActivity : DaggerAppCompatActivity(),
         intent.putExtra(Constant.IntentKey.BOOK_TYPE, showtimeListItem.bookingType)
         intent.putExtra("FROM", "MTicket")
         startActivity(intent)
+
     }
 
     class CutOffLogo : BitmapTransformation() {
         override fun transform(
             pool: BitmapPool, toTransform: Bitmap, outWidth: Int,
-            outHeight: Int
-        ): Bitmap = Bitmap.createBitmap(
+            outHeight: Int): Bitmap = Bitmap.createBitmap(
             toTransform,
             0,
             0,

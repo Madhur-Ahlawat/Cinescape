@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:background="@color/black"
     android:layout_marginStart="@dimen/margin4"
-    android:layout_marginBottom="@dimen/margin40">
+    android:layout_marginBottom="@dimen/margin30">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_now_showing"
@@ -56,10 +56,10 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
-                        android:layout_marginEnd="@dimen/margin8"
-                        android:layout_marginBottom="@dimen/margin8"
-                        android:layout_marginTop="@dimen/margin4"
-                        android:layout_marginStart="-0.5dp"
+                        android:layout_marginEnd="@dimen/margin7"
+                        android:layout_marginBottom="@dimen/margin7"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:layout_marginStart="-1.6dp"
                         android:rotation="10"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -81,10 +81,15 @@
                             android:layout_height="@dimen/margin49"
                             android:fontFamily="@font/sf_pro_text_medium"
                             app:slantedMode="left"
-                            app:slantedLength="@dimen/margin20"
-                            app:slantedTextSize="@dimen/size8"
+                            android:paddingEnd="@dimen/margin6"
+                            android:paddingStart="0dp"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            app:slantedLength="@dimen/margin22"
+                            app:slantedTextSize="@dimen/size7"
                             app:slantedTextColor="@color/white"
-                            app:slantedText="abcdefg" />
+                            app:slantedText="abcdef" />
+
                     </RelativeLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

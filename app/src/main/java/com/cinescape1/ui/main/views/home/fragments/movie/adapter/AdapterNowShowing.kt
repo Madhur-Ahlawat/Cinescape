@@ -44,6 +44,7 @@ class AdapterNowShowing(
 
         println("NowShowingScreenWidth-------->${screenWidth}--------->${comingSoonItem.mobimgsmall}")
 
+        holder.thumbnail.layout(0,0,0,0)
         Glide.with(mContext).load(comingSoonItem.mobimgsmall).error(R.drawable.app_icon).into(holder.thumbnail)
 
         holder.movieTitle.text = comingSoonItem.title

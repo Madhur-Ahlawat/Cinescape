@@ -11,7 +11,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
 import com.cinescape1.data.models.MovieTypeModel
-import com.cinescape1.utils.Constant
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 
@@ -19,11 +18,9 @@ class MovieTypeAdapter(
     private val arrayList: ArrayList<MovieTypeModel>,
     private val context: Context,
     private var listener: RecycleViewItemClickListener,
-    private var listenerTypeface: TypeFaceListener
-) :
+    private var listenerTypeface: TypeFaceListener,
+    private var rowIndex: Int) :
     RecyclerView.Adapter<MovieTypeAdapter.ViewHolder>() {
-    private var rowIndex = Constant.SEE_ALL_TYPE
-
     @SuppressLint("InflateParams")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_type_item, null)
@@ -46,7 +43,7 @@ class MovieTypeAdapter(
         if (rowIndex == position) {
             holder.view.show()
             holder.text.setTextColor(ContextCompat.getColor(context, R.color.white))
-//            holder.text.textSize = 17f
+//          holder.text.textSize = 17f
             holder.text.textSize = 14f
             holder.text.typeface = heavy
         } else {
@@ -55,11 +52,17 @@ class MovieTypeAdapter(
             holder.text.typeface = regular
             holder.text.textSize = 14F
         }
+
         holder.itemView.setOnClickListener {
-            rowIndex = position
-            listener.onMovieTypeClick(position)
-            notifyDataSetChanged()
+
+            if (position != rowIndex) {
+                rowIndex = position
+                listener.onMovieTypeClick(position)
+                notifyDataSetChanged()
+            }
+
         }
+
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

@@ -196,17 +196,29 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
 
         notificationIcon = requireActivity().findViewById(R.id.imageView42)
         notificationIcon?.hide()
-
         val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.HORIZONTAL, false)
         binding?.recyclerType?.layoutManager = LinearLayoutManager(context)
-        val adapter = MovieTypeAdapter(list, requireActivity(), this, this)
-        binding?.recyclerType?.layoutManager = gridLayout
-        binding?.recyclerType?.adapter = adapter
+        if (Constant.SEE_ALL_TYPE == 0) {
+            val adapter = MovieTypeAdapter(list, requireActivity(), this, this,0)
+            binding?.recyclerType?.layoutManager = gridLayout
+            binding?.recyclerType?.adapter = adapter
+        }else{
+            val adapter = MovieTypeAdapter(list, requireActivity(), this, this,1)
+            binding?.recyclerType?.layoutManager = gridLayout
+            binding?.recyclerType?.adapter = adapter
+        }
 
         if (Constant.SEE_ALL_TYPE == 0) {
             binding?.recyclerType?.scrollToPosition(0)
+            println("ComingSoonTab21----------->yes")
         } else {
             binding?.recyclerType?.scrollToPosition(1)
+            binding?.fragmentMovie?.show()
+            binding?.movieLayout?.show()
+            commingSoonClick = true
+            nowShowingClick = false
+            advanceClick = false
+            println("ComingSoonTab----------->yes")
         }
 
         //AppBar Hide
@@ -315,7 +327,11 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
                                 comingSoonFilter = it.data.data.output.comingsoon
                                 println("now--->${nowShowingClick}--->Com--->${commingSoonClick}--->Adv--->${advanceClick}")
                                 if (commingSoonClick) {
+                                    commingSoonClick = true
+                                    nowShowingClick = false
+                                    advanceClick = false
                                     comingSoon(it.data.data.output.comingsoon)
+                                    println("ComingSoonTab----------->yes1")
                                 } else if (advanceClick) {
                                     advanceBooking(moviesResponse?.output?.advanceBooking!!)
                                 } else if (nowShowingClick) {
@@ -323,7 +339,9 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
                                 } else {
                                     if (Constant.SEE_ALL_TYPE == 0) {
                                         nowSowing(it.data.data.output.nowshowing)
+                                        println("ComingSoonTab21----------->yes")
                                     } else {
+                                        println("ComingSoonTab----------->yes2")
                                         comingSoon(it.data.data.output.comingsoon)
                                     }
                                 }
@@ -456,7 +474,6 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
                 }
             })
         } else {
-
             val adapter = AdapterNowShowing(nowShowing, requireActivity())
             binding?.fragmentMovie?.layoutManager = gridLayout
             binding?.fragmentMovie?.adapter = adapter
@@ -778,7 +795,6 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
         val textReset = mDialogView.findViewById<View>(R.id.text_reset) as ConstraintLayout
 
         textReset.setOnClickListener {
-
             dataList.clear()
             filterDataList.clear()
             adapterFilterCategory?.notifyDataSetChanged()
@@ -804,6 +820,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
     }
 
     override fun onMovieTypeClick(position: Int) {
+
         dataList.clear()
         filterDataList.clear()
         adapterFilterCategory?.notifyDataSetChanged()
@@ -815,6 +832,8 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
         ratingData = "ALL"
         genreData = "ALL"
         languageData = "ALL"
+
+        var rowIndex = position
 
         if (isAdded) {
             val smoothScroller: SmoothScroller =
@@ -835,6 +854,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
                     nowShowingClick = true
                     commingSoonClick = false
                     advanceClick = false
+
                     //filter
                     imageView33.setOnClickListener {
                         isChecked
@@ -842,12 +862,13 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
                         filterNowShowingDialog(moviesResponse?.output!!)
                     }
 
-                    movesData(
-                        MovieRequest(
-                            cinemaData, expData, genreData, languageData, ratingData, timingData
+                        movesData(
+                            MovieRequest(
+                                cinemaData, expData, genreData, languageData, ratingData, timingData
+                            )
                         )
-                    )
-//                    nowSowing(moviesResponse?.output?.nowshowing!!)
+
+//                  nowSowing(moviesResponse?.output?.nowshowing!!)
                 } catch (e: Exception) {
                     println("exception--->${e.message}")
                 }
@@ -865,11 +886,8 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
                         filterComingSoonDialog(moviesResponse?.output!!)
                     }
 
-
-                    movesData(
-                        MovieRequest(cinemaData, expData, genreData, languageData, ratingData, timingData))
-
-//                    comingSoon(moviesResponse?.output?.comingsoon!!)
+                    movesData(MovieRequest(cinemaData, expData, genreData, languageData, ratingData, timingData))
+//                  comingSoon(moviesResponse?.output?.comingsoon!!)
 
                 } catch (e: Exception) {
                     println("Exception--->${e.message}")
@@ -894,9 +912,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
         }
     }
 
-    override fun typeFaceAdvanceBooking(
-        movieTitle: TextView, movieCategory: TextView, type: TextView
-    ) {
+    override fun typeFaceAdvanceBooking(movieTitle: TextView, movieCategory: TextView, type: TextView) {
         movieTitle1 = movieTitle
         movieCategory1 = movieCategory
         type11 = type
