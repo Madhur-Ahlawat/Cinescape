@@ -243,10 +243,19 @@ class FoodActivity : DaggerAppCompatActivity(),
         }
 
         setContentView(view)
-        cinemaId = intent.getStringExtra("CINEMA_ID").toString()
-        sessionId = intent.getStringExtra("SESSION_ID").toString()
-        booktype = intent.getStringExtra("BOOKING").toString()
-        transId = intent.getStringExtra("TRANS_ID").toString()
+
+        try {
+            cinemaId = intent.getStringExtra("CINEMA_ID").toString()
+            sessionId = intent.getStringExtra("SESSION_ID").toString()
+            booktype = intent.getStringExtra("BOOKING").toString()
+            transId = intent.getStringExtra("TRANS_ID").toString()
+
+            println("FoodIntentOutput-------->${cinemaId}----${sessionId}--->${booktype}----->${transId}")
+        }catch (e : Exception){
+            e.printStackTrace()
+        }
+
+
         movieRatingColor= intent.getStringExtra("movieRatingColor").toString()
         if (booktype != "FOOD") {
             binding?.txtSkipProceed?.show()
@@ -255,6 +264,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             }
 
             binding?.viewProceed?.setOnClickListener {
+
                 if (!foodCartList.isNullOrEmpty()) {
                     try {
                         val foodRequest = SaveFoodRequest()
@@ -268,12 +278,13 @@ class FoodActivity : DaggerAppCompatActivity(),
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
+
                 } else {
                     val intent = Intent(this, SummeryActivity::class.java)
                     intent.putExtra("CINEMA_ID", cinemaId)
                     intent.putExtra("SESSION_ID", sessionId)
                     intent.putExtra("TRANS_ID", transId)
-                    intent.putExtra("booktype", booktype)
+                    intent.putExtra("BOOKING", booktype)
                     TimerTime = timeCount
                     startActivity(intent)
                     finish()
@@ -369,8 +380,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             intent.putExtra("CINEMA_ID", cinemaId)
             intent.putExtra("SESSION_ID", sessionId)
             intent.putExtra("TRANS_ID", transId)
-            intent.putExtra("booktype", booktype)
-
+            intent.putExtra("BOOKING", booktype)
             TimerTime = timeCount
             startActivity(intent)
             finish()
@@ -391,8 +401,23 @@ class FoodActivity : DaggerAppCompatActivity(),
             foodSelectedList = concessionTabs[0].concessionItems
             tabItem = concessionTabs[0]
             setFoodComboAdapter(foodSelectedList!!)
+
         }else{
-            finish()
+
+            val dialog = OptionDialog(this,
+                R.mipmap.ic_launcher,
+                R.string.app_name,
+                getString(R.string.no_food_available),
+                positiveBtnText = R.string.ok,
+                negativeBtnText = R.string.no,
+                positiveClick = {
+                    finish()
+                },
+                negativeClick = {
+                    finish()
+                })
+            dialog.show()
+//            finish()
         }
 
     }
@@ -791,11 +816,7 @@ class FoodActivity : DaggerAppCompatActivity(),
         }
         try {
             textTotal1?.text = getString(R.string.price_kd) + " ${
-                Constant.DECIFORMAT.format(
-                    (price / 100.0) + seatPrice.replace(
-                        "KD ", ""
-                    ).toDouble()
-                )
+                Constant.DECIFORMAT.format((price / 100.0) + seatPrice.replace("KD ", "").toDouble())
             }"
         } catch (e: Exception) {
             e.printStackTrace()
@@ -927,8 +948,7 @@ class FoodActivity : DaggerAppCompatActivity(),
     //Add Food
     @SuppressLint("SetTextI18n")
     override fun onAddFood(foodItem: GetFoodResponse.ConcessionItem, position: Int,foodComboList: ArrayList<GetFoodResponse.ConcessionItem>) {
-        val mDialogView =
-            LayoutInflater.from(this).inflate(R.layout.food_selected_add_alert_dailog, null)
+        val mDialogView = LayoutInflater.from(this).inflate(R.layout.food_selected_add_alert_dailog, null)
         val mBuilder = AlertDialog.Builder(this).setView(mDialogView)
         val mAlertDialog = mBuilder.show()
         mAlertDialog.show()
@@ -939,8 +959,7 @@ class FoodActivity : DaggerAppCompatActivity(),
         val imageView10 = mDialogView.findViewById<ImageView>(R.id.imageView10)
         val img1Close = mDialogView.findViewById<ImageView>(R.id.img1_close)
 
-        Glide
-            .with(this)
+        Glide.with(this)
             .load(foodItem.itemImageUrl)
             .placeholder(R.drawable.movie_default)
             .into(imageView10)
@@ -950,8 +969,7 @@ class FoodActivity : DaggerAppCompatActivity(),
         img1Close.setOnClickListener {
             mAlertDialog.dismiss()
         }
-        val recyclerviewComboTitle =
-            mDialogView.findViewById<View>(R.id.recyclerview_combo_title) as RecyclerView
+        val recyclerviewComboTitle = mDialogView.findViewById<View>(R.id.recyclerview_combo_title) as RecyclerView
         textDecrease = mDialogView.findViewById<View>(R.id.text_decrease) as TextView
         textIncrease = mDialogView.findViewById<View>(R.id.text_increase) as TextView
         textNumber = mDialogView.findViewById<View>(R.id.text_number) as TextView
@@ -980,8 +998,8 @@ class FoodActivity : DaggerAppCompatActivity(),
                         this,
                         foodItem.packageChildItems,
                         foodItem.alternateItems,
-                        this, foodItem, position
-                    )
+                        this, foodItem, position)
+
                     recyclerviewComboTitle.layoutManager = gridLayout
                     recyclerviewComboTitle.adapter = adapter
                     adapter.loadNewData(foodItem.packageChildItems, foodItem.alternateItems)
@@ -995,8 +1013,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                                 for (i in foodItem.alternateItems.indices) {
                                     if (foodItem.alternateItems[i].checkFlag) {
                                         foodItem.alternateItems[i].subItemCount = a
-                                        amount =
-                                            foodItem.alternateItems[i].subItemCount * foodItem.alternateItems[i].priceInCents.toDouble()
+                                        amount = foodItem.alternateItems[i].subItemCount * foodItem.alternateItems[i].priceInCents.toDouble()
                                     }
                                 }
                                 foodItem.itemTotal = amount.roundToInt()
@@ -1609,7 +1626,6 @@ class FoodActivity : DaggerAppCompatActivity(),
                                 }else {
                                     println("foodQtCheck--->${item.foodQuan}---${foodDtls.foodQuan}")
                                     item.foodQuan = item.foodQuan + foodDtls.foodQuan
-
                                 }
                                 break
                             }
@@ -1617,7 +1633,6 @@ class FoodActivity : DaggerAppCompatActivity(),
                     } else {
                         foodCartListNew?.add(foodDtls)
                     }
-
 
                 } else {
                     foodCartListNew?.add(foodDtls)

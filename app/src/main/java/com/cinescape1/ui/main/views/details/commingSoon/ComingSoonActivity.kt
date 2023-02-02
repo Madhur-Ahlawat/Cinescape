@@ -226,9 +226,14 @@ class ComingSoonActivity : DaggerAppCompatActivity(),
         }
 
         if (output.movie.language != null)
-            binding?.textMovieType?.text = "" + output.movie.genre + " | " + output.movie.runTime + " " + getString(
-                R.string.min
-            )
+
+//            binding?.textMovieType?.text = "" + output.movie.genre + " | " + output.movie.runTime + " " + getString(
+//                R.string.min
+//            )
+
+            binding?.textMovieType?.text = getString(R.string.coming_soon_)+" " + output.movie.openingDate
+
+        println("ComingSoonSubTitle-------->${ binding?.textMovieType?.text}")
 
         if (output.movie.trailerUrl.isEmpty()) {
             binding?.imageView26?.hide()

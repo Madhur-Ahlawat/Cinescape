@@ -112,15 +112,20 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         val view = binding?.root
         setContentView(view)
 
-        bookingId = intent.getStringExtra("bookingId").toString()
-        bookType = intent.getStringExtra("BOOKING").toString()
-        transId = intent.getStringExtra("TRANS_ID").toString()
-        image = intent.getStringExtra("image").toString()
-        paidPrice = intent.getStringExtra("paidPrice").toString()
+        try {
+            bookingId = intent.getStringExtra("bookingId").toString()
+            bookType = intent.getStringExtra("BOOKING").toString()
+            transId = intent.getStringExtra("TRANS_ID").toString()
+            image = intent.getStringExtra("image").toString()
+            paidPrice = intent.getStringExtra("paidPrice").toString()
 
-        Glide.with(this).load(image).placeholder(R.drawable.bombshell).into(binding?.imageView6!!)
+            Glide.with(this).load(image).placeholder(R.drawable.bombshell).into(binding?.imageView6!!)
 
-        println("book--->${bookingId}--type->${bookType}---transId--->${transId}>")
+            println("book--->${bookingId}--type->${bookType}---transId--->${transId}>")
+        }catch (e : Exception){
+            e.printStackTrace()
+        }
+
 
         if (bookType == "BOOKING") {
             textView111?.show()
@@ -439,9 +444,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                     Constant.IntentKey.TimerExtandCheck = true
                                     Constant.IntentKey.TimerExtand = 90
                                     Constant.IntentKey.TimerTime = 360
-                                    val intent = Intent(
-                                        applicationContext, FinalTicketActivity::class.java
-                                    )
+                                    val intent = Intent(applicationContext, FinalTicketActivity::class.java)
                                     intent.putExtra(
                                         Constant.IntentKey.TRANSACTION_ID, transId
                                     )

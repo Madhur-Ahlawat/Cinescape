@@ -19,8 +19,7 @@ import kotlinx.android.synthetic.main.cart_items.view.*
 class AdapterCart(
     context: Context,
     private var cartComboList: ArrayList<GetFoodResponse.FoodDtls>,
-    var listener: RecycleViewItemClickListener
-) :
+    var listener: RecycleViewItemClickListener) :
     RecyclerView.Adapter<AdapterCart.MyViewHolderCart>() {
     private var mContext = context
 
@@ -36,6 +35,8 @@ class AdapterCart(
         holder.cartKdPrice.text = mContext.getString(R.string.price_kd)+" ${Constant.DECIFORMAT.format((cartSelctedItem.foodAmount / 100.0))}"
         holder.textNumber.text = cartSelctedItem.foodQuan.toString()
 
+        println("CartQtyNumber --------->${holder.textNumber.text}")
+
         if (cartSelctedItem.title==""){
             holder.cartComboName.text = cartSelctedItem.title+ " "+cartSelctedItem.foodName+" ( "+cartSelctedItem.foodModifiers+" ) "
             holder.cartComboName.hide()
@@ -43,6 +44,7 @@ class AdapterCart(
             holder.cartComboName.text = cartSelctedItem.title + " "+cartSelctedItem.foodName+" ( "+cartSelctedItem.foodModifiers+" ) "
             holder.cartComboName.show()
         }
+
         Glide.with(mContext)
             .load(cartSelctedItem.foodUrl)
             .placeholder(R.drawable.movie_default)

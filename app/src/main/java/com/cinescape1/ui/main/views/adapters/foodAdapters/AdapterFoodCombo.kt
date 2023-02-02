@@ -51,8 +51,7 @@ class AdapterFoodCombo(
             holder.totalItems.hide()
         }
 
-        Glide
-            .with(mContext)
+        Glide.with(mContext)
             .load(foodSelectedItem.itemImageUrl)
             .placeholder(R.drawable.food_placeholder)
             .into(holder.imgFood)

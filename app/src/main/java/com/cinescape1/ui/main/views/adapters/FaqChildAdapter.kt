@@ -35,10 +35,7 @@ class FaqChildAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    override fun onBindViewHolder(
-        holder: TodoViewHolder,
-        @SuppressLint("RecyclerView") position: Int
-    ) {
+    override fun onBindViewHolder(holder: TodoViewHolder, @SuppressLint("RecyclerView") position: Int) {
         val obj = faqList[position]
         dataList.add(obj.toString())
         context.windowManager.defaultDisplay.getMetrics(displayMetrics)

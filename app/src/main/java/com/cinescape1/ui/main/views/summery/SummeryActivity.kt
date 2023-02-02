@@ -270,20 +270,30 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
             )
         )
 
-        from = intent.getStringExtra("From").toString()
-        bookType = intent.getStringExtra("BOOKING").toString()
-        type = intent.getStringExtra("TYPE").toString()
+        try {
+            from = intent.getStringExtra("From").toString()
+            bookType = intent.getStringExtra("BOOKING").toString()
+            type = intent.getStringExtra("TYPE").toString()
 
-        sessionId = intent.getStringExtra("SESSION_ID").toString()
-        cinemaId = intent.getStringExtra("CINEMA_ID").toString()
-        transId = intent.getStringExtra("TRANS_ID").toString()
-        broadcastReceiver = MyReceiver()
+            sessionId = intent.getStringExtra("SESSION_ID").toString()
+            cinemaId = intent.getStringExtra("CINEMA_ID").toString()
+            transId = intent.getStringExtra("TRANS_ID").toString()
+            broadcastReceiver = MyReceiver()
+
+            println("SummeryPageIntentResult-----from--->${from} ----->${bookType}-" +
+                    "--->${sessionId}------>${cinemaId}---->${transId}----->${broadcastReceiver}")
+        }catch (e : Exception){
+            println("SummeryPageError-------->${e.message}")
+        }
+
 
         if (bookType == "BOOKING") {
+            println("SummeryPageIntentResultBooking21-----yes")
             textView111?.show()
             textView112?.show()
             resendTimer()
         } else {
+            println("SummeryPageIntentResultFood21-----yes")
             textView111?.invisible()
             textView112?.invisible()
         }
@@ -396,13 +406,12 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
                 intent.putExtra("image", image)
                 intent.putExtra("paidPrice", paidPrice)
                 Constant.IntentKey.TimerTime = timeCount
+                startActivity(intent)
+                finish()
 
                 println("ListOfIdIntent-------->${cinemaId},--${sessionId}" +
                         ",--${transId},---${bookingIdNEw},-----${bookType}," +
                         "-----${image},----${paidPrice},--------${timeCount}")
-
-                startActivity(intent)
-                finish()
             }catch (e : Exception){
                 println("ListOfIdIntentError---->${e.message}")
             }

@@ -216,17 +216,18 @@
         app:layout_constraintStart_toStartOf="@+id/view33"
         app:layout_constraintTop_toBottomOf="@+id/textView17"
         tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+<!--    android:background="@drawable/back_image"-->
 
     <TextView
         android:id="@+id/textView18"
-        android:layout_width="59dp"
-        android:layout_height="28dp"
-        android:background="@drawable/back_image"
+        android:layout_width="62dp"
+        android:layout_height="26dp"
+        android:background="@drawable/btn_sent_bg_red"
         android:fontFamily="@font/sf_pro_text_regular"
         android:gravity="center"
         android:lineSpacingExtra="2sp"
         android:text="@string/send"
-        android:textColor="@color/hint_color"
+        android:textColor="@color/white"
         android:textSize="@dimen/size14"
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="@+id/textView29"

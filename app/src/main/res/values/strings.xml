@@ -367,5 +367,7 @@
     <string name="enterSamePass">Please enter same password.</string>
     <string name="enterConfPasswrd">Please enter confirm password.</string>
     <string name="recharge_success">Your Recharge has been successfull</string>
+    <string name="no_food_available">No Food Available</string>
+    <string name="coming_soon_">Coming Soon -</string>
 
 </resources>

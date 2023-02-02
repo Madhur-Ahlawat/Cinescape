@@ -103,13 +103,12 @@ class HomeActivity : DaggerAppCompatActivity(),
         } else {
 
             if (preferences.getBoolean(Constant.IS_LOGIN)){
-                if (Constant.IntentKey.DialogShow == true){
+                if (Constant.IntentKey.DialogShow == true && NextBookingsResponse != null){
                     binding?.imageView42?.show()
                 }
             }
             setCurrentFragment(HomeFragment())
         }
-
 
         navigationView.setOnNavigationItemSelectedListener {
 
@@ -146,11 +145,18 @@ class HomeActivity : DaggerAppCompatActivity(),
                     }
                 }
                 R.id.accountFragment -> {
-                    buttonClick = 1
-                    BACKFinlTicket += 1
-                    buttonClick = 1
-                    binding?.imageView42?.hide()
-                    setCurrentFragment(AccountPageFragment())
+                    if (preferences.getBoolean(Constant.IS_LOGIN)){
+                        buttonClick = 1
+                        BACKFinlTicket += 1
+                        buttonClick = 1
+                        binding?.imageView42?.hide()
+                        setCurrentFragment(AccountPageFragment())
+                    }else{
+                        val intent = Intent(this, LoginActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+
                 }
                 R.id.moreFragment -> {
                     buttonClick = 1

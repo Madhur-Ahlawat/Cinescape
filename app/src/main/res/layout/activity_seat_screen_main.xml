@@ -11,7 +11,7 @@
         android:id="@+id/SeatnestedScroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,6 +52,7 @@
                     android:singleLine="true"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size20"
+                    android:maxLines="2"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -80,7 +81,6 @@
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@+id/tv_seat_film_title"
                         app:cardCornerRadius="@dimen/margin2"
-                        android:layout_margin="@dimen/margin2"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tv_seat_film_title">
@@ -88,7 +88,7 @@
                         <TextView
                             android:id="@+id/tv_seat_film_type"
                             android:layout_width="wrap_content"
-                            android:layout_height="@dimen/margin17"
+                            android:layout_height="@dimen/margin16"
                             android:fontFamily="@font/sf_pro_text_regular"
                             android:includeFontPadding="false"
                             android:gravity="center_vertical"

@@ -454,8 +454,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                 text_seat_category_preference.typeface = bold
                 text_seat_type_preference.typeface = bold
                 text_age_rating_preference.typeface = bold
-
-//                categoryName?.typeface = regular
+//               categoryName?.typeface = regular
 
                 // include profile layout text
                 text_profile_titles.typeface = bold
