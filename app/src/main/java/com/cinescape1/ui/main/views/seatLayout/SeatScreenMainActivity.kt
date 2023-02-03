@@ -50,6 +50,7 @@ import javax.inject.Inject
 class SeatScreenMainActivity : DaggerAppCompatActivity(),
     SeatShowTimesCinemaAdapter.SeatCinemaAdapterListener,
     AdapterCinemaSessionScroll.LocationListener {
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -374,10 +375,8 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
 
             movieType = "${output.daySessions[cinemaPos1].shows[showPos].experience} | ${output.daySessions[cinemaPos1].shows[showPos].format} | $seatCat"
 
-
 //            binding?.textType?.text = "${output.daySessions[cinemaPos1].shows[showPos].experience} | ${output.daySessions[cinemaPos1].shows[showPos].format} | $seatCat"
             binding?.textType?.text = "${output.daySessions[cinemaPos1].shows[showPos].experience} | ${output.daySessions[cinemaPos1].shows[showPos].format} | $seatCat"
-
             setTitleAdapter(output.daySessions)
         } catch (e: Exception) {
             e.printStackTrace()

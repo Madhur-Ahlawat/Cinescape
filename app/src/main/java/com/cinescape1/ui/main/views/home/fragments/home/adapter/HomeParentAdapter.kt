@@ -82,7 +82,6 @@ class HomeParentAdapter(
                 val currentItemHorizontalMarginPx =
                     mContext.resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
 
-
                 val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
                 transfer.addTransformer(object : ViewPager2.PageTransformer,
                     androidx.viewpager2.widget.ViewPager2.PageTransformer {
@@ -129,12 +128,12 @@ class HomeParentAdapter(
                     holder.viewpager.hide()
                     holder.viewpagerBack.hide()
                     holder.homeList.isLayoutFrozen = false
-                    val gridLayout =
-                        GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
+                    val gridLayout = GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
                     holder.homeList.layoutManager = LinearLayoutManager(mContext)
                     val adapter = OfferAdapter(mContext, obj.offers)
                     holder.homeList.layoutManager = gridLayout
                     holder.homeList.adapter = adapter
+
                     holder.txtSeeAll.setOnClickListener {
                         val intent = Intent(mContext, SeeAllActivity::class.java)
                         intent.putExtra("type", "offer")
@@ -209,8 +208,7 @@ class HomeParentAdapter(
                     holder.itemView.show()
                     holder.txtSeeAll.hide()
 
-                    val gridLayout =
-                        GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
+                    val gridLayout = GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false)
                     holder.homeList.layoutManager = LinearLayoutManager(mContext)
                     adapter = HomeChildAdapter(mContext, obj.movieData, 1, false, this)
                     holder.homeList.layoutManager = gridLayout

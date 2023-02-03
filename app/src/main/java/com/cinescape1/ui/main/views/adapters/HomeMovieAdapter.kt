@@ -33,7 +33,6 @@ class HomeMovieAdapter(private  val mContext: Activity, private  val cinemas: Ar
         val obj = cinemas[position]
         holder.title.text=obj.name
 
-
         Glide.with(mContext)
             .load(obj.appThumbImageUrl)
             .error(R.drawable.placeholder_home_locations)
@@ -45,6 +44,7 @@ class HomeMovieAdapter(private  val mContext: Activity, private  val cinemas: Ar
             intent.putExtra("type", "movie")
             mContext.startActivity(intent)
         }
+
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {

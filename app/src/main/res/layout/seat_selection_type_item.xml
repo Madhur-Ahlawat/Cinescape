@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginEnd="@dimen/margin10"
     android:background="@color/transparent">
-
 
     <ImageView
         android:id="@+id/img_seat_selection_type"
@@ -77,4 +77,5 @@
         app:layout_constraintStart_toStartOf="@+id/tv_seat_avialable"
         app:layout_constraintTop_toBottomOf="@+id/tv_seat_avialable"
         tools:ignore="HardcodedText,TextContrastCheck" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

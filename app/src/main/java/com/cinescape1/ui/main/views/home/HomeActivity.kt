@@ -77,6 +77,7 @@ class HomeActivity : DaggerAppCompatActivity(),
     private var locationlist = ArrayList<FoodResponse.Output.Cinema>()
     private var broadcastReceiver: BroadcastReceiver? = null
     private var buttonClick = 0
+    private var flagHome = false
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,20 +97,6 @@ class HomeActivity : DaggerAppCompatActivity(),
         }
         setContentView(view)
 
-
-        if (OPEN_FROM == 1) {
-            setCurrentFragment(AccountPageFragment())
-            binding?.navigationView?.selectedItemId = R.id.accountFragment
-        } else {
-
-            if (preferences.getBoolean(Constant.IS_LOGIN)){
-                if (Constant.IntentKey.DialogShow == true && NextBookingsResponse != null){
-                    binding?.imageView42?.show()
-                }
-            }
-            setCurrentFragment(HomeFragment())
-        }
-
         navigationView.setOnNavigationItemSelectedListener {
 
             when (it.itemId) {
@@ -117,6 +104,7 @@ class HomeActivity : DaggerAppCompatActivity(),
                     BACKFinlTicket += 1
                     buttonClick = 0
                     manageBooking()
+                    flagHome = true
                     setCurrentFragment(HomeFragment())
                 }
                 R.id.movieFragment -> {
@@ -124,6 +112,7 @@ class HomeActivity : DaggerAppCompatActivity(),
                     buttonClick = 1
                     BACKFinlTicket += 1
                     buttonClick = 1
+                    flagHome = false
                     binding?.imageView42?.hide()
                     println("NotiIconVisible--------->MovieFrag")
                     setCurrentFragment(MoviesFragment(0))
@@ -131,7 +120,6 @@ class HomeActivity : DaggerAppCompatActivity(),
                 R.id.foodFragment -> {
                     buttonClick = 1
                     BACKFinlTicket += 1
-                    buttonClick = 1
                     binding?.imageView42?.hide()
                     println("NotiIconVisible--------->FoodFrag")
                     if (!preferences.getBoolean(Constant.IS_LOGIN)) {
@@ -149,6 +137,7 @@ class HomeActivity : DaggerAppCompatActivity(),
                         buttonClick = 1
                         BACKFinlTicket += 1
                         buttonClick = 1
+                        flagHome = false
                         binding?.imageView42?.hide()
                         setCurrentFragment(AccountPageFragment())
                     }else{
@@ -162,6 +151,7 @@ class HomeActivity : DaggerAppCompatActivity(),
                     buttonClick = 1
                     BACKFinlTicket += 1
                     buttonClick = 1
+                    flagHome = false
                     binding?.imageView42?.hide()
                     setCurrentFragment(MorePageFragment())
                 }
@@ -173,6 +163,24 @@ class HomeActivity : DaggerAppCompatActivity(),
         broadcastIntent()
         foodResponse()
         setNextBooking()
+
+        if (OPEN_FROM == 1) {
+            setCurrentFragment(AccountPageFragment())
+            binding?.navigationView?.selectedItemId = R.id.accountFragment
+        } else {
+            setCurrentFragment(HomeFragment())
+            flagHome = true
+            if (preferences.getBoolean(Constant.IS_LOGIN) && buttonClick == 0){
+                manageBooking()
+            }else{
+                binding?.imageView42?.hide()
+            }
+
+
+
+        }
+
+
     }
 
     private fun manageBooking() {
@@ -265,7 +273,17 @@ class HomeActivity : DaggerAppCompatActivity(),
         dialog.show()
         spinner = dialog.spinner
         dialog.text_cancel_goback.setOnClickListener {
-            dialog.dismiss()
+            println("yessssssss1------sss ---${flagHome}")
+            if (flagHome == true){
+                buttonClick = 0
+                manageBooking()
+                flagHome = false
+                setCurrentFragment(HomeFragment())
+                dialog.dismiss()
+            }else{
+                dialog.dismiss()
+            }
+
         }
 
         dialog.text_proceeds?.setOnClickListener {
@@ -345,8 +363,12 @@ class HomeActivity : DaggerAppCompatActivity(),
                                         retrieveNextBookedResponse(it.data)
                                         NextBookingsResponse = it.data
                                         BOOKINGClick += 1
+                                        flagHome = true
+                                        println("ListOutputResponse2--------->${NextBookingsResponse}")
                                     }else{
                                         NextBookingsResponse = it.data
+                                        flagHome = true
+                                        println("ListOutputResponse222--------->${NextBookingsResponse}")
                                     }
                                 }
                             }
@@ -362,6 +384,12 @@ class HomeActivity : DaggerAppCompatActivity(),
 
     private fun retrieveNextBookedResponse(output: NextBookingResponse) {
 
+//        if (preferences.getBoolean(Constant.IS_LOGIN)){
+//            if (Constant.IntentKey.DialogShow == true){
+//                binding?.imageView42?.show()
+//            }
+//        }
+
         if (output != null && buttonClick==0){
             binding?.imageView42?.show()
             println("NotiIconVisible1--------->Yes")
@@ -373,6 +401,7 @@ class HomeActivity : DaggerAppCompatActivity(),
         binding?.imageView42?.setOnClickListener {
             BACKFinlTicket = 0
             if (NextBookingsResponse != null && buttonClick == 0) {
+                println("ListOutputResponse21--------->${NextBookingsResponse}")
                 buttonClick=1
                 bookingsPopup(output)
             }
@@ -421,7 +450,6 @@ class HomeActivity : DaggerAppCompatActivity(),
                         binding?.navigationView?.selectedItemId = R.id.accountFragment
                         mAlertDialog?.dismiss()
                         buttonClick = 0
-
                     }
 
                     mDialogView.image_booking_alert.setOnClickListener {
@@ -429,10 +457,7 @@ class HomeActivity : DaggerAppCompatActivity(),
                         buttonClick = 0
                         val intent = Intent(this, FinalTicketActivity::class.java)
                         intent.putExtra(Constant.IntentKey.BOOKING_ID, output.output[0].bookingId)
-                        intent.putExtra(
-                            Constant.IntentKey.TRANSACTION_ID,
-                            output.output[0].transId.toString()
-                        )
+                        intent.putExtra(Constant.IntentKey.TRANSACTION_ID, output.output[0].transId.toString())
                         intent.putExtra(Constant.IntentKey.BOOK_TYPE, output.output[0].bookingType)
                         intent.putExtra("FROM", "MTicket")
                         startActivity(intent)

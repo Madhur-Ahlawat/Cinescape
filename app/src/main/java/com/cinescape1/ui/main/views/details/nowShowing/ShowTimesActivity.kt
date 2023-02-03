@@ -53,6 +53,7 @@ import com.cinescape1.ui.main.views.adapters.showTimesAdapters.AdapterShowTimesC
 import com.cinescape1.ui.main.views.adapters.showTimesAdapters.AdpaterShowTimesCast
 import com.cinescape1.ui.main.views.details.adapter.SimilarMovieAdapter
 import com.cinescape1.ui.main.views.details.nowShowing.viewModel.ShowTimesViewModel
+import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.ui.main.views.login.LoginActivity
 import com.cinescape1.ui.main.views.payment.PaymentWebActivity
 import com.cinescape1.ui.main.views.player.PlayerActivity
@@ -114,6 +115,8 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     private var broadcastReceiver: BroadcastReceiver? = null
     private var movieCastName1: TextView? = null
     private var textTitle5: TextView? = null
+
+    var homeBacks = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -218,6 +221,10 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             imageView36.show()
         }
 
+        if (intent.getStringExtra("Home") != null){
+            homeBacks = intent.getStringExtra("Home").toString()
+        }
+
         //AppBar Hide
         window.apply {
             clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
@@ -273,9 +280,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.cancel_dialog)
-        dialog.window!!.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
-        )
+        dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
         dialog.window!!.setGravity(Gravity.BOTTOM)
@@ -346,6 +351,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
         binding?.imageView25?.setOnClickListener {
             onBackPressed()
+
         }
 
         //Search Show
@@ -546,12 +552,17 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                                 if (it.data?.code == Constant.SUCCESS_CODE) {
                                     try {
                                         binding?.LayoutTime?.show()
-                                        datePosition = it.data.output.days[0].wdf
-                                        dt = it.data.output.days[0].showdate
-                                        dateTime = it.data.output.days[0].dt
+                                        if (it.data.output.days.isNullOrEmpty()){
+                                            datePosition
+                                        }else{
+                                            datePosition = it.data.output.days[0].wdf
+                                            dt = it.data.output.days[0].showdate
+                                            dateTime = it.data.output.days[0].dt
+                                            setShowTimesDayDateAdapter(it.data.output.days)
+                                        }
+
                                         if (json.dated == "") showData = it.data.output
                                         daySessionResponse = it.data.output.daySessions
-                                        setShowTimesDayDateAdapter(it.data.output.days)
                                         updateUiShowTimes(it.data.output)
                                         setTitleAdapter()
                                     } catch (e: Exception) {
@@ -942,7 +953,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             val tvKdPrice2: TextView = v.findViewById(R.id.tv_kd_price)
 
             Glide.with(this).load(item.icon).into(imageSeatSelection)
-
             println("SeatCategory.icon ---------->${item.icon}")
 
             viewListForDates.add(v)
@@ -1008,8 +1018,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 for (data in item.seatTypes){
                     val v: View = LayoutInflater.from(this).inflate(R.layout.seat_selection_type_item, selectSeatType, false)
                     viewListForDates.add(v)
-                    val imgSeatSelectionType: ImageView =
-                        v.findViewById(R.id.img_seat_selection_type)
+                    val imgSeatSelectionType: ImageView = v.findViewById(R.id.img_seat_selection_type)
                     val imgMetroInfo: ImageView = v.findViewById(R.id.img_metro_info)
                     val textSeatType: TextView = v.findViewById(R.id.textseat_type)
                     val tvSeatAvailable: TextView = v.findViewById(R.id.tv_seat_avialable)
@@ -1020,7 +1029,8 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                     imgMetroInfo.setImageResource(R.drawable.ic_icon_metro_info)
                     tvKdPrice.text = data.price.toString()
                     tvSeatAvailable.text = data.count
-                    println("ImageUrlLinkSeat -------->${data.icon}------->${data.price}")
+                    textSeatType.text = data.seatType
+                    println("ImageUrlLinkSeat2211 -------->${data.icon}------->${data.price}--->${data.seatType}")
 
                     selectSeatType.addView(v)
                     if (item.seatTypes.size > 0 && item.seatTypes.size == 1) {
@@ -1046,15 +1056,14 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                             num = 1
                             txtNumber.text = num.toString()
                             btnDecrease.invisible()
-
-                            totalPrice.text =
-                                getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format(
+                            totalPrice.text = getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format(
                                     (totalPriceResponse * num) / 100
                                 )
                             btnDecrease.isEnabled = true
                             btnIncrease.isEnabled = true
                             btnDecrease.isClickable = true
                             btnIncrease.isClickable = true
+
                         } else {
                             categoryClick = false
                             clickUi.hide()
@@ -1062,13 +1071,12 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                             btnIncrease.isEnabled = false
                             btnDecrease.isClickable = false
                             btnIncrease.isClickable = false
+
                         }
                     }
 
 
                 }
-
-
 
                 // for second
 
@@ -1153,11 +1161,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                                 val textSeatType: TextView = v.findViewById(R.id.textseat_type)
                                 val tvSeatAvailable: TextView = v.findViewById(R.id.tv_seat_avialable)
                                 val tvKdPrice: TextView = v.findViewById(R.id.tv_kd_price)
-                                if (languageCheck == "en") {
-                                    textSeatType.text = data.seatType
-                                } else {
-                                    textSeatType.text = data.seatTypeStr
-                                }
 
                                 selectSeatType.show()
                                 Glide.with(this).load(data.icon).into(imgSeatSelectionType)
@@ -1278,7 +1281,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                     }
                 }
         }
-
 
 
             btnDecrease.setOnClickListener {
@@ -1521,5 +1523,15 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
     }
 
+    override fun onBackPressed() {
+        if (homeBacks == "homeBack"){
+            Constant.IntentKey.BACKFinlTicket = 0
+            val intent = Intent(applicationContext, HomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }else{
+            super.onBackPressed()
+        }
 
+    }
 }

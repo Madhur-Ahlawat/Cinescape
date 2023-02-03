@@ -77,6 +77,8 @@ class CinemaPageAdapter(
         }
 
         holder.cinemaName.text = obj.cinema.name
+        println("holder.cinemaName21------>${holder.cinemaName.text}")
+
 //        holder.address.text = obj.cinema.address1
 
     }

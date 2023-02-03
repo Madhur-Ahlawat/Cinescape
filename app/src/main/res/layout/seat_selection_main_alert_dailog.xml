@@ -5,12 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/MyDialogTransparent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <View
         android:id="@+id/view100"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/seat"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,22 +22,21 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="@dimen/margin3"
-        android:fillViewport="true"
         android:padding="@dimen/margin5"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout8"
+        app:layout_constraintBottom_toBottomOf="@+id/view100"
         app:layout_constraintEnd_toEndOf="@+id/view100"
         app:layout_constraintStart_toStartOf="@+id/view100"
         app:layout_constraintTop_toTopOf="@+id/view100">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="9dp"
             android:layout_marginEnd="9dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -758,71 +757,72 @@
                     app:layout_constraintTop_toTopOf="@+id/text_agree"
                     app:layout_constraintVertical_bias="0.428" />
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout8"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin40"
+                    android:layout_marginBottom="@dimen/margin20"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view42lines">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cancelDialog"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_proceeds"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/text_proceeds">
+
+                        <TextView
+                            android:id="@+id/cancel_goback"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_text_bold"
+                            android:gravity="start"
+                            android:text="@string/cancel"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/size16"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/btnGoBack"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:text="@string/and_go_back"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/size14"
+                            app:layout_constraintBottom_toBottomOf="@+id/cancel_goback"
+                            app:layout_constraintStart_toEndOf="@+id/cancel_goback"
+                            app:layout_constraintTop_toTopOf="@+id/cancel_goback" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/text_proceeds"
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/btn_corner_bg_red"
+                        android:fontFamily="@font/sf_pro_text_bold"
+                        android:gravity="center"
+                        android:text="@string/proceed"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout8"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="38dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/nestedScrollView2">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cancelDialog"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="@+id/text_proceeds"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/text_proceeds">
-
-            <TextView
-                android:id="@+id/cancel_goback"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_pro_text_bold"
-                android:gravity="start"
-                android:text="@string/cancel"
-                android:textColor="@color/white"
-                android:textSize="@dimen/size16"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/btnGoBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="@string/and_go_back"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/size14"
-                app:layout_constraintBottom_toBottomOf="@+id/cancel_goback"
-                app:layout_constraintStart_toEndOf="@+id/cancel_goback"
-                app:layout_constraintTop_toTopOf="@+id/cancel_goback" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/text_proceeds"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/btn_corner_bg_red"
-            android:fontFamily="@font/sf_pro_text_bold"
-            android:gravity="center"
-            android:text="@string/proceed"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

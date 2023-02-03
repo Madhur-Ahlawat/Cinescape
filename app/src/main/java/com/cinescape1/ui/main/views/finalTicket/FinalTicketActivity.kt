@@ -483,7 +483,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        BACKFinlTicket += 1
+        BACKFinlTicket = 0
         val intent = Intent(applicationContext, HomeActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)

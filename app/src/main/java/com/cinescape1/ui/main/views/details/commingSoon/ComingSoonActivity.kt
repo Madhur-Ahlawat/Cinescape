@@ -23,6 +23,7 @@ import com.cinescape1.ui.main.views.adapters.showTimesAdapters.AdpaterShowTimesC
 import com.cinescape1.ui.main.views.details.adapter.SimilarMovieAdapter
 import com.cinescape1.ui.main.views.details.commingSoon.viewModel.ComingSoonViewModel
 import com.cinescape1.ui.main.views.details.nowShowing.ShowTimesActivity
+import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.ui.main.views.player.PlayerActivity
 import com.cinescape1.utils.*
 import dagger.android.support.DaggerAppCompatActivity
@@ -141,6 +142,12 @@ class ComingSoonActivity : DaggerAppCompatActivity(),
         movieDetails(intent.getStringExtra(Constant.IntentKey.MOVIE_ID).toString())
 
         binding?.imageBack?.setOnClickListener {
+            Constant.IntentKey.BACKFinlTicket = 0
+
+//            val intent = Intent(applicationContext, HomeActivity::class.java)
+//            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//            startActivity(intent)
+
             onBackPressed()
         }
 
