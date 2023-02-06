@@ -155,6 +155,10 @@ class Constant {
         var ON_BACK_FOOD = 0
         var FNB = "fnb"
         var taglist: ArrayList<String> = ArrayList()
+        var select_pos = 0
+        var SEAT_TYPE = ""
+        var SEAT_CATEGORY = ""
+
         // Preferences
         var DECIFORMAT = DecimalFormat("0.000")
         const val FIRST_NAME = "first_name"
@@ -165,10 +169,9 @@ class Constant {
         const val USER_NAME = "user_name"
         const val USER_GENDER = "user_gender"
         const val USER_ID = "user_id"
-        const val SEAT_TYPE = "seat_type"
-        const val SEAT_CATEGORY = "seat_category"
+
         const val IS_LOGIN = "is_login"
-        var select_pos = 0
+
         const val TYPE_LOGIN = "type_login"
         const val ID_TOKEN = "id_token"
         const val USER_EMAIL = "user_email"

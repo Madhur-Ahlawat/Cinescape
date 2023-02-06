@@ -1041,6 +1041,8 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                         ttType = data.ttypeCode
                         seatType = data.seatType
                         totalPriceResponse = data.priceInt
+                        textSeatType.text = seatType
+
                         imgSeatSelectionType.setColorFilter(
                             ContextCompat.getColor(this, R.color.text_alert_color_red),
                             android.graphics.PorterDuff.Mode.MULTIPLY
@@ -1155,8 +1157,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                             try {
                                 val v: View = LayoutInflater.from(this).inflate(R.layout.seat_selection_type_item, selectSeatType, false)
                                 viewListForDates.add(v)
-                                val imgSeatSelectionType: ImageView =
-                                    v.findViewById(R.id.img_seat_selection_type)
+                                val imgSeatSelectionType: ImageView = v.findViewById(R.id.img_seat_selection_type)
                                 val imgMetroInfo: ImageView = v.findViewById(R.id.img_metro_info)
                                 val textSeatType: TextView = v.findViewById(R.id.textseat_type)
                                 val tvSeatAvailable: TextView = v.findViewById(R.id.tv_seat_avialable)
@@ -1167,6 +1168,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                                 imgMetroInfo.setImageResource(R.drawable.ic_icon_metro_info)
                                 tvKdPrice.text = data.price.toString()
                                 tvSeatAvailable.text = data.count
+                                textSeatType.text = data.seatType
                                 selectSeatType.addView(v)
 
                                 if (item.seatTypes.size > 0 && item.seatTypes.size == 1){

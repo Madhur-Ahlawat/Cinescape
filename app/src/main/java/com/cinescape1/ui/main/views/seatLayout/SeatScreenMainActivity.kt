@@ -375,8 +375,8 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
 
             movieType = "${output.daySessions[cinemaPos1].shows[showPos].experience} | ${output.daySessions[cinemaPos1].shows[showPos].format} | $seatCat"
 
-//            binding?.textType?.text = "${output.daySessions[cinemaPos1].shows[showPos].experience} | ${output.daySessions[cinemaPos1].shows[showPos].format} | $seatCat"
             binding?.textType?.text = "${output.daySessions[cinemaPos1].shows[showPos].experience} | ${output.daySessions[cinemaPos1].shows[showPos].format} | $seatCat"
+//            binding?.textType?.text = "${Constant.SEAT_TYPE} | ${output.daySessions[cinemaPos1].shows[showPos].format} | $Constant.SEAT_CATEGORY"
             setTitleAdapter(output.daySessions)
         } catch (e: Exception) {
             e.printStackTrace()

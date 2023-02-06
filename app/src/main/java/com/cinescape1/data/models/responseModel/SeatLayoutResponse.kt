@@ -64,7 +64,7 @@ data class SeatLayoutResponse(
     data class DaySession(
         val cinema: CinemaX,
         val showCount: Int,
-        val experienceSessions: List<ExperienceSession>,
+        val experienceSessions: ArrayList<ExperienceSession>,
         val shows: List<Show>
     ):Serializable{
         data class ExperienceSession(

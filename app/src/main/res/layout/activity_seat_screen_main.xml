@@ -44,7 +44,7 @@
                     android:marqueeRepeatLimit="marquee_forever"
                     android:maxLines="2"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/size20"
+                    android:textSize="@dimen/size18"
                     app:layout_constraintEnd_toStartOf="@+id/constraintLayout18"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -53,7 +53,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout18"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="17dp"
                     android:layout_gravity="center_vertical"
                     android:layout_toEndOf="@+id/tv_seat_film_title"
@@ -165,7 +165,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sf_pro_text_regular"
                     android:lineSpacingExtra="1.3sp"
-                    android:text="Standard   |   2D   |   Bachelor"
+                    tools:text="Standard   |   2D   |   Bachelor"
                     android:textColor="@color/white"
                     android:textStyle="normal"
                     app:layout_constraintEnd_toEndOf="@+id/view37"
