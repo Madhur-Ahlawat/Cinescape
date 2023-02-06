@@ -370,13 +370,15 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
             movieId = output.movie.id
             binding?.tvCinemaName?.text = output.cinema.name
             movieCinemaName = output.cinema.name
-            movieTimeDate = "${output.daySessions[cinemaPos1].shows[showPos].showTime} | $datePosition | $dt"
+
+            println("PositionCinemas------->${cinemaPos1}---->${showPos}---->${Constant.select_pos}")
+
+
             movieImage = output.movie.mobimgbig
 
-            movieType = "${output.daySessions[cinemaPos1].shows[showPos].experience} | ${output.daySessions[cinemaPos1].shows[showPos].format} | $seatCat"
-
-            binding?.textType?.text = "${output.daySessions[cinemaPos1].shows[showPos].experience} | ${output.daySessions[cinemaPos1].shows[showPos].format} | $seatCat"
-//            binding?.textType?.text = "${Constant.SEAT_TYPE} | ${output.daySessions[cinemaPos1].shows[showPos].format} | $Constant.SEAT_CATEGORY"
+            movieTimeDate = "${output.daySessions[Constant.select_pos].experienceSessions[cinemaPos1].shows[showPos].showTime} | $datePosition | $dt"
+            movieType = "${output.daySessions[Constant.select_pos].experienceSessions[cinemaPos1].experience} | ${output.daySessions[Constant.select_pos].experienceSessions[cinemaPos1].shows[showPos].format} | $seatCat"
+            binding?.textType?.text = "${output.daySessions[Constant.select_pos].experienceSessions[cinemaPos1].experience} | ${output.daySessions[Constant.select_pos].experienceSessions[cinemaPos1].shows[showPos].format} | $seatCat"
             setTitleAdapter(output.daySessions)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -390,7 +392,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
     private fun setTitleAdapter(daySessions: ArrayList<SeatLayoutResponse.DaySession>) {
         val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
         binding?.recyclerviewCinemasName?.layoutManager = LinearLayoutManager(this)
-        val adapter = SeatShowTimesCinemaAdapter(this, daySessions, this)
+        val adapter = SeatShowTimesCinemaAdapter(this, daySessions[Constant.select_pos].experienceSessions, this)
         binding?.recyclerviewCinemasName?.layoutManager = gridLayout
         binding?.recyclerviewCinemasName?.adapter = adapter
     }

@@ -774,7 +774,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
 
-                //select_pos = position
+                select_pos = position
                 binding?.textView110?.show()
                 binding?.textView110?.text = daySessionResponse[position].cinema.address1
             }

@@ -23,6 +23,7 @@ class SeatLayoutCinemaSessionAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolderCinemaSession, position: Int) {
+        println("showtimeList---->"+showtimeList)
             val showtimeListItem = showtimeList[position]
             holder.textDimension.text = showtimeListItem.format
         if (!showtimeListItem.premium){

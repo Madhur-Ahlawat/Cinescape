@@ -13,7 +13,7 @@ import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.SeatLayoutResponse
 
 class SeatShowTimesCinemaAdapter(
-    private var context: Context, private var showTimeTitleList: ArrayList<SeatLayoutResponse.DaySession>,
+    private var context: Context, private var showTimeTitleList: ArrayList<SeatLayoutResponse.DaySession.ExperienceSession>,
     val listener: SeatCinemaAdapterListener) : RecyclerView.Adapter<SeatShowTimesCinemaAdapter.MyViewHolderShowTimesTitle>(),
     SeatLayoutCinemaSessionAdapter.SeatSessionAdapterListener {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderShowTimesTitle {
@@ -25,11 +25,11 @@ class SeatShowTimesCinemaAdapter(
     override fun onBindViewHolder(holder: MyViewHolderShowTimesTitle, position: Int) {
 
         val showtimeListItem = showTimeTitleList[position]
-        holder.textTitle.text = showtimeListItem.cinema.name
-        println("CinemasTittleName------------>${showtimeListItem.cinema.name} ---->yes")
+        holder.textTitle.text = showtimeListItem.experience
+        println("CinemasTittleName------------>${showtimeListItem.experience} ---->yes")
 
         try {
-            when (showtimeListItem.experienceSessions[position].experience) {
+            when (showtimeListItem.experience) {
                 "4DX" -> {
                     Glide.with(context).load(R.drawable.fourdx_gray).into(holder.imageCinema)
                 }
@@ -66,7 +66,7 @@ class SeatShowTimesCinemaAdapter(
 
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL ,false)
         holder.recyclerShowTimeDimensions.layoutManager = layoutManager
-        val adapter = SeatLayoutCinemaSessionAdapter(context,showtimeListItem.shows,this,showtimeListItem.cinema.name,position)
+        val adapter = SeatLayoutCinemaSessionAdapter(context,showtimeListItem.shows,this,showtimeListItem.experience,position)
         holder.recyclerShowTimeDimensions.adapter = adapter
 
         println("CinemasTittleName212------------>${showtimeListItem.shows} ---->yes")
@@ -108,5 +108,6 @@ class SeatShowTimesCinemaAdapter(
         var imageCinema: ImageView = view.findViewById(R.id.imageCinema)
         val recyclerShowTimeDimensions = view.findViewById<View>(R.id.recyler_time_dimension) as RecyclerView
     }
+
 
 }
