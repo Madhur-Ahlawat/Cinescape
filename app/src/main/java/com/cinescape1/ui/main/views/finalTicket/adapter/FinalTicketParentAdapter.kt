@@ -191,12 +191,13 @@ class FinalTicketParentAdapter(
             }
             2 -> {
 //Two
+                println("called this method.....")
                 val holderTwo = holder as MyViewHolderTwo
                 holderTwo.twoBookingId.text = output.kioskId
                 if (!output.foodPickup) {
                     holderTwo.twoPickupInfo.hide()
                 } else {
-                    holderTwo.twoPickupInfo.show()
+                    holderTwo.twoPickupInfo.hide()
                 }
 
                 val gridLayout = GridLayoutManager(mContext, 1, GridLayoutManager.VERTICAL, false)

@@ -1478,7 +1478,8 @@ class FoodActivity : DaggerAppCompatActivity(),
 //        foodRequestData.id = foodItem.id
 
         if (foodItem.quantity > 0) {
-            foodRequestData.priceInCents = foodItem.itemTotal.toString()
+            println("amtSend--->${foodItem.priceInCents.toString()}")
+            foodRequestData.priceInCents = foodItem.priceInCents.toString()
             foodRequestData.itemId = foodItem.id
             foodRequestData.id = foodItem.id
             foodRequestData.quantity = foodItem.quantity
