@@ -82,7 +82,7 @@
                     tools:text="Combo 1"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size16"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="@+id/view_combo_head"
                     app:layout_constraintStart_toEndOf="@+id/imageView10"
                     app:layout_constraintTop_toTopOf="@+id/view_combo_head" />
@@ -121,6 +121,8 @@
                     android:layout_width="0dp"
                     android:layout_marginTop="@dimen/dimen30"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    app:layout_constraintBottom_toTopOf="@+id/view39_done_btn"
                     app:layout_constraintEnd_toEndOf="@+id/view_combo_head"
                     app:layout_constraintStart_toStartOf="@+id/view_combo_head"
                     app:layout_constraintTop_toBottomOf="@+id/view_combo_head" />
@@ -129,10 +131,10 @@
                     android:id="@+id/view39_done_btn"
                     android:layout_width="0dp"
                     android:layout_height="55dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="@dimen/margin10"
+                    app:layout_constraintBottom_toTopOf="@+id/viw_total_price"
                     app:layout_constraintEnd_toEndOf="@+id/vws_main2"
-                    app:layout_constraintStart_toStartOf="@+id/vws_main2"
-                    app:layout_constraintTop_toBottomOf="@+id/recyclerview_combo_title" />
+                    app:layout_constraintStart_toStartOf="@+id/vws_main2" />
 
 
                 <TextView
@@ -225,12 +227,10 @@
                     android:id="@+id/viw_total_price"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="@dimen/margin15"
                     android:layout_marginBottom="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/view39_done_btn"
-                    app:layout_constraintStart_toStartOf="@+id/view39_done_btn"
-                    app:layout_constraintTop_toBottomOf="@+id/view39_done_btn" />
+                    app:layout_constraintStart_toStartOf="@+id/view39_done_btn" />
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout

@@ -43,11 +43,16 @@ import com.cinescape1.utils.*
 import com.cinescape1.utils.Constant.Companion.ON_BACK_FOOD
 import com.cinescape1.utils.Constant.IntentKey.Companion.TimerExtand
 import com.cinescape1.utils.Constant.IntentKey.Companion.TimerTime
+import com.google.android.flexbox.AlignItems
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.cancel_dialog.*
 import kotlinx.android.synthetic.main.cancel_dialog.view.*
 import javax.inject.Inject
 import kotlin.math.roundToInt
+
 
 @Suppress("DEPRECATION", "NAME_SHADOWING")
 class FoodActivity : DaggerAppCompatActivity(),
@@ -536,12 +541,19 @@ class FoodActivity : DaggerAppCompatActivity(),
         val textTicket1Price = mDialogView.findViewById<TextView>(R.id.text_ticket1_price)
         if (booktype == "FOOD") {
             titleTicketPrice.hide()
-            totals1.hide()
-            textTotal1?.hide()
+            totals1.show()
+            textTotal1?.show()
             textTicket1Price.hide()
             movieDetails.hide()
             viewFood.show()
             tvFoodPrice?.text = getAllFoodPrice()
+            textTotal1?.text = getString(R.string.price_kd) + " ${
+                Constant.DECIFORMAT.format(
+                    getAllFoodPrice().replace("KWD ", "").toDouble() + seatPrice.replace(
+                        "KWD ", ""
+                    ).toDouble()
+                )
+            }"
         } else {
             viewFood.hide()
             titleTicketPrice.show()
@@ -956,6 +968,7 @@ class FoodActivity : DaggerAppCompatActivity(),
 
         val textComboKdPrice = mDialogView.findViewById<TextView>(R.id.text_combo_kd_price)
         val textComboSubtitle = mDialogView.findViewById<TextView>(R.id.text_combo_subtilte)
+        val text_combo_head = mDialogView.findViewById<TextView>(R.id.text_combo_head)
         val imageView10 = mDialogView.findViewById<ImageView>(R.id.imageView10)
         val img1Close = mDialogView.findViewById<ImageView>(R.id.img1_close)
 
@@ -992,15 +1005,35 @@ class FoodActivity : DaggerAppCompatActivity(),
                 try {
                     val quantity = foodItem.quantity.toString()
                     textNumber?.text = quantity
-                    val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
-                    recyclerviewComboTitle.layoutManager = LinearLayoutManager(this)
+                    var spancount = 1
+                    println("foodItem.packageChildItems.size--->"+foodItem.alternateItems.size)
+                    when (foodItem.alternateItems.size) {
+                        3 -> {
+                            spancount = 1
+                        }
+                        in 4..5 -> {
+                            spancount = 2
+                        }
+                        in 7..8 -> {
+                            spancount = 3
+                        }
+                        in 10..11 -> {
+                            spancount = 4
+                        }
+                    }
+                    val gridLayout = GridLayoutManager(this, spancount, GridLayoutManager.VERTICAL, false)//                    recyclerviewComboTitle.layoutManager = LinearLayoutManager(this)
                     val adapter = AdapterFoodAddComboTitle(
                         this,
                         foodItem.packageChildItems,
                         foodItem.alternateItems,
                         this, foodItem, position)
 
-                    recyclerviewComboTitle.layoutManager = gridLayout
+                    val layoutManager = FlexboxLayoutManager(this)
+                    layoutManager.flexDirection = FlexDirection.ROW
+                    layoutManager.justifyContent = JustifyContent.CENTER
+                    layoutManager.alignItems = AlignItems.CENTER
+                    recyclerviewComboTitle.layoutManager = layoutManager
+
                     recyclerviewComboTitle.adapter = adapter
                     adapter.loadNewData(foodItem.packageChildItems, foodItem.alternateItems)
 
@@ -1085,9 +1118,27 @@ class FoodActivity : DaggerAppCompatActivity(),
             }
 
             "combo" -> {
+                text_combo_head.show()
+                text_combo_head.text = foodItem.title
                 comboAdapter?.notifyDataSetChanged()
-                val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
-                recyclerviewComboTitle.layoutManager = LinearLayoutManager(this)
+                var spancount = 1
+                println("foodItem.packageChildItems.size--->"+foodItem.alternateItems.size)
+                when (foodItem.alternateItems.size) {
+                    3 -> {
+                        spancount = 1
+                    }
+                    in 4..5 -> {
+                        spancount = 2
+                    }
+                    in 7..8 -> {
+                        spancount = 3
+                    }
+                    in 10..11 -> {
+                        spancount = 4
+                    }
+                }
+                val gridLayout = GridLayoutManager(this, spancount, GridLayoutManager.VERTICAL, false)
+//                recyclerviewComboTitle.layoutManager = LinearLayoutManager(this)
 
                 comboAdapter = AdapterFoodAddComboTitle(
                     this,
@@ -1096,7 +1147,13 @@ class FoodActivity : DaggerAppCompatActivity(),
                     this, foodItem, position
                 )
 
-                recyclerviewComboTitle.layoutManager = gridLayout
+                val layoutManager = FlexboxLayoutManager(this)
+                layoutManager.flexDirection = FlexDirection.ROW
+                layoutManager.justifyContent = JustifyContent.CENTER
+                layoutManager.alignItems = AlignItems.CENTER
+                recyclerviewComboTitle.layoutManager = layoutManager
+
+//                recyclerviewComboTitle.layoutManager = gridLayout
                 recyclerviewComboTitle.adapter = comboAdapter
                 comboAdapter?.loadNewData(foodItem.packageChildItems, foodItem.alternateItems)
 //                tv_kd_total?.text = foodItem.itemPrice
@@ -1277,6 +1334,10 @@ class FoodActivity : DaggerAppCompatActivity(),
         itemCartPrice -= getCartFoodPrice()
         itemSetCartPrice = Constant.DECIFORMAT.format(itemCheckPrice / 100.0)
         tvFoodPrice?.text = getAllFoodPrice()
+        if (foodCartListNew?.size==0){
+            if (mFoodCartDialog?.isShowing == true)
+                mFoodCartDialog?.dismiss()
+        }
     }
 
     private fun calculateTotal(): Int {
@@ -1365,6 +1426,14 @@ class FoodActivity : DaggerAppCompatActivity(),
         }
         foodCartAdapter?.notifyDataSetChanged()
         updateSelectedList(foodItem,0)
+
+        itemCartPrice -= getCartFoodPrice()
+        itemSetCartPrice = Constant.DECIFORMAT.format(itemCheckPrice / 100.0)
+        tvFoodPrice?.text = getAllFoodPrice()
+        if (foodCartListNew?.size==0){
+            if (mFoodCartDialog?.isShowing == true)
+            mFoodCartDialog?.dismiss()
+        }
     }
 
     private fun updateSelectedList(foodItem: GetFoodResponse.FoodDtls?, type:Int) {
@@ -1432,7 +1501,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                                 arrModify.add(modifyModel)
                                 foodRequestData.modifiers = arrModify
                                 modifiersName =
-                                    foodItem.alternateItems.get(k).description + " + " + foodItem.alternateItems[k].modifierGroups[l].Modifiers[m].description
+                                    foodItem.alternateItems.get(k).description + ", " + foodItem.alternateItems[k].modifierGroups[l].Modifiers[m].description
                             }
                         }
                     }
@@ -1464,7 +1533,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                                 arrModify.add(modifyModel)
                                 foodRequestData.modifiers = arrModify
                                 modifiers =
-                                    foodItem.modifierGroups[l].Description + " + " + foodItem.modifierGroups[l].Modifiers[m].description
+                                    foodItem.modifierGroups[l].Description + ", " + foodItem.modifierGroups[l].Modifiers[m].description
                             }
                         }
                     } catch (e: Exception) {
@@ -1588,7 +1657,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                             for (m in foodItem.alternateItems[k].modifierGroups[l].Modifiers.indices) {
                                 if (foodItem.alternateItems[k].modifierGroups[l].Modifiers[m].checkFlag) {
                                     foodSubName =
-                                        foodSubName + " + " + foodItem.alternateItems[k].modifierGroups[l].Modifiers[m].description
+                                        foodSubName + ", " + foodItem.alternateItems[k].modifierGroups[l].Modifiers[m].description
                                     foodDtls.foodModifierId =
                                         foodItem.alternateItems[k].modifierGroups[l].Modifiers[m].id
                                 }
@@ -1603,7 +1672,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                             if (foodItem.packageChildItems[n].alternateItems[o].checkFlag) {
                                 println("foodCartListNewdata--->${foodItem.packageChildItems[n].alternateItems[o].description}---")
                                 foodSubName =
-                                    foodSubName + " + " + foodItem.packageChildItems[n].alternateItems[o].description
+                                    foodSubName + ", " + foodItem.packageChildItems[n].alternateItems[o].description
 
                             }
                         }
@@ -1620,7 +1689,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                 if (foodCartListNew?.size!! > 0) {
                     if (itemExist(foodDtls)) {
                         for (item in foodCartListNew!!) {
-                            if (item.foodModifiers == foodDtls.foodModifiers) {
+                            if (item.foodModifiers == foodDtls.foodModifiers && item.foodId == foodDtls.foodId) {
                                 if (foodDtls.foodType=="Individual"){
                                     item.foodQuan = foodDtls.foodQuan
                                 }else {

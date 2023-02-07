@@ -31,17 +31,17 @@ class AdapterCart(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolderCart, position: Int) {
         val cartSelctedItem = cartComboList[position]
-        holder.cartFoodTitleName.text = cartSelctedItem.foodName+" ( "+cartSelctedItem.foodModifiers+" ) "
+//        holder.cartFoodTitleName.text = cartSelctedItem.foodName+" ( "+cartSelctedItem.foodModifiers+" ) "
         holder.cartKdPrice.text = mContext.getString(R.string.price_kd)+" ${Constant.DECIFORMAT.format((cartSelctedItem.foodAmount / 100.0))}"
         holder.textNumber.text = cartSelctedItem.foodQuan.toString()
 
         println("CartQtyNumber --------->${holder.textNumber.text}")
 
         if (cartSelctedItem.title==""){
-            holder.cartComboName.text = cartSelctedItem.title+ " "+cartSelctedItem.foodName+" ( "+cartSelctedItem.foodModifiers+" ) "
-            holder.cartComboName.hide()
+            holder.cartComboName.text = cartSelctedItem.foodName+" ( "+cartSelctedItem.foodModifiers.removePrefix(", ")+" ) "
+            holder.cartComboName.show()
         }else{
-            holder.cartComboName.text = cartSelctedItem.title + " "+cartSelctedItem.foodName+" ( "+cartSelctedItem.foodModifiers+" ) "
+            holder.cartComboName.text = cartSelctedItem.foodName+" ( "+cartSelctedItem.foodModifiers.removePrefix(", ")+" ) "
             holder.cartComboName.show()
         }
 
