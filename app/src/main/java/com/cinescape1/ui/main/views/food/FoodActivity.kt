@@ -83,6 +83,7 @@ class FoodActivity : DaggerAppCompatActivity(),
     private var emptyCart: TextView? = null
     private var textIncrease: TextView? = null
     private var tvFoodPrice: TextView? = null
+    private var tvFood1Price: TextView? = null
     private var tvKdTotal: TextView? = null
     private var textTotal1: TextView? = null
     private var cartTime: TextView? = null
@@ -538,6 +539,7 @@ class FoodActivity : DaggerAppCompatActivity(),
         val viewFood = mDialogView.findViewById<View>(R.id.viewFood)
         textTotal1 = mDialogView.findViewById(R.id.text_total1)
         tvFoodPrice = mDialogView.findViewById(R.id.tv_food_price)
+        tvFood1Price = mDialogView.findViewById(R.id.tv_food1_price)
         val textTicket1Price = mDialogView.findViewById<TextView>(R.id.text_ticket1_price)
         if (booktype == "FOOD") {
             titleTicketPrice.hide()
@@ -561,7 +563,17 @@ class FoodActivity : DaggerAppCompatActivity(),
             textTotal1?.show()
             textTicket1Price.show()
             movieDetails.show()
-            tvFoodPrice?.text = getAllFoodPrice()
+            println("FoodPricesList------>${getAllFoodPrice()}")
+            if (getAllFoodPrice().isNullOrEmpty()){
+                tvFoodPrice?.hide()
+                tvFood1Price?.hide()
+            }else{
+                tvFoodPrice?.show()
+                tvFood1Price?.show()
+                tvFoodPrice?.text = getAllFoodPrice()
+            }
+
+
             textTicket1Price.text = seatPrice
 
             textTotal1?.text = getString(R.string.price_kd) + " ${

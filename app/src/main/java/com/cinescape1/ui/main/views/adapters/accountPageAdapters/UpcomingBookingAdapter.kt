@@ -58,6 +58,8 @@ class UpcomingBookingAdapter(
         holder.date.text = foodSelctedItem.showDate
         holder.times.text = foodSelctedItem.showTime
 
+        println("foodSelctedItem.experience---->${foodSelctedItem.experience}")
+
         when (foodSelctedItem.experience) {
             "4DX" -> {
                 Glide
@@ -66,7 +68,7 @@ class UpcomingBookingAdapter(
                     .into(holder.cinemaName)
 
             }
-            "STANDARD" -> {
+            "Standard" -> {
                 Glide
                     .with(mContext)
                     .load(R.drawable.standard)
@@ -93,7 +95,7 @@ class UpcomingBookingAdapter(
             "DOLBY" -> {
                 Glide
                     .with(mContext)
-                    .load(R.drawable.threed_black)
+                    .load(R.drawable.dolby_black)
                     .into(holder.cinemaName)
             }
             "ELEVEN" -> {

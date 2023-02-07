@@ -92,6 +92,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
         supportActionBar?.hide()
         binding = ActivityFinalTicketBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
+
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")

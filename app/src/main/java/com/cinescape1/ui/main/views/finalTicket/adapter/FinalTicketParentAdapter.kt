@@ -30,8 +30,7 @@ class FinalTicketParentAdapter(
     private var homeDataList: ArrayList<FinalTicketLocalModel>,
     private var output: TicketSummaryResponse.Output,
     var listener1: TypeFaceFinalTicket0ne, var listener2: TypeFaceFinalTicketTwo,
-    var listener3: TypeFaceFinalTicketThree
-) :
+    var listener3: TypeFaceFinalTicketThree) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var adapter: HomeChildAdapter? = null
 
@@ -217,10 +216,13 @@ class FinalTicketParentAdapter(
                 //Three
                 val holderThree = holder as MyViewHolderThree
                 holderThree.threeBookingId.text = output.kioskId
-                holderThree.threeTicket.text =
-                    output.category + " " + output.ticketPrice + " x " + output.numofseats
-                holderThree.threeFood.text =
-                    output.concessionFoods.size.toString() + mContext.getString(R.string.item)
+                holderThree.threeTicket.text = output.category + " " + output.ticketPrice + " x " + output.numofseats
+
+                holderThree.threeTicketPrice.text = output.totalTicketPrice
+                holderThree.threeFood.text = output.concessionFoods.size.toString() + mContext.getString(R.string.item)
+
+                holderThree.threeFoodPrice.text = output.foodTotal
+
                 if (output.concessionFoods.isNullOrEmpty()) {
                     holderThree.threeFood.hide()
                     holder.textFood.hide()

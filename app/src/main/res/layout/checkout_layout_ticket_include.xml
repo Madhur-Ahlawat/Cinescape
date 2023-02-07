@@ -84,7 +84,7 @@
                     <TextView
                         android:id="@+id/summary_censor"
                         android:layout_width="wrap_content"
-                        android:layout_height="16dp"
+                        android:layout_height="match_parent"
                         android:fontFamily="@font/sf_pro_text_heavy"
                         android:gravity="center"
                         android:includeFontPadding="false"
