@@ -427,15 +427,28 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
         }
 
         binding?.viewFood?.setOnClickListener {
-            if (!up) {
-                up = true
-                icon_down_arrow.setImageResource(R.drawable.ic_icons_arrow_down)
-                recyclerview_food_chekout.visibility = View.GONE
-            } else {
-                up = false
+
+            if (recyclerview_food_chekout.visibility == View.GONE){
                 icon_down_arrow.setImageResource(R.drawable.arrow_up)
                 recyclerview_food_chekout.visibility = View.VISIBLE
+
+            }else{
+
+                icon_down_arrow.setImageResource(R.drawable.arrow_down)
+                recyclerview_food_chekout.visibility = View.GONE
             }
+
+//            if (!up) {
+//                up = true
+//                icon_down_arrow.setImageResource(R.drawable.ic_icons_arrow_down)
+//                recyclerview_food_chekout.visibility = View.GONE
+//            } else {
+//                up = false
+//                icon_down_arrow.setImageResource(R.drawable.arrow_up)
+//                recyclerview_food_chekout.visibility = View.VISIBLE
+//            }
+
+
         }
     }
 

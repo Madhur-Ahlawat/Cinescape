@@ -26,6 +26,7 @@ class BankOfferAdapter(context: Context, private val locationlist: List<PaymentL
             view = convertView
             vh = view.tag as ItemHolder
         }
+//        locationlist[0].name = "Available Bank Offers"
         vh.label.text = locationlist[position].name
         println("foodAdapter--->${locationlist}")
         return view

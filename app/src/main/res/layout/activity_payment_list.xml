@@ -11,7 +11,7 @@
         android:id="@+id/paymentLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -255,7 +255,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/view30"
                 app:layout_constraintStart_toStartOf="@+id/view30"
                 app:layout_constraintTop_toBottomOf="@+id/textView155"
-                tools:itemCount="2"
+                tools:itemCount="1"
                 tools:listitem="@layout/item_payment_list" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

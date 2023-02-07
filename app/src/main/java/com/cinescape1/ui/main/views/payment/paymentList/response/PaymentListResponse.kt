@@ -32,7 +32,7 @@ data class PaymentListResponse(
             ):java.io.Serializable{
                 data class PayModeBank(
                     val id: Int,
-                    val name: String
+                    var name: String
                 )
             }
         }

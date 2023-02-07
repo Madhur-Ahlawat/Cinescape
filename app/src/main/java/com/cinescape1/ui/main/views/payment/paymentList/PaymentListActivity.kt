@@ -662,9 +662,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 }
             }
 
-            override fun onTextChanged(
-                charSequence: CharSequence, i: Int, i1: Int, i2: Int
-            ) {
+            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
                 try {
                     if (!proceedAlertDialog.cardNumberTextInputEditText.text.toString().isEmpty()) {
                         proceedAlertDialog.image_american_express_card.visibility = View.VISIBLE

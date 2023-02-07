@@ -63,13 +63,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin4"
-                app:layout_constraintEnd_toStartOf="@+id/titleView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/text_movie_type"
                 app:alignContent="flex_start"
                 app:alignItems="flex_start"
                 app:flexWrap="nowrap"
+                app:layout_constraintBottom_toTopOf="@+id/text_movie_type"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:showDivider="middle">
 
                 <TextView
@@ -79,22 +79,24 @@
                     android:fontFamily="@font/sf_pro_text_heavy"
                     android:gravity="start"
                     android:includeFontPadding="false"
+                    android:maxLines="2"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size16"
-                    android:maxLines="2"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/constraintLayout18"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Gunda Rajjlknjhjjbhjkbhkbkkjbjkbbkjbklja " />
+                    tools:text="Gunda Rajjlkn jhjjbhjkbhkb kkjbjkbbk jbklja " />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout18"
-                    android:layout_width="wrap_content"
+                    android:layout_width="55dp"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:minWidth="37dp"
+                    android:layout_margin="@dimen/margin2"
+                    android:layout_marginEnd="@dimen/margin25"
                     app:layout_constraintBottom_toBottomOf="@+id/text_film_house_name"
                     app:layout_constraintEnd_toEndOf="parent">
 
@@ -102,12 +104,11 @@
                         android:id="@+id/ratingUi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:cardCornerRadius="@dimen/margin2"
-                        android:minWidth="@dimen/margin27"
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
+                        android:minWidth="@dimen/margin27"
+                        app:cardCornerRadius="@dimen/margin2"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tv_seat_film_title">
 
@@ -117,8 +118,8 @@
                             android:layout_height="@dimen/margin15"
                             android:fontFamily="@font/sf_pro_text_regular"
                             android:gravity="center"
-                            android:minWidth="@dimen/margin27"
                             android:includeFontPadding="false"
+                            android:minWidth="@dimen/margin27"
                             android:paddingStart="@dimen/margin6"
                             android:paddingEnd="@dimen/margin6"
                             android:textColor="@color/white"
@@ -145,7 +146,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
                 tools:ignore="HardcodedText"
                 tools:text="English  |  Drama" />
-
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/titleView"
