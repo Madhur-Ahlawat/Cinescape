@@ -498,7 +498,7 @@
                                 android:gravity="center"
                                 android:paddingStart="@dimen/margin6"
                                 android:paddingEnd="@dimen/margin6"
-                                android:textColor="@color/black"
+                                android:textColor="@color/white"
                                 android:textSize="@dimen/size11"
                                 tools:ignore="HardcodedText,TextContrastCheck"
                                 tools:text="13+" />

@@ -45,6 +45,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
     FinalTicketParentAdapter.TypeFaceFinalTicket0ne,
     FinalTicketParentAdapter.TypeFaceFinalTicketTwo,
     FinalTicketParentAdapter.TypeFaceFinalTicketThree {
+
     private var loader: LoaderDialog? = null
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -268,7 +269,6 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
             startActivity(intent)
             finish()
         }
-//
     }
 
     private fun printTicket(request: FinalTicketRequest) {
@@ -280,7 +280,6 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
                             loader?.dismiss()
                             resource.data?.let { it ->
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-
                                     try {
                                         binding?.uiFinalTaket?.show()
                                         binding?.successConstraintLayout?.show()
@@ -357,13 +356,13 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
         binding?.imageHead?.let {
             Glide.with(this)
                 .load(output.posterhori)
-                .placeholder(R.drawable.cinema)
+                .placeholder(R.drawable.app_icon)
                 .into(it)
         }
         binding?.imageView49?.let {
             Glide.with(this)
                 .load(output.posterhori)
-                .placeholder(R.drawable.cinema)
+                .placeholder(R.drawable.app_icon)
                 .into(it)
 
         }

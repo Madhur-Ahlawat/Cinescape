@@ -17,8 +17,7 @@ import com.cinescape1.utils.show
 class AdapterFoodCombo(
     context: Context, private var foodComboList: ArrayList<GetFoodResponse.ConcessionItem>,
     private val listener: RecycleViewItemClickListener, val type: String,
-    var listener1 : TypeFaceListenerFoodCombo
-) :
+    var listener1 : TypeFaceListenerFoodCombo) :
     RecyclerView.Adapter<AdapterFoodCombo.MyViewHolderFoodCombo>() {
 
     private var mContext = context
@@ -53,7 +52,7 @@ class AdapterFoodCombo(
 
         Glide.with(mContext)
             .load(foodSelectedItem.itemImageUrl)
-            .placeholder(R.drawable.food_placeholder)
+            .placeholder(R.drawable.app_icon)
             .into(holder.imgFood)
 
         holder.addBtn.setOnClickListener {

@@ -29,11 +29,9 @@ class AdapterFoodSelectedItem(
     override fun onBindViewHolder(holder: MyViewHolderFoodSelectedItem, position: Int) {
         val foodSelctedItem = foodSelectList[position]
         holder.foodSelectItemName.text = foodSelctedItem.name
-        Glide.with(mContext).load(foodSelctedItem.tabImageUrl).placeholder(R.drawable.movie_default)
-            .into(holder.imgFoodSelect)
+        Glide.with(mContext).load(foodSelctedItem.tabImageUrl).placeholder(R.drawable.app_icon).into(holder.imgFoodSelect)
         if (rowIndex == position) {
-            holder.itemView.background =
-                ContextCompat.getDrawable(contextS, R.drawable.red_rectangle_food)
+            holder.itemView.background = ContextCompat.getDrawable(contextS, R.drawable.red_rectangle_food)
             holder.imageArrowDown.visibility = View.VISIBLE
         } else {
             holder.itemView.background =

@@ -1,6 +1,7 @@
 package com.cinescape1.ui.main.views.finalTicket.adapter
 
 import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.cinescape1.ui.main.views.adapters.HomeChildAdapter
 import com.cinescape1.ui.main.views.adapters.SeatListAdapter
 import com.cinescape1.ui.main.views.adapters.checkoutAdapter.AdapterCheckoutConFirmFoodDetail
 import com.cinescape1.ui.main.views.finalTicket.model.FinalTicketLocalModel
+import com.cinescape1.ui.main.views.food.FoodActivity
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 import com.google.android.flexbox.AlignItems
@@ -33,6 +35,7 @@ class FinalTicketParentAdapter(
     var listener3: TypeFaceFinalTicketThree) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var adapter: HomeChildAdapter? = null
+    var cinemaId = ""
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -177,6 +180,16 @@ class FinalTicketParentAdapter(
                 } else {
                     holder.addFood.show()
                 }
+                holder.addFood.setOnClickListener {
+
+                    val intent = Intent(mContext, FoodActivity::class.java)
+                    intent.putExtra("CINEMA_ID", output.cinemacode)
+                    intent.putExtra("BOOKING", "FOOD")
+                    intent.putExtra("type", "FOOD")
+                    mContext.startActivity(intent)
+
+                }
+
                 //Cancel Ticket
                 holder.cancelReservation.setOnClickListener {
                     listener1.cancelReserv(output)
@@ -220,7 +233,7 @@ class FinalTicketParentAdapter(
                 holderThree.threeTicket.text = output.category + " " + output.ticketPrice + " x " + output.numofseats
 
                 holderThree.threeTicketPrice.text = output.totalTicketPrice
-                holderThree.threeFood.text = output.concessionFoods.size.toString() + mContext.getString(R.string.item)
+                holderThree.threeFood.text = output.concessionFoods.size.toString()+" " + mContext.getString(R.string.item)
 
                 holderThree.threeFoodPrice.text = output.foodTotal
 

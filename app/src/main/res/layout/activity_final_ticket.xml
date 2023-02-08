@@ -129,7 +129,7 @@
             app:layout_constraintEnd_toEndOf="@+id/view29"
             app:layout_constraintTop_toTopOf="@+id/imag_share" />
 
-        <androidx.core.widget.NestedScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -177,7 +177,7 @@
                     android:id="@+id/layoutDots"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/margin12"
-                    android:layout_marginBottom="24dp"
+                    android:layout_marginBottom="22dp"
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:padding="6dp"
@@ -191,7 +191,7 @@
                     tools:ignore="SpeakableTextPresentCheck" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
             android:id="@+id/imageView8"

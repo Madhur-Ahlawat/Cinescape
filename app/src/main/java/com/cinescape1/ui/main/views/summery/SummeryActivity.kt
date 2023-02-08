@@ -412,6 +412,7 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
                 println("ListOfIdIntent-------->${cinemaId},--${sessionId}" +
                         ",--${transId},---${bookingIdNEw},-----${bookType}," +
                         "-----${image},----${paidPrice},--------${timeCount}")
+
             }catch (e : Exception){
                 println("ListOfIdIntentError---->${e.message}")
             }

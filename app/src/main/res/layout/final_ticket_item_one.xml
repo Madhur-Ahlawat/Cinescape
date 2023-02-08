@@ -1,605 +1,621 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/one"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingStart="@dimen/margin3"
-    android:paddingTop="@dimen/margin20"
-    android:paddingEnd="@dimen/margin3"
-    android:paddingBottom="@dimen/margin20">
+    android:layout_height="match_parent">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/movieDetails"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingStart="@dimen/margin3"
+        android:paddingTop="@dimen/margin10"
+        android:paddingEnd="@dimen/margin3"
+        android:paddingBottom="@dimen/margin16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!--Movie Details-->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/movieDetails"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <View
-                android:id="@+id/view_booking_id_one"
-                android:layout_width="0dp"
-                android:layout_height="65dp"
-                app:layout_constraintEnd_toStartOf="@+id/view_food_picku_no_one"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/text_bookig_id_one"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:text="@string/booking_id"
-                android:textColor="@color/text_alert_color"
-                android:textSize="@dimen/size15"
-                app:layout_constraintEnd_toEndOf="@+id/view_booking_id_one"
-                app:layout_constraintHorizontal_bias="0.481"
-                app:layout_constraintStart_toStartOf="@+id/view_booking_id_one"
-                app:layout_constraintTop_toTopOf="@+id/view_booking_id_one"
-                tools:ignore="TextContrastCheck" />
-
-            <TextView
-                android:id="@+id/text_bookin_id_no"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:fontFamily="@font/sf_pro_text_bold"
-                android:maxLines="2"
-                android:textColor="@color/black"
-                android:textSize="@dimen/size15"
-                app:layout_constraintEnd_toEndOf="@+id/view_booking_id_one"
-                app:layout_constraintHorizontal_bias="0.487"
-                app:layout_constraintStart_toStartOf="@+id/view_booking_id_one"
-                app:layout_constraintTop_toBottomOf="@+id/text_bookig_id_one"
-                tools:text="WN5H3HD" />
-
-            <View
-                android:id="@+id/view_food_picku_no_one"
-                android:layout_width="0dp"
-                android:layout_height="65dp"
-                android:layout_marginEnd="4dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/view_booking_id_one"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="1.2"
-                app:layout_constraintStart_toEndOf="@+id/view_booking_id_one"
-                app:layout_constraintTop_toTopOf="@+id/view_booking_id_one" />
-
-            <TextView
-                android:id="@+id/text_food_pickup_no_one"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:text="@string/food_pickup_number"
-                android:textColor="@color/text_alert_color"
-                android:textSize="@dimen/size14"
-                android:textStyle="normal"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@+id/view_food_picku_no_one"
-                app:layout_constraintStart_toStartOf="@+id/view_food_picku_no_one"
-                app:layout_constraintTop_toTopOf="@+id/view_food_picku_no_one"
-                tools:ignore="TextContrastCheck" />
-
-            <TextView
-                android:id="@+id/text_how_picup"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_pro_text_bold"
-                android:letterSpacing="-0.01"
-                android:text="@string/how_to_pickup_food"
-                android:textColor="@color/text_alert_color_red"
-                android:textSize="@dimen/size12"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@+id/view_food_picku_no_one"
-                app:layout_constraintTop_toBottomOf="@+id/text_bookig_id_one" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="-3dp"
-                android:background="@color/text_alert_color_red"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@+id/text_how_picup"
-                app:layout_constraintStart_toEndOf="@+id/text_bookin_id_no"
-                app:layout_constraintTop_toBottomOf="@+id/text_how_picup" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
         <View
-            android:id="@+id/view_bookin_line_one"
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/view_bg_color_line"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/view_booking_id_one"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            app:layout_constraintEnd_toStartOf="@+id/view_food_picku_no_one"
+            app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/movieDetails" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/text_name_movie"
+        <TextView
+            android:id="@+id/text_bookig_id_one"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin8"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/booking_id"
+            android:textColor="@color/text_alert_color"
+            android:textSize="@dimen/size15"
+            app:layout_constraintEnd_toEndOf="@+id/view_booking_id_one"
+            app:layout_constraintHorizontal_bias="0.481"
+            app:layout_constraintStart_toStartOf="@+id/view_booking_id_one"
+            app:layout_constraintTop_toTopOf="@+id/view_booking_id_one"
+            tools:ignore="TextContrastCheck" />
+
+        <TextView
+            android:id="@+id/text_bookin_id_no"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
             android:fontFamily="@font/sf_pro_text_bold"
+            android:maxLines="2"
             android:textColor="@color/black"
-            android:textSize="@dimen/size18"
+            android:textSize="@dimen/size15"
+            app:layout_constraintEnd_toEndOf="@+id/view_booking_id_one"
+            app:layout_constraintHorizontal_bias="0.487"
+            app:layout_constraintStart_toStartOf="@+id/view_booking_id_one"
+            app:layout_constraintTop_toBottomOf="@+id/text_bookig_id_one"
+            tools:text="WN5H3HD" />
+
+        <View
+            android:id="@+id/view_food_picku_no_one"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_marginEnd="4dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/view_booking_id_one"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1.2"
+            app:layout_constraintStart_toEndOf="@+id/view_booking_id_one"
+            app:layout_constraintTop_toTopOf="@+id/view_booking_id_one" />
+
+        <TextView
+            android:id="@+id/text_food_pickup_no_one"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/food_pickup_number"
+            android:textColor="@color/text_alert_color"
+            android:textSize="@dimen/size14"
+            android:textStyle="normal"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/view_food_picku_no_one"
+            app:layout_constraintStart_toStartOf="@+id/view_food_picku_no_one"
+            app:layout_constraintTop_toTopOf="@+id/view_food_picku_no_one"
+            tools:ignore="TextContrastCheck" />
+
+        <TextView
+            android:id="@+id/text_how_picup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_bold"
+            android:letterSpacing="-0.01"
+            android:text="@string/how_to_pickup_food"
+            android:textColor="@color/text_alert_color_red"
+            android:textSize="@dimen/size12"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/view_food_picku_no_one"
+            app:layout_constraintTop_toBottomOf="@+id/text_bookig_id_one" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="-3dp"
+            android:background="@color/text_alert_color_red"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/text_how_picup"
+            app:layout_constraintStart_toEndOf="@+id/text_bookin_id_no"
+            app:layout_constraintTop_toBottomOf="@+id/text_how_picup" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/view_bookin_line_one"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/view_bg_color_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movieDetails" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:paddingStart="@dimen/margin3"
+        android:paddingEnd="@dimen/margin3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_bookin_line_one">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScroll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:layout_marginTop="@dimen/margin8"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_bookin_line_one"
-            tools:text="Bombshell">
-
+            app:layout_constraintTop_toTopOf="parent">
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/linearLayout2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:showDivider="middle">
-
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <!--   initial-->
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/text_name_movie"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:fontFamily="@font/sf_pro_text_bold"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/size18"
+                    android:layout_marginTop="@dimen/margin10"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Bombshell">
 
-                    <TextView
-                        android:id="@+id/text_film_house_name"
-                        android:layout_width="0dp"
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/sf_pro_text_heavy"
-                        android:gravity="start"
-                        android:includeFontPadding="false"
-                        android:maxLines="2"
-                        android:layout_marginEnd="@dimen/margin8"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/size18"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/ratingUi"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="klkllkm " />
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_margin="@dimen/margin2"
-                        android:id="@+id/ratingUi"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="2dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_film_house_name"
-                        app:layout_constraintEnd_toEndOf="parent">
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
-                            android:id="@+id/text_types"
-                            android:layout_width="wrap_content"
-                            android:layout_height="@dimen/margin16"
-                            android:fontFamily="@font/sf_pro_text_regular"
-                            android:gravity="center"
+                            android:id="@+id/text_film_house_name"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin8"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/sf_pro_text_heavy"
+                            android:gravity="start"
                             android:includeFontPadding="false"
-                            android:paddingStart="@dimen/margin6"
-                            android:paddingEnd="@dimen/margin6"
+                            android:maxLines="2"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/size11"
-                            tools:ignore="HardcodedText,TextContrastCheck"
-                            tools:text="13+" />
+                            android:textSize="@dimen/size17"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/ratingUi"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="klkllkm " />
 
-                    </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/ratingUi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin2"
+                            app:cardCornerRadius="2dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/text_film_house_name"
+                            app:layout_constraintEnd_toEndOf="parent">
+
+                            <TextView
+                                android:id="@+id/text_types"
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/margin16"
+                                android:fontFamily="@font/sf_pro_text_regular"
+                                android:gravity="center"
+                                android:includeFontPadding="false"
+                                android:paddingStart="@dimen/margin6"
+                                android:paddingEnd="@dimen/margin6"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/size11"
+                                tools:ignore="HardcodedText,TextContrastCheck"
+                                tools:text="13+" />
+
+                        </androidx.cardview.widget.CardView>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--                    Location-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/view_locations"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="@dimen/margin8"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_name_movie">
+
+
+                    <TextView
+                        android:id="@+id/text_locations"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:letterSpacing="-0.01"
+                        android:text="@string/location"
+                        android:textColor="@color/hint_color"
+                        android:textSize="@dimen/size14"
+                        android:textStyle="normal"
+                        app:layout_constraintEnd_toEndOf="@+id/text_location_names"
+                        app:layout_constraintStart_toStartOf="@+id/view_locations"
+                        app:layout_constraintTop_toTopOf="@+id/view_date"
+                        tools:ignore="TextContrastCheck" />
+
+                    <TextView
+                        android:id="@+id/text_location_names"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="@font/sf_pro_text_bold"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size14"
+                        android:textStyle="normal"
+                        app:layout_constraintEnd_toStartOf="@+id/txt_date"
+                        app:layout_constraintStart_toStartOf="@+id/view_locations"
+                        app:layout_constraintTop_toBottomOf="@+id/text_locations"
+                        tools:text="Cinescape Al Muhallab" />
+
+                    <View
+                        android:id="@+id/view_date"
+                        android:layout_width="0dp"
+                        android:layout_height="58dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/view_locations"
+                        app:layout_constraintEnd_toStartOf="@+id/view_times1"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/view_locations" />
+
+                    <TextView
+                        android:id="@+id/txt_dates"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:text="@string/dateTime"
+                        android:textColor="@color/hint_color"
+                        android:textSize="@dimen/size14"
+                        android:textStyle="normal"
+                        app:layout_constraintEnd_toEndOf="@+id/view_times1"
+                        app:layout_constraintStart_toStartOf="@+id/txt_date"
+                        app:layout_constraintTop_toTopOf="@+id/view_date"
+                        tools:ignore="TextContrastCheck" />
+
+                    <TextView
+                        android:id="@+id/txt_date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="marquee"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:fontFamily="@font/sf_pro_text_bold"
+                        android:includeFontPadding="false"
+                        android:freezesText="true"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="1sp"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:maxLines="1"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size14"
+                        android:textStyle="normal"
+                        app:layout_constraintEnd_toEndOf="@+id/view_times1"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_dates"
+                        tools:text="01 Aug 2022  03 nov" />
+
+                    <View
+                        android:id="@+id/view_times1"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/view_date"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintHorizontal_weight=".7"
+                        app:layout_constraintStart_toEndOf="@+id/view_date"
+                        app:layout_constraintTop_toTopOf="@+id/view_date"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/texts_time"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:text="@string/time"
+                        android:textColor="@color/hint_color"
+                        android:textSize="@dimen/size14"
+                        android:textStyle="normal"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="@+id/view_times1"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="@+id/view_times1"
+                        app:layout_constraintTop_toTopOf="@+id/view_times1" />
+
+                    <TextView
+                        android:id="@+id/text_times2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_text_bold"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="1sp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size14"
+                        android:textStyle="normal"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="@+id/view_times1"
+                        app:layout_constraintStart_toStartOf="@+id/view_times1"
+                        app:layout_constraintTop_toBottomOf="@+id/texts_time"
+                        tools:text="17.45" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--            Screen          -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/screenLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view_locations">
+
+                    <View
+                        android:id="@+id/views_screen"
+                        android:layout_width="0dp"
+                        android:layout_height="55dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/view_category"
+                        app:layout_constraintHorizontal_weight="3"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txt_screen1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:text="@string/screen"
+                        android:textColor="@color/hint_color"
+                        android:textSize="@dimen/size14"
+                        android:textStyle="normal"
+                        app:layout_constraintEnd_toEndOf="@+id/views_screen"
+                        app:layout_constraintStart_toStartOf="@+id/views_screen"
+                        app:layout_constraintTop_toTopOf="@+id/views_screen"
+                        tools:ignore="TextContrastCheck" />
+
+                    <TextView
+                        android:id="@+id/txt_scrrens"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_text_bold"
+                        android:includeFontPadding="false"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="1sp"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="@dimen/margin30"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size15"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_screenx"
+                        app:layout_constraintStart_toStartOf="@+id/views_screen"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_screen1"
+                        tools:text="@string/_9" />
+
+                    <TextView
+                        android:id="@+id/tv_screenx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_text_bold"
+                        android:includeFontPadding="false"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="1sp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size14"
+                        android:textStyle="normal"
+                        app:layout_constraintBottom_toBottomOf="@+id/txt_scrrens"
+                        app:layout_constraintStart_toEndOf="@+id/txt_scrrens"
+                        app:layout_constraintTop_toTopOf="@+id/txt_scrrens"
+                        app:layout_constraintVertical_bias="0.0"
+                        tools:layout_editor_absoluteX="102dp"
+                        tools:text="@string/screenx" />
+
+
+                    <View
+                        android:id="@+id/view_category"
+                        android:layout_width="0dp"
+                        android:layout_height="55dp"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="@+id/views_screen"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="2.1"
+                        app:layout_constraintStart_toEndOf="@+id/views_screen"
+                        app:layout_constraintTop_toTopOf="@+id/views_screen" />
+
+                    <TextView
+                        android:id="@+id/tv_category_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:text="@string/category"
+                        android:textColor="@color/hint_color"
+                        android:textSize="@dimen/size14"
+                        android:textStyle="normal"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="@+id/view_category"
+                        app:layout_constraintStart_toStartOf="@+id/view_category"
+                        app:layout_constraintTop_toTopOf="@+id/view_category"
+                        tools:ignore="TextContrastCheck" />
+
+                    <TextView
+                        android:id="@+id/categoryName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="marquee"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:fontFamily="@font/sf_pro_text_bold"
+                        android:freezesText="true"
+                        android:includeFontPadding="false"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="1sp"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:maxLines="1"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size14"
+                        android:textStyle="normal"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_category_title"
+                        app:layout_constraintStart_toEndOf="@+id/views_screen"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_category_title"
+                        tools:text="Family" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--            Seat-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/seatLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin6"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/screenLayout">
+
+                    <TextView
+                        android:id="@+id/txt_seats"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:text="@string/seats"
+                        android:textColor="@color/hint_color"
+                        android:textSize="@dimen/size14"
+                        android:textStyle="normal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="TextContrastCheck" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/seats_list"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/txt_seats"
+                        app:layout_constraintStart_toStartOf="@+id/txt_seats"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_seats"
+                        tools:itemCount="3"
+                        tools:listitem="@layout/item_seat_list" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--                    Payment Method-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/paymentMethod"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/seatLayout">
+
+                    <View
+                        android:id="@+id/view_payment_mode_one"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/view_total_tickect_price_one"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/view_total_tickect_price_one"
+                        android:layout_width="0dp"
+                        android:layout_height="65dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/view_payment_mode_one"
+                        app:layout_constraintTop_toTopOf="@+id/view_payment_mode_one" />
+
+                    <TextView
+                        android:id="@+id/text_payment_mode"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:text="@string/payment_mode"
+                        android:textColor="@color/hint_color"
+                        android:textSize="@dimen/size14"
+                        android:textStyle="normal"
+                        app:layout_constraintEnd_toEndOf="@+id/view_payment_mode_one"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/view_payment_mode_one"
+                        app:layout_constraintTop_toTopOf="@+id/view_payment_mode_one"
+                        tools:ignore="TextContrastCheck" />
+
+                    <TextView
+                        android:id="@+id/text_wallet"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_text_bold"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="1sp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size15"
+                        app:layout_constraintEnd_toEndOf="@+id/view_payment_mode_one"
+                        app:layout_constraintStart_toStartOf="@+id/view_payment_mode_one"
+                        app:layout_constraintTop_toBottomOf="@+id/text_payment_mode"
+                        tools:text="Wallet" />
+
+                    <TextView
+                        android:id="@+id/text_total_ticket_price"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:text="@string/total_ticket_price"
+                        android:textColor="@color/hint_color"
+                        android:textSize="@dimen/size14"
+                        android:textStyle="normal"
+                        app:layout_constraintEnd_toEndOf="@+id/view_total_tickect_price_one"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/view_total_tickect_price_one"
+                        app:layout_constraintTop_toTopOf="@+id/view_total_tickect_price_one"
+                        tools:ignore="TextContrastCheck" />
+
+                    <TextView
+                        android:id="@+id/text_kd_total_ticket_price"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_text_bold"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="1sp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size14"
+                        android:textStyle="normal"
+                        app:layout_constraintEnd_toEndOf="@+id/view_total_tickect_price_one"
+                        app:layout_constraintStart_toStartOf="@+id/view_total_tickect_price_one"
+                        app:layout_constraintTop_toBottomOf="@+id/text_total_ticket_price"
+                        tools:text="KD 30.750" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <!--Location-->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/view_locations"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/views_main"
-            app:layout_constraintTop_toBottomOf="@+id/text_name_movie">
-
-
-            <TextView
-                android:id="@+id/text_locations"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:letterSpacing="-0.01"
-                android:text="@string/location"
-                android:textColor="@color/hint_color"
-                android:textSize="@dimen/size14"
-                android:textStyle="normal"
-                app:layout_constraintEnd_toEndOf="@+id/text_location_names"
-                app:layout_constraintStart_toStartOf="@+id/view_locations"
-                app:layout_constraintTop_toTopOf="@+id/view_date"
-                tools:ignore="TextContrastCheck" />
-
-            <TextView
-                android:id="@+id/text_location_names"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/sf_pro_text_bold"
-                android:textColor="@color/black"
-                android:textSize="@dimen/size14"
-                android:textStyle="normal"
-                app:layout_constraintEnd_toStartOf="@+id/txt_date"
-                app:layout_constraintStart_toStartOf="@+id/view_locations"
-                app:layout_constraintTop_toBottomOf="@+id/text_locations"
-                tools:text="Cinescape Al Muhallab" />
-
-            <View
-                android:id="@+id/view_date"
-                android:layout_width="0dp"
-                android:layout_height="58dp"
-                app:layout_constraintBottom_toBottomOf="@+id/view_locations"
-                app:layout_constraintEnd_toStartOf="@+id/view_times1"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/view_locations" />
-
-            <TextView
-                android:id="@+id/txt_dates"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:text="@string/dateTime"
-                android:textColor="@color/hint_color"
-                android:textSize="@dimen/size14"
-                android:textStyle="normal"
-                app:layout_constraintEnd_toEndOf="@+id/view_times1"
-                app:layout_constraintStart_toStartOf="@+id/txt_date"
-                app:layout_constraintTop_toTopOf="@+id/view_date"
-                tools:ignore="TextContrastCheck" />
-
-            <TextView
-                android:id="@+id/txt_date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ellipsize="marquee"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:fontFamily="@font/sf_pro_text_bold"
-                android:freezesText="true"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="1sp"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:maxLines="1"
-                android:scrollHorizontally="true"
-                android:singleLine="true"
-                android:textColor="@color/black"
-                android:textSize="@dimen/size14"
-                android:textStyle="normal"
-                app:layout_constraintEnd_toEndOf="@+id/view_times1"
-                app:layout_constraintTop_toBottomOf="@+id/txt_dates"
-                tools:text="01 Aug 2022  03 nov" />
-
-            <View
-                android:id="@+id/view_times1"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/view_date"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintHorizontal_weight=".7"
-                app:layout_constraintStart_toEndOf="@+id/view_date"
-                app:layout_constraintTop_toTopOf="@+id/view_date"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <TextView
-                android:id="@+id/texts_time"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:text="@string/time"
-                android:textColor="@color/hint_color"
-                android:textSize="@dimen/size14"
-                android:textStyle="normal"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@+id/view_times1"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/view_times1"
-                app:layout_constraintTop_toTopOf="@+id/view_times1" />
-
-            <TextView
-                android:id="@+id/text_times2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_pro_text_bold"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="1sp"
-                android:textColor="@color/black"
-                android:textSize="@dimen/size14"
-                android:textStyle="normal"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@+id/view_times1"
-                app:layout_constraintStart_toStartOf="@+id/view_times1"
-                app:layout_constraintTop_toBottomOf="@+id/texts_time"
-                tools:text="17.45" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <!--            Screen          -->
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/screenLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_locations">
-
-            <View
-                android:id="@+id/views_screen"
-                android:layout_width="0dp"
-                android:layout_height="55dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/view_category"
-                app:layout_constraintHorizontal_weight="3"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/txt_screen1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:text="@string/screen"
-                android:textColor="@color/hint_color"
-                android:textSize="@dimen/size14"
-                android:textStyle="normal"
-                app:layout_constraintEnd_toEndOf="@+id/views_screen"
-                app:layout_constraintStart_toStartOf="@+id/views_screen"
-                app:layout_constraintTop_toTopOf="@+id/views_screen"
-                tools:ignore="TextContrastCheck" />
-
-            <TextView
-                android:id="@+id/txt_scrrens"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_pro_text_bold"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="1sp"
-                android:paddingStart="0dp"
-                android:paddingEnd="@dimen/margin30"
-                android:textColor="@color/black"
-                android:textSize="@dimen/size15"
-                app:layout_constraintEnd_toStartOf="@+id/tv_screenx"
-                app:layout_constraintStart_toStartOf="@+id/views_screen"
-                app:layout_constraintTop_toBottomOf="@+id/txt_screen1"
-                tools:text="@string/_9" />
-
-            <TextView
-                android:id="@+id/tv_screenx"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_pro_text_bold"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="1sp"
-                android:textColor="@color/black"
-                android:textSize="@dimen/size14"
-                android:textStyle="normal"
-                app:layout_constraintBottom_toBottomOf="@+id/txt_scrrens"
-                app:layout_constraintStart_toEndOf="@+id/txt_scrrens"
-                app:layout_constraintTop_toTopOf="@+id/txt_scrrens"
-                app:layout_constraintVertical_bias="0.0"
-                tools:layout_editor_absoluteX="102dp"
-                tools:text="@string/screenx" />
-
-
-            <View
-                android:id="@+id/view_category"
-                android:layout_width="0dp"
-                android:layout_height="55dp"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="@+id/views_screen"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="2.1"
-                app:layout_constraintStart_toEndOf="@+id/views_screen"
-                app:layout_constraintTop_toTopOf="@+id/views_screen" />
-
-            <TextView
-                android:id="@+id/tv_category_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:text="@string/category"
-                android:textColor="@color/hint_color"
-                android:textSize="@dimen/size14"
-                android:textStyle="normal"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="@+id/view_category"
-                app:layout_constraintStart_toStartOf="@+id/view_category"
-                app:layout_constraintTop_toTopOf="@+id/view_category"
-                tools:ignore="TextContrastCheck" />
-
-            <TextView
-                android:id="@+id/categoryName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ellipsize="marquee"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:fontFamily="@font/sf_pro_text_bold"
-                android:freezesText="true"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="1sp"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:maxLines="1"
-                android:scrollHorizontally="true"
-                android:singleLine="true"
-                android:textColor="@color/black"
-                android:textSize="@dimen/size14"
-                android:textStyle="normal"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="@+id/view_category"
-                app:layout_constraintEnd_toEndOf="@+id/tv_category_title"
-                app:layout_constraintStart_toEndOf="@+id/views_screen"
-                app:layout_constraintTop_toBottomOf="@+id/tv_category_title"
-                tools:text="Family" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <!--            Seat-->
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/seatLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/screenLayout">
-
-            <TextView
-                android:id="@+id/txt_seats"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:text="@string/seats"
-                android:textColor="@color/hint_color"
-                android:textSize="@dimen/size14"
-                android:textStyle="normal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="TextContrastCheck" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/seats_list"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/txt_seats"
-                app:layout_constraintStart_toStartOf="@+id/txt_seats"
-                app:layout_constraintTop_toBottomOf="@+id/txt_seats"
-                tools:itemCount="3"
-                tools:listitem="@layout/item_seat_list" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <!--Payment Method-->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/paymentMethod"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/seatLayout">
-
-            <View
-                android:id="@+id/view_payment_mode_one"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/view_total_tickect_price_one"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:id="@+id/view_total_tickect_price_one"
-                android:layout_width="0dp"
-                android:layout_height="65dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/view_payment_mode_one"
-                app:layout_constraintTop_toTopOf="@+id/view_payment_mode_one" />
-
-            <TextView
-                android:id="@+id/text_payment_mode"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:text="@string/payment_mode"
-                android:textColor="@color/hint_color"
-                android:textSize="@dimen/size14"
-                android:textStyle="normal"
-                app:layout_constraintEnd_toEndOf="@+id/view_payment_mode_one"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/view_payment_mode_one"
-                app:layout_constraintTop_toTopOf="@+id/view_payment_mode_one"
-                tools:ignore="TextContrastCheck" />
-
-            <TextView
-                android:id="@+id/text_wallet"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_pro_text_bold"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="1sp"
-                android:textColor="@color/black"
-                android:textSize="@dimen/size15"
-                app:layout_constraintEnd_toEndOf="@+id/view_payment_mode_one"
-                app:layout_constraintStart_toStartOf="@+id/view_payment_mode_one"
-                app:layout_constraintTop_toBottomOf="@+id/text_payment_mode"
-                tools:text="Wallet" />
-
-            <TextView
-                android:id="@+id/text_total_ticket_price"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:text="@string/total_ticket_price"
-                android:textColor="@color/hint_color"
-                android:textSize="@dimen/size14"
-                android:textStyle="normal"
-                app:layout_constraintEnd_toEndOf="@+id/view_total_tickect_price_one"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/view_total_tickect_price_one"
-                app:layout_constraintTop_toTopOf="@+id/view_total_tickect_price_one"
-                tools:ignore="TextContrastCheck" />
-
-            <TextView
-                android:id="@+id/text_kd_total_ticket_price"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_pro_text_bold"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="1sp"
-                android:textColor="@color/black"
-                android:textSize="@dimen/size14"
-                android:textStyle="normal"
-                app:layout_constraintEnd_toEndOf="@+id/view_total_tickect_price_one"
-                app:layout_constraintStart_toStartOf="@+id/view_total_tickect_price_one"
-                app:layout_constraintTop_toBottomOf="@+id/text_total_ticket_price"
-                tools:text="KD 30.750" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <!--Manage food, email-->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout10"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="@dimen/margin16"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -639,9 +655,9 @@
                     android:textSize="@dimen/size14"
                     android:visibility="visible"
                     app:drawableStartCompat="@drawable/ic_delete"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/textView49"
@@ -655,9 +671,9 @@
                     android:textSize="@dimen/size14"
                     android:visibility="visible"
                     app:drawableStartCompat="@drawable/food"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

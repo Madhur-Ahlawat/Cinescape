@@ -986,7 +986,7 @@ class FoodActivity : DaggerAppCompatActivity(),
 
         Glide.with(this)
             .load(foodItem.itemImageUrl)
-            .placeholder(R.drawable.movie_default)
+            .placeholder(R.drawable.app_icon)
             .into(imageView10)
 
         textComboKdPrice.text = foodItem.itemPrice
