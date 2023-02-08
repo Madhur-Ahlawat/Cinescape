@@ -60,6 +60,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
     private var qrBitmap: Bitmap? = null
     private var bookType: String = ""
     private var from: String = ""
+    private var accountFrom: String = ""
     private val finalTicketLocalModel = ArrayList<FinalTicketLocalModel>()
     private var oneBookingId1: TextView? = null
     private var oneTitle1: TextView? = null
@@ -264,10 +265,21 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
             startActivity(Intent.createChooser(shareIntent, "Share using"))
         }
         binding?.imageView8?.setOnClickListener {
-            Constant.IntentKey.DialogShow = true
-            val intent = Intent(this@FinalTicketActivity, HomeActivity::class.java)
-            startActivity(intent)
-            finish()
+            if (intent.getStringExtra("FROM_ACCOUNT") == "account") {
+//                onBackPressed()
+//                val intent = Intent(this@FinalTicketActivity, HomeActivity::class.java)
+                Constant.IntentKey.OPEN_FROM = 1
+//                startActivity(intent)
+                finish()
+            }else{
+                Constant.IntentKey.DialogShow = true
+                val intent = Intent(this@FinalTicketActivity, HomeActivity::class.java)
+                Constant.IntentKey.OPEN_FROM = 0
+                startActivity(intent)
+                finish()
+            }
+
+
         }
     }
 

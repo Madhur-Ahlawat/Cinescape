@@ -178,8 +178,8 @@
                     android:id="@+id/rating_ui"
                     android:layout_width="@dimen/margin32"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin2"
-                    app:cardCornerRadius="2dp"
+                   app:cardUseCompatPadding="true"
+                    app:cardCornerRadius="3dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/text_movie_category"
@@ -187,8 +187,8 @@
 
                     <TextView
                         android:id="@+id/movieRating"
-                        android:layout_width="32dp"
-                        android:layout_height="@dimen/margin17"
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
                         android:fontFamily="@font/sf_pro_text_regular"
                         android:gravity="center"
                         android:includeFontPadding="false"

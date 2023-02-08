@@ -460,6 +460,7 @@ class HomeActivity : DaggerAppCompatActivity(),
                         intent.putExtra(Constant.IntentKey.TRANSACTION_ID, output.output[0].transId.toString())
                         intent.putExtra(Constant.IntentKey.BOOK_TYPE, output.output[0].bookingType)
                         intent.putExtra("FROM", "MTicket")
+                        intent.putExtra("FROM_ACCOUNT", "Home")
                         startActivity(intent)
                         mAlertDialog?.dismiss()
                     }
@@ -596,6 +597,7 @@ class HomeActivity : DaggerAppCompatActivity(),
         intent.putExtra(Constant.IntentKey.TRANSACTION_ID, showtimeListItem.transId.toString())
         intent.putExtra(Constant.IntentKey.BOOK_TYPE, showtimeListItem.bookingType)
         intent.putExtra("FROM", "MTicket")
+        intent.putExtra("FROM_ACCOUNT", "Home")
         startActivity(intent)
 
     }

@@ -9,7 +9,7 @@
     android:layout_marginStart="@dimen/margin6"
     android:background="@drawable/food_item_bg"
     android:elevation="@dimen/margin2"
-    app:cardBackgroundColor="@color/black"
+    app:cardBackgroundColor="#AD696969"
     app:cardElevation="@dimen/margin2">
 
     <androidx.constraintlayout.widget.ConstraintLayout

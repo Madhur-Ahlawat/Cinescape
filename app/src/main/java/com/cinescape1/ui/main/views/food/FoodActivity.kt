@@ -20,6 +20,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -658,7 +659,8 @@ class FoodActivity : DaggerAppCompatActivity(),
         } else {
             tvClearItem.invisible()
             emptyCart?.show()
-            proceedBtn1.setText(R.string.close)
+//            proceedBtn1.setText(R.string.close)
+            proceedBtn1.setText(R.string.proceed)
             proceedBtn1.setOnClickListener {
                 mFoodCartDialog?.dismiss()
             }
@@ -983,6 +985,8 @@ class FoodActivity : DaggerAppCompatActivity(),
         val text_combo_head = mDialogView.findViewById<TextView>(R.id.text_combo_head)
         val imageView10 = mDialogView.findViewById<ImageView>(R.id.imageView10)
         val img1Close = mDialogView.findViewById<ImageView>(R.id.img1_close)
+
+//        imageView10.setColorFilter(ContextCompat.getColor(applicationContext,R.color.foodBgColor))
 
         Glide.with(this)
             .load(foodItem.itemImageUrl)

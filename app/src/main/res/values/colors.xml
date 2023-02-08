@@ -10,6 +10,7 @@
     <color name="black1">#1d1d1d</color>
     <color name="yellow">#FFA700</color>
     <color name="red">#FF0000</color>
+    <color name="foodBgColor">#FF0000</color>
     <color name="green">#00B429</color>
     <color name="grey">#6F6F6F</color>
     <color name="gray">#a9a5a5</color>

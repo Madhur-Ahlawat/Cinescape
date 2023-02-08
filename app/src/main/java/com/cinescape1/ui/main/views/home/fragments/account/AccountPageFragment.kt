@@ -856,10 +856,11 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             binding?.appBarAccount?.show()
             binding?.recycleUi?.hide()
 //          binding?.textUpcomingBooking?.text = getString(R.string.your_bookings_history)
-            if (historyCheck == 0){
+//            if (historyCheck == 0){
+
                 myBooking(
                     MyBookingRequest("", "", 0, preferences.getString(Constant.USER_ID).toString()))
-            }
+//            }
 
             binding?.imageUserProfile?.setColorFilter(requireActivity().getColor(R.color.text_color))
             binding?.textProfileTitle?.setTextColor(requireActivity().getColor(R.color.text_color))
@@ -2081,20 +2082,25 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     }
 
     private fun setSpinner(cinemas: ArrayList<FoodResponse.Output.Cinema>) {
+        try {
+            val customAdapter = CustomSpinnerAdapter(requireContext(), cinemas)
+            spinnerPref?.adapter = customAdapter
+            spinnerPref?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>, view: View, position: Int, id: Long
+                ) {
+                    cinema = locationlist[position].name
+                }
 
-        val customAdapter = CustomSpinnerAdapter(requireContext(), cinemas)
-        spinnerPref?.adapter = customAdapter
-        spinnerPref?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>, view: View, position: Int, id: Long
-            ) {
-                cinema = locationlist[position].name
+                override fun onNothingSelected(parent: AdapterView<*>) {
+
+                }
             }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-
-            }
+        }catch (e : Exception){
+            e.printStackTrace()
         }
+
+
     }
 
     private fun loadLocation() {
@@ -3114,7 +3120,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
-                                    historyCheck = 1
+//                                    historyCheck = 1
                                     include_history.show()
                                     val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
                                     binding?.includeHistory?.recyclerviewBookingHistory?.layoutManager = LinearLayoutManager(context)
@@ -3267,8 +3273,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     Status.LOADING -> {
 
                         if (isAdded) {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(requireActivity().supportFragmentManager, null)
+//                            loader = LoaderDialog(R.string.pleasewait)
+//                            loader?.show(requireActivity().supportFragmentManager, null)
                         }
 
                     }

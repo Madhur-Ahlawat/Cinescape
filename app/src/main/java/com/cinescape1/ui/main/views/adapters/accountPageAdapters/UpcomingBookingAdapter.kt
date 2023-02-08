@@ -189,7 +189,6 @@ class UpcomingBookingAdapter(
         }
         holder.resendMail.setOnClickListener {
             listenerMail.resenDmail(foodSelctedItem)
-
         }
 
         holder.thumbnail.setOnClickListener {
@@ -198,6 +197,7 @@ class UpcomingBookingAdapter(
             intent.putExtra(Constant.IntentKey.TRANSACTION_ID, foodSelctedItem.transId.toString())
             intent.putExtra(Constant.IntentKey.BOOK_TYPE, foodSelctedItem.bookingType)
             intent.putExtra("FROM", "MTicket")
+            intent.putExtra("FROM_ACCOUNT", "account")
             mContext.startActivity(intent)
         }
 

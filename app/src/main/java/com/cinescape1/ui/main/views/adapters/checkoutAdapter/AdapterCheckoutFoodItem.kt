@@ -33,7 +33,7 @@ class AdapterCheckoutFoodItem ( context: Context, private var foodComboList: Lis
             holder.foodKd.text = mContext.getString(R.string.price_kd)+" "+Constant.DECIFORMAT.format(price)
             Glide.with(mContext)
                 .load(foodSelctedItem.itemImageUrl)
-                .placeholder(R.drawable.movie_default)
+                .placeholder(R.drawable.app_icon)
                 .into(holder.imgCheckoutFood)
 
 
