@@ -453,7 +453,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     private fun movieDetailsData(output: GetMovieResponse.Output) {
         binding?.textFilmHouseName?.text = output.movie.title
         binding?.textFilmHouseName?.isSelected = true
-        binding?.textView56?.text = output.movie.rating
+
         binding?.view67?.setOnClickListener {
             val shareIntent = Intent(Intent.ACTION_SEND)
             shareIntent.type = "text/plain"
@@ -462,6 +462,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             shareIntent.putExtra(Intent.EXTRA_TEXT, appUrl)
             startActivity(Intent.createChooser(shareIntent, "Share via"))
         }
+        binding?.textView56?.text = output.movie.rating
         val ratingColor = output.movie.ratingColor
         binding?.textView56?.setBackgroundColor(Color.parseColor(ratingColor))
 

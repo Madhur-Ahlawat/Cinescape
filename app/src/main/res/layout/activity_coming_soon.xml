@@ -12,7 +12,7 @@
         android:id="@+id/LayoutTime"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <View
             android:id="@+id/view66"
@@ -37,6 +37,7 @@
             tools:src="@drawable/bombshell_alert" />
 
         <ImageView
+            android:id="@+id/imageView69"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@drawable/cinema_location_gradient"
@@ -70,40 +71,84 @@
             app:srcCompat="@drawable/ic_play"
             tools:ignore="ContentDescription" />
 
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/imageView69">
+
+            <TextView
+                android:id="@+id/text_film_house_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_heavy"
+                android:gravity="start"
+                android:includeFontPadding="false"
+                android:maxLines="2"
+                android:paddingStart="@dimen/margin20"
+                android:paddingEnd="0dp"
+                android:layout_marginEnd="@dimen/margin6"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size18"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/constraintLayout18"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Gunda Rajjlknjhjjb hjkbh  kbkkjbj kbbkjbklja " />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout18"
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin2"
+                android:minWidth="37dp"
+                app:layout_constraintBottom_toBottomOf="@+id/text_film_house_name"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/ratingUi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:backgroundTint="@color/transparent"
+                    android:minWidth="@dimen/margin27"
+                    app:cardCornerRadius="@dimen/margin2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/textView56"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/margin15"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:minWidth="@dimen/margin27"
+                        android:paddingStart="@dimen/margin6"
+                        android:paddingEnd="@dimen/margin6"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size9"
+                        tools:ignore="HardcodedText,TextContrastCheck"
+                        tools:text="13+" />
+
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="20dp"
             android:paddingEnd="1dp"
-            app:layout_constraintBottom_toBottomOf="@+id/view66"
+            android:layout_marginBottom="@dimen/margin8"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView69"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/linearLayout2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:alignContent="flex_start"
-                app:alignItems="flex_start"
-                app:flexWrap="nowrap"
-                app:layout_constraintEnd_toStartOf="@+id/titleView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:showDivider="middle">
-
-                <TextView
-                    android:id="@+id/text_film_house_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/sf_pro_text_heavy"
-                    android:gravity="start"
-                    android:includeFontPadding="false"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/size20"
-                    tools:text="Gunda Rajjlknjhjjbhjkbhkbkkjbjkbbkjbklja " />
-
-            </com.google.android.flexbox.FlexboxLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/titleView"
@@ -125,7 +170,7 @@
                     <View
                         android:id="@+id/view67"
                         android:layout_width="60dp"
-                        android:layout_height="65dp"
+                        android:layout_height="50dp"
                         android:layout_marginEnd="@dimen/margin15"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -166,7 +211,7 @@
                     <View
                         android:id="@+id/view68"
                         android:layout_width="70dp"
-                        android:layout_height="65dp"
+                        android:layout_height="50dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/view67"
                         app:layout_constraintStart_toStartOf="parent"
@@ -210,15 +255,16 @@
                 android:id="@+id/text_movie_type"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin5"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="1sp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/size13"
                 app:layout_constraintEnd_toStartOf="@+id/titleView"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="HardcodedText"
                 tools:text="English  |  Drama" />
 

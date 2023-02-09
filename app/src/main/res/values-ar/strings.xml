@@ -374,8 +374,9 @@
     <string name="enterSamePass">الرجاء إدخال نفس كلمة المرور.</string>
     <string name="enterConfPasswrd">الرجاء إدخال تأكيد كلمة المرور.</string>
     <string name="recharge_success">لقد كانت عملية إعادة الشحن الخاصة بك ناجحة</string>
-    <string name="no_food_available">No Food Available</string>
-    <string name="coming_soon_">Coming Soon -</string>
+    <string name="no_food_available">لا يوجد طعام متاح</string>
+    <string name="coming_soon_">قريباً -</string>
+    <string name="email_msg_invalid1">الرجاء إدخال البريد الإلكتروني الصحيح</string>
 
 
 </resources>

@@ -138,6 +138,7 @@ class FoodActivity : DaggerAppCompatActivity(),
         super.onCreate(savedInstanceState)
         binding = ActivityFoodBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
+
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
@@ -261,7 +262,6 @@ class FoodActivity : DaggerAppCompatActivity(),
         }catch (e : Exception){
             e.printStackTrace()
         }
-
 
         movieRatingColor= intent.getStringExtra("movieRatingColor").toString()
         if (booktype != "FOOD") {
@@ -990,7 +990,7 @@ class FoodActivity : DaggerAppCompatActivity(),
 
         Glide.with(this)
             .load(foodItem.itemImageUrl)
-            .placeholder(R.drawable.app_icon)
+            .placeholder(R.drawable.placeholder_icon)
             .into(imageView10)
 
         textComboKdPrice.text = foodItem.itemPrice

@@ -176,8 +176,6 @@ class HomeActivity : DaggerAppCompatActivity(),
                 binding?.imageView42?.hide()
             }
 
-
-
         }
 
 
@@ -277,10 +275,11 @@ class HomeActivity : DaggerAppCompatActivity(),
             if (flagHome == true){
                 buttonClick = 0
                 manageBooking()
-                flagHome = false
+                flagHome = true
                 setCurrentFragment(HomeFragment())
                 dialog.dismiss()
             }else{
+                flagHome = false
                 dialog.dismiss()
             }
 

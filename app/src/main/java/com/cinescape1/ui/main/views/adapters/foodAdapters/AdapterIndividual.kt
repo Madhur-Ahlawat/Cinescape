@@ -56,7 +56,7 @@ class AdapterIndividual(
 
         Glide.with(mContext)
             .load(foodSelectedItem.itemImageUrl)
-            .placeholder(R.drawable.app_icon)
+            .placeholder(R.drawable.placeholder_icon)
             .into(holder.imgFood)
 
         holder.addBtn.setOnClickListener {

@@ -26,7 +26,7 @@
             android:scaleType="center"
             app:layout_constraintStart_toStartOf="@+id/view_items"
             app:layout_constraintTop_toTopOf="@+id/view_items"
-            app:srcCompat="@drawable/img_large_popcrn"
+            app:srcCompat="@drawable/placeholder_icon"
             tools:ignore="ContentDescription" />
 
         <View

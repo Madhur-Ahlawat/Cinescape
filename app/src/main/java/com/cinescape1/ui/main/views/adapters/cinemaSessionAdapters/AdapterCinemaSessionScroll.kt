@@ -46,13 +46,16 @@ class AdapterCinemaSessionScroll(
 
             holder.cateogry.text = showtimeListItem.movie.rating
             holder.genre.text = showtimeListItem.movie.genre
+
+            println("holder.genre.text21--->${holder.genre.text}")
+
             listenerSession.onTypeFaceSession(holder.name, holder.genre, holder.cateogry, holder.duration)
 
             val ratingColor=showtimeListItem.movie.ratingColor
             holder.cateogry.setBackgroundColor(Color.parseColor(ratingColor))
 
-            if (showtimeListItem.movie.language == ""){
-                holder.duration.text = "" + showtimeListItem.movie.runTime + " min."
+            if (showtimeListItem.movie.language.isNullOrEmpty()){
+                holder.duration.text = "| " + showtimeListItem.movie.runTime + " min."
             }else{
                 holder.duration.text = showtimeListItem.movie.language + " | " + showtimeListItem.movie.runTime + " min."
             }

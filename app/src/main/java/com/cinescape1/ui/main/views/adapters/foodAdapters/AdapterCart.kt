@@ -47,7 +47,7 @@ class AdapterCart(
 
         Glide.with(mContext)
             .load(cartSelctedItem.foodUrl)
-            .placeholder(R.drawable.movie_default)
+            .placeholder(R.drawable.placeholder_icon)
             .into(holder.imgCartItem)
 
         holder.textDecrease.setOnClickListener {

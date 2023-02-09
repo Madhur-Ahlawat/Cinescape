@@ -108,6 +108,8 @@ class FinalTicketParentAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
+        println("FinalTicketBooking -------->${output.bookingType}")
+
         if (output.bookingType == "BOOKING") {
             return if (output.concessionFoods.isEmpty()) {
                 return if (position == 0) {
@@ -116,6 +118,7 @@ class FinalTicketParentAdapter(
                     3
                 }
             } else {
+
                 when (position) {
                     0 -> {
                         1
@@ -128,15 +131,20 @@ class FinalTicketParentAdapter(
                     }
                 }
             }
+
         } else {
 
-            return if (position == 0) {
-                2
-            } else {
-                3
+            println("FinalTicketBooking21 -------->${position}")
+             if (position == 0) {
+                println("FinalTicketBooking21 -------->yes")
+               return 2
             }
+
+
         }
         return super.getItemViewType(position)
+
+
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

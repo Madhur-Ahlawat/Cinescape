@@ -249,6 +249,7 @@
     <string name="guest_sign_in">Guest Sign in</string>
     <string name="email_msg_required">Your email address is required</string>
     <string name="email_msg_invalid">You entered an invalid email address</string>
+    <string name="email_msg_invalid1">Please enter correct email</string>
     <string name="passNotMatch">Password does not match</string>
     <string name="search_country">Search Country</string>
     <string name="profileUpdate">Profile Update Successfully</string>

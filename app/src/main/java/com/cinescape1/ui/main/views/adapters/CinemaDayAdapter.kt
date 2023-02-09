@@ -75,7 +75,7 @@ class CinemaDayAdapter(
             holder.day.typeface = regular
             holder.date.typeface = regular
             holder.day.textSize = 13f
-            holder.date.textSize = 20f
+            holder.date.textSize = 18f
         }
 
         when (backIndex) {

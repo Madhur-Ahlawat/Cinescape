@@ -232,6 +232,19 @@ class ComingSoonActivity : DaggerAppCompatActivity(),
             startActivity(Intent.createChooser(shareIntent, "Share via"))
         }
 
+        binding?.textView56?.text = output.movie.rating
+        val ratingColor = output.movie.ratingColor
+
+        println("colorComingSoon-------->${ratingColor}")
+        binding?.textView56?.setBackgroundColor(Color.parseColor(ratingColor))
+        binding?.ratingUi?.setBackgroundColor(Color.parseColor(ratingColor))
+        if (output.movie.rating == "") {
+            binding?.ratingUi?.hide()
+        } else {
+            binding?.ratingUi?.show()
+        }
+
+
         if (output.movie.language != null)
 
 //            binding?.textMovieType?.text = "" + output.movie.genre + " | " + output.movie.runTime + " " + getString(

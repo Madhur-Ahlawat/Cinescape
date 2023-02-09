@@ -27,7 +27,6 @@ import kotlinx.android.synthetic.main.reset_password.*
 import kotlinx.android.synthetic.main.set_password.*
 import javax.inject.Inject
 
-
 @Suppress("DEPRECATION")
 @SuppressLint("CustomSplashScreen")
 @ActivityScoped
@@ -48,6 +47,7 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
         supportActionBar?.hide()
         binding = ActivityResetpassWordBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
+
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
@@ -60,7 +60,9 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
                 LocaleHelper.setLocale(this, "en")
             }
         }
+
         setContentView(view)
+
         //AppBar Hide
         window.apply {
             clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
@@ -68,6 +70,11 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
             statusBarColor = Color.TRANSPARENT
         }
+
+        binding?.imageView70?.setOnClickListener {
+            finish()
+        }
+
         movedNext()
     }
 
@@ -118,7 +125,7 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
                     val dialog = OptionDialog(this,
                         R.mipmap.ic_launcher,
                         R.string.app_name,
-                        resources.getString(R.string.email_msg_invalid),
+                        resources.getString(R.string.email_msg_invalid1),
                         positiveBtnText = R.string.ok,
                         negativeBtnText = R.string.no,
                         positiveClick = {
@@ -130,7 +137,6 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
 
             }else{
                 forgotPassword(ForgotPasswordRequest("", enterEmailForPass.text.toString()))
-
             }
 
         }

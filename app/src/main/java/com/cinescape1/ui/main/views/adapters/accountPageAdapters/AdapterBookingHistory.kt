@@ -113,6 +113,7 @@ class AdapterBookingHistory(private val context: Activity,
         }
 
         when (bookingHistoryItem.bookingType) {
+
             "CLUBRECHARGE" -> {
                 holder.textBookingHistoryTitle.text= context.getString(R.string.clubCardrecharge)
             }
@@ -125,6 +126,7 @@ class AdapterBookingHistory(private val context: Activity,
             else -> {
                 holder.textBookingHistoryTitle.text=bookingHistoryItem.bookingType
             }
+
         }
 
         holder.textBookingHistoryDate.text = bookingHistoryItem.showDate
@@ -174,6 +176,7 @@ class AdapterBookingHistory(private val context: Activity,
         holder.itemView.setOnClickListener {
             rowIndex = position
             when (bookingHistoryItem.bookingType) {
+
                 "CLUBRECHARGE" -> {
                     if (holder.rechargeUi.visibility == View.GONE) {
                         holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)

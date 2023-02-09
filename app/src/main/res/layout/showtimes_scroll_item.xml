@@ -40,8 +40,8 @@
 
             <ImageView
                 android:id="@+id/image_showtimes"
-                android:layout_width="130dp"
-                android:layout_height="165dp"
+                android:layout_width="109dp"
+                android:layout_height="155dp"
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"
                 app:srcCompat="@drawable/bombshell"
@@ -115,7 +115,6 @@
 <!--                    app:layout_constraintTop_toTopOf="@+id/imageView60" />-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.cardview.widget.CardView>
 
 
@@ -144,7 +143,7 @@
                 android:scrollHorizontally="true"
                 android:singleLine="true"
                 android:textColor="@color/white"
-                android:textSize="@dimen/size20"
+                android:textSize="@dimen/size18"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -175,12 +174,12 @@
                     <TextView
                         android:id="@+id/text_category"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/margin17"
-                        android:fontFamily="@font/sf_pro_text_heavy"
+                        android:layout_height="@dimen/margin15"
+                        android:fontFamily="@font/gibson_regular"
                         android:includeFontPadding="false"
                         android:gravity="center"
-                        android:paddingStart="@dimen/margin6"
-                        android:paddingEnd="@dimen/margin6"
+                        android:paddingStart="@dimen/margin5"
+                        android:paddingEnd="@dimen/margin5"
                         android:textColor="@color/white"
                         android:textSize="@dimen/size11"
                         tools:ignore="Check"
@@ -195,8 +194,9 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/sf_pro_text_regular"
+                    android:includeFontPadding="false"
                     android:gravity="center"
-                    tools:text="Akash"
+                    tools:text="Avenger"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size12"
@@ -233,5 +233,6 @@
             app:reverseLayout="true"
             tools:itemCount="5"
             tools:listitem="@layout/item_cinema_time" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -43,7 +43,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/view26"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/view26"
-                app:srcCompat="@drawable/app_icon" />
+                app:srcCompat="@drawable/placeholder_icon" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/view25"

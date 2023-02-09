@@ -228,6 +228,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         binding = FragmentAccountPageBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
         return view!!
+
     }
 
 
@@ -3119,6 +3120,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                         loader?.dismiss()
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+
                                 try {
 //                                    historyCheck = 1
                                     include_history.show()

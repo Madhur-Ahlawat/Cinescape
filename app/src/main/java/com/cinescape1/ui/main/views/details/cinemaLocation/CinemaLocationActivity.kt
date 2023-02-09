@@ -53,6 +53,7 @@ import javax.inject.Inject
 class CinemaLocationActivity : DaggerAppCompatActivity(),
     CinemaDayAdapter.RecycleViewItemClickListener, AdapterCinemaSessionScroll.LocationListener,
     CinemaDayAdapter.TypeFaceDay, AdapterCinemaSessionScroll.TypeFaceSession {
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 

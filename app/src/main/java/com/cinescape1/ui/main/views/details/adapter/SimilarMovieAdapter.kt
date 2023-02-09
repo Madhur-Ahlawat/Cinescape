@@ -35,7 +35,7 @@ class SimilarMovieAdapter(
         val obj = items[position]
 
         Glide.with(context)
-            .load(obj.mobimgsmall).error(R.drawable.placeholder_home_small_poster)
+            .load(obj.mobimgsmall).error(R.drawable.placeholder_icon)
             .into(holder.imageView)
 
         holder.itemView.setOnClickListener {

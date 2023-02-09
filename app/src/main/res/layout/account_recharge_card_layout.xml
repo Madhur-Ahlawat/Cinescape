@@ -55,8 +55,8 @@
         android:id="@+id/text_select_amount"
         android:layout_width="130dp"
         android:layout_height="@dimen/margin40"
+        app:backgroundTint="@color/black"
         android:popupBackground="@color/dropDownColor"
-        android:backgroundTint="@color/black1"
         app:layout_constraintBottom_toBottomOf="@+id/view_select_amout"
         app:layout_constraintStart_toStartOf="@+id/view_select_amout"
         app:layout_constraintTop_toTopOf="@+id/view_select_amout"
@@ -70,7 +70,8 @@
         android:src="@drawable/arrow_down"
         app:layout_constraintBottom_toBottomOf="@+id/text_select_amount"
         app:layout_constraintEnd_toEndOf="@+id/text_select_amount"
-        app:layout_constraintTop_toTopOf="@+id/text_select_amount" />
+        app:layout_constraintTop_toTopOf="@+id/text_select_amount"
+        tools:ignore="ContentDescription" />
 
     <View
         android:id="@+id/view_select_amout"
