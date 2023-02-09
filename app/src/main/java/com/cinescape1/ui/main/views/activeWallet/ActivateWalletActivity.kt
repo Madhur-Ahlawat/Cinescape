@@ -112,6 +112,11 @@ class ActivateWalletActivity : DaggerAppCompatActivity(),
                 binding?.textView67?.typeface = medium
             }
         }
+
+        binding?.imageView37?.setOnClickListener {
+            finish()
+        }
+
         movedNext()
         countryCodeLoad()
     }
@@ -302,7 +307,8 @@ class ActivateWalletActivity : DaggerAppCompatActivity(),
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                     println("LocationResponse--->${it.data.output}")
                                     countryCodeList = it.data.output
-                                    binding?.editText4?.setText(resources.getString(R.string.mobile) + "    " + it.data.output[0].isdCode)
+//                                    binding?.editText4?.setText(resources.getString(R.string.mobile) + "    " + it.data.output[0].isdCode)
+                                    binding?.editText4?.setText(" " +it.data.output[0].isdCode)
                                     countryCode = it.data.output[0].isdCode
                                     retriveCountryList(it.data.output)
                                 } else {
