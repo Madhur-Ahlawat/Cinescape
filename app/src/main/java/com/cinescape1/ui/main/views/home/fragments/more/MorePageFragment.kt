@@ -503,7 +503,11 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
         textView29.setOnClickListener {
             if (!checkPermission()){
                 requestPermission()
+
+                println("PhotoUploadPics--------->no")
             } else {
+
+                println("PhotoUploadPics--------->yes")
                 uploadPhoto()
             }
 
@@ -521,12 +525,13 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
         }
 
         textView18.setOnClickListener {
-            val username = enterUsername.text.toString()
+//            val username = enterUsername.text.toString()
+            val username = preferences.getString(Constant.FIRST_NAME)
             val email = contactEmail.text.toString()
             val mobile = enter_mobile_numbers.text.toString()
             val msg = editTextTextPersonName.text.toString()
 
-            if (username.isEmpty()) {
+            if (username!!.isEmpty()) {
                 val dialog = OptionDialog(requireContext(),
                     R.mipmap.ic_launcher,
                     R.string.app_name,
@@ -555,7 +560,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                     val dialog = OptionDialog(requireContext(),
                         R.mipmap.ic_launcher,
                         R.string.app_name,
-                        resources.getString(R.string.email_msg_invalid),
+                        resources.getString(R.string.email_msg_invalid1),
                         positiveBtnText = R.string.ok,
                         negativeBtnText = R.string.no,
                         positiveClick = {
@@ -591,10 +596,14 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                     })
                 dialog.show()
             } else {
-                Toast.makeText(requireContext(), "1", Toast.LENGTH_SHORT).show()
-                frontPhoto?.let { it1 -> contactUs(email, username, mobile, msg, it1) }
-                Constant().hideKeyboard(requireActivity())
+//                Toast.makeText(requireContext(), "1", Toast.LENGTH_SHORT).show()
 
+//                frontPhoto?.let { it1 -> contactUs(email, username, mobile, msg, it1) }
+
+                contactUs(email, username, mobile, msg, frontPhoto!!)
+
+                Constant().hideKeyboard(requireActivity())
+                println("Details of photo upload------->${email}-->${username}--->${mobile}--->${frontPhoto}")
             }
 
         }
@@ -1123,6 +1132,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
     private fun uploadPhoto() {
         photoUtils = PhotoUtils(requireActivity(), this, textView29, this)
         photoUtils!!.selectImage(requireActivity())
+
     }
 
     @Deprecated("Deprecated in Java")

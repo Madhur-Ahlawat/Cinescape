@@ -173,7 +173,7 @@ class ContinueGuestActivity : DaggerAppCompatActivity(),
                         val dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
-                            resources.getString(R.string.email_msg_invalid),
+                            resources.getString(R.string.email_msg_invalid1),
                             positiveBtnText = R.string.ok,
                             negativeBtnText = R.string.no,
                             positiveClick = {

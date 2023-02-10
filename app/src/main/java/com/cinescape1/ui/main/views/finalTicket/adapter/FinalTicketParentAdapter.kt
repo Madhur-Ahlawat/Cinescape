@@ -36,6 +36,7 @@ class FinalTicketParentAdapter(
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var adapter: HomeChildAdapter? = null
     var cinemaId = ""
+    var payMode = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -89,6 +90,7 @@ class FinalTicketParentAdapter(
         var twoFood = itemView.recyclerview_food_details!!
         var twoPayMode = itemView.text_wallet1!!
         var twoPayPrice = itemView.text_kd_total_ticket_price1!!
+        var text_payment_mode2 = itemView.text_payment_mode2!!
     }
 
     class MyViewHolderThree(view: View) : RecyclerView.ViewHolder(view) {
@@ -133,9 +135,8 @@ class FinalTicketParentAdapter(
             }
 
         } else {
-
-            println("FinalTicketBooking21 -------->${position}")
              if (position == 0) {
+                 payMode = 1
                 println("FinalTicketBooking21 -------->yes")
                return 2
             }
@@ -221,6 +222,15 @@ class FinalTicketParentAdapter(
                     holderTwo.twoPickupInfo.hide()
                 }
 
+                if (payMode == 1){
+                    holderTwo.text_payment_mode2.show()
+                    holderTwo.twoPayMode.show()
+                }else{
+
+                    holderTwo.text_payment_mode2.hide()
+                    holderTwo.twoPayMode.hide()
+                }
+
                 val gridLayout = GridLayoutManager(mContext, 1, GridLayoutManager.VERTICAL, false)
                 holderTwo.twoFood.layoutManager = LinearLayoutManager(mContext)
                 val adapter2 = AdapterCheckoutConFirmFoodDetail(mContext, output.concessionFoods)
@@ -234,6 +244,7 @@ class FinalTicketParentAdapter(
                     holderTwo.twoPayMode, holderTwo.twoPayPrice
                 )
             }
+
             3 -> {
                 //Three
                 val holderThree = holder as MyViewHolderThree
@@ -292,7 +303,6 @@ class FinalTicketParentAdapter(
             oneType: TextView, oneCategoryName: TextView,
             onePayMode: TextView, onePrice: TextView
         )
-
 
         fun cancelReserv(foodSelctedItem: TicketSummaryResponse.Output)
 

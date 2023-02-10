@@ -164,10 +164,10 @@ interface DataServices {
     @Multipart
     @POST("more/contactus")
     suspend fun contactUs(
-        @Part ("email") email: RequestBody,
-        @Part ("name") name: RequestBody,
-        @Part ("mobile") mobile: RequestBody,
-        @Part ("msg") msg: RequestBody,
+        @Query ("email") email: String,
+        @Query ("name") name: String,
+        @Query ("mobile") mobile: String,
+        @Query ("msg") msg: String,
         @Part file: MultipartBody.Part
     ): Response<ContactUsResponse>
 

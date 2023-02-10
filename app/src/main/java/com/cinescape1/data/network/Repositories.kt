@@ -223,10 +223,10 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
                           msg: String,
                           frontPhoto: MultipartBody.Part): Result<ContactUsResponse> {
         return apiRequest { api.contactUs(
-            RequestBody.create("multipart/form-data".toMediaTypeOrNull(),email),
-            RequestBody.create("multipart/form-data".toMediaTypeOrNull(),name),
-            RequestBody.create("multipart/form-data".toMediaTypeOrNull(),mobile),
-            RequestBody.create("multipart/form-data".toMediaTypeOrNull(),msg),
+            email,
+            name,
+            mobile,
+            msg,
             frontPhoto) }
     }
     suspend fun moreTabs(): Result<MoreTabResponse> {

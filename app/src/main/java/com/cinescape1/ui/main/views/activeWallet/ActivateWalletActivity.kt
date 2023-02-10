@@ -348,8 +348,7 @@ class ActivateWalletActivity : DaggerAppCompatActivity(),
 
     private fun bottomDialog(countryList: java.util.ArrayList<CountryCodeResponse.Output>) {
         val mDialogView = layoutInflater.inflate(R.layout.countrycode_new_dialog, null)
-        val mBuilder = AlertDialog.Builder(this, R.style.MyDialogTransparent)
-            .setView(mDialogView)
+        val mBuilder = AlertDialog.Builder(this, R.style.MyDialogTransparent).setView(mDialogView)
         val mAlertDialog = mBuilder.show()
         mAlertDialog.setCancelable(false)
         mAlertDialog.setCanceledOnTouchOutside(false)
@@ -428,7 +427,7 @@ class ActivateWalletActivity : DaggerAppCompatActivity(),
         proceed.setOnClickListener {
             mAlertDialog?.dismiss()
             edSearch.text.clear()
-            binding?.editText4?.setText(resources.getString(R.string.mobile) + " " + countryCode)
+            binding?.editText4?.setText(countryCode)
         }
     }
 

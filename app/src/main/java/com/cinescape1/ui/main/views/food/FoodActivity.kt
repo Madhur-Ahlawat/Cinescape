@@ -408,9 +408,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             foodSelectedList = concessionTabs[0].concessionItems
             tabItem = concessionTabs[0]
             setFoodComboAdapter(foodSelectedList!!)
-
         }else{
-
             val dialog = OptionDialog(this,
                 R.mipmap.ic_launcher,
                 R.string.app_name,
@@ -418,6 +416,8 @@ class FoodActivity : DaggerAppCompatActivity(),
                 positiveBtnText = R.string.ok,
                 negativeBtnText = R.string.no,
                 positiveClick = {
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
                     finish()
                 },
                 negativeClick = {
@@ -813,7 +813,6 @@ class FoodActivity : DaggerAppCompatActivity(),
             TimerTime = 360
             finish()
         }
-
 
     }
 
