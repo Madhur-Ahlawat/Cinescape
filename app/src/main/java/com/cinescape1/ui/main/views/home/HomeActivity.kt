@@ -183,6 +183,7 @@ class HomeActivity : DaggerAppCompatActivity(),
 
     private fun manageBooking() {
 
+        println("NotiIconVisible21--------->${NextBookingsResponse}--->${buttonClick}")
         if (NextBookingsResponse != null && buttonClick==0){
             binding?.imageView42?.show()
 

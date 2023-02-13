@@ -62,6 +62,7 @@ data class GetFoodResponse(
         val headOfficeItemCode: String,
         val id: String,
         val itemPrice: String,
+        val itemImageUrl: String,
         val itemPrice_dummy: String,
         val modifierGroups: List<ModifierGroup>,
         val priceInCents: Int,
@@ -92,6 +93,7 @@ data class GetFoodResponse(
         val descriptionAlt: Any,
         val headOfficeItemCode: Any,
         val id: String,
+        val itemImageUrl: String,
         val alternateItems: ArrayList<Item>,
         val parentId: String,
         val quantity: Int
@@ -100,6 +102,7 @@ data class GetFoodResponse(
     data class Item(
         val description: String,
         val descriptionAlt: String,
+        val itemImageUrl: String,
         val extendedDescription: Any,
         val headOfficeItemCode: String,
         val id: String,

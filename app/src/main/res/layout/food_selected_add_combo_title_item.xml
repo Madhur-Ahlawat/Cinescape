@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -13,8 +14,7 @@
         android:visibility="visible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin15"
-        android:layout_marginEnd="@dimen/margin35"
+        android:layout_marginEnd="@dimen/margin15"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,11 +22,11 @@
 
         <ImageView
             android:id="@+id/imageViewFlavor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="@dimen/margin60"
             android:adjustViewBounds="true"
-            android:maxWidth="50dp"
-            android:maxHeight="50dp"
+            android:maxWidth="100dp"
+            android:maxHeight="70dp"
             android:src="@drawable/app_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,18 +37,18 @@
             android:id="@+id/text_title_combo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="2dp"
             android:fontFamily="@font/sf_pro_text_bold"
             android:gravity="center"
-            android:padding="@dimen/margin4"
+            android:padding="@dimen/margin2"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="@dimen/size16"
+            android:textSize="@dimen/size12"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageViewFlavor"
-            tools:text="Pjjncdjnsdcnjdsjdc" />
+            tools:text="Pjjncdjnsdcnj" />
 
 
         <TextView
@@ -57,7 +57,7 @@
             android:layout_height="5dp"
             android:layout_marginTop="3dp"
             android:background="@drawable/red_rectangle"
-            android:visibility="gone"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="@+id/text_title_combo"
             app:layout_constraintStart_toStartOf="@+id/text_title_combo"
             app:layout_constraintTop_toBottomOf="@+id/text_title_combo" />

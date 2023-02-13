@@ -18,8 +18,7 @@ import com.cinescape1.utils.show
 
 class HistoryFoodListAdapter(
     private  val context: Activity,
-    private  val concessionFoods: ArrayList<HistoryResponse.Output.ConcessionFood>
-) :
+    private  val concessionFoods: ArrayList<HistoryResponse.Output.ConcessionFood>) :
     RecyclerView.Adapter<HistoryFoodListAdapter.TodoViewHolder>() {
 
     var displayMetrics = DisplayMetrics()
@@ -33,6 +32,14 @@ class HistoryFoodListAdapter(
 
     override fun getItemCount(): Int {
         return concessionFoods.size
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 
     @SuppressLint("SetTextI18n")
@@ -57,17 +64,13 @@ class HistoryFoodListAdapter(
         holder.linearLayout.layoutParams = lp
 //        holder.linearLayout.weightSum = 5f
 
+        println("FoodDescription--->${concessionFoods.description}")
 
-
-        println("--->${concessionFoods.description}")
         holder.title.text=concessionFoods.description
         holder.qty.text=concessionFoods.quantity.toString()
         holder.total.text=(concessionFoods.priceInCents/100).toString()+" "+ context.getString(R.string.price_kd)
         holder.price.text=((concessionFoods.priceInCents*concessionFoods.quantity)/100).toString()+" "+context.getString(R.string.price_kd)
         holder.type.text=concessionFoods.itemType
-
-
-
 
     }
 
@@ -84,4 +87,5 @@ class HistoryFoodListAdapter(
     interface RecycleViewItemClickListener {
         fun onItemClick(view: MoviesResponse.Output, title: String)
     }
+
 }

@@ -502,6 +502,7 @@
                     android:nestedScrollingEnabled="false"
                     android:layout_marginTop="@dimen/margin25"
                     android:visibility="visible"
+                    android:layout_marginBottom="@dimen/margin12"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/text_upcoming_booking"
                     app:layout_constraintStart_toStartOf="@+id/text_upcoming_booking"

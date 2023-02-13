@@ -217,11 +217,10 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/size16"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/text_add_btn"
+                    app:layout_constraintBottom_toBottomOf="@+id/view_increase_decrease"
                     app:layout_constraintEnd_toEndOf="@+id/view39_done_btn"
                     app:layout_constraintStart_toEndOf="@+id/view_increase_decrease"
-                    app:layout_constraintTop_toTopOf="@+id/text_add_btn"
-                    app:layout_constraintVertical_bias="1.0" />
+                    app:layout_constraintTop_toTopOf="@+id/view_increase_decrease" />
 
                 <View
                     android:id="@+id/viw_total_price"
@@ -234,12 +233,13 @@
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout32"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="@+id/viw_total_price"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/viw_total_price"
-                    app:layout_constraintTop_toTopOf="@+id/viw_total_price" >
+                    app:layout_constraintTop_toTopOf="@+id/viw_total_price">
 
                     <TextView
                         android:id="@+id/tev_total_price"
@@ -268,12 +268,12 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/size14"
                         android:textStyle="normal"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="@+id/tev_total_price"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/tev_total_price"
                         app:layout_constraintTop_toTopOf="@+id/tev_total_price"
-                        tools:text="KD 0.000"
-                        tools:ignore="HardcodedText" />
+                        tools:ignore="HardcodedText"
+                        tools:text="KD 0.000" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

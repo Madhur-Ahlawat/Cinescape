@@ -852,7 +852,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }
 
         binding?.viewHistorys?.setOnClickListener {
-
             binding?.nestedUi?.show()
             binding?.appBarAccount?.show()
             binding?.recycleUi?.hide()
@@ -2785,6 +2784,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         val adapter = AdapterBookingHistory(requireActivity(), output, this)
         binding?.includeHistory?.recyclerviewBookingHistory?.layoutManager = gridLayout
         binding?.includeHistory?.recyclerviewBookingHistory?.adapter = adapter
+
     }
 
 
@@ -3129,6 +3129,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                                     val adapter = AdapterBookingHistory(requireActivity(), it.data.output, this)
                                     binding?.includeHistory?.recyclerviewBookingHistory?.layoutManager = gridLayout
                                     binding?.includeHistory?.recyclerviewBookingHistory?.adapter = adapter
+                                    adapter.notifyDataSetChanged()
 //                                    setBookingHistoryAdapter(it.data.output)
                                     println("BookingHistorySuccess-------->${"yes"}")
 
@@ -3213,13 +3214,19 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
     private fun retrieveNextBookedResponse(output: NextBookingResponse) {
         binding?.nestedUi?.show()
-        val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
-        binding?.recyclerviewBooking?.layoutManager = LinearLayoutManager(context)
-        val adapter = UpcomingBookingAdapter(requireContext(), output.output, this, this)
-        binding?.recyclerviewBooking?.isNestedScrollingEnabled = false
-        binding?.recyclerviewBooking?.layoutManager = gridLayout
-        binding?.recyclerviewBooking?.adapter = adapter
-        binding?.recyclerviewBooking?.show()
+        if (output.output.isNullOrEmpty()){
+            binding?.recyclerviewBooking?.hide()
+//            binding?.textUpcomingBooking?.hide()
+        }else{
+            val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
+            binding?.recyclerviewBooking?.layoutManager = LinearLayoutManager(context)
+            val adapter = UpcomingBookingAdapter(requireContext(), output.output, this, this)
+            binding?.recyclerviewBooking?.isNestedScrollingEnabled = false
+            binding?.recyclerviewBooking?.layoutManager = gridLayout
+            binding?.recyclerviewBooking?.adapter = adapter
+            binding?.recyclerviewBooking?.show()
+//            binding?.textUpcomingBooking?.show()
+        }
 
     }
 

@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.GetFoodResponse
 import com.cinescape1.utils.hide
+import com.cinescape1.utils.invisible
 import com.cinescape1.utils.show
 import com.google.android.flexbox.*
 
@@ -55,16 +56,22 @@ class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitle
             holder.popcornUi.show()
             holder.comboUi.hide()
 
-            Glide.with(mContext)
-                .asBitmap()
+//            Glide.with(mContext).asBitmap()
+//                .placeholder(R.drawable.ic_back_button)
+//                .load(R.drawable.ic_back_button)
+//                .into(holder.imageView)
+
+            Glide.with(mContext).asBitmap()
                 .placeholder(R.drawable.ic_back_button)
-                .load(R.drawable.ic_back_button)
+                .load(foodSelctedItem.itemImageUrl)
                 .into(holder.imageView)
+
+            println("textSubAddFoodName.textImg21------------> ${foodSelctedItem.itemImageUrl}")
 
             if (rowIndex==position){
                 holder.textView18.show()
             }else{
-                holder.textView18.hide()
+                holder.textView18.invisible()
             }
 
             holder.itemView.setOnClickListener {
@@ -103,13 +110,10 @@ class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitle
                 viewList.add(v)
                 imgSubItem.show()
 
-                Glide.with(mContext)
-                    .asBitmap()
-                    .load(R.drawable.ic_back_button)
-                    .placeholder(R.drawable.ic_back_button)
-                    .into(imgSubItem)
-
+                Glide.with(mContext).asBitmap().load(item.itemImageUrl).placeholder(R.drawable.ic_back_button).into(imgSubItem)
+                println("textSubAddFoodName.textImg------------> ${item.itemImageUrl}---->${item.description}")
                 v.tag = item
+
 //                if (item.checkFlag){
 //                    view22.show()
 //                }else{
@@ -117,15 +121,14 @@ class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitle
 //                }
 
                 textSubAddFoodName.text = item.description
-                println("textSubAddFoodName.text------------> ${textSubAddFoodName.text}")
 
                 holder.foodComboSubtitleList.addView(v)
                 v.setOnClickListener {
 //                    mContext.toast("hell3o")
                     val data = it.tag as GetFoodResponse.Item
                     println("foodSelectedItem----"+data.description)
-
                     var viewLine: TextView?
+
                     for(item in foodSelectedItem.alternateItems){
                         item.checkFlag = data.id==item.id
                     }
@@ -133,8 +136,10 @@ class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitle
                     listener.onComboClick(foodSelectedItem,position,foodItem,foodPos)
                     for (view in viewList){
                         viewLine = view.findViewById(R.id.view22)
-                        viewLine.hide()
+                        viewLine.invisible()
                     }
+
+                    println("textSubAddFoodName.textImg------------> ${item.itemImageUrl}---->${item.description}")
                     view22.show()
                   //  data.checkFlag = true
 

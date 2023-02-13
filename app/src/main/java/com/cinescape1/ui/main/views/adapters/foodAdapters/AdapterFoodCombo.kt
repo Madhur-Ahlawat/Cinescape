@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cinescape1.R
@@ -40,6 +41,17 @@ class AdapterFoodCombo(
             holder.foodcomboName.text = foodSelectedItem.description
             holder.foodTitleName.hide()
         }
+
+        if (foodSelectedItem.foodtype == "Individual"){
+            if (foodSelectedItem.quantity > 0) {
+                holder.viewIncreaseDecrease.show()
+                holder.addBtn.hide()
+                holder.txtNumber.text = foodSelectedItem.quantity.toString()
+            } else {
+                holder.viewIncreaseDecrease.hide()
+                holder.addBtn.show()
+            }
+        }
         holder.foodKdName.text = foodSelectedItem.itemPrice
         holder.foodKdName.show()
 
@@ -56,10 +68,20 @@ class AdapterFoodCombo(
             .into(holder.imgFood)
 
         holder.addBtn.setOnClickListener {
+            if (foodSelectedItem.foodtype == "Individual"){
+                holder.addBtn.hide()
+                holder.txtNumber.show()
+                holder.txtNumber.text = "1"
+                holder.btnDecrease.show()
+                holder.btnIncrease.show()
+                holder.viewIncreaseDecrease.show()
+            }
             listener.onAddFood(foodSelectedItem, position,foodComboList)
+            println("listener.onAddFood---->${position}---->${foodSelectedItem.description}----->${foodSelectedItem.foodtype}")
         }
 
         holder.btnIncrease.setOnClickListener {
+            Toast.makeText(mContext, "callled this", Toast.LENGTH_SHORT).show()
             listener.onIncreaseFood(foodSelectedItem, position)
         }
 

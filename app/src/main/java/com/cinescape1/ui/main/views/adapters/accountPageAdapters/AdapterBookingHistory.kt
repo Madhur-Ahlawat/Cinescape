@@ -113,7 +113,6 @@ class AdapterBookingHistory(private val context: Activity,
         }
 
         when (bookingHistoryItem.bookingType) {
-
             "CLUBRECHARGE" -> {
                 holder.textBookingHistoryTitle.text= context.getString(R.string.clubCardrecharge)
             }
@@ -126,7 +125,6 @@ class AdapterBookingHistory(private val context: Activity,
             else -> {
                 holder.textBookingHistoryTitle.text=bookingHistoryItem.bookingType
             }
-
         }
 
         holder.textBookingHistoryDate.text = bookingHistoryItem.showDate
@@ -150,13 +148,17 @@ class AdapterBookingHistory(private val context: Activity,
             holder.paidBy,holder.foodTotalPrice,holder.foodPaidby)
 
 
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        holder.foodList.layoutManager = LinearLayoutManager(context)
-        val adapter = HistoryFoodListAdapter(context, bookingHistoryItem.concessionFoods)
-        holder.foodList.layoutManager = layoutManager
-        holder.foodList.adapter = adapter
+        if (bookingHistoryItem.concessionFoods.isNullOrEmpty()){
+            println("foodHistoryList---------->${bookingHistoryItem.concessionFoods}")
+        }else{
+            val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            holder.foodList.layoutManager = LinearLayoutManager(context)
+            val adapter = HistoryFoodListAdapter(context, bookingHistoryItem.concessionFoods)
+            holder.foodList.layoutManager = layoutManager
+            holder.foodList.adapter = adapter
+            println("foodHistoryList---------->${bookingHistoryItem.concessionFoods}")
+        }
 
-        println("foodHistoryList---------->${bookingHistoryItem.concessionFoods}")
 
         //recharge
         holder.payDone.text=bookingHistoryItem.payDone
@@ -176,7 +178,6 @@ class AdapterBookingHistory(private val context: Activity,
         holder.itemView.setOnClickListener {
             rowIndex = position
             when (bookingHistoryItem.bookingType) {
-
                 "CLUBRECHARGE" -> {
                     if (holder.rechargeUi.visibility == View.GONE) {
                         holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
@@ -188,9 +189,9 @@ class AdapterBookingHistory(private val context: Activity,
                         holder.foodUi.hide()
                         holder.movieui.hide()
                         holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-
                     }
                 }
+
                 "FOOD" -> {
                     if (holder.foodUi.visibility == View.GONE) {
                         holder.foodUi.show()
@@ -229,7 +230,9 @@ class AdapterBookingHistory(private val context: Activity,
 
     }
      override fun getItemCount(): Int {
-         return bookingHistoryList.size
+          if (bookingHistoryList.size == 0)
+              return 0 else
+                return bookingHistoryList.size
      }
 
     override fun getItemId(position: Int): Long {
@@ -279,6 +282,8 @@ class AdapterBookingHistory(private val context: Activity,
         var foodPaidby: TextView = view.findViewById(R.id.textView98)
 
     }
+
+
 
     interface typeFaceItem{
        fun datatypeFace(textBookingHistoryTitle: TextView, textBookingHistoryDate: TextView,

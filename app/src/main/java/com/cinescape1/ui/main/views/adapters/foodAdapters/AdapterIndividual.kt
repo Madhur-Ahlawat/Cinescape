@@ -66,6 +66,8 @@ class AdapterIndividual(
             holder.btnIncrease.show()
             holder.viewIncreaseDecrease.show()
             listener.onAddIndiVidual(foodSelectedItem, position)
+
+            println("listener.onAddFoodIndividual---->${position}---->${foodSelectedItem.description}---->${foodSelectedItem.foodtype}")
         }
 
         holder.btnIncrease.setOnClickListener {
