@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.TicketSummaryResponse
 import com.cinescape1.ui.main.views.adapters.HomeChildAdapter
@@ -23,6 +24,7 @@ import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import kotlinx.android.synthetic.main.alert_booking.view.*
 import kotlinx.android.synthetic.main.final_ticket_item_one.view.*
 import kotlinx.android.synthetic.main.final_ticket_item_three.view.*
 import kotlinx.android.synthetic.main.final_ticket_item_two.view.*
@@ -162,7 +164,68 @@ class FinalTicketParentAdapter(
                 holder.oneLocation.text = output.cinemaname
                 holder.oneDateTime.text = output.showDate + " " + output.showTime
                 holder.oneScreen.text = output.screenId
-                holder.oneType.text = output.experience
+
+//                holder.oneType.text = output.experience
+
+                println("output.experience90------->${output.experience}")
+
+                when (output.experience) {
+                    "4DX" -> {
+                        Glide
+                            .with(mContext)
+                            .load(R.drawable.four_dx)
+                            .into(holder.oneType)
+                    }
+                    "Standard" -> {
+                        Glide
+                            .with(mContext)
+                            .load(R.drawable.standard)
+                            .into(holder.oneType)
+                    }
+                    "VIP" -> {
+                        Glide
+                            .with(mContext)
+                            .load(R.drawable.vip)
+                            .into(holder.oneType)
+                    }
+                    "IMAX" -> {
+                        Glide
+                            .with(mContext)
+                            .load(R.drawable.imax)
+                            .into(holder.oneType)
+                    }
+                    "3D" -> {
+                        Glide
+                            .with(mContext)
+                            .load(R.drawable.threed_black)
+                            .into(holder.oneType)
+                    }
+                    "DOLBY" -> {
+                        Glide
+                            .with(mContext)
+                            .load(R.drawable.dolby_black)
+                            .into(holder.oneType)
+                    }
+                    "ELEVEN" -> {
+                        Glide
+                            .with(mContext)
+                            .load(R.drawable.eleven_black)
+                            .into(holder.oneType)
+                    }
+                    "SCREENX" -> {
+                        Glide
+                            .with(mContext)
+                            .load(R.drawable.screenx_black)
+                            .into(holder.oneType)
+                    }
+                    "PREMIUM" -> {
+                        Glide
+                            .with(mContext)
+                            .load(R.drawable.premium_black)
+                            .into(holder.oneType)
+                    }
+                }
+
                 holder.oneCategoryName.text = output.category
 
                 val layoutManager = FlexboxLayoutManager(mContext)
@@ -206,11 +269,12 @@ class FinalTicketParentAdapter(
 
                 listener1.onTypeFaceFinalTicketOne(
                     holder.oneBookingId, holder.oneTitle, holder.oneRating,
-                    holder.oneLocation, holder.oneDateTime, holder.oneScreen, holder.oneType,
+                    holder.oneLocation, holder.oneDateTime, holder.oneScreen,
                     holder.oneCategoryName, holder.onePayMode, holder.onePrice
                 )
 
             }
+
             2 -> {
 //Two
                 println("called this method.....")
@@ -300,7 +364,7 @@ class FinalTicketParentAdapter(
             oneBookingId: TextView, oneTitle: TextView,
             oneRating: TextView, oneLocation: TextView,
             oneDateTime: TextView, oneScreen: TextView,
-            oneType: TextView, oneCategoryName: TextView,
+            oneCategoryName: TextView,
             onePayMode: TextView, onePrice: TextView
         )
 

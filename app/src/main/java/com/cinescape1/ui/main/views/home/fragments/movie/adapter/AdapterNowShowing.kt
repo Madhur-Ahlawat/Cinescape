@@ -38,13 +38,14 @@ class AdapterNowShowing(
     override fun onBindViewHolder(holder: MyViewHolderNowShowing, position: Int) {
         val comingSoonItem = nowShowingList[position]
 
-        mContext.windowManager.defaultDisplay.getMetrics(displayMetrics)
-        screenWidth = displayMetrics.widthPixels
-        holder.thumbnail.layoutParams.width = ((screenWidth)/2.29f).toInt()
+//        mContext.windowManager.defaultDisplay.getMetrics(displayMetrics)
+//        screenWidth = displayMetrics.widthPixels
+//        holder.thumbnail.layoutParams.width = ((screenWidth)/2.25f).toInt()
 
-        println("NowShowingScreenWidth-------->${screenWidth}--------->${comingSoonItem.mobimgsmall}")
+        println("NowShowingScreenWidth-------->${((screenWidth)/2.27f).toInt()}--------->${comingSoonItem.mobimgsmall}")
 
-        holder.thumbnail.layout(0,0,0,0)
+//        holder.thumbnail.layout(0,0,0,0)
+
         Glide.with(mContext).load(comingSoonItem.mobimgsmall).error(R.drawable.app_icon).into(holder.thumbnail)
 
         holder.movieTitle.text = comingSoonItem.title

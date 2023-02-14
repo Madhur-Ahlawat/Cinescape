@@ -474,19 +474,16 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
         when (type) {
             "comingSoon" -> {
-                binding?.textMovieType?.text =
-                    getString(R.string.commingSoonNew) + " " + output.movie.openingDate
-
+                binding?.textMovieType?.text = getString(R.string.commingSoonNew) + " " + output.movie.openingDate
             }
             else -> {
                 if (output.movie.language == null) {
-                    binding?.textMovieType?.text =
-                        "" + output.movie.genre + " | " + output.movie.runTime + " " + getString(
+                    binding?.textMovieType?.text = "" + output.movie.genre + " "+"  |  " +" "+ output.movie.runTime + " " + getString(
                             R.string.min
                         )
                 } else {
                     binding?.textMovieType?.text =
-                        output.movie.language + " | " + output.movie.genre + " | " + output.movie.runTime + " " + getString(
+                        output.movie.language + " "+"  |  " +" "+ output.movie.genre + " "+"  |  " +" "+ output.movie.runTime + " " + getString(
                             R.string.min
                         )
                 }
@@ -680,7 +677,12 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 getString(R.string.min)
             }</font> "
 
-        binding?.textMovieType?.text = Html.fromHtml(text)
+//        binding?.textMovieType?.text = Html.fromHtml(text)
+
+        binding?.textMovieType?.text =
+            output.movie.language + " "+"  |  " +" "+ output.movie.genre + " "+"  |  " +" "+ output.movie.runTime + " " + getString(
+                R.string.min
+            )
 
         if (output.movie.trailerUrl.isEmpty()) {
             binding?.imageView26?.hide()

@@ -88,6 +88,7 @@ class FoodActivity : DaggerAppCompatActivity(),
     private var tvKdTotal: TextView? = null
     private var textTotal1: TextView? = null
     private var cartTime: TextView? = null
+    private var tvClearItem: TextView? = null
     private var foodAlterDis = ""
     private var foodAlterId = "0"
     var check = true
@@ -448,8 +449,8 @@ class FoodActivity : DaggerAppCompatActivity(),
 //            binding?.recyclerFoodCombo?.adapter = individualAdapter
 //            individualAdapter?.loadNewData(concessionItems)
 //        } else {
-            val gridLayout =
-                GridLayoutManager(this@FoodActivity, 1, GridLayoutManager.VERTICAL, false)
+
+            val gridLayout = GridLayoutManager(this@FoodActivity, 1, GridLayoutManager.VERTICAL, false)
             binding?.recyclerFoodCombo?.layoutManager = LinearLayoutManager(this)
             foodAdapter = AdapterFoodCombo(
                 this@FoodActivity,
@@ -459,6 +460,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             binding?.recyclerFoodCombo?.layoutManager = gridLayout
             binding?.recyclerFoodCombo?.adapter = foodAdapter
             foodAdapter?.loadNewData(concessionItems)
+
        // }
     }
 
@@ -499,10 +501,18 @@ class FoodActivity : DaggerAppCompatActivity(),
     }
 
     override fun onFoodCatClick(foodItem: GetFoodResponse.ConcessionTab, view: View) {
-        focusOnView(view, binding?.recyclerFoodSelectItem!!)
-        foodSelectedList = foodItem.concessionItems
-        tabItem = foodItem
-        setFoodComboAdapter(foodSelectedList!!)
+
+//        if (tvClearItem?.visibility == View.GONE){
+//            updateSelectedList(null,1)
+//            foodCartAdapter?.notifyDataSetChanged()
+//            individualAdapter?.notifyDataSetChanged()
+//        }else{
+            focusOnView(view, binding?.recyclerFoodSelectItem!!)
+            foodSelectedList = foodItem.concessionItems
+            tabItem = foodItem
+            setFoodComboAdapter(foodSelectedList!!)
+//        }
+
     }
 
     private fun focusOnView(view: View, scrollView: RecyclerView) {
@@ -519,8 +529,8 @@ class FoodActivity : DaggerAppCompatActivity(),
     private fun setCartDialog() {
 
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.food_cart_dailog_info, null)
-        val mBuilder = AlertDialog.Builder(this, R.style.NewDialog)
-            .setView(mDialogView)
+        val mBuilder = AlertDialog.Builder(this, R.style.NewDialog).setView(mDialogView)
+
         if (!isFinishing) {
             mFoodCartDialog = mBuilder?.show()
         }
@@ -536,7 +546,7 @@ class FoodActivity : DaggerAppCompatActivity(),
         val recyclerviewCartItem =
             mDialogView.findViewById<RecyclerView>(R.id.recyclerview_cart_item)
         val proceedBtn1 = mDialogView.findViewById<TextView>(R.id.proceed_btn1)
-        val tvClearItem = mDialogView.findViewById<TextView>(R.id.tv_clear_item)
+         tvClearItem = mDialogView.findViewById<TextView>(R.id.tv_clear_item)
         emptyCart = mDialogView.findViewById(R.id.emptyCart)
         val titleTicketPrice = mDialogView.findViewById<TextView>(R.id.title_ticketPrice)
         val movieDetails = mDialogView.findViewById<ConstraintLayout>(R.id.movieDetails)
@@ -660,9 +670,9 @@ class FoodActivity : DaggerAppCompatActivity(),
         }
 
         if (foodCartList?.size!! > 0) {
-            tvClearItem.show()
+            tvClearItem?.show()
         } else {
-            tvClearItem.invisible()
+            tvClearItem?.invisible()
             emptyCart?.show()
 //            proceedBtn1.setText(R.string.close)
             proceedBtn1.setText(R.string.proceed)
@@ -677,7 +687,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             mFoodCartDialog?.dismiss()
         }
 
-        tvClearItem.setOnClickListener {
+        tvClearItem?.setOnClickListener {
             foodCartListNew?.clear()
             foodCartList?.clear()
             updateFoodList()
@@ -686,6 +696,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             foodCartAdapter?.loadNewData(foodCartListNew!!)
             emptyCart?.show()
             tvClearItem?.hide()
+
             updateSelectedList(null,1)
             foodCartAdapter?.notifyDataSetChanged()
             individualAdapter?.notifyDataSetChanged()

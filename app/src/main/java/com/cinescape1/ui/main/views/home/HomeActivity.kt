@@ -78,6 +78,10 @@ class HomeActivity : DaggerAppCompatActivity(),
     private var broadcastReceiver: BroadcastReceiver? = null
     private var buttonClick = 0
     private var flagHome = false
+    var homeFrag = 0
+    var movieFrag = 0
+    var accountFrag = 0
+    var moreFrag = 0
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,33 +99,57 @@ class HomeActivity : DaggerAppCompatActivity(),
                 LocaleHelper.setLocale(this, "en")
             }
         }
+
+        homeFrag = 0
+        movieFrag = 0
+        accountFrag = 0
+        moreFrag = 0
+
         setContentView(view)
 
         navigationView.setOnNavigationItemSelectedListener {
 
             when (it.itemId) {
                 R.id.homeFragment -> {
-                    BACKFinlTicket += 1
-                    buttonClick = 0
-                    manageBooking()
-                    flagHome = true
-                    setCurrentFragment(HomeFragment())
+
+                    if (homeFrag == 0){
+
+                        BACKFinlTicket += 1
+                        buttonClick = 0
+                        manageBooking()
+                        flagHome = true
+                        setCurrentFragment(HomeFragment())
+
+                        homeFrag = 1
+                        movieFrag = 0
+                        accountFrag = 0
+                        moreFrag = 0
+
+                    }
+
                 }
                 R.id.movieFragment -> {
-                    positionState = 0
-                    buttonClick = 1
-                    BACKFinlTicket += 1
-                    buttonClick = 1
-                    flagHome = false
-                    binding?.imageView42?.hide()
-                    println("NotiIconVisible--------->MovieFrag")
-                    setCurrentFragment(MoviesFragment(0))
+
+                    if (movieFrag == 0){
+                        positionState = 0
+                        buttonClick = 1
+                        BACKFinlTicket += 1
+                        buttonClick = 1
+                        flagHome = false
+                        binding?.imageView42?.hide()
+                        setCurrentFragment(MoviesFragment(0))
+
+                        homeFrag = 0
+                        movieFrag = 1
+                        accountFrag = 0
+                        moreFrag = 0
+                    }
+
                 }
                 R.id.foodFragment -> {
                     buttonClick = 1
                     BACKFinlTicket += 1
                     binding?.imageView42?.hide()
-                    println("NotiIconVisible--------->FoodFrag")
                     if (!preferences.getBoolean(Constant.IS_LOGIN)) {
                         startActivity(
                             Intent(this, LoginActivity::class.java)
@@ -133,27 +161,44 @@ class HomeActivity : DaggerAppCompatActivity(),
                     }
                 }
                 R.id.accountFragment -> {
-                    if (preferences.getBoolean(Constant.IS_LOGIN)){
+                    if (accountFrag == 0){
+                        if (preferences.getBoolean(Constant.IS_LOGIN)){
+                            buttonClick = 1
+                            BACKFinlTicket += 1
+                            buttonClick = 1
+                            flagHome = false
+                            binding?.imageView42?.hide()
+                            setCurrentFragment(AccountPageFragment())
+                        }else{
+                            val intent = Intent(this, LoginActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+
+                        homeFrag = 0
+                        movieFrag = 0
+                        accountFrag = 1
+                        moreFrag = 0
+                    }
+
+
+                }
+                R.id.moreFragment -> {
+                    if (moreFrag == 0){
                         buttonClick = 1
                         BACKFinlTicket += 1
                         buttonClick = 1
                         flagHome = false
                         binding?.imageView42?.hide()
-                        setCurrentFragment(AccountPageFragment())
-                    }else{
-                        val intent = Intent(this, LoginActivity::class.java)
-                        startActivity(intent)
-                        finish()
+                        setCurrentFragment(MorePageFragment())
+
+                        homeFrag = 0
+                        movieFrag = 0
+                        accountFrag = 0
+                        moreFrag = 1
                     }
 
-                }
-                R.id.moreFragment -> {
-                    buttonClick = 1
-                    BACKFinlTicket += 1
-                    buttonClick = 1
-                    flagHome = false
-                    binding?.imageView42?.hide()
-                    setCurrentFragment(MorePageFragment())
+
                 }
             }
             true

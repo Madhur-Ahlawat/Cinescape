@@ -406,24 +406,18 @@
                         app:layout_constraintTop_toBottomOf="@+id/txt_screen1"
                         tools:text="@string/_9" />
 
-                    <TextView
+                    <ImageView
                         android:id="@+id/tv_screenx"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/sf_pro_text_bold"
-                        android:includeFontPadding="false"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="1sp"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/size14"
-                        android:textStyle="normal"
+                        android:layout_height="16dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/screenx_black"
                         app:layout_constraintBottom_toBottomOf="@+id/txt_scrrens"
                         app:layout_constraintStart_toEndOf="@+id/txt_scrrens"
                         app:layout_constraintTop_toTopOf="@+id/txt_scrrens"
                         app:layout_constraintVertical_bias="0.0"
                         tools:layout_editor_absoluteX="102dp"
-                        tools:text="@string/screenx" />
-
+                        tools:ignore="ContentDescription" />
 
                     <View
                         android:id="@+id/view_category"

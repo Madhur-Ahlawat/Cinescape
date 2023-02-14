@@ -13,7 +13,7 @@
         android:id="@+id/LayoutTime"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <View
             android:id="@+id/view66"
@@ -53,7 +53,7 @@
             android:layout_height="92dp"
             android:paddingStart="20dp"
             android:paddingEnd="1dp"
-            android:layout_marginBottom="-12dp"
+            android:layout_marginBottom="-8dp"
             app:layout_constraintBottom_toBottomOf="@+id/view66"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/bottomView">
@@ -114,16 +114,14 @@
 
                         <TextView
                             android:id="@+id/textView56"
-                            android:layout_width="wrap_content"
+                            android:layout_width="@dimen/margin27"
                             android:layout_height="@dimen/margin15"
                             android:fontFamily="@font/sf_pro_text_regular"
                             android:gravity="center"
                             android:includeFontPadding="false"
                             android:minWidth="@dimen/margin27"
-                            android:paddingStart="@dimen/margin6"
-                            android:paddingEnd="@dimen/margin6"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/size9"
+                            android:textSize="@dimen/size10"
                             tools:ignore="HardcodedText,TextContrastCheck"
                             tools:text="13+" />
 
@@ -137,8 +135,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_text_regular"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="1sp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/size11"
                 android:layout_marginTop="@dimen/margin4"
@@ -146,7 +142,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
                 tools:ignore="HardcodedText"
-                tools:text="English  |  Drama" />
+                tools:text="English  |   Drama" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/titleView"
@@ -408,21 +404,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:layout_marginTop="@dimen/margin6"
+                android:layout_marginTop="@dimen/margin12"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+            <View
+                android:id="@+id/viewIncludeBelow"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/transparent"
+                android:layout_marginTop="@dimen/margin12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recylerview_show_time_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="@dimen/margin6"
+                android:layout_marginTop="@dimen/margin12"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/include" />
+                app:layout_constraintTop_toBottomOf="@+id/viewIncludeBelow" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_cinema_title"

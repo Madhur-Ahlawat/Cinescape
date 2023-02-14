@@ -18,7 +18,6 @@ import com.cinescape1.utils.invisible
 import com.cinescape1.utils.show
 import com.google.android.flexbox.*
 
-
 class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitleList: List<GetFoodResponse.ComboItem>,
     private var alternateItems: List<GetFoodResponse.AlternateItem>, private val listener:RecycleViewItemClickListener,val foodItem:GetFoodResponse.ConcessionItem,val foodPos:Int):
     RecyclerView.Adapter<AdapterFoodAddComboTitle.MyViewHolderFoodAddComboTitle>() {
@@ -84,6 +83,7 @@ class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitle
             }
 
         } else {
+
             val itemPadding = 2
             //here you may change the divide amount from 2.5 to whatever you need
             val itemWidth = (screenWidth - itemPadding).div(0.5)

@@ -22,11 +22,11 @@
 
         <ImageView
             android:id="@+id/imageViewFlavor"
-            android:layout_width="80dp"
-            android:layout_height="@dimen/margin60"
+            android:layout_width="70dp"
+            android:layout_height="55dp"
             android:adjustViewBounds="true"
-            android:maxWidth="100dp"
-            android:maxHeight="70dp"
+            android:maxWidth="900dp"
+            android:maxHeight="65dp"
             android:src="@drawable/app_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

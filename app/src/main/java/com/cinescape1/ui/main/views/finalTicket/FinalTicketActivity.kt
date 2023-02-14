@@ -68,7 +68,6 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
     private var oneLocation1: TextView? = null
     private var oneDateTime1: TextView? = null
     private var oneScreen1: TextView? = null
-    private var oneType1: TextView? = null
     private var oneCategoryName1: TextView? = null
     private var onePayMode1: TextView? = null
     private var onePrice1: TextView? = null
@@ -114,7 +113,6 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
                 oneLocation1?.typeface = bold
                 oneDateTime1?.typeface = bold
                 oneScreen1?.typeface = bold
-                oneType1?.typeface = bold
                 oneCategoryName1?.typeface = bold
                 onePayMode1?.typeface = bold
                 onePrice1?.typeface = bold
@@ -154,7 +152,6 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
                 oneLocation1?.typeface = bold
                 oneDateTime1?.typeface = bold
                 oneScreen1?.typeface = bold
-                oneType1?.typeface = bold
                 oneCategoryName1?.typeface = bold
                 onePayMode1?.typeface = bold
                 onePrice1?.typeface = bold
@@ -195,7 +192,6 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
                 oneLocation1?.typeface = bold
                 oneDateTime1?.typeface = bold
                 oneScreen1?.typeface = bold
-                oneType1?.typeface = bold
                 oneCategoryName1?.typeface = bold
                 onePayMode1?.typeface = bold
                 onePrice1?.typeface = bold
@@ -507,7 +503,6 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
         oneLocation: TextView,
         oneDateTime: TextView,
         oneScreen: TextView,
-        oneType: TextView,
         oneCategoryName: TextView,
         onePayMode: TextView,
         onePrice: TextView
@@ -518,7 +513,6 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
         oneLocation1 = oneLocation
         oneDateTime1 = oneDateTime
         oneScreen1 = oneScreen
-        oneType1 = oneType
         oneCategoryName1 = oneCategoryName
         onePayMode1 = onePayMode
         onePrice1 = onePrice

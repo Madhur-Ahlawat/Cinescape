@@ -59,8 +59,9 @@ class AdapterDayDate(var context: Activity, private var dayDateList: ArrayList<C
             val bold: Typeface = context.resources.getFont(R.font.sf_pro_text_semibold)
             holder.day.textSize = 13f
             holder.date.textSize = 20f
-            holder.day.typeface = regular
-            holder.date.typeface = regular
+            holder.day.typeface = bold
+            holder.date.typeface = bold
+
         } else {
             holder.consBackground.setBackgroundResource(R.drawable.day_un_select_rectangle)
             holder.day.setTextColor(ContextCompat.getColor(context, R.color.white))
