@@ -51,6 +51,7 @@
         android:fontFamily="@font/sf_pro_text_regular"
         android:textColor="#ADADAD"
         android:textSize="@dimen/size14"
+        android:justificationMode="inter_word"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

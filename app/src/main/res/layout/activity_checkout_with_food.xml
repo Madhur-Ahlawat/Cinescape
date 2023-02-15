@@ -27,7 +27,7 @@
             <ImageView
                 android:id="@+id/imageView6"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="320dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/contentDes"
                 android:maxHeight="400dp"
@@ -163,8 +163,10 @@
                         android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/view_food"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/view_food"
                         app:layout_constraintTop_toBottomOf="@+id/view_food"
+                        app:layout_constraintVertical_bias="0.0"
                         tools:itemCount="3"
                         tools:listitem="@layout/checkout_food_item" />
 

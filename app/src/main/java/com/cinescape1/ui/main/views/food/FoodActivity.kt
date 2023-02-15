@@ -402,8 +402,7 @@ class FoodActivity : DaggerAppCompatActivity(),
     private fun setFoodSelectAdapter(concessionTabs: ArrayList<GetFoodResponse.ConcessionTab>) {
         if (concessionTabs.isNotEmpty()){
             binding?.uiFood?.show()
-            val horizontalLayoutManagaer =
-                LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            val horizontalLayoutManagaer = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             binding?.recyclerFoodSelectItem?.layoutManager = LinearLayoutManager(this)
             val adapter = AdapterFoodSelectedItem(this, concessionTabs, this, this)
             binding?.recyclerFoodSelectItem?.layoutManager = horizontalLayoutManagaer
@@ -502,16 +501,11 @@ class FoodActivity : DaggerAppCompatActivity(),
 
     override fun onFoodCatClick(foodItem: GetFoodResponse.ConcessionTab, view: View) {
 
-//        if (tvClearItem?.visibility == View.GONE){
-//            updateSelectedList(null,1)
-//            foodCartAdapter?.notifyDataSetChanged()
-//            individualAdapter?.notifyDataSetChanged()
-//        }else{
             focusOnView(view, binding?.recyclerFoodSelectItem!!)
             foodSelectedList = foodItem.concessionItems
             tabItem = foodItem
             setFoodComboAdapter(foodSelectedList!!)
-//        }
+
 
     }
 
@@ -594,9 +588,7 @@ class FoodActivity : DaggerAppCompatActivity(),
 
             textTotal1?.text = getString(R.string.price_kd) + " ${
                 Constant.DECIFORMAT.format(
-                    getAllFoodPrice().replace("KWD ", "").toDouble() + seatPrice.replace(
-                        "KWD ", ""
-                    ).toDouble()
+                    getAllFoodPrice().replace("KWD ", "").toDouble() + seatPrice.replace("KWD ", "").toDouble()
                 )
             }"
             val title = mDialogView.findViewById<TextView>(R.id.tv_seat_film_title)
@@ -672,6 +664,7 @@ class FoodActivity : DaggerAppCompatActivity(),
         if (foodCartList?.size!! > 0) {
             tvClearItem?.show()
         } else {
+
             tvClearItem?.invisible()
             emptyCart?.show()
 //            proceedBtn1.setText(R.string.close)
@@ -688,6 +681,7 @@ class FoodActivity : DaggerAppCompatActivity(),
         }
 
         tvClearItem?.setOnClickListener {
+
             foodCartListNew?.clear()
             foodCartList?.clear()
             updateFoodList()
@@ -701,6 +695,12 @@ class FoodActivity : DaggerAppCompatActivity(),
             foodCartAdapter?.notifyDataSetChanged()
             individualAdapter?.notifyDataSetChanged()
             mFoodCartDialog?.dismiss()
+
+            finish()
+            overridePendingTransition(0, 0)
+            startActivity(intent)
+            overridePendingTransition(0, 0)
+
         }
     }
 
@@ -1032,6 +1032,7 @@ class FoodActivity : DaggerAppCompatActivity(),
         img1Close.setOnClickListener {
             mAlertDialog.dismiss()
         }
+
         val recyclerviewComboTitle = mDialogView.findViewById<View>(R.id.recyclerview_combo_title) as RecyclerView
         textDecrease = mDialogView.findViewById<View>(R.id.text_decrease) as TextView
         textIncrease = mDialogView.findViewById<View>(R.id.text_increase) as TextView

@@ -25,6 +25,7 @@
         android:textAlignment="textStart"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="30dp"
+        android:justificationMode="inter_word"
         android:fontFamily="@font/sf_pro_text_regular"
         tools:text="By selecting these seats, I hereby confirm that the seats selected in each grouping are for members of the same household only, seats cannot be moved around without permission, and must maintain a minimum two meter distancing from all other groups. I accept that violating this rule will result in losing these tickets without a refund. I also confirm that I will abide by all Cinescape’s COVID – 19 rules and regulations set forth in this booking process and in cinemas, and that violating them will result in losing these tickets."
         android:textColor="#ADADAD"

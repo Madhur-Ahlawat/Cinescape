@@ -174,7 +174,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     private var seatCategory: String = ""
     private var seatType: String = ""
 
-    private var historyCheck = 0
+    private var preferencesCheck = 0
 
 //    private val experience: ArrayList<String> = ArrayList()
 //    private val seatTypeList: ArrayList<String> = ArrayList()
@@ -1077,7 +1077,11 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
         //Save Prefrence
         textView3.setOnClickListener {
-//            try {
+
+            preferencesCheck = 1
+
+            println("updatePreferenceConstant------->${Constant.experience.toString()}--${Constant.ageRating.toString()}")
+
             updatePreference(PreferenceRequest(
                     arbic,
                     cinema,
@@ -2270,6 +2274,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 //                categoryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_alert_color_red))
 
                 if (seat == "Family") {
+
                     for (items in listFA){
                         println("SeatListClick22222 ------------->2")
                         Glide.with(this).load(items.imgCate).placeholder(R.drawable.family_active).into(categoryImage)
@@ -2384,17 +2389,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                             println("SeatListClick22222 ------------->listBA2")
                             Glide.with(this).load(items.imgCate).dontAnimate().placeholder(R.drawable.family_n_active).into(categoryImage)
 
-//                            GlideApp.with(SOMETHING)
-//                                .load("WHAT")
-//                                .dontAnimate()
-//                                .let { request ->
-//                                    if(imageView.drawable != null) {
-//                                        request.placeholder(imageView.drawable.constantState?.newDrawable()?.mutate())
-//                                    } else {
-//                                        request
-//                                    }
-//                                }
-//                                .into(imageView)
 
                         }
                     }
@@ -2434,6 +2428,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
             if (type_item.seatType == seat) {
                 typeName.setTextColor(getColor(requireContext(), R.color.text_alert_color_red))
+                Constant.seatTypeList.add(type_item.seatType)
             } else {
                 typeName.setTextColor(getColor(requireContext(), R.color.hint_color))
             }
@@ -2596,6 +2591,9 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     getColor(requireContext(), R.color.text_alert_color_red),
                     android.graphics.PorterDuff.Mode.MULTIPLY
                 )
+                println("ExperienceLikes----->${data.name}---->${data.likes}")
+                Constant.experience.add(data.name)
+
             } else {
                 experienceName.setColorFilter(
                     getColor(requireContext(), R.color.hint_color),
@@ -2676,34 +2674,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
             if (age_rating_item.likes) {
                 ageRatingName.setTextColor(getColor(requireContext(), R.color.text_alert_color_red))
-//                    when (age_rating_item.name) {
-//                        "E" -> {
-//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.green))
-//                        }
-//                        "T" -> {
-//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.green))
-//                        }
-//
-//                        "PG" -> {
-//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.grey))
-//                        }
-//
-//                        "G" -> {
-//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.grey))
-//                        }
-//
-//                        "13+" -> {
-//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.yellow))
-//
-//                        }
-//                        "15+" -> {
-//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.yellow))
-//                        }
-//                        "18+" -> {
-//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.text_alert_color_red))
-//
-//                        }
-//                    }
+                Constant.ageRating.add(age_rating_item.name)
 
             } else {
                 ageRatingName.setTextColor(getColor(requireContext(), R.color.hint_color))
@@ -2717,33 +2688,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     ageRatingName.setTextColor(getColor(requireContext(), R.color.hint_color))
                 } else {
 
-//                    when (age_rating_item.name) {
-//                        "E" -> {
-//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.green))
-//                        }
-//                        "T" -> {
-//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.green))
-//                        }
-//
-//                        "PG" -> {
-//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.grey))
-//                        }
-//
-//                        "G" -> {
-//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.grey))
-//                        }
-//
-//                        "13+" -> {
-//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.yellow))
-//
-//                        }
-//                        "15+" -> {
-//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.yellow))
-//                        }
-//                        "18+" -> {
-//                            ageRatingName.setTextColor(getColor(requireContext(), R.color.text_alert_color_red))
-//                        }
-//                    }
 
                     ageRatingName.setTextColor(
                         getColor(
@@ -3238,11 +3182,17 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                         loader?.dismiss()
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                myNextBooking(
-                                    NextBookingsRequest(
-                                        "", "", 0, preferences.getString(Constant.USER_ID).toString(), true
+
+                                if (preferencesCheck == 0){
+                                    myNextBooking(
+                                        NextBookingsRequest(
+                                            "", "", 0, preferences.getString(Constant.USER_ID).toString(), true
+                                        )
                                     )
-                                )
+                                }else{
+                                    preferencesCheck = 0
+                                }
+
 
                                 profileList = it.data.output.experience
                                 ageRatingList = it.data.output.rating

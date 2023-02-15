@@ -367,12 +367,20 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
                 .placeholder(R.drawable.app_icon)
                 .into(it)
         }
-        binding?.imageView49?.let {
-            Glide.with(this)
-                .load(output.posterhori)
-                .placeholder(R.drawable.app_icon)
-                .into(it)
-
+        if (output.bookingType == "BOOKING"){
+            binding?.imageView49?.let {
+                Glide.with(this)
+                    .load(output.posterhori)
+                    .placeholder(R.drawable.app_icon)
+                    .into(it)
+        }
+        }else {
+            binding?.imageView49?.let {
+                Glide.with(this)
+                    .load(output.posterhori)
+                    .placeholder(R.drawable.food_final_icon)
+                    .into(it)
+            }
         }
 
         binding?.uiFinalTaket?.show()
@@ -390,9 +398,9 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
                 finalTicketLocalModel.add(FinalTicketLocalModel(output.bookingType, 3))
             }
         } else {
-            finalTicketLocalModel.add(FinalTicketLocalModel(output.bookingType, 2))
-//            finalTicketLocalModel.add(FinalTicketLocalModel(output.bookingType, 3))
 
+            finalTicketLocalModel.add(FinalTicketLocalModel(output.bookingType, 2))
+//          finalTicketLocalModel.add(FinalTicketLocalModel(output.bookingType, 3))
             println("checkCase--->3---New")
         }
 

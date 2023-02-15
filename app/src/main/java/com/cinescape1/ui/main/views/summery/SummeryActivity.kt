@@ -29,6 +29,7 @@ import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.adapters.SummerySeatListAdapter
 import com.cinescape1.ui.main.views.adapters.checkoutAdapter.AdapterCheckoutFoodItem
+import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.ui.main.views.login.LoginActivity
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity
 import com.cinescape1.ui.main.views.summery.viewModel.SummeryViewModel
@@ -324,7 +325,18 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
             Constant.IntentKey.TimerExtand = 90
             Constant.IntentKey.TimerTime = 360
             cancelTrans(CancelTransRequest(bookingId, transId))
-            finish()
+            if (bookType == "FOOD"){
+
+                Constant.IntentKey.DialogShow = true
+                val intent = Intent(this, HomeActivity::class.java)
+                Constant.IntentKey.OPEN_FROM = 0
+                startActivity(intent)
+                finish()
+
+            }else{
+                finish()
+            }
+
         }
 
         dialog.negative_btn?.setOnClickListener {
@@ -480,8 +492,10 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
 
         if (output.bookingType == "FOOD") {
             setCheckoutOnlyFoodItemAdapter(output.concessionFoods)
+            Glide.with(this).load(output.posterhori).placeholder(R.drawable.food_final_icon).into(binding?.imageView6!!)
             ticketPage.hide()
             priceView.hide()
+            binding?.view?.visibility = View.INVISIBLE
             totalPrice = output.totalTicketPrice
             binding?.priceUi?.hide()
             checkout_food_include.show()
@@ -489,6 +503,7 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
             foodViewCheck.hide()
 
         } else {
+
             ticketPage.show()
             priceView.show()
             foodViewCheck.show()
@@ -496,12 +511,9 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
             binding?.priceUi?.hide()
             checkout_food_include.hide()
             image = output.posterhori
-            Glide.with(this)
-                .load(output.posterhori)
-                .placeholder(R.drawable.bombshell)
-                .into(binding?.imageView6!!)
+            Glide.with(this).load(output.posterhori).placeholder(R.drawable.bombshell).into(binding?.imageView6!!)
             summary_name_movie.text = output.moviename
-            txt_screen.text = output.screenId.toString()
+            txt_screen.text = output.screenId
             text_location_names.text = output.cinemaname
             text_times2.text = output.experience
             text_date_name.text = output.showDate
@@ -592,6 +604,8 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
             click = true
 
         }
+
+        binding?.textFood?.hide()
     }
 
     private fun setCheckoutFoodItemAdapter(concessionFoods: List<TicketSummaryResponse.ConcessionFood>) {

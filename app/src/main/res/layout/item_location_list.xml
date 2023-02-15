@@ -42,6 +42,7 @@
         android:fontFamily="@font/sf_pro_text_regular"
         tools:text="Jassem Mohammad Al-Kharafi Road, 360 mall, Zahra, Kuwait"
         android:textColor="#A6ADB4"
+        android:justificationMode="inter_word"
         android:textSize="12sp"
         app:layout_constraintEnd_toStartOf="@+id/imageView22"
         app:layout_constraintStart_toStartOf="parent"

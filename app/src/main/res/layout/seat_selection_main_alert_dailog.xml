@@ -782,7 +782,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/sf_pro_text_bold"
                             android:gravity="start"
-                            android:text="@string/cancel"
+                            android:text="@string/cancelComma"
                             android:textColor="@color/white"
                             android:textSize="@dimen/size16"
                             app:layout_constraintBottom_toBottomOf="parent"

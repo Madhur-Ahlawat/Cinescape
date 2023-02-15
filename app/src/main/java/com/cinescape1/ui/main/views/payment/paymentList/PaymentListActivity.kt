@@ -38,6 +38,7 @@ import com.cinescape1.di.scoped.ActivityScoped
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
+import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.ui.main.views.payment.PaymentWebActivity
 import com.cinescape1.ui.main.views.payment.paymentList.adapter.PaymentListAdapter
 import com.cinescape1.ui.main.views.payment.paymentList.response.GiftCardRemove
@@ -119,7 +120,11 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             image = intent.getStringExtra("image").toString()
             paidPrice = intent.getStringExtra("paidPrice").toString()
 
-            Glide.with(this).load(image).placeholder(R.drawable.bombshell).into(binding?.imageView6!!)
+            if (bookType == "FOOD"){
+                Glide.with(this).load(image).placeholder(R.drawable.food_final_icon).into(binding?.imageView6!!)
+            }else{
+                Glide.with(this).load(image).placeholder(R.drawable.bombshell).into(binding?.imageView6!!)
+            }
 
             println("book--->${bookingId}--type->${bookType}---transId--->${transId}>")
         }catch (e : Exception){
@@ -1748,7 +1753,16 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             Constant.IntentKey.TimerExtand = 90
             Constant.IntentKey.TimerTime = 360
             cancelTrans(CancelTransRequest(bookingId, transId))
-            finish()
+            if (bookType == "FOOD"){
+                Constant.IntentKey.DialogShow = true
+                val intent = Intent(this, HomeActivity::class.java)
+                Constant.IntentKey.OPEN_FROM = 0
+                startActivity(intent)
+                finish()
+
+            }else{
+                finish()
+            }
         }
 
         dialog.negative_btn?.setOnClickListener {
