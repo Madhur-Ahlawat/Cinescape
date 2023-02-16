@@ -93,7 +93,6 @@ class AdapterNowShowing(
 
 
         holder.thumbnail.setOnClickListener {
-
             val intent = Intent(holder.thumbnail.context, ShowTimesActivity::class.java)
             intent.putExtra(Constant.IntentKey.MOVIE_ID, comingSoonItem.id)
             holder.thumbnail.context.startActivity(intent)

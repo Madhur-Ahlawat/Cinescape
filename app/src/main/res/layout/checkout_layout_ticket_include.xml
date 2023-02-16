@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -37,20 +38,24 @@
             app:layout_constraintTop_toBottomOf="@+id/textView111" />
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/linearLayout2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:alignContent="flex_start"
+            app:alignItems="flex_start"
+            app:flexWrap="nowrap"
             app:layout_constraintBottom_toBottomOf="@+id/view_movie_name"
             app:layout_constraintEnd_toEndOf="@+id/view_times"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/text_date_name"
             app:layout_constraintTop_toTopOf="@+id/view_movie_name"
-            app:layout_constraintVertical_bias="1.0">
+            app:layout_constraintVertical_bias="1.0"
+            app:showDivider="middle">
 
             <TextView
                 android:id="@+id/summary_name_movie"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:fontFamily="@font/sf_pro_text_heavy"
@@ -64,44 +69,43 @@
                 app:layout_constraintEnd_toStartOf="@+id/constraintLayout18"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="klkllkm " />
+                tools:text="Gunda Rajjlkn jhjjbhjkbhkb kkjbjkbbk jbklja " />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/constraintLayout18"
-                android:layout_width="wrap_content"
+                android:layout_width="55dp"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="bottom"
+                app:layout_alignSelf="stretch"
+                android:maxLines="1"
+                android:minWidth="37dp"
                 app:layout_constraintBottom_toBottomOf="@+id/summary_name_movie"
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/ratingUi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="16dp"
+                    android:layout_width="@dimen/margin27"
+                    android:layout_height="wrap_content"
                     app:cardCornerRadius="@dimen/margin2"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
                         android:id="@+id/summary_censor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/sf_pro_text_heavy"
+                        android:layout_width="@dimen/margin27"
+                        android:layout_height="@dimen/margin15"
+                        android:fontFamily="@font/sf_pro_text_regular"
                         android:gravity="center"
                         android:includeFontPadding="false"
-                        android:paddingStart="@dimen/margin6"
-                        android:paddingEnd="@dimen/margin6"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/size11"
+                        android:textSize="@dimen/size10"
                         tools:ignore="HardcodedText,TextContrastCheck"
                         tools:text="13+" />
-
                 </androidx.cardview.widget.CardView>
 
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </com.google.android.flexbox.FlexboxLayout>
 
         <View
             android:id="@+id/view_locations"

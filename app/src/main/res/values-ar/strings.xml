@@ -377,6 +377,7 @@
     <string name="no_food_available">لا يوجد طعام متاح</string>
     <string name="coming_soon_">قريباً -</string>
     <string name="email_msg_invalid1">الرجاء إدخال البريد الإلكتروني الصحيح</string>
+    <string name="available_bank_offer">Available Bank Offer</string>
 
 
 </resources>

@@ -351,7 +351,7 @@
     <string name="promo">Promo</string>
     <string name="enter_voucher_code">Enter voucher number</string>
     <string name="enter_gift_card">Enter gift card number</string>
-    <string name="enter_bank_card">Enter bank card number</string>
+    <string name="enter_bank_card">Enter card number</string>
     <string name="enter_promo_code">Enter promo code</string>
 
     <string name="change_password">Change Password</string>
@@ -370,5 +370,6 @@
     <string name="recharge_success">Your Recharge has been successfull</string>
     <string name="no_food_available">No Food Available</string>
     <string name="coming_soon_">Coming Soon -</string>
+    <string name="available_bank_offer">Available Bank Offer</string>
 
 </resources>

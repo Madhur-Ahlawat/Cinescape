@@ -8,9 +8,13 @@ data class ImgComingSoon(
     val img: Int?
 )
 
-data class MovieCastModel(
-    val castName: String?,
-    val imgOfCast: Int?
+data class BankModel(
+    val listBank: ArrayList<BankModelObject>
+)
+data class BankModelObject(
+    var id: Int?,
+    var bankName: String?
+
 )
 
 data class ModelsRefunded(

@@ -125,8 +125,9 @@ class AdvanceBookingAdapter(private var nowShowingList: List<MoviesResponse.Adva
         holder.thumbnail.setOnClickListener {
             val intent = Intent(holder.thumbnail.context, ShowTimesActivity::class.java)
             intent.putExtra(Constant.IntentKey.MOVIE_ID, comingSoonItem.id)
-            intent.putExtra("type", "comingSoon")
+            intent.putExtra("type","advance")
             holder.thumbnail.context.startActivity(intent)
+
         }
 
     }

@@ -2,17 +2,20 @@ package com.cinescape1.ui.main.views.payment.paymentList.adapter
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.graphics.Color
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cinescape1.R
+import com.cinescape1.data.models.BankModel
 import com.cinescape1.data.models.responseModel.GetMovieResponse
 import com.cinescape1.databinding.ItemPaymentListBinding
 import com.cinescape1.ui.main.dailogs.OptionDialog
@@ -167,30 +170,51 @@ class PaymentListAdapter(
 
                 //show Hide
                 binding.offerEditText.hint = clickName
-                binding.imageView63.setOnClickListener {
+                binding.consItemClick.setOnClickListener {
                     when (this.payType) {
                         "BANK" -> {
                             if (binding.bankOffer.visibility == View.GONE) {
                                 binding.imageView63.setImageResource(R.drawable.arrow_up)
                                 binding.bankOffer.show()
-                                val list: ArrayList<PaymentListResponse.Output.PayMode.RespPayMode.PayModeBank> =
-                                    this.respPayModes[0].payModeBanks
-                                val customAdapter = BankOfferAdapter(context, list)
+                                val list: ArrayList<PaymentListResponse.Output.PayMode.RespPayMode.PayModeBank> = ArrayList()
+                                list.add(PaymentListResponse.Output.PayMode.RespPayMode.PayModeBank(0,"Available Bank Offers"))
+                                    list.addAll(this.respPayModes[0].payModeBanks)
 
+
+
+//                                val array_adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, list)
+//                                array_adapter.setDropDownViewResource(R.layout.bank_offer)
+//
+//                                binding.spinner2.adapter = array_adapter
+
+                                val customAdapter = BankOfferAdapter(context, list)
                                 binding.spinner2.adapter = customAdapter
+
                                 binding.spinner2.onItemSelectedListener =
                                     object : AdapterView.OnItemSelectedListener {
                                         override fun onItemSelected(
                                             parent: AdapterView<*>,
                                             view: View,
                                             position: Int,
-                                            id: Long
-                                        ) {
+                                            id: Long) {
+
+                                            println("customAdapterPosition------>${position}")
                                             offerId = list[position].id.toString()
+
+                                            val value = parent.getItemAtPosition(position) as PaymentListResponse.Output.PayMode.RespPayMode.PayModeBank
+                                            view.setBackgroundColor(Color.parseColor("#000000"))
+                                            if(value == list[0]){
+                                                (view as ConstraintLayout).findViewById<TextView>(R.id.textView21).setTextColor(Color.parseColor("#ADADAD"))
+//                                                binding.linearLayout7.hide()
+//                                                binding.constraintLayout25.hide()
+                                            }
+//                                            binding.linearLayout7.show()
+//                                            binding.constraintLayout25.show()
+
                                         }
 
                                         override fun onNothingSelected(parent: AdapterView<*>) {
-
+//                                            view.setBackgroundColor(Color.parseColor("#000000"))
                                         }
                                     }
 

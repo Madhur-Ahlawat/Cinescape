@@ -238,7 +238,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
         when (type) {
             "comingSoon" -> {
-
                 val layoutParams =
                     (binding?.recylerviewShowTimeDate?.layoutParams as? ViewGroup.MarginLayoutParams)
                 layoutParams?.setMargins(0, 0, 0, 16)
@@ -465,6 +464,8 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         binding?.textView56?.text = output.movie.rating
         val ratingColor = output.movie.ratingColor
         binding?.textView56?.setBackgroundColor(Color.parseColor(ratingColor))
+
+        println("RatingAdvance------->${output.movie.rating}")
 
         if (output.movie.rating == "") {
             binding?.ratingUi?.hide()

@@ -7,39 +7,48 @@
     android:layout_height="wrap_content"
     android:background="@color/black">
 
-    <TextView
-        android:id="@+id/textView156"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="@dimen/margin8"
-        android:fontFamily="@font/sf_pro_text_regular"
-        android:textColor="@color/white"
-        android:textSize="@dimen/size17"
-        app:layout_constraintEnd_toStartOf="@+id/imageView63"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Use a Bank Offer" />
-
-    <ImageView
-        android:id="@+id/imageView63"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:padding="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/consItemClick"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin40"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/arrow_down"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/textView156"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="@dimen/margin8"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size17"
+            app:layout_constraintEnd_toStartOf="@+id/imageView63"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Use a Bank Offer" />
+
+        <ImageView
+            android:id="@+id/imageView63"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:padding="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/arrow_down"
+            tools:ignore="ContentDescription" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/textView156">
+        app:layout_constraintTop_toBottomOf="@+id/consItemClick">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/bankOffer"
@@ -67,11 +76,14 @@
                     android:id="@+id/spinner2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:backgroundTint="@color/white"
+                    app:backgroundTint="@color/transparent"
+                    android:background="@color/transparent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -79,12 +91,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:visibility="visible"
                 android:background="@drawable/curve_payment"
                 app:layout_constraintEnd_toStartOf="@+id/linearLayout7"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout24">
 
 <!--                android:hint="____ - ____ - ____ - ____"-->
+
                 <EditText
                     android:id="@+id/bankEdit"
                     android:layout_width="match_parent"

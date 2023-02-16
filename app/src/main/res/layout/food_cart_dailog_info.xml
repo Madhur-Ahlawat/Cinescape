@@ -120,19 +120,23 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <com.google.android.flexbox.FlexboxLayout
                         android:id="@+id/linearLayout2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
+                        app:alignContent="flex_start"
+                        app:alignItems="flex_start"
+                        app:flexWrap="nowrap"
                         app:layout_constraintEnd_toStartOf="@+id/titleView"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:showDivider="middle">
 
                         <TextView
                             android:id="@+id/tv_seat_film_title"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:fontFamily="@font/sf_pro_text_heavy"
@@ -148,39 +152,42 @@
                             app:layout_constraintTop_toTopOf="parent"
                             tools:text="klkllkm " />
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
+                        <androidx.appcompat.widget.LinearLayoutCompat
                             android:id="@+id/constraintLayout18"
-                            android:layout_width="wrap_content"
+                            android:layout_width="55dp"
                             android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:gravity="bottom"
+                            app:layout_alignSelf="stretch"
+                            android:maxLines="1"
+                            android:minWidth="37dp"
                             app:layout_constraintBottom_toBottomOf="@+id/tv_seat_film_title"
                             app:layout_constraintEnd_toEndOf="parent">
 
                             <androidx.cardview.widget.CardView
                                 android:id="@+id/ratingUiFOod"
-                                android:layout_width="wrap_content"
-                                android:layout_height="@dimen/margin15"
-                                app:cardCornerRadius="@dimen/margin3"
+                                android:layout_width="@dimen/margin27"
+                                android:layout_height="wrap_content"
+                                app:cardCornerRadius="@dimen/margin2"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent">
 
                                 <TextView
                                     android:id="@+id/rating"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
+                                    android:layout_width="@dimen/margin27"
+                                    android:layout_height="15dp"
                                     android:fontFamily="@font/sf_pro_text_regular"
                                     android:gravity="center"
                                     android:includeFontPadding="false"
-                                    android:paddingStart="@dimen/margin6"
-                                    android:paddingEnd="@dimen/margin6"
                                     android:textColor="@color/white"
-                                    android:textSize="@dimen/size11"
+                                    android:textSize="@dimen/size10"
                                     tools:ignore="HardcodedText,TextContrastCheck"
                                     tools:text="13+" />
                             </androidx.cardview.widget.CardView>
 
 
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </com.google.android.flexbox.FlexboxLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/constraintLayout17"
