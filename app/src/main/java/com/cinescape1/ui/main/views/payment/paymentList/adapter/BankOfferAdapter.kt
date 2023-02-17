@@ -40,7 +40,7 @@ class BankOfferAdapter(context: Context, private val locationlist: List<PaymentL
         return view
     }
 
-    override fun getItem(position: Int): Any? {
+    override fun getItem(position: Int): Any {
         return locationlist[position]
     }
 
@@ -56,8 +56,6 @@ class BankOfferAdapter(context: Context, private val locationlist: List<PaymentL
         val constraintLayout = (super.getDropDownView(position, convertView, parent) as ConstraintLayout)
         val view: TextView = constraintLayout.findViewById(R.id.textView21)
 
-//        constraintLayout.setBackgroundColor(Color.parseColor("#000000"))
-        //set the color of first item in the drop down list to gray
         if(position == 0) {
             view.setTextColor(Color.parseColor("#ADADAD"))
         } else {

@@ -39,10 +39,40 @@
             app:layout_constraintTop_toTopOf="@+id/view23"
             app:layout_constraintVertical_bias="0.493" />
 
+        <TextView
+            android:id="@+id/cartTime1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_heavy"
+            android:gravity="center"
+            android:letterSpacing="0.05"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size16"
+            android:textStyle="bold"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/text_food_select"
+            app:layout_constraintEnd_toEndOf="@+id/view23"
+            app:layout_constraintTop_toTopOf="@+id/text_food_select"
+            tools:text="6:00" />
+
+        <TextView
+            android:id="@+id/textView112"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/time_left"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size11"
+            android:visibility="visible"
+            android:layout_marginEnd="@dimen/margin12"
+            app:layout_constraintBottom_toBottomOf="@+id/cartTime1"
+            app:layout_constraintEnd_toStartOf="@+id/cartTime1"
+            app:layout_constraintTop_toTopOf="@+id/cartTime1" />
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/txt_skip_proceed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/text_food_select"
             app:layout_constraintEnd_toEndOf="@+id/view23"
             app:layout_constraintTop_toTopOf="@+id/text_food_select">
@@ -155,6 +185,7 @@
                 android:id="@+id/view_time_left"
                 android:layout_width="0dp"
                 android:layout_height="70dp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/view_cancel"
                 app:layout_constraintEnd_toStartOf="@+id/view_cart"
                 app:layout_constraintHorizontal_weight="1"
@@ -173,6 +204,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/size12"
                 android:textStyle="normal"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@+id/view_time_left"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/view_time_left"
@@ -188,6 +220,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/size16"
                 android:textStyle="bold"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@+id/view_time_left"
                 app:layout_constraintStart_toStartOf="@+id/view_time_left"
                 app:layout_constraintTop_toBottomOf="@+id/text_time_left"
@@ -226,7 +259,6 @@
                 android:id="@+id/view_cart"
                 android:layout_width="0dp"
                 android:layout_height="70dp"
-                app:layout_constraintBottom_toBottomOf="@+id/view_time_left"
                 app:layout_constraintEnd_toStartOf="@+id/view_proceed"
                 app:layout_constraintHorizontal_weight=".8"
                 app:layout_constraintStart_toEndOf="@+id/view_time_left"

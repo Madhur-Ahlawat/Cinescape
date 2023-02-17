@@ -181,12 +181,6 @@ class PaymentListAdapter(
                                     list.addAll(this.respPayModes[0].payModeBanks)
 
 
-
-//                                val array_adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, list)
-//                                array_adapter.setDropDownViewResource(R.layout.bank_offer)
-//
-//                                binding.spinner2.adapter = array_adapter
-
                                 val customAdapter = BankOfferAdapter(context, list)
                                 binding.spinner2.adapter = customAdapter
 
@@ -200,16 +194,17 @@ class PaymentListAdapter(
 
                                             println("customAdapterPosition------>${position}")
                                             offerId = list[position].id.toString()
+                                            if (position == 0){
+                                                binding.constraintLayout25.hide()
+                                            }else{
+                                                binding.constraintLayout25.show()
+                                            }
 
                                             val value = parent.getItemAtPosition(position) as PaymentListResponse.Output.PayMode.RespPayMode.PayModeBank
                                             view.setBackgroundColor(Color.parseColor("#000000"))
                                             if(value == list[0]){
                                                 (view as ConstraintLayout).findViewById<TextView>(R.id.textView21).setTextColor(Color.parseColor("#ADADAD"))
-//                                                binding.linearLayout7.hide()
-//                                                binding.constraintLayout25.hide()
                                             }
-//                                            binding.linearLayout7.show()
-//                                            binding.constraintLayout25.show()
 
                                         }
 

@@ -479,6 +479,23 @@
             app:layout_constraintEnd_toStartOf="@+id/textView111"
             app:layout_constraintTop_toTopOf="@+id/textView111" />
 
+        <TextView
+            android:id="@+id/textPaymentReview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_heavy"
+            android:text="@string/payment_review"
+            android:gravity="center"
+            android:letterSpacing="0.05"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size16"
+            android:textStyle="bold"
+            android:visibility="visible"
+            android:textAllCaps="true"
+            app:layout_constraintBottom_toBottomOf="@+id/textView112"
+            app:layout_constraintStart_toStartOf="@+id/view_movie_name"
+            app:layout_constraintTop_toTopOf="@+id/textView112" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include

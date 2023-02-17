@@ -269,7 +269,8 @@ class FoodActivity : DaggerAppCompatActivity(),
 
         movieRatingColor= intent.getStringExtra("movieRatingColor").toString()
         if (booktype != "FOOD") {
-            binding?.txtSkipProceed?.show()
+//            binding?.txtSkipProceed?.show()
+
             binding?.viewCancel?.setOnClickListener {
                 cancelDialog()
             }
@@ -303,7 +304,8 @@ class FoodActivity : DaggerAppCompatActivity(),
             }
 
         } else {
-            binding?.txtSkipProceed?.hide()
+
+//            binding?.txtSkipProceed?.hide()
             binding?.viewCancel?.setOnClickListener {
                 val intent = Intent(this@FoodActivity, HomeActivity::class.java)
                 startActivity(intent)
@@ -346,7 +348,9 @@ class FoodActivity : DaggerAppCompatActivity(),
         } else {
             binding?.textTimeToLeft?.hide()
             binding?.textTimeLeft?.hide()
+            binding?.textView112?.hide()
         }
+
         broadcastReceiver = MyReceiver()
         broadcastIntent()
         getFood()
@@ -715,6 +719,7 @@ class FoodActivity : DaggerAppCompatActivity(),
 
                 binding?.textTimeToLeft?.text = display
                 cartTime?.text = display
+                binding?.cartTime1?.text = display
                 timeCount = minutes * 60 + second
                 secondLeft=second
                 println("timerrr--->${second}")
@@ -731,6 +736,7 @@ class FoodActivity : DaggerAppCompatActivity(),
 
                                 binding?.textTimeToLeft?.text = display
                                 cartTime?.text = display
+                                binding?.cartTime1?.text = display
                                 println("getTimeValue--->${cartTime?.text}")
                                 TimerExtand = minutes * 60 + second
                             }
@@ -811,6 +817,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                     val minutes = millisUntilFinished / (1000 * 60) % 60
                     binding?.textTimeToLeft?.text = "$minutes:$second"
                     cartTime?.text = "$minutes:$second"
+                    binding?.cartTime1?.text = "$minutes:$second"
                     println("getTimeValue---2>${cartTime?.text}")
 
                     TimerExtand = minutes * 60 + second

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     xmlns:tools="http://schemas.android.com/tools">
 
 
@@ -52,17 +53,15 @@
         <TextView
             android:id="@+id/textView105"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="21dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="17.21dp"
-            android:layout_marginBottom="32dp"
             android:fontFamily="@font/sf_pro_text_regular"
             android:gravity="top"
             android:lineSpacingExtra="0.12dp"
             android:textColor="@color/hint_color"
             android:textSize="@dimen/size15"
-            app:layout_constraintBottom_toTopOf="@+id/close_dialog"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/view98"
             app:layout_constraintTop_toBottomOf="@+id/textView104"
@@ -85,6 +84,30 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/txtPickupDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:includeFontPadding="false"
+            android:textColor="@color/hint_color"
+            android:textSize="@dimen/size15"
+            android:text="@string/more_details_on_food_pickup"
+            app:layout_constraintBottom_toTopOf="@+id/close_dialog"
+            app:layout_constraintEnd_toEndOf="@+id/textView105"
+            app:layout_constraintStart_toStartOf="@+id/textView105"
+            app:layout_constraintTop_toBottomOf="@+id/textView105" />
+
+        <View
+            android:id="@+id/view11"
+            android:layout_width="0dp"
+            android:layout_height="1.5dp"
+            android:background="@color/hint_color"
+            app:layout_constraintBottom_toBottomOf="@+id/txtPickupDetail"
+            app:layout_constraintEnd_toEndOf="@+id/txtPickupDetail"
+            app:layout_constraintStart_toStartOf="@+id/txtPickupDetail" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

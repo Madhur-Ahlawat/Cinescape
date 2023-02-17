@@ -371,5 +371,7 @@
     <string name="no_food_available">No Food Available</string>
     <string name="coming_soon_">Coming Soon -</string>
     <string name="available_bank_offer">Available Bank Offer</string>
+    <string name="more_details_on_food_pickup">More Details on Food pickup</string>
+    <string name="payment_review">Payment Review</string>
 
 </resources>

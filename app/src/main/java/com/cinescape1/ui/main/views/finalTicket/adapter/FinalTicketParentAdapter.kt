@@ -143,10 +143,8 @@ class FinalTicketParentAdapter(
                return 2
             }
 
-
         }
         return super.getItemViewType(position)
-
 
     }
 
