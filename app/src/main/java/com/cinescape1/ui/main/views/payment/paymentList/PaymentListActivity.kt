@@ -149,6 +149,29 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         binding?.viewCancel?.setOnClickListener {
             cancelDialog()
         }
+
+        binding?.viewTimeLeft?.setOnClickListener {
+            paymentDialog()
+        }
+
+    }
+
+    private fun paymentDialog(){
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.paymnet_info_dialog)
+        dialog.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
+        dialog.window?.setGravity(Gravity.BOTTOM)
+        dialog.show()
+        val imageView71 = dialog.findViewById<ImageView>(R.id.imageView71)
+        imageView71.setOnClickListener {
+            dialog.dismiss()
+        }
     }
 
     private fun ticketList(request: TicketSummaryRequest) {
@@ -1279,7 +1302,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         offerEditText: EditText,
         textView157: TextView,
         checkBox2: ImageView,
-        imageView66: ImageView
+        imageView66: ImageView,
+        textCancelBtn: TextView
     ) {
         if (clickName == "Gift Card") {
             giftCardApply(
@@ -1289,9 +1313,10 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     offerCode,
                     transId,
                     preferences.getString(Constant.USER_ID).toString()
-                ), offerEditText, textView157, checkBox2, imageView66
+                ), offerEditText, textView157, checkBox2, imageView66,textCancelBtn
             )
         } else if (clickName == "Voucher") {
+
             voucherApply(
                 GiftCardRequest(
                     bookingId,
@@ -1299,8 +1324,9 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     offerCode,
                     transId,
                     preferences.getString(Constant.USER_ID).toString()
-                ), offerEditText, textView157, checkBox2, imageView66
+                ), offerEditText, textView157, checkBox2, imageView66, textCancelBtn
             )
+
         }
     }
 
@@ -1334,7 +1360,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         offerEditText: EditText,
         textView157: TextView,
         checkBox2: ImageView,
-        imageView66: ImageView
+        imageView66: ImageView,
+        textCancelBtn: TextView
     ) {
         summeryViewModel.voucherApply(request).observe(this) {
             it?.let { resource ->
@@ -1478,7 +1505,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         offerEditText: EditText,
         apply: TextView,
         imageCheck: ImageView,
-        remove: ImageView
+        remove: ImageView,
+        textCancelBtn: TextView
     ) {
         summeryViewModel.giftCardApply(request).observe(this) {
             it?.let { resource ->
@@ -1489,7 +1517,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
                                     retrieveDataGiftCard(
-                                        it.data.output, offerEditText, apply, imageCheck, remove
+                                        it.data.output, offerEditText, apply, imageCheck, remove, textCancelBtn
                                     )
                                 } catch (e: Exception) {
                                     println("updateUiCinemaSession ---> ${e.message}")
@@ -1537,7 +1565,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         offerEditText: EditText,
         apply: TextView,
         imageCheck: ImageView,
-        remove: ImageView
+        remove: ImageView,
+        textCancelBtn: TextView
     ) {
         if (output.PAID == "NO") {
             binding?.textTimeToLeft?.text = output.amount
@@ -1555,12 +1584,13 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             Constant.IntentKey.TimerExtandCheck = true
             Constant.IntentKey.TimerExtand = 90
             Constant.IntentKey.TimerTime = 360
-            val intent = Intent(
-                applicationContext, FinalTicketActivity::class.java
-            )
-            intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
-            intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
-            startActivity(intent)
+            apply.hide()
+            textCancelBtn.show()
+
+//            val intent = Intent(applicationContext, FinalTicketActivity::class.java)
+//            intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
+//            intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
+//            startActivity(intent)
         }
     }
 

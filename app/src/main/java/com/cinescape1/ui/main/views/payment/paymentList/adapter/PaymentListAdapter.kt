@@ -64,8 +64,8 @@ class PaymentListAdapter(
                 }
 
                 if (PaymentListActivity.giftApplied){
-                    binding.imageView63.isClickable = false
-                    binding.imageView63.isEnabled = false
+                    binding.consItemClick.isClickable = false
+                    binding.consItemClick.isEnabled = false
                     binding.knet.isClickable = false
                     binding.knet.isEnabled = false
                     //offer Click
@@ -81,8 +81,8 @@ class PaymentListAdapter(
                 }else{
                     binding.knet.isClickable = true
                     binding.knet.isEnabled = true
-                    binding.imageView63.isClickable = true
-                    binding.imageView63.isEnabled = true
+                    binding.consItemClick.isClickable = true
+                    binding.consItemClick.isEnabled = true
                     //offer Click
                     binding.textView157.isClickable = true
                     binding.textView157.isEnabled = true
@@ -96,8 +96,8 @@ class PaymentListAdapter(
                 }
 
                 if (PaymentListActivity.offerApplied) {
-                    binding.imageView63.isClickable = false
-                    binding.imageView63.isEnabled = false
+                    binding.consItemClick.isClickable = false
+                    binding.consItemClick.isEnabled = false
                     binding.knet.isClickable = false
                     binding.knet.isEnabled = false
                     //offer Click
@@ -113,8 +113,8 @@ class PaymentListAdapter(
                 } else {
                     binding.knet.isClickable = true
                     binding.knet.isEnabled = true
-                    binding.imageView63.isClickable = true
-                    binding.imageView63.isEnabled = true
+                    binding.consItemClick.isClickable = true
+                    binding.consItemClick.isEnabled = true
                     //offer Click
                     binding.textView157.isClickable = true
                     binding.textView157.isEnabled = true
@@ -179,7 +179,6 @@ class PaymentListAdapter(
                                 val list: ArrayList<PaymentListResponse.Output.PayMode.RespPayMode.PayModeBank> = ArrayList()
                                 list.add(PaymentListResponse.Output.PayMode.RespPayMode.PayModeBank(0,"Available Bank Offers"))
                                     list.addAll(this.respPayModes[0].payModeBanks)
-
 
                                 val customAdapter = BankOfferAdapter(context, list)
                                 binding.spinner2.adapter = customAdapter
@@ -362,10 +361,18 @@ class PaymentListAdapter(
                                             binding.offerEditText,
                                             binding.textView157,
                                             binding.checkBox2,
-                                            binding.imageView66
+                                            binding.imageView66,
+                                            binding.textCancelBtn,
                                         )
                                     }
                                 }
+
+                                // Cancel btn
+                                binding.textCancelBtn.setOnClickListener {
+                                    binding.textCancelBtn.hide()
+                                    binding.textView157.show()
+                                }
+
                                 //remove voucher
                                 binding.imageView66.setOnClickListener {
                                     val offerCode = binding.offerEditText.text.toString()
@@ -537,7 +544,8 @@ class PaymentListAdapter(
             offerEditText: EditText,
             textView157: TextView,
             checkBox2: ImageView,
-            imageView66: ImageView
+            imageView66: ImageView,
+            textCancelBtn: TextView
         )
 
         fun onGiftCardItemRemove(

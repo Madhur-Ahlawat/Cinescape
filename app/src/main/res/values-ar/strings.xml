@@ -380,6 +380,7 @@
     <string name="available_bank_offer">Available Bank Offer</string>
     <string name="more_details_on_food_pickup">More Details on Food pickup</string>
     <string name="payment_review">Payment Review</string>
+    <string name="payment_summary">Payment Summary</string>
 
 
 </resources>

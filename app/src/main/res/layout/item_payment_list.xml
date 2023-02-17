@@ -212,7 +212,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/margin35"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bankOffer">
@@ -304,7 +304,6 @@
                     app:tint="@color/text_color"
                     tools:ignore="ContentDescription" />
 
-
                 <TextView
                     android:id="@+id/textView157"
                     android:layout_width="wrap_content"
@@ -315,6 +314,21 @@
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/size15"
                     android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textCancelBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin32"
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:text="@string/cancel"
+                    android:textColor="@color/text_alert_color_red"
+                    android:textSize="@dimen/size15"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
