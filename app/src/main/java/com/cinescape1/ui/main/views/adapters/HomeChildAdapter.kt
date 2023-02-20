@@ -52,7 +52,7 @@ class HomeChildAdapter(
                 val holder = holder as MyViewHolderSlider
                 Glide.with(context)
                     .load(photoItem.mobimgsmall)
-                    .error(R.drawable.placeholder_home_small_poster)
+                    .error(R.drawable.placeholder_icon)
                     .into(holder.image)
 
             } else {
@@ -90,7 +90,7 @@ class HomeChildAdapter(
 
                 Glide.with(context)
                     .load(photoItem.mobimgsmall)
-                    .error(R.drawable.placeholder_home_small_poster)
+                    .error(R.drawable.placeholder_icon)
                     .into(holder.thumbnail)
 
                 println("tags--->${photoItem.tag}")

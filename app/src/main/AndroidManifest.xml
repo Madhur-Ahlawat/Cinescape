@@ -49,7 +49,17 @@
         <activity
             android:name=".ui.main.views.login.otpVerification.OtpVerificationActivity"
             android:exported="false"
-            android:theme="@style/Theme.Cinescape.NoActionBar" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Cinescape.NoActionBar"
+            tools:ignore="LockedOrientationActivity"/>
+
+        <activity
+            android:name=".ui.main.views.deleteAccount.DeleteAccountActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Cinescape.NoActionBar"
+            tools:ignore="LockedOrientationActivity"/>
+
         <activity
             android:name=".ui.main.views.payment.paymentFaield.PaymentFailedActivity"
             android:exported="false" />

@@ -58,6 +58,7 @@ import com.cinescape1.ui.main.views.adapters.CountryCodeAdapter
 import com.cinescape1.ui.main.views.adapters.ExperienceAdapter
 import com.cinescape1.ui.main.views.adapters.accountPageAdapters.AdapterBookingHistory
 import com.cinescape1.ui.main.views.adapters.accountPageAdapters.UpcomingBookingAdapter
+import com.cinescape1.ui.main.views.deleteAccount.DeleteAccountActivity
 import com.cinescape1.ui.main.views.home.adapter.CustomSpinnerAdapter
 import com.cinescape1.ui.main.views.home.fragments.account.adapter.RechargeSpinnerAdapter
 import com.cinescape1.ui.main.views.home.fragments.account.response.RechargeAmountResponse
@@ -1051,6 +1052,11 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
         }
 
+//        deleteAccount.setOnClickListener {
+//            val intent = Intent(requireContext(), DeleteAccountActivity::class.java)
+//            startActivity(intent)
+//        }
+
         enter_date_births.setOnClickListener {
 
             var datePicker: DatePickerDialog? = null
@@ -1077,11 +1083,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
         //Save Prefrence
         textView3.setOnClickListener {
-
             preferencesCheck = 1
-
             println("updatePreferenceConstant------->${Constant.experience.toString()}--${Constant.ageRating.toString()}")
-
             updatePreference(PreferenceRequest(
                     arbic,
                     cinema,

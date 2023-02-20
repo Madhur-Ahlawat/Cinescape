@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/transparent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ticketPage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView161"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.01"
+            android:text="@string/please_tell_us_why_you_are_deleting_you_account"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size15"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/textView161"
+            app:layout_constraintTop_toBottomOf="@+id/textView161">
+
+            <RadioButton
+                android:id="@+id/radio1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:checked="false"
+                android:text="@string/i_prefer_to_be_anonymous"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size16" />
+
+            <RadioButton
+                android:id="@+id/radio2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:text="@string/i_am_unhappy_with_cinescape"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size16" />
+
+            <RadioButton
+                android:id="@+id/radio3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:text="@string/i_don_t_visit_cinescape_any_more"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size16" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/textView162"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:letterSpacing="-0.01"
+            android:text="@string/or_write_to_us"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size15"
+            app:layout_constraintStart_toStartOf="@+id/radioGroup"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+        <EditText
+            android:id="@+id/edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/back_msg"
+            android:layout_marginTop="@dimen/margin12"
+            android:gravity="start"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:minHeight="100dp"
+            android:padding="@dimen/margin15"
+            android:text=""
+            android:layout_marginEnd="@dimen/margin20"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView162"
+            app:layout_constraintTop_toBottomOf="@+id/textView162" />
+
+        <TextView
+            android:id="@+id/textSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:letterSpacing="-0.01"
+            android:text="@string/send"
+            android:paddingStart="@dimen/margin12"
+            android:paddingEnd="@dimen/margin12"
+            android:textColor="@color/white"
+            android:background="@drawable/a_autotext_bg"
+            android:textSize="@dimen/size15"
+            app:layout_constraintEnd_toEndOf="@+id/edit"
+            app:layout_constraintStart_toStartOf="@+id/edit"
+            app:layout_constraintTop_toBottomOf="@+id/edit" />
+
+        <TextView
+            android:id="@+id/textView164"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:letterSpacing="-0.01"
+            android:text="@string/deleting_your_account_will_delete_your_profile_details_and_booking_history"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size15"
+            app:layout_constraintEnd_toEndOf="@+id/edit"
+            app:layout_constraintStart_toStartOf="@+id/edit"
+            app:layout_constraintTop_toBottomOf="@+id/textSend" />
+
+        <TextView
+            android:id="@+id/textView165"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:letterSpacing="-0.01"
+            android:text="@string/to_delete_your_account_type_your_email_address_and_confirm"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size15"
+            app:layout_constraintEnd_toEndOf="@+id/textView164"
+            app:layout_constraintStart_toStartOf="@+id/textView164"
+            app:layout_constraintTop_toBottomOf="@+id/textView164" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/enterEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="24dp"
+            android:background="@color/transparent"
+            android:hint="@string/type_your_email_address"
+            android:textColorHint="@color/arabic_color"
+            app:boxStrokeColor="@color/edittext_selector"
+            app:hintTextColor="@color/editColor"
+            app:layout_constraintEnd_toEndOf="@+id/textView165"
+            app:layout_constraintStart_toStartOf="@+id/textView165"
+            app:layout_constraintTop_toBottomOf="@+id/textView165">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/contactEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/a_autotext_bg"
+                            android:imeOptions="actionNext"
+                            android:inputType="textEmailAddress"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/hint_color"
+                            android:textCursorDrawable="@null"
+                            android:textSize="@dimen/size15"
+                            tools:ignore="TextContrastCheck,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/btnConfirmDeletion"
+            android:layout_width="0dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/red_curv_bt"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:gravity="center"
+            android:letterSpacing="-0.01"
+            android:text="@string/confirm_deletion"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size15"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/enterEmail"
+            app:layout_constraintStart_toStartOf="@+id/enterEmail"
+            app:layout_constraintTop_toBottomOf="@+id/enterEmail" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

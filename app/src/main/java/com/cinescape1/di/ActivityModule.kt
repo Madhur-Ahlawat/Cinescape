@@ -5,6 +5,8 @@ import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
 import com.cinescape1.ui.main.modules.*
 import com.cinescape1.ui.main.views.activeWallet.ActivateWalletActivity
 import com.cinescape1.ui.main.views.activeWallet.module.ActivateWalletModule
+import com.cinescape1.ui.main.views.deleteAccount.DeleteAccountActivity
+import com.cinescape1.ui.main.views.deleteAccount.module.DeleteAccountModule
 import com.cinescape1.ui.main.views.details.nowShowing.ShowTimesActivity
 import com.cinescape1.ui.main.views.details.nowShowing.module.CinemaLocationModule
 import com.cinescape1.ui.main.views.details.nowShowing.module.ShowTimesModule
@@ -133,6 +135,11 @@ abstract class ActivityModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [ComingSoonModule::class])
     abstract fun comActivity(): ComingSoonActivity
+
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [DeleteAccountModule::class])
+    abstract fun deleteAccActivity(): DeleteAccountActivity
 
 
 }

@@ -13,7 +13,7 @@
         android:id="@+id/LayoutTime"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <View
             android:id="@+id/view66"
@@ -50,10 +50,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout14"
             android:layout_width="match_parent"
-            android:layout_height="92dp"
-            android:paddingStart="20dp"
+            android:layout_height="97dp"
+            android:paddingStart="18dp"
             android:paddingEnd="1dp"
-            android:layout_marginBottom="-8dp"
+            android:layout_marginBottom="-6dp"
             app:layout_constraintBottom_toBottomOf="@+id/view66"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/bottomView">
@@ -82,7 +82,7 @@
                     android:includeFontPadding="false"
                     android:maxLines="2"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/size16"
+                    android:textSize="@dimen/size18"
                     android:layout_marginEnd="@dimen/margin12"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/constraintLayout18"
@@ -92,13 +92,14 @@
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:id="@+id/constraintLayout18"
-                    android:layout_width="55dp"
+                    android:layout_width="78dp"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:gravity="bottom"
                     app:layout_alignSelf="stretch"
                     android:maxLines="1"
-                    android:minWidth="37dp"
+                    android:minWidth="40dp"
+                    android:layout_marginBottom="@dimen/margin3"
                     app:layout_constraintBottom_toBottomOf="@+id/text_film_house_name"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/text_film_house_name">
@@ -106,7 +107,7 @@
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/ratingUi"
-                            android:layout_width="@dimen/margin27"
+                            android:layout_width="@dimen/margin28"
                             android:layout_height="wrap_content"
                             android:background="@color/transparent"
                             android:backgroundTint="@color/transparent"
@@ -117,7 +118,7 @@
 
                             <TextView
                                 android:id="@+id/textView56"
-                                android:layout_width="@dimen/margin27"
+                                android:layout_width="@dimen/margin28"
                                 android:layout_height="@dimen/margin15"
                                 android:fontFamily="@font/sf_pro_text_regular"
                                 android:gravity="center"
@@ -137,7 +138,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_text_regular"
-                android:textColor="@color/white"
+                android:textColor="@color/text_color"
                 android:textSize="@dimen/size11"
                 android:layout_marginTop="@dimen/margin4"
                 app:layout_constraintEnd_toStartOf="@+id/titleView"
@@ -183,7 +184,7 @@
                         android:gravity="center"
                         android:text="@string/movie_n_info"
                         android:textAlignment="center"
-                        android:textColor="@color/white"
+                        android:textColor="@color/text_color"
                         android:textSize="@dimen/size11"
                         android:textStyle="normal"
                         app:layout_constraintEnd_toEndOf="@+id/image_up"
@@ -490,7 +491,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_text_regular"
-                android:textColor="#C1C1C1"
+                android:textColor="@color/white"
                 android:textSize="@dimen/size13"
                 android:gravity="center"
                 android:layout_marginStart="60dp"

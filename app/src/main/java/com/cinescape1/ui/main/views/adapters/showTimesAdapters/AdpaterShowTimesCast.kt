@@ -30,7 +30,7 @@ class AdpaterShowTimesCast(
             holder.movieCastName.text = comingSoonItem.firstName + " " + comingSoonItem.lastName
             Glide.with(mContext)
                 .load(comingSoonItem.urlToPicture)
-                .placeholder(R.drawable.app_icon)
+                .placeholder(R.drawable.ic_back_button)
                 .into(holder.imgCast)
 
         listener.onTypeFaceFoodShowTime(holder.movieCastName)

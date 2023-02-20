@@ -374,5 +374,15 @@
     <string name="more_details_on_food_pickup">More Details on Food pickup</string>
     <string name="payment_review">Payment Review</string>
     <string name="payment_summary">Payment Summary</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="please_tell_us_why_you_are_deleting_you_account">Please tell us why you are deleting you account</string>
+    <string name="i_prefer_to_be_anonymous">I prefer to be anonymous</string>
+    <string name="i_am_unhappy_with_cinescape">I am unhappy with cinescape</string>
+    <string name="i_don_t_visit_cinescape_any_more">I don\'t visit cinescape any more</string>
+    <string name="or_write_to_us">Or write to us.</string>
+    <string name="deleting_your_account_will_delete_your_profile_details_and_booking_history">Deleting your account will delete your profile details and booking history</string>
+    <string name="to_delete_your_account_type_your_email_address_and_confirm">To delete your account, type your email address and confirm</string>
+    <string name="type_your_email_address">Type your email address</string>
+    <string name="confirm_deletion">Confirm Deletion</string>
 
 </resources>

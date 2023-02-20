@@ -62,18 +62,18 @@ class CinemaPageAdapter(
         viewpager?.setPageTransformer(transfer)
 
         if (rowIndex == position) {
-            val regular: Typeface = mContext.resources.getFont(R.font.sf_pro_text_bold)
-            holder.cinemaName.typeface = regular
-            holder.cinemaName.textSize = 18F
+            val bold: Typeface = mContext.resources.getFont(R.font.sf_pro_text_bold)
+            holder.cinemaName.typeface = bold
+            holder.cinemaName.textSize = 17F
             holder.cinemaName.setTextColor(mContext.getColor(R.color.white))
 //                    holder.image.show()
         } else {
-            val bold: Typeface = mContext.resources.getFont(R.font.sf_pro_text_regular)
-            holder.cinemaName.textSize = 18f
-            holder.cinemaName.typeface = bold
-            holder.cinemaName.setTextColor(mContext.getColor(R.color.text_color))
-//                    holder.image.hide()
 
+            val bold: Typeface = mContext.resources.getFont(R.font.sf_pro_text_bold)
+            holder.cinemaName.textSize = 17f
+            holder.cinemaName.typeface = bold
+            holder.cinemaName.setTextColor(mContext.getColor(R.color.white))
+//                    holder.image.hide()
         }
 
         holder.cinemaName.text = obj.cinema.name
