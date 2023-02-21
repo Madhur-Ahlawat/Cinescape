@@ -153,7 +153,7 @@
                     android:id="@+id/tv_seat_timing_date"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sf_pro_text_bold"
+                    android:fontFamily="@font/sf_pro_text_regular"
                     android:lineSpacingExtra="1.5sp"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size14"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -95,6 +96,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/size16"
                 android:layout_marginEnd="@dimen/margin12"
+                android:layout_marginStart="17dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/constraintLayout18"
                 app:layout_constraintStart_toStartOf="parent"
@@ -103,7 +105,7 @@
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/constraintLayout18"
-                android:layout_width="55dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:gravity="bottom"
@@ -148,7 +150,7 @@
             android:id="@+id/constraintLayout14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="20dp"
+            android:paddingStart="17dp"
             android:paddingEnd="1dp"
             android:layout_marginBottom="@dimen/margin8"
             app:layout_constraintBottom_toBottomOf="@+id/imageView69"
@@ -264,10 +266,9 @@
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="1sp"
-                android:textColor="@color/white"
-                android:textSize="@dimen/size13"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/size12"
                 app:layout_constraintEnd_toStartOf="@+id/titleView"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="HardcodedText"

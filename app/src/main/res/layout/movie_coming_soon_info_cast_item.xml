@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/backUi"
             android:layout_width="70dp"
@@ -43,10 +42,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sf_pro_text_regular"
+            android:layout_marginTop="@dimen/margin4"
+            android:includeFontPadding="false"
             android:gravity="center"
             android:maxLines="2"
             android:textColor="@color/text_color"
-            android:textSize="@dimen/size14"
+            android:textSize="@dimen/size15"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/backUi"

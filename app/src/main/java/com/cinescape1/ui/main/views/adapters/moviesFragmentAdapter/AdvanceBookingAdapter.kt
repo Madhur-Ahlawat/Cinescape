@@ -95,7 +95,7 @@ class AdvanceBookingAdapter(private var nowShowingList: List<MoviesResponse.Adva
 
         Glide.with(mContext)
             .load(comingSoonItem.mobimgsmall)
-            .error(R.drawable.pos_not_avilbale)
+            .error(R.drawable.placeholder_icon)
             .into(holder.thumbnail)
 
         holder.movieTitle.text = comingSoonItem.title

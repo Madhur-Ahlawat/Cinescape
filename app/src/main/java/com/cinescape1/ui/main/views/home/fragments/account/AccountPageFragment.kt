@@ -1077,7 +1077,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 //                datePicker!!.datePicker.minDate = calendar.timeInMillis
             // show the dialog
             datePicker.show()
-
         }
 
 

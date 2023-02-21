@@ -9,7 +9,6 @@
     android:visibility="visible"
     android:background="@color/black">
 
-
     <androidx.core.widget.NestedScrollView
         android:fillViewport="true"
         android:layout_width="match_parent"

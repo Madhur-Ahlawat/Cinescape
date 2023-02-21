@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/black"
-    android:layout_marginStart="@dimen/margin4"
     android:layout_marginBottom="@dimen/margin30">
 
     <androidx.cardview.widget.CardView
@@ -41,8 +40,8 @@
 
                     <ImageView
                         android:id="@+id/image_now_showing"
-                        android:layout_width="160dp"
-                        android:layout_height="237dp"
+                        android:layout_width="161dp"
+                        android:layout_height="240dp"
                         android:adjustViewBounds="true"
                         android:scaleType="fitXY"
                         app:layout_constraintBottom_toBottomOf="parent"

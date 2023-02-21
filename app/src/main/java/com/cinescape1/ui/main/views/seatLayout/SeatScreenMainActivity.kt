@@ -105,7 +105,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                 binding?.tvSeatFilmTitle?.typeface = bold // heavy
                 binding?.tvSeatFilmType?.typeface = regular
                 binding?.tvCinemaName?.typeface = bold
-                binding?.tvSeatTimingDate?.typeface = bold
+                binding?.tvSeatTimingDate?.typeface = regular
                 binding?.textType?.typeface = regular
                 binding?.textView75?.typeface = regular
                 binding?.textAvailable?.typeface = regular
@@ -127,7 +127,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                 binding?.tvSeatFilmTitle?.typeface = heavy // heavy
                 binding?.tvSeatFilmType?.typeface = regular
                 binding?.tvCinemaName?.typeface = bold
-                binding?.tvSeatTimingDate?.typeface = bold
+                binding?.tvSeatTimingDate?.typeface = regular
                 binding?.textType?.typeface = regular
                 binding?.textView75?.typeface = regular
                 binding?.textAvailable?.typeface = regular
@@ -149,7 +149,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                 binding?.tvSeatFilmTitle?.typeface = heavy // heavy
                 binding?.tvSeatFilmType?.typeface = regular
                 binding?.tvCinemaName?.typeface = bold
-                binding?.tvSeatTimingDate?.typeface = bold
+                binding?.tvSeatTimingDate?.typeface = regular
                 binding?.textType?.typeface = regular
                 binding?.textView75?.typeface = regular
                 binding?.textAvailable?.typeface = regular

@@ -143,7 +143,6 @@ class UpcomingBookingAdapter(
             }
 
         }else if (foodSelctedItem.foodPickup==true) {
-
             holder.btClick.show()
             holder.btClick.text = mContext.resources.getString(R.string.food_pickup_info)
             holder.btClick.setOnClickListener {

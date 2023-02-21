@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +23,7 @@ import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 import com.haozhang.lib.SlantedTextView
 
+
 class AdapterNowShowing(
     private var nowShowingList: ArrayList<MoviesResponse.Nowshowing>, context: Activity) :
     RecyclerView.Adapter<AdapterNowShowing.MyViewHolderNowShowing>() {
@@ -31,18 +33,26 @@ class AdapterNowShowing(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderNowShowing {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_now_showing_item_tesy, parent, false)
+        mContext.windowManager.defaultDisplay.getMetrics(displayMetrics);
+
         return MyViewHolderNowShowing(view)
     }
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolderNowShowing, position: Int) {
         val comingSoonItem = nowShowingList[position]
+        screenWidth = displayMetrics.widthPixels
+        holder.thumbnail.layoutParams.width = ((screenWidth)/2f).toInt()
 
-//        mContext.windowManager.defaultDisplay.getMetrics(displayMetrics)
-//        screenWidth = displayMetrics.widthPixels
-//        holder.thumbnail.layoutParams.width = ((screenWidth)/2.25f).toInt()
+        val layoutParams = LinearLayout.LayoutParams(100, 100)
+        iv.setLayoutParams(layoutParams)
+        holder.thumbnail.viewTreeObserver.addOnGlobalLayoutListener {
+            val height: Int = holder.thumbnail.width
+            // Do something with the height
+            println("NowShowingScreenWidth-------->${height}--------->${comingSoonItem.mobimgsmall}")
 
-        println("NowShowingScreenWidth-------->${((screenWidth)/2.27f).toInt()}--------->${comingSoonItem.mobimgsmall}")
+            // Remove the layout listener so we don't waste time on future passes
+        }
 
 //        holder.thumbnail.layout(0,0,0,0)
 
