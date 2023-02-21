@@ -32,13 +32,13 @@ class AdvanceBookingAdapter(private var nowShowingList: List<MoviesResponse.Adva
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderNowShowing {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_now_showing_item, parent, false)
+        mContext.windowManager.defaultDisplay.getMetrics(displayMetrics)
         return MyViewHolderNowShowing(view)
     }
 
     override fun onBindViewHolder(holder: MyViewHolderNowShowing, position: Int) {
         val comingSoonItem = nowShowingList[position]
 
-       mContext.windowManager.defaultDisplay.getMetrics(displayMetrics)
         screenWidth = displayMetrics.widthPixels
         holder.thumbnail.layoutParams.width = ((screenWidth)/2.2f).toInt()
 

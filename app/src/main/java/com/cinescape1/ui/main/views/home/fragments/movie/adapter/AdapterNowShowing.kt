@@ -42,19 +42,7 @@ class AdapterNowShowing(
     override fun onBindViewHolder(holder: MyViewHolderNowShowing, position: Int) {
         val comingSoonItem = nowShowingList[position]
         screenWidth = displayMetrics.widthPixels
-        holder.thumbnail.layoutParams.width = ((screenWidth)/2f).toInt()
-
-        val layoutParams = LinearLayout.LayoutParams(100, 100)
-        iv.setLayoutParams(layoutParams)
-        holder.thumbnail.viewTreeObserver.addOnGlobalLayoutListener {
-            val height: Int = holder.thumbnail.width
-            // Do something with the height
-            println("NowShowingScreenWidth-------->${height}--------->${comingSoonItem.mobimgsmall}")
-
-            // Remove the layout listener so we don't waste time on future passes
-        }
-
-//        holder.thumbnail.layout(0,0,0,0)
+        holder.thumbnail.layoutParams.width = ((screenWidth)/2.2f).toInt()
 
         Glide.with(mContext).load(comingSoonItem.mobimgsmall).error(R.drawable.app_icon).into(holder.thumbnail)
 
