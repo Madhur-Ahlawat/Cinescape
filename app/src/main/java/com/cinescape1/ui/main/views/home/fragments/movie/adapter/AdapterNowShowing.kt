@@ -33,7 +33,7 @@ class AdapterNowShowing(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderNowShowing {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_now_showing_item_tesy, parent, false)
-        mContext.windowManager.defaultDisplay.getMetrics(displayMetrics);
+        mContext.windowManager.defaultDisplay.getMetrics(displayMetrics)
 
         return MyViewHolderNowShowing(view)
     }

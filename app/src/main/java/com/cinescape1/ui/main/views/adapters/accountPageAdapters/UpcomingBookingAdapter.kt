@@ -13,6 +13,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cinescape1.R
@@ -42,7 +44,8 @@ class UpcomingBookingAdapter(
         val foodSelctedItem = upcomingBookingList[position]
 
         holder.textNameMovie.isSelected = true
-        holder.btClick.isSelected = true
+
+//        holder.btClick.isSelected = true
 
         Glide.with(mContext)
             .load(foodSelctedItem.posterhori)
@@ -131,44 +134,66 @@ class UpcomingBookingAdapter(
             holder.cardView.show()
         }
 
-        if (foodSelctedItem.addFood==true) {
-            holder.btClick.show()
-            holder.btClick.text = mContext.resources.getString(R.string.addFoodMsg)
-            holder.btClick.setOnClickListener {
-                val intent = Intent(mContext, FoodActivity::class.java)
-                    .putExtra("CINEMA_ID", foodSelctedItem.cinemacode)
-                    .putExtra("BOOKING", "FOOD")
-                    .putExtra("type", "FOOD")
-                mContext.startActivity(intent)
-            }
+//        if (foodSelctedItem.addFood==true) {
+//            holder.btClick.show()
+//            holder.btClick.text = mContext.resources.getString(R.string.addFoodMsg)
+//            holder.btClick.setOnClickListener {
+//                val intent = Intent(mContext, FoodActivity::class.java)
+//                    .putExtra("CINEMA_ID", foodSelctedItem.cinemacode)
+//                    .putExtra("BOOKING", "FOOD")
+//                    .putExtra("type", "FOOD")
+//                mContext.startActivity(intent)
+//            }
+//
+//        }else if (foodSelctedItem.foodPickup==true) {
+//            holder.btClick.show()
+//            holder.btClick.text = mContext.resources.getString(R.string.food_pickup_info)
+//            holder.btClick.setOnClickListener {
+//                val mDialogView =
+//                    LayoutInflater.from(context).inflate(R.layout.food_pickup_dialog, null)
+//                val mBuilder = AlertDialog.Builder(context, R.style.NewDialog).setView(mDialogView)
+//                val mAlertDialog = mBuilder.show()
+//                mAlertDialog.show()
+//                mAlertDialog.window?.setBackgroundDrawableResource(R.color.black70)
+//                val closeDialog = mDialogView.findViewById<TextView>(R.id.close_dialog)
+//                val text=mAlertDialog.findViewById<TextView>(R.id.textView105)
+//
+//                   text?.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                    Html.fromHtml(foodSelctedItem.pickupInfo, Html.FROM_HTML_MODE_COMPACT)
+//                } else {
+//                    Html.fromHtml(foodSelctedItem.pickupInfo)
+//                }
+//
+//                closeDialog.setOnClickListener {
+//                    mAlertDialog.dismiss()
+//                }
+//            }
+//        }else{
+//
+//            holder.btClick.hide()
+//        }
 
-        }else if (foodSelctedItem.foodPickup==true) {
-            holder.btClick.show()
-            holder.btClick.text = mContext.resources.getString(R.string.food_pickup_info)
-            holder.btClick.setOnClickListener {
-                val mDialogView =
-                    LayoutInflater.from(context).inflate(R.layout.food_pickup_dialog, null)
-                val mBuilder = AlertDialog.Builder(context, R.style.NewDialog).setView(mDialogView)
-                val mAlertDialog = mBuilder.show()
-                mAlertDialog.show()
-                mAlertDialog.window?.setBackgroundDrawableResource(R.color.black70)
-                val closeDialog = mDialogView.findViewById<TextView>(R.id.close_dialog)
-                val text=mAlertDialog.findViewById<TextView>(R.id.textView105)
-
-                   text?.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    Html.fromHtml(foodSelctedItem.pickupInfo, Html.FROM_HTML_MODE_COMPACT)
-                } else {
-                    Html.fromHtml(foodSelctedItem.pickupInfo)
-                }
-
-                closeDialog.setOnClickListener {
-                    mAlertDialog.dismiss()
-                }
-            }
-        }else{
-
-            holder.btClick.hide()
+        if (foodSelctedItem.food == 0){
+            holder.btFoodPrepare.hide()
+            holder.foodAddBtn.hide()
+            holder.consFoodPickupId.hide()
         }
+
+        if (foodSelctedItem.food == 1){
+            holder.btFoodPrepare.hide()
+            holder.foodAddBtn.show()
+            holder.consFoodPickupId.hide()
+        }
+
+        if (foodSelctedItem.food == 2) {
+            holder.btFoodPrepare.show()
+            holder.foodAddBtn.hide()
+            holder.consFoodPickupId.hide()
+
+//            holder.btFoodPrepare.setBackgroundColor(ContextCompat.getDrawable(mContext,R.drawable.food_pickup_bg))
+        }
+
+
 
         if (foodSelctedItem.trailerUrl == "") {
             holder.trailer.hide()
@@ -239,7 +264,12 @@ class UpcomingBookingAdapter(
         var cardView: CardView = view.findViewById(R.id.ratingUi)
         var thumbnail: ImageView = view.findViewById(R.id.imageView7)
         var trailer: ImageView = view.findViewById(R.id.imageView30)
-        var btClick: TextView = view.findViewById(R.id.food_pickup_btn)
+        var btFoodPrepare: TextView = view.findViewById(R.id.food_pickup_btn)
+        var foodAddBtn: TextView = view.findViewById(R.id.foodAddBtn)
+        var consFoodPickupId: ConstraintLayout = view.findViewById(R.id.consFoodPickupId)
+
+        var txtFoodPickupId: TextView = view.findViewById(R.id.textView167)
+
         var cancelReservation: TextView = view.findViewById(R.id.imageView31)
         var resendMail: TextView = view.findViewById(R.id.imageView32)
 

@@ -364,23 +364,105 @@
             android:layout_height="wrap_content"
             android:background="@drawable/curv_bt"
             android:fontFamily="@font/sf_pro_text_bold"
-            android:freezesText="true"
             android:gravity="center"
             android:letterSpacing="-0.02"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:paddingStart="@dimen/margin12"
+            android:paddingStart="@dimen/margin4"
             android:paddingTop="@dimen/margin4"
             android:paddingEnd="@dimen/margin12"
             android:paddingBottom="@dimen/margin4"
-            android:text="@string/food_pickup_info"
+            android:drawableStart="@drawable/ic_food"
+            android:drawablePadding="@dimen/margin4"
+            android:text="@string/prepare_food"
             android:textColor="@color/white"
             android:textSize="@dimen/size14"
             android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/view_food_pickup_info_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/view_food_pickup_info_btn"
+            app:layout_constraintTop_toTopOf="@+id/view_food_pickup_info_btn" />
+        <TextView
+            android:id="@+id/foodAddBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/curv_bt"
+            android:fontFamily="@font/sf_pro_text_bold"
+            android:gravity="center"
+            android:letterSpacing="-0.02"
+            android:paddingStart="@dimen/margin4"
+            android:paddingTop="@dimen/margin4"
+            android:paddingEnd="@dimen/margin12"
+            android:paddingBottom="@dimen/margin4"
+            android:drawableStart="@drawable/ic_food"
+            android:drawablePadding="@dimen/margin4"
+            android:text="@string/add_food"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size14"
+            android:textStyle="bold"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/view_food_pickup_info_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/view_food_pickup_info_btn"
             app:layout_constraintTop_toTopOf="@+id/view_food_pickup_info_btn" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/consFoodPickupId"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/view_food_pickup_info_btn"
+            app:layout_constraintEnd_toEndOf="@+id/view_food_pickup_info_btn"
+            app:layout_constraintStart_toStartOf="@+id/view_food_pickup_info_btn"
+            app:layout_constraintTop_toTopOf="@+id/view_food_pickup_info_btn">
+
+
+            <TextView
+                android:id="@+id/textView163"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin8"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:text="@string/food_pickup_id"
+                android:textColor="@color/hint_color"
+                android:textSize="@dimen/size14"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toStartOf="@+id/textView166"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView166"
+                android:layout_width="@dimen/margin25"
+                android:layout_height="@dimen/margin23"
+                android:layout_marginEnd="@dimen/margin10"
+                android:gravity="center"
+                android:text="i"
+                android:textSize="@dimen/size18"
+                android:textColor="@color/white"
+                android:background="#AD696969"
+                app:layout_constraintBottom_toBottomOf="@+id/textView163"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView163" />
+
+            <TextView
+                android:id="@+id/textView167"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/sf_pro_text_bold"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="1sp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size14"
+                android:textStyle="normal"
+                android:paddingTop="@dimen/margin2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/textView163"
+                app:layout_constraintStart_toStartOf="@+id/textView163"
+                app:layout_constraintTop_toBottomOf="@+id/textView163"
+                tools:text="B17"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

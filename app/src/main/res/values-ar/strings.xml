@@ -391,6 +391,9 @@
     <string name="to_delete_your_account_type_your_email_address_and_confirm">To delete your account, type your email address and confirm</string>
     <string name="type_your_email_address">Type your email address</string>
     <string name="confirm_deletion">Confirm Deletion</string>
+    <string name="prepare_food">Prepare Food</string>
+    <string name="add_food">Add Food</string>
+    <string name="food_pickup_id">Food Pickup Id</string>
 
 
 </resources>
