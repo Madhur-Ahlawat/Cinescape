@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
     xmlns:tools="http://schemas.android.com/tools">
-
 
     <View
         android:id="@+id/view97"
@@ -55,7 +55,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="21dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="17.21dp"
             android:fontFamily="@font/sf_pro_text_regular"
             android:gravity="top"
@@ -73,6 +73,7 @@
             android:layout_width="110dp"
             android:layout_height="42dp"
             android:layout_marginBottom="30dp"
+            android:layout_marginTop="@dimen/margin20"
             android:background="@drawable/btn_corner_bg_red"
             android:fontFamily="@font/sf_pro_text_bold"
             android:gravity="center"
@@ -83,7 +84,8 @@
             android:textSize="@dimen/size16"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView105" />
 
         <TextView
             android:id="@+id/txtPickupDetail"
@@ -94,6 +96,7 @@
             android:includeFontPadding="false"
             android:textColor="@color/hint_color"
             android:textSize="@dimen/size15"
+            android:visibility="gone"
             android:text="@string/more_details_on_food_pickup"
             app:layout_constraintBottom_toTopOf="@+id/close_dialog"
             app:layout_constraintEnd_toEndOf="@+id/textView105"
@@ -108,7 +111,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/txtPickupDetail"
             app:layout_constraintEnd_toEndOf="@+id/txtPickupDetail"
             app:layout_constraintStart_toStartOf="@+id/txtPickupDetail" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

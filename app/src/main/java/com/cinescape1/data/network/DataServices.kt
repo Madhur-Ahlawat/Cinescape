@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit
 
 
 interface DataServices {
+
     @Headers(
         "Content-Type: application/json",
         "Accept: application/json"
@@ -139,6 +140,12 @@ interface DataServices {
 
     @POST("history/nextbookings")
     suspend fun nextBookings(@Body request: NextBookingsRequest): Response<NextBookingResponse>
+
+
+    @POST("content/food/pickupfood")
+    suspend fun pickupFood(@Body request: FoodPrepareRequest): Response<FoodPrepareResponse>
+
+
 
     @POST("clubcard/addRechargeCard")
     suspend fun addRechargeCard(@Body request: AddClubRechargeRequest): Response<RechargeCardResponse>

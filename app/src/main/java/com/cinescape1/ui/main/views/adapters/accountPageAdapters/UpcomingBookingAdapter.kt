@@ -30,7 +30,9 @@ class UpcomingBookingAdapter(
     private val context: Context,
     private var upcomingBookingList: ArrayList<NextBookingResponse.Current> ,
     private var listener: RecycleViewItemClickListener,
-    private var listenerMail: ReesendMailItemClickListener) :
+    private var listenerMail: ReesendMailItemClickListener,
+    private var listenerFoodPrepare: RecycleViewItemFoodPrepare
+    ) :
     RecyclerView.Adapter<UpcomingBookingAdapter.MyViewHolderUpcomingBooking>() {
     private var mContext = context
 
@@ -61,7 +63,9 @@ class UpcomingBookingAdapter(
         holder.date.text = foodSelctedItem.showDate
         holder.times.text = foodSelctedItem.showTime
 
-        println("foodSelctedItem.experience---->${foodSelctedItem.experience}")
+        holder.txtFoodPickupId.text = foodSelctedItem.pickUpNumber
+
+        println("foodSelectedItem.experience---->${foodSelctedItem.experience}")
 
         when (foodSelctedItem.experience) {
             "4DX" -> {
@@ -173,6 +177,8 @@ class UpcomingBookingAdapter(
 //            holder.btClick.hide()
 //        }
 
+        println("foodSelectedItem.food-------->${foodSelctedItem.food}")
+
         if (foodSelctedItem.food == 0){
             holder.btFoodPrepare.hide()
             holder.foodAddBtn.hide()
@@ -189,10 +195,22 @@ class UpcomingBookingAdapter(
             holder.btFoodPrepare.show()
             holder.foodAddBtn.hide()
             holder.consFoodPickupId.hide()
-
-//            holder.btFoodPrepare.setBackgroundColor(ContextCompat.getDrawable(mContext,R.drawable.food_pickup_bg))
+            holder.btFoodPrepare.background = ContextCompat.getDrawable(mContext,R.drawable.food_pickup_bg)
+            holder.btFoodPrepare.isClickable = false
         }
 
+        if (foodSelctedItem.food == 3){
+            holder.btFoodPrepare.show()
+            holder.foodAddBtn.hide()
+            holder.consFoodPickupId.hide()
+            holder.btFoodPrepare.isClickable = true
+        }
+
+        if (foodSelctedItem.food == 4){
+            holder.btFoodPrepare.hide()
+            holder.foodAddBtn.hide()
+            holder.consFoodPickupId.show()
+        }
 
 
         if (foodSelctedItem.trailerUrl == "") {
@@ -200,17 +218,17 @@ class UpcomingBookingAdapter(
         } else {
             holder.trailer.hide()
         }
+
         if (!foodSelctedItem.cancelReserve){
             holder.cancelReservation.hide()
         }else{
             holder.cancelReservation.show()
-
         }
 
         holder.cancelReservation.setOnClickListener {
             listener.cancelReserv(foodSelctedItem)
-
         }
+
         holder.resendMail.setOnClickListener {
             listenerMail.resenDmail(foodSelctedItem)
         }
@@ -225,6 +243,46 @@ class UpcomingBookingAdapter(
             mContext.startActivity(intent)
         }
 
+        holder.btFoodPrepare.setOnClickListener {
+            listenerFoodPrepare.foodPrepareClick(foodSelctedItem)
+        }
+
+        holder.foodAddBtn.setOnClickListener {
+
+            val intent = Intent(mContext, FoodActivity::class.java)
+                    .putExtra("CINEMA_ID", foodSelctedItem.cinemacode)
+                    .putExtra("BOOKING", "FOOD")
+                    .putExtra("type", "FOOD")
+                mContext.startActivity(intent)
+        }
+
+        holder.consFoodPickupId.setOnClickListener {
+
+            val mDialogView = LayoutInflater.from(context).inflate(R.layout.food_pickup_dialog, null)
+            val mBuilder = AlertDialog.Builder(context, R.style.NewDialog).setView(mDialogView)
+            val mAlertDialog = mBuilder.show()
+            mAlertDialog.show()
+            mAlertDialog.window?.setBackgroundDrawableResource(R.color.black70)
+            val closeDialog = mDialogView.findViewById<TextView>(R.id.close_dialog)
+            val text=mAlertDialog.findViewById<TextView>(R.id.textView105)
+
+            text?.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Html.fromHtml(foodSelctedItem.pickupInfo, Html.FROM_HTML_MODE_COMPACT)
+            } else {
+                Html.fromHtml(foodSelctedItem.pickupInfo)
+            }
+
+            closeDialog.setOnClickListener {
+                mAlertDialog.dismiss()
+            }
+
+        }
+
+    }
+
+
+    interface RecycleViewItemFoodPrepare {
+        fun foodPrepareClick(foodPrepareItem: NextBookingResponse.Current)
     }
 
     interface RecycleViewItemClickListener {
@@ -264,6 +322,7 @@ class UpcomingBookingAdapter(
         var cardView: CardView = view.findViewById(R.id.ratingUi)
         var thumbnail: ImageView = view.findViewById(R.id.imageView7)
         var trailer: ImageView = view.findViewById(R.id.imageView30)
+
         var btFoodPrepare: TextView = view.findViewById(R.id.food_pickup_btn)
         var foodAddBtn: TextView = view.findViewById(R.id.foodAddBtn)
         var consFoodPickupId: ConstraintLayout = view.findViewById(R.id.consFoodPickupId)

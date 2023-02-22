@@ -111,7 +111,9 @@ import kotlin.collections.ArrayList
 class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemClickListener,
     ExperienceAdapter.RecycleViewItemClickListener,
     UpcomingBookingAdapter.RecycleViewItemClickListener,
-    UpcomingBookingAdapter.ReesendMailItemClickListener, AdapterBookingHistory.typeFaceItem {
+    UpcomingBookingAdapter.ReesendMailItemClickListener,
+    UpcomingBookingAdapter.RecycleViewItemFoodPrepare,
+    AdapterBookingHistory.typeFaceItem {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -3166,7 +3168,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }else{
             val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
             binding?.recyclerviewBooking?.layoutManager = LinearLayoutManager(context)
-            val adapter = UpcomingBookingAdapter(requireContext(), output.output, this, this)
+            val adapter = UpcomingBookingAdapter(requireContext(), output.output, this, this, this)
             binding?.recyclerviewBooking?.isNestedScrollingEnabled = false
             binding?.recyclerviewBooking?.layoutManager = gridLayout
             binding?.recyclerviewBooking?.adapter = adapter
@@ -3644,4 +3646,68 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             }
         }
     }
+
+    // Food Pickup
+    private fun foodPickup(request: FoodPrepareRequest) {
+        accountFragViewModel.foodPickup(request).observe(requireActivity()) {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                try {
+                                    myNextBooking(
+                                        NextBookingsRequest(
+                                            "", "", 0, preferences.getString(Constant.USER_ID).toString(), true
+                                        )
+                                    )
+
+                                    println("FoodPrepareSuccess ---> Success")
+                                } catch (e: Exception) {
+                                    println("FoodPrepareError ---> ${e.message}")
+                                }
+                            }
+
+                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(requireActivity(),
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.data?.message ?: "Something went wrong",
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {
+
+                            },
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                        if (isAdded) {
+                            loader = LoaderDialog(R.string.pleasewait)
+                            loader?.show(requireActivity().supportFragmentManager, null)
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    override fun foodPrepareClick(foodPrepareItem: NextBookingResponse.Current) {
+
+        foodPickup(
+            FoodPrepareRequest(
+                foodPrepareItem.bookingId,
+                "",
+                0,
+                preferences.getString(Constant.USER_ID)!!
+            )
+        )
+
+    }
+
 }

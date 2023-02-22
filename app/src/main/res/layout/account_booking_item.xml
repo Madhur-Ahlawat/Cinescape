@@ -409,7 +409,7 @@
             android:id="@+id/consFoodPickupId"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/view_food_pickup_info_btn"
             app:layout_constraintEnd_toEndOf="@+id/view_food_pickup_info_btn"
             app:layout_constraintStart_toStartOf="@+id/view_food_pickup_info_btn"
@@ -432,14 +432,15 @@
 
             <TextView
                 android:id="@+id/textView166"
-                android:layout_width="@dimen/margin25"
-                android:layout_height="@dimen/margin23"
+                android:layout_width="@dimen/margin18"
+                android:layout_height="@dimen/margin16"
                 android:layout_marginEnd="@dimen/margin10"
                 android:gravity="center"
                 android:text="i"
-                android:textSize="@dimen/size18"
+                android:padding="@dimen/margin2"
+                android:textSize="@dimen/size15"
                 android:textColor="@color/white"
-                android:background="#AD696969"
+                android:background="@drawable/food_pickup_bg"
                 app:layout_constraintBottom_toBottomOf="@+id/textView163"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView163" />

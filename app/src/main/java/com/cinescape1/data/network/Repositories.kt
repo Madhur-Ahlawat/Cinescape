@@ -189,6 +189,10 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
         return apiRequest { api.nextBookings(request) }
     }
 
+    suspend fun foodPickup(request: FoodPrepareRequest): Result<FoodPrepareResponse> {
+        return apiRequest { api.pickupFood(request) }
+    }
+
     suspend fun addClubRechargeCard(request: AddClubRechargeRequest): Result<RechargeCardResponse> {
         return apiRequest { api.addRechargeCard(request) }
     }

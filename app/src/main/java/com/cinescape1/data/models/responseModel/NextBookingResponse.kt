@@ -24,6 +24,7 @@ data class NextBookingResponse(
         val numofseats: Int,
         val payDone: String,
         val pickupInfo: String,
+        val pickUpNumber: String,
         val paymodes: Paymodes,
         val poster: String,
         val posterhori: String,
