@@ -2,10 +2,7 @@ package com.cinescape1.ui.main.views.finalTicket.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.cinescape1.data.models.requestModel.FinalTicketRequest
-import com.cinescape1.data.models.requestModel.MySingleTicketRequest
-import com.cinescape1.data.models.requestModel.ResendRequest
-import com.cinescape1.data.models.requestModel.TicketSummaryRequest
+import com.cinescape1.data.models.requestModel.*
 import com.cinescape1.data.network.Repositories
 import com.cinescape1.data.network.Result
 import com.cinescape1.utils.Status
@@ -80,6 +77,20 @@ class FinalTicketViewModel @Inject constructor(private val repositories: Reposit
             }
         } catch (exception: Exception) {
             emit(Result.error(exception.message ?: "Error Occurred!",data = null))
+        }
+    }
+
+    fun foodPickup(request: FoodPrepareRequest) = liveData(Dispatchers.IO) {
+        emit(Result.loading(data = null))
+        try {
+            val data = repositories.foodPickup(request)
+            if (data.status == Status.ERROR) {
+                emit(Result.error(data.message.toString(), data))
+            } else {
+                emit(Result.success(data = data))
+            }
+        } catch (exception: Exception) {
+            emit(Result.error(exception.message ?: "Error Occurred!", data = null))
         }
     }
 

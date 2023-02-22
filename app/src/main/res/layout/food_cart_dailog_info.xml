@@ -144,7 +144,7 @@
                             android:gravity="start"
                             android:maxLines="2"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/size18"
+                            android:textSize="@dimen/size16"
                             android:layout_marginEnd="@dimen/margin6"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/constraintLayout18"
@@ -154,7 +154,7 @@
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:id="@+id/constraintLayout18"
-                            android:layout_width="55dp"
+                            android:layout_width="60dp"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:gravity="bottom"
@@ -245,7 +245,7 @@
                             android:id="@+id/tv_seat_timing_date"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/sf_pro_text_bold"
+                            android:fontFamily="@font/sf_pro_text_regular"
                             android:lineSpacingExtra="1.5sp"
                             android:textColor="@color/white"
                             android:textSize="@dimen/size14"
@@ -323,13 +323,13 @@
 
             <ImageView
                 android:id="@+id/icon_cart"
-                android:layout_width="@dimen/margin20"
-                android:layout_height="19dp"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
                 android:adjustViewBounds="true"
                 app:layout_constraintBottom_toBottomOf="@+id/title_carts"
                 app:layout_constraintStart_toEndOf="@+id/title_carts"
                 app:layout_constraintTop_toTopOf="@+id/title_carts"
-                app:srcCompat="@drawable/ic_cart"
+                app:srcCompat="@drawable/cart_icons"
                 tools:ignore="ContentDescription" />
 
             <ImageView
@@ -384,8 +384,10 @@
                         android:visibility="visible"
                         app:layout_constraintBottom_toTopOf="@+id/viewbtn"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
 
                     <View
                         android:id="@+id/viewbtn"

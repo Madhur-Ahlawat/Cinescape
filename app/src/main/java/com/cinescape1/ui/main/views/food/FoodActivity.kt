@@ -275,7 +275,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                 cancelDialog()
             }
 
-            binding?.viewProceed?.setOnClickListener {
+            binding?.txtProceed?.setOnClickListener {
 
                 if (!foodCartList.isNullOrEmpty()) {
                     try {
@@ -312,7 +312,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                 finish()
             }
 
-            binding?.viewProceed?.setOnClickListener {
+            binding?.txtProceed?.setOnClickListener {
                 if (!foodCartList.isNullOrEmpty()) {
                     try {
                         val foodRequest = SaveFoodRequest()
@@ -390,7 +390,9 @@ class FoodActivity : DaggerAppCompatActivity(),
             setCartDialog()
         }
 
-        binding?.txtSkipProceed?.setOnClickListener {
+//        binding?.txtSkipProceed?.setOnClickListener {
+
+        binding?.txtSkipBtn?.setOnClickListener {
             val intent = Intent(this, SummeryActivity::class.java)
             intent.putExtra("CINEMA_ID", cinemaId)
             intent.putExtra("SESSION_ID", sessionId)
@@ -700,10 +702,13 @@ class FoodActivity : DaggerAppCompatActivity(),
             individualAdapter?.notifyDataSetChanged()
             mFoodCartDialog?.dismiss()
 
-            finish()
+            binding?.txtProceed?.hide()
+            binding?.txtSkipBtn?.show()
+
+
             overridePendingTransition(0, 0)
             startActivity(intent)
-            overridePendingTransition(0, 0)
+            finish()
 
         }
     }
@@ -1006,9 +1011,15 @@ class FoodActivity : DaggerAppCompatActivity(),
             if (foodCartListNew?.size!! > 0) {
                 binding?.textCartCountNotiication?.show()
                 binding?.textCartCountNotiication?.text = foodCartListNew?.size.toString()
+
+                binding?.txtProceed?.show()
+                binding?.txtSkipBtn?.hide()
             } else {
                 binding?.textCartCountNotiication?.text = "0"
                 binding?.textCartCountNotiication?.show()
+
+                binding?.txtProceed?.hide()
+                binding?.txtSkipBtn?.show()
             }
             individualAdapter?.notifyDataSetChanged()
             comboAdapter?.notifyDataSetChanged()
@@ -1161,10 +1172,15 @@ class FoodActivity : DaggerAppCompatActivity(),
 
                         if (foodCartListNew?.size!! > 0) {
                             binding?.textCartCountNotiication?.show()
-                            binding?.textCartCountNotiication?.text =
-                                foodCartListNew?.size.toString()
+                            binding?.textCartCountNotiication?.text = foodCartListNew?.size.toString()
+
+                            binding?.txtProceed?.show()
+                            binding?.txtSkipBtn?.hide()
                         } else {
                             binding?.textCartCountNotiication?.invisible()
+
+                            binding?.txtProceed?.hide()
+                            binding?.txtSkipBtn?.show()
                         }
 
                         updateItemUi(foodItem)
@@ -1271,8 +1287,14 @@ class FoodActivity : DaggerAppCompatActivity(),
                     if (foodCartListNew?.size!! > 0) {
                         binding?.textCartCountNotiication?.show()
                         binding?.textCartCountNotiication?.text = foodCartListNew?.size.toString()
+
+                        binding?.txtProceed?.show()
+                        binding?.txtSkipBtn?.hide()
                     } else {
                         binding?.textCartCountNotiication?.invisible()
+
+                        binding?.txtProceed?.hide()
+                        binding?.txtSkipBtn?.show()
                     }
 
                     updateItemUi(foodItem)
@@ -1313,9 +1335,15 @@ class FoodActivity : DaggerAppCompatActivity(),
             if (foodCartListNew?.size!! > 0) {
                 binding?.textCartCountNotiication?.show()
                 binding?.textCartCountNotiication?.text = foodCartListNew?.size.toString()
+
+                binding?.txtProceed?.show()
+                binding?.txtSkipBtn?.hide()
             } else {
                 binding?.textCartCountNotiication?.text = "0"
                 binding?.textCartCountNotiication?.show()
+
+                binding?.txtProceed?.hide()
+                binding?.txtSkipBtn?.show()
             }
             comboAdapter?.notifyDataSetChanged()
         }else{
@@ -1498,9 +1526,15 @@ class FoodActivity : DaggerAppCompatActivity(),
         if (foodCartListNew?.size!! > 0) {
             binding?.textCartCountNotiication?.show()
             binding?.textCartCountNotiication?.text = foodCartListNew?.size.toString()
+
+            binding?.txtProceed?.show()
+            binding?.txtSkipBtn?.hide()
         } else {
             emptyCart?.show()
             binding?.textCartCountNotiication?.invisible()
+
+            binding?.txtProceed?.hide()
+            binding?.txtSkipBtn?.show()
         }
 
     }
@@ -1520,9 +1554,15 @@ class FoodActivity : DaggerAppCompatActivity(),
         if (foodCartListNew?.size!! > 0) {
             binding?.textCartCountNotiication?.show()
             binding?.textCartCountNotiication?.text = foodCartListNew?.size.toString()
+
+            binding?.txtProceed?.show()
+            binding?.txtSkipBtn?.hide()
         } else {
             binding?.textCartCountNotiication?.text = "0"
             binding?.textCartCountNotiication?.show()
+
+            binding?.txtProceed?.hide()
+            binding?.txtSkipBtn?.show()
         }
         foodCartAdapter?.notifyDataSetChanged()
         updateSelectedList(foodItem,0)
@@ -1860,9 +1900,15 @@ class FoodActivity : DaggerAppCompatActivity(),
         if (foodCartListNew?.size!! > 0) {
             binding?.textCartCountNotiication?.show()
             binding?.textCartCountNotiication?.text = foodCartListNew?.size.toString()
+
+            binding?.txtProceed?.show()
+            binding?.txtSkipBtn?.hide()
         } else {
             binding?.textCartCountNotiication?.text = "0"
             binding?.textCartCountNotiication?.show()
+
+            binding?.txtProceed?.hide()
+            binding?.txtSkipBtn?.show()
         }
 
         foodCartAdapter?.loadNewData(foodCartListNew!!)
@@ -1954,9 +2000,15 @@ class FoodActivity : DaggerAppCompatActivity(),
         if (foodCartListNew?.size!! > 0) {
             binding?.textCartCountNotiication?.show()
             binding?.textCartCountNotiication?.text = foodCartListNew?.size.toString()
+
+            binding?.txtProceed?.show()
+            binding?.txtSkipBtn?.hide()
         } else {
             binding?.textCartCountNotiication?.text = "0"
             binding?.textCartCountNotiication?.show()
+
+            binding?.txtProceed?.hide()
+            binding?.txtSkipBtn?.show()
         }
         individualAdapter?.notifyDataSetChanged()
     }
@@ -1975,11 +2027,19 @@ class FoodActivity : DaggerAppCompatActivity(),
         if (foodCartListNew?.size!! > 0) {
             binding?.textCartCountNotiication?.show()
             binding?.textCartCountNotiication?.text = foodCartListNew?.size.toString()
+
+            binding?.txtProceed?.show()
+            binding?.txtSkipBtn?.hide()
         } else {
             binding?.textCartCountNotiication?.text = "0"
             binding?.textCartCountNotiication?.show()
+
+            binding?.txtProceed?.hide()
+            binding?.txtSkipBtn?.show()
         }
+
     }
+
 
     override fun onIncreaseIndiVidual(foodItem: GetFoodResponse.ConcessionItem, position: Int) {
         var amount = 0.0

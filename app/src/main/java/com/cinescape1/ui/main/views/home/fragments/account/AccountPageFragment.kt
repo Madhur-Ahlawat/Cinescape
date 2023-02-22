@@ -3657,6 +3657,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
+
                                     myNextBooking(
                                         NextBookingsRequest(
                                             "", "", 0, preferences.getString(Constant.USER_ID).toString(), true

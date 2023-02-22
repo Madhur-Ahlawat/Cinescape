@@ -37,9 +37,12 @@ class AdapterFoodCombo(
             holder.foodcomboName.text =foodSelectedItem.title
             holder.foodTitleName.text = foodSelectedItem.description
             holder.foodTitleName.show()
+
+            holder.foodKdName.hide()
         } else {
             holder.foodcomboName.text = foodSelectedItem.description
             holder.foodTitleName.hide()
+            holder.foodKdName.show()
         }
 
         if (foodSelectedItem.foodtype == "Individual"){
@@ -47,13 +50,14 @@ class AdapterFoodCombo(
                 holder.viewIncreaseDecrease.show()
                 holder.addBtn.hide()
                 holder.txtNumber.text = foodSelectedItem.quantity.toString()
+                holder.foodKdName.show()
             } else {
                 holder.viewIncreaseDecrease.hide()
                 holder.addBtn.show()
             }
         }
         holder.foodKdName.text = foodSelectedItem.itemPrice
-        holder.foodKdName.show()
+
 
         if (foodSelectedItem.quantityUpdate>0){
             holder.totalItems.show()

@@ -66,63 +66,115 @@
             android:layout_width="0dp"
             android:layout_height="65dp"
             android:layout_marginEnd="4dp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/view_booking_id_one"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="1.2"
             app:layout_constraintStart_toEndOf="@+id/view_booking_id_one"
             app:layout_constraintTop_toTopOf="@+id/view_booking_id_one" />
 
-        <TextView
-            android:id="@+id/text_food_pickup_no_one"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/consFoodPickupId"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/sf_pro_text_regular"
-            android:text="@string/food_pickup_number"
-            android:textColor="@color/text_alert_color"
-            android:textSize="@dimen/size14"
-            android:textStyle="normal"
+            android:layout_height="0dp"
             android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/view_food_picku_no_one"
             app:layout_constraintEnd_toEndOf="@+id/view_food_picku_no_one"
             app:layout_constraintStart_toStartOf="@+id/view_food_picku_no_one"
-            app:layout_constraintTop_toTopOf="@+id/view_food_picku_no_one"
-            tools:ignore="TextContrastCheck" />
+            app:layout_constraintTop_toTopOf="@+id/view_food_picku_no_one">
 
-        <TextView
-            android:id="@+id/text_how_picup"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/sf_pro_text_bold"
-            android:letterSpacing="-0.01"
-            android:text="@string/how_to_pickup_food"
-            android:textColor="@color/text_alert_color_red"
-            android:textSize="@dimen/size12"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="@+id/view_food_picku_no_one"
-            app:layout_constraintTop_toBottomOf="@+id/text_bookig_id_one" />
+
+            <TextView
+                android:id="@+id/textView163"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin8"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:text="@string/food_pickup_id"
+                android:textColor="@color/hint_color"
+                android:textSize="@dimen/size14"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toStartOf="@+id/textView166"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView166"
+                android:layout_width="@dimen/margin18"
+                android:layout_height="@dimen/margin16"
+                android:layout_marginEnd="@dimen/margin10"
+                android:gravity="center"
+                android:text="i"
+                android:padding="@dimen/margin2"
+                android:textSize="@dimen/size15"
+                android:textColor="@color/white"
+                android:background="@drawable/food_pickup_bg"
+                app:layout_constraintBottom_toBottomOf="@+id/textView163"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView163" />
+
+            <TextView
+                android:id="@+id/textView167"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/sf_pro_text_bold"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="1sp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size14"
+                android:textStyle="normal"
+                android:paddingTop="@dimen/margin2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/textView163"
+                app:layout_constraintStart_toStartOf="@+id/textView163"
+                app:layout_constraintTop_toBottomOf="@+id/textView163"
+                tools:text="B17"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/btnPreparedFood"
             android:layout_width="0dp"
             android:layout_height="@dimen/margin37"
-            android:layout_marginEnd="@dimen/margin25"
-            android:layout_marginStart="@dimen/margin25"
-            android:fontFamily="@font/sf_pro_text_regular"
+            android:layout_marginStart="@dimen/margin5"
+            android:background="@drawable/red_curv_bt"
             android:drawableStart="@drawable/ic_food"
             android:drawablePadding="@dimen/margin8"
-            android:paddingStart="@dimen/margin8"
+            android:drawableTint="@color/white"
+            android:fontFamily="@font/sf_pro_text_regular"
             android:gravity="center_vertical"
             android:letterSpacing="-0.01"
-            android:text="Prepare Food"
-            android:drawableTint="@color/white"
+            android:paddingStart="@dimen/margin8"
+            android:text="@string/prepare_food"
             android:textColor="@color/white"
             android:textSize="@dimen/size12"
-            android:background="@drawable/red_curv_bt"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/view_food_picku_no_one"
             app:layout_constraintEnd_toEndOf="@+id/view_food_picku_no_one"
-            app:layout_constraintStart_toEndOf="@+id/text_how_picup"
+            app:layout_constraintStart_toEndOf="@+id/view_booking_id_one"
+            app:layout_constraintTop_toTopOf="@+id/view_food_picku_no_one" />
+
+        <TextView
+            android:id="@+id/btnAddFood"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/margin37"
+            android:layout_marginEnd="@dimen/margin6"
+            android:background="@drawable/red_curv_bt"
+            android:drawableStart="@drawable/ic_food"
+            android:drawablePadding="@dimen/margin8"
+            android:drawableTint="@color/white"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:gravity="center_vertical"
+            android:letterSpacing="-0.01"
+            android:paddingStart="@dimen/margin8"
+            android:text="@string/add_food"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size12"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/view_food_picku_no_one"
+            app:layout_constraintEnd_toEndOf="@+id/view_food_picku_no_one"
+            app:layout_constraintStart_toEndOf="@+id/view_booking_id_one"
             app:layout_constraintTop_toTopOf="@+id/view_food_picku_no_one" />
 
         <View

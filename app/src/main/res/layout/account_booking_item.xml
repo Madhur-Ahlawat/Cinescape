@@ -409,12 +409,11 @@
             android:id="@+id/consFoodPickupId"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/view_food_pickup_info_btn"
             app:layout_constraintEnd_toEndOf="@+id/view_food_pickup_info_btn"
             app:layout_constraintStart_toStartOf="@+id/view_food_pickup_info_btn"
             app:layout_constraintTop_toTopOf="@+id/view_food_pickup_info_btn">
-
 
             <TextView
                 android:id="@+id/textView163"

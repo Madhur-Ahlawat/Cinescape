@@ -377,23 +377,22 @@
     <string name="no_food_available">لا يوجد طعام متاح</string>
     <string name="coming_soon_">قريباً -</string>
     <string name="email_msg_invalid1">الرجاء إدخال البريد الإلكتروني الصحيح</string>
-    <string name="available_bank_offer">Available Bank Offer</string>
-    <string name="more_details_on_food_pickup">More Details on Food pickup</string>
-    <string name="payment_review">Payment Review</string>
-    <string name="payment_summary">Payment Summary</string>
-    <string name="delete_account">Delete Account</string>
-    <string name="please_tell_us_why_you_are_deleting_you_account">Please tell us why you are deleting you account</string>
-    <string name="i_prefer_to_be_anonymous">I prefer to be anonymous</string>
-    <string name="i_am_unhappy_with_cinescape">I am unhappy with cinescape</string>
-    <string name="i_don_t_visit_cinescape_any_more">I don\'t visit cinescape any more</string>
-    <string name="or_write_to_us">Or write to us.</string>
-    <string name="deleting_your_account_will_delete_your_profile_details_and_booking_history">Deleting your account will delete your profile details and booking history</string>
-    <string name="to_delete_your_account_type_your_email_address_and_confirm">To delete your account, type your email address and confirm</string>
-    <string name="type_your_email_address">Type your email address</string>
-    <string name="confirm_deletion">Confirm Deletion</string>
-    <string name="prepare_food">Prepare Food</string>
-    <string name="add_food">Add Food</string>
-    <string name="food_pickup_id">Food Pickup Id</string>
-
+    <string name="available_bank_offer">العرض البنكي المتاح</string>
+    <string name="more_details_on_food_pickup">مزيد من التفاصيل حول استلام الطعام</string>
+    <string name="payment_review">مراجعة الدفع</string>
+    <string name="payment_summary">ملخص الدفع</string>
+    <string name="delete_account">حذف الحساب</string>
+    <string name="please_tell_us_why_you_are_deleting_you_account">من فضلك أخبرنا لماذا تقوم بحذف حسابك</string>
+    <string name="i_prefer_to_be_anonymous">أنا أفضل أن أكون مجهول الهوية</string>
+    <string name="i_am_unhappy_with_cinescape">أنا غير سعيد مع سينسكيب</string>
+    <string name="i_don_t_visit_cinescape_any_more">لم أعد أزور سينسكيب</string>
+    <string name="or_write_to_us">أو راسلنا.</string>
+    <string name="deleting_your_account_will_delete_your_profile_details_and_booking_history">سيؤدي حذف حسابك إلى حذف تفاصيل ملفك الشخصي وسجل الحجز</string>
+    <string name="to_delete_your_account_type_your_email_address_and_confirm">لحذف حسابك ، اكتب عنوان بريدك الإلكتروني وقم بالتأكيد</string>
+    <string name="type_your_email_address">اكتب البريد الالكتروني الخاص بك</string>
+    <string name="confirm_deletion">تأكيد الحذف</string>
+    <string name="prepare_food">حضر الطعام</string>
+    <string name="add_food">أضف الطعام</string>
+    <string name="food_pickup_id">معرّف استلام الطعام</string>
 
 </resources>

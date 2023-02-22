@@ -20,9 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.bumptech.glide.Glide
 import com.cinescape1.R
-import com.cinescape1.data.models.requestModel.CancelTransRequest
-import com.cinescape1.data.models.requestModel.FinalTicketRequest
-import com.cinescape1.data.models.requestModel.MySingleTicketRequest
+import com.cinescape1.data.models.requestModel.*
 import com.cinescape1.data.models.responseModel.TicketSummaryResponse
 import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.databinding.ActivityFinalTicketBinding
@@ -44,7 +42,9 @@ import javax.inject.Inject
 class FinalTicketActivity : DaggerAppCompatActivity(),
     FinalTicketParentAdapter.TypeFaceFinalTicket0ne,
     FinalTicketParentAdapter.TypeFaceFinalTicketTwo,
-    FinalTicketParentAdapter.TypeFaceFinalTicketThree {
+    FinalTicketParentAdapter.TypeFaceFinalTicketThree,
+    FinalTicketParentAdapter.RecycleViewItemFoodPrepare
+{
 
     private var loader: LoaderDialog? = null
     @Inject
@@ -404,22 +404,21 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
             println("checkCase--->3---New")
         }
 
-        val gridLayout =
-            GridLayoutManager(this@FinalTicketActivity, 1, GridLayoutManager.HORIZONTAL, false)
-        binding?.recyclerViewFinalTicket?.layoutManager =
-            LinearLayoutManager(this@FinalTicketActivity)
+        val gridLayout = GridLayoutManager(this@FinalTicketActivity, 1, GridLayoutManager.HORIZONTAL, false)
+        binding?.recyclerViewFinalTicket?.layoutManager = LinearLayoutManager(this@FinalTicketActivity)
 
         val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(binding?.recyclerViewFinalTicket)
-        val finalTicketParentAdapter =
-            FinalTicketParentAdapter(
+        val finalTicketParentAdapter = FinalTicketParentAdapter(
                 this@FinalTicketActivity,
                 finalTicketLocalModel,
                 output,
                 this,
                 this,
-                this
+                this,
+            this
             )
+
         binding?.recyclerViewFinalTicket?.layoutManager = gridLayout
         binding?.recyclerViewFinalTicket?.adapter = finalTicketParentAdapter
         binding?.layoutDots?.attachToRecyclerView(binding?.recyclerViewFinalTicket!!)
@@ -661,6 +660,69 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
         dialog.negative_btn?.setOnClickListener {
             dialog.dismiss()
         }
+    }
+
+
+    // Food Pickup
+    private fun foodPickup(request: FoodPrepareRequest) {
+        finalTicketViewModel.foodPickup(request).observe(this) {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                try {
+//                                    overridePendingTransition(0, 0)
+//                                    startActivity(intent)
+//                                    finish()
+
+                                    if (intent.getStringExtra("FROM_ACCOUNT") == "account") {
+                                        setMySingleTicket()
+                                    }else{
+                                        printTicket(FinalTicketRequest(bookingId, transId))
+                                    }
+
+                                    println("FoodPrepareSuccess ---> Success")
+                                } catch (e: Exception) {
+                                    println("FoodPrepareError ---> ${e.message}")
+                                }
+                            }
+
+                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(this,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.data?.message ?: "Something went wrong",
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {
+
+                            },
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+//                            loader = LoaderDialog(R.string.pleasewait)
+//                            loader?.show(this@FinalTicketActivity.supportFragmentManager, null)
+                    }
+                }
+            }
+        }
+    }
+
+    override fun foodPrepareClick(output: TicketSummaryResponse.Output) {
+        foodPickup(
+            FoodPrepareRequest(
+                output.bookingId,
+            "",
+            0,
+            preferences.getString(Constant.USER_ID).toString())
+        )
+
     }
 
 }

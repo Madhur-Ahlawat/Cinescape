@@ -131,8 +131,8 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/text_add_btn"
-                android:layout_width="106dp"
-                android:layout_height="33dp"
+                android:layout_width="100dp"
+                android:layout_height="31dp"
                 android:layout_marginEnd="5dp"
                 app:cardBackgroundColor="#AD696969"
                 app:cardCornerRadius="5dp"
@@ -142,7 +142,7 @@
                 app:layout_constraintTop_toTopOf="@+id/view27">
 
                 <TextView
-                    android:layout_width="104dp"
+                    android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/sf_pro_text_regular"
                     android:gravity="center"
@@ -150,14 +150,12 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/size12"
                     android:visibility="visible" />
-
             </androidx.cardview.widget.CardView>
-
 
             <View
                 android:id="@+id/view_increase_decrease"
-                android:layout_width="106dp"
-                android:layout_height="33dp"
+                android:layout_width="100dp"
+                android:layout_height="31dp"
                 android:background="@drawable/card_curv"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/view27"
@@ -168,7 +166,7 @@
             <TextView
                 android:id="@+id/text_decrease"
                 android:layout_width="0dp"
-                android:layout_height="32dp"
+                android:layout_height="31dp"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:gravity="center"
                 android:text="@string/minus"
@@ -183,7 +181,7 @@
             <TextView
                 android:id="@+id/text_number"
                 android:layout_width="0dp"
-                android:layout_height="32dp"
+                android:layout_height="31dp"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:gravity="center"
                 android:text="0"
@@ -198,7 +196,7 @@
             <TextView
                 android:id="@+id/text_increase"
                 android:layout_width="0dp"
-                android:layout_height="32dp"
+                android:layout_height="31dp"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:gravity="center"
                 android:text="@string/plus"

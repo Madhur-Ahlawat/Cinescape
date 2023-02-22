@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cinescape1.R
@@ -30,13 +31,19 @@ class AdapterFoodSelectedItem(
         val foodSelctedItem = foodSelectList[position]
         holder.foodSelectItemName.text = foodSelctedItem.name
         Glide.with(mContext).load(foodSelctedItem.tabImageUrl).placeholder(R.drawable.placeholder_icon).into(holder.imgFoodSelect)
+
+        val bold = ResourcesCompat.getFont(mContext, R.font.sf_pro_text_bold)
+        val regular = ResourcesCompat.getFont(mContext, R.font.sf_pro_text_regular)
+
         if (rowIndex == position) {
             holder.itemView.background = ContextCompat.getDrawable(contextS, R.drawable.red_rectangle_food)
             holder.imageArrowDown.visibility = View.VISIBLE
+            holder.foodSelectItemName.typeface = bold
+
         } else {
-            holder.itemView.background =
-                ContextCompat.getDrawable(contextS, R.drawable.food_item_bg)
+            holder.itemView.background = ContextCompat.getDrawable(contextS, R.drawable.food_item_bg)
             holder.imageArrowDown.visibility = View.GONE
+            holder.foodSelectItemName.typeface = regular
         }
 
         holder.itemView.setOnClickListener {

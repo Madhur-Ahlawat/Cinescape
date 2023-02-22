@@ -145,8 +145,8 @@
 
         <TextView
             android:id="@+id/text_add_btn"
-            android:layout_width="106dp"
-            android:layout_height="33dp"
+            android:layout_width="100dp"
+            android:layout_height="31dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/food_item_bg"
             android:fontFamily="@font/sf_pro_text_regular"
@@ -161,8 +161,8 @@
 
         <View
             android:id="@+id/view_increase_decrease"
-            android:layout_width="106dp"
-            android:layout_height="33dp"
+            android:layout_width="100dp"
+            android:layout_height="31dp"
             android:layout_marginTop="4dp"
             android:background="@drawable/food_item_bg"
             android:visibility="visible"
