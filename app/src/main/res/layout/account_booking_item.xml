@@ -75,7 +75,7 @@
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/constraintLayout18"
-                android:layout_width="55dp"
+                android:layout_width="72dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:gravity="bottom"
@@ -372,6 +372,7 @@
             android:paddingBottom="@dimen/margin4"
             android:drawableStart="@drawable/ic_food"
             android:drawablePadding="@dimen/margin4"
+            android:drawableTint="@color/white"
             android:text="@string/prepare_food"
             android:textColor="@color/white"
             android:textSize="@dimen/size14"
@@ -394,6 +395,7 @@
             android:paddingEnd="@dimen/margin12"
             android:paddingBottom="@dimen/margin4"
             android:drawableStart="@drawable/ic_food"
+            android:drawableTint="@color/white"
             android:drawablePadding="@dimen/margin4"
             android:text="@string/add_food"
             android:textColor="@color/white"

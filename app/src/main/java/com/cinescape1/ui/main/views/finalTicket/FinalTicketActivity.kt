@@ -88,6 +88,8 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
     private var threeDateTime1: TextView? = null
     private var threePayMode1: TextView? = null
 
+    private var prepareBtn = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
@@ -260,6 +262,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
             shareIntent.putExtra(Intent.EXTRA_TEXT, someText)
             startActivity(Intent.createChooser(shareIntent, "Share using"))
         }
+
         binding?.imageView8?.setOnClickListener {
             if (intent.getStringExtra("FROM_ACCOUNT") == "account") {
 //                onBackPressed()
@@ -407,21 +410,29 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
         val gridLayout = GridLayoutManager(this@FinalTicketActivity, 1, GridLayoutManager.HORIZONTAL, false)
         binding?.recyclerViewFinalTicket?.layoutManager = LinearLayoutManager(this@FinalTicketActivity)
 
-        val snapHelper = PagerSnapHelper()
-        snapHelper.attachToRecyclerView(binding?.recyclerViewFinalTicket)
-        val finalTicketParentAdapter = FinalTicketParentAdapter(
+
+        if (prepareBtn == 0){
+            val snapHelper = PagerSnapHelper()
+            snapHelper.attachToRecyclerView(binding?.recyclerViewFinalTicket)
+
+            val finalTicketParentAdapter = FinalTicketParentAdapter(
                 this@FinalTicketActivity,
                 finalTicketLocalModel,
                 output,
                 this,
                 this,
                 this,
-            this
+                this
             )
 
-        binding?.recyclerViewFinalTicket?.layoutManager = gridLayout
-        binding?.recyclerViewFinalTicket?.adapter = finalTicketParentAdapter
-        binding?.layoutDots?.attachToRecyclerView(binding?.recyclerViewFinalTicket!!)
+            binding?.recyclerViewFinalTicket?.layoutManager = gridLayout
+            binding?.recyclerViewFinalTicket?.adapter = finalTicketParentAdapter
+            binding?.layoutDots?.attachToRecyclerView(binding?.recyclerViewFinalTicket!!)
+
+        }else{
+            prepareBtn = 0
+        }
+
 
     }
 
@@ -527,8 +538,6 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
 
     override fun cancelReserv(foodSelctedItem: TicketSummaryResponse.Output) {
         cancelDialog()
-
-
     }
 
     override fun onTypeFaceFinalTicketTwo(
@@ -660,6 +669,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
         dialog.negative_btn?.setOnClickListener {
             dialog.dismiss()
         }
+
     }
 
 
@@ -673,13 +683,18 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
-//                                    overridePendingTransition(0, 0)
-//                                    startActivity(intent)
-//                                    finish()
 
-                                    if (intent.getStringExtra("FROM_ACCOUNT") == "account") {
+//                                    finish()
+//                                    overridePendingTransition( 0, 0)
+//                                    Intent.FLAG_ACTIVITY_NO_ANIMATION
+//                                    startActivity(getIntent())
+//                                    overridePendingTransition( 0, 0)
+
+                                    if (from == "MTicket") {
                                         setMySingleTicket()
-                                    }else{
+                                        finish()
+                                        startActivity(intent)
+                                    } else {
                                         printTicket(FinalTicketRequest(bookingId, transId))
                                     }
 
@@ -715,6 +730,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
     }
 
     override fun foodPrepareClick(output: TicketSummaryResponse.Output) {
+        prepareBtn = 1
         foodPickup(
             FoodPrepareRequest(
                 output.bookingId,

@@ -174,7 +174,7 @@
                             android:textSize="@dimen/size14"
                             android:textStyle="normal"
                             app:layout_constraintEnd_toStartOf="@+id/textView_qty"
-                            app:layout_constraintHorizontal_weight="3.8"
+                            app:layout_constraintHorizontal_weight="3.7"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 

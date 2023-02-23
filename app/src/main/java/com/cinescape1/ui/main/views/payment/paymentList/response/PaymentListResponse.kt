@@ -16,7 +16,6 @@ data class PaymentListResponse(
             val priority: Int,
             val respPayModes: ArrayList<RespPayMode>
         ):java.io.Serializable{
-
             data class RespPayMode(
                 val activeImageUrl: Any,
                 val balance: String,

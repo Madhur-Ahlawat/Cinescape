@@ -28,16 +28,17 @@ import kotlinx.android.synthetic.main.alert_booking.view.*
 
 class UpcomingBookingAdapter(
     private val context: Context,
-    private var upcomingBookingList: ArrayList<NextBookingResponse.Current> ,
+    private var upcomingBookingList: ArrayList<NextBookingResponse.Current>,
     private var listener: RecycleViewItemClickListener,
     private var listenerMail: ReesendMailItemClickListener,
     private var listenerFoodPrepare: RecycleViewItemFoodPrepare
-    ) :
+) :
     RecyclerView.Adapter<UpcomingBookingAdapter.MyViewHolderUpcomingBooking>() {
     private var mContext = context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderUpcomingBooking {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.account_booking_item, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.account_booking_item, parent, false)
         return MyViewHolderUpcomingBooking(view)
     }
 
@@ -126,10 +127,10 @@ class UpcomingBookingAdapter(
         }
 
 
-        val ratingColor=foodSelctedItem.ratingColor
+        val ratingColor = foodSelctedItem.ratingColor
         try {
             holder.rating.setBackgroundColor(Color.parseColor(ratingColor))
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
         if (foodSelctedItem.mcensor.isNullOrEmpty()) {
@@ -179,13 +180,13 @@ class UpcomingBookingAdapter(
 
         println("foodSelectedItem.food-------->${foodSelctedItem.food}")
 
-        if (foodSelctedItem.food == 0){
+        if (foodSelctedItem.food == 0) {
             holder.btFoodPrepare.hide()
             holder.foodAddBtn.hide()
             holder.consFoodPickupId.hide()
         }
 
-        if (foodSelctedItem.food == 1){
+        if (foodSelctedItem.food == 1) {
             holder.btFoodPrepare.hide()
             holder.foodAddBtn.show()
             holder.consFoodPickupId.hide()
@@ -195,18 +196,19 @@ class UpcomingBookingAdapter(
             holder.btFoodPrepare.show()
             holder.foodAddBtn.hide()
             holder.consFoodPickupId.hide()
-            holder.btFoodPrepare.background = ContextCompat.getDrawable(mContext,R.drawable.food_pickup_bg)
+            holder.btFoodPrepare.background =
+                ContextCompat.getDrawable(mContext, R.drawable.food_pickup_bg)
             holder.btFoodPrepare.isClickable = false
         }
 
-        if (foodSelctedItem.food == 3){
+        if (foodSelctedItem.food == 3) {
             holder.btFoodPrepare.show()
             holder.foodAddBtn.hide()
             holder.consFoodPickupId.hide()
             holder.btFoodPrepare.isClickable = true
         }
 
-        if (foodSelctedItem.food == 4){
+        if (foodSelctedItem.food == 4) {
             holder.btFoodPrepare.hide()
             holder.foodAddBtn.hide()
             holder.consFoodPickupId.show()
@@ -219,9 +221,9 @@ class UpcomingBookingAdapter(
             holder.trailer.hide()
         }
 
-        if (!foodSelctedItem.cancelReserve){
+        if (!foodSelctedItem.cancelReserve) {
             holder.cancelReservation.hide()
-        }else{
+        } else {
             holder.cancelReservation.show()
         }
 
@@ -250,21 +252,24 @@ class UpcomingBookingAdapter(
         holder.foodAddBtn.setOnClickListener {
 
             val intent = Intent(mContext, FoodActivity::class.java)
-                    .putExtra("CINEMA_ID", foodSelctedItem.cinemacode)
-                    .putExtra("BOOKING", "FOOD")
-                    .putExtra("type", "FOOD")
-                mContext.startActivity(intent)
+                .putExtra("CINEMA_ID", foodSelctedItem.cinemacode)
+                .putExtra("BOOKING", "ADDFOOD")
+                .putExtra("type", "FOOD")
+                .putExtra("typeSkip", "SkipButtonHide")
+            mContext.startActivity(intent)
+
         }
 
         holder.consFoodPickupId.setOnClickListener {
 
-            val mDialogView = LayoutInflater.from(context).inflate(R.layout.food_pickup_dialog, null)
+            val mDialogView =
+                LayoutInflater.from(context).inflate(R.layout.food_pickup_dialog, null)
             val mBuilder = AlertDialog.Builder(context, R.style.NewDialog).setView(mDialogView)
             val mAlertDialog = mBuilder.show()
             mAlertDialog.show()
             mAlertDialog.window?.setBackgroundDrawableResource(R.color.black70)
             val closeDialog = mDialogView.findViewById<TextView>(R.id.close_dialog)
-            val text=mAlertDialog.findViewById<TextView>(R.id.textView105)
+            val text = mAlertDialog.findViewById<TextView>(R.id.textView105)
 
             text?.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 Html.fromHtml(foodSelctedItem.pickupInfo, Html.FROM_HTML_MODE_COMPACT)

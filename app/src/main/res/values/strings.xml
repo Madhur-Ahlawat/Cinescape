@@ -193,7 +193,7 @@
     <string name="apply">Apply</string>
     <string name="checkout">Checkout</string>
     <string name="cart">Cart</string>
-    <string name="clear_all_items">Clear All Items</string>
+    <string name="clear_all_items">Clear all items</string>
     <string name="food_price">Food price</string>
     <string name="remove">Remove</string>
     <string name="no_food_items_added_to_cart">No food items added to cart</string>

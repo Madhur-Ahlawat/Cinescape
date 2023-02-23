@@ -11,7 +11,7 @@
         android:id="@+id/uiFinalTaket"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -139,7 +139,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image_head">
 
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:background="@color/black"
                 android:layout_width="match_parent"
@@ -149,9 +148,9 @@
                     android:id="@+id/imageView68"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_marginStart="4.5dp"
-                    android:layout_marginTop="-20dp"
-                    android:layout_marginEnd="4.5dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="-22dp"
+                    android:layout_marginEnd="3dp"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_subtraction_3_frame"

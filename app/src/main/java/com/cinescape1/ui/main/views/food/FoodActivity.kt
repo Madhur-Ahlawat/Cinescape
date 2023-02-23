@@ -54,7 +54,6 @@ import kotlinx.android.synthetic.main.cancel_dialog.view.*
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
-
 @Suppress("DEPRECATION", "NAME_SHADOWING")
 class FoodActivity : DaggerAppCompatActivity(),
     AdapterFoodSelectedItem.RecycleViewItemClickListener,
@@ -104,6 +103,7 @@ class FoodActivity : DaggerAppCompatActivity(),
     private var transId = ""
     private var sessionId = ""
     private var booktype = ""
+    private var skipBtn = ""
     private var loader: LoaderDialog? = null
     private var tabItem: GetFoodResponse.ConcessionTab? = null
     private var tabItemArr: List<GetFoodResponse.ConcessionTab> = ArrayList()
@@ -262,13 +262,20 @@ class FoodActivity : DaggerAppCompatActivity(),
             booktype = intent.getStringExtra("BOOKING").toString()
             transId = intent.getStringExtra("TRANS_ID").toString()
 
+            skipBtn = intent.getStringExtra("typeSkip").toString()
+
             println("FoodIntentOutput-------->${cinemaId}----${sessionId}--->${booktype}----->${transId}")
         }catch (e : Exception){
             e.printStackTrace()
         }
 
+        if (skipBtn == "SkipButtonHide"){
+            binding?.txtSkipBtn?.hide()
+            binding?.txtProceed?.show()
+        }
+
         movieRatingColor= intent.getStringExtra("movieRatingColor").toString()
-        if (booktype != "FOOD") {
+        if (booktype != "FOOD" || booktype != "ADDFOOD") {
 //            binding?.txtSkipProceed?.show()
 
             binding?.viewCancel?.setOnClickListener {
@@ -276,7 +283,6 @@ class FoodActivity : DaggerAppCompatActivity(),
             }
 
             binding?.txtProceed?.setOnClickListener {
-
                 if (!foodCartList.isNullOrEmpty()) {
                     try {
                         val foodRequest = SaveFoodRequest()
@@ -342,7 +348,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             }
 
         }
-        if (booktype != "FOOD") {
+        if (booktype != "FOOD" || booktype != "ADDFOOD") {
             resendTimer()
             seatPrice = intent.getStringExtra("PRICE").toString()
         } else {
@@ -611,6 +617,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                 .error(R.drawable.app_icon)  // any image in case of error
                 .centerCrop()
                 .into(image)  // imageview object
+
             // title
             title.text= intent.getStringExtra("movieTitle").toString()
             //RATING

@@ -106,6 +106,10 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     private var timeExtendClick: Boolean = false
     private var countDownTimerPrimary: CountDownTimer? = null
     private var adapter: PaymentListAdapter? = null
+    private var ticketPrice : TextView? = null
+    private var textFoodPrice : TextView? = null
+    private var textOfferPrice : TextView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
@@ -157,6 +161,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     private fun paymentDialog(){
+
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.paymnet_info_dialog)
@@ -169,9 +174,14 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         dialog.window?.setGravity(Gravity.BOTTOM)
         dialog.show()
         val imageView71 = dialog.findViewById<ImageView>(R.id.imageView71)
+         ticketPrice = dialog.findViewById<TextView>(R.id.text_ticket1_price)
+         textFoodPrice = dialog.findViewById<TextView>(R.id.textFoodPrice)
+         textOfferPrice = dialog.findViewById<TextView>(R.id.textOfferPrice)
+
         imageView71.setOnClickListener {
             dialog.dismiss()
         }
+
     }
 
     private fun ticketList(request: TicketSummaryRequest) {

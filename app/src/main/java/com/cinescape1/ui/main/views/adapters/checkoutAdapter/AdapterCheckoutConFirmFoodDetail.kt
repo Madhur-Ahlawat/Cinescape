@@ -15,8 +15,7 @@ import kotlinx.android.synthetic.main.checkout_booking_confirm_food_details_item
 
 class AdapterCheckoutConFirmFoodDetail(
     context: Context,
-    private var CheckoutConirmFoodDetailList: List<TicketSummaryResponse.ConcessionFood>
-) :
+    private var CheckoutConirmFoodDetailList: List<TicketSummaryResponse.ConcessionFood>) :
     RecyclerView.Adapter<AdapterCheckoutConFirmFoodDetail.MyViewHolderCheckoutConFirmFoodDetail>() {
     private var mContext = context
 
@@ -32,10 +31,11 @@ class AdapterCheckoutConFirmFoodDetail(
         holder.textNQty.text = foodSelctedItem.quantity.toString()
         holder.textNPrice.isSelected = true
         holder.textNTotal.isSelected = true
-        val price = (foodSelctedItem.priceInCents * foodSelctedItem.quantity) / 100.0
-        holder.textNPrice.text =
-           Constant.DECIFORMAT.format(price)
+        val price = (foodSelctedItem.priceInCents * foodSelctedItem.quantity).toDouble() / 100.0
+        holder.textNPrice.text = Constant.DECIFORMAT.format(price)
         holder.textNTotal.text = Constant.DECIFORMAT.format((foodSelctedItem.priceInCents.toDouble() / 100.0))
+
+        println("holder.textNPrice.text-------->${holder.textNPrice.text}---->${foodSelctedItem.itemType}")
 
     }
 

@@ -258,7 +258,6 @@ class FinalTicketParentAdapter(
                 }
 
                 // Add Food
-
                 if (!output.addFood) {
                     holder.addFood.hide()
                 } else {
@@ -270,6 +269,7 @@ class FinalTicketParentAdapter(
                     intent.putExtra("CINEMA_ID", output.cinemacode)
                     intent.putExtra("BOOKING", "FOOD")
                     intent.putExtra("type", "FOOD")
+                    intent.putExtra("typeSkip", "SkipButtonHide")
                     mContext.startActivity(intent)
                 }
 
@@ -344,13 +344,13 @@ class FinalTicketParentAdapter(
                         .putExtra("CINEMA_ID", output.cinemacode)
                         .putExtra("BOOKING", "FOOD")
                         .putExtra("type", "FOOD")
+                        .putExtra("typeSkip", "SkipButtonHide")
                     mContext.startActivity(intent)
                 }
 
                 holder.btFoodPrepare.setOnClickListener {
-
                     listenerFoodPrepare.foodPrepareClick(output)
-
+                    notifyDataSetChanged()
                 }
 
 
@@ -387,6 +387,7 @@ class FinalTicketParentAdapter(
                     holderTwo.twoBookingId, holderTwo.twoPickupInfo,
                     holderTwo.twoPayMode, holderTwo.twoPayPrice
                 )
+
             }
 
             3 -> {

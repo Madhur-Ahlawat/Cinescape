@@ -346,7 +346,7 @@ class HomeActivity : DaggerAppCompatActivity(),
                     Intent(this, FoodActivity::class.java)
                         .putExtra("CINEMA_ID", cinemaId)
                         .putExtra("BOOKING", "FOOD")
-                        .putExtra("type", "FOOD")
+                        .putExtra("typeSkip", "SkipButtonHide")
                 )
             }
         }
