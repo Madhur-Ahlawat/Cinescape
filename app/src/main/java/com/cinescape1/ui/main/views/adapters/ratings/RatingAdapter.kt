@@ -14,6 +14,7 @@ class RatingAdapter(private val personNames: ArrayList<String>, private val cont
     RecyclerView.Adapter<RatingAdapter.TodoViewHolder>() {
 
     private val dataList: ArrayList<String> = ArrayList()
+
     @SuppressLint("InflateParams")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.age_rating_item, null)

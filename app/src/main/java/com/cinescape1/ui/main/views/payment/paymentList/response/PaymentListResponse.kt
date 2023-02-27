@@ -8,8 +8,14 @@ data class PaymentListResponse(
 ):java.io.Serializable{
     data class Output(
         val amount: String,
+        val payInfo: ArrayList<PayInfo>,
         val payMode: ArrayList<PayMode>
     ):java.io.Serializable{
+        data class PayInfo(
+            val amt: String,
+            val highlight: Boolean,
+            val key: String
+        )
         data class PayMode(
             val name: String,
             val payType: String,
@@ -28,7 +34,7 @@ data class PaymentListResponse(
                 val priority: Int,
                 val tnc: String,
                 val type: String
-            ):java.io.Serializable{
+            ):java.io.Serializable {
                 data class PayModeBank(
                     val id: Int,
                     var name: String

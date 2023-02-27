@@ -376,9 +376,10 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
 
             movieImage = output.movie.mobimgbig
 
-            movieTimeDate = "${output.daySessions[Constant.select_pos].experienceSessions[cinemaPos1].shows[showPos].showTime}  |  $datePosition | $dt"
+            movieTimeDate = "${output.daySessions[Constant.select_pos].experienceSessions[cinemaPos1].shows[showPos].showTime}  |  $datePosition  |  $dt"
             movieType = "${output.daySessions[Constant.select_pos].experienceSessions[cinemaPos1].experience}  |  ${output.daySessions[Constant.select_pos].experienceSessions[cinemaPos1].shows[showPos].format}  |  $seatCat"
             binding?.textType?.text = "${output.daySessions[Constant.select_pos].experienceSessions[cinemaPos1].experience}  |  ${output.daySessions[Constant.select_pos].experienceSessions[cinemaPos1].shows[showPos].format}  |  $seatCat"
+
             setTitleAdapter(output.daySessions)
         } catch (e: Exception) {
             e.printStackTrace()

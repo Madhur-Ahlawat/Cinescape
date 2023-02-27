@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
-
 
     <View
         android:id="@+id/view97"
@@ -22,7 +22,7 @@
         android:layout_marginEnd="12.13dp"
         android:layout_marginBottom="70dp"
         android:background="@drawable/cart_dailog_gradient_new"
-        android:minHeight="400dp"
+        android:minHeight="270dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/view97"
         app:layout_constraintStart_toStartOf="@+id/view97">
@@ -71,131 +71,56 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView104">
 
-            <TextView
-                android:id="@+id/title_ticketPrice"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerTicketPrice"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin12"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="1.3sp"
-                android:text="@string/ticket_price"
-                android:textColor="@color/white"
-                android:textSize="@dimen/size15"
-                android:textStyle="normal"
-                android:layout_marginEnd="@dimen/margin12"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/text_ticket1_price"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/text_ticket1_price"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="1.3sp"
-                android:textColor="@color/white"
-                android:textSize="@dimen/size15"
-                android:textStyle="normal"
-                android:layout_marginEnd="@dimen/margin12"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="KD 30.500" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/consFoodPrice"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:minHeight="@dimen/margin40"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/consTicketPrice">
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/consFoodPrice"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:minHeight="@dimen/margin40"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/consTicketPrice">-->
 
-            <TextView
-                android:id="@+id/titleFoodPrice"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin12"
-                android:layout_marginEnd="@dimen/margin12"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="1.3sp"
-                android:text="@string/food_price"
-                android:textColor="@color/white"
-                android:textSize="@dimen/size15"
-                android:textStyle="normal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/textFoodPrice"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/recyclerFoodPrice"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
 
-            <TextView
-                android:id="@+id/textFoodPrice"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin12"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="1.3sp"
-                android:textColor="@color/white"
-                android:textSize="@dimen/size15"
-                android:textStyle="normal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="KD 30.500" />
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/consOfferPrice"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:minHeight="@dimen/margin40"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/consFoodPrice">-->
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/consOfferPrice"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:minHeight="@dimen/margin40"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/consFoodPrice">
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/recyclerDiscountPrice"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
 
-            <TextView
-                android:id="@+id/titleOfferPrice"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/margin12"
-                android:layout_marginEnd="@dimen/margin20"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="1.3sp"
-                android:text="NBK Shabab 50% Offer applied for 1 Ticket"
-                android:textColor="@color/white"
-                android:textSize="@dimen/size15"
-                android:textStyle="normal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/textOfferPrice"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textOfferPrice"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin12"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="1.3sp"
-                android:textColor="@color/white"
-                android:textSize="@dimen/size15"
-                android:textStyle="normal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="KD 30.500" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

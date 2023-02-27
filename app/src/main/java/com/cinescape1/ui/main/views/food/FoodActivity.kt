@@ -1074,11 +1074,16 @@ class FoodActivity : DaggerAppCompatActivity(),
         itemFoodAmt = foodItem.itemTotal.toDouble()
         foodItem.quantity = 0
         foodItem.itemTotal = 0
-        tvKdTotal?.text = getString(R.string.price_kd) + "0.00"
+        tvKdTotal?.text = getString(R.string.price_kd)+" " + "0.000"
 
         when (foodItem.foodtype) {
             "Flavour" -> {
                 try {
+                    val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+                    textComboSubtitle.setTextColor(ContextCompat.getColor(this, R.color.white))
+                    textComboSubtitle.textSize = 17f
+                    textComboSubtitle.typeface = bold
+
                     val quantity = foodItem.quantity.toString()
                     textNumber?.text = quantity
                     var spancount = 1
@@ -1097,19 +1102,23 @@ class FoodActivity : DaggerAppCompatActivity(),
                             spancount = 4
                         }
                     }
-                    val gridLayout = GridLayoutManager(this, spancount, GridLayoutManager.VERTICAL, false)
-                    //                    recyclerviewComboTitle.layoutManager = LinearLayoutManager(this)
+//
+
+                    val gridLayout = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
+                    recyclerviewComboTitle.layoutManager = LinearLayoutManager(this)
+
                     val adapter = AdapterFoodAddComboTitle(
                         this,
                         foodItem.packageChildItems,
                         foodItem.alternateItems,
                         this, foodItem, position)
 
-                    val layoutManager = FlexboxLayoutManager(this)
-                    layoutManager.flexDirection = FlexDirection.ROW
-                    layoutManager.justifyContent = JustifyContent.CENTER
-                    layoutManager.alignItems = AlignItems.CENTER
-                    recyclerviewComboTitle.layoutManager = layoutManager
+//                    val layoutManager = FlexboxLayoutManager(this)
+//                    layoutManager.flexDirection = FlexDirection.ROW
+//                    layoutManager.justifyContent = JustifyContent.FLEX_START
+//                    layoutManager.alignItems = AlignItems.FLEX_START
+
+                    recyclerviewComboTitle.layoutManager = gridLayout
 
                     recyclerviewComboTitle.adapter = adapter
                     adapter.loadNewData(foodItem.packageChildItems, foodItem.alternateItems)
@@ -1220,7 +1229,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                     }
                 }
                 val gridLayout = GridLayoutManager(this, spancount, GridLayoutManager.VERTICAL, false)
-//                recyclerviewComboTitle.layoutManager = LinearLayoutManager(this)
+                recyclerviewComboTitle.layoutManager = LinearLayoutManager(this)
 
                 comboAdapter = AdapterFoodAddComboTitle(
                     this,
@@ -1229,13 +1238,14 @@ class FoodActivity : DaggerAppCompatActivity(),
                     this, foodItem, position
                 )
 
-                val layoutManager = FlexboxLayoutManager(this)
-                layoutManager.flexDirection = FlexDirection.ROW
-                layoutManager.justifyContent = JustifyContent.CENTER
-                layoutManager.alignItems = AlignItems.CENTER
-                recyclerviewComboTitle.layoutManager = layoutManager
+//                val layoutManager = FlexboxLayoutManager(this)
+//                layoutManager.flexDirection = FlexDirection.ROW
+//                layoutManager.justifyContent = JustifyContent.FLEX_START
+//                layoutManager.alignItems = AlignItems.FLEX_START
 
-//                recyclerviewComboTitle.layoutManager = gridLayout
+                recyclerviewComboTitle.layoutManager = gridLayout
+
+
                 recyclerviewComboTitle.adapter = comboAdapter
                 comboAdapter?.loadNewData(foodItem.packageChildItems, foodItem.alternateItems)
 //                tv_kd_total?.text = foodItem.itemPrice

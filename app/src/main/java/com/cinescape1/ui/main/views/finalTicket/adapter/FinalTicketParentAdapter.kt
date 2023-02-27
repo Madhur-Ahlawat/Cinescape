@@ -267,7 +267,7 @@ class FinalTicketParentAdapter(
                 holder.addFood.setOnClickListener {
                     val intent = Intent(mContext, FoodActivity::class.java)
                     intent.putExtra("CINEMA_ID", output.cinemacode)
-                    intent.putExtra("BOOKING", "FOOD")
+                    intent.putExtra("BOOKING", "ADDFOOD")
                     intent.putExtra("type", "FOOD")
                     intent.putExtra("typeSkip", "SkipButtonHide")
                     mContext.startActivity(intent)
@@ -342,7 +342,7 @@ class FinalTicketParentAdapter(
                 holder.foodAddBtn.setOnClickListener {
                     val intent = Intent(mContext, FoodActivity::class.java)
                         .putExtra("CINEMA_ID", output.cinemacode)
-                        .putExtra("BOOKING", "FOOD")
+                        .putExtra("BOOKING", "ADDFOOD")
                         .putExtra("type", "FOOD")
                         .putExtra("typeSkip", "SkipButtonHide")
                     mContext.startActivity(intent)

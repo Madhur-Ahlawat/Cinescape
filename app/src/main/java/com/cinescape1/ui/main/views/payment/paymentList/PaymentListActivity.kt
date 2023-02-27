@@ -19,6 +19,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cardinalcommerce.cardinalmobilesdk.Cardinal
 import com.cardinalcommerce.cardinalmobilesdk.enums.CardinalEnvironment
@@ -40,6 +41,7 @@ import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
 import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.ui.main.views.payment.PaymentWebActivity
+import com.cinescape1.ui.main.views.payment.paymentList.adapter.ItemInfoPopupAdapter
 import com.cinescape1.ui.main.views.payment.paymentList.adapter.PaymentListAdapter
 import com.cinescape1.ui.main.views.payment.paymentList.response.GiftCardRemove
 import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResponse
@@ -62,6 +64,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 @ActivityScoped
 class PaymentListActivity : DaggerAppCompatActivity(),
@@ -78,7 +81,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     @Inject
     lateinit var preferences: AppPreferences
     private val summeryViewModel: SummeryViewModel by viewModels { viewModelFactory }
-
 
     private var binding: ActivityPaymentListBinding? = null
     private var loader: LoaderDialog? = null
@@ -109,6 +111,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     private var ticketPrice : TextView? = null
     private var textFoodPrice : TextView? = null
     private var textOfferPrice : TextView? = null
+
+    private var outputlist : ArrayList<PaymentListResponse.Output.PayInfo>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -174,14 +178,16 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         dialog.window?.setGravity(Gravity.BOTTOM)
         dialog.show()
         val imageView71 = dialog.findViewById<ImageView>(R.id.imageView71)
-         ticketPrice = dialog.findViewById<TextView>(R.id.text_ticket1_price)
-         textFoodPrice = dialog.findViewById<TextView>(R.id.textFoodPrice)
-         textOfferPrice = dialog.findViewById<TextView>(R.id.textOfferPrice)
+        val recyclerTicketPrice = dialog.findViewById<RecyclerView>(R.id.recyclerTicketPrice)
+
+        val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
+        val adapter = ItemInfoPopupAdapter(this, outputlist!!)
+        recyclerTicketPrice.layoutManager = gridLayout
+        recyclerTicketPrice.adapter = adapter
 
         imageView71.setOnClickListener {
             dialog.dismiss()
         }
-
     }
 
     private fun ticketList(request: TicketSummaryRequest) {
@@ -194,6 +200,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
                                     retrieveData(it.data.output)
+                                    outputlist = it.data.output.payInfo
                                 } catch (e: Exception) {
                                     e.printStackTrace()
                                     val dialog = OptionDialog(this,

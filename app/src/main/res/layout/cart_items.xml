@@ -18,12 +18,11 @@
 
         <ImageView
             android:id="@+id/img_cart_item"
-            android:layout_width="76dp"
+            android:layout_width="67dp"
             android:layout_height="0dp"
-            android:layout_marginTop="8dp"
             android:adjustViewBounds="true"
-            android:padding="8dp"
             android:scaleType="center"
+            android:layout_marginStart="@dimen/margin8"
             app:layout_constraintStart_toStartOf="@+id/view_items"
             app:layout_constraintTop_toTopOf="@+id/view_items"
             app:srcCompat="@drawable/placeholder_icon"
@@ -41,16 +40,15 @@
         <View
             android:id="@+id/viewRemove"
             android:layout_width="100dp"
-            android:layout_height="@dimen/margin40"
+            android:layout_height="@dimen/margin35"
             android:layout_marginTop="4dp"
-            app:layout_constraintStart_toStartOf="@+id/img_cart_item"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img_cart_item" />
 
         <ImageView
             android:id="@+id/img_trash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
             android:layout_marginBottom="4dp"
             android:adjustViewBounds="true"
             app:layout_constraintBottom_toBottomOf="@+id/viewRemove"
@@ -61,9 +59,10 @@
 
         <TextView
             android:id="@+id/textRemove"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="@dimen/margin6"
             android:fontFamily="@font/sf_pro_text_regular"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="2sp"

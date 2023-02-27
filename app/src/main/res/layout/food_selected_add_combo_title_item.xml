@@ -4,17 +4,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_gravity="start"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginBottom="@dimen/margin25"
+    android:layout_marginStart="@dimen/margin6"
     android:background="@color/transparent">
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/popcornUi"
         android:visibility="visible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin15"
+        android:layout_marginBottom="@dimen/margin12"
+        android:layout_marginStart="@dimen/margin12"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,12 +23,10 @@
 
         <ImageView
             android:id="@+id/imageViewFlavor"
-            android:layout_width="70dp"
-            android:layout_height="55dp"
+            android:layout_width="45dp"
+            android:layout_height="40dp"
             android:adjustViewBounds="true"
-            android:maxWidth="900dp"
-            android:maxHeight="65dp"
-            android:src="@drawable/app_icon"
+            android:src="@drawable/placeholder_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -37,19 +36,18 @@
             android:id="@+id/text_title_combo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:fontFamily="@font/sf_pro_text_bold"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:includeFontPadding="true"
             android:gravity="center"
-            android:padding="@dimen/margin2"
+            android:letterSpacing="-0.03"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="@dimen/size12"
+            android:textSize="@dimen/size11"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewFlavor"
+            app:layout_constraintStart_toStartOf="@+id/imageViewFlavor"
             app:layout_constraintTop_toBottomOf="@+id/imageViewFlavor"
             tools:text="Pjjncdjnsdcnj" />
-
 
         <TextView
             android:id="@+id/textView18"

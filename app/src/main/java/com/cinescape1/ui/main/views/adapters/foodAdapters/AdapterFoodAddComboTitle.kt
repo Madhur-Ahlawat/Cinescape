@@ -38,7 +38,7 @@ class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitle
         println("foodAddComboTitleList---$foodAddComboTitleList")
         if (foodAddComboTitleList.isNullOrEmpty()) {
 //            val itemPadding = 1
-//
+
 //            //here you may change the divide amount from 2.5 to whatever you need
 //            val itemWidth = (screenWidth - itemPadding).div(0.5)
 //
@@ -105,7 +105,6 @@ class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitle
                 val imgSubItem: ImageView = v.findViewById(R.id.img_sub_item)
                 val textSubAddFoodName: TextView = v.findViewById(R.id.text_sub_add_food_name)
                 val view22: TextView = v.findViewById(R.id.view22)
-
 
                 viewList.add(v)
                 imgSubItem.show()

@@ -9,7 +9,7 @@
     android:layout_gravity="center"
     android:backgroundTint="@color/back_food">
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/food_selected_add_alert_bg"
@@ -62,65 +62,75 @@
 
                 <ImageView
                     android:id="@+id/imageView10"
-                    android:layout_width="111dp"
-                    android:layout_height="92dp"
+                    android:layout_width="78dp"
+                    android:layout_height="75dp"
                     android:contentDescription="@string/contentDes"
                     app:layout_constraintBottom_toBottomOf="@+id/view_combo_head"
                     app:layout_constraintStart_toStartOf="@+id/view_combo_head"
                     app:layout_constraintTop_toTopOf="@+id/view_combo_head"
                     app:srcCompat="@drawable/placeholder_icon" />
 
-                <TextView
-                    android:id="@+id/text_combo_head"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/consPop"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="2dp"
-                    android:fontFamily="@font/sf_pro_text_bold"
-                    android:gravity="center_horizontal"
-                    android:lineSpacingExtra="0sp"
-                    tools:text="Combo 1"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/size16"
-                    android:visibility="visible"
+                    android:layout_marginEnd="@dimen/margin40"
+                    app:layout_constraintBottom_toBottomOf="@+id/view_combo_head"
                     app:layout_constraintEnd_toEndOf="@+id/view_combo_head"
                     app:layout_constraintStart_toEndOf="@+id/imageView10"
-                    app:layout_constraintTop_toTopOf="@+id/view_combo_head" />
+                    app:layout_constraintTop_toTopOf="@+id/view_combo_head">
 
-                <TextView
-                    android:id="@+id/text_combo_subtilte"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin8"
-                    android:fontFamily="@font/sf_pro_text_regular"
-                    android:gravity="center_horizontal"
-                    android:letterSpacing="-0.01"
-                    tools:text="Large Popcorn &amp; Soda"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/size14"
-                    android:textStyle="normal"
-                    app:layout_constraintEnd_toEndOf="@+id/view_combo_head"
-                    app:layout_constraintStart_toEndOf="@+id/imageView10"
-                    app:layout_constraintTop_toBottomOf="@+id/text_combo_head" />
+                    <TextView
+                        android:id="@+id/text_combo_head"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_text_bold"
+                        android:gravity="center_horizontal"
+                        android:lineSpacingExtra="0sp"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size16"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Combo 1" />
 
-                <TextView
-                    android:id="@+id/text_combo_kd_price"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/sf_pro_text_bold"
-                    android:gravity="center_horizontal"
-                    tools:text="KD 1.750"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/size14"
-                    app:layout_constraintEnd_toEndOf="@+id/view_combo_head"
-                    app:layout_constraintStart_toStartOf="@+id/text_combo_subtilte"
-                    app:layout_constraintTop_toBottomOf="@+id/text_combo_subtilte" />
+                    <TextView
+                        android:id="@+id/text_combo_subtilte"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:gravity="center"
+                        android:letterSpacing="-0.01"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/size14"
+                        android:textStyle="normal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/text_combo_head"
+                        tools:text="Large Popcorn &amp; Soda" />
+
+                    <TextView
+                        android:id="@+id/text_combo_kd_price"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_text_bold"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size14"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/text_combo_subtilte"
+                        tools:text="KD 1.750" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview_combo_title"
                     android:layout_width="0dp"
-                    android:layout_marginTop="@dimen/dimen30"
-                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin30"
+                    android:layout_height="0dp"
                     android:layout_marginBottom="24dp"
                     app:layout_constraintBottom_toTopOf="@+id/view39_done_btn"
                     app:layout_constraintEnd_toEndOf="@+id/view_combo_head"
@@ -283,6 +293,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </androidx.core.widget.NestedScrollView>
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
