@@ -702,4 +702,5 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
         registerReceiver(broadcastReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
     }
 
+
 }

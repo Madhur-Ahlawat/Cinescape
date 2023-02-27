@@ -2,20 +2,24 @@ package com.cinescape1.ui.main.views.payment.paymentList.adapter
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.graphics.Color
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import android.widget.TextView.OnEditorActionListener
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cinescape1.R
-import com.cinescape1.data.models.BankModel
 import com.cinescape1.data.models.responseModel.GetMovieResponse
 import com.cinescape1.databinding.ItemPaymentListBinding
 import com.cinescape1.ui.main.dailogs.OptionDialog
@@ -24,7 +28,9 @@ import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResp
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 import kotlinx.android.synthetic.main.account_preference_layout.*
+import kotlinx.android.synthetic.main.activity_checkout_with_food.*
 import java.util.regex.Pattern
+
 
 class PaymentListAdapter(
     private val context: Activity,
@@ -169,13 +175,19 @@ class PaymentListAdapter(
                 }
 
                 //show Hide
-                binding.offerEditText.hint = clickName
+
+
                 binding.consItemClick.setOnClickListener {
                     when (this.payType) {
+
                         "BANK" -> {
+
                             if (binding.bankOffer.visibility == View.GONE) {
+
                                 binding.imageView63.setImageResource(R.drawable.arrow_up)
                                 binding.bankOffer.show()
+                                binding.wallet.hide()
+                                binding.giftCardUi.hide()
                                 val list: ArrayList<PaymentListResponse.Output.PayMode.RespPayMode.PayModeBank> = ArrayList()
                                 list.add(PaymentListResponse.Output.PayMode.RespPayMode.PayModeBank(0,"Available Bank Offers"))
                                     list.addAll(this.respPayModes[0].payModeBanks)
@@ -324,14 +336,28 @@ class PaymentListAdapter(
                             } else {
                                 binding.imageView63.setImageResource(R.drawable.arrow_down)
                                 binding.bankOffer.hide()
+                                binding.wallet.hide()
+                                binding.giftCardUi.hide()
                             }
                         }
                         "OFFER" -> {
+
                             if (binding.giftCardUi.visibility == View.GONE) {
-                                binding.imageView63.setImageResource(R.drawable.arrow_up)
-                                binding.giftCardUi.show()
                                 println("------>${this.respPayModes}")
+
                                 clickName = this.respPayModes[0].name
+                                binding.imageView63.setImageResource(R.drawable.arrow_up)
+                                binding.bankOffer.hide()
+                                binding.wallet.hide()
+                                binding.giftCardUi.show()
+
+                                binding.offerEditText.hint = clickName
+
+                                binding.giftCard.setOnClickListener {
+                                    binding.bankOffer.hide()
+                                    binding.wallet.hide()
+                                }
+
                                 val adapter = GiftCardAdapter(
                                     context, this.respPayModes, this@PaymentListAdapter
                                 )
@@ -341,6 +367,7 @@ class PaymentListAdapter(
                                 binding.recyclerOffer.adapter = adapter
 
                                 binding.textView157.setOnClickListener {
+
                                     val offerCode = binding.offerEditText.text.toString()
                                     if (offerCode == "") {
                                         val dialog = OptionDialog(context,
@@ -352,6 +379,7 @@ class PaymentListAdapter(
                                             positiveClick = {},
                                             negativeClick = {})
                                         dialog.show()
+
                                     } else {
                                         listner.onVoucherApply(
                                             this,
@@ -389,17 +417,23 @@ class PaymentListAdapter(
 
                                 }
                             } else {
-                                binding.imageView63.setImageResource(R.drawable.arrow_down)
-                                binding.giftCardUi.hide()
 
+                                binding.imageView63.setImageResource(R.drawable.arrow_down)
+                                binding.bankOffer.hide()
+                                binding.wallet.hide()
+                                binding.giftCardUi.hide()
                             }
                         }
+
                         "WALLET" -> {
 
                             if (binding.wallet.visibility == View.GONE) {
-                                binding.wallet.show()
-                                binding.imageView63.setImageResource(R.drawable.arrow_up)
 
+                                binding.bankOffer.hide()
+                                binding.wallet.show()
+                                binding.giftCardUi.hide()
+
+                                binding.imageView63.setImageResource(R.drawable.arrow_up)
                                 binding.textView158.text = context.getString(R.string.wallet_balance) + this.respPayModes[0].balance
 
                                 // apply
@@ -428,22 +462,26 @@ class PaymentListAdapter(
                                 binding.cancelBtn.setOnClickListener {
                                     binding.cancelBtn.hide()
                                     binding.textView159.show()
-
                                 }
-
 
                             } else {
                                 binding.imageView63.setImageResource(R.drawable.arrow_down)
-
+                                binding.bankOffer.hide()
                                 binding.wallet.hide()
+                                binding.giftCardUi.hide()
 
                             }
                         }
+
                         "GATEWAY" -> {
 
-                            if (binding.cardUi.visibility == View.GONE) {
+//                            if (binding.cardUi.visibility == View.GONE) {
+
                                 binding.imageView63.setImageResource(R.drawable.arrow_up)
                                 binding.cardUi.show()
+                                binding.bankOffer.hide()
+                                binding.wallet.hide()
+                                binding.giftCardUi.hide()
 
                                 binding.creditCard.setOnClickListener {
                                     creditCardClick = true
@@ -474,11 +512,15 @@ class PaymentListAdapter(
 
                                     listner.onKnitItemClick(this, creditCardClick, knetClick)
                                 }
-                            } else {
-                                binding.imageView63.setImageResource(R.drawable.arrow_down)
-                                binding.cardUi.hide()
 
-                            }
+//                            } else {
+//                                binding.imageView63.setImageResource(R.drawable.arrow_down)
+//                                binding.cardUi.show()
+//                                binding.bankOffer.hide()
+//                                binding.wallet.hide()
+//                                binding.giftCardUi.hide()
+//                            }
+
                         }
                     }
                     notifyDataSetChanged()
@@ -564,5 +606,10 @@ class PaymentListAdapter(
         clickName = view.name
         clickId = view.id.toString()
         notifyDataSetChanged()
+    }
+
+    fun Activity.hideKeyboard() {
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }

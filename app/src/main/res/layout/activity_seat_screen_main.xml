@@ -11,7 +11,7 @@
         android:id="@+id/SeatnestedScroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -434,9 +434,9 @@
                 <View
                     android:id="@+id/vws_tilte1"
                     android:layout_width="0dp"
-                    android:layout_height="45dp"
+                    android:layout_height="10dp"
                     android:layout_marginTop="16dp"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="@+id/text_other_showtimes"
                     app:layout_constraintStart_toStartOf="@+id/text_other_showtimes"
                     app:layout_constraintTop_toBottomOf="@+id/text_other_showtimes" />
@@ -585,18 +585,15 @@
         android:id="@+id/constraintLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
-
-
 
         <View
             android:id="@+id/view45lines"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="16dp"
             android:visibility="visible"
             android:background="@color/view_bg_color_line"
             app:layout_constraintEnd_toEndOf="parent"

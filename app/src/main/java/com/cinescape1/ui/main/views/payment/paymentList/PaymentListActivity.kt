@@ -162,10 +162,10 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             paymentDialog()
         }
 
+
     }
 
     private fun paymentDialog(){
-
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.paymnet_info_dialog)

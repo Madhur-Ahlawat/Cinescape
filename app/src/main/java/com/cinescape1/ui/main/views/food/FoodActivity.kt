@@ -311,7 +311,7 @@ class FoodActivity : DaggerAppCompatActivity(),
 
         } else {
 
-//            binding?.txtSkipProceed?.hide()
+//         binding?.txtSkipProceed?.hide()
             binding?.viewCancel?.setOnClickListener {
                 val intent = Intent(this@FoodActivity, HomeActivity::class.java)
                 startActivity(intent)
@@ -361,6 +361,7 @@ class FoodActivity : DaggerAppCompatActivity(),
         broadcastIntent()
         getFood()
         movedNext()
+
     }
 
     private fun broadcastIntent() {
@@ -1102,11 +1103,9 @@ class FoodActivity : DaggerAppCompatActivity(),
                             spancount = 4
                         }
                     }
-//
 
                     val gridLayout = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
                     recyclerviewComboTitle.layoutManager = LinearLayoutManager(this)
-
                     val adapter = AdapterFoodAddComboTitle(
                         this,
                         foodItem.packageChildItems,

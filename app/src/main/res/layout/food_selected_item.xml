@@ -18,8 +18,8 @@
         android:layout_height="match_parent"
         android:paddingStart="@dimen/margin12"
         android:paddingEnd="@dimen/margin12"
-        android:paddingTop="@dimen/margin6"
-        android:paddingBottom="@dimen/margin6">
+        android:paddingTop="@dimen/margin7"
+        android:paddingBottom="@dimen/margin2">
 
         <ImageView
             android:id="@+id/image_food_select"
@@ -62,7 +62,8 @@
             android:layout_marginTop="4dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/contentDes"
-            android:visibility="gone"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/text_food_item_name"
             app:layout_constraintStart_toStartOf="@+id/text_food_item_name"
             app:layout_constraintTop_toBottomOf="@+id/vie146"

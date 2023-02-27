@@ -169,8 +169,8 @@ class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitle
         fun onAlternateClick(
             item: GetFoodResponse.AlternateItem,
             foodItem: GetFoodResponse.ConcessionItem,
-            foodPos: Int
-        )
+            foodPos: Int)
+
         fun onComboClick(
             item: GetFoodResponse.ComboItem,
             position: Int,

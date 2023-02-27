@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin20"
     android:background="@color/black">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,6 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <TextView
             android:id="@+id/textView156"
             android:layout_width="0dp"
@@ -204,7 +206,6 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -247,28 +248,61 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="32dp"
-                android:background="@drawable/curve_payment"
                 app:layout_constraintEnd_toStartOf="@+id/linearLayout8"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/couponUi">
 
-                <EditText
-                    android:id="@+id/offerEditText"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:id="@+id/enterUsernames"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:autofillHints=""
                     android:importantForAutofill="no"
-                    android:textColor="#7B7A7A"
-                    android:maxLength="16"
-                    android:textSize="@dimen/size15"
-                    android:hint="@string/enter_gift_card"
-                    android:textColorHint="@color/hint_color"
+                    android:longClickable="false"
+                    android:textColorHint="@color/arabic_color"
+                    app:boxStrokeColor="@color/edittext_selector"
+                    app:hintTextColor="@color/editColor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="LabelFor,TextFields" />
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/offerEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/curve_payment"
+                        android:imeOptions="actionDone"
+                        android:inputType="textEmailAddress"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/hint_color"
+                        android:textCursorDrawable="@null"
+                        android:textSize="@dimen/size15"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+<!--                <EditText-->
+<!--                    android:id="@+id/offerEditText"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@null"-->
+<!--                    android:fontFamily="@font/sf_pro_text_regular"-->
+<!--                    android:importantForAutofill="no"-->
+<!--                    android:textColor="#7B7A7A"-->
+<!--                    android:imeOptions="actionDone"-->
+<!--                    android:singleLine="true"-->
+<!--                    android:maxLength="16"-->
+<!--                    android:textSize="@dimen/size15"-->
+<!--                    android:hint="@string/enter_gift_card"-->
+<!--                    android:textColorHint="@color/hint_color"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    tools:ignore="LabelFor,TextFields" />-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -290,7 +324,8 @@
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/imageView66"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
 
                 <ImageView
                     android:id="@+id/imageView66"
