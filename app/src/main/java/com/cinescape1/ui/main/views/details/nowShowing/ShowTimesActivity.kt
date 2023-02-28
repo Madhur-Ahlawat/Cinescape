@@ -750,8 +750,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         val transfer = CompositePageTransformer()
 
         val nextItemVisiblePx = resources.getDimension(R.dimen.viewpager_next_item_visible)
-        val currentItemHorizontalMarginPx =
-            resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
+        val currentItemHorizontalMarginPx = resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
         val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
 
 
@@ -858,6 +857,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (Constant.SEAT_SESSION_CLICK == 1) {
+
             Constant.SEAT_SESSION_CLICK = 0
             showPose = data?.getIntExtra("CINEMA_POS", 0)!!
             getSeatLayout(SeatLayoutRequest(
@@ -867,6 +867,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                     data.getStringExtra("SESSIONID").toString()
                 ), data.getStringExtra("NAME").toString(), data.getIntExtra("SHOW_POS", 0)
             )
+
         }
     }
 

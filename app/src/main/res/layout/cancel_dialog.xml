@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="165dp">
+    android:layout_height="210dp"
+    android:background="@color/transparent"
+    android:layout_marginBottom="140dp">
 
     <ImageView
         android:id="@+id/imageBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:adjustViewBounds="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
         android:rotation="180"
         android:src="@drawable/cancel_background"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,7 +25,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:cardBackgroundColor="@color/transparent"
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -45,47 +48,56 @@
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="@dimen/margin35"
             android:gravity="center_horizontal"
             android:text="@string/are_you_sure"
             android:textColor="@color/white"
-            android:textSize="@dimen/size16"
+            android:textSize="@dimen/size15"
             android:visibility="visible"
             app:fontFamily="@font/sf_pro_text_heavy"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/illustration" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin8"
+            android:layout_marginTop="@dimen/margin14"
+            android:layout_marginEnd="@dimen/margin8"
             android:gravity="center"
             android:lineSpacingExtra="@dimen/size1"
-            android:padding="@dimen/margin10"
+            android:padding="@dimen/margin4"
             android:text="@string/cancel_msg"
             android:textColor="@color/white"
-            android:textSize="@dimen/size15"
+            android:textSize="@dimen/size14"
             app:fontFamily="@font/sf_pro_text_semibold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title" />
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linId"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="@dimen/margin25"
             android:gravity="center"
             android:orientation="vertical"
+            android:layout_marginBottom="@dimen/margin4"
+            android:layout_marginTop="@dimen/margin6"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/subtitle">
 
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="UselessParent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -93,17 +105,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="35dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/negative_btn"
                     app:layout_constraintEnd_toStartOf="@+id/negative_btn"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="@+id/negative_btn">
 
                     <TextView
                         android:id="@+id/txtSureNew"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
-                        android:layout_marginStart="32dp"
                         android:fontFamily="@font/sf_pro_text_bold"
                         android:gravity="center"
                         android:text="@string/yesComa"
@@ -112,7 +123,6 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-
 
                     <TextView
                         android:id="@+id/txtGoBack"
@@ -130,7 +140,7 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/negative_btn"
-                    android:layout_width="105dp"
+                    android:layout_width="95dp"
                     android:layout_height="32dp"
                     android:layout_gravity="end"
                     android:background="@drawable/btn_corner_bg_red"
@@ -140,16 +150,15 @@
                     android:text="@string/no"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/size16"
+                    android:textSize="@dimen/size14"
                     android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/consSure"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="InefficientWeight,TouchTargetSizeCheck" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

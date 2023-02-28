@@ -187,5 +187,6 @@ class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitle
         var popcornUi: ConstraintLayout = view.findViewById(R.id.popcornUi)
         var comboUi: ConstraintLayout = view.findViewById(R.id.comboUi)
         val foodComboSubtitleList = view.findViewById<FlexboxLayout>(R.id.food_combo_subtitle_list)
+
     }
 }

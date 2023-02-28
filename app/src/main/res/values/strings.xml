@@ -312,8 +312,8 @@
     <string name="countryEmpty">Please select your country</string>
     <string name="selectCateogry">Please select your category</string>
     <string name="seatTypeReset">Choosing Yes will reset your current selections.</string>
-    <string name="noComma">No ,</string>
-    <string name="gobackComma"> , go back</string>
+    <string name="noComma">No,</string>
+    <string name="gobackComma"> go back</string>
     <string name="selectPaymode">Select Your Payment Mode</string>
     <string name="ItemAdded">Item added</string>
     <string name="somethingWrong">Something Went Wrong</string>

@@ -572,13 +572,24 @@ class FoodActivity : DaggerAppCompatActivity(),
             movieDetails.hide()
             viewFood.show()
             tvFoodPrice?.text = getAllFoodPrice()
-            textTotal1?.text = getString(R.string.price_kd) + " ${
-                Constant.DECIFORMAT.format(
-                    getAllFoodPrice().replace("KWD ", "").toDouble() + seatPrice.replace(
-                        "KWD ", ""
-                    ).toDouble()
-                )
-            }"
+
+            println("tvFoodPrice?.text21------>${tvFoodPrice?.text}------>${seatPrice}")
+
+            try {
+                textTotal1?.text = getString(R.string.price_kd) + " ${
+                    Constant.DECIFORMAT.format(
+                        getAllFoodPrice().replace("KWD ", "").toDouble() + seatPrice.replace(
+                            "KWD ", ""
+                        ).toDouble()
+                    )
+                }"
+            }catch (e : Exception){
+                e.printStackTrace()
+            }
+
+
+
+
         } else {
             viewFood.hide()
             titleTicketPrice.show()
@@ -599,11 +610,16 @@ class FoodActivity : DaggerAppCompatActivity(),
 
             textTicket1Price.text = seatPrice
 
-            textTotal1?.text = getString(R.string.price_kd) + " ${
-                Constant.DECIFORMAT.format(
-                    getAllFoodPrice().replace("KWD ", "").toDouble() + seatPrice.replace("KWD ", "").toDouble()
-                )
-            }"
+            try {
+                textTotal1?.text = getString(R.string.price_kd) + " ${
+                    Constant.DECIFORMAT.format(
+                        getAllFoodPrice().replace("KWD ", "").toDouble() + seatPrice.replace("KWD ", "").toDouble()
+                    )
+                }"
+            }catch (e : Exception){
+                e.printStackTrace()
+            }
+
             val title = mDialogView.findViewById<TextView>(R.id.tv_seat_film_title)
             val rating = mDialogView.findViewById<TextView>(R.id.rating)
             val cinemaName = mDialogView.findViewById<TextView>(R.id.tv_cinema_name)
@@ -866,7 +882,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             price += data.foodAmount.toInt()
             itemCheckPrice = data.foodAmount.toInt()
         }
-        return getString(R.string.price_kd) + " ${Constant.DECIFORMAT.format(price / 100.0)}"
+        return getString(R.string.price_kd) + "${Constant.DECIFORMAT.format(price / 100.0)}"
     }
 
     private fun getCartFoodPrice(): Int {
@@ -1227,8 +1243,8 @@ class FoodActivity : DaggerAppCompatActivity(),
                         spancount = 4
                     }
                 }
-                val gridLayout = GridLayoutManager(this, spancount, GridLayoutManager.VERTICAL, false)
-                recyclerviewComboTitle.layoutManager = LinearLayoutManager(this)
+//                val gridLayout = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
+//                recyclerviewComboTitle.layoutManager = LinearLayoutManager(this)
 
                 comboAdapter = AdapterFoodAddComboTitle(
                     this,
@@ -1237,12 +1253,12 @@ class FoodActivity : DaggerAppCompatActivity(),
                     this, foodItem, position
                 )
 
-//                val layoutManager = FlexboxLayoutManager(this)
-//                layoutManager.flexDirection = FlexDirection.ROW
-//                layoutManager.justifyContent = JustifyContent.FLEX_START
-//                layoutManager.alignItems = AlignItems.FLEX_START
+                val layoutManager = FlexboxLayoutManager(this)
+                layoutManager.flexDirection = FlexDirection.ROW
+                layoutManager.justifyContent = JustifyContent.FLEX_START
+                layoutManager.alignItems = AlignItems.FLEX_START
 
-                recyclerviewComboTitle.layoutManager = gridLayout
+                recyclerviewComboTitle.layoutManager = layoutManager
 
 
                 recyclerviewComboTitle.adapter = comboAdapter

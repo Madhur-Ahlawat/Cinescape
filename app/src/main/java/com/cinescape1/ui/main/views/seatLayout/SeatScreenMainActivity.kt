@@ -316,19 +316,22 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
             }
 
             binding?.textSeatTypes?.setOnClickListener {
+
                 val dialog = Dialog(this)
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
                 dialog.setContentView(R.layout.cancel_dialog)
+
                 dialog.window!!.setLayout(
                     ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                )
+                    ViewGroup.LayoutParams.WRAP_CONTENT)
+
                 dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
                 dialog.window!!.setGravity(Gravity.BOTTOM)
+
                 dialog.subtitle.text = getString(R.string.seatTypeReset)
                 dialog.negative_btn.text = getString(R.string.yes)
-                dialog.txtSureNew.text = getString(R.string.no)
+                dialog.txtSureNew.text = getString(R.string.noComma)
                 dialog.txtGoBack.text = getString(R.string.gobackComma)
                 dialog.show()
 

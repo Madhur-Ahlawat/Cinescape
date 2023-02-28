@@ -45,6 +45,10 @@ class PaymentListAdapter(
     private var knetClick = false
     private var creditCardClick = false
 
+    private var cartBank = true
+    private var cartGift = true
+    private var cartWallet = true
+
     inner class ViewHolder(val binding: ItemPaymentListBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -175,15 +179,13 @@ class PaymentListAdapter(
                 }
 
                 //show Hide
-
-
                 binding.consItemClick.setOnClickListener {
                     when (this.payType) {
 
                         "BANK" -> {
-
-                            if (binding.bankOffer.visibility == View.GONE) {
-
+                            if (cartBank == true) {
+                                cartBank = false
+                                println("cartBankTrue1------->${cartBank}")
                                 binding.imageView63.setImageResource(R.drawable.arrow_up)
                                 binding.bankOffer.show()
                                 binding.wallet.hide()
@@ -194,7 +196,6 @@ class PaymentListAdapter(
 
                                 val customAdapter = BankOfferAdapter(context, list)
                                 binding.spinner2.adapter = customAdapter
-
                                 binding.spinner2.onItemSelectedListener =
                                     object : AdapterView.OnItemSelectedListener {
                                         override fun onItemSelected(
@@ -334,6 +335,9 @@ class PaymentListAdapter(
                                 }
 
                             } else {
+                                cartBank = true
+
+                                println("cartBankTrue------->${cartBank}")
                                 binding.imageView63.setImageResource(R.drawable.arrow_down)
                                 binding.bankOffer.hide()
                                 binding.wallet.hide()
@@ -342,9 +346,9 @@ class PaymentListAdapter(
                         }
                         "OFFER" -> {
 
-                            if (binding.giftCardUi.visibility == View.GONE) {
+                            if (cartGift == true) {
                                 println("------>${this.respPayModes}")
-
+                                cartGift = false
                                 clickName = this.respPayModes[0].name
                                 binding.imageView63.setImageResource(R.drawable.arrow_up)
                                 binding.bankOffer.hide()
@@ -356,6 +360,8 @@ class PaymentListAdapter(
                                 binding.giftCard.setOnClickListener {
                                     binding.bankOffer.hide()
                                     binding.wallet.hide()
+                                    binding.giftCardUi.show()
+                                    notifyDataSetChanged()
                                 }
 
                                 val adapter = GiftCardAdapter(
@@ -367,7 +373,6 @@ class PaymentListAdapter(
                                 binding.recyclerOffer.adapter = adapter
 
                                 binding.textView157.setOnClickListener {
-
                                     val offerCode = binding.offerEditText.text.toString()
                                     if (offerCode == "") {
                                         val dialog = OptionDialog(context,
@@ -417,7 +422,7 @@ class PaymentListAdapter(
 
                                 }
                             } else {
-
+                                cartGift = true
                                 binding.imageView63.setImageResource(R.drawable.arrow_down)
                                 binding.bankOffer.hide()
                                 binding.wallet.hide()
@@ -426,9 +431,9 @@ class PaymentListAdapter(
                         }
 
                         "WALLET" -> {
+                            if (cartWallet == true) {
 
-                            if (binding.wallet.visibility == View.GONE) {
-
+                                cartWallet = false
                                 binding.bankOffer.hide()
                                 binding.wallet.show()
                                 binding.giftCardUi.hide()
@@ -465,18 +470,15 @@ class PaymentListAdapter(
                                 }
 
                             } else {
+                                cartWallet = true
                                 binding.imageView63.setImageResource(R.drawable.arrow_down)
                                 binding.bankOffer.hide()
                                 binding.wallet.hide()
                                 binding.giftCardUi.hide()
-
                             }
                         }
-
                         "GATEWAY" -> {
-
 //                            if (binding.cardUi.visibility == View.GONE) {
-
                                 binding.imageView63.setImageResource(R.drawable.arrow_up)
                                 binding.cardUi.show()
                                 binding.bankOffer.hide()

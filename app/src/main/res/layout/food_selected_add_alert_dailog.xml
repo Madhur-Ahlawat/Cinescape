@@ -64,6 +64,7 @@
                     android:id="@+id/imageView10"
                     android:layout_width="78dp"
                     android:layout_height="75dp"
+                    android:layout_marginStart="@dimen/margin3"
                     android:contentDescription="@string/contentDes"
                     app:layout_constraintBottom_toBottomOf="@+id/view_combo_head"
                     app:layout_constraintStart_toStartOf="@+id/view_combo_head"
@@ -125,7 +126,6 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview_combo_title"
                     android:layout_width="0dp"
@@ -142,10 +142,11 @@
                     android:layout_width="0dp"
                     android:layout_height="55dp"
                     android:layout_marginBottom="@dimen/margin10"
+                    android:layout_marginStart="@dimen/margin30"
+                    android:layout_marginEnd="@dimen/margin10"
                     app:layout_constraintBottom_toTopOf="@+id/viw_total_price"
                     app:layout_constraintEnd_toEndOf="@+id/vws_main2"
                     app:layout_constraintStart_toStartOf="@+id/vws_main2" />
-
 
                 <TextView
                     android:id="@+id/text_add_btn"
@@ -158,6 +159,7 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/size12"
                     android:visibility="gone"
+                    android:layout_marginStart="@dimen/margin6"
                     app:layout_constraintBottom_toBottomOf="@+id/view39_done_btn"
                     app:layout_constraintEnd_toStartOf="@+id/tv_done_btn"
                     app:layout_constraintStart_toStartOf="@+id/view39_done_btn"
@@ -169,6 +171,7 @@
                     android:layout_height="33dp"
                     android:background="@drawable/food_item_bg"
                     android:visibility="visible"
+                    android:layout_marginStart="@dimen/margin6"
                     app:layout_constraintBottom_toBottomOf="@+id/view39_done_btn"
                     app:layout_constraintEnd_toStartOf="@+id/tv_done_btn"
                     app:layout_constraintStart_toStartOf="@+id/view39_done_btn"
@@ -219,13 +222,13 @@
                 <TextView
                     android:id="@+id/tv_done_btn"
                     android:layout_width="96dp"
-                    android:layout_height="36dp"
+                    android:layout_height="34dp"
                     android:background="@drawable/btn_corner_bg_red"
                     android:fontFamily="@font/sf_pro_text_bold"
                     android:gravity="center"
                     android:text="@string/done"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/size16"
+                    android:textSize="@dimen/size15"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/view_increase_decrease"
                     app:layout_constraintEnd_toEndOf="@+id/view39_done_btn"
