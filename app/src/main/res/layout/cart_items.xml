@@ -32,7 +32,7 @@
         <View
             android:id="@+id/view_items"
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_height="98dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -122,7 +122,7 @@
         <View
             android:id="@+id/viewKd_inc_dec_btn"
             android:layout_width="110dp"
-            android:layout_height="100dp"
+            android:layout_height="98dp"
             app:layout_constraintEnd_toEndOf="@+id/view_items"
             app:layout_constraintTop_toTopOf="parent" />
 

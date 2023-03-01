@@ -64,9 +64,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="@dimen/margin15"
                 android:paddingTop="@dimen/margin15"
-                android:paddingEnd="@dimen/margin15"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -89,6 +87,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="35dp"
+                    android:paddingEnd="@dimen/margin15"
+                    android:paddingStart="@dimen/margin15"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -122,10 +122,10 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/size16"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/view_food"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView119"
                         app:layout_constraintEnd_toStartOf="@+id/icon_down_arrow"
                         app:layout_constraintStart_toStartOf="@+id/view_food"
-                        app:layout_constraintTop_toTopOf="@+id/icon_down_arrow" />
+                        app:layout_constraintTop_toTopOf="@+id/textView119" />
 
                     <ImageView
                         android:id="@+id/icon_down_arrow"
@@ -135,6 +135,7 @@
                         android:contentDescription="@string/contentDes"
                         app:layout_constraintBottom_toBottomOf="@+id/text_food_title"
                         app:layout_constraintEnd_toStartOf="@+id/textView119"
+                        app:layout_constraintTop_toTopOf="@+id/text_food_title"
                         app:srcCompat="@drawable/arrow_up" />
 
                     <TextView
