@@ -129,9 +129,9 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview_combo_title"
                     android:layout_width="0dp"
-                    android:layout_marginTop="@dimen/margin30"
+                    android:layout_marginTop="@dimen/margin6"
                     android:layout_height="0dp"
-                    android:layout_marginBottom="24dp"
+                    android:layout_marginBottom="4dp"
                     app:layout_constraintBottom_toTopOf="@+id/view39_done_btn"
                     app:layout_constraintEnd_toEndOf="@+id/view_combo_head"
                     app:layout_constraintStart_toStartOf="@+id/view_combo_head"
@@ -140,8 +140,8 @@
                 <View
                     android:id="@+id/view39_done_btn"
                     android:layout_width="0dp"
-                    android:layout_height="55dp"
-                    android:layout_marginBottom="@dimen/margin10"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="@dimen/margin2"
                     android:layout_marginStart="@dimen/margin30"
                     android:layout_marginEnd="@dimen/margin10"
                     app:layout_constraintBottom_toTopOf="@+id/viw_total_price"
@@ -243,7 +243,6 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/view39_done_btn"
                     app:layout_constraintStart_toStartOf="@+id/view39_done_btn" />
-
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout32"

@@ -25,7 +25,6 @@
         app:layout_constraintStart_toStartOf="@+id/view99"
         app:layout_constraintTop_toTopOf="@+id/view99">
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/movieDetailsUi"
             android:layout_width="match_parent"
@@ -34,7 +33,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/movieDetails"
@@ -45,7 +43,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
-
 
                 <View
                     android:id="@+id/view52"
@@ -68,12 +65,24 @@
                     tools:ignore="ContentDescription"
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
+<!--                @drawable/cart_popup_page_gradient-->
+
                 <View
                     android:id="@+id/view109"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:rotation="180"
-                    android:background="@drawable/movie_info_page_gradient"
+                    android:background="@drawable/cart_popup_page_gradient"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView54"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <View
+                    android:id="@+id/view1011"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:rotation="360"
+                    android:background="@drawable/cart_popup_page_gradient"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView54"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +90,7 @@
 
                 <TextView
                     android:id="@+id/cartTime"
-                    android:layout_width="wrap_content"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
                     android:layout_marginEnd="8dp"
@@ -90,7 +99,7 @@
                     android:gravity="center"
                     android:letterSpacing="0.05"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/size16"
+                    android:textSize="@dimen/size14"
                     android:textStyle="bold"
                     android:visibility="visible"
                     app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
@@ -185,7 +194,6 @@
                                     tools:ignore="HardcodedText,TextContrastCheck"
                                     tools:text="13+" />
                             </androidx.cardview.widget.CardView>
-
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
                     </com.google.android.flexbox.FlexboxLayout>
@@ -324,13 +332,13 @@
 
             <ImageView
                 android:id="@+id/icon_cart"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:adjustViewBounds="true"
                 app:layout_constraintBottom_toBottomOf="@+id/title_carts"
                 app:layout_constraintStart_toEndOf="@+id/title_carts"
                 app:layout_constraintTop_toTopOf="@+id/title_carts"
-                app:srcCompat="@drawable/cart_icons"
+                app:srcCompat="@drawable/ic_cart"
                 tools:ignore="ContentDescription" />
 
             <ImageView
@@ -404,7 +412,7 @@
                         android:id="@+id/view_price_title"
                         android:layout_width="0dp"
                         android:layout_height="110dp"
-                        android:layout_marginStart="18dp"
+                        android:layout_marginStart="20dp"
                         app:layout_constraintBottom_toBottomOf="@+id/viewbtn"
                         app:layout_constraintEnd_toStartOf="@+id/view_kd"
                         app:layout_constraintStart_toStartOf="@+id/viewbtn"
@@ -433,7 +441,7 @@
                         android:id="@+id/tv_clear_item"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="20dp"
                         android:fontFamily="@font/sf_pro_text_regular"
                         android:gravity="center_horizontal"
                         android:letterSpacing="-0.01"
@@ -461,7 +469,7 @@
                         android:paddingBottom="5dp"
                         android:text="@string/proceed"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/size12"
+                        android:textSize="@dimen/size13"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/view_proceeds"
                         app:layout_constraintEnd_toEndOf="@+id/view_proceeds"
@@ -475,7 +483,7 @@
                         android:letterSpacing="-0.01"
                         android:lineSpacingExtra="1.3sp"
                         android:textColor="#adadad"
-                        android:textSize="@dimen/size15"
+                        android:textSize="@dimen/size14"
                         android:textStyle="normal"
                         app:layout_constraintBottom_toTopOf="@+id/tv_food_price"
                         app:layout_constraintEnd_toEndOf="@+id/view_kd"
@@ -493,7 +501,7 @@
                         android:letterSpacing="-0.01"
                         android:lineSpacingExtra="1.3sp"
                         android:textColor="#adadad"
-                        android:textSize="@dimen/size15"
+                        android:textSize="@dimen/size14"
                         android:textStyle="normal"
                         app:layout_constraintEnd_toEndOf="@+id/view_kd"
                         app:layout_constraintStart_toStartOf="@+id/view_kd"
@@ -510,7 +518,7 @@
                         android:letterSpacing="-0.01"
                         android:lineSpacingExtra="1.3sp"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/size16"
+                        android:textSize="@dimen/size14"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/view_kd"
                         app:layout_constraintEnd_toEndOf="@+id/view_kd"
@@ -527,7 +535,7 @@
                         android:lineSpacingExtra="1.3sp"
                         android:text="@string/ticket_price"
                         android:textColor="@color/hint_color"
-                        android:textSize="@dimen/size15"
+                        android:textSize="@dimen/size14"
                         android:textStyle="normal"
                         app:layout_constraintBottom_toTopOf="@+id/tv_food1_price"
                         app:layout_constraintEnd_toEndOf="@+id/view_price_title"
@@ -544,7 +552,7 @@
                         android:lineSpacingExtra="1.3sp"
                         android:text="@string/food_price"
                         android:textColor="@color/hint_color"
-                        android:textSize="@dimen/size15"
+                        android:textSize="@dimen/size14"
                         android:textStyle="normal"
                         app:layout_constraintEnd_toEndOf="@+id/view_price_title"
                         app:layout_constraintStart_toStartOf="@+id/view_price_title"
@@ -560,7 +568,7 @@
                         android:lineSpacingExtra="1.3sp"
                         android:text="@string/total"
                         android:textColor="@color/text_color"
-                        android:textSize="@dimen/size16"
+                        android:textSize="@dimen/size14"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/view_price_title"
                         app:layout_constraintEnd_toEndOf="@+id/view_price_title"
@@ -568,11 +576,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/tv_food1_price" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </androidx.core.widget.NestedScrollView>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

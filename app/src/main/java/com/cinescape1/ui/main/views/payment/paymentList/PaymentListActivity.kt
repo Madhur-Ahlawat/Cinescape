@@ -122,6 +122,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         setContentView(view)
 
         try {
+
             bookingId = intent.getStringExtra("bookingId").toString()
             bookType = intent.getStringExtra("BOOKING").toString()
             transId = intent.getStringExtra("TRANS_ID").toString()
@@ -139,7 +140,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             e.printStackTrace()
         }
 
-
         if (bookType == "BOOKING") {
             textView111?.show()
             textView112?.show()
@@ -148,6 +148,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             textView111?.invisible()
             textView112?.invisible()
         }
+
         ticketList(
             TicketSummaryRequest(
                 transId, bookingId, preferences.getString(Constant.USER_ID).toString()

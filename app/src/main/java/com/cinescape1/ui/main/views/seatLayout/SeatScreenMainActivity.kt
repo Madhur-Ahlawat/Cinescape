@@ -1,6 +1,7 @@
 package com.cinescape1.ui.main.views.seatLayout
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.BroadcastReceiver
 import android.content.Intent
@@ -317,17 +318,24 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
 
             binding?.textSeatTypes?.setOnClickListener {
 
-                val dialog = Dialog(this)
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                dialog.setContentView(R.layout.cancel_dialog)
+                val dialog = AlertDialog.Builder(this,R.style.CustomAlertDialog).create()
+                val view = layoutInflater.inflate(R.layout.cancel_dialog,null)
+                dialog.setView(view)
 
-                dialog.window!!.setLayout(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT)
+                dialog.setCanceledOnTouchOutside(false)
+                dialog.show()
 
-                dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
-                dialog.window!!.setGravity(Gravity.BOTTOM)
+//                val dialog = Dialog(this)
+//                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+//                dialog.setContentView(R.layout.cancel_dialog)
+//
+//                dialog.window!!.setLayout(
+//                    ViewGroup.LayoutParams.MATCH_PARENT,
+//                    ViewGroup.LayoutParams.WRAP_CONTENT)
+//
+//                dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//                dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
+//                dialog.window!!.setGravity(Gravity.BOTTOM)
 
                 dialog.subtitle.text = getString(R.string.seatTypeReset)
                 dialog.negative_btn.text = getString(R.string.yes)
@@ -523,16 +531,23 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
     }
 
     private fun cancelDialog() {
-        val dialog = Dialog(this)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.cancel_dialog)
-        dialog.window!!.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
-        dialog.window!!.setGravity(Gravity.BOTTOM)
+
+        val dialog = AlertDialog.Builder(this,R.style.CustomAlertDialog).create()
+        val view = layoutInflater.inflate(R.layout.cancel_dialog,null)
+        dialog.setView(view)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.show()
+
+//        val dialog = Dialog(this)
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+//        dialog.setContentView(R.layout.cancel_dialog)
+//        dialog.window!!.setLayout(
+//            ViewGroup.LayoutParams.MATCH_PARENT,
+//            ViewGroup.LayoutParams.WRAP_CONTENT
+//        )
+//        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
+//        dialog.window!!.setGravity(Gravity.BOTTOM)
 
         dialog.subtitle.text = getString(R.string.cancel_msg)
         dialog.show()

@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin30"
     android:background="@color/transparent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +19,7 @@
 
         <ImageView
             android:id="@+id/img_cart_item"
-            android:layout_width="67dp"
+            android:layout_width="58dp"
             android:layout_height="0dp"
             android:adjustViewBounds="true"
             android:scaleType="center"
@@ -31,7 +32,7 @@
         <View
             android:id="@+id/view_items"
             android:layout_width="wrap_content"
-            android:layout_height="120dp"
+            android:layout_height="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +79,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="12dp"
             android:gravity="center_vertical"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="@+id/img_cart_item"
@@ -121,7 +122,7 @@
         <View
             android:id="@+id/viewKd_inc_dec_btn"
             android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_height="100dp"
             app:layout_constraintEnd_toEndOf="@+id/view_items"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -129,13 +130,12 @@
             android:id="@+id/tvKD"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:fontFamily="@font/sf_pro_text_regular"
             android:gravity="center_horizontal"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="1.3sp"
             android:textColor="@color/white"
-            android:textSize="@dimen/size14"
+            android:textSize="@dimen/size12"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="@+id/view_items"
             app:layout_constraintStart_toStartOf="@+id/viewKd_inc_dec_btn"
@@ -178,7 +178,7 @@
             android:textAlignment="center"
             android:text="@string/minus"
             android:textColor="@color/white"
-            android:textSize="@dimen/size18"
+            android:textSize="@dimen/size16"
             app:layout_constraintBottom_toBottomOf="@+id/view_increase_decrease"
             app:layout_constraintEnd_toStartOf="@+id/text_number"
             app:layout_constraintStart_toStartOf="@+id/view_increase_decrease"
@@ -192,7 +192,7 @@
             android:fontFamily="@font/sf_pro_text_regular"
             android:gravity="center"
             android:textColor="@color/white"
-            android:textSize="@dimen/size18"
+            android:textSize="@dimen/size16"
             app:layout_constraintBottom_toBottomOf="@+id/text_decrease"
             app:layout_constraintEnd_toStartOf="@+id/text_increase"
             app:layout_constraintStart_toEndOf="@+id/text_decrease"
@@ -209,7 +209,7 @@
             android:gravity="center"
             android:text="@string/plus"
             android:textColor="@color/white"
-            android:textSize="@dimen/size18"
+            android:textSize="@dimen/size16"
             app:layout_constraintBottom_toBottomOf="@+id/text_number"
             app:layout_constraintEnd_toEndOf="@+id/view_increase_decrease"
             app:layout_constraintStart_toEndOf="@+id/text_number"
@@ -223,7 +223,7 @@
         android:id="@+id/vws_line"
         android:layout_width="wrap_content"
         android:layout_height="1dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="2dp"
         android:background="@color/view_bg_color_line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

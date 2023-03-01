@@ -7,6 +7,7 @@
     android:layout_gravity="start"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginStart="@dimen/margin2"
+    android:layout_marginTop="@dimen/margin20"
     android:background="@color/transparent">
 
     <androidx.constraintlayout.widget.ConstraintLayout

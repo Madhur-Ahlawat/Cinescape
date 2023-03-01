@@ -1,7 +1,7 @@
 package com.cinescape1.ui.main.views.food
 
 import android.annotation.SuppressLint
-import android.app.Dialog
+import android.app.AlertDialog
 import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.IntentFilter
@@ -18,7 +18,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -63,7 +62,7 @@ class FoodActivity : DaggerAppCompatActivity(),
     AdapterIndividual.RecycleViewItemClickListener,
     AdapterFoodSelectedItem.TypeFaceListenerFoodItem,
     AdapterIndividual.TypeFaceListenerFoodIndividual,
-    AdapterFoodCombo.TypeFaceListenerFoodCombo{
+    AdapterFoodCombo.TypeFaceListenerFoodCombo {
 
     private var itemFoodAmt: Double = 0.0
     private var itemFoodCount: Int = 0
@@ -95,6 +94,7 @@ class FoodActivity : DaggerAppCompatActivity(),
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
     @Inject
     lateinit var preferences: AppPreferences
     private val foodViewModel: FoodViewModel by viewModels { viewModelFactory }
@@ -116,10 +116,11 @@ class FoodActivity : DaggerAppCompatActivity(),
     private var itemSetCartPrice: String = ""
     private var timeExtandClick: Boolean = false
     private var dialogShow: Long = 60
-    private var countDownTimerPrimary : CountDownTimer ? = null
+    private var countDownTimerPrimary: CountDownTimer? = null
     private var comboAdapter: AdapterFoodAddComboTitle? = null
 
     var foodSelectItemName1: TextView? = null
+
     // food Individual
     var foodTitleName1: TextView? = null
     var foodcomboName1: TextView? = null
@@ -265,16 +266,16 @@ class FoodActivity : DaggerAppCompatActivity(),
             skipBtn = intent.getStringExtra("typeSkip").toString()
 
             println("FoodIntentOutput-------->${cinemaId}----${sessionId}--->${booktype}----->${transId}")
-        }catch (e : Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
 
-        if (skipBtn == "SkipButtonHide"){
+        if (skipBtn == "SkipButtonHide") {
             binding?.txtSkipBtn?.hide()
             binding?.txtProceed?.show()
         }
 
-        movieRatingColor= intent.getStringExtra("movieRatingColor").toString()
+        movieRatingColor = intent.getStringExtra("movieRatingColor").toString()
         if (booktype != "FOOD" || booktype != "ADDFOOD") {
 //            binding?.txtSkipProceed?.show()
 
@@ -369,18 +370,25 @@ class FoodActivity : DaggerAppCompatActivity(),
     }
 
     private fun cancelDialog() {
-        val dialog = Dialog(this)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.cancel_dialog)
 
-        dialog.window!!.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
+//        val dialog = Dialog(this)
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+//        dialog.setContentView(R.layout.cancel_dialog)
+//
+//        dialog.window!!.setLayout(
+//            ViewGroup.LayoutParams.MATCH_PARENT,
+//            ViewGroup.LayoutParams.WRAP_CONTENT
+//        )
+//
+//        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
+//        dialog.window!!.setGravity(Gravity.BOTTOM)
+//        dialog.show()
 
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
-        dialog.window!!.setGravity(Gravity.BOTTOM)
+        val dialog = AlertDialog.Builder(this, R.style.CustomAlertDialog).create()
+        val view = layoutInflater.inflate(R.layout.cancel_dialog, null)
+        dialog.setView(view)
+        dialog.setCanceledOnTouchOutside(false)
         dialog.show()
 
         dialog.consSure?.setOnClickListener {
@@ -413,9 +421,10 @@ class FoodActivity : DaggerAppCompatActivity(),
     }
 
     private fun setFoodSelectAdapter(concessionTabs: ArrayList<GetFoodResponse.ConcessionTab>) {
-        if (concessionTabs.isNotEmpty()){
+        if (concessionTabs.isNotEmpty()) {
             binding?.uiFood?.show()
-            val horizontalLayoutManagaer = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            val horizontalLayoutManagaer =
+                LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             binding?.recyclerFoodSelectItem?.layoutManager = LinearLayoutManager(this)
             val adapter = AdapterFoodSelectedItem(this, concessionTabs, this, this)
             binding?.recyclerFoodSelectItem?.layoutManager = horizontalLayoutManagaer
@@ -424,7 +433,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             foodSelectedList = concessionTabs[0].concessionItems
             tabItem = concessionTabs[0]
             setFoodComboAdapter(foodSelectedList!!)
-        }else{
+        } else {
             val dialog = OptionDialog(this,
                 R.mipmap.ic_launcher,
                 R.string.app_name,
@@ -462,18 +471,19 @@ class FoodActivity : DaggerAppCompatActivity(),
 //            individualAdapter?.loadNewData(concessionItems)
 //        } else {
 
-            val gridLayout = GridLayoutManager(this@FoodActivity, 1, GridLayoutManager.VERTICAL, false)
-            binding?.recyclerFoodCombo?.layoutManager = LinearLayoutManager(this)
-            foodAdapter = AdapterFoodCombo(
-                this@FoodActivity,
-                concessionItems,
-                this,
-                concessionItems[0].foodtype, this)
-            binding?.recyclerFoodCombo?.layoutManager = gridLayout
-            binding?.recyclerFoodCombo?.adapter = foodAdapter
-            foodAdapter?.loadNewData(concessionItems)
+        val gridLayout = GridLayoutManager(this@FoodActivity, 1, GridLayoutManager.VERTICAL, false)
+        binding?.recyclerFoodCombo?.layoutManager = LinearLayoutManager(this)
+        foodAdapter = AdapterFoodCombo(
+            this@FoodActivity,
+            concessionItems,
+            this,
+            concessionItems[0].foodtype, this
+        )
+        binding?.recyclerFoodCombo?.layoutManager = gridLayout
+        binding?.recyclerFoodCombo?.adapter = foodAdapter
+        foodAdapter?.loadNewData(concessionItems)
 
-       // }
+        // }
     }
 
     override fun onTypeFaceFoodCombo(
@@ -483,15 +493,15 @@ class FoodActivity : DaggerAppCompatActivity(),
         addBtn: TextView,
         btnDecrease: TextView,
         btnIncrease: TextView,
-        totalItems: TextView) {
-
-        foodTitleName2= foodTitleName
+        totalItems: TextView
+    ) {
+        foodTitleName2 = foodTitleName
         foodcomboName2 = foodcomboName
-        foodKdName2= foodKdName
+        foodKdName2 = foodKdName
         addBtn2 = addBtn
         btnDecrease2 = btnDecrease
-        btnIncrease2= btnIncrease
-        totalItems2= totalItems
+        btnIncrease2 = btnIncrease
+        totalItems2 = totalItems
     }
 
     override fun onTypeFaceFoodIndividual(
@@ -503,23 +513,20 @@ class FoodActivity : DaggerAppCompatActivity(),
         textItemAdded: TextView,
         btnIncrease: TextView) {
 
-        foodTitleName1= foodTitleName
-        foodcomboName1= foodcomboName
-        foodKdName1= foodKdName
+        foodTitleName1 = foodTitleName
+        foodcomboName1 = foodcomboName
+        foodKdName1 = foodKdName
         btnDecrease1 = btnDecrease
-        txtNumber1= txtNumber
-        textItemAdded1= textItemAdded
-        btnIncrease1= btnIncrease
+        txtNumber1 = txtNumber
+        textItemAdded1 = textItemAdded
+        btnIncrease1 = btnIncrease
     }
 
     override fun onFoodCatClick(foodItem: GetFoodResponse.ConcessionTab, view: View) {
-
-            focusOnView(view, binding?.recyclerFoodSelectItem!!)
-            foodSelectedList = foodItem.concessionItems
-            tabItem = foodItem
-            setFoodComboAdapter(foodSelectedList!!)
-
-
+        focusOnView(view, binding?.recyclerFoodSelectItem!!)
+        foodSelectedList = foodItem.concessionItems
+        tabItem = foodItem
+        setFoodComboAdapter(foodSelectedList!!)
     }
 
     private fun focusOnView(view: View, scrollView: RecyclerView) {
@@ -536,11 +543,20 @@ class FoodActivity : DaggerAppCompatActivity(),
     private fun setCartDialog() {
 
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.food_cart_dailog_info, null)
-        val mBuilder = AlertDialog.Builder(this, R.style.NewDialog).setView(mDialogView)
+        val mBuilder = AlertDialog.Builder(this, R.style.CustomAlertDialog).setView(mDialogView)
+
+//        mBuilder.window?.setLayout(
+//            ViewGroup.LayoutParams.MATCH_PARENT,
+//            ViewGroup.LayoutParams.WRAP_CONTENT
+//        )
+//        mBuilder.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//        mDialogView.window?.attributes?.windowAnimations = R.style.DialogAnimation
+//        mDialogView.window?.setGravity(Gravity.BOTTOM)
 
         if (!isFinishing) {
             mFoodCartDialog = mBuilder?.show()
         }
+
         mFoodCartDialog?.show()
         mBuilder.setCancelable(false)
         mFoodCartDialog?.window?.setBackgroundDrawableResource(R.color.transparent)
@@ -553,7 +569,7 @@ class FoodActivity : DaggerAppCompatActivity(),
         val recyclerviewCartItem =
             mDialogView.findViewById<RecyclerView>(R.id.recyclerview_cart_item)
         val proceedBtn1 = mDialogView.findViewById<TextView>(R.id.proceed_btn1)
-         tvClearItem = mDialogView.findViewById<TextView>(R.id.tv_clear_item)
+        tvClearItem = mDialogView.findViewById<TextView>(R.id.tv_clear_item)
         emptyCart = mDialogView.findViewById(R.id.emptyCart)
         val titleTicketPrice = mDialogView.findViewById<TextView>(R.id.title_ticketPrice)
         val movieDetails = mDialogView.findViewById<ConstraintLayout>(R.id.movieDetails)
@@ -564,6 +580,7 @@ class FoodActivity : DaggerAppCompatActivity(),
         tvFoodPrice = mDialogView.findViewById(R.id.tv_food_price)
         tvFood1Price = mDialogView.findViewById(R.id.tv_food1_price)
         val textTicket1Price = mDialogView.findViewById<TextView>(R.id.text_ticket1_price)
+
         if (booktype == "FOOD") {
             titleTicketPrice.hide()
             totals1.show()
@@ -583,11 +600,9 @@ class FoodActivity : DaggerAppCompatActivity(),
                         ).toDouble()
                     )
                 }"
-            }catch (e : Exception){
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
-
-
 
 
         } else {
@@ -598,10 +613,10 @@ class FoodActivity : DaggerAppCompatActivity(),
             textTicket1Price.show()
             movieDetails.show()
             println("FoodPricesList------>${getAllFoodPrice()}")
-            if (getAllFoodPrice().isNullOrEmpty()){
+            if (getAllFoodPrice().isNullOrEmpty()) {
                 tvFoodPrice?.hide()
                 tvFood1Price?.hide()
-            }else{
+            } else {
                 tvFoodPrice?.show()
                 tvFood1Price?.show()
                 tvFoodPrice?.text = getAllFoodPrice()
@@ -613,10 +628,13 @@ class FoodActivity : DaggerAppCompatActivity(),
             try {
                 textTotal1?.text = getString(R.string.price_kd) + " ${
                     Constant.DECIFORMAT.format(
-                        getAllFoodPrice().replace("KWD ", "").toDouble() + seatPrice.replace("KWD ", "").toDouble()
+                        getAllFoodPrice().replace("KWD ", "").toDouble() + seatPrice.replace(
+                            "KWD ",
+                            ""
+                        ).toDouble()
                     )
                 }"
-            }catch (e : Exception){
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
 
@@ -636,16 +654,16 @@ class FoodActivity : DaggerAppCompatActivity(),
                 .into(image)  // imageview object
 
             // title
-            title.text= intent.getStringExtra("movieTitle").toString()
+            title.text = intent.getStringExtra("movieTitle").toString()
             //RATING
             rating.text = intent.getStringExtra("movieRating").toString()
             //MovieCinema Name
-            cinemaName.text=intent.getStringExtra("movieCinemaName").toString()
-            timing.text= intent.getStringExtra("movieTimeDate").toString()
-            type.text= intent.getStringExtra("movieType").toString()
+            cinemaName.text = intent.getStringExtra("movieCinemaName").toString()
+            timing.text = intent.getStringExtra("movieTimeDate").toString()
+            type.text = intent.getStringExtra("movieType").toString()
             try {
                 rating.setBackgroundColor(Color.parseColor(movieRatingColor))
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 println("foodError--------->${e.message}")
             }
 
@@ -721,7 +739,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             emptyCart?.show()
             tvClearItem?.hide()
 
-            updateSelectedList(null,1)
+            updateSelectedList(null, 1)
             foodCartAdapter?.notifyDataSetChanged()
             individualAdapter?.notifyDataSetChanged()
             mFoodCartDialog?.dismiss()
@@ -750,9 +768,9 @@ class FoodActivity : DaggerAppCompatActivity(),
                 cartTime?.text = display
                 binding?.cartTime1?.text = display
                 timeCount = minutes * 60 + second
-                secondLeft=second
+                secondLeft = second
                 println("timerrr--->${second}")
-                if (timeCount==dialogShow){
+                if (timeCount == dialogShow) {
                     if (!Constant.IntentKey.TimerExtandCheck) {
                         extendTime()
                     } else if (Constant.IntentKey.TimerExtandCheck && TimerExtand > 0) {
@@ -808,7 +826,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             }
 
             override fun onFinish() {
-                if (!timeExtandClick){
+                if (!timeExtandClick) {
                     TimerExtand = 90
                     TimerTime = 360
                     finish()
@@ -835,8 +853,8 @@ class FoodActivity : DaggerAppCompatActivity(),
         dialogView.subtitle.text = getString(R.string.stillHere)
         dialogView.consSure?.setOnClickListener {
             countDownTimerPrimary?.cancel()
-            timeExtandClick=true
-            TimerExtand=90+secondLeft
+            timeExtandClick = true
+            TimerExtand = 90 + secondLeft
             Constant.IntentKey.TimerExtandCheck = true
             alertDialog.dismiss()
             object : CountDownTimer((TimerExtand * 1000), 1000) {
@@ -893,7 +911,9 @@ class FoodActivity : DaggerAppCompatActivity(),
         }
         try {
             textTotal1?.text = getString(R.string.price_kd) + " ${
-                Constant.DECIFORMAT.format((price / 100.0) + seatPrice.replace("KD ", "").toDouble())
+                Constant.DECIFORMAT.format(
+                    (price / 100.0) + seatPrice.replace("KD ", "").toDouble()
+                )
             }"
         } catch (e: Exception) {
             e.printStackTrace()
@@ -910,8 +930,8 @@ class FoodActivity : DaggerAppCompatActivity(),
                             loader?.dismiss()
                             resource.data?.let { it ->
                                 if (it.data?.code == Constant.SUCCESS_CODE) {
-                                        tabItemArr = it.data.output.concessionTabs
-                                        setFoodSelectAdapter(it.data.output.concessionTabs)
+                                    tabItemArr = it.data.output.concessionTabs
+                                    setFoodSelectAdapter(it.data.output.concessionTabs)
                                 } else {
                                     loader?.dismiss()
                                     val dialog = OptionDialog(this,
@@ -1024,8 +1044,12 @@ class FoodActivity : DaggerAppCompatActivity(),
 
     //Add Food
     @SuppressLint("SetTextI18n")
-    override fun onAddFood(foodItem: GetFoodResponse.ConcessionItem, position: Int,foodComboList: ArrayList<GetFoodResponse.ConcessionItem>) {
-        if (foodItem.foodtype == "Individual"){
+    override fun onAddFood(
+        foodItem: GetFoodResponse.ConcessionItem,
+        position: Int,
+        foodComboList: ArrayList<GetFoodResponse.ConcessionItem>
+    ) {
+        if (foodItem.foodtype == "Individual") {
             var amount = 0.0
             val a = foodItem.quantity + 1
             foodItem.quantity = a
@@ -1047,64 +1071,198 @@ class FoodActivity : DaggerAppCompatActivity(),
             }
             individualAdapter?.notifyDataSetChanged()
             comboAdapter?.notifyDataSetChanged()
-        }else{
-        val mDialogView = LayoutInflater.from(this).inflate(R.layout.food_selected_add_alert_dailog, null)
-        val mBuilder = AlertDialog.Builder(this).setView(mDialogView)
-        val mAlertDialog = mBuilder.show()
-        mAlertDialog.show()
-        mAlertDialog.window?.setBackgroundDrawableResource(R.color.transparent)
+        } else {
+            val mDialogView =
+                LayoutInflater.from(this).inflate(R.layout.food_selected_add_alert_dailog, null)
+            val mBuilder = AlertDialog.Builder(this).setView(mDialogView)
+            val mAlertDialog = mBuilder.show()
+            mAlertDialog.show()
+            mAlertDialog.window?.setBackgroundDrawableResource(R.color.transparent)
 
-        val textComboKdPrice = mDialogView.findViewById<TextView>(R.id.text_combo_kd_price)
-        val textComboSubtitle = mDialogView.findViewById<TextView>(R.id.text_combo_subtilte)
-        val text_combo_head = mDialogView.findViewById<TextView>(R.id.text_combo_head)
-        val imageView10 = mDialogView.findViewById<ImageView>(R.id.imageView10)
-        val img1Close = mDialogView.findViewById<ImageView>(R.id.img1_close)
+            val textComboKdPrice = mDialogView.findViewById<TextView>(R.id.text_combo_kd_price)
+            val textComboSubtitle = mDialogView.findViewById<TextView>(R.id.text_combo_subtilte)
+            val text_combo_head = mDialogView.findViewById<TextView>(R.id.text_combo_head)
+            val imageView10 = mDialogView.findViewById<ImageView>(R.id.imageView10)
+            val img1Close = mDialogView.findViewById<ImageView>(R.id.img1_close)
 
 //        imageView10.setColorFilter(ContextCompat.getColor(applicationContext,R.color.foodBgColor))
 
-        Glide.with(this)
-            .load(foodItem.itemImageUrl)
-            .placeholder(R.drawable.placeholder_icon)
-            .into(imageView10)
+            Glide.with(this)
+                .load(foodItem.itemImageUrl)
+                .placeholder(R.drawable.placeholder_icon)
+                .into(imageView10)
 
-        println("foodItem.itemImageUrl------>${foodItem.itemImageUrl}")
+            println("foodItem.itemImageUrl------>${foodItem.itemImageUrl}")
 
-        textComboKdPrice.text = foodItem.itemPrice
-        textComboSubtitle.text = foodItem.description
-        img1Close.setOnClickListener {
-            mAlertDialog.dismiss()
-        }
+            textComboKdPrice.text = foodItem.itemPrice
+            textComboSubtitle.text = foodItem.description
+            img1Close.setOnClickListener {
+                mAlertDialog.dismiss()
+            }
 
-        val recyclerviewComboTitle = mDialogView.findViewById<View>(R.id.recyclerview_combo_title) as RecyclerView
-        textDecrease = mDialogView.findViewById<View>(R.id.text_decrease) as TextView
-        textIncrease = mDialogView.findViewById<View>(R.id.text_increase) as TextView
-        textNumber = mDialogView.findViewById<View>(R.id.text_number) as TextView
-        addBtn = mDialogView.findViewById(R.id.text_add_btn)
-        val tvDoneBtn: TextView = mDialogView.findViewById(R.id.tv_done_btn)
-        tvKdTotal = mDialogView.findViewById(R.id.tv_kd_total)
+            val recyclerviewComboTitle =
+                mDialogView.findViewById<View>(R.id.recyclerview_combo_title) as RecyclerView
+            textDecrease = mDialogView.findViewById<View>(R.id.text_decrease) as TextView
+            textIncrease = mDialogView.findViewById<View>(R.id.text_increase) as TextView
+            textNumber = mDialogView.findViewById<View>(R.id.text_number) as TextView
+            addBtn = mDialogView.findViewById(R.id.text_add_btn)
+            val tvDoneBtn: TextView = mDialogView.findViewById(R.id.tv_done_btn)
+            tvKdTotal = mDialogView.findViewById(R.id.tv_kd_total)
 //        val viewIncreaseDecreases: View = mDialogView.findViewById(R.id.view_increase_decrease)
-        textIncrease?.isClickable = false
-        textIncrease?.isEnabled = false
-        textDecrease?.isClickable = false
-        textDecrease?.isEnabled = false
-        itemFoodCount = foodItem.quantity
-        itemFoodAmt = foodItem.itemTotal.toDouble()
-        foodItem.quantity = 0
-        foodItem.itemTotal = 0
-        tvKdTotal?.text = getString(R.string.price_kd)+" " + "0.000"
+            textIncrease?.isClickable = false
+            textIncrease?.isEnabled = false
+            textDecrease?.isClickable = false
+            textDecrease?.isEnabled = false
+            itemFoodCount = foodItem.quantity
+            itemFoodAmt = foodItem.itemTotal.toDouble()
+            foodItem.quantity = 0
+            foodItem.itemTotal = 0
+            tvKdTotal?.text = getString(R.string.price_kd) + " " + "0.000"
 
-        when (foodItem.foodtype) {
-            "Flavour" -> {
-                try {
-                    val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
-                    textComboSubtitle.setTextColor(ContextCompat.getColor(this, R.color.white))
-                    textComboSubtitle.textSize = 17f
-                    textComboSubtitle.typeface = bold
+            when (foodItem.foodtype) {
+                "Flavour" -> {
+                    try {
+                        val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
+                        textComboSubtitle.setTextColor(ContextCompat.getColor(this, R.color.white))
+                        textComboSubtitle.textSize = 17f
+                        textComboSubtitle.typeface = bold
 
-                    val quantity = foodItem.quantity.toString()
-                    textNumber?.text = quantity
+                        val quantity = foodItem.quantity.toString()
+                        textNumber?.text = quantity
+                        var spancount = 1
+                        println("foodItem.packageChildItems.size--->" + foodItem.alternateItems.size)
+                        when (foodItem.alternateItems.size) {
+                            3 -> {
+                                spancount = 1
+                            }
+                            in 4..5 -> {
+                                spancount = 2
+                            }
+                            in 7..8 -> {
+                                spancount = 3
+                            }
+                            in 10..11 -> {
+                                spancount = 4
+                            }
+                        }
+
+                        val gridLayout =
+                            GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
+                        recyclerviewComboTitle.layoutManager = LinearLayoutManager(this)
+                        val adapter = AdapterFoodAddComboTitle(
+                            this,
+                            foodItem.packageChildItems,
+                            foodItem.alternateItems,
+                            this, foodItem, position
+                        )
+
+//                    val layoutManager = FlexboxLayoutManager(this)
+//                    layoutManager.flexDirection = FlexDirection.ROW
+//                    layoutManager.justifyContent = JustifyContent.FLEX_START
+//                    layoutManager.alignItems = AlignItems.FLEX_START
+
+                        recyclerviewComboTitle.layoutManager = gridLayout
+
+                        recyclerviewComboTitle.adapter = adapter
+                        adapter.loadNewData(foodItem.packageChildItems, foodItem.alternateItems)
+
+                        /*todo calculation for single flavour*/
+                        textIncrease?.setOnClickListener {
+                            if (foodItem.itemTotal > 0) {
+                                if (textNumber?.text.toString() != "20") {
+                                    var amount = 0.0
+                                    val a = Integer.parseInt(textNumber?.text.toString()) + 1
+                                    for (i in foodItem.alternateItems.indices) {
+                                        if (foodItem.alternateItems[i].checkFlag) {
+                                            foodItem.alternateItems[i].subItemCount = a
+                                            amount =
+                                                foodItem.alternateItems[i].subItemCount * foodItem.alternateItems[i].priceInCents.toDouble()
+                                        }
+                                    }
+                                    foodItem.itemTotal = amount.roundToInt()
+                                    foodItem.quantity = a
+                                    textNumber?.text = a.toString()
+                                    tvKdTotal?.text = getString(R.string.price_kd) + " ${
+                                        Constant.DECIFORMAT.format(amount / 100)
+                                    }"
+
+                                } else {
+                                    toast("Can not add more")
+                                }
+                            }
+                        }
+
+                        textDecrease?.setOnClickListener {
+                            var amount = 0.0
+                            if (textNumber?.text.toString().toInt() > 1) {
+                                val a = Integer.parseInt(textNumber?.text.toString()) - 1
+                                for (i in foodItem.alternateItems.indices) {
+                                    if (foodItem.alternateItems[i].checkFlag) {
+                                        foodItem.alternateItems[i].subItemCount = a
+                                        amount =
+                                            foodItem.alternateItems[i].subItemCount * foodItem.alternateItems[i].priceInCents.toDouble()
+                                    }
+                                }
+                                foodItem.itemTotal = amount.roundToInt()
+                                foodItem.quantity = a
+                                textNumber?.text = a.toString()
+                                tvKdTotal?.text =
+                                    getString(R.string.price_kd) + " ${
+                                        Constant.DECIFORMAT.format(
+                                            amount / 100
+                                        )
+                                    }"
+                            }
+                        }
+
+                        tvDoneBtn.setOnClickListener {
+                            var valflag = false
+                            for (i in foodItem.alternateItems.indices) {
+                                if (foodItem.alternateItems[i].checkFlag) {
+                                    valflag = true
+                                    break
+                                }
+                            }
+                            if (!valflag) {
+                                // message for select flavour
+                                toast("Please select flavour")
+                            } else if (textNumber?.text.toString() == "0") {
+                                // Message for min quantity
+                                toast("Message for min quantity")
+                            } else {
+                                updateCartList(foodItem)
+                                mAlertDialog.dismiss()
+                            }
+
+                            if (foodCartListNew?.size!! > 0) {
+                                binding?.textCartCountNotiication?.show()
+                                binding?.textCartCountNotiication?.text =
+                                    foodCartListNew?.size.toString()
+
+                                binding?.txtProceed?.show()
+                                binding?.txtSkipBtn?.hide()
+                            } else {
+                                binding?.textCartCountNotiication?.invisible()
+
+                                binding?.txtProceed?.hide()
+                                binding?.txtSkipBtn?.show()
+                            }
+
+                            updateItemUi(foodItem)
+                            foodAdapter?.loadNewData(foodComboList)
+                        }
+
+                    } catch (e: Exception) {
+                        println("Exception---${e.message}")
+                    }
+                }
+
+                "combo" -> {
+                    text_combo_head.show()
+                    text_combo_head.text = foodItem.title
+                    comboAdapter?.notifyDataSetChanged()
                     var spancount = 1
-                    println("foodItem.packageChildItems.size--->"+foodItem.alternateItems.size)
+                    println("foodItem.packageChildItems.size--->" + foodItem.alternateItems.size)
                     when (foodItem.alternateItems.size) {
                         3 -> {
                             spancount = 1
@@ -1119,91 +1277,83 @@ class FoodActivity : DaggerAppCompatActivity(),
                             spancount = 4
                         }
                     }
+//                val gridLayout = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
+//                recyclerviewComboTitle.layoutManager = LinearLayoutManager(this)
 
-                    val gridLayout = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
-                    recyclerviewComboTitle.layoutManager = LinearLayoutManager(this)
-                    val adapter = AdapterFoodAddComboTitle(
+                    comboAdapter = AdapterFoodAddComboTitle(
                         this,
                         foodItem.packageChildItems,
                         foodItem.alternateItems,
-                        this, foodItem, position)
+                        this, foodItem, position
+                    )
 
-//                    val layoutManager = FlexboxLayoutManager(this)
-//                    layoutManager.flexDirection = FlexDirection.ROW
-//                    layoutManager.justifyContent = JustifyContent.FLEX_START
-//                    layoutManager.alignItems = AlignItems.FLEX_START
+                    val layoutManager = FlexboxLayoutManager(this)
+                    layoutManager.flexDirection = FlexDirection.ROW
+                    layoutManager.justifyContent = JustifyContent.FLEX_START
+                    layoutManager.alignItems = AlignItems.FLEX_START
 
-                    recyclerviewComboTitle.layoutManager = gridLayout
+                    recyclerviewComboTitle.layoutManager = layoutManager
 
-                    recyclerviewComboTitle.adapter = adapter
-                    adapter.loadNewData(foodItem.packageChildItems, foodItem.alternateItems)
 
-                    /*todo calculation for single flavour*/
+                    recyclerviewComboTitle.adapter = comboAdapter
+                    comboAdapter?.loadNewData(foodItem.packageChildItems, foodItem.alternateItems)
+//                tv_kd_total?.text = foodItem.itemPrice
+                    textNumber?.text = foodItem.quantity.toString()
+                    var amount = 0.0
+                    var a = 0
+
                     textIncrease?.setOnClickListener {
-                        if (foodItem.itemTotal > 0) {
-                            if (textNumber?.text.toString() != "20") {
-                                var amount = 0.0
-                                val a = Integer.parseInt(textNumber?.text.toString()) + 1
-                                for (i in foodItem.alternateItems.indices) {
-                                    if (foodItem.alternateItems[i].checkFlag) {
-                                        foodItem.alternateItems[i].subItemCount = a
-                                        amount = foodItem.alternateItems[i].subItemCount * foodItem.alternateItems[i].priceInCents.toDouble()
-                                    }
-                                }
-                                foodItem.itemTotal = amount.roundToInt()
-                                foodItem.quantity = a
-                                textNumber?.text = a.toString()
-                                tvKdTotal?.text = getString(R.string.price_kd) + " ${
-                                    Constant.DECIFORMAT.format(amount / 100)
-                                }"
-
-                            } else {
-                                toast("Can not add more")
-                            }
+                        if (textNumber?.text.toString() != "20") {
+                            a = Integer.parseInt(textNumber?.text.toString()) + 1
+                            foodItem.quantity = a
+                            amount = a * foodItem.priceInCents.toDouble()
+                            foodItem.itemTotal = amount.roundToInt()
+                            textNumber?.text = a.toString()
+                            itemCheckPrice = amount.toInt()
+                            tvKdTotal?.text =
+                                getString(R.string.price_kd) + " ${Constant.DECIFORMAT.format(amount / 100)}"
                         }
                     }
 
                     textDecrease?.setOnClickListener {
-                        var amount = 0.0
                         if (textNumber?.text.toString().toInt() > 1) {
-                            val a = Integer.parseInt(textNumber?.text.toString()) - 1
-                            for (i in foodItem.alternateItems.indices) {
-                                if (foodItem.alternateItems[i].checkFlag) {
-                                    foodItem.alternateItems[i].subItemCount = a
-                                    amount =
-                                        foodItem.alternateItems[i].subItemCount * foodItem.alternateItems[i].priceInCents.toDouble()
-                                }
-                            }
-                            foodItem.itemTotal = amount.roundToInt()
+                            a = Integer.parseInt(textNumber?.text.toString()) - 1
                             foodItem.quantity = a
+                            amount = a * foodItem.priceInCents.toDouble()
+                            foodItem.itemTotal = amount.roundToInt()
                             textNumber?.text = a.toString()
+                            itemCheckPrice = amount.toInt()
                             tvKdTotal?.text =
                                 getString(R.string.price_kd) + " ${Constant.DECIFORMAT.format(amount / 100)}"
                         }
                     }
 
                     tvDoneBtn.setOnClickListener {
-                        var valflag = false
-                        for (i in foodItem.alternateItems.indices) {
-                            if (foodItem.alternateItems[i].checkFlag) {
-                                valflag = true
-                                break
+                        var valflag = 0
+                        for (i in 0 until foodItem.packageChildItems.size) {
+                            for (j in 0 until foodItem.packageChildItems[i].alternateItems.size) {
+                                if (foodItem.packageChildItems[i].alternateItems[j].checkFlag) {
+                                    valflag++
+                                    break
+                                }
                             }
                         }
-                        if (!valflag) {
-                            // message for select flavour
-                            toast("Please select flavour")
-                        } else if (textNumber?.text.toString() == "0") {
-                            // Message for min quantity
-                            toast("Message for min quantity")
-                        } else {
-                            updateCartList(foodItem)
-                            mAlertDialog.dismiss()
+                        when {
+                            valflag != foodItem.packageChildItems.size -> {
+                                toast("Select combo items")
+                            }
+                            textNumber?.text.toString() == "0" -> {
+                                toast("Select combo items quantity")
+                            }
+                            else -> {
+                                mAlertDialog.dismiss()
+                                updateCartList(foodItem)
+                            }
                         }
-
                         if (foodCartListNew?.size!! > 0) {
                             binding?.textCartCountNotiication?.show()
-                            binding?.textCartCountNotiication?.text = foodCartListNew?.size.toString()
+                            binding?.textCartCountNotiication?.text =
+                                foodCartListNew?.size.toString()
 
                             binding?.txtProceed?.show()
                             binding?.txtSkipBtn?.hide()
@@ -1216,127 +1366,12 @@ class FoodActivity : DaggerAppCompatActivity(),
 
                         updateItemUi(foodItem)
                         foodAdapter?.loadNewData(foodComboList)
+
                     }
-
-                } catch (e: Exception) {
-                    println("Exception---${e.message}")
-                }
-            }
-
-            "combo" -> {
-                text_combo_head.show()
-                text_combo_head.text = foodItem.title
-                comboAdapter?.notifyDataSetChanged()
-                var spancount = 1
-                println("foodItem.packageChildItems.size--->"+foodItem.alternateItems.size)
-                when (foodItem.alternateItems.size) {
-                    3 -> {
-                        spancount = 1
-                    }
-                    in 4..5 -> {
-                        spancount = 2
-                    }
-                    in 7..8 -> {
-                        spancount = 3
-                    }
-                    in 10..11 -> {
-                        spancount = 4
-                    }
-                }
-//                val gridLayout = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
-//                recyclerviewComboTitle.layoutManager = LinearLayoutManager(this)
-
-                comboAdapter = AdapterFoodAddComboTitle(
-                    this,
-                    foodItem.packageChildItems,
-                    foodItem.alternateItems,
-                    this, foodItem, position
-                )
-
-                val layoutManager = FlexboxLayoutManager(this)
-                layoutManager.flexDirection = FlexDirection.ROW
-                layoutManager.justifyContent = JustifyContent.FLEX_START
-                layoutManager.alignItems = AlignItems.FLEX_START
-
-                recyclerviewComboTitle.layoutManager = layoutManager
-
-
-                recyclerviewComboTitle.adapter = comboAdapter
-                comboAdapter?.loadNewData(foodItem.packageChildItems, foodItem.alternateItems)
-//                tv_kd_total?.text = foodItem.itemPrice
-                textNumber?.text = foodItem.quantity.toString()
-                var amount = 0.0
-                var a = 0
-
-                textIncrease?.setOnClickListener {
-                    if (textNumber?.text.toString() != "20") {
-                        a = Integer.parseInt(textNumber?.text.toString()) + 1
-                        foodItem.quantity = a
-                        amount = a * foodItem.priceInCents.toDouble()
-                        foodItem.itemTotal = amount.roundToInt()
-                        textNumber?.text = a.toString()
-                        itemCheckPrice = amount.toInt()
-                        tvKdTotal?.text =
-                            getString(R.string.price_kd) + " ${Constant.DECIFORMAT.format(amount / 100)}"
-                    }
-                }
-
-                textDecrease?.setOnClickListener {
-                    if (textNumber?.text.toString().toInt() > 1) {
-                        a = Integer.parseInt(textNumber?.text.toString()) - 1
-                        foodItem.quantity = a
-                        amount = a * foodItem.priceInCents.toDouble()
-                        foodItem.itemTotal = amount.roundToInt()
-                        textNumber?.text = a.toString()
-                        itemCheckPrice = amount.toInt()
-                        tvKdTotal?.text =
-                            getString(R.string.price_kd) + " ${Constant.DECIFORMAT.format(amount / 100)}"
-                    }
-                }
-
-                tvDoneBtn.setOnClickListener {
-                    var valflag = 0
-                    for (i in 0 until foodItem.packageChildItems.size) {
-                        for (j in 0 until foodItem.packageChildItems[i].alternateItems.size) {
-                            if (foodItem.packageChildItems[i].alternateItems[j].checkFlag) {
-                                valflag++
-                                break
-                            }
-                        }
-                    }
-                    when {
-                        valflag != foodItem.packageChildItems.size -> {
-                            toast("Select combo items")
-                        }
-                        textNumber?.text.toString() == "0" -> {
-                            toast("Select combo items quantity")
-                        }
-                        else -> {
-                            mAlertDialog.dismiss()
-                            updateCartList(foodItem)
-                        }
-                    }
-                    if (foodCartListNew?.size!! > 0) {
-                        binding?.textCartCountNotiication?.show()
-                        binding?.textCartCountNotiication?.text = foodCartListNew?.size.toString()
-
-                        binding?.txtProceed?.show()
-                        binding?.txtSkipBtn?.hide()
-                    } else {
-                        binding?.textCartCountNotiication?.invisible()
-
-                        binding?.txtProceed?.hide()
-                        binding?.txtSkipBtn?.show()
-                    }
-
-                    updateItemUi(foodItem)
-                    foodAdapter?.loadNewData(foodComboList)
 
                 }
 
             }
-
-        }
         }
 
     }
@@ -1344,7 +1379,7 @@ class FoodActivity : DaggerAppCompatActivity(),
     private fun updateItemUi(crossinline: GetFoodResponse.ConcessionItem) {
         for (item in foodCartListNew!!) {
             if (item.foodId == crossinline.id) {
-                crossinline.quantityUpdate = crossinline.quantityUpdate+crossinline.quantity
+                crossinline.quantityUpdate = crossinline.quantityUpdate + crossinline.quantity
                 break
             }
         }
@@ -1353,7 +1388,7 @@ class FoodActivity : DaggerAppCompatActivity(),
 
     override fun onDecreaseFood(foodItem: GetFoodResponse.ConcessionItem, position: Int) {
         println("foodItem.foodtype-->${foodItem.foodtype}")
-        if (foodItem.foodtype == "Individual"){
+        if (foodItem.foodtype == "Individual") {
             var amount = 0.0
             if (foodItem.quantity > 0) {
                 foodItem.quantity = foodItem.quantity - 1
@@ -1378,24 +1413,24 @@ class FoodActivity : DaggerAppCompatActivity(),
                 binding?.txtSkipBtn?.show()
             }
             comboAdapter?.notifyDataSetChanged()
-        }else{
-        var num = foodItem.quantity
-        if (num < 0 || num == 0) {
-            Toast.makeText(this, "sorry", Toast.LENGTH_LONG).show()
         } else {
-            num -= 1
-            foodItem.quantity = num
-            foodSelectedList?.removeAt(position)
-            updateCartList(foodItem)
-            foodSelectedList?.add(position, foodItem)
-             foodAdapter?.loadNewData(foodSelectedList!!)
-        }
+            var num = foodItem.quantity
+            if (num < 0 || num == 0) {
+                Toast.makeText(this, "sorry", Toast.LENGTH_LONG).show()
+            } else {
+                num -= 1
+                foodItem.quantity = num
+                foodSelectedList?.removeAt(position)
+                updateCartList(foodItem)
+                foodSelectedList?.add(position, foodItem)
+                foodAdapter?.loadNewData(foodSelectedList!!)
+            }
         }
 
     }
 
     override fun onIncreaseFood(foodItem: GetFoodResponse.ConcessionItem, position: Int) {
-        if (foodItem.foodtype == "Individual"){
+        if (foodItem.foodtype == "Individual") {
             var amount = 0.0
             if (foodItem.quantity < 20) {
                 foodItem.quantity = foodItem.quantity + 1
@@ -1411,18 +1446,18 @@ class FoodActivity : DaggerAppCompatActivity(),
             } else {
                 toast("add less than 20 items")
             }
-        }else{
-        var num = foodItem.quantity
-        if (num > 10 || num == 10) {
-            Toast.makeText(this, "sorry 10 limit", Toast.LENGTH_LONG).show()
         } else {
-            num += 1
-            foodItem.quantity = num
-            foodSelectedList?.removeAt(position)
-            foodSelectedList?.add(position, foodItem)
-            updateCartList(foodItem)
-             foodAdapter?.loadNewData(foodSelectedList!!)
-        }
+            var num = foodItem.quantity
+            if (num > 10 || num == 10) {
+                Toast.makeText(this, "sorry 10 limit", Toast.LENGTH_LONG).show()
+            } else {
+                num += 1
+                foodItem.quantity = num
+                foodSelectedList?.removeAt(position)
+                foodSelectedList?.add(position, foodItem)
+                updateCartList(foodItem)
+                foodAdapter?.loadNewData(foodSelectedList!!)
+            }
         }
     }
 
@@ -1445,12 +1480,12 @@ class FoodActivity : DaggerAppCompatActivity(),
                 }
             }
 
-            updateSelectedItem(true, pos,tabItem?.concessionItems!!,foodItem)
+            updateSelectedItem(true, pos, tabItem?.concessionItems!!, foodItem)
 
             if (foodItem.foodType.uppercase() == "INDIVIDUAL") {
                 individualAdapter?.loadNewData(tabItem?.concessionItems!!)
-            }else{
-                updateSelectedList(foodItem,2)
+            } else {
+                updateSelectedList(foodItem, 2)
             }
             foodCartAdapter?.notifyDataSetChanged()
             foodAdapter?.notifyDataSetChanged()
@@ -1487,14 +1522,14 @@ class FoodActivity : DaggerAppCompatActivity(),
             foodAdapter?.notifyDataSetChanged()
             if (foodItem.foodType.uppercase() == "INDIVIDUAL") {
                 individualAdapter?.loadNewData(tabItem?.concessionItems!!)
-            }else{
-                updateSelectedList(foodItem,3)
+            } else {
+                updateSelectedList(foodItem, 3)
             }
         }
         itemCartPrice -= getCartFoodPrice()
         itemSetCartPrice = Constant.DECIFORMAT.format(itemCheckPrice / 100.0)
         tvFoodPrice?.text = getAllFoodPrice()
-        if (foodCartListNew?.size==0){
+        if (foodCartListNew?.size == 0) {
             if (mFoodCartDialog?.isShowing == true)
                 mFoodCartDialog?.dismiss()
         }
@@ -1574,11 +1609,11 @@ class FoodActivity : DaggerAppCompatActivity(),
     @SuppressLint("NotifyDataSetChanged")
     override fun onRemoveCart(foodItem: GetFoodResponse.FoodDtls, pos: Int) {
         totalFoodAmt -= (foodCartListNew?.get(pos)?.foodQuan!! * foodCartListNew?.get(pos)?.itemPrice!!)
-        if (pos <= (foodCartList?.size!!-1))
-        foodCartList?.removeAt(pos)
+        if (pos <= (foodCartList?.size!! - 1))
+            foodCartList?.removeAt(pos)
 
-        if (pos <= (foodCartListNew?.size!!-1))
-        foodCartListNew?.removeAt(pos)
+        if (pos <= (foodCartListNew?.size!! - 1))
+            foodCartListNew?.removeAt(pos)
 
         Log.w("Total", "" + totalFoodAmt)
         if (totalFoodAmt < 0) totalFoodAmt = 0.0
@@ -1597,36 +1632,36 @@ class FoodActivity : DaggerAppCompatActivity(),
             binding?.txtSkipBtn?.show()
         }
         foodCartAdapter?.notifyDataSetChanged()
-        updateSelectedList(foodItem,0)
+        updateSelectedList(foodItem, 0)
 
         itemCartPrice -= getCartFoodPrice()
         itemSetCartPrice = Constant.DECIFORMAT.format(itemCheckPrice / 100.0)
         tvFoodPrice?.text = getAllFoodPrice()
-        if (foodCartListNew?.size==0){
+        if (foodCartListNew?.size == 0) {
             if (mFoodCartDialog?.isShowing == true)
-            mFoodCartDialog?.dismiss()
+                mFoodCartDialog?.dismiss()
         }
     }
 
-    private fun updateSelectedList(foodItem: GetFoodResponse.FoodDtls?, type:Int) {
+    private fun updateSelectedList(foodItem: GetFoodResponse.FoodDtls?, type: Int) {
         println("updateSelectedList----$type")
-        for (item in foodSelectedList!!){
-            if (type==0){
-                if (item.id==foodItem?.foodId){
-                    item.quantityUpdate = item.quantityUpdate-foodItem.foodQuan
+        for (item in foodSelectedList!!) {
+            if (type == 0) {
+                if (item.id == foodItem?.foodId) {
+                    item.quantityUpdate = item.quantityUpdate - foodItem.foodQuan
                     break
                 }
-            } else if (type==2) {
-                if (item.id == foodItem?.foodId){
-                    item.quantityUpdate = item.quantityUpdate+1
+            } else if (type == 2) {
+                if (item.id == foodItem?.foodId) {
+                    item.quantityUpdate = item.quantityUpdate + 1
                     break
                 }
-            }else if (type==3) {
-                if (item.id == foodItem?.foodId){
-                    item.quantityUpdate = item.quantityUpdate-1
+            } else if (type == 3) {
+                if (item.id == foodItem?.foodId) {
+                    item.quantityUpdate = item.quantityUpdate - 1
                     break
                 }
-            }else{
+            } else {
                 item.quantityUpdate = 0
             }
         }
@@ -1663,7 +1698,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                         foodItem.description + " ( " + foodItem.alternateItems[k].description + " ) "
                     foodRequestData.descriptionAlt =
                         foodItem.description + " ( " + foodItem.alternateItems[k].descriptionAlt.toString() + " ) "
-                    println("foodItem.alternateItems---"+foodRequestData.description)
+                    println("foodItem.alternateItems---" + foodRequestData.description)
                     for (l in foodItem.alternateItems[k].modifierGroups.indices) {
                         for (m in foodItem.alternateItems[k].modifierGroups[l].Modifiers.indices) {
                             val modifyModel = SaveFoodRequest.Modifier()
@@ -1753,12 +1788,12 @@ class FoodActivity : DaggerAppCompatActivity(),
                 if (itemExistCartList(foodRequestData)) {
                     for (item in foodCartList!!) {
                         if (item.id == foodRequestData.id) {
-                            if (foodRequestData.itemType=="Individual"){
+                            if (foodRequestData.itemType == "Individual") {
                                 item.quantity = foodRequestData.quantity
-                            }else {
+                            } else {
                                 item.quantity = item.quantity + foodRequestData.quantity
                             }
-                            println("item.quantity---"+foodRequestData.itemType)
+                            println("item.quantity---" + foodRequestData.itemType)
                             break
                         }
                     }
@@ -1863,9 +1898,9 @@ class FoodActivity : DaggerAppCompatActivity(),
                     if (itemExist(foodDtls)) {
                         for (item in foodCartListNew!!) {
                             if (item.foodModifiers == foodDtls.foodModifiers && item.foodId == foodDtls.foodId) {
-                                if (foodDtls.foodType=="Individual"){
+                                if (foodDtls.foodType == "Individual") {
                                     item.foodQuan = foodDtls.foodQuan
-                                }else {
+                                } else {
                                     println("foodQtCheck--->${item.foodQuan}---${foodDtls.foodQuan}")
                                     item.foodQuan = item.foodQuan + foodDtls.foodQuan
                                 }
@@ -1947,7 +1982,7 @@ class FoodActivity : DaggerAppCompatActivity(),
         itemCartPrice = getCartFoodPrice()
         itemSetCartPrice = Constant.DECIFORMAT.format(itemCheckPrice / 100.0)
         tvFoodPrice?.text = getAllFoodPrice()
-        println("foodCartListNew--->"+foodCartList?.size)
+        println("foodCartListNew--->" + foodCartList?.size)
     }
 
     private fun itemExistCartList(foodCartListC: SaveFoodRequest.ConcessionFood): Boolean {
@@ -1972,7 +2007,8 @@ class FoodActivity : DaggerAppCompatActivity(),
     override fun onAlternateClick(
         item: GetFoodResponse.AlternateItem,
         foodItem: GetFoodResponse.ConcessionItem,
-        foodPos: Int) {
+        foodPos: Int
+    ) {
 
         textNumber?.text = "1"
         textIncrease?.isClickable = true
@@ -1995,17 +2031,18 @@ class FoodActivity : DaggerAppCompatActivity(),
         item: GetFoodResponse.ComboItem,
         position: Int,
         foodItem: GetFoodResponse.ConcessionItem,
-        foodPos: Int) {
+        foodPos: Int
+    ) {
 
         if (position == 0) {
             check = false
         }
 
-        if (position == 1){
+        if (position == 1) {
             check1 = false
         }
 
-        if (check1 == check){
+        if (check1 == check) {
             check = true
             check1 = true
             println("onComboClickPosition---->${position}")
@@ -2153,17 +2190,17 @@ class FoodActivity : DaggerAppCompatActivity(),
             }
     }
 
-  private fun updateCartPrice(){
-      textTotal1?.text = getString(R.string.price_kd) + " ${
-          Constant.DECIFORMAT.format(
-              getAllFoodPrice().replace("KWD ", "").toDouble() + seatPrice.replace(
-                  "KWD ", ""
-              ).toDouble()
-          )
-      }"
+    private fun updateCartPrice() {
+
+        textTotal1?.text = getString(R.string.price_kd) + " ${
+            Constant.DECIFORMAT.format(
+                getAllFoodPrice().replace("KWD ", "").toDouble() + seatPrice.replace(
+                    "KWD ", ""
+                ).toDouble()
+            )
+        }"
+
     }
-
-
 
 
 }

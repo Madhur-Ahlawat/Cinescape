@@ -10,10 +10,8 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
-import android.widget.TextView.OnEditorActionListener
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,7 +27,9 @@ import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 import kotlinx.android.synthetic.main.account_preference_layout.*
 import kotlinx.android.synthetic.main.activity_checkout_with_food.*
+import java.util.*
 import java.util.regex.Pattern
+import kotlin.collections.ArrayList
 
 
 class PaymentListAdapter(
@@ -534,6 +534,8 @@ class PaymentListAdapter(
     override fun getItemCount(): Int {
         return payMode.size
     }
+
+
 
 
     interface RecycleViewItemClickListener {

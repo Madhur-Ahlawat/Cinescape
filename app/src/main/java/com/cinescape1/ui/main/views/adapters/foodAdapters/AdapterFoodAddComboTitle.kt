@@ -37,8 +37,8 @@ class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitle
     override fun onBindViewHolder(holder: MyViewHolderFoodAddComboTitle, @SuppressLint("RecyclerView") position: Int) {
         println("foodAddComboTitleList---$foodAddComboTitleList")
         if (foodAddComboTitleList.isNullOrEmpty()) {
-//            val itemPadding = 1
 
+//            val itemPadding = 1
 //            //here you may change the divide amount from 2.5 to whatever you need
 //            val itemWidth = (screenWidth - itemPadding).div(0.5)
 //

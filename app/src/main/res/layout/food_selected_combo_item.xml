@@ -137,6 +137,7 @@
                 android:text="@string/add"
                 android:textColor="@color/white"
                 android:textSize="@dimen/size12"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@+id/view27"
                 app:layout_constraintEnd_toEndOf="@+id/view27"
                 app:layout_constraintStart_toStartOf="@+id/view27"
@@ -154,8 +155,8 @@
 
             <View
                 android:id="@+id/view_increase_decrease"
-                android:layout_width="106dp"
-                android:layout_height="33dp"
+                android:layout_width="0dp"
+                android:layout_height="31dp"
                 android:background="@drawable/card_curv"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/view27"
