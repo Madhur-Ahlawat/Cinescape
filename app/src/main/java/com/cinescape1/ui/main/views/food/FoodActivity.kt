@@ -826,6 +826,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             }
 
             override fun onFinish() {
+
                 if (!timeExtandClick) {
                     TimerExtand = 90
                     TimerTime = 360
