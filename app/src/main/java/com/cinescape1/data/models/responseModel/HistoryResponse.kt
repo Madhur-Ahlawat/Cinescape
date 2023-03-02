@@ -35,6 +35,7 @@ data class HistoryResponse(
         val posterhori: String,
         val qr: String,
         val screenId: String,
+        val category: String,
         val seatsArr: List<String>,
         val showDate: String,
         val showDateTime: String,

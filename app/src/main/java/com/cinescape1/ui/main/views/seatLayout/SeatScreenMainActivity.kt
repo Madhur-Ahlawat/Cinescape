@@ -138,9 +138,9 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                 binding?.textSeatTypes?.typeface = bold
                 binding?.textOtherShowtimes?.typeface = regular
 
-
             }
             else -> {
+
                 LocaleHelper.setLocale(this, "en")
                 val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
                 val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
@@ -598,8 +598,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
     private fun reserveSeat() {
         seatScreenMainViewModel.reserveSeat(
             this,
-            ReserveSeatRequest(seatCat, cinemaID, passingValArrayList, sessionID, movieId, ttType)
-        )
+            ReserveSeatRequest(seatCat, cinemaID, passingValArrayList, sessionID, movieId, ttType, areaCode))
             .observe(this) {
                 it?.let { resource ->
                     when (resource.status) {

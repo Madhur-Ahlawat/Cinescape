@@ -134,8 +134,9 @@ class AdapterBookingHistory(private val context: Activity,
         holder.textviewTimeInfo.text = bookingHistoryItem.showTime
         holder.textAddress.text = bookingHistoryItem.cinemaname
         holder.textviewScreenNumber.text = bookingHistoryItem.screenId
-        holder.textviewExperienceName.text =bookingHistoryItem.experience
-        holder.textviewCategoryName.text = "Bachelor"
+        holder.textviewExperienceName.text = bookingHistoryItem.experience
+
+        holder.textviewCategoryName.text = bookingHistoryItem.category
         val commaSeparatedString = bookingHistoryItem.seatsArr.joinToString { "$it" }
         holder.textviewSeatName.text = commaSeparatedString
 
@@ -204,7 +205,6 @@ class AdapterBookingHistory(private val context: Activity,
                         holder.rechargeUi.hide()
                         holder.movieui.hide()
                         holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
-
                     }
                 }
                 "BOOKING" -> {
@@ -282,8 +282,6 @@ class AdapterBookingHistory(private val context: Activity,
         var foodPaidby: TextView = view.findViewById(R.id.textView98)
 
     }
-
-
 
     interface typeFaceItem{
        fun datatypeFace(textBookingHistoryTitle: TextView, textBookingHistoryDate: TextView,

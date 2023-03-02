@@ -896,6 +896,7 @@ class FoodActivity : DaggerAppCompatActivity(),
     }
 
     private fun getAllFoodPrice(): String {
+
         var price = 0
         for (data in foodCartListNew!!) {
             price += data.foodAmount.toInt()
@@ -2193,13 +2194,18 @@ class FoodActivity : DaggerAppCompatActivity(),
 
     private fun updateCartPrice() {
 
-        textTotal1?.text = getString(R.string.price_kd) + " ${
-            Constant.DECIFORMAT.format(
-                getAllFoodPrice().replace("KWD ", "").toDouble() + seatPrice.replace(
-                    "KWD ", ""
-                ).toDouble()
-            )
-        }"
+        try {
+            textTotal1?.text = getString(R.string.price_kd) + " ${
+                Constant.DECIFORMAT.format(
+                    getAllFoodPrice().replace("KWD ", "").toDouble() + seatPrice.replace(
+                        "KWD ", ""
+                    ).toDouble()
+                )
+            }"
+        }catch (e : Exception){
+            e.printStackTrace()
+        }
+
 
     }
 

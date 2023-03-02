@@ -7,6 +7,7 @@ data class ReserveSeatRequest(
     val sessionid: String,
     val mid: String,
     val ttypeCode: String,
+    val areaCode: String,
 )
 {
     data class ReseveSeatVO(

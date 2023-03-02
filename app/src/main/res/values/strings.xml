@@ -241,7 +241,7 @@
     <string name="continue_as_guest">Continue As guest</string>
     <string name="full_name">Full Name</string>
     <string name="view_all">View All</string>
-    <string name="price_kd"> KWD</string>
+    <string name="price_kd">KWD</string>
     <string name="balance">Balance</string>
     <string name="cancelReservation">Cancel\nReservation</string>
     <string name="addFood">Add\nFood</string>

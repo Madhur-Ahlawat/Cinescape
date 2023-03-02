@@ -28,13 +28,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "DEPRECATED_IDENTITY_EQUALS")
 class Constant {
     private fun addClickablePartTextViewResizable(
         strSpanned: Spanned, tv: TextView,
         maxLine: Int, spanableText: String, viewMore: Boolean
     ): SpannableStringBuilder? {
+
         val str = strSpanned.toString()
         val ssb = SpannableStringBuilder(strSpanned)
         if (str.contains(spanableText)) {
@@ -176,6 +176,7 @@ class Constant {
         const val ID_TOKEN = "id_token"
         const val USER_EMAIL = "user_email"
         var DISPLAY = 1
+        var applyCheck = 2
         const val MOBILE = "mobile"
         const val mid = "movieId"
         const val transId = ""

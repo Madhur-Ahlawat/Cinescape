@@ -236,6 +236,7 @@ class UpcomingBookingAdapter(
         }
 
         holder.thumbnail.setOnClickListener {
+
             val intent = Intent(mContext, FinalTicketActivity::class.java)
             intent.putExtra(Constant.IntentKey.BOOKING_ID, foodSelctedItem.bookingId)
             intent.putExtra(Constant.IntentKey.TRANSACTION_ID, foodSelctedItem.transId.toString())
@@ -243,6 +244,7 @@ class UpcomingBookingAdapter(
             intent.putExtra("FROM", "MTicket")
             intent.putExtra("FROM_ACCOUNT", "account")
             mContext.startActivity(intent)
+
         }
 
         holder.btFoodPrepare.setOnClickListener {

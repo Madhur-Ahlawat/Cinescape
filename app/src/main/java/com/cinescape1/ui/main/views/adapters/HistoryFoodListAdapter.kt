@@ -68,8 +68,10 @@ class HistoryFoodListAdapter(
 
         holder.title.text=concessionFoods.description
         holder.qty.text=concessionFoods.quantity.toString()
-        holder.total.text=(concessionFoods.priceInCents/100).toString()+" "+ context.getString(R.string.price_kd)
-        holder.price.text=((concessionFoods.priceInCents*concessionFoods.quantity)/100).toString()+" "+context.getString(R.string.price_kd)
+//        holder.total.text=(concessionFoods.priceInCents/100).toString()+" "+ context.getString(R.string.price_kd)
+        holder.total.text=(concessionFoods.priceInCents/100).toDouble().toString()
+        holder.price.text=((concessionFoods.priceInCents*concessionFoods.quantity)/100).toDouble().toString()
+//        holder.price.text=((concessionFoods.priceInCents*concessionFoods.quantity)/100).toString()+" "+context.getString(R.string.price_kd)
         holder.type.text=concessionFoods.itemType
 
     }
