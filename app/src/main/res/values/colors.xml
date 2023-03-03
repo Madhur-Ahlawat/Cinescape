@@ -24,6 +24,7 @@
     <color name="tabIndicater">#e12329</color>
     <color name="blue">#0000FF</color>
     <color name="hint_color">#ADADAD</color>
+    <color name="icon_color">#B3ADADAD</color>
     <color name="dropDownColor">#2e2e2e</color>
     <color name="text_color">#c1c1c1</color>
     <color name="text_color_disable">#393939</color>

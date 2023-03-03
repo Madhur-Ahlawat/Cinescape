@@ -3161,6 +3161,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     }
 
     private fun retrieveNextBookedResponse(output: NextBookingResponse) {
+
         binding?.nestedUi?.show()
         if (output.output.isNullOrEmpty()){
             binding?.recyclerviewBooking?.hide()

@@ -1123,27 +1123,40 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                     }
 
                     for (v in viewListForDates) {
+
+                        println("PositionOfFlex------>${output.seatTypes.indices}")
+
                         imageSeatSelection1 = v.findViewById(R.id.image_seat_selection) as ImageView
                         tvSeatSelection1 = v.findViewById(R.id.tv_seat_selectiopn) as TextView
                         tvSeatAvailable11 = v.findViewById(R.id.tv_seat_avialable) as TextView
                         tvKdPrice11 = v.findViewById(R.id.tv_kd_price) as TextView
-//                    imageSeatSelection1.setColorFilter(getColor(R.color.hint_color))
                         imageSeatSelection1.setColorFilter(ContextCompat.getColor(this, R.color.hint_color), android.graphics.PorterDuff.Mode.MULTIPLY)
-//                    Glide.with(this).load(item.icon).into(imageSeatSelection)
 
-                        println("ClickItemFirst--->${"yesNormal"}")
+//                        if (output.seatTypes){
+//                            Glide.with(this).load(output.seatTypes[0].icon).into(imageSeatSelection1)
+//                        }else{
+//                            Glide.with(this).load(output.seatTypes[1].icon).into(imageSeatSelection1)
+//                        }
+
+
                         tvSeatSelection1.setTextColor(getColor(R.color.hint_color))
                         tvSeatAvailable11.setTextColor(getColor(R.color.hint_color))
                         tvKdPrice11.setTextColor(getColor(R.color.hint_color))
 
                     }
 
-                    println("ClickItemFirst--->${"yesred"}")
+                    println("PositionOfFlex21------>${output.seatTypes.indices}")
 //                 Glide.with(this).load(item.iconActive).into(imageSeatSelection)
+
+//                    if (output.seatTypes.size == 0){
+//                        Glide.with(this).load(output.seatTypes[0].iconActive).into(imageSeatSelection)
+//                    }else{
+//                        Glide.with(this).load(output.seatTypes[1].iconActive).into(imageSeatSelection)
+//                    }
+
                     imageSeatSelection.setColorFilter(ContextCompat.getColor(this, R.color.text_alert_color_red),
                         android.graphics.PorterDuff.Mode.MULTIPLY)
 
-//                imageSeatSelection.setColorFilter(getColor(R.color.text_alert_color_red))
                     tvSeatSelection.setTextColor(getColor(R.color.text_alert_color_red))
                     tvSeatAvailable2.setTextColor(getColor(R.color.text_alert_color_red))
                     tvKdPrice2.setTextColor(getColor(R.color.text_alert_color_red))
@@ -1338,13 +1351,13 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                             btnDecrease.show()
 
                         }
-                        toast(
-                            "${getString(R.string.seatLimit)} ${" " + output.seatCount} ${
-                                " " + getString(
-                                    R.string.seat
-                                )
-                            }"
-                        )
+//                        toast(
+//                            "${getString(R.string.seatLimit)} ${" " + output.seatCount} ${
+//                                " " + getString(
+//                                    R.string.seat
+//                                )
+//                            }"
+//                        )
 
                     } else {
                         num += 1

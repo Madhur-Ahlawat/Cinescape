@@ -113,7 +113,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                 binding?.textUnavailable?.typeface = regular
                 binding?.textSelected?.typeface = regular
                 binding?.textModify?.typeface = regular
-                binding?.textSeatTypes?.typeface = bold
+                binding?.textSeatTypes?.typeface = regular
                 binding?.textOtherShowtimes?.typeface = regular
 
             }
@@ -135,7 +135,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                 binding?.textUnavailable?.typeface = regular
                 binding?.textSelected?.typeface = regular
                 binding?.textModify?.typeface = regular
-                binding?.textSeatTypes?.typeface = bold
+                binding?.textSeatTypes?.typeface = regular
                 binding?.textOtherShowtimes?.typeface = regular
 
             }
@@ -157,7 +157,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                 binding?.textUnavailable?.typeface = regular
                 binding?.textSelected?.typeface = regular
                 binding?.textModify?.typeface = regular
-                binding?.textSeatTypes?.typeface = bold
+                binding?.textSeatTypes?.typeface = regular
                 binding?.textOtherShowtimes?.typeface = regular
             }
 

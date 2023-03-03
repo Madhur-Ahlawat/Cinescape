@@ -19,6 +19,7 @@ class AdapterFoodSelectedItem(
     private var foodSelectList: List<GetFoodResponse.ConcessionTab>,
     var listener: RecycleViewItemClickListener, var listener2 : TypeFaceListenerFoodItem) :
     RecyclerView.Adapter<AdapterFoodSelectedItem.MyViewHolderFoodSelectedItem>() {
+
     var mContext: Activity = contextS
     var rowIndex = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderFoodSelectedItem {
@@ -51,8 +52,8 @@ class AdapterFoodSelectedItem(
             rowIndex = position
             notifyDataSetChanged()
         }
-
         listener2.onTypeFaceFoodItem(holder.foodSelectItemName)
+
     }
 
     override fun getItemCount(): Int {
@@ -73,9 +74,7 @@ class AdapterFoodSelectedItem(
         var foodSelectItemName: TextView = view.findViewById(R.id.text_food_item_name)
         val imgFoodSelect = view.findViewById<View>(R.id.image_food_select) as ImageView
         val imageArrowDown = view.findViewById<View>(R.id.image_arrow_down) as ImageView
-
     }
-
 
     interface TypeFaceListenerFoodItem {
         fun onTypeFaceFoodItem(foodSelectItemName: TextView)

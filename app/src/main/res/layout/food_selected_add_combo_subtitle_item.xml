@@ -5,14 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/margin8"
+    android:layout_marginTop="@dimen/margin10"
     android:backgroundTint="@color/transparent"
     android:layout_marginStart="@dimen/margin2">
 
     <ImageView
         android:id="@+id/img_sub_item"
-        android:layout_width="45dp"
-        android:layout_height="40dp"
+        android:layout_width="47dp"
+        android:layout_height="42dp"
         android:layout_marginTop="2dp"
         android:adjustViewBounds="true"
         android:visibility="visible"
@@ -53,13 +53,13 @@
 
     <TextView
         android:id="@+id/view22"
-        android:layout_width="80dp"
-        android:layout_height="3dp"
+        android:layout_width="83dp"
+        android:layout_height="3.5dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="@dimen/margin6"
         android:visibility="invisible"
         android:layout_marginTop="@dimen/margin1"
-        android:background="@drawable/red_rectangle"
+        android:background="@color/text_alert_color_red"
         app:layout_constraintEnd_toEndOf="@+id/text_sub_add_food_name"
         app:layout_constraintStart_toStartOf="@+id/text_sub_add_food_name"
         app:layout_constraintTop_toBottomOf="@+id/text_sub_add_food_name" />

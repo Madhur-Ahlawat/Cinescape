@@ -338,7 +338,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/title_carts"
                 app:layout_constraintStart_toEndOf="@+id/title_carts"
                 app:layout_constraintTop_toTopOf="@+id/title_carts"
-                app:srcCompat="@drawable/ic_cart"
+                app:srcCompat="@drawable/cart_icon_img"
                 tools:ignore="ContentDescription" />
 
             <ImageView
@@ -375,7 +375,7 @@
                         android:gravity="center"
                         android:text="@string/no_items_added_to_cart"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/size15"
+                        android:textSize="@dimen/size14"
                         android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@+id/recyclerview_cart_item"
                         app:layout_constraintEnd_toEndOf="parent"

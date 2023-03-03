@@ -26,6 +26,7 @@ class AdapterFoodCombo(
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.food_selected_combo_item, parent, false)
         return MyViewHolderFoodCombo(view)
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -85,7 +86,7 @@ class AdapterFoodCombo(
         }
 
         holder.btnIncrease.setOnClickListener {
-            Toast.makeText(mContext, "callled this", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(mContext, "callled this", Toast.LENGTH_SHORT).show()
             listener.onIncreaseFood(foodSelectedItem, position)
         }
 

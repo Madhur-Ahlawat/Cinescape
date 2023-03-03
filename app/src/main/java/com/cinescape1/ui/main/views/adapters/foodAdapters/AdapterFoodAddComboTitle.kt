@@ -21,11 +21,13 @@ import com.google.android.flexbox.*
 class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitleList: List<GetFoodResponse.ComboItem>,
     private var alternateItems: List<GetFoodResponse.AlternateItem>, private val listener:RecycleViewItemClickListener,val foodItem:GetFoodResponse.ConcessionItem,val foodPos:Int):
     RecyclerView.Adapter<AdapterFoodAddComboTitle.MyViewHolderFoodAddComboTitle>() {
+
     private var mContext = context
     private var rowIndex = -1
     private lateinit var v: View
     var displayMetrics = DisplayMetrics()
     private var screenWidth = 0
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderFoodAddComboTitle {
         mContext.windowManager.defaultDisplay.getMetrics(displayMetrics)
         screenWidth = displayMetrics.widthPixels
@@ -64,7 +66,6 @@ class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitle
                 .placeholder(R.drawable.ic_back_button)
                 .load(foodSelctedItem.itemImageUrl)
                 .into(holder.imageView)
-
             println("textSubAddFoodName.textImg21------------> ${foodSelctedItem.itemImageUrl}")
 
             if (rowIndex==position){
@@ -187,6 +188,5 @@ class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitle
         var popcornUi: ConstraintLayout = view.findViewById(R.id.popcornUi)
         var comboUi: ConstraintLayout = view.findViewById(R.id.comboUi)
         val foodComboSubtitleList = view.findViewById<FlexboxLayout>(R.id.food_combo_subtitle_list)
-
     }
 }

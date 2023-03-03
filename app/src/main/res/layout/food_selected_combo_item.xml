@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,7 +13,7 @@
         android:id="@+id/card_now_showing"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/margin4"
+        android:layout_margin="@dimen/margin1"
         android:elevation="@dimen/margin2"
         app:cardBackgroundColor="@color/black"
         app:cardElevation="@dimen/margin2"
@@ -23,7 +24,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center">
-
 
             <View
                 android:id="@+id/view24"
@@ -120,7 +120,7 @@
                 android:id="@+id/view27"
                 android:layout_width="0dp"
                 android:layout_height="75dp"
-                android:layout_marginEnd="@dimen/margin8"
+                android:layout_marginEnd="@dimen/margin2"
                 app:layout_constraintBottom_toBottomOf="@+id/view25"
                 app:layout_constraintEnd_toEndOf="@+id/view24"
                 app:layout_constraintHorizontal_weight="2"
@@ -241,6 +241,5 @@
                 app:layout_constraintTop_toBottomOf="@+id/text_add_btn" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

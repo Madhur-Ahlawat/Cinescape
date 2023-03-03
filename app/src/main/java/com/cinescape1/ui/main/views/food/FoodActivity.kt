@@ -356,6 +356,8 @@ class FoodActivity : DaggerAppCompatActivity(),
             binding?.textTimeToLeft?.hide()
             binding?.textTimeLeft?.hide()
             binding?.textView112?.hide()
+
+            seatPrice = "0.0"
         }
 
         broadcastReceiver = MyReceiver()
@@ -451,7 +453,9 @@ class FoodActivity : DaggerAppCompatActivity(),
                     finish()
                 })
             dialog.show()
+
 //            finish()
+
         }
 
     }
@@ -461,6 +465,7 @@ class FoodActivity : DaggerAppCompatActivity(),
     }
 
     private fun setFoodComboAdapter(concessionItems: ArrayList<GetFoodResponse.ConcessionItem>) {
+
 //        if (concessionItems[0].foodtype == "Individual") {
 //            val gridLayout =
 //                GridLayoutManager(this@FoodActivity, 1, GridLayoutManager.VERTICAL, false)
@@ -624,6 +629,8 @@ class FoodActivity : DaggerAppCompatActivity(),
 
 
             textTicket1Price.text = seatPrice
+
+            println("PricseTickct-------->${textTicket1Price.text}")
 
             try {
                 textTotal1?.text = getString(R.string.price_kd) + " ${
@@ -888,11 +895,13 @@ class FoodActivity : DaggerAppCompatActivity(),
     }
 
     private fun updateFoodList() {
+
         for (item in foodSelectedList!!) {
             if (item.quantity > 0) {
                 item.quantity = 0
             }
         }
+
     }
 
     private fun getAllFoodPrice(): String {
@@ -902,7 +911,8 @@ class FoodActivity : DaggerAppCompatActivity(),
             price += data.foodAmount.toInt()
             itemCheckPrice = data.foodAmount.toInt()
         }
-        return getString(R.string.price_kd) + "${Constant.DECIFORMAT.format(price / 100.0)}"
+        return getString(R.string.price_kd)+" " + "${Constant.DECIFORMAT.format(price / 100.0)}"
+
     }
 
     private fun getCartFoodPrice(): Int {

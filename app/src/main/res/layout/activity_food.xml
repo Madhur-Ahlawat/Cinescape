@@ -236,7 +236,7 @@
                 app:layout_constraintHorizontal_bias="0.529"
                 app:layout_constraintStart_toStartOf="@+id/view_cart"
                 app:layout_constraintTop_toBottomOf="@+id/text_cart_count_notiication"
-                app:srcCompat="@drawable/ic_cart" />
+                app:srcCompat="@drawable/cart_icon_img" />
 
             <TextView
                 android:id="@+id/text_cart_count_notiication"
