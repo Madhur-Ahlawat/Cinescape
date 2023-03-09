@@ -175,6 +175,7 @@
                     android:background="@drawable/btn_corner_bg_red"
                     android:fontFamily="@font/sf_pro_text_bold"
                     android:gravity="center"
+                    android:textAllCaps="true"
                     android:text="@string/ok"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size16"

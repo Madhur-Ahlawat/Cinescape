@@ -6,28 +6,28 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin10"
-    android:backgroundTint="@color/transparent"
-    android:layout_marginStart="@dimen/margin2">
+    android:backgroundTint="@color/transparent">
 
     <ImageView
         android:id="@+id/img_sub_item"
-        android:layout_width="47dp"
-        android:layout_height="42dp"
+        android:layout_width="60dp"
+        android:layout_height="45dp"
         android:layout_marginTop="2dp"
         android:adjustViewBounds="true"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/text_sub_add_food_name"
         app:layout_constraintEnd_toEndOf="@+id/view34"
-        app:layout_constraintStart_toStartOf="@+id/view34"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view34"
         app:srcCompat="@drawable/placeholder_icon"
         tools:ignore="ContentDescription,ImageContrastCheck" />
 
     <View
         android:id="@+id/view34"
-        android:layout_width="100dp"
+        android:layout_width="61dp"
         android:layout_height="82dp"
         android:layout_marginBottom="1dp"
+        android:layout_marginEnd="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +53,7 @@
 
     <TextView
         android:id="@+id/view22"
-        android:layout_width="83dp"
+        android:layout_width="60dp"
         android:layout_height="3.5dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="@dimen/margin6"

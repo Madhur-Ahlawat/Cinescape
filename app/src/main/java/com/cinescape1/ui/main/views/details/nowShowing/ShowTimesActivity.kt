@@ -12,7 +12,6 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.text.Html
 import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
@@ -221,7 +220,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             imageView36.show()
         }
 
-        if (intent.getStringExtra("Home") != null){
+        if (intent.getStringExtra("Home") != null) {
             homeBacks = intent.getStringExtra("Home").toString()
         }
 
@@ -279,7 +278,9 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.cancel_dialog)
-        dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.window!!.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
         dialog.window!!.setGravity(Gravity.BOTTOM)
@@ -396,57 +397,57 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
     private fun movieDetails(movieId: String) {
         showTimeViewModel.movieDetails(movieId).observe(this) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.code == Constant.SUCCESS_CODE) {
-                                    try {
-                                        binding?.LayoutTime?.show()
-                                        movieDetailsData(it.data.output)
-                                        setTitleAdapter()
-                                    } catch (e: Exception) {
-                                        println("updateUiCinemaSession ---> ${e.message}")
-                                    }
-                                } else {
-                                    loader?.dismiss()
-                                    val dialog = OptionDialog(this,
-                                        R.mipmap.ic_launcher,
-                                        R.string.app_name,
-                                        it.data?.msg.toString(),
-                                        positiveBtnText = R.string.ok,
-                                        negativeBtnText = R.string.no,
-                                        positiveClick = {
-                                            finish()
-                                        },
-                                        negativeClick = {
-                                            finish()
-                                        })
-                                    dialog.show()
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.code == Constant.SUCCESS_CODE) {
+                                try {
+                                    binding?.LayoutTime?.show()
+                                    movieDetailsData(it.data.output)
+                                    setTitleAdapter()
+                                } catch (e: Exception) {
+                                    println("updateUiCinemaSession ---> ${e.message}")
                                 }
-
+                            } else {
+                                loader?.dismiss()
+                                val dialog = OptionDialog(this,
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {
+                                        finish()
+                                    },
+                                    negativeClick = {
+                                        finish()
+                                    })
+                                dialog.show()
                             }
+
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(this,
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
-                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(this,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                        loader = LoaderDialog(R.string.pleasewait)
+                        loader?.show(supportFragmentManager, null)
                     }
                 }
             }
+        }
     }
 
     private fun movieDetailsData(output: GetMovieResponse.Output) {
@@ -475,16 +476,18 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
         when (type) {
             "comingSoon" -> {
-                binding?.textMovieType?.text = getString(R.string.commingSoonNew) + " " + output.movie.openingDate
+                binding?.textMovieType?.text =
+                    getString(R.string.commingSoonNew) + " " + output.movie.openingDate
             }
             else -> {
                 if (output.movie.language == null) {
-                    binding?.textMovieType?.text = "" + output.movie.genre + " "+"  |  " +" "+ output.movie.runTime + " " + getString(
+                    binding?.textMovieType?.text =
+                        "" + output.movie.genre + " " + "  |  " + " " + output.movie.runTime + " " + getString(
                             R.string.min
                         )
                 } else {
                     binding?.textMovieType?.text =
-                        output.movie.language + " "+"  |  " +" "+ output.movie.genre + " "+"  |  " +" "+ output.movie.runTime + " " + getString(
+                        output.movie.language + " " + "  |  " + " " + output.movie.genre + " " + "  |  " + " " + output.movie.runTime + " " + getString(
                             R.string.min
                         )
                 }
@@ -543,120 +546,120 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
     private fun getShowTimes(json: CinemaSessionRequest) {
         showTimeViewModel.getMsessionsNew(this, json).observe(this) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.code == Constant.SUCCESS_CODE) {
-                                    try {
-                                        binding?.LayoutTime?.show()
-                                        if (it.data.output.days.isNullOrEmpty()){
-                                            datePosition
-                                        }else{
-                                            datePosition = it.data.output.days[0].wdf
-                                            dt = it.data.output.days[0].showdate
-                                            dateTime = it.data.output.days[0].dt
-                                            setShowTimesDayDateAdapter(it.data.output.days)
-                                        }
-
-                                        if (json.dated == "") showData = it.data.output
-                                        daySessionResponse = it.data.output.daySessions
-                                        updateUiShowTimes(it.data.output)
-                                        setTitleAdapter()
-                                    } catch (e: Exception) {
-                                        e.printStackTrace()
-                                        println("updateUiCinemaSession123 ---> ${e.message}")
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.code == Constant.SUCCESS_CODE) {
+                                try {
+                                    binding?.LayoutTime?.show()
+                                    if (it.data.output.days.isNullOrEmpty()) {
+                                        datePosition
+                                    } else {
+                                        datePosition = it.data.output.days[0].wdf
+                                        dt = it.data.output.days[0].showdate
+                                        dateTime = it.data.output.days[0].dt
+                                        setShowTimesDayDateAdapter(it.data.output.days)
                                     }
-                                } else {
-                                    loader?.dismiss()
-                                    val dialog = OptionDialog(this,
-                                        R.mipmap.ic_launcher,
-                                        R.string.app_name,
-                                        it.data?.msg.toString(),
-                                        positiveBtnText = R.string.ok,
-                                        negativeBtnText = R.string.no,
-                                        positiveClick = {
-                                            finish()
-                                        },
-                                        negativeClick = {
-                                            finish()
-                                        })
-                                    dialog.show()
-                                }
 
+                                    if (json.dated == "") showData = it.data.output
+                                    daySessionResponse = it.data.output.daySessions
+                                    updateUiShowTimes(it.data.output)
+                                    setTitleAdapter()
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                    println("updateUiCinemaSession123 ---> ${e.message}")
+                                }
+                            } else {
+                                loader?.dismiss()
+                                val dialog = OptionDialog(this,
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {
+                                        finish()
+                                    },
+                                    negativeClick = {
+                                        finish()
+                                    })
+                                dialog.show()
                             }
+
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(this,
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
-                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(this,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                        loader = LoaderDialog(R.string.pleasewait)
+                        loader?.show(supportFragmentManager, null)
                     }
                 }
             }
+        }
     }
 
     //GetSeatLayout
     private fun getSeatLayout(request: SeatLayoutRequest, name: String, pos: Int) {
         showTimeViewModel.getSeatLayout(this, request).observe(this) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            resource.data?.let { it ->
-                                if (it.data?.code == Constant.SUCCESS_CODE) {
-                                    try {
-                                        showSeatTypePopup(it.data.output, name, pos)
-                                    } catch (e: Exception) {
-                                        e.printStackTrace()
-                                    }
-
-                                } else {
-                                    loader?.dismiss()
-                                    val dialog = OptionDialog(this,
-                                        R.mipmap.ic_launcher,
-                                        R.string.app_name,
-                                        it.data?.msg.toString(),
-                                        positiveBtnText = R.string.ok,
-                                        negativeBtnText = R.string.no,
-                                        positiveClick = {},
-                                        negativeClick = {})
-                                    dialog.show()
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        resource.data?.let { it ->
+                            if (it.data?.code == Constant.SUCCESS_CODE) {
+                                try {
+                                    showSeatTypePopup(it.data.output, name, pos)
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
                                 }
 
+                            } else {
+                                loader?.dismiss()
+                                val dialog = OptionDialog(this,
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
                             }
+
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(this,
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
-                            println("loading--->Seat")
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
-                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(this,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                        println("loading--->Seat")
+                        loader = LoaderDialog(R.string.pleasewait)
+                        loader?.show(supportFragmentManager, null)
                     }
                 }
             }
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -681,7 +684,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 //        binding?.textMovieType?.text = Html.fromHtml(text)
 
         binding?.textMovieType?.text =
-            output.movie.language + " "+"  |  " +" "+ output.movie.genre + " "+"  |  " +" "+ output.movie.runTime + " " + getString(
+            output.movie.language + " " + "  |  " + " " + output.movie.genre + " " + "  |  " + " " + output.movie.runTime + " " + getString(
                 R.string.min
             )
 
@@ -750,7 +753,8 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         val transfer = CompositePageTransformer()
 
         val nextItemVisiblePx = resources.getDimension(R.dimen.viewpager_next_item_visible)
-        val currentItemHorizontalMarginPx = resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
+        val currentItemHorizontalMarginPx =
+            resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
         val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
 
 
@@ -833,7 +837,8 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         position: Int,
         cinemaPos: Int,
         cinemaId: String,
-        showTime1: String) {
+        showTime1: String
+    ) {
         showTime = showTime1
         showPose = cinemaPos
         cinemaID = cinemaId
@@ -860,7 +865,8 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
             Constant.SEAT_SESSION_CLICK = 0
             showPose = data?.getIntExtra("CINEMA_POS", 0)!!
-            getSeatLayout(SeatLayoutRequest(
+            getSeatLayout(
+                SeatLayoutRequest(
                     data.getStringExtra("CINEMAID").toString(),
                     dateTime,
                     movieID,
@@ -919,8 +925,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         }
 
         ratingDesc.text = output.movie.ratingDescription
-        println("movie.ratingDescription21 ------->${output.movie.ratingDescription}")
-        println("ratingDescription21 ------->${output.movie.ratingColor}")
 
         if (output.movie.rating.isEmpty()) {
             rating.hide()
@@ -958,7 +962,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
             val tvKdPrice2: TextView = v.findViewById(R.id.tv_kd_price)
 
             Glide.with(this).load(item.icon).into(imageSeatSelection)
-            println("SeatCategory.icon ---------->${item.icon}")
 
             viewListForDates.add(v)
             if (item.seatTypes.isEmpty()) {
@@ -994,7 +997,9 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
                 imageSeatSelection.setColorFilter(ContextCompat.getColor(this, R.color.text_alert_color_red),
                     android.graphics.PorterDuff.Mode.MULTIPLY)
-//                imageSeatSelection.setColorFilter(getColor(R.color.text_alert_color_red))
+
+//               imageSeatSelection.setColorFilter(getColor(R.color.text_alert_color_red))
+
                 tvSeatSelection.setTextColor(getColor(R.color.text_alert_color_red))
                 tvSeatAvailable2.setTextColor(getColor(R.color.text_alert_color_red))
                 tvKdPrice2.setTextColor(getColor(R.color.text_alert_color_red))
@@ -1032,12 +1037,11 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                     selectSeatType.show()
                     Glide.with(this).load(data.icon).into(imgSeatSelectionType)
                     imgMetroInfo.setImageResource(R.drawable.ic_icon_metro_info)
+
                     tvKdPrice.text = data.price.toString()
                     tvSeatAvailable.text = data.count
-                    textSeatType.text = data.seatType
-                    println("ImageUrlLinkSeat2211 -------->${data.icon}------->${data.price}--->${data.seatType}")
-
                     selectSeatType.addView(v)
+
                     if (item.seatTypes.size > 0 && item.seatTypes.size == 1) {
                         selectSeatType.show()
                         bottomCategory.show()
@@ -1046,8 +1050,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                         ttType = data.ttypeCode
                         seatType = data.seatType
                         totalPriceResponse = data.priceInt
-                        textSeatType.text = seatType
-
                         imgSeatSelectionType.setColorFilter(
                             ContextCompat.getColor(this, R.color.text_alert_color_red),
                             android.graphics.PorterDuff.Mode.MULTIPLY
@@ -1063,14 +1065,15 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                             num = 1
                             txtNumber.text = num.toString()
                             btnDecrease.invisible()
-                            totalPrice.text = getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format(
+
+                            totalPrice.text =
+                                getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format(
                                     (totalPriceResponse * num) / 100
                                 )
                             btnDecrease.isEnabled = true
                             btnIncrease.isEnabled = true
                             btnDecrease.isClickable = true
                             btnIncrease.isClickable = true
-
                         } else {
                             categoryClick = false
                             clickUi.hide()
@@ -1078,6 +1081,59 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                             btnIncrease.isEnabled = false
                             btnDecrease.isClickable = false
                             btnIncrease.isClickable = false
+                        }
+                    }else{
+                        v.setOnClickListener {
+                            var tvSeatSelection1: TextView?
+                            var tvSeatAvailable1: TextView?
+                            var tvKdPrice1: TextView?
+
+                            areaCode = data.areacode
+                            ttType = data.ttypeCode
+                            seatType = data.seatType
+                            totalPriceResponse = data.priceInt
+
+                            if (item.seatTypes.isNotEmpty()) {
+                                categoryClick = true
+                                clickUi.show()
+                                num = 1
+                                txtNumber.text = num.toString()
+                                btnDecrease.invisible()
+
+                                totalPrice.text =
+                                    getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format((totalPriceResponse * num) / 100)
+                                btnDecrease.isEnabled = true
+                                btnIncrease.isEnabled = true
+                                btnDecrease.isClickable = true
+                                btnIncrease.isClickable = true
+                            } else {
+                                categoryClick = false
+                                clickUi.hide()
+                                btnDecrease.isEnabled = false
+                                btnIncrease.isEnabled = false
+                                btnDecrease.isClickable = false
+                                btnIncrease.isClickable = false
+                            }
+
+                            for (v in viewListForDates) {
+                                tvSeatSelection1 =
+                                    v.findViewById(R.id.textseat_type) as TextView
+                                tvSeatAvailable1 =
+                                    v.findViewById(R.id.tv_seat_avialable) as TextView
+                                tvKdPrice1 = v.findViewById(R.id.tv_kd_price) as TextView
+
+                                tvSeatSelection1.setTextColor(getColor(R.color.hint_color))
+                                tvSeatAvailable1.setTextColor(getColor(R.color.hint_color))
+                                tvKdPrice1.setTextColor(getColor(R.color.hint_color))
+                            }
+
+                            imgSeatSelectionType.setColorFilter(
+                                ContextCompat.getColor(this, R.color.text_alert_color_red),
+                                android.graphics.PorterDuff.Mode.MULTIPLY)
+
+                            textSeatType.setTextColor(getColor(R.color.text_alert_color_red))
+                            tvSeatAvailable.setTextColor(getColor(R.color.text_alert_color_red))
+                            tvKdPrice.setTextColor(getColor(R.color.text_alert_color_red))
 
                         }
                     }
@@ -1086,14 +1142,13 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 }
 
                 // for second
-
             }else{
 
                 v.setOnClickListener {
                     areaCode = item.areacode
                     ttType = item.ttypeCode
                     seatCat = item.seatType
-//              toast("type--2->${seatCat}")
+//              toast("type--2->${seatCat}\\")
 
                     totalPriceResponse = item.priceInt
                     num = 1
@@ -1112,8 +1167,8 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                         btnDecrease.isClickable = false
                         btnIncrease.isClickable = false
                         clickUi.hide()
-                    } else {
 
+                    } else {
                         categoryClick = true
                         clickUi.show()
                         btnDecrease.isEnabled = true
@@ -1123,36 +1178,18 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                     }
 
                     for (v in viewListForDates) {
-
-                        println("PositionOfFlex------>${output.seatTypes.indices}")
-
                         imageSeatSelection1 = v.findViewById(R.id.image_seat_selection) as ImageView
                         tvSeatSelection1 = v.findViewById(R.id.tv_seat_selectiopn) as TextView
                         tvSeatAvailable11 = v.findViewById(R.id.tv_seat_avialable) as TextView
                         tvKdPrice11 = v.findViewById(R.id.tv_kd_price) as TextView
-                        imageSeatSelection1.setColorFilter(ContextCompat.getColor(this, R.color.hint_color), android.graphics.PorterDuff.Mode.MULTIPLY)
+                        imageSeatSelection1.setColorFilter(ContextCompat.getColor(this, R.color.seatUnselected), android.graphics.PorterDuff.Mode.MULTIPLY)
+//                        Glide.with(this).load(item.icon).into(imageSeatSelection1)
 
-//                        if (output.seatTypes){
-//                            Glide.with(this).load(output.seatTypes[0].icon).into(imageSeatSelection1)
-//                        }else{
-//                            Glide.with(this).load(output.seatTypes[1].icon).into(imageSeatSelection1)
-//                        }
-
-
-                        tvSeatSelection1.setTextColor(getColor(R.color.hint_color))
+                        tvSeatSelection1?.setTextColor(getColor(R.color.hint_color))
                         tvSeatAvailable11.setTextColor(getColor(R.color.hint_color))
                         tvKdPrice11.setTextColor(getColor(R.color.hint_color))
 
                     }
-
-                    println("PositionOfFlex21------>${output.seatTypes.indices}")
-//                 Glide.with(this).load(item.iconActive).into(imageSeatSelection)
-
-//                    if (output.seatTypes.size == 0){
-//                        Glide.with(this).load(output.seatTypes[0].iconActive).into(imageSeatSelection)
-//                    }else{
-//                        Glide.with(this).load(output.seatTypes[1].iconActive).into(imageSeatSelection)
-//                    }
 
                     imageSeatSelection.setColorFilter(ContextCompat.getColor(this, R.color.text_alert_color_red),
                         android.graphics.PorterDuff.Mode.MULTIPLY)
@@ -1175,18 +1212,23 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                             try {
                                 val v: View = LayoutInflater.from(this).inflate(R.layout.seat_selection_type_item, selectSeatType, false)
                                 viewListForDates.add(v)
-                                val imgSeatSelectionType: ImageView = v.findViewById(R.id.img_seat_selection_type)
+                                val imgSeatSelectionType: ImageView =
+                                    v.findViewById(R.id.img_seat_selection_type)
                                 val imgMetroInfo: ImageView = v.findViewById(R.id.img_metro_info)
                                 val textSeatType: TextView = v.findViewById(R.id.textseat_type)
                                 val tvSeatAvailable: TextView = v.findViewById(R.id.tv_seat_avialable)
                                 val tvKdPrice: TextView = v.findViewById(R.id.tv_kd_price)
+                                if (languageCheck == "en") {
+                                    textSeatType.text = data.seatType
+                                } else {
+                                    textSeatType.text = data.seatTypeStr
+                                }
 
                                 selectSeatType.show()
                                 Glide.with(this).load(data.icon).into(imgSeatSelectionType)
                                 imgMetroInfo.setImageResource(R.drawable.ic_icon_metro_info)
                                 tvKdPrice.text = data.price.toString()
                                 tvSeatAvailable.text = data.count
-                                textSeatType.text = data.seatType
                                 selectSeatType.addView(v)
 
                                 if (item.seatTypes.size > 0 && item.seatTypes.size == 1){
@@ -1230,6 +1272,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
 
                                 }else{
+
                                     v.setOnClickListener {
                                         var tvSeatSelection1: TextView?
                                         var tvSeatAvailable1: TextView?
@@ -1248,9 +1291,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                                             btnDecrease.invisible()
 
                                             totalPrice.text =
-                                                getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format(
-                                                    (totalPriceResponse * num) / 100
-                                                )
+                                                getString(R.string.price_kd) + " " + Constant.DECIFORMAT.format((totalPriceResponse * num) / 100)
                                             btnDecrease.isEnabled = true
                                             btnIncrease.isEnabled = true
                                             btnDecrease.isClickable = true
@@ -1272,8 +1313,8 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                                             tvKdPrice1 = v.findViewById(R.id.tv_kd_price) as TextView
 
                                             tvSeatSelection1!!.setTextColor(getColor(R.color.hint_color))
-                                            tvSeatAvailable1.setTextColor(getColor(R.color.hint_color))
-                                            tvKdPrice1.setTextColor(getColor(R.color.hint_color))
+                                            tvSeatAvailable1?.setTextColor(getColor(R.color.hint_color))
+                                            tvKdPrice1?.setTextColor(getColor(R.color.hint_color))
                                         }
 
                                         imgSeatSelectionType.setColorFilter(
@@ -1300,7 +1341,8 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                         view2sLine.hide()
                     }
                 }
-        }
+            }
+
 
 
             btnDecrease.setOnClickListener {
@@ -1351,13 +1393,13 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                             btnDecrease.show()
 
                         }
-//                        toast(
-//                            "${getString(R.string.seatLimit)} ${" " + output.seatCount} ${
-//                                " " + getString(
-//                                    R.string.seat
-//                                )
-//                            }"
-//                        )
+                        toast(
+                            "${getString(R.string.seatLimit)} ${" " + output.seatCount} ${
+                                " " + getString(
+                                    R.string.seat
+                                )
+                            }"
+                        )
 
                     } else {
                         num += 1
@@ -1424,7 +1466,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                             .putExtra("SessionID", sessionID).putExtra("SHOW_POS", pos)
                             .putExtra("showTime", showTime).putExtra("CINEMA_POS", showPose), 50
                     )
-
                     categoryClick = false
                     num = 0
                     mAlertDialog?.dismiss()
@@ -1513,7 +1554,8 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         position: Int,
         cinemaPos: Int,
         movieCinemaId: String,
-        showTime: String) {
+        showTime: String
+    ) {
         showPose = cinemaPos
         cinemaID = show.cinemaId
         sessionID = show.sessionId
@@ -1544,12 +1586,12 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     }
 
     override fun onBackPressed() {
-        if (homeBacks == "homeBack"){
+        if (homeBacks == "homeBack") {
             Constant.IntentKey.BACKFinlTicket = 0
             val intent = Intent(applicationContext, HomeActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
-        }else{
+        } else {
             super.onBackPressed()
         }
 

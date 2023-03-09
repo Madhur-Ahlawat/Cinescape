@@ -557,9 +557,9 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                     selectSeatType.show()
                     Glide.with(this).load(data.icon).into(imgSeatSelectionType)
                     imgMetroInfo.setImageResource(R.drawable.ic_icon_metro_info)
+
                     tvKdPrice.text = data.price.toString()
                     tvSeatAvailable.text = data.count
-                    println("ImageUrlLinkSeat -------->${data.icon}------->${data.price}")
                     selectSeatType.addView(v)
 
                     if (item.seatTypes.size > 0 && item.seatTypes.size == 1) {
@@ -642,7 +642,7 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                                     v.findViewById(R.id.tv_seat_avialable) as TextView
                                 tvKdPrice1 = v.findViewById(R.id.tv_kd_price) as TextView
 
-                                tvSeatSelection1!!.setTextColor(getColor(R.color.hint_color))
+                                tvSeatSelection1.setTextColor(getColor(R.color.hint_color))
                                 tvSeatAvailable1.setTextColor(getColor(R.color.hint_color))
                                 tvKdPrice1.setTextColor(getColor(R.color.hint_color))
                             }

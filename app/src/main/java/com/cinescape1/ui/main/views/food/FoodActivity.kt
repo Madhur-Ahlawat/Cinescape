@@ -6,7 +6,6 @@ import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -265,7 +264,6 @@ class FoodActivity : DaggerAppCompatActivity(),
 
             skipBtn = intent.getStringExtra("typeSkip").toString()
 
-            println("FoodIntentOutput-------->${cinemaId}----${sessionId}--->${booktype}----->${transId}")
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -276,9 +274,81 @@ class FoodActivity : DaggerAppCompatActivity(),
         }
 
         movieRatingColor = intent.getStringExtra("movieRatingColor").toString()
-        if (booktype != "FOOD" || booktype != "ADDFOOD") {
-//            binding?.txtSkipProceed?.show()
+//        if (booktype != "FOOD" || booktype != "ADDFOOD") {
+////            binding?.txtSkipProceed?.show()
+//
+//            binding?.viewCancel?.setOnClickListener {
+//                cancelDialog()
+//            }
+//
+//            binding?.txtProceed?.setOnClickListener {
+//                if (!foodCartList.isNullOrEmpty()) {
+//                    try {
+//                        val foodRequest = SaveFoodRequest()
+//                        foodRequest.concessionFoods = foodCartList!!
+//                        foodRequest.transid = transId
+//                        foodRequest.cinemaId = cinemaId
+//                        foodRequest.booktype = booktype
+//                        foodRequest.userId = preferences.getString(Constant.USER_ID).toString()
+//                        foodRequest.sessionId = sessionId
+//                        saveFoods(foodRequest)
+//                    } catch (e: Exception) {
+//                        e.printStackTrace()
+//                    }
+//
+//                } else {
+//                    val intent = Intent(this, SummeryActivity::class.java)
+//                    intent.putExtra("CINEMA_ID", cinemaId)
+//                    intent.putExtra("SESSION_ID", sessionId)
+//                    intent.putExtra("TRANS_ID", transId)
+//                    intent.putExtra("BOOKING", booktype)
+//                    TimerTime = timeCount
+//                    startActivity(intent)
+//                    finish()
+//                }
+//            }
+//
+//        } else {
+//
+////         binding?.txtSkipProceed?.hide()
+//            binding?.viewCancel?.setOnClickListener {
+//                val intent = Intent(this@FoodActivity, HomeActivity::class.java)
+//                startActivity(intent)
+//                finish()
+//            }
+//
+//            binding?.txtProceed?.setOnClickListener {
+//                if (!foodCartList.isNullOrEmpty()) {
+//                    try {
+//                        val foodRequest = SaveFoodRequest()
+//                        foodRequest.concessionFoods = foodCartList!!
+//                        foodRequest.transid = transId
+//                        foodRequest.cinemaId = cinemaId
+//                        foodRequest.booktype = booktype
+//                        foodRequest.userId = preferences.getString(Constant.USER_ID).toString()
+//                        foodRequest.sessionId = sessionId
+//                        saveFoods(foodRequest)
+//                    } catch (e: Exception) {
+//                        e.printStackTrace()
+//                    }
+//                } else {
+//                    val dialog = OptionDialog(this,
+//                        R.mipmap.ic_launcher,
+//                        R.string.app_name,
+//                        "Please select food!",
+//                        positiveBtnText = R.string.ok,
+//                        negativeBtnText = R.string.no,
+//                        positiveClick = {
+//                        },
+//                        negativeClick = {
+//                        })
+//                    dialog.show()
+//                }
+//            }
+//
+//        }
 
+        if (booktype != "FOOD" ) {
             binding?.viewCancel?.setOnClickListener {
                 cancelDialog()
             }
@@ -310,9 +380,51 @@ class FoodActivity : DaggerAppCompatActivity(),
                 }
             }
 
-        } else {
+            resendTimer()
+            seatPrice = intent.getStringExtra("PRICE").toString()
+        } else if (booktype != "ADDFOOD") {
+            binding?.viewCancel?.setOnClickListener {
+                cancelDialog()
+            }
+            //TEMPRORY CODE
+//            toast("bookType--->${booktype}")
+            binding?.textTimeToLeft?.hide()
+            binding?.textTimeLeft?.hide()
+            binding?.textView112?.hide()
+            binding?.txtProceed?.setOnClickListener {
+                if (!foodCartList.isNullOrEmpty()) {
+                    try {
+                        val foodRequest = SaveFoodRequest()
+                        foodRequest.concessionFoods = foodCartList!!
+                        foodRequest.transid = transId
+                        foodRequest.cinemaId = cinemaId
+                        foodRequest.booktype = booktype
+                        foodRequest.userId = preferences.getString(Constant.USER_ID).toString()
+                        foodRequest.sessionId = sessionId
+                        saveFoods(foodRequest)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
 
-//         binding?.txtSkipProceed?.hide()
+                } else {
+                    val intent = Intent(this, SummeryActivity::class.java)
+                    intent.putExtra("CINEMA_ID", cinemaId)
+                    intent.putExtra("SESSION_ID", sessionId)
+                    intent.putExtra("TRANS_ID", transId)
+                    intent.putExtra("BOOKING", booktype)
+                    TimerTime = timeCount
+                    startActivity(intent)
+                    finish()
+                }
+            }
+
+//            resendTimer()
+            seatPrice = intent.getStringExtra("PRICE").toString()
+        } else {
+            binding?.textTimeToLeft?.hide()
+            binding?.textTimeLeft?.hide()
+            binding?.textView112?.hide()
+            seatPrice = "0.0"
             binding?.viewCancel?.setOnClickListener {
                 val intent = Intent(this@FoodActivity, HomeActivity::class.java)
                 startActivity(intent)
@@ -347,17 +459,6 @@ class FoodActivity : DaggerAppCompatActivity(),
                     dialog.show()
                 }
             }
-
-        }
-        if (booktype != "FOOD" || booktype != "ADDFOOD") {
-            resendTimer()
-            seatPrice = intent.getStringExtra("PRICE").toString()
-        } else {
-            binding?.textTimeToLeft?.hide()
-            binding?.textTimeLeft?.hide()
-            binding?.textView112?.hide()
-
-            seatPrice = "0.0"
         }
 
         broadcastReceiver = MyReceiver()
@@ -516,7 +617,8 @@ class FoodActivity : DaggerAppCompatActivity(),
         btnDecrease: TextView,
         txtNumber: TextView,
         textItemAdded: TextView,
-        btnIncrease: TextView) {
+        btnIncrease: TextView
+    ) {
 
         foodTitleName1 = foodTitleName
         foodcomboName1 = foodcomboName
@@ -549,14 +651,6 @@ class FoodActivity : DaggerAppCompatActivity(),
 
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.food_cart_dailog_info, null)
         val mBuilder = AlertDialog.Builder(this, R.style.CustomAlertDialog).setView(mDialogView)
-
-//        mBuilder.window?.setLayout(
-//            ViewGroup.LayoutParams.MATCH_PARENT,
-//            ViewGroup.LayoutParams.WRAP_CONTENT
-//        )
-//        mBuilder.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-//        mDialogView.window?.attributes?.windowAnimations = R.style.DialogAnimation
-//        mDialogView.window?.setGravity(Gravity.BOTTOM)
 
         if (!isFinishing) {
             mFoodCartDialog = mBuilder?.show()
@@ -849,10 +943,10 @@ class FoodActivity : DaggerAppCompatActivity(),
         val viewGroup = findViewById<ViewGroup>(android.R.id.content)
         val dialogView: View =
             LayoutInflater.from(this).inflate(R.layout.cancel_dialog, viewGroup, false)
-        val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(this)
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         builder.setView(dialogView)
         builder.setCancelable(false)
-        val alertDialog: android.app.AlertDialog = builder.create()
+        val alertDialog: AlertDialog = builder.create()
         alertDialog.window?.setBackgroundDrawableResource(R.color.transparent)
         if (this.hasWindowFocus()) {
             alertDialog.show()
@@ -911,10 +1005,11 @@ class FoodActivity : DaggerAppCompatActivity(),
             price += data.foodAmount.toInt()
             itemCheckPrice = data.foodAmount.toInt()
         }
-        return getString(R.string.price_kd)+" " + "${Constant.DECIFORMAT.format(price / 100.0)}"
+        return getString(R.string.price_kd) + " " + "${Constant.DECIFORMAT.format(price / 100.0)}"
 
     }
 
+    @SuppressLint("SetTextI18n")
     private fun getCartFoodPrice(): Int {
         var price = 0
         for (data in foodCartListNew!!) {
@@ -1084,6 +1179,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             individualAdapter?.notifyDataSetChanged()
             comboAdapter?.notifyDataSetChanged()
         } else {
+            //combo Food
             val mDialogView =
                 LayoutInflater.from(this).inflate(R.layout.food_selected_add_alert_dailog, null)
             val mBuilder = AlertDialog.Builder(this).setView(mDialogView)
@@ -1103,8 +1199,6 @@ class FoodActivity : DaggerAppCompatActivity(),
                 .load(foodItem.itemImageUrl)
                 .placeholder(R.drawable.placeholder_icon)
                 .into(imageView10)
-
-            println("foodItem.itemImageUrl------>${foodItem.itemImageUrl}")
 
             textComboKdPrice.text = foodItem.itemPrice
             textComboSubtitle.text = foodItem.description
@@ -1634,14 +1728,28 @@ class FoodActivity : DaggerAppCompatActivity(),
             binding?.textCartCountNotiication?.show()
             binding?.textCartCountNotiication?.text = foodCartListNew?.size.toString()
 
+//            if (booktype!="FOOD"){
+//                binding?.txtProceed?.show()
+//                binding?.txtSkipBtn?.hide()
+//            }else{
+//                binding?.txtProceed?.show()
+//                binding?.txtSkipBtn?.hide()
+//            }
             binding?.txtProceed?.show()
             binding?.txtSkipBtn?.hide()
         } else {
             binding?.textCartCountNotiication?.text = "0"
             binding?.textCartCountNotiication?.show()
 
-            binding?.txtProceed?.hide()
-            binding?.txtSkipBtn?.show()
+            if (booktype=="FOOD"){
+                binding?.txtProceed?.show()
+                binding?.txtSkipBtn?.hide()
+            }else{
+                binding?.txtProceed?.hide()
+                binding?.txtSkipBtn?.show()
+            }
+//            binding?.txtProceed?.hide()
+//            binding?.txtSkipBtn?.show()
         }
         foodCartAdapter?.notifyDataSetChanged()
         updateSelectedList(foodItem, 0)
@@ -1685,7 +1793,7 @@ class FoodActivity : DaggerAppCompatActivity(),
 //        foodRequestData.id = foodItem.id
 
         if (foodItem.quantity > 0) {
-            println("amtSend--->${foodItem.priceInCents.toString()}")
+            println("amtSend--->${foodItem.priceInCents}")
             foodRequestData.priceInCents = foodItem.priceInCents.toString()
             foodRequestData.itemId = foodItem.id
             foodRequestData.id = foodItem.id
@@ -2212,7 +2320,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                     ).toDouble()
                 )
             }"
-        }catch (e : Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
 

@@ -69,11 +69,12 @@ import javax.inject.Inject
 import android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS as FLAG_TRANSLUCENT_STATUS1
 
 @Suppress("DEPRECATION")
-class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewItemClickListener {
+class LoginActivity : DaggerAppCompatActivity(),
+    CountryCodeAdapter.RecycleViewItemClickListener {
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private var loader: LoaderDialog? = null
-
     @Inject
     lateinit var preferences: AppPreferences
     private val loginViewModel: LoginViewModel by viewModels { viewModelFactory }

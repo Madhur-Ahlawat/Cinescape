@@ -64,6 +64,7 @@
             android:layout_height="@dimen/size18"
             android:layout_marginTop="2dp"
             android:adjustViewBounds="true"
+            android:layout_marginBottom="-3dp"
             android:contentDescription="@string/contentDes"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"

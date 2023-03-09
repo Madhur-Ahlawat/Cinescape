@@ -34,6 +34,7 @@
     <color name="view_line_color">#2e2e2e</color>
     <color name="text_alert_color">#7b7a7a</color>
     <color name="text_alert_color_red">#e12329</color>
+    <color name="seatUnselected">#e6e6e6</color>
     <color name="view_bg_color_line">#33adadad</color>
     <color name="viewColor">#b23f05</color>
     <color name="black80">#CB000000</color>

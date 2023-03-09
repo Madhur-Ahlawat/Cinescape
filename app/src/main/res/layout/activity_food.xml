@@ -9,7 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/uiFood"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -43,7 +43,6 @@
             android:id="@+id/cartTime1"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/sf_pro_text_heavy"
             android:gravity="center"
             android:letterSpacing="0.05"
             android:textColor="@color/white"
@@ -242,15 +241,15 @@
                 android:id="@+id/text_cart_count_notiication"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="-15dp"
                 android:layout_marginTop="8dp"
+                android:padding="@dimen/margin3"
                 android:background="@drawable/filter_cross"
                 android:gravity="center"
-                android:textSize="@dimen/size11"
                 android:textColor="@color/white"
+                android:textSize="@dimen/size11"
                 android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="@+id/view_cart"
-                app:layout_constraintStart_toStartOf="@+id/image_cart"
+                app:layout_constraintStart_toEndOf="@+id/image_cart"
                 app:layout_constraintTop_toTopOf="@+id/view_cart"
                 tools:text="22" />
 

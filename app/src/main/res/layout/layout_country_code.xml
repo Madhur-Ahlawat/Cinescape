@@ -23,8 +23,8 @@
         android:layout_marginStart="24dp"
         android:fontFamily="@font/sf_pro_text_regular"
         tools:text="India"
-        android:textColor="@color/arabic_color"
-        android:textSize="@dimen/size15"
+        android:textColor="#646464"
+        android:textSize="@dimen/size16"
         app:layout_constraintBottom_toBottomOf="@+id/radioButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/radioButton"
@@ -37,7 +37,7 @@
         android:layout_marginStart="21dp"
         app:cardBackgroundColor="@color/transparent"
         android:buttonTint="@color/arabic_color"
-        android:background="@drawable/checkdes_curv"
+        android:background="@drawable/checkdes_curve"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/view32"
         app:layout_constraintTop_toTopOf="@+id/view32" >
@@ -46,6 +46,7 @@
         <ImageView
             android:id="@+id/imgSelect"
             android:src="@drawable/ic_check"
+            android:padding="@dimen/margin3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
