@@ -6,6 +6,7 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.MarginLayoutParams
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +17,6 @@ import com.cinescape1.data.models.responseModel.GetFoodResponse
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.invisible
 import com.cinescape1.utils.show
-import com.cinescape1.utils.toast
 import com.google.android.flexbox.*
 
 class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitleList: List<GetFoodResponse.ComboItem>,
@@ -94,6 +94,14 @@ class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitle
             holder.foodComboSubtitleList.show()
             holder.popcornUi.hide()
             holder.comboUi.show()
+
+
+//            val marginLayoutParams = MarginLayoutParams(
+//                MarginLayoutParams.MATCH_PARENT,
+//                MarginLayoutParams.WRAP_CONTENT
+//            )
+//            marginLayoutParams.setMargins(0, 60, 0, 0)
+//            holder.combo_title.layoutParams = marginLayoutParams
 
             val viewList:ArrayList<View> = ArrayList()
             holder.foodComboSubtitleList.removeAllViews()

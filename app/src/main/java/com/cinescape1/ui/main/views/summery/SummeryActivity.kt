@@ -94,7 +94,7 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
                 val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
 
                 binding?.checkoutTicketInclude?.textView112?.typeface = regular
-                binding?.checkoutTicketInclude?.textView111?.typeface = bold   // heavy
+//                binding?.checkoutTicketInclude?.textView111?.typeface = bold   // heavy
                 binding?.checkoutTicketInclude?.summaryNameMovie?.typeface = bold   // heavy
                 binding?.checkoutTicketInclude?.summaryCensor?.typeface = regular
                 binding?.checkoutTicketInclude?.textLocations?.typeface = regular
@@ -146,7 +146,7 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
                 val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
 
                 binding?.checkoutTicketInclude?.textView112?.typeface = regular
-                binding?.checkoutTicketInclude?.textView111?.typeface = heavy   // heavy
+//                binding?.checkoutTicketInclude?.textView111?.typeface = heavy   // heavy
                 binding?.checkoutTicketInclude?.summaryNameMovie?.typeface = heavy   // heavy
                 binding?.checkoutTicketInclude?.summaryCensor?.typeface = regular
                 binding?.checkoutTicketInclude?.textLocations?.typeface = regular
@@ -199,7 +199,7 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
                 val medium = ResourcesCompat.getFont(this, R.font.sf_pro_text_medium)
 
                 binding?.checkoutTicketInclude?.textView112?.typeface = regular
-                binding?.checkoutTicketInclude?.textView111?.typeface = heavy   // heavy
+//                binding?.checkoutTicketInclude?.textView111?.typeface = heavy   // heavy
                 binding?.checkoutTicketInclude?.summaryNameMovie?.typeface = heavy   // heavy
                 binding?.checkoutTicketInclude?.summaryCensor?.typeface = regular
                 binding?.checkoutTicketInclude?.textLocations?.typeface = regular

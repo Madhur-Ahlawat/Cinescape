@@ -32,7 +32,7 @@ class SeeAllAdapter(private val context: Context, private val arrayList: ArrayLi
         val list = arrayList[position]
         Glide.with(context)
             .load(list.mobimgsmall)
-            .placeholder(R.drawable.movie_default)
+            .placeholder(R.drawable.placeholder_movie_alert_poster)
             .into(holder.seeAllImage)
 
         holder.seeAllImage.setOnClickListener {

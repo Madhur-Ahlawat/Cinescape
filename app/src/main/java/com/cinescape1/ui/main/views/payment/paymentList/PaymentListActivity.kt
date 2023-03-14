@@ -124,7 +124,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         setContentView(view)
 
         try {
-
             bookingId = intent.getStringExtra("bookingId").toString()
             bookType = intent.getStringExtra("BOOKING").toString()
             transId = intent.getStringExtra("TRANS_ID").toString()
@@ -137,7 +136,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 Glide.with(this).load(image).placeholder(R.drawable.bombshell).into(binding?.imageView6!!)
             }
 
-            println("book--->${bookingId}--type->${bookType}---transId--->${transId}>")
         }catch (e : Exception){
             e.printStackTrace()
         }

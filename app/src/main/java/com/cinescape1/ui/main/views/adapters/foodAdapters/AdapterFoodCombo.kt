@@ -82,7 +82,6 @@ class AdapterFoodCombo(
                 holder.viewIncreaseDecrease.show()
             }
             listener.onAddFood(foodSelectedItem, position,foodComboList)
-            println("listener.onAddFood---->${position}---->${foodSelectedItem.description}----->${foodSelectedItem.foodtype}")
         }
 
         holder.btnIncrease.setOnClickListener {

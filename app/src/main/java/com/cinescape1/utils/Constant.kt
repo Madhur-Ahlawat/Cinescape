@@ -1,32 +1,27 @@
 package com.cinescape1.utils
 
 import android.app.Activity
-import android.app.ProgressDialog
 import android.content.Context
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Typeface
-import android.net.ConnectivityManager
-import android.os.Build
-import android.provider.Settings
 import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.util.Base64
 import android.util.Log
-import android.util.Patterns
 import android.view.View
+import android.view.ViewGroup
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.inputmethod.InputMethodManager
+import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.app.ActivityCompat
 import com.cinescape1.data.models.responseModel.NextBookingResponse
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "DEPRECATED_IDENTITY_EQUALS")
 class Constant {
@@ -266,5 +261,20 @@ class Constant {
         } else {
             ""
         }
+    }
+
+
+    fun addMargins(v: View, left: Int, top: Int, right: Int, bottom: Int) {
+        var params = v.layoutParams as LinearLayout.LayoutParams
+        if (params == null) params = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        val oldLeft = params.leftMargin
+        val oldTop = params.topMargin
+        val oldRight = params.rightMargin
+        val oldBottom = params.bottomMargin
+        params.setMargins(oldLeft + left, oldTop + top, oldRight + right, oldBottom + bottom)
+        v.layoutParams = params
     }
 }

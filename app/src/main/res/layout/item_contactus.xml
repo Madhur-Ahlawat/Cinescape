@@ -136,13 +136,11 @@
         app:layout_constraintTop_toTopOf="@+id/text_mobile_title"
         app:drawableEndCompat="@drawable/ic_icons_light_next" />
 
-    <com.google.android.material.textfield.TextInputLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/enter_mobile_number"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/transparent"
-        android:fontFamily="@font/sf_pro_text_regular"
-        android:textColorHint="@color/text_color"
         app:boxStrokeColor="@color/edittext_profile"
         app:layout_constraintBottom_toBottomOf="@+id/enter_mobile_code"
         app:layout_constraintEnd_toEndOf="@+id/view_mobile1"
@@ -151,11 +149,14 @@
         app:layout_constraintTop_toTopOf="@+id/enter_mobile_code"
         tools:ignore="HardcodedText">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <EditText
             android:id="@+id/enter_mobile_numbers"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:background="@color/transparent"
+            android:fontFamily="@font/sf_pro_text_regular"
             android:inputType="phone"
             android:lineSpacingExtra="1.8sp"
             android:maxLength="12"
@@ -164,9 +165,12 @@
             android:textColorHint="@color/text_color"
             android:textCursorDrawable="@null"
             android:textSize="@dimen/size14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="HardcodedText,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:id="@+id/view43_line"

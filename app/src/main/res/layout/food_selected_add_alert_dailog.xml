@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/transparent"
     android:layout_gravity="center"
+    android:background="@color/transparent"
     android:backgroundTint="@color/back_food">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,7 +53,8 @@
                     android:contentDescription="@string/contentDes"
                     app:layout_constraintEnd_toEndOf="@+id/vws_main2"
                     app:layout_constraintTop_toTopOf="@+id/vws_main2"
-                    app:srcCompat="@drawable/ic_icons_light_close" />
+                    app:srcCompat="@drawable/ic_icons_light_close"
+                    app:tint="@color/white" />
 
                 <View
                     android:id="@+id/view_combo_head"
@@ -66,9 +66,9 @@
 
                 <ImageView
                     android:id="@+id/imageView10"
-                    android:layout_width="78dp"
-                    android:layout_height="75dp"
-                    android:layout_marginStart="@dimen/margin3"
+                    android:layout_width="110dp"
+                    android:layout_height="90dp"
+                    android:layout_marginStart="16dp"
                     android:contentDescription="@string/contentDes"
                     app:layout_constraintBottom_toBottomOf="@+id/view_combo_head"
                     app:layout_constraintStart_toStartOf="@+id/view_combo_head"
@@ -79,6 +79,7 @@
                     android:id="@+id/consPop"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginEnd="@dimen/margin40"
                     app:layout_constraintBottom_toBottomOf="@+id/view_combo_head"
                     app:layout_constraintEnd_toEndOf="@+id/view_combo_head"
@@ -93,7 +94,7 @@
                         android:gravity="center_horizontal"
                         android:lineSpacingExtra="0sp"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/size16"
+                        android:textSize="@dimen/size20"
                         android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -136,17 +137,20 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="@dimen/margin6"
                     android:layout_marginBottom="4dp"
+                    tools:listitem="@layout/food_selected_add_combo_title_item"
                     app:layout_constraintBottom_toTopOf="@+id/view39_done_btn"
                     app:layout_constraintEnd_toEndOf="@+id/view_combo_head"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/view_combo_head"
-                    app:layout_constraintTop_toBottomOf="@+id/view_combo_head" />
+                    app:layout_constraintTop_toBottomOf="@+id/view_combo_head"
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <View
                     android:id="@+id/view39_done_btn"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:layout_marginStart="@dimen/margin30"
-                    android:layout_marginEnd="@dimen/margin10"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginEnd="35dp"
                     android:layout_marginBottom="@dimen/margin2"
                     app:layout_constraintBottom_toTopOf="@+id/viw_total_price"
                     app:layout_constraintEnd_toEndOf="@+id/vws_main2"
@@ -173,36 +177,35 @@
                     android:id="@+id/view_increase_decrease"
                     android:layout_width="106dp"
                     android:layout_height="33dp"
-                    android:layout_marginStart="@dimen/margin6"
+                    android:layout_marginStart="16dp"
                     android:background="@drawable/food_item_bg"
                     android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="@+id/view39_done_btn"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_done_btn"
                     app:layout_constraintStart_toStartOf="@+id/view39_done_btn"
                     app:layout_constraintTop_toTopOf="@+id/view39_done_btn" />
 
-                <TextView
+                <ImageView
                     android:id="@+id/text_decrease"
                     android:layout_width="0dp"
-                    android:layout_height="32dp"
-                    android:fontFamily="@font/sf_pro_text_regular"
-                    android:gravity="center"
-                    android:text="@string/minus"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/size14"
+                    android:layout_height="0dp"
+                    android:paddingEnd="@dimen/margin10"
+                    android:paddingStart="@dimen/margin10"
+                    android:src="@drawable/minus_test"
                     app:layout_constraintBottom_toBottomOf="@+id/view_increase_decrease"
                     app:layout_constraintEnd_toStartOf="@+id/text_number"
                     app:layout_constraintStart_toStartOf="@+id/view_increase_decrease"
-                    app:layout_constraintTop_toTopOf="@+id/view_increase_decrease" />
+                    app:layout_constraintTop_toTopOf="@+id/view_increase_decrease"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/text_number"
                     android:layout_width="0dp"
-                    android:layout_height="32dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="2dp"
                     android:fontFamily="@font/sf_pro_text_regular"
                     android:gravity="center"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/size14"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/text_decrease"
                     app:layout_constraintEnd_toStartOf="@+id/text_increase"
                     app:layout_constraintStart_toEndOf="@+id/text_decrease"
@@ -213,15 +216,15 @@
                     android:id="@+id/text_increase"
                     android:layout_width="0dp"
                     android:layout_height="32dp"
-                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:layout_marginBottom="2dp"
                     android:gravity="center"
                     android:text="@string/plus"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/size14"
+                    android:textSize="22sp"
                     app:layout_constraintBottom_toBottomOf="@+id/text_number"
                     app:layout_constraintEnd_toEndOf="@+id/view_increase_decrease"
                     app:layout_constraintStart_toEndOf="@+id/text_number"
-                    app:layout_constraintTop_toTopOf="@+id/text_number" />
+                    app:layout_constraintTop_toTopOf="@+id/view_increase_decrease" />
 
                 <TextView
                     android:id="@+id/tv_done_btn"
@@ -236,7 +239,6 @@
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/view_increase_decrease"
                     app:layout_constraintEnd_toEndOf="@+id/view39_done_btn"
-                    app:layout_constraintStart_toEndOf="@+id/view_increase_decrease"
                     app:layout_constraintTop_toTopOf="@+id/view_increase_decrease" />
 
                 <View
@@ -261,9 +263,9 @@
                         android:id="@+id/tev_total_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
                         android:fontFamily="@font/sf_pro_text_regular"
                         android:gravity="center_horizontal"
+                        android:includeFontPadding="false"
                         android:letterSpacing="-0.01"
                         android:paddingStart="@dimen/margin4"
                         android:paddingEnd="@dimen/margin8"
@@ -282,10 +284,10 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gibson_semibold"
                         android:textColor="@color/white"
+                        android:includeFontPadding="false"
                         android:textSize="@dimen/size14"
                         android:textStyle="normal"
                         app:layout_constraintBottom_toBottomOf="@+id/tev_total_price"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/tev_total_price"
                         app:layout_constraintTop_toTopOf="@+id/tev_total_price"
                         tools:ignore="HardcodedText"

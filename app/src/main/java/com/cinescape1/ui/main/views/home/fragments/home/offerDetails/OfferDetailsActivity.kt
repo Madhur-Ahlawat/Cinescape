@@ -123,7 +123,7 @@ class OfferDetailsActivity : DaggerAppCompatActivity() {
         binding?.offerDetailsUi?.show()
         Glide.with(this)
             .load(output.appImageUrl)
-            .placeholder(R.drawable.bombshell)
+            .placeholder(R.drawable.placeholder_movie_alert_poster)
             .into(binding?.imageView24!!)
 
         binding?.webView?.webViewClient = WebViewClient()

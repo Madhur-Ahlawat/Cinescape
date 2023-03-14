@@ -2,19 +2,15 @@ package com.cinescape1.ui.main.views.seatLayout
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
-import android.view.Window
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -318,8 +314,8 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
 
             binding?.textSeatTypes?.setOnClickListener {
 
-                val dialog = AlertDialog.Builder(this,R.style.CustomAlertDialog).create()
-                val view = layoutInflater.inflate(R.layout.cancel_dialog,null)
+                val dialog = AlertDialog.Builder(this, R.style.CustomAlertDialog).create()
+                val view = layoutInflater.inflate(R.layout.cancel_dialog, null)
                 dialog.setView(view)
 
                 dialog.setCanceledOnTouchOutside(false)
@@ -387,9 +383,12 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
 
             movieImage = output.movie.mobimgbig
 
-            movieTimeDate = "${output.daySessions[Constant.select_pos].experienceSessions[cinemaPos1].shows[showPos].showTime}  |  $datePosition  |  $dt"
-            movieType = "${output.daySessions[Constant.select_pos].experienceSessions[cinemaPos1].experience}  |  ${output.daySessions[Constant.select_pos].experienceSessions[cinemaPos1].shows[showPos].format}  |  $seatCat"
-            binding?.textType?.text = "${output.daySessions[Constant.select_pos].experienceSessions[cinemaPos1].experience}  |  ${output.daySessions[Constant.select_pos].experienceSessions[cinemaPos1].shows[showPos].format}  |  $seatCat"
+            movieTimeDate =
+                "${output.daySessions[Constant.select_pos].experienceSessions[cinemaPos1].shows[showPos].showTime}  |  $datePosition  |  $dt"
+            movieType =
+                "${output.daySessions[Constant.select_pos].experienceSessions[cinemaPos1].experience}  |  ${output.daySessions[Constant.select_pos].experienceSessions[cinemaPos1].shows[showPos].format}  |  $seatCat"
+            binding?.textType?.text =
+                "${output.daySessions[Constant.select_pos].experienceSessions[cinemaPos1].experience}  |  ${output.daySessions[Constant.select_pos].experienceSessions[cinemaPos1].shows[showPos].format}  |  $seatCat"
 
             setTitleAdapter(output.daySessions)
         } catch (e: Exception) {
@@ -404,7 +403,11 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
     private fun setTitleAdapter(daySessions: ArrayList<SeatLayoutResponse.DaySession>) {
         val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
         binding?.recyclerviewCinemasName?.layoutManager = LinearLayoutManager(this)
-        val adapter = SeatShowTimesCinemaAdapter(this, daySessions[Constant.select_pos].experienceSessions, this)
+        val adapter = SeatShowTimesCinemaAdapter(
+            this,
+            daySessions[Constant.select_pos].experienceSessions,
+            this
+        )
         binding?.recyclerviewCinemasName?.layoutManager = gridLayout
         binding?.recyclerviewCinemasName?.adapter = adapter
     }
@@ -532,8 +535,8 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
 
     private fun cancelDialog() {
 
-        val dialog = AlertDialog.Builder(this,R.style.CustomAlertDialog).create()
-        val view = layoutInflater.inflate(R.layout.cancel_dialog,null)
+        val dialog = AlertDialog.Builder(this, R.style.CustomAlertDialog).create()
+        val view = layoutInflater.inflate(R.layout.cancel_dialog, null)
         dialog.setView(view)
         dialog.setCanceledOnTouchOutside(false)
         dialog.show()
@@ -598,7 +601,16 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
     private fun reserveSeat() {
         seatScreenMainViewModel.reserveSeat(
             this,
-            ReserveSeatRequest(seatCat, cinemaID, passingValArrayList, sessionID, movieId, ttType, areaCode))
+            ReserveSeatRequest(
+                seatCat,
+                cinemaID,
+                passingValArrayList,
+                sessionID,
+                movieId,
+                ttType,
+                areaCode
+            )
+        )
             .observe(this) {
                 it?.let { resource ->
                     when (resource.status) {

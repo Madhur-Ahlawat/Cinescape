@@ -1,6 +1,7 @@
 package com.cinescape1.ui.main.views.home.fragments.more
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.content.*
@@ -111,6 +112,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
         return view!!
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //AppBar Hide
@@ -273,9 +275,13 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
         //Image hide Home
         (requireActivity().findViewById(R.id.imageView42) as ConstraintLayout).hide()
 
+        val   firstName = preferences.getString(Constant.FIRST_NAME).toString()
+       val lastName = preferences.getString(Constant.LAST_NAME).toString()
+
         mobile = preferences.getString(Constant.MOBILE).toString()
         contactEmail.setText(preferences.getString(Constant.USER_EMAIL))
-        enterUsername.setText(preferences.getString(Constant.USER_NAME))
+
+        enterUsername.setText( "$firstName $lastName")
         enter_mobile_numbers.setText(preferences.getString(Constant.MOBILE))
         image_switcher?.setOnCheckedChangeListener { _, b ->
             if (b) {
@@ -335,6 +341,7 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
 //            binding?.imageHistory?.setColorFilter(requireActivity().getColor(R.color.text_color))
             binding?.textHistoery?.setTextColor(requireActivity().getColor(R.color.text_color))
 
+            binding?.textView35?.text= getString(R.string.location)
             binding?.textView35?.show()
             binding?.recyclerMore?.show()
             binding?.scrollNested?.hide()
@@ -418,7 +425,8 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
 //            binding?.imageHistory?.setColorFilter(requireActivity().getColor(R.color.text_color))
             binding?.textHistoery?.setTextColor(requireActivity().getColor(R.color.text_color))
 
-            binding?.textView35?.hide()
+            binding?.textView35?.text =getString(R.string.age_rating)
+            binding?.textView35?.show()
             binding?.recyclerMore?.show()
             binding?.scrollNested?.hide()
             responseData?.output?.ratings?.let { it1 -> ageRating(it1) }

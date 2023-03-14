@@ -303,21 +303,21 @@ class HomeActivity : DaggerAppCompatActivity(),
             }
     }
 
+    @SuppressLint("ResourceAsColor")
     private fun foodDialog() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.fragment_food)
         dialog.window?.setLayout(
             ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
+            ViewGroup.LayoutParams.MATCH_PARENT
         )
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.setBackgroundDrawable(ColorDrawable(R.color.black50))
         dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
         dialog.window?.setGravity(Gravity.BOTTOM)
         dialog.show()
         spinner = dialog.spinner
         dialog.text_cancel_goback.setOnClickListener {
-            println("yessssssss1------sss ---${flagHome}")
             if (flagHome == true){
                 buttonClick = 0
                 manageBooking()

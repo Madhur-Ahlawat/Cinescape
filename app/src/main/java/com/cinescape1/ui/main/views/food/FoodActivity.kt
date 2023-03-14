@@ -77,7 +77,7 @@ class FoodActivity : DaggerAppCompatActivity(),
     private var seatPrice = "0.0"
     private var textNumber: TextView? = null
     private var addBtn: TextView? = null
-    private var textDecrease: TextView? = null
+    private var textDecrease: ImageView? = null
     private var emptyCart: TextView? = null
     private var textIncrease: TextView? = null
     private var tvFoodPrice: TextView? = null
@@ -648,7 +648,6 @@ class FoodActivity : DaggerAppCompatActivity(),
     //Cart Dialog
     @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     private fun setCartDialog() {
-
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.food_cart_dailog_info, null)
         val mBuilder = AlertDialog.Builder(this, R.style.CustomAlertDialog).setView(mDialogView)
 
@@ -1205,9 +1204,15 @@ class FoodActivity : DaggerAppCompatActivity(),
                 mAlertDialog.dismiss()
             }
 
+            if(foodItem.title!=""){
+                text_combo_head.show()
+            }else{
+                text_combo_head.hide()
+            }
+
             val recyclerviewComboTitle =
                 mDialogView.findViewById<View>(R.id.recyclerview_combo_title) as RecyclerView
-            textDecrease = mDialogView.findViewById<View>(R.id.text_decrease) as TextView
+            textDecrease = mDialogView.findViewById<View>(R.id.text_decrease) as ImageView
             textIncrease = mDialogView.findViewById<View>(R.id.text_increase) as TextView
             textNumber = mDialogView.findViewById<View>(R.id.text_number) as TextView
             addBtn = mDialogView.findViewById(R.id.text_add_btn)
@@ -1363,7 +1368,13 @@ class FoodActivity : DaggerAppCompatActivity(),
                 }
 
                 "combo" -> {
-                    text_combo_head.show()
+//                    text_combo_head.show()
+                    if(foodItem.title.isNotEmpty()){
+                        text_combo_head.show()
+                    }else{
+                        text_combo_head.hide()
+                    }
+
                     text_combo_head.text = foodItem.title
                     comboAdapter?.notifyDataSetChanged()
                     var spancount = 1

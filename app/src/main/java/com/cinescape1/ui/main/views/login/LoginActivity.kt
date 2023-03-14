@@ -42,6 +42,7 @@ import com.cinescape1.ui.main.views.login.otpVerification.OtpVerificationActivit
 import com.cinescape1.ui.main.views.login.resetPassword.ResetPasswordActivity
 import com.cinescape1.ui.main.views.login.viewModel.LoginViewModel
 import com.cinescape1.ui.main.views.payment.PaymentWebActivity
+import com.cinescape1.ui.main.views.prefrence.UserPreferencesActivity
 import com.cinescape1.ui.main.views.seatLayout.SeatScreenMainActivity
 import com.cinescape1.utils.*
 import com.cinescape1.utils.Constant.Companion.SUCCESS_CODE
@@ -912,11 +913,12 @@ class LoginActivity : DaggerAppCompatActivity(),
                                     val intent = Intent(this, HomeActivity::class.java).putExtra("BOOKING", "FOOD")
                                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
                                     startActivity(intent)
+
+
+
                                     finish()
                                 } else if (from == "Details") {
-                                    println("Details--->123")
-                                    val intent =
-                                        Intent(this@LoginActivity, ShowTimesActivity::class.java)
+                                    val intent = Intent(this@LoginActivity, ShowTimesActivity::class.java)
                                             .putExtra("type", ttType)
                                             .putExtra("from", showPos)
                                             .putExtra("movieId", movieId)
@@ -927,6 +929,8 @@ class LoginActivity : DaggerAppCompatActivity(),
                                     finish()
 
                                 } else {
+
+
                                     val intent =
                                         Intent(this@LoginActivity, HomeActivity::class.java)
                                     intent.flags =

@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/img_sub_item"
-        android:layout_width="60dp"
-        android:layout_height="45dp"
+        android:layout_width="65dp"
+        android:layout_height="56dp"
         android:layout_marginTop="2dp"
         android:adjustViewBounds="true"
         android:visibility="visible"
@@ -40,7 +40,7 @@
         android:layout_marginTop="4dp"
         android:fontFamily="@font/sf_pro_text_regular"
         android:gravity="center"
-        android:letterSpacing="-0.02"
+        android:includeFontPadding="false"
         android:text="Salt"
         android:textAlignment="center"
         android:textColor="@color/white"

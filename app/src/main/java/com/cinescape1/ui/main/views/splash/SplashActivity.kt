@@ -31,6 +31,7 @@ import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.ui.main.views.login.LoginActivity
 import com.cinescape1.ui.main.views.login.otpVerification.OtpVerificationActivity
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity
+import com.cinescape1.ui.main.views.prefrence.UserPreferencesActivity
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.LocaleHelper
 import com.cinescape1.utils.Status
@@ -179,6 +180,9 @@ class SplashActivity : DaggerAppCompatActivity() {
         val runnable = Runnable {
             if (preferences.getBoolean(Constant.IS_LOGIN)) {
                 val intent = Intent(this@SplashActivity, HomeActivity::class.java)
+
+//                val intent = Intent(this@SplashActivity, UserPreferencesActivity::class.java)
+
                 startActivity(intent)
                 finish()
             } else {

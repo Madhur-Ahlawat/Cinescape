@@ -950,20 +950,22 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     dialog.show()
                 }
 
-            } else if (binding?.includeProfile?.enterUserNames?.text.toString().trim() == "") {
-                val dialog = OptionDialog(requireActivity(),
-                    R.mipmap.ic_launcher,
-                    R.string.app_name,
-                    resources.getString(R.string.enterUserNames),
-                    positiveBtnText = R.string.ok,
-                    negativeBtnText = R.string.no,
-                    positiveClick = {
-                    },
-                    negativeClick = {
-                    })
-                dialog.show()
-
-            } else if (binding?.includeProfile?.enterFirstName?.text.toString().trim() == "") {
+            }
+//            else if (binding?.includeProfile?.enterUserNames?.text.toString().trim() == "") {
+//                val dialog = OptionDialog(requireActivity(),
+//                    R.mipmap.ic_launcher,
+//                    R.string.app_name,
+//                    resources.getString(R.string.enterUserNames),
+//                    positiveBtnText = R.string.ok,
+//                    negativeBtnText = R.string.no,
+//                    positiveClick = {
+//                    },
+//                    negativeClick = {
+//                    })
+//                dialog.show()
+//
+//            }
+            else if (binding?.includeProfile?.enterFirstName?.text.toString().trim() == "") {
                 val dialog = OptionDialog(requireActivity(),
                     R.mipmap.ic_launcher,
                     R.string.app_name,
@@ -1292,8 +1294,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         proceedAlertDialog = mBuilder.show()
         proceedAlertDialog?.show()
 
-        proceedAlertDialog?.kd_to_pay?.text =
-            " " + getString(R.string.price_kd) + " " + rechargeAmount
+        proceedAlertDialog?.kd_to_pay?.text = " " + getString(R.string.price_kd) + " " + rechargeAmount
         proceedAlertDialog?.cardNumberTextInputEditText?.addTextChangedListener(object :
             TextWatcher {
             override fun beforeTextChanged(

@@ -120,7 +120,7 @@ class HomeParentAdapter(
             }
             "offers" -> {
                 try {
-                    holder.txtSeeAll.hide()
+                    holder.txtSeeAll.show()
                     holder.itemView.show()
                     holder.homeTitle.show()
                     holder.homeList.show()

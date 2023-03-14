@@ -119,7 +119,7 @@
     <string name="ccv">CCV</string>
     <string name="pay">Pay</string>
     <string name="cancels">Cancel" "</string>
-    <string name="and_go_back"> go back</string>
+    <string name="and_go_back">&amp; go back</string>
     <string name="booking_id">Booking ID</string>
     <string name="food_pickup_number">Food Pickup Number</string>
     <string name="how_to_pickup_food">How to pickup food</string>

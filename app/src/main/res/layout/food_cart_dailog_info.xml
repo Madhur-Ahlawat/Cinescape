@@ -319,10 +319,13 @@
                 android:layout_marginEnd="26dp"
                 android:gravity="end"
                 android:paddingStart="0dp"
-                android:paddingEnd="@dimen/margin10"
+                android:paddingEnd="5dp"
+                android:includeFontPadding="false"
+                android:fontFamily="@font/sf_pro_text_heavy"
                 android:text="@string/cart"
                 android:textColor="@color/white"
-                android:textSize="@dimen/size17"
+                android:textSize="@dimen/size18"
+                android:textAllCaps="true"
                 android:textStyle="normal"
                 app:layout_constraintBottom_toBottomOf="@+id/view_header"
                 app:layout_constraintEnd_toEndOf="@+id/view_header"
@@ -331,13 +334,13 @@
 
             <ImageView
                 android:id="@+id/icon_cart"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="24dp"
                 android:adjustViewBounds="true"
                 app:layout_constraintBottom_toBottomOf="@+id/title_carts"
                 app:layout_constraintStart_toEndOf="@+id/title_carts"
-                app:layout_constraintTop_toTopOf="@+id/title_carts"
                 app:srcCompat="@drawable/cart_icon_img"
+                app:tint="@color/white"
                 tools:ignore="ContentDescription" />
 
             <ImageView
@@ -440,7 +443,6 @@
                         android:id="@+id/tv_clear_item"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
                         android:fontFamily="@font/sf_pro_text_regular"
                         android:gravity="center_horizontal"
                         android:letterSpacing="-0.01"
@@ -449,9 +451,10 @@
                         android:textColor="@color/text_color"
                         android:textSize="@dimen/size14"
                         android:textStyle="normal"
-                        app:layout_constraintEnd_toEndOf="@+id/view_proceeds"
-                        app:layout_constraintStart_toStartOf="@+id/view_proceeds"
-                        app:layout_constraintTop_toTopOf="@+id/view_proceeds" />
+                        app:layout_constraintBottom_toBottomOf="@+id/text_ticket1_price"
+                        app:layout_constraintEnd_toEndOf="@+id/proceed_btn1"
+                        app:layout_constraintStart_toStartOf="@+id/proceed_btn1"
+                        app:layout_constraintTop_toTopOf="@+id/text_ticket1_price" />
 
                     <TextView
                         android:id="@+id/proceed_btn1"
