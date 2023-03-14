@@ -67,6 +67,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/text_food_select"
             app:layout_constraintEnd_toStartOf="@+id/cartTime1"
             app:layout_constraintTop_toTopOf="@+id/text_food_select" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/txt_skip_proceed"
             android:layout_width="wrap_content"

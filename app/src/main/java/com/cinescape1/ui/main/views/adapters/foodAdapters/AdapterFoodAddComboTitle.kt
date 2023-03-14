@@ -71,6 +71,7 @@ class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitle
             }
 
             holder.itemView.setOnClickListener {
+                print("hello---->${foodSelctedItem.itemImageUrl}")
                 rowIndex = position
                 notifyDataSetChanged()
                 for (data in alternateItems){

@@ -24,8 +24,10 @@
 
         <ImageView
             android:id="@+id/imageViewFlavor"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="2dp"
+            android:adjustViewBounds="true"
             android:src="@drawable/placeholder_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

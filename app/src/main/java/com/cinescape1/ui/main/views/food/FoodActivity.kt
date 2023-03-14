@@ -694,12 +694,11 @@ class FoodActivity : DaggerAppCompatActivity(),
             try {
                 textTotal1?.text = getString(R.string.price_kd) + " ${
                     Constant.DECIFORMAT.format(
-                        getAllFoodPrice().replace("KWD ", "").toDouble() + seatPrice.replace(
-                            "KWD ", ""
-                        ).toDouble()
+                        getAllFoodPrice().replace("KWD ", "").toDouble()
                     )
                 }"
             } catch (e: Exception) {
+                print("msg----->${e.message}")
                 e.printStackTrace()
             }
 
@@ -2311,20 +2310,28 @@ class FoodActivity : DaggerAppCompatActivity(),
     }
 
     private fun updateCartPrice() {
-
-        try {
+        if (booktype=="FOOD"){
             textTotal1?.text = getString(R.string.price_kd) + " ${
                 Constant.DECIFORMAT.format(
-                    getAllFoodPrice().replace("KWD ", "").toDouble() + seatPrice.replace(
-                        "KWD ", ""
-                    ).toDouble()
+                    getAllFoodPrice().replace("KWD ", "").toDouble() 
                 )
             }"
-        } catch (e: Exception) {
-            e.printStackTrace()
+        }else {
+
+            try {
+                textTotal1?.text = getString(R.string.price_kd) + " ${
+                    Constant.DECIFORMAT.format(
+                        getAllFoodPrice().replace("KWD ", "").toDouble() + seatPrice.replace(
+                            "KWD ", ""
+                        ).toDouble()
+                    )
+                }"
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
         }
-
-
     }
 
 
