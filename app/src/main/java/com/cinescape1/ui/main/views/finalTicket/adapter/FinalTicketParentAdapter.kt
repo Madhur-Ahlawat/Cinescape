@@ -101,6 +101,7 @@ class FinalTicketParentAdapter(
     class MyViewHolderTwo(view: View) : RecyclerView.ViewHolder(view) {
         //two
         var twoBookingId = itemView.text_bookin_id_no1!!
+        var btnPreOnlyFood = itemView.btnPreOnlyFood!!
         var twoPickupInfo = itemView.textFoodPicUp!!
         var twoFood = itemView.recyclerview_food_details!!
         var twoPayMode = itemView.text_wallet1!!
@@ -174,11 +175,10 @@ class FinalTicketParentAdapter(
                 holder.oneRating.setBackgroundColor(Color.parseColor(output.ratingColor))
 
                 holder.oneLocation.text = output.cinemaname
-                holder.oneDateTime.text = output.showDate + " " + output.showTime
+                holder.oneDateTime.text = output.showDate + "  " + output.showTime
                 holder.oneScreen.text = output.screenId
                 holder.txtFoodPickupId.text = output.pickUpNumber
 
-                println("output.experience90------->${output.experience}------->${output.food}")
 
                 when (output.experience) {
                     "4DX" -> {
@@ -374,6 +374,52 @@ class FinalTicketParentAdapter(
                     holderTwo.text_payment_mode2.hide()
                     holderTwo.twoPayMode.hide()
                 }
+
+                if (output.food == 0){
+                    holder.btnPreOnlyFood.hide()
+//                    holder.foodAddBtn.hide()
+//                    holder.consFoodPickupId.hide()
+                }
+                
+
+                if (output.food == 1){
+                    holder.btnPreOnlyFood.hide()
+//                    holder.foodAddBtn.show()
+//                    holder.consFoodPickupId.hide()
+                }
+
+                if (output.food == 2) {
+                    holder.btnPreOnlyFood.show()
+//                    holder.foodAddBtn.hide()
+//                    holder.consFoodPickupId.hide()
+                    holder.btnPreOnlyFood.background = ContextCompat.getDrawable(mContext,R.drawable.food_pickup_bg)
+                    holder.btnPreOnlyFood.isClickable = false
+                }
+
+                if (output.food == 3){
+                    holder.btnPreOnlyFood.show()
+//                    holder.foodAddBtn.hide()
+//                    holder.consFoodPickupId.hide()
+                    holder.btnPreOnlyFood.isClickable = true
+                }
+
+                if (output.food == 4){
+                    holder.btnPreOnlyFood.hide()
+//                    holder.foodAddBtn.hide()
+//                    holder.consFoodPickupId.show()
+                }
+
+                if (output.food == 2) {
+                    holder.btnPreOnlyFood.show()
+                    holder.btnPreOnlyFood.background = ContextCompat.getDrawable(mContext,R.drawable.food_pickup_bg)
+                    holder.btnPreOnlyFood.isClickable = false
+                }
+
+                holder.btnPreOnlyFood.setOnClickListener {
+                    listenerFoodPrepare.foodPrepareClick(output)
+                    notifyDataSetChanged()
+                }
+
 
                 val gridLayout = GridLayoutManager(mContext, 1, GridLayoutManager.VERTICAL, false)
                 holderTwo.twoFood.layoutManager = LinearLayoutManager(mContext)

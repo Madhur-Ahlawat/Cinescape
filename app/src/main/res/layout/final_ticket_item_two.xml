@@ -28,8 +28,6 @@
             android:textColor="@color/text_alert_color"
             android:textSize="@dimen/size14"
             android:textStyle="normal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.481"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,11 +41,30 @@
             android:textColor="@color/black"
             android:textSize="@dimen/size16"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.487"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_bookig_id"
             tools:text="WN5H3HD" />
+
+        <TextView
+            android:id="@+id/btnPreOnlyFood"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/margin37"
+            android:background="@drawable/red_curv_bt"
+            android:drawablePadding="@dimen/margin8"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:gravity="center_vertical"
+            android:letterSpacing="-0.01"
+            android:paddingStart="@dimen/margin8"
+            android:paddingEnd="@dimen/margin16"
+            android:text="@string/prepare_food"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size12"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/text_bookin_id_no1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/text_bookig_id"
+            app:drawableTint="@color/white"
+            app:drawableStartCompat="@drawable/ic_food" />
 
         <View
             android:id="@+id/view_food_picku_no"
@@ -237,6 +254,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin8"
                             android:layout_marginBottom="@dimen/margin8"
+                            tools:listitem="@layout/checkout_booking_confirm_food_details_item"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

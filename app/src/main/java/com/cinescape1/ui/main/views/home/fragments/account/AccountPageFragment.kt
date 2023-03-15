@@ -9,7 +9,6 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.location.Location
@@ -34,9 +33,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.target.SimpleTarget
-import com.bumptech.glide.request.transition.Transition
 import com.cardinalcommerce.cardinalmobilesdk.Cardinal
 import com.cardinalcommerce.cardinalmobilesdk.enums.CardinalEnvironment
 import com.cardinalcommerce.cardinalmobilesdk.enums.CardinalRenderType
@@ -58,7 +54,6 @@ import com.cinescape1.ui.main.views.adapters.CountryCodeAdapter
 import com.cinescape1.ui.main.views.adapters.ExperienceAdapter
 import com.cinescape1.ui.main.views.adapters.accountPageAdapters.AdapterBookingHistory
 import com.cinescape1.ui.main.views.adapters.accountPageAdapters.UpcomingBookingAdapter
-import com.cinescape1.ui.main.views.deleteAccount.DeleteAccountActivity
 import com.cinescape1.ui.main.views.home.adapter.CustomSpinnerAdapter
 import com.cinescape1.ui.main.views.home.fragments.account.adapter.RechargeSpinnerAdapter
 import com.cinescape1.ui.main.views.home.fragments.account.response.RechargeAmountResponse
@@ -98,17 +93,16 @@ import kotlinx.android.synthetic.main.checkout_creditcart_payment_alert.*
 import kotlinx.android.synthetic.main.fragment_account_page.*
 import kotlinx.android.synthetic.main.item_contactus.*
 import kotlinx.android.synthetic.main.seat_category_item.*
-import okhttp3.internal.notify
 import org.json.JSONArray
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 @Suppress("DEPRECATION")
-class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemClickListener,
+class AccountPageFragment : DaggerFragment(),
+    CountryCodeAdapter.RecycleViewItemClickListener,
     ExperienceAdapter.RecycleViewItemClickListener,
     UpcomingBookingAdapter.RecycleViewItemClickListener,
     UpcomingBookingAdapter.ReesendMailItemClickListener,
@@ -179,11 +173,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
     private var preferencesCheck = 0
 
-//    private val experience: ArrayList<String> = ArrayList()
-//    private val seatTypeList: ArrayList<String> = ArrayList()
-//    private val seatCategoryList: ArrayList<String> = ArrayList()
-//    private var ageRating: ArrayList<String> = ArrayList()
-
     private var locationlist = ArrayList<FoodResponse.Output.Cinema>()
     private var clickEnable: Int = 0
 
@@ -225,15 +214,17 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     private var paidBy1: TextView? = null
     private var foodTotalPrice1: TextView? = null
     private var foodPaidby1: TextView? = null
-    private var categoryName: TextView? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentAccountPageBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
         return view!!
 
     }
-
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -861,8 +852,9 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 //          binding?.textUpcomingBooking?.text = getString(R.string.your_bookings_history)
 //            if (historyCheck == 0){
 
-                myBooking(
-                    MyBookingRequest("", "", 0, preferences.getString(Constant.USER_ID).toString()))
+            myBooking(
+                MyBookingRequest("", "", 0, preferences.getString(Constant.USER_ID).toString())
+            )
 //            }
 
             binding?.imageUserProfile?.setColorFilter(requireActivity().getColor(R.color.text_color))
@@ -1073,7 +1065,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                 requireActivity(),
                 { view, year, month, dayOfMonth -> // adding the selected date in the edittext
 //                        dob_et?.setText(dayOfMonth.toString() + "/" + (month + 1) + "/" + year)
-                    enter_date_births.setText("${Constant().changeFormat("$dayOfMonth-${month + 1}-$year")}")
+                    enter_date_births.text =
+                        "${Constant().changeFormat("$dayOfMonth-${month + 1}-$year")}"
                 }, year1, month, day
             )
             // set maximum date to be selected as today
@@ -1087,15 +1080,18 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         //Save Prefrence
         textView3.setOnClickListener {
             preferencesCheck = 1
-            println("updatePreferenceConstant------->${Constant.experience.toString()}--${Constant.ageRating.toString()}")
-            updatePreference(PreferenceRequest(
+            println("updatePreferenceConstant------->${Constant.experience}--${Constant.ageRating}")
+            updatePreference(
+                PreferenceRequest(
                     arbic,
                     cinema,
                     Constant.experience.toString(),
                     Constant.ageRating.toString(),
                     Constant.seatCategoryList.toString(),
                     Constant.seatTypeList.toString(),
-                    preferences.getString(Constant.USER_ID).toString()))
+                    preferences.getString(Constant.USER_ID).toString()
+                )
+            )
 
         }
 
@@ -1114,9 +1110,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         enter_ConfPassword.hide()
 
         binding?.includeProfile?.enterMobileCode?.setOnClickListener {
-//            binding?.includeProfile?.enterMobileCode?.isClickable = true
-//            binding?.includeProfile?.enterMobileCode?.isEnabled = true
-//            binding?.includeProfile?.enterMobileCode?.isFocusable = true
             bottomDialog(countryCodeList)
         }
 
@@ -1127,7 +1120,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     fun Data(date: String?): Int {
         if (!TextUtils.isEmpty(date)) {
             val cal = Calendar.getInstance()
-            val dateInString = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(Date()).format(cal.time)
+            val dateInString =
+                SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(Date()).format(cal.time)
             val formatter = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH)
             println("dateInString---$formatter")
             var parsedDate: Date? = null
@@ -1167,9 +1161,21 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.change_password)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(R.color.black50))
+
         dialog.window!!.setLayout(
             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
         )
+
+
+//        dialog.window?.setLayout(
+//            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
+//        )
+//        dialog.window?.setBackgroundDrawable(ColorDrawable(R.color.black50))
+//        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
+//        dialog.window?.setGravity(Gravity.BOTTOM)
+
+
         dialog.negative_btns?.setOnClickListener {
 
             val passWord = dialog.enterNewPassword.text.toString()
@@ -1294,7 +1300,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         proceedAlertDialog = mBuilder.show()
         proceedAlertDialog?.show()
 
-        proceedAlertDialog?.kd_to_pay?.text = " " + getString(R.string.price_kd) + " " + rechargeAmount
+        proceedAlertDialog?.kd_to_pay?.text =
+            " " + getString(R.string.price_kd) + " " + rechargeAmount
         proceedAlertDialog?.cardNumberTextInputEditText?.addTextChangedListener(object :
             TextWatcher {
             override fun beforeTextChanged(
@@ -2105,7 +2112,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
                 }
             }
-        }catch (e : Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
 
@@ -2246,12 +2253,17 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
         val list: ArrayList<ModelPreferenceCategory> = arrayListOf(
             ModelPreferenceCategory(R.drawable.family_icons, "Family", 0),
-            ModelPreferenceCategory(R.drawable.family_normal_icon, "Bachelor", 0))
+            ModelPreferenceCategory(R.drawable.family_normal_icon, "Bachelor", 0)
+        )
 
-        val listFA: ArrayList<ModelSeatCategoryFA> = arrayListOf(ModelSeatCategoryFA(R.drawable.family_active))
-        val listFN: ArrayList<ModelSeatCategoryFA> = arrayListOf(ModelSeatCategoryFA(R.drawable.family_icons))
-        val listBA: ArrayList<ModelSeatCategoryFA> = arrayListOf(ModelSeatCategoryFA(R.drawable.family_n_active))
-        val listBN: ArrayList<ModelSeatCategoryFA> = arrayListOf(ModelSeatCategoryFA(R.drawable.family_normal_icon))
+        val listFA: ArrayList<ModelSeatCategoryFA> =
+            arrayListOf(ModelSeatCategoryFA(R.drawable.family_active))
+        val listFN: ArrayList<ModelSeatCategoryFA> =
+            arrayListOf(ModelSeatCategoryFA(R.drawable.family_icons))
+        val listBA: ArrayList<ModelSeatCategoryFA> =
+            arrayListOf(ModelSeatCategoryFA(R.drawable.family_n_active))
+        val listBN: ArrayList<ModelSeatCategoryFA> =
+            arrayListOf(ModelSeatCategoryFA(R.drawable.family_normal_icon))
 
         layout.removeAllViews()
         val viewListForDates = ArrayList<View>()
@@ -2280,21 +2292,33 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
                 if (seat == "Family") {
 
-                    for (items in listFA){
+                    for (items in listFA) {
                         println("SeatListClick22222 ------------->2")
-                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.family_active).into(categoryImage)
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.family_active)
+                            .into(categoryImage)
 //                        categoryImage.setImageResource(R.drawable.family_active)
                     }
-                    categoryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_alert_color_red))
+                    categoryName.setTextColor(
+                        getColor(
+                            requireContext(),
+                            R.color.text_alert_color_red
+                        )
+                    )
                 }
 
                 if (seat == "Bachelor") {
-                    for (items in listBA){
+                    for (items in listBA) {
                         println("SeatListClick22222 ------------->22")
-                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.family_n_active).into(categoryImage)
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.family_n_active)
+                            .into(categoryImage)
 //                        categoryImage.setImageResource(R.drawable.family_n_active)
                     }
-                    categoryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_alert_color_red))
+                    categoryName.setTextColor(
+                        getColor(
+                            requireContext(),
+                            R.color.text_alert_color_red
+                        )
+                    )
                 }
 
 
@@ -2303,22 +2327,34 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 //                categoryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.hint_color))
 
                 if (seat == "Family") {
-                    Glide.with(this).load(listBN[0].imgCate).placeholder(R.drawable.family_icons).into(categoryImage)
+                    Glide.with(this).load(listBN[0].imgCate).placeholder(R.drawable.family_icons)
+                        .into(categoryImage)
 
 //                    for (items in listFN){
 //                        println("SeatListClick22222 ------------->1")
 //                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.family_icons).into(categoryImage)
 //                    }
-                    categoryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.hint_color))
+                    categoryName.setTextColor(
+                        getColor(
+                            requireContext(),
+                            R.color.hint_color
+                        )
+                    )
                 }
 
                 if (seat == "Bachelor") {
-                    Glide.with(this).load(listFN[0].imgCate).placeholder(R.drawable.family_normal_icon).into(categoryImage)
+                    Glide.with(this).load(listFN[0].imgCate)
+                        .placeholder(R.drawable.family_normal_icon).into(categoryImage)
 //                    for (items in listBN){
 //                        println("SeatListClick22222 ------------->11")
 //                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.family_normal_icon).into(categoryImage)
 //                    }
-                    categoryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.hint_color))
+                    categoryName.setTextColor(
+                        getColor(
+                            requireContext(),
+                            R.color.hint_color
+                        )
+                    )
                 }
 
             }
@@ -2330,9 +2366,10 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                     val categoryName1: TextView = v.findViewById(R.id.category_name) as TextView
 //                  categoryImage1.setColorFilter(getColor(requireContext(), R.color.hint_color))
 
-                    if (item.cateTypeText == "Family"){
-                        for (items in listFN){
-                            Glide.with(this).load(listBN[0].imgCate).placeholder(R.drawable.family_normal_icon).into(categoryImage1)
+                    if (item.cateTypeText == "Family") {
+                        for (items in listFN) {
+                            Glide.with(this).load(listBN[0].imgCate)
+                                .placeholder(R.drawable.family_normal_icon).into(categoryImage1)
 //                            if (seatTypeCheck == 0){
 //                                Glide.with(this).load(items.imgCate).placeholder(R.drawable.family_icons).into(categoryImage1)
 //                            }else{
@@ -2342,11 +2379,12 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                         }
                     }
 
-                    if (item.cateTypeText == "Bachelor"){
-                        for (items in listBN){
+                    if (item.cateTypeText == "Bachelor") {
+                        for (items in listBN) {
                             println("SeatListClick22222 ------------->listBN1")
 
-                            Glide.with(this).load(listFN[0].imgCate).placeholder(R.drawable.family_icons).into(categoryImage1)
+                            Glide.with(this).load(listFN[0].imgCate)
+                                .placeholder(R.drawable.family_icons).into(categoryImage1)
 //                            if (seatTypeCheck == 0){
 //                                Glide.with(this).load(listBN[0].imgCate).placeholder(R.drawable.family_normal_icon).into(categoryImage1)
 //                            }else{
@@ -2355,27 +2393,39 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                         }
                     }
 
-                    categoryName1.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.hint_color))
+                    categoryName1.setTextColor(
+                        ContextCompat.getColorStateList(
+                            requireContext(),
+                            R.color.hint_color
+                        )
+                    )
                 }
 
                 if (Constant.seatCategoryList.contains(item.cateTypeText)) {
                     Constant.seatCategoryList.remove(item.cateTypeText)
 //                  categoryImage.setColorFilter(resources.getColor(R.color.hint_color))
 
-                    if (item.cateTypeText == "Family"){
-                        for (items in listFN){
+                    if (item.cateTypeText == "Family") {
+                        for (items in listFN) {
                             println("SeatListClick22222 ------------->listFN3")
-                            Glide.with(this).load(listFN[0].imgCate).placeholder(R.drawable.family_icons).into(categoryImage)
+                            Glide.with(this).load(listFN[0].imgCate)
+                                .placeholder(R.drawable.family_icons).into(categoryImage)
                         }
                     }
 
-                    if (item.cateTypeText == "Bachelor"){
-                        for (items in listBN){
+                    if (item.cateTypeText == "Bachelor") {
+                        for (items in listBN) {
                             println("SeatListClick22222 ------------->listFN3")
-                            Glide.with(this).load(listBN[0].imgCate).placeholder(R.drawable.family_normal_icon).into(categoryImage)
+                            Glide.with(this).load(listBN[0].imgCate)
+                                .placeholder(R.drawable.family_normal_icon).into(categoryImage)
                         }
                     }
-                    categoryName.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.hint_color))
+                    categoryName.setTextColor(
+                        ContextCompat.getColorStateList(
+                            requireContext(),
+                            R.color.hint_color
+                        )
+                    )
 
                 } else {
                     Constant.seatCategoryList.clear()
@@ -2385,19 +2435,26 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                         for (items in listFA) {
                             println("SeatListClick22222 ------------->listFA2")
 //                            seatTypeCheck = 1
-                            Glide.with(this).load(items.imgCate).dontAnimate().placeholder(R.drawable.family_active).into(categoryImage)
+                            Glide.with(this).load(items.imgCate).dontAnimate()
+                                .placeholder(R.drawable.family_active).into(categoryImage)
                         }
                     }
 
                     if (item.cateTypeText == "Bachelor") {
                         for (items in listBA) {
                             println("SeatListClick22222 ------------->listBA2")
-                            Glide.with(this).load(items.imgCate).dontAnimate().placeholder(R.drawable.family_n_active).into(categoryImage)
+                            Glide.with(this).load(items.imgCate).dontAnimate()
+                                .placeholder(R.drawable.family_n_active).into(categoryImage)
 
 
                         }
                     }
-                    categoryName.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.text_alert_color_red))
+                    categoryName.setTextColor(
+                        ContextCompat.getColorStateList(
+                            requireContext(),
+                            R.color.text_alert_color_red
+                        )
+                    )
                     println("SeatListClick2123 ------------->${Constant.seatCategoryList}")
                 }
 
@@ -2459,12 +2516,19 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                 if (Constant.seatTypeList.contains(type_item.seatType)) {
                     Constant.seatTypeList.remove(type_item.seatType)
                     println("SeatListClick21 ------------->yes")
-                    typeName.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.hint_color))
+                    typeName.setTextColor(
+                        ContextCompat.getColorStateList(
+                            requireContext(),
+                            R.color.hint_color
+                        )
+                    )
 
                 } else {
                     Constant.seatTypeList.clear()
                     Constant.seatTypeList.add(type_item.seatType)
-                    typeName.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.text_alert_color_red
+                    typeName.setTextColor(
+                        ContextCompat.getColorStateList(
+                            requireContext(), R.color.text_alert_color_red
                         )
                     )
                     println("SeatListClick21 ------------->no")
@@ -2474,16 +2538,28 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     }
 
     @SuppressLint("InflateParams")
-    private fun setExperienceFlexbox(layout: FlexboxLayout, experience: ArrayList<ProfileResponse.Output.Experience>) {
-        val list4dx: ArrayList<ModelExperiences> = arrayListOf(ModelExperiences(R.drawable.fourdx_white))
-        val listStandard: ArrayList<ModelExperiences> = arrayListOf(ModelExperiences(R.drawable.standard_white))
-        val listVip: ArrayList<ModelExperiences> = arrayListOf(ModelExperiences(R.drawable.vip_white))
-        val listImax: ArrayList<ModelExperiences> = arrayListOf(ModelExperiences(R.drawable.imax_white))
-        val list3D: ArrayList<ModelExperiences> = arrayListOf(ModelExperiences(R.drawable.threed_white))
-        val listDolby: ArrayList<ModelExperiences> = arrayListOf(ModelExperiences(R.drawable.dolby_white))
-        val listEleven: ArrayList<ModelExperiences> = arrayListOf(ModelExperiences(R.drawable.eleven_white))
-        val listScreen: ArrayList<ModelExperiences> = arrayListOf(ModelExperiences(R.drawable.screenx_white))
-        val listPremium: ArrayList<ModelExperiences> = arrayListOf(ModelExperiences(R.drawable.premium_white))
+    private fun setExperienceFlexbox(
+        layout: FlexboxLayout,
+        experience: ArrayList<ProfileResponse.Output.Experience>
+    ) {
+        val list4dx: ArrayList<ModelExperiences> =
+            arrayListOf(ModelExperiences(R.drawable.fourdx_white))
+        val listStandard: ArrayList<ModelExperiences> =
+            arrayListOf(ModelExperiences(R.drawable.standard_white))
+        val listVip: ArrayList<ModelExperiences> =
+            arrayListOf(ModelExperiences(R.drawable.vip_white))
+        val listImax: ArrayList<ModelExperiences> =
+            arrayListOf(ModelExperiences(R.drawable.imax_white))
+        val list3D: ArrayList<ModelExperiences> =
+            arrayListOf(ModelExperiences(R.drawable.threed_white))
+        val listDolby: ArrayList<ModelExperiences> =
+            arrayListOf(ModelExperiences(R.drawable.dolby_white))
+        val listEleven: ArrayList<ModelExperiences> =
+            arrayListOf(ModelExperiences(R.drawable.eleven_white))
+        val listScreen: ArrayList<ModelExperiences> =
+            arrayListOf(ModelExperiences(R.drawable.screenx_white))
+        val listPremium: ArrayList<ModelExperiences> =
+            arrayListOf(ModelExperiences(R.drawable.premium_white))
 
         layout.removeAllViews()
         val viewListForSeatExperience = ArrayList<View>()
@@ -2501,13 +2577,15 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             when (data.name) {
 
                 "4DX" -> {
-                        Glide.with(this).load(list4dx[0].imgCate).placeholder(R.drawable.four_dx).into(experienceName)
+                    Glide.with(this).load(list4dx[0].imgCate).placeholder(R.drawable.four_dx)
+                        .into(experienceName)
 
                 }
                 "STANDARD" -> {
 //                    Glide.with(requireContext()).load(R.drawable.standard).into(experienceName)
                     for (items in listStandard) {
-                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.standard).into(experienceName)
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.standard)
+                            .into(experienceName)
                     }
 
                 }
@@ -2515,7 +2593,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                 "VIP" -> {
 //                    Glide.with(requireContext()).load(R.drawable.vip).into(experienceName)
                     for (items in listVip) {
-                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.vip).into(experienceName)
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.vip)
+                            .into(experienceName)
                     }
 
 
@@ -2524,38 +2603,44 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 //                    Glide.with(requireContext()).load(R.drawable.imax).into(experienceName)
 
                     for (items in listImax) {
-                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.imax).into(experienceName)
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.imax)
+                            .into(experienceName)
                     }
                 }
                 "3D" -> {
                     for (items in list3D) {
-                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.threed_black).into(experienceName)
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.threed_black)
+                            .into(experienceName)
                     }
 
                 }
                 "DOLBY" -> {
                     for (items in listDolby) {
-                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.dolby_black).into(experienceName)
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.dolby_black)
+                            .into(experienceName)
                     }
 
                 }
                 "ELEVEN" -> {
 
                     for (items in listEleven) {
-                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.eleven_black).into(experienceName)
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.eleven_black)
+                            .into(experienceName)
                     }
 
 
                 }
                 "SCREENX" -> {
                     for (items in listScreen) {
-                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.screenx_black).into(experienceName)
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.screenx_black)
+                            .into(experienceName)
                     }
 
                 }
                 "PREMIUM" -> {
                     for (items in listPremium) {
-                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.premium_black).into(experienceName)
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.premium_black)
+                            .into(experienceName)
                     }
 
                 }
@@ -2706,36 +2791,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }
     }
 
-    //Recharge Spinner
-    private fun rechargeAmount(output: RechargeAmountResponse.Output) {
-        val customAdapter = RechargeSpinnerAdapter(
-            requireActivity(), output.amounts
-        )
-        text_select_amount.adapter = customAdapter
-        text_select_amount.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>, view: View, position: Int, id: Long
-            ) {
-                rechargeAmount = getAmountList[position].amount.toString()
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-
-            }
-        }
-
-    }
-
-    private fun setBookingHistoryAdapter(output: ArrayList<HistoryResponse.Output>) {
-        binding?.nestedUi?.show()
-        val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
-        binding?.includeHistory?.recyclerviewBookingHistory?.layoutManager = LinearLayoutManager(context)
-        val adapter = AdapterBookingHistory(requireActivity(), output, this)
-        binding?.includeHistory?.recyclerviewBookingHistory?.layoutManager = gridLayout
-        binding?.includeHistory?.recyclerviewBookingHistory?.adapter = adapter
-
-    }
-
 
     private fun setCancelBackSpan(view: View) {
 //        try {
@@ -2855,7 +2910,8 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
 
-                                    val intent = Intent(requireActivity(), PaymentWebActivity::class.java)
+                                    val intent =
+                                        Intent(requireActivity(), PaymentWebActivity::class.java)
                                     intent.putExtra("From", "recharge")
                                     intent.putExtra("PAY_URL", it.data.output.callingUrl)
                                     intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
@@ -2902,6 +2958,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }
     }
 
+    //country Code Data
     private fun countryCodeLoad() {
         accountFragViewModel.countryCode(requireActivity()).observe(requireActivity()) {
             it?.let { resource ->
@@ -2941,13 +2998,13 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     }
 
     private fun retrieveCountryList(output: ArrayList<CountryCodeResponse.Output>) {
-
         binding?.includeProfile?.enterMobileCode?.setOnClickListener {
             bottomDialog(output)
         }
 
     }
 
+    //update Account
     private fun updateAccount(updateAccountRequest: UpdateAccountRequest) {
         accountFragViewModel.updateAccount(updateAccountRequest).observe(requireActivity()) {
             it?.let { resource ->
@@ -2995,7 +3052,6 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }
     }
 
-    //    getString(R.string.profileUpdate)
     private fun retrieveUpdateResponse(output: UpdateAccountResponse) {
         loader?.dismiss()
         val dialog = OptionDialog(requireActivity(),
@@ -3005,20 +3061,13 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             positiveBtnText = R.string.ok,
             negativeBtnText = R.string.no,
             positiveClick = {
-                println("ProfileUpdate-------->${"yes"}")
             },
             negativeClick = {})
         dialog.show()
 
-//        text_make_editable.show()
-//        view_ConfPassword.hide()
-//        textConfPassword.hide()
-//        view39_line.hide()
-//        enter_ConfPassword.hide()
-//        view19.hide()
-//        UpdateAccount.hide()
     }
 
+    //recharhge Amount
     private fun getAmountLoad() {
         accountFragViewModel.getAmount(requireActivity()).observe(requireActivity()) {
             it?.let { resource ->
@@ -3061,6 +3110,25 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }
     }
 
+    private fun rechargeAmount(output: RechargeAmountResponse.Output) {
+        val customAdapter = RechargeSpinnerAdapter(
+            requireActivity(), output.amounts
+        )
+        text_select_amount.adapter = customAdapter
+        text_select_amount.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>, view: View, position: Int, id: Long
+            ) {
+                rechargeAmount = getAmountList[position].amount.toString()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
+        }
+
+    }
+
     private fun myBooking(request: MyBookingRequest) {
         accountFragViewModel.getMyBookingData(request).observe(requireActivity()) {
             it?.let { resource ->
@@ -3071,19 +3139,12 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
 
                                 try {
-//                                    historyCheck = 1
-                                    include_history.show()
-                                    val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
-                                    binding?.includeHistory?.recyclerviewBookingHistory?.layoutManager = LinearLayoutManager(context)
-                                    val adapter = AdapterBookingHistory(requireActivity(), it.data.output, this)
-                                    binding?.includeHistory?.recyclerviewBookingHistory?.layoutManager = gridLayout
-                                    binding?.includeHistory?.recyclerviewBookingHistory?.adapter = adapter
-                                    adapter.notifyDataSetChanged()
-//                                    setBookingHistoryAdapter(it.data.output)
-                                    println("BookingHistorySuccess-------->${"yes"}")
+
+                                    setBookingHistoryAdapter(it.data.output)
 
                                 } catch (e: Exception) {
-                                    println("updateUiCinemaSession ---> ${e.message}")
+
+                                            e.printStackTrace()
                                 }
 
                             } else {
@@ -3117,6 +3178,35 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }
     }
 
+    private fun setBookingHistoryAdapter(output: ArrayList<HistoryResponse.Output>) {
+
+
+        include_history.show()
+//                                    historyCheck = 1
+        val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
+        binding?.includeHistory?.recyclerviewBookingHistory?.layoutManager =
+            LinearLayoutManager(context)
+        val adapter = AdapterBookingHistory(requireActivity(), output, this)
+        binding?.includeHistory?.recyclerviewBookingHistory?.layoutManager = gridLayout
+        binding?.includeHistory?.recyclerviewBookingHistory?.adapter = adapter
+        adapter.notifyDataSetChanged()
+//        include_history.show()
+//        if (output.isNullOrEmpty()){
+//            binding?.noHistory?.text=getString(R.string.noBookings)
+//
+//            binding?.noHistory?.show()
+//        }else{
+//            binding?.noHistory?.hide()
+//            binding?.nestedUi?.show()
+//            val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
+//            binding?.includeHistory?.recyclerviewBookingHistory?.layoutManager = LinearLayoutManager(context)
+//            val adapter = AdapterBookingHistory(requireActivity(), output, this)
+//            binding?.includeHistory?.recyclerviewBookingHistory?.layoutManager = gridLayout
+//            binding?.includeHistory?.recyclerviewBookingHistory?.adapter = adapter
+//        }
+
+    }
+
     private fun myNextBooking(request: NextBookingsRequest) {
         accountFragViewModel.getNextBookingData(request).observe(requireActivity()) {
             it?.let { resource ->
@@ -3127,10 +3217,9 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
                                     retrieveNextBookedResponse(it.data)
-
-
                                 } catch (e: Exception) {
-                                    println("updateUiCinemaSession ---> ${e.message}")
+                                    toast("empty")
+                                    e.printStackTrace()
                                 }
                             }
                         }
@@ -3162,22 +3251,22 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     }
 
     private fun retrieveNextBookedResponse(output: NextBookingResponse) {
-
         binding?.nestedUi?.show()
-        if (output.output.isNullOrEmpty()){
+        if (output.output.isNullOrEmpty()) {
             binding?.recyclerviewBooking?.hide()
-//            binding?.textUpcomingBooking?.hide()
-        }else{
-            val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
+            binding?.noHistory?.text = getString(R.string.noHistory)
+            binding?.noHistory?.show()
+        } else {
+            binding?.noHistory?.hide()
+            val gridLayout =
+                GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
             binding?.recyclerviewBooking?.layoutManager = LinearLayoutManager(context)
             val adapter = UpcomingBookingAdapter(requireContext(), output.output, this, this, this)
             binding?.recyclerviewBooking?.isNestedScrollingEnabled = false
             binding?.recyclerviewBooking?.layoutManager = gridLayout
             binding?.recyclerviewBooking?.adapter = adapter
             binding?.recyclerviewBooking?.show()
-//            binding?.textUpcomingBooking?.show()
         }
-
     }
 
     private fun getProfile(profileRequest: ProfileRequest) {
@@ -3189,13 +3278,17 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
 
-                                if (preferencesCheck == 0){
+                                if (preferencesCheck == 0) {
                                     myNextBooking(
                                         NextBookingsRequest(
-                                            "", "", 0, preferences.getString(Constant.USER_ID).toString(), true
+                                            "",
+                                            "",
+                                            0,
+                                            preferences.getString(Constant.USER_ID).toString(),
+                                            true
                                         )
                                     )
-                                }else{
+                                } else {
                                     preferencesCheck = 0
                                 }
 
@@ -3273,7 +3366,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }
 
 //        type=output.
-        binding?.includeProfile?.enterMobileCode?.setText(output.countryCode)
+        binding?.includeProfile?.enterMobileCode?.text = output.countryCode
         binding?.textWalletUserId?.text = getString(R.string.wallet_Id) + " " + output.cardNumber
         binding?.textUserWalletKd?.text = getString(R.string.wallet_balance) + " " + output.balance
 
@@ -3300,11 +3393,15 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
     override fun onItemClick(view: CountryCodeResponse.Output, check: Boolean) {
         countryCode = view.isdCode
         val maxLengthEditText = view.phoneLength
-        enter_mobile_numbers.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxLengthEditText))
+        enter_mobile_numbers.filters =
+            arrayOf<InputFilter>(InputFilter.LengthFilter(maxLengthEditText))
     }
 
     private fun broadcastIntent() {
-        requireActivity().registerReceiver(broadcastReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+        requireActivity().registerReceiver(
+            broadcastReceiver,
+            IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        )
     }
 
     override fun onItemClick(view: String) {
@@ -3403,9 +3500,9 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
             FirebaseAuth.getInstance().signOut()
             preferences.clearData()
 
-            Constant.IntentKey.BOOKINGClick=0
+            Constant.IntentKey.BOOKINGClick = 0
             Constant.IntentKey.BACKFinlTicket = 0
-            NextBookingsResponse=null
+            NextBookingsResponse = null
 
             val intent = Intent(requireContext(), LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -3418,6 +3515,7 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
         }
 
     }
+
     override fun onResume() {
         super.onResume()
         if (OPEN_FROM == 1) {
@@ -3662,7 +3760,11 @@ class AccountPageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItem
 
                                     myNextBooking(
                                         NextBookingsRequest(
-                                            "", "", 0, preferences.getString(Constant.USER_ID).toString(), true
+                                            "",
+                                            "",
+                                            0,
+                                            preferences.getString(Constant.USER_ID).toString(),
+                                            true
                                         )
                                     )
 

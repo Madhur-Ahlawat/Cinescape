@@ -394,5 +394,7 @@
     <string name="prepare_food">حضر الطعام</string>
     <string name="add_food">أضف الطعام</string>
     <string name="food_pickup_id">معرّف استلام الطعام</string>
+    <string name="noBookings">لا يوجد حاليا أي حجوزات</string>
+    <string name="noHistory">لم يتم العثور على محفوظات الطلبات</string>
 
 </resources>

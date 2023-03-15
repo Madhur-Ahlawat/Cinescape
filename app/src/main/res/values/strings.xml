@@ -388,4 +388,7 @@
     <string name="add_food">Add Food</string>
     <string name="food_pickup_id">Food Pickup Id</string>
 
+    <string name="noBookings">There are currently no bookings</string>
+    <string name="noHistory">No order history found</string>
+
 </resources>

@@ -31,8 +31,8 @@ class OfferSeeAllAdapter(private val context: Context, private val items: ArrayL
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val obj = items[position]
         Glide.with(context)
-            .load(obj.appImageUrl)
-            .placeholder(R.drawable.bombshell)
+            .load(obj.appThumbImageUrl)
+            .placeholder(R.drawable.placeholder_movie_alert_poster)
             .into(holder.todoImage)
 
         holder.todoImage.setOnClickListener {

@@ -320,12 +320,13 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/margin45"
             android:layout_margin="@dimen/size14"
-            android:paddingStart="40dp"
-            android:paddingEnd="40dp"
+            android:layout_marginBottom="32dp"
             android:background="@drawable/curv_bt"
             android:fontFamily="@font/sf_pro_text_bold"
             android:gravity="center"
             android:lineSpacingExtra="1.8sp"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
             android:text="@string/proceed"
             android:textColor="@color/white"
             android:textSize="@dimen/size16"
@@ -336,5 +337,12 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+    <View
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Proceed_btnUi"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,18 +4,32 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
-    <ImageView
-        android:id="@+id/imageView16"
+    <androidx.cardview.widget.CardView
+        android:layout_marginBottom="@dimen/margin15"
+        android:id="@+id/card_recommended"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:adjustViewBounds="true"
+        android:layout_marginEnd="@dimen/margin6"
+        android:background="@color/transparent"
+        app:cardBackgroundColor="@color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/img_demo"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/placeholder_advance_booking_banner"
+            tools:ignore="ContentDescription" />
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

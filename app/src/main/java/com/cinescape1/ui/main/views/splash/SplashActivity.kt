@@ -180,9 +180,6 @@ class SplashActivity : DaggerAppCompatActivity() {
         val runnable = Runnable {
             if (preferences.getBoolean(Constant.IS_LOGIN)) {
                 val intent = Intent(this@SplashActivity, HomeActivity::class.java)
-
-//                val intent = Intent(this@SplashActivity, UserPreferencesActivity::class.java)
-
                 startActivity(intent)
                 finish()
             } else {
@@ -194,6 +191,7 @@ class SplashActivity : DaggerAppCompatActivity() {
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed(runnable, 3000)
     }
+
 
     private fun networkDialog() {
         networkDialog = Dialog(this, android.R.style.Theme_Translucent_NoTitleBar)

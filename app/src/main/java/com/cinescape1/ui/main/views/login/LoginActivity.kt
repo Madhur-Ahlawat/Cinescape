@@ -4,9 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.Dialog
-import android.content.BroadcastReceiver
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Paint
@@ -127,6 +125,13 @@ class LoginActivity : DaggerAppCompatActivity(),
     private var mAdapter: CountryCodeAdapter? = null
     var countryCode: String = ""
     private var broadcastReceiver: BroadcastReceiver? = null
+
+
+    private val MyPREFERENCES = "MyPrefs"
+    private var sharedpreferences: SharedPreferences? = null
+    private val OnBoardingClick = "Name"
+    private var clickOnBoarding: Boolean = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -308,6 +313,12 @@ class LoginActivity : DaggerAppCompatActivity(),
             .requestEmail()
             .build()
 
+
+        //Preference Check Open
+         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE)
+        clickOnBoarding = sharedpreferences?.getBoolean(OnBoardingClick, false)!!
+
+
         googleSignInClient = GoogleSignIn.getClient(this, gso)
         gAuth = FirebaseAuth.getInstance()
         fAuth = FirebaseAuth.getInstance()
@@ -349,6 +360,7 @@ class LoginActivity : DaggerAppCompatActivity(),
     }
 
     private fun movedNext() {
+
         val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
         val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
 
@@ -930,13 +942,22 @@ class LoginActivity : DaggerAppCompatActivity(),
 
                                 } else {
 
+                                    if (!clickOnBoarding) {
+                                        val intent =
+                                            Intent(this@LoginActivity, UserPreferencesActivity::class.java)
+                                        intent.flags =
+                                            Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                                        startActivity(intent)
+                                        finish()
+                                    } else {
+                                        val intent =
+                                            Intent(this@LoginActivity, HomeActivity::class.java)
+                                        intent.flags =
+                                            Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                                        startActivity(intent)
+                                        finish()
+                                    }
 
-                                    val intent =
-                                        Intent(this@LoginActivity, HomeActivity::class.java)
-                                    intent.flags =
-                                        Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-                                    startActivity(intent)
-                                    finish()
                                 }
                             } else {
                                 val dialog = OptionDialog(this,

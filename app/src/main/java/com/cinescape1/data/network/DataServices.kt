@@ -146,12 +146,11 @@ interface DataServices {
     suspend fun pickupFood(@Body request: FoodPrepareRequest): Response<FoodPrepareResponse>
 
 
-
     @POST("clubcard/addRechargeCard")
     suspend fun addRechargeCard(@Body request: AddClubRechargeRequest): Response<RechargeCardResponse>
 
     @GET("content/cinemas")
-    suspend fun foodResponse(): Response<FoodResponse>
+    suspend fun foodResponse(@Query("bookType") movieId: String): Response<FoodResponse>
 
     @GET("customer/getcountry?id=0")
     suspend fun countryCode(): Response<CountryCodeResponse>
@@ -176,6 +175,15 @@ interface DataServices {
         @Query ("mobile") mobile: String,
         @Query ("msg") msg: String,
         @Part file: MultipartBody.Part
+    ): Response<ContactUsResponse>
+
+    @Multipart
+    @POST("more/contactus")
+    suspend fun contactUsWithoutPhoto(
+        @Query ("email") email: String,
+        @Query ("name") name: String,
+        @Query ("mobile") mobile: String,
+        @Query ("msg") msg: String
     ): Response<ContactUsResponse>
 
     @POST("customer/setpref")

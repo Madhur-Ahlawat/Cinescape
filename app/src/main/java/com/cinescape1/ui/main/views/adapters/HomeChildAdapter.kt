@@ -77,14 +77,6 @@ class HomeChildAdapter(
                     holder.tag.setSlantedBackgroundColor(Color.parseColor(photoItem.tagColor))
                     holder.tag.mode = SlantedTextView.MODE_LEFT
 
-//                    holder.tag.rotation = -30f
-//                    (holder.tag.layoutParams as ConstraintLayout.LayoutParams).apply {
-//                        marginStart=20
-////                        topMargin=2
-//                        marginEnd=80
-//                        bottomMargin=22
-//                        holder.tag.text = photoItem.tag
-//                    }
 
                 }
 

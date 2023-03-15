@@ -23,7 +23,6 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -60,10 +59,14 @@ import java.io.File
 import javax.inject.Inject
 
 @Suppress("DEPRECATION")
-class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemClickListener,
-    FaqAdapter.TypefaceListenerFaq, PrivacyAdapter.TypefaceListenerPrivacy,
+class MorePageFragment : DaggerFragment(),
+    CountryCodeAdapter.RecycleViewItemClickListener,
+    FaqAdapter.TypefaceListenerFaq,
+    PrivacyAdapter.TypefaceListenerPrivacy,
     AgeRatingAdapter.TypefaceListenerAgeRating,
-    TermsConditionAdapter.TypefaceListenerTermsCondition, LocationAdapter.TypefaceListenerLocation ,PhotoUtils.OnImageSelectListener,
+    TermsConditionAdapter.TypefaceListenerTermsCondition,
+    LocationAdapter.TypefaceListenerLocation ,
+    PhotoUtils.OnImageSelectListener,
     ViewRefreshListener{
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -510,26 +513,17 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
 
         textView29.setOnClickListener {
             if (!checkPermission()){
-                requestPermission()
-
+//                requestPermission()
+                handlePermission()
                 println("PhotoUploadPics--------->no")
             } else {
-
                 println("PhotoUploadPics--------->yes")
                 uploadPhoto()
             }
 
-//            if (requireActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-//                requestPermissions( arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), myGalleryPermissionCode)
-//            } else {
-//
-//                val i = Intent()
-//                i.type = "image/*"
-//                i.action = Intent.ACTION_GET_CONTENT
-//                startActivityForResult(Intent.createChooser(i, "Select Picture"), selectPicture)
-//            }
 
-            handlePermission()
+
+//            handlePermission()
         }
 
         textView18.setOnClickListener {
@@ -604,14 +598,14 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                     })
                 dialog.show()
             } else {
-//                Toast.makeText(requireContext(), "1", Toast.LENGTH_SHORT).show()
-
-//                frontPhoto?.let { it1 -> contactUs(email, username, mobile, msg, it1) }
-
-                contactUs(email, username, mobile, msg, frontPhoto!!)
-
+                if (frontPhoto != null) {
+                    toast("1")
+                    contactUsWithPhoto(email, username, mobile, msg, frontPhoto!!)
+                } else {
+                    toast("2")
+                    contactUsWitOutPhoto(email, username, mobile, msg)
+                }
                 Constant().hideKeyboard(requireActivity())
-                println("Details of photo upload------->${email}-->${username}--->${mobile}--->${frontPhoto}")
             }
 
         }
@@ -690,68 +684,6 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
         )
     }
 
-    private fun openTwitter() {
-        try {
-            startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse("twitter://user?screen_name=$twitterUserName")
-                )
-            )
-        } catch (e: java.lang.Exception) {
-            startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse("https://twitter.com/#!/$twitterUserName")
-                )
-            )
-        }
-    }
-
-    private fun launchFacebook() {
-        try {
-            val intent = Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("https://www.facebook.com/CinescapeKuwait/?view_public_for=84586906921")
-            )
-            startActivity(intent)
-        } catch (e: java.lang.Exception) {
-            startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse("http://www.facebook.com/CinescapeKuwait")
-                )
-            )
-        }
-    }
-
-    private fun youtube() {
-        startActivity(
-            Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("https://www.youtube.com/c/CinescapeKuwait")
-            )
-        )
-
-    }
-
-    private fun launchInstagram() {
-        val uriForApp: Uri = Uri.parse("http://instagram.com/_u/cinescapekuwait/")
-        val forApp = Intent(Intent.ACTION_VIEW, uriForApp)
-        val uriForBrowser: Uri = Uri.parse("http://instagram.com/cinescapekuwait/")
-        val forBrowser = Intent(Intent.ACTION_VIEW, uriForBrowser)
-
-        forApp.component = ComponentName(
-            "com.instagram.android",
-            "com.instagram.android.activity.UrlHandlerActivity"
-        )
-
-        try {
-            startActivity(forApp)
-        } catch (e: ActivityNotFoundException) {
-            startActivity(forBrowser)
-        }
-    }
 
     private fun moreTabs() {
         moreInfoViewModel.moreTabs()
@@ -807,7 +739,68 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
             }
     }
 
-    private fun contactUs(
+
+    private fun contactUsWitOutPhoto(
+        email: String, name: String, mobile: String, msg: String
+    ) {
+        moreInfoViewModel.contactUsWithOutPhoto(email, name, mobile, msg)
+            .observe(requireActivity()) {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            loader?.dismiss()
+                            resource.data?.let { it ->
+                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                    val dialog = OptionDialog(requireActivity(),
+                                        R.mipmap.ic_launcher,
+                                        R.string.app_name,
+                                        it.data.msg,
+                                        positiveBtnText = R.string.ok,
+                                        negativeBtnText = R.string.no,
+                                        positiveClick = {
+                                            contactEmail.text?.clear()
+                                            enter_mobile_numbers.text?.clear()
+                                            editTextTextPersonName.text?.clear()
+                                            enterUsername.text?.clear()
+                                        },
+                                        negativeClick = {})
+                                    dialog.show()
+                                } else {
+                                    val dialog = OptionDialog(requireActivity(),
+                                        R.mipmap.ic_launcher,
+                                        R.string.app_name,
+                                        it.data?.msg!!,
+                                        positiveBtnText = R.string.ok,
+                                        negativeBtnText = R.string.no,
+                                        positiveClick = {},
+                                        negativeClick = {})
+                                    dialog.show()
+                                }
+                            }
+                        }
+                        Status.ERROR -> {
+                            loader?.dismiss()
+                            val dialog = OptionDialog(requireActivity(),
+                                R.mipmap.ic_launcher,
+                                R.string.app_name,
+                                it.data?.data?.msg!!,
+                                positiveBtnText = R.string.ok,
+                                negativeBtnText = R.string.no,
+                                positiveClick = {},
+                                negativeClick = {})
+                            dialog.show()
+                        }
+                        Status.LOADING -> {
+                            loader = LoaderDialog(R.string.pleasewait)
+                            loader?.show(requireActivity().supportFragmentManager, null)
+                        }
+                    }
+                }
+            }
+    }
+
+
+    private fun contactUsWithPhoto(
         email: String,
         name: String,
         mobile: String,
@@ -1090,7 +1083,6 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.R)
     private fun requestPermission() {
         ActivityCompat.requestPermissions(
             requireActivity(),
@@ -1137,10 +1129,10 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
             }
         }
     }
+
     private fun uploadPhoto() {
         photoUtils = PhotoUtils(requireActivity(), this, textView29, this)
         photoUtils!!.selectImage(requireActivity())
-
     }
 
     @Deprecated("Deprecated in Java")
@@ -1155,22 +1147,6 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
                     val requestFile: RequestBody = mFileTemp.asRequestBody("multipart/form-data".toMediaTypeOrNull())
                     val file = MultipartBody.Part.createFormData("file", mFileTemp.name, requestFile)
                     frontPhoto = file
-                    println("FrontPhotoListItem12 --------->${frontPhoto}")
-
-//                    if (null != selectedImageUri) {
-//                        // Get the path from the Uri
-//                        val path = PathUtil.getPath(requireContext(), selectedImageUri)
-//
-//                        val mFileTemp = File(path)
-//                        val requestFile: RequestBody = mFileTemp.asRequestBody("multipart/form-data".toMediaTypeOrNull())
-//                        val file =
-//                            MultipartBody.Part.createFormData("file", mFileTemp.name, requestFile)
-////                        updateImage(file)
-//                        frontPhoto = file
-////                        toast("hello---->${frontPhoto}")
-//                        println("FrontPhotoListItem --------->${frontPhoto}")
-//
-//                    }
 
                 }
             }
@@ -1201,5 +1177,69 @@ class MorePageFragment : DaggerFragment(), CountryCodeAdapter.RecycleViewItemCli
 
     }
 
+//Social Media
+
+    private fun openTwitter() {
+        try {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("twitter://user?screen_name=$twitterUserName")
+                )
+            )
+        } catch (e: java.lang.Exception) {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://twitter.com/#!/$twitterUserName")
+                )
+            )
+        }
+    }
+
+    private fun launchFacebook() {
+        try {
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://www.facebook.com/CinescapeKuwait/?view_public_for=84586906921")
+            )
+            startActivity(intent)
+        } catch (e: java.lang.Exception) {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("http://www.facebook.com/CinescapeKuwait")
+                )
+            )
+        }
+    }
+
+    private fun youtube() {
+        startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://www.youtube.com/c/CinescapeKuwait")
+            )
+        )
+
+    }
+
+    private fun launchInstagram() {
+        val uriForApp: Uri = Uri.parse("http://instagram.com/_u/cinescapekuwait/")
+        val forApp = Intent(Intent.ACTION_VIEW, uriForApp)
+        val uriForBrowser: Uri = Uri.parse("http://instagram.com/cinescapekuwait/")
+        val forBrowser = Intent(Intent.ACTION_VIEW, uriForBrowser)
+
+        forApp.component = ComponentName(
+            "com.instagram.android",
+            "com.instagram.android.activity.UrlHandlerActivity"
+        )
+
+        try {
+            startActivity(forApp)
+        } catch (e: ActivityNotFoundException) {
+            startActivity(forBrowser)
+        }
+    }
 
 }

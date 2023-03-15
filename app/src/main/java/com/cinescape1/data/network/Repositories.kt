@@ -11,9 +11,7 @@ import com.cinescape1.ui.main.views.payment.paymentList.response.OfferRemove
 import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResponse
 import com.cinescape1.ui.main.views.splash.response.SplashResponse
 import com.cinescape1.ui.main.views.summery.response.GiftCardResponse
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import javax.inject.Inject
 
 class Repositories @Inject constructor(private val api: DataServices) : SafeApiRequest() {
@@ -89,6 +87,7 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
     ): Result<GetFoodResponse> {
         return apiRequest { api.saveFood(request) }
     }
+
     suspend fun offer(): Result<OfferResponse> {
         return apiRequest { api.offer() }
     }
@@ -98,6 +97,7 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
     ): Result<TicketSummaryResponse> {
         return apiRequest { api.tckSummary(request) }
     }
+
     suspend fun paymentList(
         request: TicketSummaryRequest
     ): Result<PaymentListResponse> {
@@ -115,6 +115,7 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
     ): Result<HmacKnetResponse> {
         return apiRequest { api.paymentKnetHmac(request) }
     }
+
     suspend fun paymentWallet(
         request: HmacKnetRequest
     ): Result<WalletResponse> {
@@ -126,6 +127,7 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
     ): Result<BankOfferApply> {
         return apiRequest { api.bankApply(request) }
     }
+
     suspend fun bnankRemove(
         request: BankOfferRequest
     ): Result<OfferRemove> {
@@ -137,12 +139,14 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
     ): Result<GiftCardResponse> {
         return apiRequest { api.giftCardApply(request) }
     }
+
     suspend fun giftCardRemove(
         request: GiftCardRequest
     ): Result<GiftCardRemove> {
         return apiRequest { api.giftCardRemove(request) }
     }
-   suspend fun voucherApply(
+
+    suspend fun voucherApply(
         request: GiftCardRequest
     ): Result<GiftCardResponse> {
         return apiRequest { api.voucherApply(request) }
@@ -167,6 +171,7 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
     suspend fun tckFailed(request: FinalTicketRequest): Result<PaymentFailedResponse> {
         return apiRequest { api.tckFailed(request) }
     }
+
     suspend fun myBooking(request: MyBookingRequest): Result<HistoryResponse> {
         return apiRequest { api.myBooking(request) }
     }
@@ -198,14 +203,14 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
     }
 
 
-
     suspend fun foodResponse(): Result<FoodResponse> {
-        return apiRequest { api.foodResponse() }
+        return apiRequest { api.foodResponse("Food") }
     }
 
     suspend fun countryCode(): Result<CountryCodeResponse> {
         return apiRequest { api.countryCode() }
     }
+
     suspend fun updateAccount(request: UpdateAccountRequest): Result<UpdateAccountResponse> {
         return apiRequest { api.updateAccount(request) }
     }
@@ -213,6 +218,7 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
     suspend fun getAmount(): Result<RechargeAmountResponse> {
         return apiRequest { api.getAmount() }
     }
+
     suspend fun getProfile(request: ProfileRequest): Result<ProfileResponse> {
         return apiRequest { api.getProfile(request) }
     }
@@ -221,30 +227,57 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
 //        return apiRequest { api.contactUs(request.email,request.name,request.mobile,request.msg,request.file) }
 //    }
 
-    suspend fun contctUs( email: String,
-                          name: String,
-                          mobile: String,
-                          msg: String,
-                          frontPhoto: MultipartBody.Part): Result<ContactUsResponse> {
-        return apiRequest { api.contactUs(
-            email,
-            name,
-            mobile,
-            msg,
-            frontPhoto) }
+    suspend fun contctUs(
+        email: String,
+        name: String,
+        mobile: String,
+        msg: String,
+        frontPhoto: MultipartBody.Part
+    ): Result<ContactUsResponse> {
+        return apiRequest {
+            api.contactUs(
+                email,
+                name,
+                mobile,
+                msg,
+                frontPhoto
+            )
+        }
     }
+
+    suspend fun contctUsWithoutPhoto(
+        email: String,
+        name: String,
+        mobile: String,
+        msg: String
+    ): Result<ContactUsResponse> {
+        return apiRequest {
+            api.contactUsWithoutPhoto(
+                email,
+                name,
+                mobile,
+                msg
+            )
+        }
+    }
+
+
     suspend fun moreTabs(): Result<MoreTabResponse> {
         return apiRequest { api.moreTabs() }
     }
+
     suspend fun preference(request: PreferenceRequest): Result<PrefrenceResponse> {
         return apiRequest { api.preference(request) }
     }
+
     suspend fun continueGuest(request: GuestRequest): Result<ContinueGuestResponse> {
         return apiRequest { api.continueGuest(request) }
     }
+
     suspend fun otpVirfy(request: OtpVerifyRequest): Result<ContinueGuestResponse> {
         return apiRequest { api.otpVerify(request) }
     }
+
     suspend fun forgotPassword(request: ForgotPasswordRequest): Result<ForgotOtpsendResponse> {
         return apiRequest { api.forgotPassword(request) }
     }

@@ -64,8 +64,8 @@
                     android:id="@+id/recyclerview_filter_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/view15"
+                    app:layout_constraintStart_toStartOf="@+id/view15"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <View
@@ -79,6 +79,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/recyclerview_filter_title" />
 
+
+<!--                //buttons  Next-->
                 <LinearLayout
                     android:id="@+id/linearLayout9"
                     android:layout_width="0dp"

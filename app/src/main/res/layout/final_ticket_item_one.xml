@@ -17,7 +17,6 @@
         android:paddingStart="@dimen/margin3"
         android:paddingTop="@dimen/margin10"
         android:paddingEnd="@dimen/margin3"
-        android:paddingBottom="@dimen/margin16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -25,7 +24,7 @@
         <View
             android:id="@+id/view_booking_id_one"
             android:layout_width="0dp"
-            android:layout_height="65dp"
+            android:layout_height="55dp"
             app:layout_constraintEnd_toStartOf="@+id/view_food_picku_no_one"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,6 +50,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:includeFontPadding="false"
             android:fontFamily="@font/sf_pro_text_bold"
             android:maxLines="2"
             android:textColor="@color/black"
@@ -64,10 +64,10 @@
         <View
             android:id="@+id/view_food_picku_no_one"
             android:layout_width="0dp"
-            android:layout_height="65dp"
+            android:layout_height="0dp"
             android:layout_marginEnd="4dp"
             android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/view_booking_id_one"
+            app:layout_constraintBottom_toBottomOf="@+id/text_bookin_id_no"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="1.2"
             app:layout_constraintStart_toEndOf="@+id/view_booking_id_one"
@@ -146,13 +146,13 @@
             android:gravity="center_vertical"
             android:letterSpacing="-0.01"
             android:paddingStart="@dimen/margin8"
+            android:paddingEnd="@dimen/margin16"
             android:text="@string/prepare_food"
             android:textColor="@color/white"
             android:textSize="@dimen/size12"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/view_food_picku_no_one"
             app:layout_constraintEnd_toEndOf="@+id/view_food_picku_no_one"
-            app:layout_constraintStart_toEndOf="@+id/view_booking_id_one"
             app:layout_constraintTop_toTopOf="@+id/view_food_picku_no_one" />
 
         <TextView
@@ -168,24 +168,17 @@
             android:gravity="center_vertical"
             android:letterSpacing="-0.01"
             android:paddingStart="@dimen/margin8"
+
+            android:paddingEnd="@dimen/margin16"
             android:text="@string/add_food"
             android:textColor="@color/white"
             android:textSize="@dimen/size12"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/view_food_picku_no_one"
             app:layout_constraintEnd_toEndOf="@+id/view_food_picku_no_one"
-            app:layout_constraintStart_toEndOf="@+id/view_booking_id_one"
             app:layout_constraintTop_toTopOf="@+id/view_food_picku_no_one" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="-3dp"
-            android:background="@color/text_alert_color_red"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@+id/text_how_picup"
-            app:layout_constraintStart_toEndOf="@+id/text_bookin_id_no"
-            app:layout_constraintTop_toBottomOf="@+id/text_how_picup"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -193,7 +186,7 @@
         android:id="@+id/view_bookin_line_one"
         android:layout_width="wrap_content"
         android:layout_height="1dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="28dp"
         android:background="@color/view_bg_color_line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -205,6 +198,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginTop="28dp"
         android:paddingStart="@dimen/margin3"
         android:paddingEnd="@dimen/margin3"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -217,16 +211,16 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:fillViewport="true"
-            android:layout_marginTop="@dimen/margin8"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-            <!--   initial-->
+                <!--   initial-->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/text_name_movie"
                     android:layout_width="0dp"
@@ -234,7 +228,6 @@
                     android:fontFamily="@font/sf_pro_text_bold"
                     android:textColor="@color/black"
                     android:textSize="@dimen/size18"
-                    android:layout_marginTop="@dimen/margin10"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -269,7 +262,7 @@
                             app:layout_constraintEnd_toStartOf="@+id/ratingUi"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            tools:text="Gunda Rajjlkn jhjjbhjkbhkb kkjbjkbbk jbklja " />
+                            tools:text="Gunda " />
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:id="@+id/constraintLayout18"
@@ -277,9 +270,10 @@
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:gravity="bottom"
-                            app:layout_alignSelf="stretch"
                             android:maxLines="1"
                             android:minWidth="37dp"
+                            android:layout_marginBottom="@dimen/margin4"
+                            app:layout_alignSelf="stretch"
                             app:layout_constraintBottom_toBottomOf="@+id/text_film_house_name"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/text_film_house_name">
@@ -287,29 +281,27 @@
 
                             <androidx.cardview.widget.CardView
                                 android:id="@+id/ratingUi"
-                                android:layout_width="@dimen/margin27"
+                                android:layout_width="32dp"
                                 android:layout_height="wrap_content"
-                                android:background="@color/transparent"
-                                android:backgroundTint="@color/transparent"
-                                app:cardCornerRadius="@dimen/margin2"
+                                app:cardCornerRadius="@dimen/margin3"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="@+id/tv_seat_film_title">
 
                                 <TextView
                                     android:id="@+id/text_types"
-                                    android:layout_width="@dimen/margin27"
-                                    android:layout_height="@dimen/margin15"
+                                    android:layout_width="32dp"
+                                    android:layout_height="@dimen/margin17"
                                     android:fontFamily="@font/sf_pro_text_regular"
                                     android:gravity="center"
                                     android:includeFontPadding="false"
-                                    android:minWidth="@dimen/margin27"
                                     android:textColor="@color/white"
-                                    android:textSize="@dimen/size10"
+                                    android:textSize="@dimen/size11"
                                     tools:ignore="HardcodedText,TextContrastCheck"
                                     tools:text="13+" />
 
                             </androidx.cardview.widget.CardView>
+
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
                     </com.google.android.flexbox.FlexboxLayout>
@@ -321,8 +313,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/view_locations"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="@dimen/margin8"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_name_movie">
@@ -347,6 +339,7 @@
                         android:id="@+id/text_location_names"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
                         android:layout_marginEnd="16dp"
                         android:fontFamily="@font/sf_pro_text_bold"
                         android:includeFontPadding="false"
@@ -361,7 +354,7 @@
                     <View
                         android:id="@+id/view_date"
                         android:layout_width="0dp"
-                        android:layout_height="58dp"
+                        android:layout_height="0dp"
                         app:layout_constraintBottom_toBottomOf="@+id/view_locations"
                         app:layout_constraintEnd_toStartOf="@+id/view_times1"
                         app:layout_constraintHorizontal_weight="1"
@@ -386,13 +379,13 @@
                         android:id="@+id/txt_date"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
                         android:ellipsize="marquee"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:fontFamily="@font/sf_pro_text_bold"
-                        android:includeFontPadding="false"
                         android:freezesText="true"
-                        android:letterSpacing="-0.01"
+                        android:includeFontPadding="false"
                         android:lineSpacingExtra="1sp"
                         android:marqueeRepeatLimit="marquee_forever"
                         android:maxLines="1"
@@ -457,6 +450,7 @@
                     android:id="@+id/screenLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin20"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/view_locations">
@@ -488,6 +482,7 @@
                         android:id="@+id/txt_scrrens"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
                         android:fontFamily="@font/sf_pro_text_bold"
                         android:includeFontPadding="false"
                         android:letterSpacing="-0.01"
@@ -505,13 +500,13 @@
                         android:id="@+id/tv_screenx"
                         android:layout_width="wrap_content"
                         android:layout_height="16dp"
+                        android:layout_marginTop="2dp"
                         android:adjustViewBounds="true"
                         android:src="@drawable/screenx_black"
                         app:layout_constraintBottom_toBottomOf="@+id/txt_scrrens"
                         app:layout_constraintStart_toEndOf="@+id/txt_scrrens"
                         app:layout_constraintTop_toTopOf="@+id/txt_scrrens"
                         app:layout_constraintVertical_bias="0.0"
-                        tools:layout_editor_absoluteX="102dp"
                         tools:ignore="ContentDescription" />
 
                     <View
@@ -544,6 +539,7 @@
                         android:id="@+id/categoryName"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
                         android:ellipsize="marquee"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
@@ -571,7 +567,7 @@
                     android:id="@+id/seatLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin6"
+                    android:layout_marginTop="@dimen/margin20"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/screenLayout">

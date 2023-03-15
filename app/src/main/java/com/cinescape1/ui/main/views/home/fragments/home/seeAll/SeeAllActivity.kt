@@ -17,13 +17,10 @@ import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.databinding.ActivitySeeAllBinding
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
-import com.cinescape1.ui.main.views.home.fragments.home.seeAll.viewModel.SeeAllViewModel
 import com.cinescape1.ui.main.views.adapters.OfferSeeAllAdapter
 import com.cinescape1.ui.main.views.adapters.SeeAllAdapter
-import com.cinescape1.utils.Constant
-import com.cinescape1.utils.MyReceiver
-import com.cinescape1.utils.Status
-import com.cinescape1.utils.show
+import com.cinescape1.ui.main.views.home.fragments.home.seeAll.viewModel.SeeAllViewModel
+import com.cinescape1.utils.*
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
@@ -31,6 +28,7 @@ import javax.inject.Inject
 class SeeAllActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
     @Inject
     lateinit var preferences: AppPreferences
     private val seeAllViewModel: SeeAllViewModel by viewModels { viewModelFactory }
@@ -47,20 +45,31 @@ class SeeAllActivity : DaggerAppCompatActivity() {
         val view = binding?.root
         setContentView(view)
 
+        manageFunction()
+    }
+
+    private fun manageFunction() {
+
+        intent.getStringExtra("title").toString()
         binding?.back?.setOnClickListener {
             onBackPressed()
         }
-        type=intent.getStringExtra("type")
-        if (type=="offer"){
+
+        type = intent.getStringExtra("type")
+
+        if (type == "offer") {
             offers()
-        }else{
+        } else {
             // Get Array Data
             binding?.seeAllUi?.show()
-            val arrayList= intent.getSerializableExtra("arrayList")
+            val arrayList = intent.getSerializableExtra("arrayList")
             println("stockList--->${arrayList}")
+
             intent.getSerializableExtra("arrayList")
+            toast("hello")
             parentLayoutManager = LinearLayoutManager(this)
-            val seeAllAdapter = SeeAllAdapter(this, arrayList as ArrayList<HomeDataResponse.MovieData>)
+            val seeAllAdapter =
+                SeeAllAdapter(this, arrayList as ArrayList<HomeDataResponse.MovieData>)
             binding?.recyclerSeeAll?.layoutManager = GridLayoutManager(this, 3)
             binding?.recyclerSeeAll?.adapter = seeAllAdapter
         }
@@ -73,23 +82,14 @@ class SeeAllActivity : DaggerAppCompatActivity() {
     }
 
     private fun offers() {
-        seeAllViewModel.offers()
-            .observe(this) {
+        seeAllViewModel.offers().observe(this) {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
                             loader?.dismiss()
                             resource.data?.let { it ->
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    println("SomethingWrong--->${it.data.msg}")
-                                    try {
-                                        retrieveData(it.data.output)
-                                    } catch (e: Exception) {
-                                        println("exceptionMsg--->${e.message}")
-                                    }
-
-                                } else {
-                                    println("Something Wrong")
+                                    retrieveData(it.data.output)
                                 }
                             }
                         }
@@ -102,7 +102,7 @@ class SeeAllActivity : DaggerAppCompatActivity() {
                                 positiveBtnText = R.string.ok,
                                 negativeBtnText = R.string.no,
                                 positiveClick = {
-                                                finish()
+                                    finish()
                                 },
                                 negativeClick = {
                                     finish()
@@ -119,11 +119,10 @@ class SeeAllActivity : DaggerAppCompatActivity() {
     }
 
     private fun retrieveData(data: ArrayList<OfferResponse.Output>) {
-        println("stockList--->${data}")
         binding?.seeAllUi?.show()
         intent.getSerializableExtra("arrayList")
         parentLayoutManager = LinearLayoutManager(this)
-        val seeAllAdapter = OfferSeeAllAdapter(this,data)
+        val seeAllAdapter = OfferSeeAllAdapter(this, data)
         binding?.recyclerSeeAll?.layoutManager = GridLayoutManager(this, 1)
         binding?.recyclerSeeAll?.adapter = seeAllAdapter
     }

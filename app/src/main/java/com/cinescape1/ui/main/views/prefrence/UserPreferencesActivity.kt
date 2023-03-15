@@ -2,9 +2,7 @@ package com.cinescape1.ui.main.views.prefrence
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.BroadcastReceiver
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.content.pm.PackageManager
 import android.location.Location
 import android.net.ConnectivityManager
@@ -85,6 +83,9 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
 
     private var languageCheck: String = "en"
 
+    private val myPreference = "MyPrefs"
+    private var sharedPreferences: SharedPreferences? = null
+    private val onBoardingClick = "Name"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUserPreferencesBinding.inflate(layoutInflater, null, false)
@@ -302,11 +303,22 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
 
 
     private fun movedNext() {
+        sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE)
+
         binding?.doneBtn?.setOnClickListener {
+
+            val editor = sharedPreferences?.edit()
+            editor?.putBoolean(onBoardingClick, true)
+            editor?.commit()
+
             println("UpdateExperience--->$experience")
             updatePreference(PreferenceRequest(arbic,cinema,experience.toString(), ageRating.toString(), seatCateogry, seatType, preferences.getString(Constant.USER_ID).toString()))
         }
         binding?.textSkipProceed?.setOnClickListener {
+            val editor = sharedPreferences?.edit()
+            editor?.putBoolean(onBoardingClick, true)
+            editor?.commit()
+
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
         }

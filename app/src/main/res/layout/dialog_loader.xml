@@ -13,7 +13,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/margin10"
@@ -23,6 +23,10 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -31,6 +35,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:src="@drawable/loader"
+                android:background="@color/transparent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +58,7 @@
 
 
 
-    </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <TextView

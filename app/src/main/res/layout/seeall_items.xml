@@ -10,8 +10,8 @@
     <androidx.cardview.widget.CardView
         android:layout_marginBottom="@dimen/margin15"
         android:id="@+id/card_recommended"
-        android:layout_width="127dp"
-        android:layout_height="173dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin6"
         android:background="@color/transparent"
         app:cardBackgroundColor="@color/transparent"
@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
-            app:srcCompat="@drawable/img_demo"
+            app:srcCompat="@drawable/placeholder_advance_booking_banner"
             tools:ignore="ContentDescription" />
     </androidx.cardview.widget.CardView>
 

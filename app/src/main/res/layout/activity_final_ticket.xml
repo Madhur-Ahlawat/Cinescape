@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:cardCornerRadius="@dimen/margin5"
+            app:cardCornerRadius="@dimen/margin15"
             app:cardUseCompatPadding="true"
             app:layout_constraintBottom_toBottomOf="@+id/image_head"
             app:layout_constraintEnd_toEndOf="@+id/image_head"

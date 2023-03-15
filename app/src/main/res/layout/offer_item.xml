@@ -21,7 +21,7 @@ android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/imageView16"
-            android:src="@drawable/placeholder_home_small_poster"
+            android:src="@drawable/placeholder_advance_booking_banner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"

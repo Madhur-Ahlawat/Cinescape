@@ -48,7 +48,6 @@ class UpcomingBookingAdapter(
 
         holder.textNameMovie.isSelected = true
 
-//        holder.btClick.isSelected = true
 
         Glide.with(mContext)
             .load(foodSelctedItem.posterhori)
@@ -60,13 +59,11 @@ class UpcomingBookingAdapter(
 
         holder.adressName.text = foodSelctedItem.cinemaname
         holder.screenNumber.text = foodSelctedItem.screenId.toString()
-//        holder.cinemaName.text = foodSelctedItem.experience
         holder.date.text = foodSelctedItem.showDate
         holder.times.text = foodSelctedItem.showTime
 
         holder.txtFoodPickupId.text = foodSelctedItem.pickUpNumber
 
-        println("foodSelectedItem.experience---->${foodSelctedItem.experience}")
 
         when (foodSelctedItem.experience) {
             "4DX" -> {
@@ -126,6 +123,8 @@ class UpcomingBookingAdapter(
             }
         }
 
+        holder.cinemaName.show()
+
 
         val ratingColor = foodSelctedItem.ratingColor
         try {
@@ -139,46 +138,7 @@ class UpcomingBookingAdapter(
             holder.cardView.show()
         }
 
-//        if (foodSelctedItem.addFood==true) {
-//            holder.btClick.show()
-//            holder.btClick.text = mContext.resources.getString(R.string.addFoodMsg)
-//            holder.btClick.setOnClickListener {
-//                val intent = Intent(mContext, FoodActivity::class.java)
-//                    .putExtra("CINEMA_ID", foodSelctedItem.cinemacode)
-//                    .putExtra("BOOKING", "FOOD")
-//                    .putExtra("type", "FOOD")
-//                mContext.startActivity(intent)
-//            }
-//
-//        }else if (foodSelctedItem.foodPickup==true) {
-//            holder.btClick.show()
-//            holder.btClick.text = mContext.resources.getString(R.string.food_pickup_info)
-//            holder.btClick.setOnClickListener {
-//                val mDialogView =
-//                    LayoutInflater.from(context).inflate(R.layout.food_pickup_dialog, null)
-//                val mBuilder = AlertDialog.Builder(context, R.style.NewDialog).setView(mDialogView)
-//                val mAlertDialog = mBuilder.show()
-//                mAlertDialog.show()
-//                mAlertDialog.window?.setBackgroundDrawableResource(R.color.black70)
-//                val closeDialog = mDialogView.findViewById<TextView>(R.id.close_dialog)
-//                val text=mAlertDialog.findViewById<TextView>(R.id.textView105)
-//
-//                   text?.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                    Html.fromHtml(foodSelctedItem.pickupInfo, Html.FROM_HTML_MODE_COMPACT)
-//                } else {
-//                    Html.fromHtml(foodSelctedItem.pickupInfo)
-//                }
-//
-//                closeDialog.setOnClickListener {
-//                    mAlertDialog.dismiss()
-//                }
-//            }
-//        }else{
-//
-//            holder.btClick.hide()
-//        }
 
-        println("foodSelectedItem.food-------->${foodSelctedItem.food}")
 
         if (foodSelctedItem.food == 0) {
             holder.btFoodPrepare.hide()
@@ -236,7 +196,6 @@ class UpcomingBookingAdapter(
         }
 
         holder.thumbnail.setOnClickListener {
-
             val intent = Intent(mContext, FinalTicketActivity::class.java)
             intent.putExtra(Constant.IntentKey.BOOKING_ID, foodSelctedItem.bookingId)
             intent.putExtra(Constant.IntentKey.TRANSACTION_ID, foodSelctedItem.transId.toString())

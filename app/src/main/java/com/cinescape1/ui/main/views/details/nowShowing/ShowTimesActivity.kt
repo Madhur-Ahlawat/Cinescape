@@ -288,7 +288,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
 
 
         dialog.title.text = getString(R.string.advanceBooking)
-        dialog.txtSureNew.text = getString(R.string.cancelComma)
+        dialog.txtSureNew.text = getString(R.string.cancel)
         dialog.txtGoBack.text = getString(R.string.and_go_back)
         dialog.negative_btn.text = getString(R.string.ok)
         dialog.subtitle.text = getString(R.string.advanceBookingTxt)

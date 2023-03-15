@@ -14,15 +14,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.HistoryResponse
 import com.cinescape1.ui.main.views.adapters.HistoryFoodListAdapter
-import com.cinescape1.utils.Constant
-import com.cinescape1.utils.LocaleHelper
-import com.cinescape1.utils.hide
-import com.cinescape1.utils.show
+import com.cinescape1.utils.*
 
 class AdapterBookingHistory(private val context: Activity,
                             private var bookingHistoryList: ArrayList<HistoryResponse.Output>,
                             var listener : typeFaceItem) :
     RecyclerView.Adapter<AdapterBookingHistory.MyViewHolderBookingHistory>() {
+
     private var rowIndex = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderBookingHistory {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.account_booking_history_item, parent, false)
@@ -32,84 +30,87 @@ class AdapterBookingHistory(private val context: Activity,
     @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     override fun onBindViewHolder(holder: MyViewHolderBookingHistory, @SuppressLint("RecyclerView") position: Int) {
         val bookingHistoryItem = bookingHistoryList[position]
-        println("BookType--->${bookingHistoryItem.bookingType}")
 
-        if (Constant.LANGUAGE == "ar"){
-            LocaleHelper.setLocale(context, "ar")
-            val regular = ResourcesCompat.getFont(context, R.font.gess_light)
-            val bold = ResourcesCompat.getFont(context, R.font.gess_bold)
-            val medium = ResourcesCompat.getFont(context, R.font.gess_medium)
+        when (Constant.LANGUAGE) {
+            "ar" -> {
+                LocaleHelper.setLocale(context, "ar")
+                val regular = ResourcesCompat.getFont(context, R.font.gess_light)
+                val bold = ResourcesCompat.getFont(context, R.font.gess_bold)
+                val medium = ResourcesCompat.getFont(context, R.font.gess_medium)
 
-            holder.textBookingHistoryTitle.typeface = bold
-            holder.textBookingHistoryDate.typeface = regular
-            holder.textBookingHistoryTime.typeface = regular
-            holder.textAddress.typeface = regular
-            holder.textviewScreenNumber.typeface = regular
-            holder.textviewDateInfo.typeface = regular
-            holder.textviewTimeInfo.typeface = regular
-            holder.textviewExperienceName.typeface = regular
-            holder.textviewSeatName.typeface = regular
-            holder.textKdTicketPrice.typeface = regular
-            holder.payDone.typeface = regular
-            holder.rechargeTime.typeface = regular
-            holder.rechargePrice.typeface = regular
-            holder.rechargeDate.typeface = regular
-            holder.paidBy.typeface = regular
-            holder.foodTotalPrice.typeface = regular
-            holder.foodPaidby.typeface = regular
+                holder.textBookingHistoryTitle.typeface = bold
+                holder.textBookingHistoryDate.typeface = regular
+                holder.textBookingHistoryTime.typeface = regular
+                holder.textAddress.typeface = regular
+                holder.textviewScreenNumber.typeface = regular
+                holder.textviewDateInfo.typeface = regular
+                holder.textviewTimeInfo.typeface = regular
+                holder.textviewExperienceName.typeface = regular
+                holder.textviewSeatName.typeface = regular
+                holder.textKdTicketPrice.typeface = regular
+                holder.payDone.typeface = regular
+                holder.rechargeTime.typeface = regular
+                holder.rechargePrice.typeface = regular
+                holder.rechargeDate.typeface = regular
+                holder.paidBy.typeface = regular
+                holder.foodTotalPrice.typeface = regular
+                holder.foodPaidby.typeface = regular
 
 
-        }else if (Constant.LANGUAGE == "en"){
-            LocaleHelper.setLocale(context, "en")
-            val regular = ResourcesCompat.getFont(context, R.font.sf_pro_text_regular)
-            val bold = ResourcesCompat.getFont(context, R.font.sf_pro_text_bold)
-            val heavy = ResourcesCompat.getFont(context, R.font.sf_pro_text_heavy)
-            val medium = ResourcesCompat.getFont(context, R.font.sf_pro_text_medium)
+            }
+            "en" -> {
+                LocaleHelper.setLocale(context, "en")
+                val regular = ResourcesCompat.getFont(context, R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(context, R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(context, R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(context, R.font.sf_pro_text_medium)
 
-            holder.textBookingHistoryTitle.typeface = bold
-            holder.textBookingHistoryDate.typeface = regular
-            holder.textBookingHistoryTime.typeface = regular
-            holder.textAddress.typeface = regular
-            holder.textviewScreenNumber.typeface = regular
-            holder.textviewDateInfo.typeface = regular
-            holder.textviewTimeInfo.typeface = regular
-            holder.textviewExperienceName.typeface = regular
-            holder.textviewSeatName.typeface = regular
-            holder.textKdTicketPrice.typeface = regular
-            holder.payDone.typeface = regular
-            holder.rechargeTime.typeface = regular
-            holder.rechargePrice.typeface = regular
-            holder.rechargeDate.typeface = regular
-            holder.paidBy.typeface = regular
-            holder.foodTotalPrice.typeface = regular
-            holder.foodPaidby.typeface = regular
+                holder.textBookingHistoryTitle.typeface = bold
+                holder.textBookingHistoryDate.typeface = regular
+                holder.textBookingHistoryTime.typeface = regular
+                holder.textAddress.typeface = regular
+                holder.textviewScreenNumber.typeface = regular
+                holder.textviewDateInfo.typeface = regular
+                holder.textviewTimeInfo.typeface = regular
+                holder.textviewExperienceName.typeface = regular
+                holder.textviewSeatName.typeface = regular
+                holder.textKdTicketPrice.typeface = regular
+                holder.payDone.typeface = regular
+                holder.rechargeTime.typeface = regular
+                holder.rechargePrice.typeface = regular
+                holder.rechargeDate.typeface = regular
+                holder.paidBy.typeface = regular
+                holder.foodTotalPrice.typeface = regular
+                holder.foodPaidby.typeface = regular
 
-        }else{
+            }
+            else -> {
 
-            LocaleHelper.setLocale(context, "en")
-            val regular = ResourcesCompat.getFont(context, R.font.sf_pro_text_regular)
-            val bold = ResourcesCompat.getFont(context, R.font.sf_pro_text_bold)
-            val heavy = ResourcesCompat.getFont(context, R.font.sf_pro_text_heavy)
-            val medium = ResourcesCompat.getFont(context, R.font.sf_pro_text_medium)
+                LocaleHelper.setLocale(context, "en")
+                val regular = ResourcesCompat.getFont(context, R.font.sf_pro_text_regular)
+                val bold = ResourcesCompat.getFont(context, R.font.sf_pro_text_bold)
+                val heavy = ResourcesCompat.getFont(context, R.font.sf_pro_text_heavy)
+                val medium = ResourcesCompat.getFont(context, R.font.sf_pro_text_medium)
 
-            holder.textBookingHistoryTitle.typeface = bold
-            holder.textBookingHistoryDate.typeface = regular
-            holder.textBookingHistoryTime.typeface = regular
-            holder.textAddress.typeface = regular
-            holder.textviewScreenNumber.typeface = regular
-            holder.textviewDateInfo.typeface = regular
-            holder.textviewTimeInfo.typeface = regular
-            holder.textviewExperienceName.typeface = regular
-            holder.textviewSeatName.typeface = regular
-            holder.textKdTicketPrice.typeface = regular
-            holder.payDone.typeface = regular
-            holder.rechargeTime.typeface = regular
-            holder.rechargePrice.typeface = regular
-            holder.rechargeDate.typeface = regular
-            holder.paidBy.typeface = regular
-            holder.foodTotalPrice.typeface = regular
-            holder.foodPaidby.typeface = regular
+                holder.textBookingHistoryTitle.typeface = bold
+                holder.textBookingHistoryDate.typeface = regular
+                holder.textBookingHistoryTime.typeface = regular
+                holder.textAddress.typeface = regular
+                holder.textviewScreenNumber.typeface = regular
+                holder.textviewDateInfo.typeface = regular
+                holder.textviewTimeInfo.typeface = regular
+                holder.textviewExperienceName.typeface = regular
+                holder.textviewSeatName.typeface = regular
+                holder.textKdTicketPrice.typeface = regular
+                holder.payDone.typeface = regular
+                holder.rechargeTime.typeface = regular
+                holder.rechargePrice.typeface = regular
+                holder.rechargeDate.typeface = regular
+                holder.paidBy.typeface = regular
+                holder.foodTotalPrice.typeface = regular
+                holder.foodPaidby.typeface = regular
 
+            }
         }
 
         when (bookingHistoryItem.bookingType) {
@@ -127,21 +128,6 @@ class AdapterBookingHistory(private val context: Activity,
             }
         }
 
-        holder.textBookingHistoryDate.text = bookingHistoryItem.showDate
-        holder.textBookingHistoryTime.text = bookingHistoryItem.showTime
-
-        holder.textviewDateInfo.text = bookingHistoryItem.showDate
-        holder.textviewTimeInfo.text = bookingHistoryItem.showTime
-        holder.textAddress.text = bookingHistoryItem.cinemaname
-        holder.textviewScreenNumber.text = bookingHistoryItem.screenId
-        holder.textviewExperienceName.text = bookingHistoryItem.experience
-
-        holder.textviewCategoryName.text = bookingHistoryItem.category
-        val commaSeparatedString = bookingHistoryItem.seatsArr.joinToString { "$it" }
-        holder.textviewSeatName.text = commaSeparatedString
-
-        holder.textKdTicketPrice.text = bookingHistoryItem.totalTicketPrice
-
         listener.datatypeFace(holder.textBookingHistoryTitle,holder.textBookingHistoryDate,
             holder.textBookingHistoryTime,holder.textAddress,holder.textviewScreenNumber,
             holder.textviewDateInfo,holder.textviewTimeInfo,holder.textviewExperienceName,holder.textviewSeatName,
@@ -149,38 +135,26 @@ class AdapterBookingHistory(private val context: Activity,
             holder.paidBy,holder.foodTotalPrice,holder.foodPaidby)
 
 
-        if (bookingHistoryItem.concessionFoods.isNullOrEmpty()){
-            println("foodHistoryList---------->${bookingHistoryItem.concessionFoods}")
-        }else{
-            val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            holder.foodList.layoutManager = LinearLayoutManager(context)
-            val adapter = HistoryFoodListAdapter(context, bookingHistoryItem.concessionFoods)
-            holder.foodList.layoutManager = layoutManager
-            holder.foodList.adapter = adapter
-            println("foodHistoryList---------->${bookingHistoryItem.concessionFoods}")
-        }
-
-
-        //recharge
-        holder.payDone.text=bookingHistoryItem.payDone
-        holder.rechargePrice.text=bookingHistoryItem.totalPrice
-        if (bookingHistoryItem.showDate!=null) {
-            holder.rechargeDate.text= bookingHistoryItem.showDate
-        }
-        if (bookingHistoryItem.showTime!=null) {
-            holder.rechargeTime.text = bookingHistoryItem.showTime
-        }
-
-        //food
-        holder.foodTotalPrice.text=bookingHistoryItem.totalPrice
-        holder.foodPaidby.text=context.resources.getString(R.string.paid_by_club_card)+" "+bookingHistoryItem.payDone
-        holder.paidBy.text=context.resources.getString(R.string.paid_by_club_card)+" "+bookingHistoryItem.payDone
+        holder.textBookingHistoryDate.text = bookingHistoryItem.showDate
+        holder.textBookingHistoryTime.text = bookingHistoryItem.showTime
 
         holder.itemView.setOnClickListener {
             rowIndex = position
             when (bookingHistoryItem.bookingType) {
                 "CLUBRECHARGE" -> {
                     if (holder.rechargeUi.visibility == View.GONE) {
+
+                        //recharge
+                        holder.payDone.text=bookingHistoryItem.payDone
+                        holder.rechargePrice.text=bookingHistoryItem.totalPrice
+                        if (bookingHistoryItem.showDate!=null) {
+                            holder.rechargeDate.text= bookingHistoryItem.showDate
+                        }
+                        if (bookingHistoryItem.showTime!=null) {
+                            holder.rechargeTime.text = bookingHistoryItem.showTime
+                        }
+
+
                         holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
                         holder.rechargeUi.show()
                         holder.foodUi.hide()
@@ -195,6 +169,27 @@ class AdapterBookingHistory(private val context: Activity,
 
                 "FOOD" -> {
                     if (holder.foodUi.visibility == View.GONE) {
+
+                        println("payment----->${bookingHistoryItem.bookingType}")
+                        context.toast("Food----->${bookingHistoryItem.bookingType}")
+                        //food
+                        holder.foodTotalPrice.text=bookingHistoryItem.totalPrice
+                        holder.foodPaidby.text=context.resources.getString(R.string.paid_by_club_card)+" "+bookingHistoryItem.payDone
+                        holder.paidBy.text=context.resources.getString(R.string.paid_by_club_card)+" "+bookingHistoryItem.payDone
+
+
+                        if (bookingHistoryItem.concessionFoods.isNullOrEmpty()){
+                            holder.foodList.hide()
+                        }else{
+                            holder.foodList.show()
+                            val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                            holder.foodList.layoutManager = LinearLayoutManager(context)
+                            val adapter = HistoryFoodListAdapter(context, bookingHistoryItem.concessionFoods)
+                            holder.foodList.layoutManager = layoutManager
+                            holder.foodList.adapter = adapter
+                        }
+
+
                         holder.foodUi.show()
                         holder.rechargeUi.hide()
                         holder.movieui.hide()
@@ -218,6 +213,40 @@ class AdapterBookingHistory(private val context: Activity,
                         } else {
                             holder.foodMUi.hide()
                         }
+
+
+                        //food
+                        holder.foodTotalPrice.text=bookingHistoryItem.totalPrice
+                        holder.foodPaidby.text=context.resources.getString(R.string.paid_by_club_card)+" "+bookingHistoryItem.payDone
+                        holder.paidBy.text=context.resources.getString(R.string.paid_by_club_card)+" "+bookingHistoryItem.payDone
+
+
+                        if (bookingHistoryItem.concessionFoods.isNullOrEmpty()){
+                            holder.foodList.hide()
+                        }else{
+                            holder.foodList.show()
+                            val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                            holder.foodList.layoutManager = LinearLayoutManager(context)
+                            val adapter = HistoryFoodListAdapter(context, bookingHistoryItem.concessionFoods)
+                            holder.foodList.layoutManager = layoutManager
+                            holder.foodList.adapter = adapter
+                        }
+
+
+                        holder.textviewDateInfo.text = bookingHistoryItem.showDate
+                        holder.textviewTimeInfo.text = bookingHistoryItem.showTime
+                        holder.textAddress.text = bookingHistoryItem.cinemaname
+                        holder.textviewScreenNumber.text = bookingHistoryItem.screenId
+                        holder.textviewExperienceName.text = bookingHistoryItem.experience
+
+                        holder.textviewCategoryName.text = bookingHistoryItem.category
+                        val commaSeparatedString = bookingHistoryItem.seatsArr.joinToString { "$it" }
+                        holder.textviewSeatName.text = commaSeparatedString
+
+                        holder.textKdTicketPrice.text = bookingHistoryItem.totalTicketPrice
+
+
+
                     }else{
                         holder.foodUi.hide()
                         holder.rechargeUi.hide()

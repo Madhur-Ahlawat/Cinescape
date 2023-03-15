@@ -184,6 +184,7 @@ class HomeParentAdapter(
                 holder.txtSeeAll.setOnClickListener {
                     val intent = Intent(mContext, SeeAllActivity::class.java)
                     intent.putExtra("type", "offer")
+                    intent.putExtra("title", obj.name)
                     intent.putExtra("arrayList", obj.movieData)
                     mContext.startActivity(intent)
                 }

@@ -12,9 +12,9 @@
 
 
     <corners
-        android:bottomLeftRadius="3dp"
-        android:bottomRightRadius="3dp"
-        android:topLeftRadius="3dp"
-        android:topRightRadius="3dp" />
-<!--    <solid android:color="@color/text_alert_color_red" />-->
+        android:bottomLeftRadius="@dimen/margin8"
+        android:bottomRightRadius="@dimen/margin8"
+        android:topLeftRadius="@dimen/margin8"
+        android:topRightRadius="@dimen/margin8" />
+
 </shape>

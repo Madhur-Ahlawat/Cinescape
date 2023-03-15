@@ -16,9 +16,9 @@ class MoreInfoViewModel @Inject constructor(private val repositories: Repositori
         emit(Result.loading(data = null))
         try {
             val data = repositories.moreTabs()
-            if (data.status == Status.ERROR){
-                emit(Result.error(data.message.toString(),data))
-            }else{
+            if (data.status == Status.ERROR) {
+                emit(Result.error(data.message.toString(), data))
+            } else {
                 emit(Result.success(data = data))
             }
 
@@ -28,13 +28,19 @@ class MoreInfoViewModel @Inject constructor(private val repositories: Repositori
 
     }
 
-    fun contactUs(email: String, name: String, mobile: String, msg: String, frontPhoto: MultipartBody.Part) = liveData(Dispatchers.IO) {
+    fun contactUs(
+        email: String,
+        name: String,
+        mobile: String,
+        msg: String,
+        frontPhoto: MultipartBody.Part
+    ) = liveData(Dispatchers.IO) {
         emit(Result.loading(data = null))
         try {
-            val data = repositories.contctUs(email,name,mobile,msg,frontPhoto)
-            if (data.status == Status.ERROR){
-                emit(Result.error(data.message.toString(),data))
-            }else{
+            val data = repositories.contctUs(email, name, mobile, msg, frontPhoto)
+            if (data.status == Status.ERROR) {
+                emit(Result.error(data.message.toString(), data))
+            } else {
                 emit(Result.success(data = data))
             }
 
@@ -43,6 +49,28 @@ class MoreInfoViewModel @Inject constructor(private val repositories: Repositori
             emit(Result.error(exception.message ?: "Error Occurred!", data = null))
         }
     }
+
+    fun contactUsWithOutPhoto(
+        email: String,
+        name: String,
+        mobile: String,
+        msg: String
+    ) = liveData(Dispatchers.IO) {
+        emit(Result.loading(data = null))
+        try {
+            val data = repositories.contctUsWithoutPhoto(email, name, mobile, msg)
+            if (data.status == Status.ERROR) {
+                emit(Result.error(data.message.toString(), data))
+            } else {
+                emit(Result.success(data = data))
+            }
+
+        } catch (exception: Exception) {
+            exception.printStackTrace()
+            emit(Result.error(exception.message ?: "Error Occurred!", data = null))
+        }
+    }
+
 
 //       fun contactUs(
 //        email: String,
@@ -75,16 +103,15 @@ class MoreInfoViewModel @Inject constructor(private val repositories: Repositori
 //
 
 
-
     fun countryCode(
         context: Activity
     ) = liveData(Dispatchers.IO) {
         emit(Result.loading(data = null))
         try {
             val data = repositories.countryCode()
-            if (data.status == Status.ERROR){
-                emit(Result.error(data.message.toString(),data))
-            }else{
+            if (data.status == Status.ERROR) {
+                emit(Result.error(data.message.toString(), data))
+            } else {
                 emit(Result.success(data = data))
             }
 
