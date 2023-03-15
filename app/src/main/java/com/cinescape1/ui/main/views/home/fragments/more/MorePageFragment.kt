@@ -599,10 +599,8 @@ class MorePageFragment : DaggerFragment(),
                 dialog.show()
             } else {
                 if (frontPhoto != null) {
-                    toast("1")
                     contactUsWithPhoto(email, username, mobile, msg, frontPhoto!!)
                 } else {
-                    toast("2")
                     contactUsWitOutPhoto(email, username, mobile, msg)
                 }
                 Constant().hideKeyboard(requireActivity())
@@ -610,7 +608,6 @@ class MorePageFragment : DaggerFragment(),
 
         }
 
-        println("Mobile--->${mobile}")
         if (mobile == "") {
             text_signout.text = getString(R.string.sign_in)
             view_first.setOnClickListener {

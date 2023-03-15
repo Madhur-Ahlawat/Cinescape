@@ -7,204 +7,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/movieDetails"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:paddingStart="@dimen/margin3"
-        android:paddingTop="@dimen/margin10"
-        android:paddingEnd="@dimen/margin3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <View
-            android:id="@+id/view_booking_id_one"
-            android:layout_width="0dp"
-            android:layout_height="55dp"
-            app:layout_constraintEnd_toStartOf="@+id/view_food_picku_no_one"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/text_bookig_id_one"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/sf_pro_text_regular"
-            android:text="@string/booking_id"
-            android:textColor="@color/text_alert_color"
-            android:textSize="@dimen/size15"
-            app:layout_constraintEnd_toEndOf="@+id/view_booking_id_one"
-            app:layout_constraintHorizontal_bias="0.481"
-            app:layout_constraintStart_toStartOf="@+id/view_booking_id_one"
-            app:layout_constraintTop_toTopOf="@+id/view_booking_id_one"
-            tools:ignore="TextContrastCheck" />
-
-        <TextView
-            android:id="@+id/text_bookin_id_no"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:includeFontPadding="false"
-            android:fontFamily="@font/sf_pro_text_bold"
-            android:maxLines="2"
-            android:textColor="@color/black"
-            android:textSize="@dimen/size15"
-            app:layout_constraintEnd_toEndOf="@+id/view_booking_id_one"
-            app:layout_constraintHorizontal_bias="0.487"
-            app:layout_constraintStart_toStartOf="@+id/view_booking_id_one"
-            app:layout_constraintTop_toBottomOf="@+id/text_bookig_id_one"
-            tools:text="WN5H3HD" />
-
-        <View
-            android:id="@+id/view_food_picku_no_one"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="4dp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/text_bookin_id_no"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1.2"
-            app:layout_constraintStart_toEndOf="@+id/view_booking_id_one"
-            app:layout_constraintTop_toTopOf="@+id/view_booking_id_one" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/consFoodPickupId"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/view_food_picku_no_one"
-            app:layout_constraintEnd_toEndOf="@+id/view_food_picku_no_one"
-            app:layout_constraintStart_toStartOf="@+id/view_food_picku_no_one"
-            app:layout_constraintTop_toTopOf="@+id/view_food_picku_no_one">
-
-
-            <TextView
-                android:id="@+id/textView163"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin8"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:text="@string/food_pickup_id"
-                android:textColor="@color/hint_color"
-                android:textSize="@dimen/size14"
-                android:textStyle="normal"
-                app:layout_constraintEnd_toStartOf="@+id/textView166"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView166"
-                android:layout_width="@dimen/margin18"
-                android:layout_height="@dimen/margin16"
-                android:layout_marginEnd="@dimen/margin10"
-                android:gravity="center"
-                android:text="i"
-                android:padding="@dimen/margin2"
-                android:textSize="@dimen/size15"
-                android:textColor="@color/white"
-                android:background="@drawable/food_pickup_bg"
-                app:layout_constraintBottom_toBottomOf="@+id/textView163"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView163" />
-
-            <TextView
-                android:id="@+id/textView167"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="@font/sf_pro_text_bold"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="1sp"
-                android:textColor="@color/black"
-                android:textSize="@dimen/size14"
-                android:textStyle="normal"
-                android:paddingTop="@dimen/margin2"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/textView163"
-                app:layout_constraintStart_toStartOf="@+id/textView163"
-                app:layout_constraintTop_toBottomOf="@+id/textView163"
-                tools:text="B17"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/btnPreparedFood"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/margin37"
-            android:layout_marginStart="@dimen/margin5"
-            android:background="@drawable/red_curv_bt"
-            android:drawableStart="@drawable/ic_food"
-            android:drawablePadding="@dimen/margin8"
-            android:drawableTint="@color/white"
-            android:fontFamily="@font/sf_pro_text_regular"
-            android:gravity="center_vertical"
-            android:letterSpacing="-0.01"
-            android:paddingStart="@dimen/margin8"
-            android:paddingEnd="@dimen/margin16"
-            android:text="@string/prepare_food"
-            android:textColor="@color/white"
-            android:textSize="@dimen/size12"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/view_food_picku_no_one"
-            app:layout_constraintEnd_toEndOf="@+id/view_food_picku_no_one"
-            app:layout_constraintTop_toTopOf="@+id/view_food_picku_no_one" />
-
-        <TextView
-            android:id="@+id/btnAddFood"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/margin37"
-            android:layout_marginEnd="@dimen/margin6"
-            android:background="@drawable/red_curv_bt"
-            android:drawableStart="@drawable/ic_food"
-            android:drawablePadding="@dimen/margin8"
-            android:drawableTint="@color/white"
-            android:fontFamily="@font/sf_pro_text_regular"
-            android:gravity="center_vertical"
-            android:letterSpacing="-0.01"
-            android:paddingStart="@dimen/margin8"
-
-            android:paddingEnd="@dimen/margin16"
-            android:text="@string/add_food"
-            android:textColor="@color/white"
-            android:textSize="@dimen/size12"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/view_food_picku_no_one"
-            app:layout_constraintEnd_toEndOf="@+id/view_food_picku_no_one"
-            app:layout_constraintTop_toTopOf="@+id/view_food_picku_no_one" />
-
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <View
-        android:id="@+id/view_bookin_line_one"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:layout_marginTop="28dp"
-        android:background="@color/view_bg_color_line"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movieDetails" />
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="28dp"
         android:paddingStart="@dimen/margin3"
         android:paddingEnd="@dimen/margin3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_bookin_line_one">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedScroll"
@@ -220,18 +33,17 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <!--   initial-->
+                <!--   title-->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/text_name_movie"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sf_pro_text_bold"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/size18"
+                    tools:text="Bombshell"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Bombshell">
+                    app:layout_constraintTop_toTopOf="parent">
 
 
                     <com.google.android.flexbox.FlexboxLayout
@@ -262,7 +74,7 @@
                             app:layout_constraintEnd_toStartOf="@+id/ratingUi"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            tools:text="Gunda " />
+                            tools:text="Gunda" />
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:id="@+id/constraintLayout18"
@@ -297,8 +109,7 @@
                                     android:includeFontPadding="false"
                                     android:textColor="@color/white"
                                     android:textSize="@dimen/size11"
-                                    tools:ignore="HardcodedText,TextContrastCheck"
-                                    tools:text="13+" />
+                                    tools:text="13+"/>
 
                             </androidx.cardview.widget.CardView>
 
@@ -332,8 +143,7 @@
                         android:textStyle="normal"
                         app:layout_constraintEnd_toEndOf="@+id/text_location_names"
                         app:layout_constraintStart_toStartOf="@+id/view_locations"
-                        app:layout_constraintTop_toTopOf="@+id/view_date"
-                        tools:ignore="TextContrastCheck" />
+                        app:layout_constraintTop_toTopOf="@+id/view_date" />
 
                     <TextView
                         android:id="@+id/text_location_names"
@@ -372,8 +182,7 @@
                         android:textStyle="normal"
                         app:layout_constraintEnd_toEndOf="@+id/view_times1"
                         app:layout_constraintStart_toStartOf="@+id/txt_date"
-                        app:layout_constraintTop_toTopOf="@+id/view_date"
-                        tools:ignore="TextContrastCheck" />
+                        app:layout_constraintTop_toTopOf="@+id/view_date" />
 
                     <TextView
                         android:id="@+id/txt_date"
@@ -475,8 +284,7 @@
                         android:textStyle="normal"
                         app:layout_constraintEnd_toEndOf="@+id/views_screen"
                         app:layout_constraintStart_toStartOf="@+id/views_screen"
-                        app:layout_constraintTop_toTopOf="@+id/views_screen"
-                        tools:ignore="TextContrastCheck" />
+                        app:layout_constraintTop_toTopOf="@+id/views_screen" />
 
                     <TextView
                         android:id="@+id/txt_scrrens"
@@ -532,8 +340,7 @@
                         android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="@+id/view_category"
                         app:layout_constraintStart_toStartOf="@+id/view_category"
-                        app:layout_constraintTop_toTopOf="@+id/view_category"
-                        tools:ignore="TextContrastCheck" />
+                        app:layout_constraintTop_toTopOf="@+id/view_category" />
 
                     <TextView
                         android:id="@+id/categoryName"
@@ -583,8 +390,7 @@
                         android:textStyle="normal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="TextContrastCheck" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/seats_list"
@@ -642,8 +448,7 @@
                         app:layout_constraintEnd_toEndOf="@+id/view_payment_mode_one"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/view_payment_mode_one"
-                        app:layout_constraintTop_toTopOf="@+id/view_payment_mode_one"
-                        tools:ignore="TextContrastCheck" />
+                        app:layout_constraintTop_toTopOf="@+id/view_payment_mode_one" />
 
                     <TextView
                         android:id="@+id/text_wallet"
@@ -672,8 +477,7 @@
                         app:layout_constraintEnd_toEndOf="@+id/view_total_tickect_price_one"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/view_total_tickect_price_one"
-                        app:layout_constraintTop_toTopOf="@+id/view_total_tickect_price_one"
-                        tools:ignore="TextContrastCheck" />
+                        app:layout_constraintTop_toTopOf="@+id/view_total_tickect_price_one" />
 
                     <TextView
                         android:id="@+id/text_kd_total_ticket_price"

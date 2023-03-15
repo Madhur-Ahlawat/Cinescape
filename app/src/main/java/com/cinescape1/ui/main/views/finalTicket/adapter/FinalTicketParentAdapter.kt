@@ -39,9 +39,9 @@ class FinalTicketParentAdapter(
     var mContext: Activity,
     private var homeDataList: ArrayList<FinalTicketLocalModel>,
     private var output: TicketSummaryResponse.Output,
-    var listener1: TypeFaceFinalTicket0ne, var listener2: TypeFaceFinalTicketTwo,
+    var listener1: TypeFaceFinalTicket0ne,
+    var listener2: TypeFaceFinalTicketTwo,
     var listener3: TypeFaceFinalTicketThree,
-    var listenerFoodPrepare: RecycleViewItemFoodPrepare,
     ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var adapter: HomeChildAdapter? = null
@@ -78,7 +78,6 @@ class FinalTicketParentAdapter(
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         //One
-        var oneBookingId = itemView.text_bookin_id_no!!
         var oneTitle = itemView.text_film_house_name!!
         var oneRating = itemView.text_types!!
         var oneLocation = itemView.text_location_names!!
@@ -91,18 +90,9 @@ class FinalTicketParentAdapter(
         var onePayMode = itemView.text_wallet!!
         var addFood = itemView.textView49!!
         var onePrice = itemView.text_kd_total_ticket_price!!
-
-        var btFoodPrepare = itemView.btnPreparedFood
-        var foodAddBtn = itemView.btnAddFood
-        var consFoodPickupId = itemView.consFoodPickupId
-        var txtFoodPickupId = itemView.textView167
     }
 
     class MyViewHolderTwo(view: View) : RecyclerView.ViewHolder(view) {
-        //two
-        var twoBookingId = itemView.text_bookin_id_no1!!
-        var btnPreOnlyFood = itemView.btnPreOnlyFood!!
-        var twoPickupInfo = itemView.textFoodPicUp!!
         var twoFood = itemView.recyclerview_food_details!!
         var twoPayMode = itemView.text_wallet1!!
         var twoPayPrice = itemView.text_kd_total_ticket_price1!!
@@ -111,7 +101,6 @@ class FinalTicketParentAdapter(
 
     class MyViewHolderThree(view: View) : RecyclerView.ViewHolder(view) {
         //three
-        var threeBookingId = itemView.text_booking_id_no1!!
         var threeTicket = itemView.textView125!!
         var threeTicketPrice = itemView.textView126!!
         var threeFood = itemView.textView128!!
@@ -167,9 +156,7 @@ class FinalTicketParentAdapter(
 
         when (getItemViewType(position)) {
             1 -> {
-
                 val holder = holder as MyViewHolder
-                holder.oneBookingId.text = output.kioskId
                 holder.oneTitle.text = output.moviename
                 holder.oneRating.text = output.mcensor
                 holder.oneRating.setBackgroundColor(Color.parseColor(output.ratingColor))
@@ -177,7 +164,6 @@ class FinalTicketParentAdapter(
                 holder.oneLocation.text = output.cinemaname
                 holder.oneDateTime.text = output.showDate + "  " + output.showTime
                 holder.oneScreen.text = output.screenId
-                holder.txtFoodPickupId.text = output.pickUpNumber
 
 
                 when (output.experience) {
@@ -279,93 +265,20 @@ class FinalTicketParentAdapter(
                 }
 
                 listener1.onTypeFaceFinalTicketOne(
-                    holder.oneBookingId, holder.oneTitle, holder.oneRating,
+                     holder.oneTitle, holder.oneRating,
                     holder.oneLocation, holder.oneDateTime, holder.oneScreen,
                     holder.oneCategoryName, holder.onePayMode, holder.onePrice
                 )
 
-                if (output.food == 0){
-                    holder.btFoodPrepare.hide()
-                    holder.foodAddBtn.hide()
-                    holder.consFoodPickupId.hide()
-                }
 
-                if (output.food == 1){
-                    holder.btFoodPrepare.hide()
-                    holder.foodAddBtn.show()
-                    holder.consFoodPickupId.hide()
-                }
 
-                if (output.food == 2) {
-                    holder.btFoodPrepare.show()
-                    holder.foodAddBtn.hide()
-                    holder.consFoodPickupId.hide()
-                    holder.btFoodPrepare.background = ContextCompat.getDrawable(mContext,R.drawable.food_pickup_bg)
-                    holder.btFoodPrepare.isClickable = false
-                }
-
-                if (output.food == 3){
-                    holder.btFoodPrepare.show()
-                    holder.foodAddBtn.hide()
-                    holder.consFoodPickupId.hide()
-                    holder.btFoodPrepare.isClickable = true
-                }
-
-                if (output.food == 4){
-                    holder.btFoodPrepare.hide()
-                    holder.foodAddBtn.hide()
-                    holder.consFoodPickupId.show()
-                }
-
-                holder.consFoodPickupId.setOnClickListener {
-
-                    val mDialogView = LayoutInflater.from(mContext).inflate(R.layout.food_pickup_dialog, null)
-                    val mBuilder = AlertDialog.Builder(mContext, R.style.NewDialog).setView(mDialogView)
-                    val mAlertDialog = mBuilder.show()
-                    mAlertDialog.show()
-                    mAlertDialog.window?.setBackgroundDrawableResource(R.color.black70)
-                    val closeDialog = mDialogView.findViewById<TextView>(R.id.close_dialog)
-                    val text=mAlertDialog.findViewById<TextView>(R.id.textView105)
-
-                    text?.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        Html.fromHtml(output.pickupInfo, Html.FROM_HTML_MODE_COMPACT)
-                    } else {
-                        Html.fromHtml(output.pickupInfo)
-                    }
-
-                    closeDialog.setOnClickListener {
-                        mAlertDialog.dismiss()
-                    }
-
-                }
-
-                holder.foodAddBtn.setOnClickListener {
-                    val intent = Intent(mContext, FoodActivity::class.java)
-                        .putExtra("CINEMA_ID", output.cinemacode)
-                        .putExtra("BOOKING", "ADDFOOD")
-                        .putExtra("type", "FOOD")
-                        .putExtra("typeSkip", "SkipButtonHide")
-                    mContext.startActivity(intent)
-                }
-
-                holder.btFoodPrepare.setOnClickListener {
-                    listenerFoodPrepare.foodPrepareClick(output)
-                    notifyDataSetChanged()
-                }
 
 
             }
 
             2 -> {
 //Two
-                println("called this method.....")
                 val holderTwo = holder as MyViewHolderTwo
-                holderTwo.twoBookingId.text = output.kioskId
-                if (!output.foodPickup) {
-                    holderTwo.twoPickupInfo.hide()
-                } else {
-                    holderTwo.twoPickupInfo.hide()
-                }
 
                 if (payMode == 1){
                     holderTwo.text_payment_mode2.show()
@@ -374,52 +287,6 @@ class FinalTicketParentAdapter(
                     holderTwo.text_payment_mode2.hide()
                     holderTwo.twoPayMode.hide()
                 }
-
-                if (output.food == 0){
-                    holder.btnPreOnlyFood.hide()
-//                    holder.foodAddBtn.hide()
-//                    holder.consFoodPickupId.hide()
-                }
-                
-
-                if (output.food == 1){
-                    holder.btnPreOnlyFood.hide()
-//                    holder.foodAddBtn.show()
-//                    holder.consFoodPickupId.hide()
-                }
-
-                if (output.food == 2) {
-                    holder.btnPreOnlyFood.show()
-//                    holder.foodAddBtn.hide()
-//                    holder.consFoodPickupId.hide()
-                    holder.btnPreOnlyFood.background = ContextCompat.getDrawable(mContext,R.drawable.food_pickup_bg)
-                    holder.btnPreOnlyFood.isClickable = false
-                }
-
-                if (output.food == 3){
-                    holder.btnPreOnlyFood.show()
-//                    holder.foodAddBtn.hide()
-//                    holder.consFoodPickupId.hide()
-                    holder.btnPreOnlyFood.isClickable = true
-                }
-
-                if (output.food == 4){
-                    holder.btnPreOnlyFood.hide()
-//                    holder.foodAddBtn.hide()
-//                    holder.consFoodPickupId.show()
-                }
-
-                if (output.food == 2) {
-                    holder.btnPreOnlyFood.show()
-                    holder.btnPreOnlyFood.background = ContextCompat.getDrawable(mContext,R.drawable.food_pickup_bg)
-                    holder.btnPreOnlyFood.isClickable = false
-                }
-
-                holder.btnPreOnlyFood.setOnClickListener {
-                    listenerFoodPrepare.foodPrepareClick(output)
-                    notifyDataSetChanged()
-                }
-
 
                 val gridLayout = GridLayoutManager(mContext, 1, GridLayoutManager.VERTICAL, false)
                 holderTwo.twoFood.layoutManager = LinearLayoutManager(mContext)
@@ -430,7 +297,6 @@ class FinalTicketParentAdapter(
                 holderTwo.twoPayPrice.text = output.foodTotal
 
                 listener2.onTypeFaceFinalTicketTwo(
-                    holderTwo.twoBookingId, holderTwo.twoPickupInfo,
                     holderTwo.twoPayMode, holderTwo.twoPayPrice
                 )
 
@@ -439,7 +305,6 @@ class FinalTicketParentAdapter(
             3 -> {
                 //Three
                 val holderThree = holder as MyViewHolderThree
-                holderThree.threeBookingId.text = output.kioskId
                 holderThree.threeTicket.text = output.category + " " + output.ticketPrice + " x " + output.numofseats
 
                 holderThree.threeTicketPrice.text = output.totalTicketPrice
@@ -471,7 +336,6 @@ class FinalTicketParentAdapter(
                 holderThree.threeTotalPrice.text = output.totalPrice
 
                 listener3.onTypeFaceFinalTicketThree(
-                    holderThree.threeBookingId,
                     holderThree.threeTicket,
                     holderThree.threeTicketPrice,
                     holderThree.threeFood,
@@ -487,8 +351,7 @@ class FinalTicketParentAdapter(
     }
 
     interface TypeFaceFinalTicket0ne {
-        fun onTypeFaceFinalTicketOne(
-            oneBookingId: TextView, oneTitle: TextView,
+        fun onTypeFaceFinalTicketOne(oneTitle: TextView,
             oneRating: TextView, oneLocation: TextView,
             oneDateTime: TextView, oneScreen: TextView,
             oneCategoryName: TextView,
@@ -501,22 +364,17 @@ class FinalTicketParentAdapter(
 
     interface TypeFaceFinalTicketTwo {
         fun onTypeFaceFinalTicketTwo(
-            twoBookingId: TextView, twoPickupInfo: TextView,
             twoPayMode: TextView, twoPayPrice: TextView
         )
     }
 
     interface TypeFaceFinalTicketThree {
         fun onTypeFaceFinalTicketThree(
-            threeBookingId: TextView,
             threeTicket: TextView, threeTicketPrice: TextView, threeFood: TextView,
             threeFoodPrice: TextView, threeReferenceId: TextView, threeReferenceTxt: TextView,
             threeTrackId: TextView, threeDateTime: TextView, threePayMode: TextView
         )
     }
 
-    interface RecycleViewItemFoodPrepare {
-        fun foodPrepareClick(output: TicketSummaryResponse.Output)
-    }
 
 }

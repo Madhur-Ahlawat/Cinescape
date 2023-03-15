@@ -527,6 +527,7 @@ class AccountPageFragment : DaggerFragment(),
         enter_emails.setText(email)
         enter_mobile_numbers.setText(mobile)
 
+
 //Image hide Home
         (requireActivity().findViewById(R.id.imageView42) as ConstraintLayout).hide()
 
@@ -3274,7 +3275,6 @@ class AccountPageFragment : DaggerFragment(),
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        loader?.dismiss()
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
 
@@ -3292,6 +3292,7 @@ class AccountPageFragment : DaggerFragment(),
                                     preferencesCheck = 0
                                 }
 
+                                loader?.dismiss()
 
                                 profileList = it.data.output.experience
                                 ageRatingList = it.data.output.rating
@@ -3331,8 +3332,8 @@ class AccountPageFragment : DaggerFragment(),
                     Status.LOADING -> {
 
                         if (isAdded) {
-//                            loader = LoaderDialog(R.string.pleasewait)
-//                            loader?.show(requireActivity().supportFragmentManager, null)
+                            loader = LoaderDialog(R.string.pleasewait)
+                            loader?.show(requireActivity().supportFragmentManager, null)
                         }
 
                     }

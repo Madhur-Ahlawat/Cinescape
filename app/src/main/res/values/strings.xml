@@ -390,5 +390,6 @@
 
     <string name="noBookings">There are currently no bookings</string>
     <string name="noHistory">No order history found</string>
+    <string name="i">i</string>
 
 </resources>

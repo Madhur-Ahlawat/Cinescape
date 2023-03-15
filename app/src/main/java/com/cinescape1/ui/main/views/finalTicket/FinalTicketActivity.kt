@@ -6,12 +6,16 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.Html
 import android.view.*
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModelProvider
@@ -30,6 +34,7 @@ import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.finalTicket.adapter.FinalTicketParentAdapter
 import com.cinescape1.ui.main.views.finalTicket.model.FinalTicketLocalModel
 import com.cinescape1.ui.main.views.finalTicket.viewModel.FinalTicketViewModel
+import com.cinescape1.ui.main.views.food.FoodActivity
 import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.utils.*
 import com.cinescape1.utils.Constant.IntentKey.Companion.BACKFinlTicket
@@ -42,14 +47,14 @@ import javax.inject.Inject
 class FinalTicketActivity : DaggerAppCompatActivity(),
     FinalTicketParentAdapter.TypeFaceFinalTicket0ne,
     FinalTicketParentAdapter.TypeFaceFinalTicketTwo,
-    FinalTicketParentAdapter.TypeFaceFinalTicketThree,
-    FinalTicketParentAdapter.RecycleViewItemFoodPrepare
-{
+    FinalTicketParentAdapter.TypeFaceFinalTicketThree {
 
     private var loader: LoaderDialog? = null
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private var binding: ActivityFinalTicketBinding? = null
+
     @Inject
     lateinit var preferences: AppPreferences
     private val finalTicketViewModel: FinalTicketViewModel by viewModels { viewModelFactory }
@@ -229,12 +234,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
         transId = intent.getStringExtra(Constant.IntentKey.TRANSACTION_ID).toString()
         bookType = intent.getStringExtra(Constant.IntentKey.BOOK_TYPE).toString()
 
-        if (transId.isBlank() ||
-            transId.isEmpty() ||
-            transId.isEmpty() ||
-            !transId.isDigitsOnly() ||
-            transId.toIntOrNull() == null
-        ) {
+        if (transId.isBlank() || transId.isEmpty() || transId.isEmpty() || !transId.isDigitsOnly() || transId.toIntOrNull() == null) {
             println("transId-------${transId}")
         } else {
             transId1 = transId.toInt()
@@ -270,7 +270,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
                 Constant.IntentKey.OPEN_FROM = 1
 //                startActivity(intent)
                 finish()
-            }else{
+            } else {
                 Constant.IntentKey.DialogShow = true
                 val intent = Intent(this@FinalTicketActivity, HomeActivity::class.java)
                 Constant.IntentKey.OPEN_FROM = 0
@@ -283,74 +283,144 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
     }
 
     private fun printTicket(request: FinalTicketRequest) {
-        finalTicketViewModel.tckBooked(request)
-            .observe(this) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    try {
-                                        binding?.uiFinalTaket?.show()
-                                        binding?.successConstraintLayout?.show()
-                                        binding?.uiFinalTaket?.show()
-                                        val runnable = Runnable {
-                                            binding?.successConstraintLayout?.hide()
-                                            binding?.imageQrCode?.show()
-                                            binding?.cardUi?.show()
-                                        }
-                                        val handler = Handler(Looper.getMainLooper())
-                                        handler.postDelayed(runnable, 3000)
-
-                                        retrieveBookedResponse(it.data.output)
-                                    } catch (e: Exception) {
-                                        println("updateUiCinemaSession ---> ${e.message}")
+        finalTicketViewModel.tckBooked(request).observe(this) {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                try {
+                                    binding?.uiFinalTaket?.show()
+                                    binding?.successConstraintLayout?.show()
+                                    binding?.uiFinalTaket?.show()
+                                    val runnable = Runnable {
+                                        binding?.successConstraintLayout?.hide()
+                                        binding?.imageQrCode?.show()
+                                        binding?.cardUi?.show()
                                     }
+                                    val handler = Handler(Looper.getMainLooper())
+                                    handler.postDelayed(runnable, 3000)
 
-
-                                } else {
-                                    loader?.dismiss()
-                                    val dialog = OptionDialog(this,
-                                        R.mipmap.ic_launcher,
-                                        R.string.app_name,
-                                        it.data?.msg.toString(),
-                                        positiveBtnText = R.string.ok,
-                                        negativeBtnText = R.string.no,
-                                        positiveClick = {
-                                        },
-                                        negativeClick = {
-                                        })
-                                    dialog.show()
+                                    retrieveBookedResponse(it.data.output)
+                                } catch (e: Exception) {
+                                    println("updateUiCinemaSession ---> ${e.message}")
                                 }
 
+
+                            } else {
+                                loader?.dismiss()
+                                val dialog = OptionDialog(this,
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
                             }
+
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(this,
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {
-                                },
-                                negativeClick = {
-                                })
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
-                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(this,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                        loader = LoaderDialog(R.string.pleasewait)
+                        loader?.show(supportFragmentManager, null)
                     }
                 }
             }
+        }
     }
 
     @SuppressLint("SetTextI18n")
     private fun retrieveBookedResponse(output: TicketSummaryResponse.Output) {
+
+//bookingId
+        binding?.textBookinIdNo?.text = output.kioskId
+        //pickupNumber
+        binding?.textView167?.text = output.pickUpNumber
+
+        binding?.btnPreparedFood?.setOnClickListener {
+            prepareBtn = 1
+            foodPickup(
+                FoodPrepareRequest(
+                    output.bookingId, "", 0, preferences.getString(Constant.USER_ID).toString()
+                )
+            )
+        }
+
+        if (output.food == 0) {
+            binding?.btnPreparedFood?.hide()
+            binding?.btnAddFood?.hide()
+            binding?.consFoodPickupId?.hide()
+        } else if (output.food == 1) {
+            binding?.btnPreparedFood?.hide()
+            binding?.btnAddFood?.show()
+            binding?.consFoodPickupId?.hide()
+        } else if (output.food == 2) {
+            binding?.btnPreparedFood?.show()
+            binding?.btnAddFood?.hide()
+            binding?.consFoodPickupId?.hide()
+            binding?.btnPreparedFood?.background =
+                ContextCompat.getDrawable(this@FinalTicketActivity, R.drawable.food_pickup_bg)
+            binding?.btnPreparedFood?.isClickable = false
+        } else if (output.food == 3) {
+            binding?.btnPreparedFood?.show()
+            binding?.btnAddFood?.hide()
+            binding?.consFoodPickupId?.hide()
+            binding?.btnPreparedFood?.isClickable = true
+        } else if (output.food == 4) {
+            binding?.btnPreparedFood?.hide()
+            binding?.btnAddFood?.hide()
+            binding?.consFoodPickupId?.show()
+        }
+
+        //ALert Dialog
+        binding?.textView166?.setOnClickListener {
+            val mDialogView = LayoutInflater.from(this@FinalTicketActivity)
+                .inflate(R.layout.food_pickup_dialog, null)
+            val mBuilder = AlertDialog.Builder(this@FinalTicketActivity, R.style.NewDialog)
+                .setView(mDialogView)
+            val mAlertDialog = mBuilder.show()
+            mAlertDialog.show()
+            mAlertDialog.window?.setBackgroundDrawableResource(R.color.black70)
+            val closeDialog = mDialogView.findViewById<TextView>(R.id.close_dialog)
+            val text = mAlertDialog.findViewById<TextView>(R.id.textView105)
+
+            text?.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Html.fromHtml(output.pickupInfo, Html.FROM_HTML_MODE_COMPACT)
+            } else {
+                Html.fromHtml(output.pickupInfo)
+            }
+
+            closeDialog.setOnClickListener {
+                mAlertDialog.dismiss()
+            }
+
+        }
+
+//foodAdd Button
+        binding?.btnAddFood?.setOnClickListener {
+            val intent = Intent(this@FinalTicketActivity, FoodActivity::class.java).putExtra(
+                "CINEMA_ID", output.cinemacode
+            ).putExtra("BOOKING", "ADDFOOD").putExtra("type", "FOOD")
+                .putExtra("typeSkip", "SkipButtonHide")
+            startActivity(intent)
+        }
+
+
         val runnable = Runnable {
             binding?.successConstraintLayout?.hide()
             binding?.imageQrCode?.show()
@@ -365,23 +435,15 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
 
         //Set Header image
         binding?.imageHead?.let {
-            Glide.with(this)
-                .load(output.posterhori)
-                .placeholder(R.drawable.app_icon)
-                .into(it)
+            Glide.with(this).load(output.posterhori).placeholder(R.drawable.app_icon).into(it)
         }
-        if (output.bookingType == "BOOKING"){
+        if (output.bookingType == "BOOKING") {
             binding?.imageView49?.let {
-                Glide.with(this)
-                    .load(output.posterhori)
-                    .placeholder(R.drawable.app_icon)
-                    .into(it)
-        }
-        }else {
+                Glide.with(this).load(output.posterhori).placeholder(R.drawable.app_icon).into(it)
+            }
+        } else {
             binding?.imageView49?.let {
-                Glide.with(this)
-                    .load(output.posterhori)
-                    .placeholder(R.drawable.food_final_icon)
+                Glide.with(this).load(output.posterhori).placeholder(R.drawable.food_final_icon)
                     .into(it)
             }
         }
@@ -407,29 +469,23 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
             println("checkCase--->3---New")
         }
 
-        val gridLayout = GridLayoutManager(this@FinalTicketActivity, 1, GridLayoutManager.HORIZONTAL, false)
-        binding?.recyclerViewFinalTicket?.layoutManager = LinearLayoutManager(this@FinalTicketActivity)
+        val gridLayout =
+            GridLayoutManager(this@FinalTicketActivity, 1, GridLayoutManager.HORIZONTAL, false)
+        binding?.recyclerViewFinalTicket?.layoutManager =
+            LinearLayoutManager(this@FinalTicketActivity)
 
-
-        if (prepareBtn == 0){
+        if (prepareBtn == 0) {
             val snapHelper = PagerSnapHelper()
             snapHelper.attachToRecyclerView(binding?.recyclerViewFinalTicket)
 
             val finalTicketParentAdapter = FinalTicketParentAdapter(
-                this@FinalTicketActivity,
-                finalTicketLocalModel,
-                output,
-                this,
-                this,
-                this,
-                this
+                this@FinalTicketActivity, finalTicketLocalModel, output, this, this, this
             )
-
             binding?.recyclerViewFinalTicket?.layoutManager = gridLayout
             binding?.recyclerViewFinalTicket?.adapter = finalTicketParentAdapter
             binding?.layoutDots?.attachToRecyclerView(binding?.recyclerViewFinalTicket!!)
 
-        }else{
+        } else {
             prepareBtn = 0
         }
 
@@ -439,71 +495,63 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
     private fun setMySingleTicket() {
         mySingleTicket(
             MySingleTicketRequest(
-                bookingId,
-                bookType,
-                transId1,
-                preferences.getString(Constant.USER_ID)!!
+                bookingId, bookType, transId1, preferences.getString(Constant.USER_ID)!!
             )
         )
     }
 
     private fun mySingleTicket(request: MySingleTicketRequest) {
-        finalTicketViewModel.getMySingleTicketData(request)
-            .observe(this) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    try {
-                                        binding?.imageQrCode?.show()
-                                        binding?.cardUi?.show()
-                                        binding?.uiFinalTaket?.show()
-                                        retrieveBookedResponse(it.data.output)
-                                    } catch (e: Exception) {
-                                        e.printStackTrace()
-                                        println("updateUiCinemaSession ---> ${e.message}")
-                                    }
-
-                                } else {
-                                    loader?.dismiss()
-                                    val dialog = OptionDialog(this,
-                                        R.mipmap.ic_launcher,
-                                        R.string.app_name,
-                                        it.data?.msg.toString(),
-                                        positiveBtnText = R.string.ok,
-                                        negativeBtnText = R.string.no,
-                                        positiveClick = {
-                                        },
-                                        negativeClick = {
-                                        })
-                                    dialog.show()
+        finalTicketViewModel.getMySingleTicketData(request).observe(this) {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                try {
+                                    binding?.imageQrCode?.show()
+                                    binding?.cardUi?.show()
+                                    binding?.uiFinalTaket?.show()
+                                    retrieveBookedResponse(it.data.output)
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                    println("updateUiCinemaSession ---> ${e.message}")
                                 }
 
+                            } else {
+                                loader?.dismiss()
+                                val dialog = OptionDialog(this,
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
                             }
+
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(this,
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {
-                                },
-                                negativeClick = {
-                                })
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
-                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(this,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                        loader = LoaderDialog(R.string.pleasewait)
+                        loader?.show(supportFragmentManager, null)
                     }
                 }
             }
+        }
     }
 
     @Deprecated("Deprecated in Java")
@@ -515,7 +563,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
     }
 
     override fun onTypeFaceFinalTicketOne(
-        oneBookingId: TextView,
+
         oneTitle: TextView,
         oneRating: TextView,
         oneLocation: TextView,
@@ -525,7 +573,6 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
         onePayMode: TextView,
         onePrice: TextView
     ) {
-        oneBookingId1 = oneBookingId
         oneTitle1 = oneTitle
         oneRating1 = oneRating
         oneLocation1 = oneLocation
@@ -541,20 +588,14 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
     }
 
     override fun onTypeFaceFinalTicketTwo(
-        twoBookingId: TextView,
-        twoPickupInfo: TextView,
-        twoPayMode: TextView,
-        twoPayPrice: TextView
+       twoPayMode: TextView, twoPayPrice: TextView
     ) {
-        twoBookingId1 = twoBookingId
-        twoPickupInfo1 = twoPickupInfo
         twoPayMode1 = twoPayMode
         twoPayPrice1 = twoPayPrice
 
     }
 
     override fun onTypeFaceFinalTicketThree(
-        threeBookingId: TextView,
         threeTicket: TextView,
         threeTicketPrice: TextView,
         threeFood: TextView,
@@ -565,7 +606,6 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
         threeDateTime: TextView,
         threePayMode: TextView
     ) {
-        threeBookingId1 = threeBookingId
         threeTicket1 = threeTicket
         threeTicketPrice1 = threeTicketPrice
         threeFood1 = threeFood
@@ -650,8 +690,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.cancel_dialog)
         dialog.window!!.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
+            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
         )
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
@@ -729,17 +768,6 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
         }
     }
 
-    override fun foodPrepareClick(output: TicketSummaryResponse.Output) {
-        prepareBtn = 1
-        foodPickup(
-            FoodPrepareRequest(
-                output.bookingId,
-            "",
-            0,
-            preferences.getString(Constant.USER_ID).toString())
-        )
-
-    }
 
 }
 

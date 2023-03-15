@@ -19,7 +19,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.cardinalcommerce.cardinalmobilesdk.Cardinal
 import com.cinescape1.R
 import com.cinescape1.data.models.requestModel.*
 import com.cinescape1.data.models.responseModel.TicketSummaryResponse
@@ -687,7 +686,11 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
                                         },
                                         negativeClick = {
                                         })
-                                    dialog.show()
+                                    if (!(this as Activity).isFinishing) {
+                                        //show dialog
+
+                                        dialog.show()
+                                    }
 
                                 }
                             }.start()

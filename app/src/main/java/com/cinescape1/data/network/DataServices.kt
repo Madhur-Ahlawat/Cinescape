@@ -177,7 +177,7 @@ interface DataServices {
         @Part file: MultipartBody.Part
     ): Response<ContactUsResponse>
 
-    @Multipart
+
     @POST("more/contactus")
     suspend fun contactUsWithoutPhoto(
         @Query ("email") email: String,

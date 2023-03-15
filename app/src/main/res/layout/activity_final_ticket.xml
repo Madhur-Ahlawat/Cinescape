@@ -11,7 +11,7 @@
         android:id="@+id/uiFinalTaket"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,12 +22,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:contentDescription="@string/contentDes"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/cinema" />
+            app:srcCompat="@drawable/cinema"
+            tools:ignore="ContentDescription" />
 
 
         <androidx.cardview.widget.CardView
@@ -160,35 +160,233 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ContentDescription" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewFinalTicket"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="29dp"
-                    android:layout_marginEnd="29dp"
-                    android:layout_marginBottom="25dp"
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="27dp"
+                    android:layout_marginEnd="27dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout34"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/movieDetails"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:paddingStart="@dimen/margin3"
+                            android:paddingTop="@dimen/margin10"
+                            android:paddingEnd="@dimen/margin3"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <View
+                                android:id="@+id/view_booking_id_one"
+                                android:layout_width="0dp"
+                                android:layout_height="55dp"
+                                app:layout_constraintEnd_toStartOf="@+id/view_food_picku_no_one"
+                                app:layout_constraintHorizontal_weight="1"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/text_bookig_id_one"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:fontFamily="@font/sf_pro_text_regular"
+                                android:text="@string/booking_id"
+                                android:textColor="@color/text_alert_color"
+                                android:textSize="@dimen/size15"
+                                app:layout_constraintEnd_toEndOf="@+id/view_booking_id_one"
+                                app:layout_constraintHorizontal_bias="0.481"
+                                app:layout_constraintStart_toStartOf="@+id/view_booking_id_one"
+                                app:layout_constraintTop_toTopOf="@+id/view_booking_id_one" />
+
+                            <TextView
+                                android:id="@+id/text_bookin_id_no"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:includeFontPadding="false"
+                                android:fontFamily="@font/sf_pro_text_bold"
+                                android:maxLines="2"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/size15"
+                                app:layout_constraintEnd_toEndOf="@+id/view_booking_id_one"
+                                app:layout_constraintHorizontal_bias="0.487"
+                                app:layout_constraintStart_toStartOf="@+id/view_booking_id_one"
+                                app:layout_constraintTop_toBottomOf="@+id/text_bookig_id_one"
+                                tools:text="WN5H3HD" />
+
+                            <View
+                                android:id="@+id/view_food_picku_no_one"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_marginEnd="4dp"
+                                android:visibility="visible"
+                                app:layout_constraintBottom_toBottomOf="@+id/text_bookin_id_no"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_weight="1.2"
+                                app:layout_constraintStart_toEndOf="@+id/view_booking_id_one"
+                                app:layout_constraintTop_toTopOf="@+id/view_booking_id_one" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/consFoodPickupId"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:visibility="visible"
+                                app:layout_constraintBottom_toBottomOf="@+id/view_food_picku_no_one"
+                                app:layout_constraintEnd_toEndOf="@+id/view_food_picku_no_one"
+                                app:layout_constraintStart_toStartOf="@+id/view_food_picku_no_one"
+                                app:layout_constraintTop_toTopOf="@+id/view_food_picku_no_one">
+
+
+                                <TextView
+                                    android:id="@+id/textView163"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/margin8"
+                                    android:fontFamily="@font/sf_pro_text_regular"
+                                    android:includeFontPadding="true"
+                                    android:text="@string/food_pickup_id"
+                                    android:textColor="@color/hint_color"
+                                    android:textSize="@dimen/size15"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/textView166"
+                                    android:layout_width="@dimen/margin12"
+                                    android:layout_height="11dp"
+                                    android:layout_marginStart="4dp"
+                                    android:background="@drawable/food_pickup_alert"
+                                    android:gravity="center"
+                                    android:includeFontPadding="false"
+                                    android:text="@string/i"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/size15"
+                                    app:layout_constraintBottom_toBottomOf="@+id/textView163"
+                                    app:layout_constraintStart_toEndOf="@+id/textView163"
+                                    app:layout_constraintTop_toTopOf="@+id/textView163" />
+
+                                <TextView
+                                    android:id="@+id/textView167"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf_pro_text_bold"
+                                    android:includeFontPadding="false"
+                                    android:lineSpacingExtra="1sp"
+                                    android:paddingTop="@dimen/margin2"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/size14"
+                                    android:textStyle="normal"
+                                    app:layout_constraintEnd_toEndOf="@+id/textView163"
+                                    app:layout_constraintStart_toStartOf="@+id/textView163"
+                                    app:layout_constraintTop_toBottomOf="@+id/textView163"
+                                    tools:text="B17" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <TextView
+                                android:id="@+id/btnPreparedFood"
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/margin37"
+                                android:layout_marginStart="@dimen/margin5"
+                                android:background="@drawable/red_curv_bt"
+                                android:drawablePadding="@dimen/margin8"
+                                android:fontFamily="@font/sf_pro_text_regular"
+                                android:gravity="center_vertical"
+                                android:letterSpacing="-0.01"
+                                android:paddingStart="@dimen/margin8"
+                                android:paddingEnd="@dimen/margin16"
+                                android:text="@string/prepare_food"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/size12"
+                                android:visibility="gone"
+                                app:layout_constraintBottom_toBottomOf="@+id/view_food_picku_no_one"
+                                app:layout_constraintEnd_toEndOf="@+id/view_food_picku_no_one"
+                                app:layout_constraintTop_toTopOf="@+id/view_food_picku_no_one"
+                                app:drawableStartCompat="@drawable/ic_food"
+                                app:drawableTint="@color/white" />
+
+                            <TextView
+                                android:id="@+id/btnAddFood"
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/margin37"
+                                android:layout_marginEnd="@dimen/margin6"
+                                android:background="@drawable/red_curv_bt"
+                                android:drawablePadding="@dimen/margin8"
+                                android:fontFamily="@font/sf_pro_text_regular"
+                                android:gravity="center_vertical"
+                                android:paddingStart="@dimen/margin8"
+                                android:paddingEnd="@dimen/margin16"
+                                android:text="@string/add_food"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/size12"
+                                android:visibility="gone"
+                                app:layout_constraintBottom_toBottomOf="@+id/view_food_picku_no_one"
+                                app:layout_constraintEnd_toEndOf="@+id/view_food_picku_no_one"
+                                app:layout_constraintTop_toTopOf="@+id/view_food_picku_no_one"
+                                app:drawableTint="@color/white"
+                                app:drawableStartCompat="@drawable/ic_food" />
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <View
+                            android:id="@+id/view_bookin_line_one"
+                            android:layout_width="wrap_content"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="28dp"
+                            android:background="@color/view_bg_color_line"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/movieDetails" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewFinalTicket"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="25dp"
+                        android:layout_marginTop="@dimen/margin28"
+                        tools:listitem="@layout/final_ticket_item_two"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout34" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
                     android:id="@+id/layoutDots"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/margin12"
+                    android:layout_marginBottom="42dp"
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:padding="6dp"
-                    android:layout_marginBottom="@dimen/margin32"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView68"
-                    app:layout_constraintEnd_toEndOf="@+id/recyclerViewFinalTicket"
-                    app:layout_constraintStart_toStartOf="@+id/recyclerViewFinalTicket"
-                    app:spi_dotSelectedColor="@color/arabic_color"
-                    app:tabBackground="@drawable/indicator_selector"
                     app:tabGravity="center"
                     app:tabIndicatorHeight="0dp"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView68"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:spi_dotSelectedColor="@color/arabic_color"
+                    app:tabBackground="@drawable/indicator_selector" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -199,10 +397,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/size15"
             android:layout_marginTop="30dp"
+            app:srcCompat="@drawable/ic_back_button"
             app:layout_constraintStart_toStartOf="@+id/image_head"
             app:layout_constraintTop_toTopOf="@+id/image_head"
-            app:srcCompat="@drawable/ic_back_button"
-            tools:ignore="ContentDescription,ImageContrastCheck" />
+            tools:ignore="ContentDescription" />
 
         <View
             android:id="@+id/view102"
@@ -256,8 +454,7 @@
                     app:layout_constraintVertical_bias="0.0"
                     app:siArrowPosition="right"
                     app:siShape="@drawable/curve_ticket"
-                    app:siSquare="true"
-                    tools:ignore="ContentDescription" />
+                    app:siSquare="true"/>
 
                 <LinearLayout
                     android:visibility="gone"

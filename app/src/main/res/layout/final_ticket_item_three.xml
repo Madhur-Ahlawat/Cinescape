@@ -8,77 +8,18 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/view_booking_id_three"
-        android:layout_width="0dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="@dimen/margin16"
-        android:layout_marginEnd="@dimen/margin16"
-        android:paddingStart="@dimen/margin5"
-        android:paddingEnd="@dimen/margin5"
-        android:layout_marginTop="@dimen/margin8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/booking_id_new"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/sf_pro_text_regular"
-            android:text="@string/booking_id"
-            android:textColor="@color/text_alert_color"
-            android:textSize="@dimen/size14"
-            android:textStyle="normal"
-            app:layout_constraintEnd_toEndOf="@+id/view_booking_id_three"
-            app:layout_constraintHorizontal_bias="0.481"
-            app:layout_constraintStart_toStartOf="@+id/view_booking_id_three"
-            app:layout_constraintTop_toTopOf="@+id/view_booking_id_three"
-            tools:ignore="TextContrastCheck" />
-
-        <TextView
-            android:id="@+id/text_booking_id_no1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/sf_pro_text_bold"
-            android:textColor="@color/black"
-            android:textSize="@dimen/size16"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/view_booking_id_three"
-            app:layout_constraintHorizontal_bias="0.487"
-            app:layout_constraintStart_toStartOf="@+id/view_booking_id_three"
-            app:layout_constraintTop_toBottomOf="@+id/booking_id_new"
-            tools:text="WN5H3HD" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <View
-        android:id="@+id/view_booking_line"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/view_bg_color_line"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_booking_id_three" />
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin16"
         android:layout_marginEnd="@dimen/margin16"
         android:fillViewport="true"
         android:paddingStart="@dimen/margin5"
-        android:paddingTop="@dimen/margin20"
         android:paddingEnd="@dimen/margin5"
         android:paddingBottom="@dimen/margin20"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_booking_line">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -119,6 +60,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/sf_pro_text_regular"
                             android:text="@string/tickets"
+                            android:includeFontPadding="false"
                             android:textColor="@color/text_alert_color"
                             android:textSize="@dimen/size15"
                             app:layout_constraintStart_toStartOf="parent"
@@ -129,7 +71,7 @@
                             android:id="@+id/textView125"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
+                            android:layout_marginTop="16dp"
                             android:fontFamily="@font/sf_pro_text_bold"
                             android:textColor="@color/black"
                             android:textSize="@dimen/size15"
@@ -160,8 +102,7 @@
                             android:textSize="@dimen/size15"
                             android:visibility="gone"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView125"
-                            tools:ignore="TextContrastCheck" />
+                            app:layout_constraintTop_toBottomOf="@+id/textView125" />
 
                         <TextView
                             android:id="@+id/textView128"
@@ -223,8 +164,7 @@
                             android:textColor="@color/text_alert_color"
                             android:textSize="@dimen/size15"
                             app:layout_constraintStart_toStartOf="@+id/textView131"
-                            app:layout_constraintTop_toBottomOf="@+id/textView131"
-                            tools:ignore="TextContrastCheck" />
+                            app:layout_constraintTop_toBottomOf="@+id/textView131" />
 
                         <TextView
                             android:id="@+id/textView133"
@@ -250,8 +190,7 @@
                             android:textColor="@color/text_alert_color"
                             android:textSize="@dimen/size15"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView133"
-                            tools:ignore="TextContrastCheck" />
+                            app:layout_constraintTop_toBottomOf="@+id/textView133" />
 
                         <TextView
                             android:id="@+id/textView135"
@@ -304,8 +243,7 @@
                 android:textSize="@dimen/size15"
                 android:visibility="visible"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/view_total_ticket_price"
-                tools:ignore="TextContrastCheck" />
+                app:layout_constraintTop_toTopOf="@+id/view_total_ticket_price" />
 
             <TextView
                 android:id="@+id/textView136"
@@ -332,8 +270,7 @@
                 android:textSize="@dimen/size15"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="@+id/view_total_ticket_price"
-                app:layout_constraintTop_toTopOf="@+id/view_total_ticket_price"
-                tools:ignore="TextContrastCheck" />
+                app:layout_constraintTop_toTopOf="@+id/view_total_ticket_price" />
 
             <TextView
                 android:id="@+id/textView137"
@@ -349,7 +286,6 @@
                 app:layout_constraintEnd_toEndOf="@+id/view_total_ticket_price"
                 app:layout_constraintTop_toBottomOf="@+id/text_total_ticket_price_three"
                 tools:text="KD 30.750" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

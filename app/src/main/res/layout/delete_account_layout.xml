@@ -77,14 +77,12 @@
             android:layout_height="wrap_content"
             android:background="@drawable/movie_info_page_gradient">
 
-
             <include
                 layout="@layout/delete_account_include"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
