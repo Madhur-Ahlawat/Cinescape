@@ -6,7 +6,6 @@ import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.*
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.graphics.Paint
 import android.net.ConnectivityManager.CONNECTIVITY_ACTION
 import android.os.Bundle
@@ -14,9 +13,7 @@ import android.text.*
 import android.text.InputFilter.LengthFilter
 import android.util.Log
 import android.view.View
-import android.view.WindowManager.LayoutParams
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -26,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.CountryCodeResponse
+import com.cinescape1.data.models.responseModel.LoginResponse
 import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.databinding.ActivityLoginBinding
 import com.cinescape1.ui.main.dailogs.LoaderDialog
@@ -65,15 +63,15 @@ import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
-import android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS as FLAG_TRANSLUCENT_STATUS1
+
 
 @Suppress("DEPRECATION")
-class LoginActivity : DaggerAppCompatActivity(),
-    CountryCodeAdapter.RecycleViewItemClickListener {
+class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewItemClickListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private var loader: LoaderDialog? = null
+
     @Inject
     lateinit var preferences: AppPreferences
     private val loginViewModel: LoginViewModel by viewModels { viewModelFactory }
@@ -296,80 +294,55 @@ class LoginActivity : DaggerAppCompatActivity(),
         }
         if (intent.hasExtra("BOOKING")) {
             booking = intent.getStringExtra("BOOKING").toString()
-            println("FromCome--->${booking}")
         }
 
         //AppBar Hide
-        window.apply {
-            clearFlags(FLAG_TRANSLUCENT_STATUS1)
-            addFlags(LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-            statusBarColor = Color.TRANSPARENT
-        }
-
-        FirebaseApp.initializeApp(this@LoginActivity)
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("405271387976-7jsu83n4m4647tb4lt58g45rpnjqculg.apps.googleusercontent.com")
-            .requestEmail()
-            .build()
-
+        Constant().hideKeyboard(this)
 
         //Preference Check Open
-         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE)
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE)
         clickOnBoarding = sharedpreferences?.getBoolean(OnBoardingClick, false)!!
 
-
-        googleSignInClient = GoogleSignIn.getClient(this, gso)
-        gAuth = FirebaseAuth.getInstance()
-        fAuth = FirebaseAuth.getInstance()
         callbackManager = create()
         broadcastReceiver = MyReceiver()
-        broadcastIntent()
 
+        socialCredential()
+        broadcastIntent()
         movedNext()
         countryCodeLoad()
     }
 
-    private fun continueGuest(
-        email: String,
-        name: String,
-        socialId: String,
-        type: String) {
-        preferences.putBoolean(Constant.IS_LOGIN, true)
-        preferences.putString(Constant.FIRST_NAME, name)
-        preferences.putString(Constant.TYPE_LOGIN, type)
-        preferences.putString(Constant.USER_EMAIL, email)
-        preferences.putString(Constant.ID_TOKEN, socialId)
-        val intent =
-            Intent(
-                this@LoginActivity,
-                ContinueGuestActivity::class.java
-            )
-        intent.flags =
-            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-        startActivity(intent)
-        finish()
+    private fun socialCredential() {
+        FirebaseApp.initializeApp(this@LoginActivity)
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken("405271387976-7jsu83n4m4647tb4lt58g45rpnjqculg.apps.googleusercontent.com")
+            .requestEmail().build()
+
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
+        gAuth = FirebaseAuth.getInstance()
+        fAuth = FirebaseAuth.getInstance()
+
     }
+
 
     private fun broadcastIntent() {
-        @Suppress("DEPRECATION")
-        registerReceiver(broadcastReceiver, IntentFilter(CONNECTIVITY_ACTION))
+        @Suppress("DEPRECATION") registerReceiver(
+            broadcastReceiver, IntentFilter(CONNECTIVITY_ACTION)
+        )
     }
-    fun TextView.underline() {
-        paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
-    }
+
 
     private fun movedNext() {
-
         val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
         val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
 
-        binding?.textTermsConditions1?.underline()
+        binding?.textTermsConditions1?.paintFlags =
+            binding?.textTermsConditions1?.paintFlags?.or(Paint.UNDERLINE_TEXT_FLAG)!!
+
         //terms Condition
         binding?.textTermsConditions1?.setOnClickListener {
             val intent = Intent(
-                this,
-                PaymentWebActivity::class.java
+                this, PaymentWebActivity::class.java
             )
             intent.putExtra("From", "login")
             intent.putExtra("PAY_URL", Constant.termsConditions)
@@ -476,17 +449,14 @@ class LoginActivity : DaggerAppCompatActivity(),
             val password = binding?.enterpassword?.text.toString()
             when {
                 username.trim() == "" -> {
-
                     val dialog = OptionDialog(this,
                         R.mipmap.ic_launcher,
                         R.string.app_name,
                         resources.getString(R.string.emailEmpty),
                         positiveBtnText = R.string.ok,
                         negativeBtnText = R.string.no,
-                        positiveClick = {
-                        },
-                        negativeClick = {
-                        })
+                        positiveClick = {},
+                        negativeClick = {})
                     dialog.show()
                 }
                 password.trim() == "" -> {
@@ -496,10 +466,8 @@ class LoginActivity : DaggerAppCompatActivity(),
                         resources.getString(R.string.passwordEmpty),
                         positiveBtnText = R.string.ok,
                         negativeBtnText = R.string.no,
-                        positiveClick = {
-                        },
-                        negativeClick = {
-                        })
+                        positiveClick = {},
+                        negativeClick = {})
                     dialog.show()
                 }
                 else -> {
@@ -517,8 +485,7 @@ class LoginActivity : DaggerAppCompatActivity(),
             var mMonth = mCurrentDate[Calendar.MONTH]
             var mDay = mCurrentDate[Calendar.DAY_OF_MONTH]
             val mDatePicker = DatePickerDialog(
-                this,
-                { _, selectedYear, selectedMonth, selectedDay ->
+                this, { _, selectedYear, selectedMonth, selectedDay ->
                     val myCalendar = Calendar.getInstance()
                     myCalendar[Calendar.YEAR] = selectedYear
                     myCalendar[Calendar.MONTH] = selectedMonth
@@ -623,17 +590,14 @@ class LoginActivity : DaggerAppCompatActivity(),
 
             if (!InputTextValidator.validateEmail(binding?.enterEmails!!)) {
                 if (binding?.enterEmails?.text.toString().trim { it <= ' ' }.isEmpty()) {
-//                    binding?.enterEmails?.error = resources.getString(R.string.emailOnlyEmpty)
                     val dialog = OptionDialog(this,
                         R.mipmap.ic_launcher,
                         R.string.app_name,
                         resources.getString(R.string.emailOnlyEmpty),
                         positiveBtnText = R.string.ok,
                         negativeBtnText = R.string.no,
-                        positiveClick = {
-                        },
-                        negativeClick = {
-                        })
+                        positiveClick = {},
+                        negativeClick = {})
                     dialog.show()
                 } else {
                     val dialog = OptionDialog(this,
@@ -642,10 +606,8 @@ class LoginActivity : DaggerAppCompatActivity(),
                         resources.getString(R.string.email_msg_invalid),
                         positiveBtnText = R.string.ok,
                         negativeBtnText = R.string.no,
-                        positiveClick = {
-                        },
-                        negativeClick = {
-                        })
+                        positiveClick = {},
+                        negativeClick = {})
                     dialog.show()
                 }
 
@@ -656,10 +618,8 @@ class LoginActivity : DaggerAppCompatActivity(),
                     resources.getString(R.string.firstName),
                     positiveBtnText = R.string.ok,
                     negativeBtnText = R.string.no,
-                    positiveClick = {
-                    },
-                    negativeClick = {
-                    })
+                    positiveClick = {},
+                    negativeClick = {})
                 dialog.show()
             } else if (lastName.trim() == "") {
                 val dialog = OptionDialog(this,
@@ -668,10 +628,8 @@ class LoginActivity : DaggerAppCompatActivity(),
                     resources.getString(R.string.lastName),
                     positiveBtnText = R.string.ok,
                     negativeBtnText = R.string.no,
-                    positiveClick = {
-                    },
-                    negativeClick = {
-                    })
+                    positiveClick = {},
+                    negativeClick = {})
                 dialog.show()
             } else if (password.trim() == "") {
                 val dialog = OptionDialog(this,
@@ -680,10 +638,8 @@ class LoginActivity : DaggerAppCompatActivity(),
                     resources.getString(R.string.enterPass),
                     positiveBtnText = R.string.ok,
                     negativeBtnText = R.string.no,
-                    positiveClick = {
-                    },
-                    negativeClick = {
-                    })
+                    positiveClick = {},
+                    negativeClick = {})
                 dialog.show()
             } else if (confPassword.trim() == "") {
                 val dialog = OptionDialog(this,
@@ -692,10 +648,8 @@ class LoginActivity : DaggerAppCompatActivity(),
                     resources.getString(R.string.enterConfPass),
                     positiveBtnText = R.string.ok,
                     negativeBtnText = R.string.no,
-                    positiveClick = {
-                    },
-                    negativeClick = {
-                    })
+                    positiveClick = {},
+                    negativeClick = {})
                 dialog.show()
             } else if (password != confPassword) {
                 val dialog = OptionDialog(this,
@@ -704,10 +658,8 @@ class LoginActivity : DaggerAppCompatActivity(),
                     resources.getString(R.string.passNotMatch),
                     positiveBtnText = R.string.ok,
                     negativeBtnText = R.string.no,
-                    positiveClick = {
-                    },
-                    negativeClick = {
-                    })
+                    positiveClick = {},
+                    negativeClick = {})
                 dialog.show()
             } else if (confPassword != password) {
                 val dialog = OptionDialog(this,
@@ -716,10 +668,8 @@ class LoginActivity : DaggerAppCompatActivity(),
                     resources.getString(R.string.passNotMatch),
                     positiveBtnText = R.string.ok,
                     negativeBtnText = R.string.no,
-                    positiveClick = {
-                    },
-                    negativeClick = {
-                    })
+                    positiveClick = {},
+                    negativeClick = {})
                 dialog.show()
             } else if (phone.trim() == "") {
                 val dialog = OptionDialog(this,
@@ -728,10 +678,8 @@ class LoginActivity : DaggerAppCompatActivity(),
                     resources.getString(R.string.enterMo),
                     positiveBtnText = R.string.ok,
                     negativeBtnText = R.string.no,
-                    positiveClick = {
-                    },
-                    negativeClick = {
-                    })
+                    positiveClick = {},
+                    negativeClick = {})
                 dialog.show()
             } else if (checkDob.trim() == "") {
                 val dialog = OptionDialog(this,
@@ -740,10 +688,8 @@ class LoginActivity : DaggerAppCompatActivity(),
                     resources.getString(R.string.enterDob),
                     positiveBtnText = R.string.ok,
                     negativeBtnText = R.string.no,
-                    positiveClick = {
-                    },
-                    negativeClick = {
-                    })
+                    positiveClick = {},
+                    negativeClick = {})
                 dialog.show()
 
             } else if (checkGender.trim() == "") {
@@ -753,15 +699,21 @@ class LoginActivity : DaggerAppCompatActivity(),
                     resources.getString(R.string.selectGender),
                     positiveBtnText = R.string.ok,
                     negativeBtnText = R.string.no,
-                    positiveClick = {
-                    },
-                    negativeClick = {
-                    })
+                    positiveClick = {},
+                    negativeClick = {})
                 dialog.show()
             } else {
                 resisters(
-                    email, firstName, lastName, checkGender, password, checkDob, phone,
-                    receiveMail, receiveMobileNot, receivedResNote
+                    email,
+                    firstName,
+                    lastName,
+                    checkGender,
+                    password,
+                    checkDob,
+                    phone,
+                    receiveMail,
+                    receiveMobileNot,
+                    receivedResNote
                 )
                 Constant().hideKeyboard(this)
             }
@@ -770,240 +722,139 @@ class LoginActivity : DaggerAppCompatActivity(),
 
     }
 
-    private fun facebookLogin() {
-        sdkInitialize(this.applicationContext)
-        if (BuildConfig.DEBUG) {
-            setIsDebugEnabled(true)
-            addLoggingBehavior(LoggingBehavior.INCLUDE_ACCESS_TOKENS)
-        }
-        LoginManager.getInstance().logInWithReadPermissions(
-            (this@LoginActivity as Activity?)!!,
-            listOf("email", "public_profile")
-        )
-        callbackManager = create()
-        LoginManager.getInstance().registerCallback(callbackManager,
-            object : FacebookCallback<LoginResult> {
-                override fun onSuccess(result: LoginResult) {
-                    accessToken = result.accessToken
-                    println("access_token---->${accessToken}")
-                    request =
-                        GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), object :
-                            GraphRequest.GraphJSONObjectCallback {
-                            override fun onCompleted(
-                                obj: JSONObject?,
-                                response: GraphResponse?
-                            ) {
-                                val json = response!!.getJSONObject()
-                                try {
-                                    if (json != null) {
-                                        Log.d("response", json.toString())
-                                        try {
-                                            email = json.getString("email")
-                                        } catch (e: java.lang.Exception) {
-                                            Toast.makeText(
-                                                this@LoginActivity,
-                                                "Sorry!!! Your email is not verified on facebook.",
-                                                Toast.LENGTH_LONG
-                                            ).show()
-                                            return
-                                        }
-                                        facebookUid = json.getString("id")
-                                        socialId = json.getString("id")
-                                        firstName = json.getString("first_name")
-                                        lastName = json.getString("last_name")
-                                        name = json.getString("name")
-                                        picture =
-                                            "https://graph.facebook.com/$facebookUid/picture?type=large"
-                                        Log.d("response", " picture$picture")
-//                                        Picasso.with(context).load(picture)
-//                                            .placeholder(R.mipmap.ic_launcher).into(userIv)
-//                                        mPb.setVisibility(View.GONE)
-                                        continueGuest(
-                                            email.toString(),
-                                            firstName.toString() + " " + lastName,
-                                            socialId.toString(),
-                                            "Google"
-                                        )
-                                    }
-                                } catch (e: JSONException) {
-                                    e.printStackTrace()
-                                    Log.d("response problem", "problem" + e.message)
-                                }
-                            }
-                        })
 
-                    val parameters = Bundle()
-                    parameters.putString(
-                        "fields",
-                        "id,name,first_name,last_name,link,email,picture"
-                    )
-                    request!!.parameters
-                    request!!.executeAsync()
-                }
+/////////////////////////////////    Log In   /////////////////////////////////
 
-                override fun onCancel() {
-                    Toast.makeText(this@LoginActivity, "Login Cancel", Toast.LENGTH_LONG).show()
-                }
-
-                override fun onError(error: FacebookException) {
-                    Toast.makeText(this@LoginActivity, error.message, Toast.LENGTH_LONG).show()
-                }
-            })
-    }
-
+    //login
     private fun signingUsingApi(name: String, password: String) {
-        loginViewModel.userLogin(this, name, password)
-            .observe(this) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            if (Constant.status == it.data?.data?.result && SUCCESS_CODE == it.data.data.code) {
-                                preferences.putString(Constant.USER_ID, it.data.data.output.userId)
-                                preferences.putBoolean(
-                                    Constant.IS_LOGIN, true
-                                )
-                                preferences.putString(
-                                    Constant.USER_NAME,
-                                    it.data.data.output.userName
-                                )
-                                preferences.putString(
-                                    Constant.FIRST_NAME,
-                                    it.data.data.output.firstName
-                                )
-                                preferences.putString(
-                                    Constant.LAST_NAME,
-                                    it.data.data.output.lastName
-                                )
-                                preferences.putString(Constant.USER_DOB, it.data.data.output.dob)
-                                preferences.putString(
-                                    Constant.MOBILE,
-                                    it.data.data.output.mobilePhone
-                                )
-                                preferences.putString(
-                                    Constant.USER_EMAIL,
-                                    it.data.data.output.email
-                                )
-                                preferences.putString(
-                                    Constant.USER_GENDER,
-                                    it.data.data.output.gender
-                                )
-                                preferences.putString(
-                                    Constant.USER_CITY,
-                                    it.data.data.output.mobilePhone
-                                )
-                                preferences.putString(
-                                    Constant.COUNTRY_CODE,
-                                    it.data.data.output.countryCode
-                                )
-                                if (from == "seat") {
-                                    val intent = Intent(
-                                        this,
-                                        SeatScreenMainActivity::class.java
-                                    ).putExtra("AREA_CODE", areaCode)
-                                        .putExtra("TT_TYPE", ttType)
-                                        .putExtra("CINEMA", cinemaName)
-                                        .putExtra("SEAT_CAT", seatCat)
-                                        .putExtra("SEAT_TYPE", seatType)
-                                        .putExtra("DATE_POS", datePos)
-                                        .putExtra("SEAT_POS", seatQuantity)
-                                        .putExtra("DateTime", dateTime)
-                                        .putExtra("MovieId", movieId)
-                                        .putExtra("CinemaID", cinemaID)
-                                        .putExtra("DatePosition", datePosition)
-                                        .putExtra("dt", dt)
-                                        .putExtra("FROM", "seat")
-                                        .putExtra("SessionID", sessionID)
-                                        .putExtra("SHOW_POS", showPos)
-                                        .putExtra("CINEMA_POS", cinemaPos)
-
-                                    intent.flags =
-                                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                                    startActivity(intent)
-                                    finish()
-                                } else if (booking == "FOOD") {
-                                    val intent = Intent(this, HomeActivity::class.java).putExtra("BOOKING", "FOOD")
-                                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                                    startActivity(intent)
-
-
-
-                                    finish()
-                                } else if (from == "Details") {
-                                    val intent = Intent(this@LoginActivity, ShowTimesActivity::class.java)
-                                            .putExtra("type", ttType)
-                                            .putExtra("from", showPos)
-                                            .putExtra("movieId", movieId)
-                                            .putExtra("Home", "homeBack")
-
-                                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-                                    startActivity(intent)
-                                    finish()
-
-                                } else {
-
-                                    if (!clickOnBoarding) {
-                                        val intent =
-                                            Intent(this@LoginActivity, UserPreferencesActivity::class.java)
-                                        intent.flags =
-                                            Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-                                        startActivity(intent)
-                                        finish()
-                                    } else {
-                                        val intent =
-                                            Intent(this@LoginActivity, HomeActivity::class.java)
-                                        intent.flags =
-                                            Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-                                        startActivity(intent)
-                                        finish()
-                                    }
-
-                                }
+        loginViewModel.userLogin(this, name, password).observe(this) {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        if (Constant.status == it.data?.data?.result && SUCCESS_CODE == it.data.data.code) {
+                            if (it.data.data.output.otp_require == "true") {
+                                val intent = Intent(this@LoginActivity, OtpVerificationActivity::class.java)
+                                    intent.putExtra("userId", it.data.data.output.userId)
+                                    intent.putExtra("type", "login")
+                                    intent.putExtra("verifyType", it.data.data.output.otp_require)
+                                startActivity(intent)
+                                finish()
                             } else {
-                                val dialog = OptionDialog(this,
-                                    R.mipmap.ic_launcher,
-                                    R.string.app_name,
-                                    it.data?.data?.msg.toString(),
-                                    positiveBtnText = R.string.ok,
-                                    negativeBtnText = R.string.no,
-                                    positiveClick = {
-                                    },
-                                    negativeClick = {
-                                    })
-                                dialog.show()
+                                retrieveLoginData(it.data.data.output)
                             }
-                        }
-                        Status.ERROR -> {
-                            loader?.dismiss()
+                        } else {
                             val dialog = OptionDialog(this,
                                 R.mipmap.ic_launcher,
                                 R.string.app_name,
-                                it.message ?: "Oops its not you, its Us.",
+                                it.data?.data?.msg.toString(),
                                 positiveBtnText = R.string.ok,
                                 negativeBtnText = R.string.no,
-                                positiveClick = {
-                                },
-                                negativeClick = {
-                                })
+                                positiveClick = {},
+                                negativeClick = {})
                             dialog.show()
                         }
-                        Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
-                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(this,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message ?: "Oops its not you, its Us.",
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                        loader = LoaderDialog(R.string.pleasewait)
+                        loader?.show(supportFragmentManager, null)
                     }
                 }
             }
-    }
-
-    public override fun onStart() {
-        super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        if (fAuth != null) {
-            val currentUser = fAuth!!.currentUser
-            updateUI(currentUser)
         }
     }
+
+    private fun retrieveLoginData(output: LoginResponse.Output) {
+        saveDataInPreference(output)
+
+        if (from == "seat") {
+            val intent = Intent(
+                this, SeatScreenMainActivity::class.java
+            ).putExtra("AREA_CODE", areaCode).putExtra("TT_TYPE", ttType)
+                .putExtra("CINEMA", cinemaName).putExtra("SEAT_CAT", seatCat)
+                .putExtra("SEAT_TYPE", seatType).putExtra("DATE_POS", datePos)
+                .putExtra("SEAT_POS", seatQuantity).putExtra("DateTime", dateTime)
+                .putExtra("MovieId", movieId).putExtra("CinemaID", cinemaID)
+                .putExtra("DatePosition", datePosition).putExtra("dt", dt).putExtra("FROM", "seat")
+                .putExtra("SessionID", sessionID).putExtra("SHOW_POS", showPos)
+                .putExtra("CINEMA_POS", cinemaPos)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+            finish()
+        } else if (booking == "FOOD") {
+            val intent = Intent(this, HomeActivity::class.java).putExtra("BOOKING", "FOOD")
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+            finish()
+        } else if (from == "Details") {
+            val intent =
+                Intent(this@LoginActivity, ShowTimesActivity::class.java).putExtra("type", ttType)
+                    .putExtra("from", showPos).putExtra("movieId", movieId)
+                    .putExtra("Home", "homeBack")
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+            finish()
+
+        } else {
+            if (!clickOnBoarding) {
+                val intent = Intent(this@LoginActivity, UserPreferencesActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+                finish()
+            } else {
+                val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+                finish()
+            }
+        }
+
+    }
+
+    private fun saveDataInPreference(output: LoginResponse.Output) {
+        preferences.putString(Constant.USER_ID, output.userId)
+        preferences.putBoolean(
+            Constant.IS_LOGIN, true
+        )
+        preferences.putString(
+            Constant.USER_NAME, output.userName
+        )
+        preferences.putString(
+            Constant.FIRST_NAME, output.firstName
+        )
+        preferences.putString(
+            Constant.LAST_NAME, output.lastName
+        )
+        preferences.putString(Constant.USER_DOB, output.dob)
+        preferences.putString(
+            Constant.MOBILE, output.mobilePhone
+        )
+        preferences.putString(
+            Constant.USER_EMAIL, output.email
+        )
+        preferences.putString(
+            Constant.USER_GENDER, output.gender
+        )
+        preferences.putString(
+            Constant.USER_CITY, output.mobilePhone
+        )
+        preferences.putString(
+            Constant.COUNTRY_CODE, output.countryCode
+        )
+    }
+
 
     private fun updateUI(user: FirebaseUser?) {
         try {
@@ -1015,60 +866,8 @@ class LoginActivity : DaggerAppCompatActivity(),
         }
     }
 
-    // google
-    private fun googleSignIn() {
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
-    }
 
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        callbackManager?.onActivityResult(requestCode, resultCode, data)
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            val exception = task.exception
-            if (task.isSuccessful) {
-                try {
-                    // Google Sign In was successful, authenticate with Firebase
-                    val account = task.getResult(ApiException::class.java)!!
-                    Log.d("Login", "firebaseAuthWithGoogle:" + account.id)
-                    firstName = account.displayName
-                    email = account.email
-                    socialId = account.id
-//                    id=account.idToken
-                    firebaseAuthWithGoogle(account.idToken!!)
-                } catch (e: ApiException) {
-                    // Google Sign In failed, update UI appropriately
-                    Log.w("Login", "Google sign in failed", e)
-                }
-
-            } else {
-                Toast.makeText(this, "" + exception, Toast.LENGTH_LONG).show()
-                println("ExceptionMsg--->${exception}")
-                Log.w("Login", exception.toString())
-            }
-        }
-    }
-
-    private fun firebaseAuthWithGoogle(idToken: String) {
-        val credential = GoogleAuthProvider.getCredential(idToken, null)
-        gAuth!!.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    continueGuest(
-                        email.toString(),
-                        firstName.toString(),
-                        socialId.toString(),
-                        "Google"
-                    )
-                } else {
-                    println("login--->${task.exception}")
-                }
-            }
-    }
-
+    ////////////////////////////////   Resister Data//////////////////////////////
 
     private fun resisters(
         email: String,
@@ -1095,58 +894,53 @@ class LoginActivity : DaggerAppCompatActivity(),
             receiveMail,
             receiveMobileNot,
             receiveResNot
-        )
-            .observe(this) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            if (Constant.status == it.data?.data?.result && SUCCESS_CODE == it.data.data.code) {
-                                val intent =
-                                    Intent(this@LoginActivity, OtpVerificationActivity::class.java)
-                                        .putExtra("userId", it.data.data.output.userid)
-                                intent.flags =
-                                    Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-                                startActivity(intent)
-                                finish()
-
-//                                OtpDialog(it.data.data.output.userid)
-                            } else {
-                                val dialog = OptionDialog(this,
-                                    R.mipmap.ic_launcher,
-                                    R.string.app_name,
-                                    it.data?.data?.msg.toString(),
-                                    positiveBtnText = R.string.ok,
-                                    negativeBtnText = R.string.no,
-                                    positiveClick = {
-                                    },
-                                    negativeClick = {
-                                    })
-                                dialog.show()
-                            }
-                        }
-                        Status.ERROR -> {
-                            loader?.dismiss()
+        ).observe(this) {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        if (Constant.status == it.data?.data?.result && SUCCESS_CODE == it.data.data.code) {
+                            val intent = Intent(
+                                this@LoginActivity, OtpVerificationActivity::class.java)
+                                intent.putExtra("userId", it.data.data.output.userid)
+                            intent.putExtra("type", "signUp")
+                            intent.putExtra("verifyType","")
+                            intent.flags =
+                                Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                            startActivity(intent)
+                            finish()
+                        } else {
                             val dialog = OptionDialog(this,
                                 R.mipmap.ic_launcher,
                                 R.string.app_name,
-                                it.message ?: "Oops its not you, its Us.",
+                                it.data?.data?.msg.toString(),
                                 positiveBtnText = R.string.ok,
                                 negativeBtnText = R.string.no,
-                                positiveClick = {
-                                },
-                                negativeClick = {
-                                })
-
+                                positiveClick = {},
+                                negativeClick = {})
                             dialog.show()
                         }
-                        Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
-                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(this,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message ?: "Oops its not you, its Us.",
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                        loader = LoaderDialog(R.string.pleasewait)
+                        loader?.show(supportFragmentManager, null)
                     }
                 }
             }
+        }
     }
 
 
@@ -1154,8 +948,7 @@ class LoginActivity : DaggerAppCompatActivity(),
     fun data(date: String): Int {
         if (!TextUtils.isEmpty(date)) {
             val cal = Calendar.getInstance()
-            val dateInString = SimpleDateFormat("dd MMM, yyyy")
-                .format(cal.time)
+            val dateInString = SimpleDateFormat("dd MMM, yyyy").format(cal.time)
             val formatter = SimpleDateFormat("dd MMM, yyyy")
             var parsedDate: Date? = null
             var date1: Date? = null
@@ -1174,9 +967,7 @@ class LoginActivity : DaggerAppCompatActivity(),
         val a = getCalendar(first)
         val b = getCalendar(last)
         var diff = b[Calendar.YEAR] - a[Calendar.YEAR]
-        if (a[Calendar.MONTH] > b[Calendar.MONTH] ||
-            a[Calendar.MONTH] == b[Calendar.MONTH] && a[Calendar.DATE] > b[Calendar.DATE]
-        ) {
+        if (a[Calendar.MONTH] > b[Calendar.MONTH] || a[Calendar.MONTH] == b[Calendar.MONTH] && a[Calendar.DATE] > b[Calendar.DATE]) {
             diff--
         }
         return diff
@@ -1188,63 +979,59 @@ class LoginActivity : DaggerAppCompatActivity(),
         return cal
     }
 
+    //////////////////////////////  Country Code //////////////////////////
+
     @SuppressLint("SetTextI18n")
     private fun countryCodeLoad() {
-        loginViewModel.countryCode(this)
-            .observe(this) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.result == Constant.status && it.data.code == SUCCESS_CODE) {
-                                    countryCodeList = it.data.output
-                                    binding?.mobileCode?.setText(resources.getString(R.string.mobile) + "    " + it.data.output[0].isdCode)
-                                    countryCode = it.data.output[0].isdCode
+        loginViewModel.countryCode(this).observe(this) {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == SUCCESS_CODE) {
+                                countryCodeList = it.data.output
+                                binding?.mobileCode?.setText(resources.getString(R.string.mobile) + "    " + it.data.output[0].isdCode)
+                                countryCode = it.data.output[0].isdCode
 
-                                    val maxLengthEditText = it.data.output[0].phoneLength
-                                    binding?.editTextPhone?.filters =
-                                        arrayOf<InputFilter>(LengthFilter(maxLengthEditText))
+                                val maxLengthEditText = it.data.output[0].phoneLength
+                                binding?.editTextPhone?.filters =
+                                    arrayOf<InputFilter>(LengthFilter(maxLengthEditText))
 
-                                    retrieveCountryList(it.data.output)
-                                } else {
-                                    val dialog = OptionDialog(this,
-                                        R.mipmap.ic_launcher,
-                                        R.string.app_name,
-                                        it.data?.msg.toString(),
-                                        positiveBtnText = R.string.ok,
-                                        negativeBtnText = R.string.no,
-                                        positiveClick = {
-                                        },
-                                        negativeClick = {
-                                        })
-                                    dialog.show()
-                                }
+                                retrieveCountryList(it.data.output)
+                            } else {
+                                val dialog = OptionDialog(this,
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
                             }
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(this,
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {
-                                },
-                                negativeClick = {
-                                })
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
-                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(this,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                        loader = LoaderDialog(R.string.pleasewait)
+                        loader?.show(supportFragmentManager, null)
                     }
                 }
             }
+        }
     }
-
 
     private fun retrieveCountryList(output: ArrayList<CountryCodeResponse.Output>) {
         binding?.mobileCode?.setOnClickListener {
@@ -1252,7 +1039,7 @@ class LoginActivity : DaggerAppCompatActivity(),
         }
     }
 
-    override fun onItemClick(view: CountryCodeResponse.Output, check : Boolean) {
+    override fun onItemClick(view: CountryCodeResponse.Output, check: Boolean) {
         countryCode = view.isdCode
         val maxLengthEditText = view.phoneLength
         binding?.editTextPhone?.filters = arrayOf<InputFilter>(LengthFilter(maxLengthEditText))
@@ -1260,8 +1047,7 @@ class LoginActivity : DaggerAppCompatActivity(),
 
     private fun bottomDialog(countryList: ArrayList<CountryCodeResponse.Output>) {
         val mDialogView = layoutInflater.inflate(R.layout.countrycode_new_dialog, null)
-        val mBuilder = AlertDialog.Builder(this, R.style.MyDialogTransparent)
-            .setView(mDialogView)
+        val mBuilder = AlertDialog.Builder(this, R.style.MyDialogTransparent).setView(mDialogView)
         val mAlertDialog = mBuilder.show()
         mAlertDialog.setCancelable(false)
         mAlertDialog.setCanceledOnTouchOutside(false)
@@ -1324,4 +1110,158 @@ class LoginActivity : DaggerAppCompatActivity(),
         }
     }
 
+
+    ///////////////////////////////  Social Login  ///////////////////////////
+
+
+    // google Login
+    private fun googleSignIn() {
+        val signInIntent = googleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+
+    //faceBookLogin
+    private fun facebookLogin() {
+        sdkInitialize(this.applicationContext)
+        if (BuildConfig.DEBUG) {
+            setIsDebugEnabled(true)
+            addLoggingBehavior(LoggingBehavior.INCLUDE_ACCESS_TOKENS)
+        }
+        LoginManager.getInstance().logInWithReadPermissions(
+            (this@LoginActivity as Activity?)!!, listOf("email", "public_profile")
+        )
+        callbackManager = create()
+        LoginManager.getInstance()
+            .registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
+                override fun onSuccess(result: LoginResult) {
+                    accessToken = result.accessToken
+                    println("access_token---->${accessToken}")
+                    request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(),
+                        object : GraphRequest.GraphJSONObjectCallback {
+                            override fun onCompleted(
+                                obj: JSONObject?, response: GraphResponse?
+                            ) {
+                                val json = response!!.getJSONObject()
+                                try {
+                                    if (json != null) {
+                                        Log.d("response", json.toString())
+                                        try {
+                                            email = json.getString("email")
+                                        } catch (e: java.lang.Exception) {
+                                            Toast.makeText(
+                                                this@LoginActivity,
+                                                "Sorry!!! Your email is not verified on facebook.",
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                            return
+                                        }
+                                        facebookUid = json.getString("id")
+                                        socialId = json.getString("id")
+                                        firstName = json.getString("first_name")
+                                        lastName = json.getString("last_name")
+                                        name = json.getString("name")
+                                        picture =
+                                            "https://graph.facebook.com/$facebookUid/picture?type=large"
+
+                                        continueGuest(
+                                            email.toString(),
+                                            firstName.toString() + " " + lastName,
+                                            socialId.toString(),
+                                            "Google"
+                                        )
+                                    }
+                                } catch (e: JSONException) {
+                                    e.printStackTrace()
+                                    Log.d("response problem", "problem" + e.message)
+                                }
+                            }
+                        })
+
+                    val parameters = Bundle()
+                    parameters.putString(
+                        "fields", "id,name,first_name,last_name,link,email,picture"
+                    )
+                    request!!.parameters
+                    request!!.executeAsync()
+                }
+
+                override fun onCancel() {
+                    Toast.makeText(this@LoginActivity, "Login Cancel", Toast.LENGTH_LONG).show()
+                }
+
+                override fun onError(error: FacebookException) {
+                    Toast.makeText(this@LoginActivity, error.message, Toast.LENGTH_LONG).show()
+                }
+            })
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        callbackManager?.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            val exception = task.exception
+            if (task.isSuccessful) {
+                try {
+                    // Google Sign In was successful, authenticate with Firebase
+                    val account = task.getResult(ApiException::class.java)!!
+                    Log.d("Login", "firebaseAuthWithGoogle:" + account.id)
+                    firstName = account.displayName
+                    email = account.email
+                    socialId = account.id
+//                    id=account.idToken
+                    firebaseAuthWithGoogle(account.idToken!!)
+                } catch (e: ApiException) {
+                    // Google Sign In failed, update UI appropriately
+                    Log.w("Login", "Google sign in failed", e)
+                }
+
+            } else {
+                Toast.makeText(this, "" + exception, Toast.LENGTH_LONG).show()
+                println("ExceptionMsg--->${exception}")
+                Log.w("Login", exception.toString())
+            }
+        }
+    }
+
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        gAuth!!.signInWithCredential(credential).addOnCompleteListener(this) { task ->
+            if (task.isSuccessful) {
+                // Sign in success, update UI with the signed-in user's information
+                continueGuest(
+                    email.toString(), firstName.toString(), socialId.toString(), "Google"
+                )
+            } else {
+                println("login--->${task.exception}")
+            }
+        }
+    }
+
+
+    private fun continueGuest(
+        email: String, name: String, socialId: String, type: String
+    ) {
+        preferences.putBoolean(Constant.IS_LOGIN, true)
+        preferences.putString(Constant.FIRST_NAME, name)
+        preferences.putString(Constant.TYPE_LOGIN, type)
+        preferences.putString(Constant.USER_EMAIL, email)
+        preferences.putString(Constant.ID_TOKEN, socialId)
+        val intent = Intent(
+            this@LoginActivity, ContinueGuestActivity::class.java
+        )
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(intent)
+        finish()
+    }
+
+    public override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        if (fAuth != null) {
+            val currentUser = fAuth!!.currentUser
+            updateUI(currentUser)
+        }
+    }
 }

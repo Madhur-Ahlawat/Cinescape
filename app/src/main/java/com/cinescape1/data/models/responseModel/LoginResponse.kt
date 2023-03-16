@@ -22,6 +22,7 @@ data class LoginResponse(
         val promoMobile: Boolean,
         val reserveNotification: Boolean,
         val userId: String,
-        val userName: String
+        val userName: String,
+        val otp_require: String
     )
 }
