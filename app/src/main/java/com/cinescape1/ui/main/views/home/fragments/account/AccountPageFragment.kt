@@ -3244,7 +3244,6 @@ class AccountPageFragment : DaggerFragment(),
                             loader = LoaderDialog(R.string.pleasewait)
                             loader?.show(requireActivity().supportFragmentManager, null)
                         }
-
                     }
                 }
             }

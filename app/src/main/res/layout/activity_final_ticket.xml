@@ -11,7 +11,7 @@
         android:id="@+id/uiFinalTaket"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -140,9 +140,13 @@
             app:layout_constraintTop_toBottomOf="@+id/image_head">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:background="@color/black"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/imageView68"
@@ -175,8 +179,8 @@
                         android:id="@+id/constraintLayout34"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
@@ -220,8 +224,8 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
-                                android:includeFontPadding="false"
                                 android:fontFamily="@font/sf_pro_text_bold"
+                                android:includeFontPadding="false"
                                 android:maxLines="2"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/size15"
@@ -316,11 +320,11 @@
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/size12"
                                 android:visibility="gone"
+                                app:drawableStartCompat="@drawable/ic_food"
+                                app:drawableTint="@color/white"
                                 app:layout_constraintBottom_toBottomOf="@+id/view_food_picku_no_one"
                                 app:layout_constraintEnd_toEndOf="@+id/view_food_picku_no_one"
-                                app:layout_constraintTop_toTopOf="@+id/view_food_picku_no_one"
-                                app:drawableStartCompat="@drawable/ic_food"
-                                app:drawableTint="@color/white" />
+                                app:layout_constraintTop_toTopOf="@+id/view_food_picku_no_one" />
 
                             <TextView
                                 android:id="@+id/btnAddFood"
@@ -337,11 +341,11 @@
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/size12"
                                 android:visibility="gone"
+                                app:drawableStartCompat="@drawable/ic_food"
+                                app:drawableTint="@color/white"
                                 app:layout_constraintBottom_toBottomOf="@+id/view_food_picku_no_one"
                                 app:layout_constraintEnd_toEndOf="@+id/view_food_picku_no_one"
-                                app:layout_constraintTop_toTopOf="@+id/view_food_picku_no_one"
-                                app:drawableTint="@color/white"
-                                app:drawableStartCompat="@drawable/ic_food" />
+                                app:layout_constraintTop_toTopOf="@+id/view_food_picku_no_one" />
 
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -362,13 +366,13 @@
                         android:id="@+id/recyclerViewFinalTicket"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:layout_marginBottom="25dp"
                         android:layout_marginTop="@dimen/margin28"
-                        tools:listitem="@layout/final_ticket_item_two"
+                        android:layout_marginBottom="25dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout34" />
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout34"
+                        tools:listitem="@layout/final_ticket_item_two" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -380,13 +384,13 @@
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:padding="6dp"
-                    app:tabGravity="center"
-                    app:tabIndicatorHeight="0dp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView68"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:spi_dotSelectedColor="@color/arabic_color"
-                    app:tabBackground="@drawable/indicator_selector" />
+                    app:tabBackground="@drawable/indicator_selector"
+                    app:tabGravity="center"
+                    app:tabIndicatorHeight="0dp" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -505,7 +509,6 @@
                         app:layout_constraintTop_toTopOf="@+id/textView46" />
 
                 </LinearLayout>
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

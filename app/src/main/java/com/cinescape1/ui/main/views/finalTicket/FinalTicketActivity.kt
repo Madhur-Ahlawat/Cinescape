@@ -65,7 +65,6 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
     private var qrBitmap: Bitmap? = null
     private var bookType: String = ""
     private var from: String = ""
-    private var accountFrom: String = ""
     private val finalTicketLocalModel = ArrayList<FinalTicketLocalModel>()
     private var oneBookingId1: TextView? = null
     private var oneTitle1: TextView? = null
@@ -277,8 +276,6 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
                 startActivity(intent)
                 finish()
             }
-
-
         }
     }
 
