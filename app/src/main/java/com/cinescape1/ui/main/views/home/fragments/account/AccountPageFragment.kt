@@ -569,11 +569,6 @@ class AccountPageFragment : DaggerFragment(),
             )
         )
 
-//        myNextBooking(
-//            NextBookingsRequest(
-//                "", "", 0, preferences.getString(Constant.USER_ID).toString(), true
-//            )
-//        )
 
         println("CheckLogin--->${preferences.getString(Constant.TYPE_LOGIN)}")
         if (preferences.getString(Constant.TYPE_LOGIN) == "GUEST") {
@@ -614,13 +609,15 @@ class AccountPageFragment : DaggerFragment(),
 
         if (mobile == "") {
             binding?.AccountUi?.hide()
+            preferences.putBoolean(
+                Constant.IS_LOGIN, false
+            )
             val intent = Intent(requireContext(), LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
             requireActivity().finish()
         }
 
-        println("Mobile--->${mobile}")
         binding?.view2?.setOnClickListener {
             signOut()
 
@@ -3219,7 +3216,6 @@ class AccountPageFragment : DaggerFragment(),
                                 try {
                                     retrieveNextBookedResponse(it.data)
                                 } catch (e: Exception) {
-                                    toast("empty")
                                     e.printStackTrace()
                                 }
                             }
@@ -3240,10 +3236,10 @@ class AccountPageFragment : DaggerFragment(),
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        if (isAdded) {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(requireActivity().supportFragmentManager, null)
-                        }
+//                        if (isAdded) {
+//                            loader = LoaderDialog(R.string.pleasewait)
+//                            loader?.show(requireActivity().supportFragmentManager, null)
+//                        }
                     }
                 }
             }

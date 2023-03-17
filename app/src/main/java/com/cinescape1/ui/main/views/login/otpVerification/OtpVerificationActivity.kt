@@ -1,7 +1,10 @@
 package com.cinescape1.ui.main.views.login.otpVerification
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.view.View
+import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.cinescape1.R
@@ -15,7 +18,6 @@ import com.cinescape1.ui.main.views.prefrence.UserPreferencesActivity
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.Status
 import com.cinescape1.utils.hide
-import com.cinescape1.utils.show
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
@@ -31,6 +33,7 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
     private var binding: ActivityOtpVerificationBinding? = null
     private var verifyType = ""
     private var type = ""
+    private var userId = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,10 +41,17 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
         val view = binding?.root
         setContentView(view)
 
+
+        //AppBar Hide
+//        Constant().appBarHide(this@OtpVerificationActivity)
+
+        Constant().hideKeyboard(this@OtpVerificationActivity)
+
         manageFunctions()
     }
 
     private fun manageFunctions() {
+        userId = intent.getStringExtra("userId").toString()
         type = intent.getStringExtra("type").toString()
         verifyType = intent.getStringExtra("verifyType").toString()
         //appBarHide
@@ -55,18 +65,16 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
             onBackPressed()
         }
 
-
-
-
         manageVerification()
     }
 
     private fun manageVerification() {
         //////////////////////////   Login Case        /////////////////////
 
+        println("type------->${type}-------->${verifyType}------->${userId}")
         if (type == "login") {
             when (verifyType) {
-                "MAIL" -> {
+                "EMAIL" -> {
                     //phone
                     binding?.textView147?.hide()
                     binding?.textView148?.hide()
@@ -89,7 +97,7 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
                                 OtpVerifyRequest(
                                     otpEmail.toString(),
                                     "",
-                                    intent.getStringExtra("userId").toString()
+                                    userId
                                 )
                             )
                         }
@@ -119,7 +127,7 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
                                 OtpVerifyRequest(
                                     "",
                                     otpMobile.toString(),
-                                    intent.getStringExtra("userId").toString()
+                                    userId
                                 )
                             )
                         }
@@ -155,7 +163,7 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
                                 OtpVerifyRequest(
                                     otpEmail.toString(),
                                     otpMobile.toString(),
-                                    intent.getStringExtra("userId").toString()
+                                    userId
                                 )
                             )
                         }
@@ -168,7 +176,7 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
 
         //////////////////////////   SignUp Case/////////////////////
 
-        else if (type=="signUp"){
+        else if (type == "signUp") {
             binding?.textView150?.setOnClickListener {
                 val otpEmail = binding?.textView146?.getStringFromFields()
                 val otpMobile = binding?.textView149?.getStringFromFields()
@@ -197,7 +205,7 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
                         OtpVerifyRequest(
                             otpEmail.toString(),
                             otpMobile.toString(),
-                            intent.getStringExtra("userId").toString()
+                            userId
                         )
                     )
                 }
@@ -266,10 +274,7 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
                                     negativeClick = {})
                                 dialog.show()
                             }
-
-
                         }
-
                     }
                     Status.ERROR -> {
                         loader?.dismiss()

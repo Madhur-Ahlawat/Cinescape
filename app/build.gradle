@@ -55,7 +55,6 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
-//    implementation files('libs\\YouTubeAndroidPlayerApi.jar')
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -101,8 +100,8 @@ dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.23'
     implementation 'com.squareup.picasso:picasso:2.71828'
     testImplementation 'org.mockito:mockito.inline:2.11.0'
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
-    implementation 'com.github.bumptech.glide:glide:4.13.2'
+    implementation 'androidx.recyclerview:recyclerview:1.3.0'
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
     //color palette for design
     implementation 'androidx.palette:palette-ktx:1.0.0'
     // slider
@@ -129,8 +128,10 @@ dependencies {
 
     // Insta bug
     implementation 'com.instabug.library:instabug:10.13.0'
+
     //OtpView
     implementation 'com.github.santalu:mask-edittext:1.1.1'
+
     implementation 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
     implementation 'com.onesignal:OneSignal:[4.0.0, 4.99.99]'
@@ -139,10 +140,11 @@ dependencies {
     implementation 'com.github.GoodieBag:CarouselPicker:v1.1'
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
+
 //Otp View
-    implementation 'com.github.KevinSchildhorn:OTPView:0.2.2'
+    implementation 'com.github.KevinSchildhorn:OTPView:0.2.5'
     implementation 'com.otaliastudios:zoomlayout:1.6.1'
 
-    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.haozhang.libary:android-slanted-textview:1.2'
 }

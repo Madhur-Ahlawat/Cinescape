@@ -65,7 +65,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 @ActivityScoped
 class PaymentListActivity : DaggerAppCompatActivity(),
@@ -110,11 +109,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     private var countDownTimerPrimary: CountDownTimer? = null
     private var adapter: PaymentListAdapter? = null
 
-    private var ticketPrice : TextView? = null
-    private var textFoodPrice : TextView? = null
-    private var textOfferPrice : TextView? = null
-
-    private var outputlist : ArrayList<PaymentListResponse.Output.PayInfo>? = null
+    private var outputlist: ArrayList<PaymentListResponse.Output.PayInfo>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -123,6 +118,11 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         val view = binding?.root
         setContentView(view)
 
+
+        manageFunctions()
+    }
+
+    private fun manageFunctions() {
         try {
             bookingId = intent.getStringExtra("bookingId").toString()
             bookType = intent.getStringExtra("BOOKING").toString()
@@ -130,13 +130,16 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             image = intent.getStringExtra("image").toString()
             paidPrice = intent.getStringExtra("paidPrice").toString()
 
-            if (bookType == "FOOD"){
-                Glide.with(this).load(image).placeholder(R.drawable.food_final_icon).into(binding?.imageView6!!)
-            }else{
-                Glide.with(this).load(image).placeholder(R.drawable.bombshell).into(binding?.imageView6!!)
+            if (bookType == "FOOD") {
+                Glide.with(this).load(image).placeholder(R.drawable.food_final_icon)
+                    .into(binding?.imageView6!!)
+            } else {
+                Glide.with(this).load(image).placeholder(R.drawable.bombshell)
+                    .into(binding?.imageView6!!)
             }
 
-        }catch (e : Exception){
+
+        } catch (e: Exception) {
             e.printStackTrace()
         }
 
@@ -149,11 +152,25 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             textView112?.invisible()
         }
 
+
         ticketList(
             TicketSummaryRequest(
-                transId, bookingId, preferences.getString(Constant.USER_ID).toString()
+                "5010",
+                "5a12cd47d0f3497f81f06619c9a95664",
+                preferences.getString(Constant.USER_ID).toString()
             )
         )
+//        ticketList(
+//            TicketSummaryRequest(
+//                transId, bookingId, preferences.getString(Constant.USER_ID).toString()
+//            )
+//        )
+
+
+        movedNext()
+    }
+
+    private fun movedNext() {
 
         binding?.viewCancel?.setOnClickListener {
             cancelDialog()
@@ -166,20 +183,27 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
         binding?.txtProceed?.setOnClickListener {
 
-            if (applyCheck == 1){
-                walletPay(HmacKnetRequest(bookingId, bookType, transId, preferences.getString(Constant.USER_ID).toString()))
+            if (applyCheck == 1) {
+                walletPay(
+                    HmacKnetRequest(
+                        bookingId,
+                        bookType,
+                        transId,
+                        preferences.getString(Constant.USER_ID).toString()
+                    )
+                )
                 applyCheck = 2
                 println("applyCheck213--------->${applyCheck}")
-            }else{
-                    val dialog = OptionDialog(this,
-                        R.mipmap.ic_launcher,
-                        R.string.app_name,
-                        getString(R.string.select_payment_methods),
-                        positiveBtnText = R.string.ok,
-                        negativeBtnText = R.string.no,
-                        positiveClick = {},
-                        negativeClick = {})
-                    dialog.show()
+            } else {
+                val dialog = OptionDialog(this,
+                    R.mipmap.ic_launcher,
+                    R.string.app_name,
+                    getString(R.string.select_payment_methods),
+                    positiveBtnText = R.string.ok,
+                    negativeBtnText = R.string.no,
+                    positiveClick = {},
+                    negativeClick = {})
+                dialog.show()
 
             }
 
@@ -187,31 +211,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
     }
 
-    private fun paymentDialog(){
-        val dialog = Dialog(this)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.paymnet_info_dialog)
-        dialog.window?.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
-        dialog.window?.setGravity(Gravity.BOTTOM)
-        dialog.show()
-        val imageView71 = dialog.findViewById<ImageView>(R.id.imageView71)
-        val recyclerTicketPrice = dialog.findViewById<RecyclerView>(R.id.recyclerTicketPrice)
-
-        val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
-        val adapter = ItemInfoPopupAdapter(this, outputlist!!)
-        recyclerTicketPrice.layoutManager = gridLayout
-        recyclerTicketPrice.adapter = adapter
-
-        imageView71.setOnClickListener {
-            dialog.dismiss()
-        }
-    }
-
+    ////////////////////////// Payment List ///////////////////////////
     private fun ticketList(request: TicketSummaryRequest) {
         summeryViewModel.paymentList(request).observe(this) {
             it?.let { resource ->
@@ -221,8 +221,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
-                                    retrieveData(it.data.output)
                                     outputlist = it.data.output.payInfo
+                                    retrieveData(it.data.output)
                                 } catch (e: Exception) {
                                     e.printStackTrace()
                                     val dialog = OptionDialog(this,
@@ -282,8 +282,11 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     override fun walletItemApply(view: PaymentListResponse.Output.PayMode) {
-
-        walletPay(HmacKnetRequest(bookingId, bookType, transId, preferences.getString(Constant.USER_ID).toString()))
+        walletPay(
+            HmacKnetRequest(
+                bookingId, bookType, transId, preferences.getString(Constant.USER_ID).toString()
+            )
+        )
     }
 
     override fun bankItemApply(
@@ -298,15 +301,27 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         knet: LinearLayout,
         walletApply: TextView,
         offerApply: TextView,
-        offerEditText: EditText) {
+        offerEditText: EditText
+    ) {
 
-        bankOfferApply(BankOfferRequest(
+        bankOfferApply(
+            BankOfferRequest(
                 bookingId,
                 cardNo,
                 offerId,
                 transId,
                 preferences.getString(Constant.USER_ID).toString()
-            ), check, close, apply,bankCancel, bankEdit, msg, knet, walletApply, offerApply, offerEditText
+            ),
+            check,
+            close,
+            apply,
+            bankCancel,
+            bankEdit,
+            msg,
+            knet,
+            walletApply,
+            offerApply,
+            offerEditText
         )
     }
 
@@ -321,7 +336,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         knet: LinearLayout,
         walletApply: TextView,
         offerApply: TextView,
-        offerEditText: EditText) {
+        offerEditText: EditText
+    ) {
         summeryViewModel.bankApply(bankOfferRequest).observe(this) {
             it?.let { resource ->
                 when (resource.status) {
@@ -403,7 +419,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         knet: LinearLayout,
         walletApply: TextView,
         offerApply: TextView,
-        offerEditText: EditText) {
+        offerEditText: EditText
+    ) {
         bankOfferRemove(
             BankOfferRequest(
                 bookingId,
@@ -411,7 +428,17 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 offerId,
                 transId,
                 preferences.getString(Constant.USER_ID).toString()
-            ), check, close, apply,banksCancel, bankEdit, msg, knet, walletApply, offerApply, offerEditText
+            ),
+            check,
+            close,
+            apply,
+            banksCancel,
+            bankEdit,
+            msg,
+            knet,
+            walletApply,
+            offerApply,
+            offerEditText
         )
     }
 
@@ -426,7 +453,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         knet: LinearLayout,
         walletApply: TextView,
         offerApply: TextView,
-        offerEditText: EditText) {
+        offerEditText: EditText
+    ) {
         summeryViewModel.bankRemove(bankOfferRequest).observe(this) {
             it?.let { resource ->
                 when (resource.status) {
@@ -511,7 +539,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                     Constant.IntentKey.TimerExtandCheck = true
                                     Constant.IntentKey.TimerExtand = 90
                                     Constant.IntentKey.TimerTime = 360
-                                    val intent = Intent(applicationContext, FinalTicketActivity::class.java)
+                                    val intent =
+                                        Intent(applicationContext, FinalTicketActivity::class.java)
                                     intent.putExtra(
                                         Constant.IntentKey.TRANSACTION_ID, transId
                                     )
@@ -577,31 +606,32 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         view: PaymentListResponse.Output.PayMode,
         knetClick: Boolean,
         creditCardClick: Boolean,
-        cardNo: String) {
+        cardNo: String
+    ) {
 
         binding?.txtProceed?.setOnClickListener {
 
-                if (!knetClick && !creditCardClick) {
-                    val dialog = OptionDialog(this,
-                        R.mipmap.ic_launcher,
-                        R.string.app_name,
-                        getString(R.string.select_payment_methods),
-                        positiveBtnText = R.string.ok,
-                        negativeBtnText = R.string.no,
-                        positiveClick = {},
-                        negativeClick = {})
-                    dialog.show()
-                } else if (creditCardClick) {
-                    creditCardDialog(cardNo)
-                } else if (knetClick) {
-                    paymentHmac(
-                        HmacKnetRequest(
-                            bookingId,
-                            bookType,
-                            transId,
-                            preferences.getString(Constant.USER_ID).toString()
-                        )
+            if (!knetClick && !creditCardClick) {
+                val dialog = OptionDialog(this,
+                    R.mipmap.ic_launcher,
+                    R.string.app_name,
+                    getString(R.string.select_payment_methods),
+                    positiveBtnText = R.string.ok,
+                    negativeBtnText = R.string.no,
+                    positiveClick = {},
+                    negativeClick = {})
+                dialog.show()
+            } else if (creditCardClick) {
+                creditCardDialog(cardNo)
+            } else if (knetClick) {
+                paymentHmac(
+                    HmacKnetRequest(
+                        bookingId,
+                        bookType,
+                        transId,
+                        preferences.getString(Constant.USER_ID).toString()
                     )
+                )
 
             }
 
@@ -874,7 +904,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 )
                             )
                         } else if (JCB.contains(
-                                proceedAlertDialog.cardNumberTextInputEditText.text.toString().substring(0, 4)
+                                proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                    .substring(0, 4)
                             ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
                                 .isEmpty()
                         ) {
@@ -1330,7 +1361,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     override fun onKnitItemClick(
-        view: PaymentListResponse.Output.PayMode, creditCardClick1: Boolean, knetClick1: Boolean) {
+        view: PaymentListResponse.Output.PayMode, creditCardClick1: Boolean, knetClick1: Boolean
+    ) {
 
         val knetClick = knetClick1
         val creditCardClick = creditCardClick1
@@ -1358,7 +1390,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     offerCode,
                     transId,
                     preferences.getString(Constant.USER_ID).toString()
-                ), offerEditText, textView157, checkBox2, imageView66,textCancelBtn
+                ), offerEditText, textView157, checkBox2, imageView66, textCancelBtn
             )
         } else if (clickName == "Voucher") {
 
@@ -1481,7 +1513,9 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
-                                    retriveRemoveGiftCard(it.data.output, offerEditText, apply, imageCheck, remove)
+                                    retriveRemoveGiftCard(
+                                        it.data.output, offerEditText, apply, imageCheck, remove
+                                    )
                                 } catch (e: Exception) {
                                     println("updateUiCinemaSession ---> ${e.message}")
                                 }
@@ -1534,7 +1568,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         imageCheck.hide()
         remove.hide()
 
-        giftApplied= false
+        giftApplied = false
         adapter?.notifyDataSetChanged()
 
         offerEditText.text.clear()
@@ -1562,7 +1596,12 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
                                     retrieveDataGiftCard(
-                                        it.data.output, offerEditText, apply, imageCheck, remove, textCancelBtn
+                                        it.data.output,
+                                        offerEditText,
+                                        apply,
+                                        imageCheck,
+                                        remove,
+                                        textCancelBtn
                                     )
                                 } catch (e: Exception) {
                                     println("updateUiCinemaSession ---> ${e.message}")
@@ -1615,7 +1654,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     ) {
         if (output.PAID == "NO") {
             binding?.textTimeToLeft?.text = output.amount
-            giftApplied=true
+            giftApplied = true
             offerEditText.isClickable = false
             offerEditText.isEnabled = false
             offerEditText.isFocusable = false
@@ -1650,7 +1689,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
 
-                                    val intent = Intent(applicationContext, PaymentWebActivity::class.java)
+                                    val intent =
+                                        Intent(applicationContext, PaymentWebActivity::class.java)
                                     intent.putExtra("PAY_URL", it.data.output.callingUrl)
                                     intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
                                     intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
@@ -1696,6 +1736,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             }
         }
     }
+    /////////////////////////////////  Extend Time   /////////////////////////////////
 
     private fun resendTimer() {
         countDownTimerPrimary =
@@ -1721,7 +1762,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 override fun onTick(millisUntilFinished: Long) {
                                     val second = millisUntilFinished / 1000 % 60
                                     val minutes = millisUntilFinished / (1000 * 60) % 60
-                                    val display = java.lang.String.format("%02d:%02d", minutes, second)
+                                    val display =
+                                        java.lang.String.format("%02d:%02d", minutes, second)
 
                                     textView111?.text = display
                                     Constant.IntentKey.TimerExtand = minutes * 60 + second
@@ -1811,6 +1853,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         }
     }
 
+    /////////////////////////////////       Cancel Booking Process /////////////////////////////////
     private fun cancelDialog() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -1828,14 +1871,14 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             Constant.IntentKey.TimerExtand = 90
             Constant.IntentKey.TimerTime = 360
             cancelTrans(CancelTransRequest(bookingId, transId))
-            if (bookType == "FOOD"){
+            if (bookType == "FOOD") {
                 Constant.IntentKey.DialogShow = true
                 val intent = Intent(this, HomeActivity::class.java)
                 Constant.IntentKey.OPEN_FROM = 0
                 startActivity(intent)
                 finish()
 
-            }else{
+            } else {
                 finish()
             }
         }
@@ -1845,6 +1888,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         }
     }
 
+    //////////////////              Cancel Trans            ///////////////////////
     private fun cancelTrans(cancelTransRequest: CancelTransRequest) {
         summeryViewModel.cancelTrans(cancelTransRequest).observe(this) {
             it?.let { resource ->
@@ -1890,6 +1934,31 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     }
                 }
             }
+        }
+    }
+
+    ///////////////////////////////////// Payment info //////////////////////////
+    private fun paymentDialog() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.paymnet_info_dialog)
+        dialog.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
+        dialog.window?.setGravity(Gravity.BOTTOM)
+        dialog.show()
+        val imageView71 = dialog.findViewById<ImageView>(R.id.imageView71)
+        val recyclerTicketPrice = dialog.findViewById<RecyclerView>(R.id.recyclerTicketPrice)
+
+        val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
+        val adapter = ItemInfoPopupAdapter(this, outputlist!!)
+        recyclerTicketPrice.layoutManager = gridLayout
+        recyclerTicketPrice.adapter = adapter
+
+        imageView71.setOnClickListener {
+            dialog.dismiss()
         }
     }
 

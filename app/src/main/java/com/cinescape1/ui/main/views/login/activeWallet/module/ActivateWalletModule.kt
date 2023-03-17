@@ -1,8 +1,8 @@
-package com.cinescape1.ui.main.views.activeWallet.module
+package com.cinescape1.ui.main.views.login.activeWallet.module
 
 import androidx.lifecycle.ViewModel
 import com.cinescape1.di.ViewModelKey
-import com.cinescape1.ui.main.views.activeWallet.viewModel.ActivateWalletViewModel
+import com.cinescape1.ui.main.views.login.activeWallet.viewModel.ActivateWalletViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

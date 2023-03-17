@@ -53,6 +53,7 @@ class SplashActivity : DaggerAppCompatActivity() {
     private var networkDialog:Dialog? = null
 
     @SuppressLint("PackageManagerGetSignatures")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
@@ -72,6 +73,7 @@ class SplashActivity : DaggerAppCompatActivity() {
             }
         }
         setContentView(R.layout.activity_splash)
+
         try {
             val info = packageManager.getPackageInfo(
                 "com.cinescape.android",
@@ -177,9 +179,11 @@ class SplashActivity : DaggerAppCompatActivity() {
 
     private fun openMovieForYou() {
         Constant.IntentKey.BACKFinlTicket +=0
+        println("splash------->${preferences.getBoolean(Constant.IS_LOGIN)}")
         val runnable = Runnable {
             if (preferences.getBoolean(Constant.IS_LOGIN)) {
-                val intent = Intent(this@SplashActivity, HomeActivity::class.java)
+                val intent = Intent(this@SplashActivity, PaymentListActivity::class.java)
+//                val intent = Intent(this@SplashActivity, HomeActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {

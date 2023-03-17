@@ -23,18 +23,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.CountryCodeResponse
-import com.cinescape1.data.models.responseModel.LoginResponse
 import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.databinding.ActivityLoginBinding
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.*
-import com.cinescape1.ui.main.views.activeWallet.ActivateWalletActivity
+import com.cinescape1.ui.main.views.login.activeWallet.ActivateWalletActivity
 import com.cinescape1.ui.main.views.adapters.CountryCodeAdapter
 import com.cinescape1.ui.main.views.details.nowShowing.ShowTimesActivity
 import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.ui.main.views.login.guest.ContinueGuestActivity
 import com.cinescape1.ui.main.views.login.otpVerification.OtpVerificationActivity
+import com.cinescape1.ui.main.views.login.reponse.LoginResponse
 import com.cinescape1.ui.main.views.login.resetPassword.ResetPasswordActivity
 import com.cinescape1.ui.main.views.login.viewModel.LoginViewModel
 import com.cinescape1.ui.main.views.payment.PaymentWebActivity
@@ -287,11 +287,13 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
             from = intent.getStringExtra("from").toString()
 
         }
+
         if (intent.hasExtra("Payment")) {
             booking = intent.getStringExtra("BOOKING").toString()
             from = intent.getStringExtra("FROM").toString()
 
         }
+
         if (intent.hasExtra("BOOKING")) {
             booking = intent.getStringExtra("BOOKING").toString()
         }
@@ -357,6 +359,7 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
 
         //signingUi
         binding?.textView2?.setOnClickListener {
+            Constant().appBarHide(this)
             binding?.textView2?.typeface = bold
             binding?.textView108?.typeface = regular
 
@@ -370,6 +373,7 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
         //signUpUi
         binding?.textView108?.setOnClickListener {
 
+            Constant().appBarHide(this)
             binding?.textView2?.typeface = regular
             binding?.textView108?.typeface = bold
 
@@ -537,6 +541,7 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
 
         binding?.radioGroup?.setOnCheckedChangeListener { _, _ ->
             if (binding?.male?.isChecked == true) {
+
 //                binding?.male?.setTextColor(
 //                    ContextCompat.getColorStateList(
 //                        this,
@@ -568,12 +573,7 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                 binding?.male?.buttonTintList = ColorStateList.valueOf(getColor(R.color.text_color))
                 binding?.female?.buttonTintList =
                     ColorStateList.valueOf(getColor(R.color.text_alert_color_red))
-//                binding?.female?.setTextColor(
-//                    ContextCompat.getColorStateList(
-//                        this,
-//                        R.color.text_alert_color_red
-//                    )
-//                )
+
                 gender = "Female"
             }
         }
@@ -717,15 +717,11 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                 )
                 Constant().hideKeyboard(this)
             }
-
         }
-
     }
-
 
 /////////////////////////////////    Log In   /////////////////////////////////
 
-    //login
     private fun signingUsingApi(name: String, password: String) {
         loginViewModel.userLogin(this, name, password).observe(this) {
             it?.let { resource ->
@@ -733,15 +729,31 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                     Status.SUCCESS -> {
                         loader?.dismiss()
                         if (Constant.status == it.data?.data?.result && SUCCESS_CODE == it.data.data.code) {
-                            if (it.data.data.output.otp_require == "true") {
-                                val intent = Intent(this@LoginActivity, OtpVerificationActivity::class.java)
-                                    intent.putExtra("userId", it.data.data.output.userId)
+                            when (it.data.data.output.otp_require) {
+                                "BOTH" -> {
+                                    val intent = Intent(this, OtpVerificationActivity::class.java)
+                                    intent.putExtra("userId", it.data.data.output.userid)
                                     intent.putExtra("type", "login")
                                     intent.putExtra("verifyType", it.data.data.output.otp_require)
-                                startActivity(intent)
-                                finish()
-                            } else {
-                                retrieveLoginData(it.data.data.output)
+                                    startActivity(intent)
+                                }
+                                "MOBILE" -> {
+                                    val intent = Intent(this, OtpVerificationActivity::class.java)
+                                    intent.putExtra("userId", it.data.data.output.userid)
+                                    intent.putExtra("type", "login")
+                                    intent.putExtra("verifyType", it.data.data.output.otp_require)
+                                    startActivity(intent)
+                                }
+                                "EMAIL" -> {
+                                    val intent = Intent(this, OtpVerificationActivity::class.java)
+                                    intent.putExtra("userId", it.data.data.output.userid)
+                                    intent.putExtra("type", "login")
+                                    intent.putExtra("verifyType", it.data.data.output.otp_require)
+                                    startActivity(intent)
+                                }
+                                else -> {
+                                    retrieveLoginData(it.data.data.output)
+                                }
                             }
                         } else {
                             val dialog = OptionDialog(this,
@@ -824,37 +836,36 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
     }
 
     private fun saveDataInPreference(output: LoginResponse.Output) {
-        preferences.putString(Constant.USER_ID, output.userId)
+        preferences.putString(Constant.USER_ID, output.userid)
         preferences.putBoolean(
             Constant.IS_LOGIN, true
         )
         preferences.putString(
-            Constant.USER_NAME, output.userName
+            Constant.USER_NAME, output.user.userName
         )
         preferences.putString(
-            Constant.FIRST_NAME, output.firstName
+            Constant.FIRST_NAME, output.user.firstName
         )
         preferences.putString(
-            Constant.LAST_NAME, output.lastName
+            Constant.LAST_NAME, output.user.lastName
         )
-        preferences.putString(Constant.USER_DOB, output.dob)
+        preferences.putString(Constant.USER_DOB, output.user.dob)
         preferences.putString(
-            Constant.MOBILE, output.mobilePhone
-        )
-        preferences.putString(
-            Constant.USER_EMAIL, output.email
+            Constant.MOBILE, output.user.mobilePhone
         )
         preferences.putString(
-            Constant.USER_GENDER, output.gender
+            Constant.USER_EMAIL, output.user.email
         )
         preferences.putString(
-            Constant.USER_CITY, output.mobilePhone
+            Constant.USER_GENDER, output.user.gender
         )
         preferences.putString(
-            Constant.COUNTRY_CODE, output.countryCode
+            Constant.USER_CITY, output.user.mobilePhone
+        )
+        preferences.putString(
+            Constant.COUNTRY_CODE, output.user.countryCode
         )
     }
-
 
     private fun updateUI(user: FirebaseUser?) {
         try {
@@ -901,8 +912,8 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                         loader?.dismiss()
                         if (Constant.status == it.data?.data?.result && SUCCESS_CODE == it.data.data.code) {
                             val intent = Intent(
-                                this@LoginActivity, OtpVerificationActivity::class.java)
-                                intent.putExtra("userId", it.data.data.output.userid)
+                                this, OtpVerificationActivity::class.java)
+                            intent.putExtra("userId", it.data.data.output.userid)
                             intent.putExtra("type", "signUp")
                             intent.putExtra("verifyType","")
                             intent.flags =
@@ -1265,3 +1276,4 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
         }
     }
 }
+

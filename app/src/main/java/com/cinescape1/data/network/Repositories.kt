@@ -3,6 +3,7 @@ package com.cinescape1.data.network
 import com.cinescape1.data.models.requestModel.*
 import com.cinescape1.data.models.responseModel.*
 import com.cinescape1.ui.main.views.home.fragments.account.response.RechargeAmountResponse
+import com.cinescape1.ui.main.views.login.reponse.LoginResponse
 import com.cinescape1.ui.main.views.payment.paymentFaield.reponse.PaymentFailedResponse
 import com.cinescape1.ui.main.views.payment.paymentList.BankOfferRequest
 import com.cinescape1.ui.main.views.payment.paymentList.response.BankOfferApply

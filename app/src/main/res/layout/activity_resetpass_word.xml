@@ -28,100 +28,71 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/image_cinema"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout35"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/contentDes"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/signin_bg"
-                tools:ignore="ImageContrastCheck" />
-
-            <TextView
-                android:id="@+id/text_signup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginBottom="21dp"
-                android:fontFamily="@font/sf_pro_text_semibold"
-                android:lineSpacingExtra="1.8sp"
-                android:text="@string/password_recovery"
-                android:textColor="@color/white"
-                android:textSize="@dimen/size25"
-                app:layout_constraintBottom_toTopOf="@+id/text_have_account_sign"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/text_have_account_sign"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:gravity="start"
-                android:text="@string/recovery_msg"
-                android:textAlignment="textStart"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/size15"
-                app:layout_constraintBottom_toBottomOf="@+id/image_cinema"
-                app:layout_constraintEnd_toEndOf="@+id/image_cinema"
-                app:layout_constraintStart_toStartOf="@+id/text_signup" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/ForgotOtpVerify"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="4dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_cinema"
-                app:layout_constraintVertical_bias="1.0">
-
-                <include
-                    layout="@layout/forgot_otp_verify"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+                <ImageView
+                    android:id="@+id/image_cinema"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/contentDes"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/signin_bg"
+                    tools:ignore="ImageContrastCheck" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/updatePassword"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="17.5dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="16.5dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_cinema"
-                app:layout_constraintVertical_bias="1.0">
-
-
-                <include
-                    layout="@layout/set_password"
+                <TextView
+                    android:id="@+id/text_signup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_marginStart="32dp"
+                    android:layout_marginBottom="21dp"
+                    android:fontFamily="@font/sf_pro_text_semibold"
+                    android:lineSpacingExtra="1.8sp"
+                    android:text="@string/password_recovery"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size25"
+                    app:layout_constraintBottom_toTopOf="@+id/text_have_account_sign"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_have_account_sign"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:gravity="start"
+                    android:text="@string/recovery_msg"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/size15"
+                    app:layout_constraintBottom_toBottomOf="@+id/image_cinema"
+                    app:layout_constraintEnd_toEndOf="@+id/image_cinema"
+                    app:layout_constraintStart_toStartOf="@+id/text_signup" />
+
+                <ImageView
+                    android:id="@+id/imageView70"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:adjustViewBounds="true"
+                    app:layout_constraintStart_toStartOf="@+id/image_cinema"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_back_button"
+                    tools:ignore="ContentDescription" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+            <!--            Email                           -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/sendOtpForgotUi"
                 android:layout_width="0dp"
@@ -134,7 +105,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_cinema"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout35"
                 app:layout_constraintVertical_bias="1.0">
 
 
@@ -150,16 +121,60 @@
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ImageView
-                android:id="@+id/imageView70"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
-                app:layout_constraintStart_toStartOf="@+id/image_cinema"
-                app:layout_constraintTop_toTopOf="@+id/view88"
-                app:srcCompat="@drawable/ic_back_button" />
+            <!--            Otp Verify                      -->
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ForgotOtpVerify"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="4dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout35"
+                app:layout_constraintVertical_bias="1.0">
+
+                <include
+                    layout="@layout/forgot_otp_verify"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--            Enter Password                  -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/updatePassword"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="17.5dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16.5dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout35"
+                app:layout_constraintVertical_bias="1.0">
+
+
+                <include
+                    layout="@layout/set_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -172,7 +172,7 @@
             android:theme="@style/Theme.Cinescape.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".ui.main.views.activeWallet.ActivateWalletActivity"
+            android:name=".ui.main.views.login.activeWallet.ActivateWalletActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Cinescape.NoActionBar"
             tools:ignore="LockedOrientationActivity" />

@@ -1,4 +1,4 @@
-package com.cinescape1.ui.main.views.activeWallet.viewModel
+package com.cinescape1.ui.main.views.login.activeWallet.viewModel
 
 import android.app.Activity
 import androidx.lifecycle.ViewModel

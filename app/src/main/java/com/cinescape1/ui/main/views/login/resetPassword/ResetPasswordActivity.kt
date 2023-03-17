@@ -2,12 +2,9 @@ package com.cinescape1.ui.main.views.login.resetPassword
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.MotionEvent
-import android.view.View
 import android.view.View.OnTouchListener
-import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.cinescape1.R
@@ -18,8 +15,8 @@ import com.cinescape1.databinding.ActivityResetpassWordBinding
 import com.cinescape1.di.scoped.ActivityScoped
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
-import com.cinescape1.ui.main.views.login.resetPassword.viewModel.ResetPasswordViewModel
 import com.cinescape1.ui.main.views.login.LoginActivity
+import com.cinescape1.ui.main.views.login.resetPassword.viewModel.ResetPasswordViewModel
 import com.cinescape1.utils.*
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.forgot_otp_verify.*
@@ -32,13 +29,15 @@ import javax.inject.Inject
 @ActivityScoped
 class ResetPasswordActivity : DaggerAppCompatActivity() {
     private var loader: LoaderDialog? = null
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
     @Inject
     lateinit var preferences: AppPreferences
     private val splashViewModel: ResetPasswordViewModel by viewModels { viewModelFactory }
     private var binding: ActivityResetpassWordBinding? = null
-    private var otpGet: String = ""
+    private var otpEmail: String = ""
     private var userId: String = ""
     private var emailId: String = ""
 
@@ -46,8 +45,6 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         binding = ActivityResetpassWordBinding.inflate(layoutInflater, null, false)
-        val view = binding?.root
-
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
@@ -60,17 +57,24 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
                 LocaleHelper.setLocale(this, "en")
             }
         }
+        setContentView(binding?.root)
 
-        setContentView(view)
 
+        manageFunctions()
+    }
+
+    private fun manageFunctions() {
         //AppBar Hide
-        window.apply {
-            clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-            statusBarColor = Color.TRANSPARENT
-        }
+//        window.apply {
+//            clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+//            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+//            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//            statusBarColor = Color.TRANSPARENT
+//        }
 
+        Constant().appBarHide(this)
+
+        //backClick
         binding?.imageView70?.setOnClickListener {
             finish()
         }
@@ -88,8 +92,7 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
             val DRAWABLE_RIGHT = 2
             val DRAWABLE_BOTTOM = 3
             if (event.action == MotionEvent.ACTION_UP) {
-                if (event.rawX >= resendEmailED.right - resendEmailED.compoundDrawables[DRAWABLE_RIGHT].bounds.width()
-                ) {
+                if (event.rawX >= resendEmailED.right - resendEmailED.compoundDrawables[DRAWABLE_RIGHT].bounds.width()) {
                     // your action here
                     binding?.sendOtpForgotUi?.show()
                     binding?.ForgotOtpVerify?.hide()
@@ -106,7 +109,7 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
 
         //SendOtp
         sendOtpForgot.setOnClickListener {
-          emailId=  enterEmailForPass.text.toString()
+            emailId = enterEmailForPass.text.toString()
             if (!InputTextValidator.validateEmail(enterEmailForPass!!)) {
                 if (enterEmailForPass.text.toString().trim { it <= ' ' }.isEmpty()) {
 //                    binding?.enterEmails?.error = resources.getString(R.string.emailOnlyEmpty)
@@ -116,44 +119,38 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
                         resources.getString(R.string.emailOnlyEmpty),
                         positiveBtnText = R.string.ok,
                         negativeBtnText = R.string.no,
-                        positiveClick = {
-                        },
-                        negativeClick = {
-                        })
+                        positiveClick = {},
+                        negativeClick = {})
                     dialog.show()
-                } else{
+                } else {
                     val dialog = OptionDialog(this,
                         R.mipmap.ic_launcher,
                         R.string.app_name,
                         resources.getString(R.string.email_msg_invalid1),
                         positiveBtnText = R.string.ok,
                         negativeBtnText = R.string.no,
-                        positiveClick = {
-                        },
-                        negativeClick = {
-                        })
+                        positiveClick = {},
+                        negativeClick = {})
                     dialog.show()
                 }
 
-            }else{
+            } else {
                 forgotPassword(ForgotPasswordRequest("", enterEmailForPass.text.toString()))
             }
 
         }
 
         verifyOtpForgot.setOnClickListener {
-            otpGet = otpView.getStringFromFields()
-            if (otpGet.contains("null")) {
+            otpEmail = otpView.getStringFromFields()
+            if (otpEmail.contains("null")) {
                 val dialog = OptionDialog(this,
                     R.mipmap.ic_launcher,
                     R.string.app_name,
                     resources.getString(R.string.otp_msg),
                     positiveBtnText = R.string.ok,
                     negativeBtnText = R.string.no,
-                    positiveClick = {
-                    },
-                    negativeClick = {
-                    })
+                    positiveClick = {},
+                    negativeClick = {})
                 dialog.show()
 
             } else {
@@ -176,13 +173,9 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
                         resources.getString(R.string.enterPass),
                         positiveBtnText = R.string.ok,
                         negativeBtnText = R.string.no,
-                        positiveClick = {
-                        },
-                        negativeClick = {
-                        })
+                        positiveClick = {},
+                        negativeClick = {})
                     dialog.show()
-
-
                 }
                 confPass.trim() == "" -> {
                     val dialog = OptionDialog(this,
@@ -191,10 +184,8 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
                         resources.getString(R.string.enterConfPass),
                         positiveBtnText = R.string.ok,
                         negativeBtnText = R.string.no,
-                        positiveClick = {
-                        },
-                        negativeClick = {
-                        })
+                        positiveClick = {},
+                        negativeClick = {})
                     dialog.show()
 
                 }
@@ -205,19 +196,14 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
                         resources.getString(R.string.passNotMatch),
                         positiveBtnText = R.string.ok,
                         negativeBtnText = R.string.no,
-                        positiveClick = {
-                        },
-                        negativeClick = {
-                        })
+                        positiveClick = {},
+                        negativeClick = {})
                     dialog.show()
                 }
                 else -> {
                     updatePassword(
                         UpdatePasswordRequest(
-                            otpGet,
-                            otpGet,
-                            enterConfPasswords.text.toString(),
-                            userId
+                            otpEmail, enterConfPasswords.text.toString(), userId
                         )
                     )
                 }
@@ -225,10 +211,10 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
         }
     }
 
+    //////////////////////////// Forgot Password ////////////////////////////////
 
     private fun forgotPassword(forgotPasswordRequest: ForgotPasswordRequest) {
-        splashViewModel.forgotPassword(forgotPasswordRequest)
-            .observe(this) {
+        splashViewModel.forgotPassword(forgotPasswordRequest).observe(this) {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
@@ -242,10 +228,8 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
                                             it.data.msg.toString(),
                                             positiveBtnText = R.string.ok,
                                             negativeBtnText = R.string.no,
-                                            positiveClick = {
-                                            },
-                                            negativeClick = {
-                                            })
+                                            positiveClick = {},
+                                            negativeClick = {})
                                         dialog.show()
 
                                         userId = it.data.output.userid
@@ -267,10 +251,8 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
                                         it.data?.msg.toString(),
                                         positiveBtnText = R.string.ok,
                                         negativeBtnText = R.string.no,
-                                        positiveClick = {
-                                        },
-                                        negativeClick = {
-                                        })
+                                        positiveClick = {},
+                                        negativeClick = {})
                                     dialog.show()
                                 }
                             }
@@ -283,10 +265,8 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
                                 it.message ?: "Oops its not you, its Us.",
                                 positiveBtnText = R.string.ok,
                                 negativeBtnText = R.string.no,
-                                positiveClick = {
-                                },
-                                negativeClick = {
-                                })
+                                positiveClick = {},
+                                negativeClick = {})
 
                             dialog.show()
                         }
@@ -299,9 +279,10 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
             }
     }
 
+    //////////////////////////// Update Password ////////////////////////////////
+
     private fun updatePassword(updatePasswordRequest: UpdatePasswordRequest) {
-        splashViewModel.updatePassword(updatePasswordRequest)
-            .observe(this) {
+        splashViewModel.updatePassword(updatePasswordRequest).observe(this) {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
@@ -310,8 +291,7 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
                                 if (it.data?.code == Constant.SUCCESS_CODE) {
                                     try {
                                         val intent = Intent(
-                                            this@ResetPasswordActivity,
-                                            LoginActivity::class.java
+                                            this@ResetPasswordActivity, LoginActivity::class.java
                                         )
                                         startActivity(intent)
                                         finish()
@@ -325,10 +305,8 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
                                         it.data?.msg.toString(),
                                         positiveBtnText = R.string.ok,
                                         negativeBtnText = R.string.no,
-                                        positiveClick = {
-                                        },
-                                        negativeClick = {
-                                        })
+                                        positiveClick = {},
+                                        negativeClick = {})
                                     dialog.show()
                                 }
                             }
@@ -341,10 +319,8 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
                                 it.message ?: "Oops its not you, its Us.",
                                 positiveBtnText = R.string.ok,
                                 negativeBtnText = R.string.no,
-                                positiveClick = {
-                                },
-                                negativeClick = {
-                                })
+                                positiveClick = {},
+                                negativeClick = {})
 
                             dialog.show()
                         }

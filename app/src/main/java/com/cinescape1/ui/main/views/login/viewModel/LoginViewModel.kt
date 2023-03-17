@@ -18,7 +18,6 @@ import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(private val repositories: Repositories) : ViewModel() {
 
-
     /////////////////////////// Firebase Facebook Authentication Starts ////////////////////////////
 
     val loginManager: LoginManager = LoginManager.getInstance()

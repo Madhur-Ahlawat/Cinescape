@@ -303,7 +303,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_text_bold"
                 android:gravity="center_horizontal"
-                android:text="@string/cancel_amp"
+                android:text="@string/cancel"
                 android:textColor="@color/white"
                 android:textSize="@dimen/size17"
                 app:layout_constraintBottom_toBottomOf="parent"

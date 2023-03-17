@@ -1,8 +1,9 @@
-package com.cinescape1.ui.main.views.activeWallet
+package com.cinescape1.ui.main.views.login.activeWallet
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputFilter
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
@@ -21,8 +22,8 @@ import com.cinescape1.databinding.ActivityActivateWalletBinding
 import com.cinescape1.di.scoped.ActivityScoped
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
-import com.cinescape1.ui.main.views.activeWallet.viewModel.ActivateWalletViewModel
 import com.cinescape1.ui.main.views.adapters.CountryCodeAdapter
+import com.cinescape1.ui.main.views.login.activeWallet.viewModel.ActivateWalletViewModel
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.InputTextValidator
 import com.cinescape1.utils.LocaleHelper
@@ -44,20 +45,15 @@ class ActivateWalletActivity : DaggerAppCompatActivity(),
     lateinit var preferences: AppPreferences
     private val activateWalletViewModel: ActivateWalletViewModel by viewModels { viewModelFactory }
     private var binding: ActivityActivateWalletBinding? = null
-    private var countyCode: String = ""
-    var countryCode: String = ""
+    private var countryCode: String = ""
     private var mAdapter: CountryCodeAdapter? = null
-
     private var languageCheck: String = "en"
-
     private var countryCodeList = ArrayList<CountryCodeResponse.Output>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         binding = ActivityActivateWalletBinding.inflate(layoutInflater, null, false)
-        val view = binding?.root
-        setContentView(view)
-
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
@@ -113,21 +109,30 @@ class ActivateWalletActivity : DaggerAppCompatActivity(),
             }
         }
 
-        binding?.imageView37?.setOnClickListener {
-            finish()
-        }
 
+        setContentView(binding?.root)
+        manageFunctions()
+    }
+
+    private fun manageFunctions() {
         movedNext()
         countryCodeLoad()
     }
 
     private fun movedNext() {
+        //back
+        binding?.imageView37?.setOnClickListener {
+            finish()
+        }
+
         binding?.textView67?.setOnClickListener {
             val cardNumber = binding?.editText?.text.toString()
-            val userName = binding?.editText1?.text.toString()
-            val email = binding?.editText2?.text.toString()
-            val password = binding?.editText3?.text.toString()
+            val email = binding?.editText1?.text.toString()
+            val password = binding?.editText2?.text.toString()
+            val confPassword = binding?.editText3?.text.toString()
             val mobile = binding?.editText6?.text.toString()
+
+            println("details---->card${cardNumber}-->email${email}--pass--->${password}--->confPass--->${confPassword}--->mob--->${mobile}")
             if (cardNumber.isNullOrEmpty()) {
                 val dialog = OptionDialog(this,
                     R.mipmap.ic_launcher,
@@ -135,35 +140,19 @@ class ActivateWalletActivity : DaggerAppCompatActivity(),
                     resources.getString(R.string.cardNoEmpty),
                     positiveBtnText = R.string.ok,
                     negativeBtnText = R.string.no,
-                    positiveClick = {
-                    },
-                    negativeClick = {
-                    })
+                    positiveClick = {},
+                    negativeClick = {})
                 dialog.show()
-            } else if (userName.isNullOrEmpty()) {
-                val dialog = OptionDialog(this,
-                    R.mipmap.ic_launcher,
-                    R.string.app_name,
-                    resources.getString(R.string.userNameEmpty),
-                    positiveBtnText = R.string.ok,
-                    negativeBtnText = R.string.no,
-                    positiveClick = {
-                    },
-                    negativeClick = {
-                    })
-                dialog.show()
-            } else if (!InputTextValidator.validateEmail(binding?.editText2!!)) {
-                if (binding?.editText2?.text.toString().trim { it <= ' ' }.isEmpty()) {
+            } else if (!InputTextValidator.validateEmail(binding?.editText1!!)) {
+                if (binding?.editText1?.text.toString().trim { it <= ' ' }.isEmpty()) {
                     val dialog = OptionDialog(this,
                         R.mipmap.ic_launcher,
                         R.string.app_name,
                         resources.getString(R.string.emailOnlyEmpty),
                         positiveBtnText = R.string.ok,
                         negativeBtnText = R.string.no,
-                        positiveClick = {
-                        },
-                        negativeClick = {
-                        })
+                        positiveClick = {},
+                        negativeClick = {})
                     dialog.show()
                 } else {
                     val dialog = OptionDialog(this,
@@ -172,10 +161,8 @@ class ActivateWalletActivity : DaggerAppCompatActivity(),
                         resources.getString(R.string.email_msg_invalid),
                         positiveBtnText = R.string.ok,
                         negativeBtnText = R.string.no,
-                        positiveClick = {
-                        },
-                        negativeClick = {
-                        })
+                        positiveClick = {},
+                        negativeClick = {})
                     dialog.show()
                 }
             } else if (password.isNullOrEmpty()) {
@@ -185,10 +172,28 @@ class ActivateWalletActivity : DaggerAppCompatActivity(),
                     resources.getString(R.string.passwordEmpty),
                     positiveBtnText = R.string.ok,
                     negativeBtnText = R.string.no,
-                    positiveClick = {
-                    },
-                    negativeClick = {
-                    })
+                    positiveClick = {},
+                    negativeClick = {})
+                dialog.show()
+            } else if (confPassword.isNullOrEmpty()) {
+                val dialog = OptionDialog(this,
+                    R.mipmap.ic_launcher,
+                    R.string.app_name,
+                    resources.getString(R.string.passwordEmpty),
+                    positiveBtnText = R.string.ok,
+                    negativeBtnText = R.string.no,
+                    positiveClick = {},
+                    negativeClick = {})
+                dialog.show()
+            } else if (password != confPassword) {
+                val dialog = OptionDialog(this,
+                    R.mipmap.ic_launcher,
+                    R.string.app_name,
+                    resources.getString(R.string.passNotMatch),
+                    positiveBtnText = R.string.ok,
+                    negativeBtnText = R.string.no,
+                    positiveClick = {},
+                    negativeClick = {})
                 dialog.show()
             } else if (mobile.isNullOrEmpty()) {
                 val dialog = OptionDialog(this,
@@ -197,40 +202,36 @@ class ActivateWalletActivity : DaggerAppCompatActivity(),
                     resources.getString(R.string.enterMo),
                     positiveBtnText = R.string.ok,
                     negativeBtnText = R.string.no,
-                    positiveClick = {
-                    },
-                    negativeClick = {
-                    })
+                    positiveClick = {},
+                    negativeClick = {})
                 dialog.show()
-            } else if (countyCode.isNullOrEmpty()) {
+            } else if (countryCode.isNullOrEmpty()) {
                 val dialog = OptionDialog(this,
                     R.mipmap.ic_launcher,
                     R.string.app_name,
                     resources.getString(R.string.countryEmpty),
                     positiveBtnText = R.string.ok,
                     negativeBtnText = R.string.no,
-                    positiveClick = {
-                    },
-                    negativeClick = {
-                    })
+                    positiveClick = {},
+                    negativeClick = {})
                 dialog.show()
             } else {
-                getSplashText(
+                activateCard(
                     ActivatwWalletRequest(
                         cardNumber,
-                        countyCode,
+                        countryCode,
                         "",
                         email,
                         "",
                         "",
                         "",
                         mobile,
-                        "",
-                        true,
-                        true,
-                        true,
-                        "",
-                        ""
+                        password,
+                        promoEmail = true,
+                        promoMobile = true,
+                        reserveNotification = true,
+                        socialId = "",
+                        socialType = ""
                     )
                 )
             }
@@ -245,105 +246,100 @@ class ActivateWalletActivity : DaggerAppCompatActivity(),
         }
     }
 
-    private fun getSplashText(activateWalletRequest: ActivatwWalletRequest) {
-        activateWalletViewModel.activateCard(activateWalletRequest)
-            .observe(this) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.code == Constant.SUCCESS_CODE) {
-                                    try {
-                                    } catch (e: Exception) {
-                                        println("exception--->${e.message}")
-                                    }
-                                } else {
-                                    val dialog = OptionDialog(this,
-                                        R.mipmap.ic_launcher,
-                                        R.string.app_name,
-                                        it.data?.msg.toString(),
-                                        positiveBtnText = R.string.ok,
-                                        negativeBtnText = R.string.no,
-                                        positiveClick = {
-                                        },
-                                        negativeClick = {
-                                        })
-                                    dialog.show()
+    private fun activateCard(activateWalletRequest: ActivatwWalletRequest) {
+        activateWalletViewModel.activateCard(activateWalletRequest).observe(this) {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.code == Constant.SUCCESS_CODE) {
+                                try {
+
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
                                 }
+                            } else {
+                                val dialog = OptionDialog(this,
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
                             }
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(this,
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {
-                                },
-                                negativeClick = {
-                                })
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
-                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(this,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                        loader = LoaderDialog(R.string.pleasewait)
+                        loader?.show(supportFragmentManager, null)
                     }
                 }
             }
+        }
     }
+
+
+    //////////////////////////////   Country Code Manage /////////////////////////
 
     private fun countryCodeLoad() {
-        activateWalletViewModel.countryCode(this)
-            .observe(this) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            loader?.dismiss()
-                            resource.data?.let { it ->
-                                if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                    println("LocationResponse--->${it.data.output}")
-                                    countryCodeList = it.data.output
-//                                    binding?.editText4?.setText(resources.getString(R.string.mobile) + "    " + it.data.output[0].isdCode)
-                                    binding?.editText4?.setText(" " +it.data.output[0].isdCode)
-                                    countryCode = it.data.output[0].isdCode
-                                    retriveCountryList(it.data.output)
-                                } else {
-                                    println("Something Wrong")
-                                }
+        activateWalletViewModel.countryCode(this).observe(this) {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                println("LocationResponse--->${it.data.output}")
+
+                                countryCodeList = it.data.output
+                                binding?.editText4?.setText(" " + it.data.output[0].isdCode)
+                                countryCode = it.data.output[0].isdCode
+                                retrieveCountryList(it.data.output)
+                            } else {
+                                println("Something Wrong")
                             }
                         }
-                        Status.ERROR -> {
-                            loader?.dismiss()
-                            val dialog = OptionDialog(this,
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                it.message.toString(),
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {
-                                },
-                                negativeClick = {
-                                })
-                            dialog.show()
-                        }
-                        Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
-                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(this,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                        loader = LoaderDialog(R.string.pleasewait)
+                        loader?.show(supportFragmentManager, null)
                     }
                 }
             }
+        }
     }
 
-    private fun retriveCountryList(output: ArrayList<CountryCodeResponse.Output>) {
+    private fun retrieveCountryList(output: ArrayList<CountryCodeResponse.Output>) {
         binding?.editText4?.setOnClickListener {
             bottomDialog(output)
         }
-
     }
 
     private fun bottomDialog(countryList: java.util.ArrayList<CountryCodeResponse.Output>) {
@@ -360,14 +356,14 @@ class ActivateWalletActivity : DaggerAppCompatActivity(),
         val textCancel = mDialogView.findViewById<TextView>(R.id.textView59)
         val textGoBack = mDialogView.findViewById<TextView>(R.id.textView60)
 
-        if (languageCheck == "ar"){
+        if (languageCheck == "ar") {
             val regular = ResourcesCompat.getFont(this, R.font.gess_light)
             val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
             proceed.typeface = bold
             textCancel.typeface = bold
             textGoBack.typeface = regular
 
-        }else{
+        } else {
             val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
             val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
             proceed.typeface = bold
@@ -384,6 +380,7 @@ class ActivateWalletActivity : DaggerAppCompatActivity(),
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = layoutManager
         countryCodeList = countryList
+
         edSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
             override fun beforeTextChanged(
@@ -431,14 +428,15 @@ class ActivateWalletActivity : DaggerAppCompatActivity(),
         }
     }
 
-    override fun onItemClick(view: CountryCodeResponse.Output, check : Boolean) {
-//        if (check == true){
-            countryCode = view.isdCode
-//        }else{
-//            countryCode = ""
-//        }
 
-        println("CountryCode--->${view.isdCode}")
+    override fun onItemClick(view: CountryCodeResponse.Output, check: Boolean) {
+        countryCode = view.isdCode
+        val maxLengthEditText = view.phoneLength
+        binding?.editText6?.filters = arrayOf<InputFilter>(
+            InputFilter.LengthFilter(
+                maxLengthEditText
+            )
+        )
     }
 
 
