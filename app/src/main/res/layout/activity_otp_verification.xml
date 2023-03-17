@@ -117,24 +117,24 @@
                     app:layout_constraintStart_toStartOf="@+id/view14"
                     app:layout_constraintTop_toBottomOf="@+id/textView144" />
 
-                <com.kevinschildhorn.otpview.OTPView
+                <com.goodiebag.pinview.Pinview
                     android:id="@+id/textView146"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:clipToPadding="true"
-                    android:inputType="number"
+                    app:pinWidth="42dp"
+                    app:pinHeight="42dp"
+                    app:pinLength="6"
+                    app:cursorVisible="false"
+                    app:forceKeyboard="false"
+                    app:inputType="number"
+                    app:password="false"
+                    android:layout_marginStart="-47dp"
+                    app:pinBackground="@drawable/background"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/view14"
                     app:layout_constraintTop_toBottomOf="@+id/textView145"
-                    app:otp_backgroundImage="@drawable/background"
-                    app:otp_filledBackgroundImage="@drawable/background"
-                    app:otp_highlightedBackgroundImage="@drawable/background_highlighted"
-                    app:otp_itemCount="6"
-                    app:otp_itemHeight="42dp"
-                    app:otp_itemWidth="42dp"
-                    app:otp_showCursor="false"
-                    app:otp_textColor="@color/colorWhite" />
+                />
 
                 <TextView
                     android:id="@+id/textView147"
@@ -160,25 +160,23 @@
                     app:layout_constraintStart_toStartOf="@+id/view14"
                     app:layout_constraintTop_toBottomOf="@+id/textView147" />
 
-                <com.kevinschildhorn.otpview.OTPView
+                <com.goodiebag.pinview.Pinview
                     android:id="@+id/textView149"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:clipToPadding="true"
-                    android:inputType="number"
-                    android:textSize="@dimen/size15"
-                    app:otp_textColor="@color/colorWhite"
+                    app:pinWidth="42dp"
+                    app:pinHeight="42dp"
+                    app:pinLength="6"
+                    app:cursorVisible="false"
+                    app:forceKeyboard="false"
+                    app:inputType="number"
+                    app:password="false"
+                    android:layout_marginStart="-47dp"
+                    app:pinBackground="@drawable/background"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/view14"
-                    app:layout_constraintTop_toBottomOf="@+id/textView148"
-                    app:otp_backgroundImage="@drawable/background"
-                    app:otp_filledBackgroundImage="@drawable/background"
-                    app:otp_highlightedBackgroundImage="@drawable/background_highlighted"
-                    app:otp_itemCount="6"
-                    app:otp_itemHeight="42dp"
-                    app:otp_itemWidth="42dp"
-                    app:otp_showCursor="false" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView148" />
 
                 <TextView
                     android:id="@+id/textView150"

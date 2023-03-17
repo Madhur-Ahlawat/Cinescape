@@ -182,8 +182,8 @@ class SplashActivity : DaggerAppCompatActivity() {
         println("splash------->${preferences.getBoolean(Constant.IS_LOGIN)}")
         val runnable = Runnable {
             if (preferences.getBoolean(Constant.IS_LOGIN)) {
-                val intent = Intent(this@SplashActivity, PaymentListActivity::class.java)
-//                val intent = Intent(this@SplashActivity, HomeActivity::class.java)
+//                val intent = Intent(this@SplashActivity, PaymentListActivity::class.java)
+                val intent = Intent(this@SplashActivity, HomeActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {

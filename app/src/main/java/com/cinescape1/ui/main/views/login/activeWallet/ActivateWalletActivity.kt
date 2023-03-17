@@ -1,6 +1,7 @@
 package com.cinescape1.ui.main.views.login.activeWallet
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
@@ -23,7 +24,9 @@ import com.cinescape1.di.scoped.ActivityScoped
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.adapters.CountryCodeAdapter
+import com.cinescape1.ui.main.views.login.activeWallet.repsonse.ActivateWalletResponse
 import com.cinescape1.ui.main.views.login.activeWallet.viewModel.ActivateWalletViewModel
+import com.cinescape1.ui.main.views.login.otpVerification.OtpVerificationActivity
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.InputTextValidator
 import com.cinescape1.utils.LocaleHelper
@@ -109,8 +112,10 @@ class ActivateWalletActivity : DaggerAppCompatActivity(),
             }
         }
 
-
         setContentView(binding?.root)
+
+
+
         manageFunctions()
     }
 
@@ -254,11 +259,7 @@ class ActivateWalletActivity : DaggerAppCompatActivity(),
                         loader?.dismiss()
                         resource.data?.let { it ->
                             if (it.data?.code == Constant.SUCCESS_CODE) {
-                                try {
-
-                                } catch (e: Exception) {
-                                    e.printStackTrace()
-                                }
+                                retrieveData(it.data.output)
                             } else {
                                 val dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
@@ -272,6 +273,7 @@ class ActivateWalletActivity : DaggerAppCompatActivity(),
                             }
                         }
                     }
+
                     Status.ERROR -> {
                         loader?.dismiss()
                         val dialog = OptionDialog(this,
@@ -291,6 +293,15 @@ class ActivateWalletActivity : DaggerAppCompatActivity(),
                 }
             }
         }
+    }
+
+    private fun retrieveData(output: ActivateWalletResponse.Output) {
+        val intent = Intent(this, OtpVerificationActivity::class.java)
+        intent.putExtra("userId", output.userid)
+        intent.putExtra("type", "login")
+        intent.putExtra("verifyType", output.otp_require)
+        startActivity(intent)
+
     }
 
 
@@ -427,7 +438,6 @@ class ActivateWalletActivity : DaggerAppCompatActivity(),
             binding?.editText4?.setText(countryCode)
         }
     }
-
 
     override fun onItemClick(view: CountryCodeResponse.Output, check: Boolean) {
         countryCode = view.isdCode

@@ -3,6 +3,7 @@ package com.cinescape1.data.network
 import com.cinescape1.data.models.requestModel.*
 import com.cinescape1.data.models.responseModel.*
 import com.cinescape1.ui.main.views.home.fragments.account.response.RechargeAmountResponse
+import com.cinescape1.ui.main.views.login.activeWallet.repsonse.ActivateWalletResponse
 import com.cinescape1.ui.main.views.login.reponse.LoginResponse
 import com.cinescape1.ui.main.views.payment.paymentFaield.reponse.PaymentFailedResponse
 import com.cinescape1.ui.main.views.payment.paymentList.BankOfferRequest
@@ -291,7 +292,7 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
         return apiRequest { api.changePassword(request) }
     }
 
-    suspend fun activateCard(request: ActivatwWalletRequest): Result<ForgotOtpVerifyResponse> {
+    suspend fun activateCard(request: ActivatwWalletRequest): Result<ActivateWalletResponse> {
         return apiRequest { api.activateCard(request) }
     }
 }

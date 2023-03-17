@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,6 +7,7 @@
     android:layout_marginBottom="@dimen/margin20"
     android:background="@color/black">
 
+    <!--              Titles            -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/consItemClick"
         android:layout_width="match_parent"
@@ -21,8 +21,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginEnd="16dp"
             android:layout_marginTop="@dimen/margin8"
+            android:layout_marginEnd="16dp"
             android:fontFamily="@font/sf_pro_text_regular"
             android:textColor="@color/white"
             android:textSize="@dimen/size17"
@@ -52,6 +52,7 @@
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/consItemClick">
 
+        <!--                Bank Offer                  -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/bankOffer"
             android:layout_width="match_parent"
@@ -69,8 +70,8 @@
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:layout_marginEnd="48dp"
-                android:visibility="visible"
                 android:background="@drawable/curve_payment"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -79,8 +80,8 @@
                     android:id="@+id/spinner2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:backgroundTint="@color/transparent"
                     android:background="@color/transparent"
+                    app:backgroundTint="@color/transparent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -94,13 +95,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:visibility="gone"
                 android:background="@drawable/curve_payment"
+                android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@+id/linearLayout7"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout24">
 
-<!--                android:hint="____ - ____ - ____ - ____"-->
+                <!--                android:hint="____ - ____ - ____ - ____"-->
 
                 <EditText
                     android:id="@+id/bankEdit"
@@ -108,14 +109,14 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:fontFamily="@font/sf_pro_text_regular"
-                    android:importantForAutofill="no"
-                    android:textColor="#7B7A7A"
-                    android:textSize="@dimen/size15"
-                    android:inputType="number"
                     android:hint="@string/enter_bank_card"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
                     android:maxLength="19"
                     android:maxLines="1"
+                    android:textColor="#7B7A7A"
                     android:textColorHint="@color/hint_color"
+                    android:textSize="@dimen/size15"
                     app:hintTextColor="@color/editColor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -128,15 +129,15 @@
                 android:id="@+id/editTextTextPersonName2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/sf_pro_text_regular"
-                tools:text="@string/offer_applied_for_1_ticket"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/size15"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/constraintLayout25"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout25" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout25"
+                tools:text="@string/offer_applied_for_1_ticket" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/linearLayout7"
@@ -150,11 +151,11 @@
                     android:id="@+id/checkBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/applied_check_icon"
                     android:checked="true"
                     android:focusable="false"
-                    android:visibility="gone"
                     android:focusableInTouchMode="false"
+                    android:src="@drawable/applied_check_icon"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/imageView64"
                     app:layout_constraintTop_toTopOf="parent"
@@ -165,12 +166,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_close_icons_light"
                     app:tint="@color/text_color"
-                    tools:ignore="ContentDescription"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    tools:ignore="ContentDescription" />
 
 
                 <TextView
@@ -207,8 +208,10 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!--                 Gift Card                  -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/giftCardUi"
             android:layout_width="match_parent"
@@ -254,8 +257,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/couponUi">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:id="@+id/enterUsernames"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:autofillHints=""
@@ -285,25 +288,25 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-<!--                <EditText-->
-<!--                    android:id="@+id/offerEditText"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:background="@null"-->
-<!--                    android:fontFamily="@font/sf_pro_text_regular"-->
-<!--                    android:importantForAutofill="no"-->
-<!--                    android:textColor="#7B7A7A"-->
-<!--                    android:imeOptions="actionDone"-->
-<!--                    android:singleLine="true"-->
-<!--                    android:maxLength="16"-->
-<!--                    android:textSize="@dimen/size15"-->
-<!--                    android:hint="@string/enter_gift_card"-->
-<!--                    android:textColorHint="@color/hint_color"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    tools:ignore="LabelFor,TextFields" />-->
+                <!--                <EditText-->
+                <!--                    android:id="@+id/offerEditText"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:background="@null"-->
+                <!--                    android:fontFamily="@font/sf_pro_text_regular"-->
+                <!--                    android:importantForAutofill="no"-->
+                <!--                    android:textColor="#7B7A7A"-->
+                <!--                    android:imeOptions="actionDone"-->
+                <!--                    android:singleLine="true"-->
+                <!--                    android:maxLength="16"-->
+                <!--                    android:textSize="@dimen/size15"-->
+                <!--                    android:hint="@string/enter_gift_card"-->
+                <!--                    android:textColorHint="@color/hint_color"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toTopOf="parent"-->
+                <!--                    tools:ignore="LabelFor,TextFields" />-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -374,6 +377,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!--                 Wallet                     -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/wallet"
             android:layout_width="match_parent"
@@ -439,6 +443,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!--                 Card   -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cardUi"
             android:layout_width="match_parent"

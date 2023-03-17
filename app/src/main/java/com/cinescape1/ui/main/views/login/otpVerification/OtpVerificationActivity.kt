@@ -42,11 +42,6 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
         setContentView(view)
 
 
-        //AppBar Hide
-//        Constant().appBarHide(this@OtpVerificationActivity)
-
-        Constant().hideKeyboard(this@OtpVerificationActivity)
-
         manageFunctions()
     }
 
@@ -54,9 +49,9 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
         userId = intent.getStringExtra("userId").toString()
         type = intent.getStringExtra("type").toString()
         verifyType = intent.getStringExtra("verifyType").toString()
-        //appBarHide
-        Constant().hideKeyboard(this@OtpVerificationActivity)
 
+        //AppBar Hide
+        Constant().appBarHide(this@OtpVerificationActivity)
         movedNext()
     }
 
@@ -81,7 +76,7 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
                     binding?.textView149?.hide()
 
                     binding?.textView150?.setOnClickListener {
-                        val otpEmail = binding?.textView146?.getStringFromFields()
+                        val otpEmail = binding?.textView146?.value
                         if (otpEmail == "null") {
                             val dialog = OptionDialog(this,
                                 R.mipmap.ic_launcher,
@@ -111,7 +106,7 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
                     binding?.textView146?.hide()
 
                     binding?.textView150?.setOnClickListener {
-                        val otpMobile = binding?.textView149?.getStringFromFields()
+                        val otpMobile = binding?.textView149?.value
                         if (otpMobile == "null") {
                             val dialog = OptionDialog(this,
                                 R.mipmap.ic_launcher,
@@ -136,8 +131,8 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
 
                 "BOTH" -> {
                     binding?.textView150?.setOnClickListener {
-                        val otpEmail = binding?.textView146?.getStringFromFields()
-                        val otpMobile = binding?.textView149?.getStringFromFields()
+                        val otpEmail = binding?.textView146?.value
+                        val otpMobile = binding?.textView149?.value
                         if (otpEmail == "null") {
                             val dialog = OptionDialog(this,
                                 R.mipmap.ic_launcher,
@@ -173,13 +168,12 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
 
         }
 
-
         //////////////////////////   SignUp Case/////////////////////
 
         else if (type == "signUp") {
             binding?.textView150?.setOnClickListener {
-                val otpEmail = binding?.textView146?.getStringFromFields()
-                val otpMobile = binding?.textView149?.getStringFromFields()
+                val otpEmail = binding?.textView146?.value
+                val otpMobile = binding?.textView149?.value
                 if (otpEmail == "null") {
                     val dialog = OptionDialog(this,
                         R.mipmap.ic_launcher,
