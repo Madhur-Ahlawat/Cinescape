@@ -14,6 +14,7 @@ import com.cinescape1.data.models.responseModel.HistoryResponse
 import com.cinescape1.data.models.responseModel.MoviesResponse
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
+import com.cinescape1.utils.toast
 
 
 class HistoryFoodListAdapter(
@@ -46,6 +47,7 @@ class HistoryFoodListAdapter(
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val concessionFoods = concessionFoods[position]
         print("offerData123--->${concessionFoods}")
+        context.toast("2345678op")
         context.windowManager.defaultDisplay.getMetrics(displayMetrics)
         val height = displayMetrics.heightPixels
         val width = displayMetrics.widthPixels

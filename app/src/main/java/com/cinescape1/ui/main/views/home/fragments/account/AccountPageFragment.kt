@@ -54,6 +54,8 @@ import com.cinescape1.ui.main.views.adapters.CountryCodeAdapter
 import com.cinescape1.ui.main.views.adapters.ExperienceAdapter
 import com.cinescape1.ui.main.views.adapters.accountPageAdapters.AdapterBookingHistory
 import com.cinescape1.ui.main.views.adapters.accountPageAdapters.UpcomingBookingAdapter
+import com.cinescape1.ui.main.views.deleteAccount.DeleteAccountActivity
+import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.ui.main.views.home.adapter.CustomSpinnerAdapter
 import com.cinescape1.ui.main.views.home.fragments.account.adapter.RechargeSpinnerAdapter
 import com.cinescape1.ui.main.views.home.fragments.account.response.RechargeAmountResponse
@@ -78,7 +80,6 @@ import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.account_history_layout.*
 import kotlinx.android.synthetic.main.account_preference_layout.*
 import kotlinx.android.synthetic.main.account_profile_layout.*
-import kotlinx.android.synthetic.main.account_profile_layout.enter_mobile_numbers
 import kotlinx.android.synthetic.main.account_profile_layout.text_mobile_title
 import kotlinx.android.synthetic.main.account_recharge_card_layout.*
 import kotlinx.android.synthetic.main.account_refund_layout.*
@@ -525,7 +526,15 @@ class AccountPageFragment : DaggerFragment(),
         enter_first_name.setText(firstName)
         enter_last_name.setText(lastName)
         enter_emails.setText(email)
-        enter_mobile_numbers.setText(mobile)
+        enter_mobile_numberAccount.setText(mobile)
+
+        getProfile(
+            ProfileRequest(
+                "",
+                "",
+                preferences.getString(Constant.USER_ID).toString()
+            )
+        )
 
 
 //Image hide Home
@@ -560,14 +569,6 @@ class AccountPageFragment : DaggerFragment(),
                 startActivity(intent)
             }
         }
-
-        getProfile(
-            ProfileRequest(
-                "",
-                "",
-                preferences.getString(Constant.USER_ID).toString()
-            )
-        )
 
 
         println("CheckLogin--->${preferences.getString(Constant.TYPE_LOGIN)}")
@@ -853,7 +854,7 @@ class AccountPageFragment : DaggerFragment(),
             myBooking(
                 MyBookingRequest("", "", 0, preferences.getString(Constant.USER_ID).toString())
             )
-//            }
+
 
             binding?.imageUserProfile?.setColorFilter(requireActivity().getColor(R.color.text_color))
             binding?.textProfileTitle?.setTextColor(requireActivity().getColor(R.color.text_color))
@@ -979,7 +980,7 @@ class AccountPageFragment : DaggerFragment(),
                     negativeClick = {
                     })
                 dialog.show()
-            } else if (binding?.includeProfile?.enterMobileNumbers?.text.toString().trim() == "") {
+            } else if (binding?.includeProfile?.enterMobileNumberAccount?.text.toString().trim() == "") {
                 val dialog = OptionDialog(requireActivity(),
                     R.mipmap.ic_launcher,
                     R.string.app_name,
@@ -1038,7 +1039,7 @@ class AccountPageFragment : DaggerFragment(),
                         gender,
                         enter_last_name.text.toString(),
                         preferences.getString(Constant.USER_ID).toString(),
-                        enter_mobile_numbers.text.toString()
+                        enter_mobile_numberAccount.text.toString()
                     )
                 )
                 Constant().hideKeyboard(requireActivity())
@@ -1091,6 +1092,12 @@ class AccountPageFragment : DaggerFragment(),
                 )
             )
 
+        }
+
+        //delete button
+        textView168.setOnClickListener {
+            val intent = Intent(requireActivity(), DeleteAccountActivity::class.java)
+            startActivity(intent)
         }
 
         broadcastReceiver = MyReceiver()
@@ -1155,6 +1162,7 @@ class AccountPageFragment : DaggerFragment(),
         return cal
     }
 
+    @SuppressLint("ResourceAsColor")
     private fun accountChangePasswordDialog() {
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -1164,15 +1172,6 @@ class AccountPageFragment : DaggerFragment(),
         dialog.window!!.setLayout(
             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
         )
-
-
-//        dialog.window?.setLayout(
-//            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
-//        )
-//        dialog.window?.setBackgroundDrawable(ColorDrawable(R.color.black50))
-//        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
-//        dialog.window?.setGravity(Gravity.BOTTOM)
-
 
         dialog.negative_btns?.setOnClickListener {
 
@@ -3142,7 +3141,7 @@ class AccountPageFragment : DaggerFragment(),
 
                                 } catch (e: Exception) {
 
-                                            e.printStackTrace()
+                                    e.printStackTrace()
                                 }
 
                             } else {
@@ -3180,7 +3179,6 @@ class AccountPageFragment : DaggerFragment(),
 
 
         include_history.show()
-//                                    historyCheck = 1
         val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
         binding?.includeHistory?.recyclerviewBookingHistory?.layoutManager =
             LinearLayoutManager(context)
@@ -3295,11 +3293,11 @@ class AccountPageFragment : DaggerFragment(),
                                     experience_list_preference!!, it.data.output.experience
                                 )
                                 val seatListPreference =
-                                    view!!.findViewById<FlexboxLayout>(R.id.seat_list_preference)
+                                    requireView().findViewById<FlexboxLayout>(R.id.seat_list_preference)
                                 val typeListPreference =
-                                    view!!.findViewById<FlexboxLayout>(R.id.type_list_preference)
+                                    requireView().findViewById<FlexboxLayout>(R.id.type_list_preference)
                                 val ageRatingListPreference =
-                                    view!!.findViewById<FlexboxLayout>(R.id.age_rating_list_preference)
+                                    requireView().findViewById<FlexboxLayout>(R.id.age_rating_list_preference)
                                 setSeatCategoryFlexbox(
                                     seatListPreference,
                                     it.data.output.seatCategory
@@ -3343,7 +3341,7 @@ class AccountPageFragment : DaggerFragment(),
         enter_first_name.setText(output.firstName)
         enter_last_name.setText(output.lastName)
         enter_emails.setText(output.email)
-        enter_mobile_numbers.setText(output.mobilePhone)
+        enter_mobile_numberAccount.setText(output.mobilePhone)
         enter_city.setText(output.city)
         enter_date_births.text = output.dob
         binding?.textUserAccountName?.text = output.firstName + " " + output.lastName
@@ -3355,10 +3353,12 @@ class AccountPageFragment : DaggerFragment(),
             view_user_name.hide()
             text_user_name_title.hide()
             enter_user_name.hide()
+            view32_line.invisible()
         } else {
             view_user_name.show()
             text_user_name_title.show()
             enter_user_name.show()
+            view32_line.show()
         }
 
 //        type=output.
@@ -3389,7 +3389,7 @@ class AccountPageFragment : DaggerFragment(),
     override fun onItemClick(view: CountryCodeResponse.Output, check: Boolean) {
         countryCode = view.isdCode
         val maxLengthEditText = view.phoneLength
-        enter_mobile_numbers.filters =
+        enter_mobile_numberAccount.filters =
             arrayOf<InputFilter>(InputFilter.LengthFilter(maxLengthEditText))
     }
 

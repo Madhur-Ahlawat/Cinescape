@@ -156,6 +156,7 @@ class AdapterBookingHistory(private val context: Activity,
 
 
                         holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
+                        holder.paymentUi.show()
                         holder.rechargeUi.show()
                         holder.foodUi.hide()
                         holder.movieui.hide()
@@ -163,6 +164,7 @@ class AdapterBookingHistory(private val context: Activity,
                         holder.rechargeUi.hide()
                         holder.foodUi.hide()
                         holder.movieui.hide()
+                        holder.paymentUi.hide()
                         holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
                     }
                 }
@@ -170,17 +172,22 @@ class AdapterBookingHistory(private val context: Activity,
                 "FOOD" -> {
                     if (holder.foodUi.visibility == View.GONE) {
 
-                        println("payment----->${bookingHistoryItem.bookingType}")
-                        context.toast("Food----->${bookingHistoryItem.bookingType}")
                         //food
                         holder.foodTotalPrice.text=bookingHistoryItem.totalPrice
                         holder.foodPaidby.text=context.resources.getString(R.string.paid_by_club_card)+" "+bookingHistoryItem.payDone
                         holder.paidBy.text=context.resources.getString(R.string.paid_by_club_card)+" "+bookingHistoryItem.payDone
 
+                        holder.foodUi.show()
+                        holder.rechargeUi.hide()
+                        holder.movieui.hide()
+                        holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
 
                         if (bookingHistoryItem.concessionFoods.isNullOrEmpty()){
+                            println("---------Check>1")
                             holder.foodList.hide()
                         }else{
+                            println("---------Check>2---->${bookingHistoryItem.concessionFoods.size}")
+                            holder.paymentUi.hide()
                             holder.foodList.show()
                             val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                             holder.foodList.layoutManager = LinearLayoutManager(context)
@@ -189,13 +196,8 @@ class AdapterBookingHistory(private val context: Activity,
                             holder.foodList.adapter = adapter
                         }
 
-
-                        holder.foodUi.show()
-                        holder.rechargeUi.hide()
-                        holder.movieui.hide()
-                        holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
-
                     }else{
+                        holder.paymentUi.hide()
                         holder.foodUi.hide()
                         holder.rechargeUi.hide()
                         holder.movieui.hide()
@@ -208,6 +210,8 @@ class AdapterBookingHistory(private val context: Activity,
                         holder.foodUi.hide()
                         holder.rechargeUi.hide()
                         holder.movieui.show()
+                        holder.paymentUi.show()
+
                         if (bookingHistoryItem.concessionFoods.isNotEmpty()) {
                             holder.foodMUi.show()
                         } else {
@@ -251,6 +255,7 @@ class AdapterBookingHistory(private val context: Activity,
                         holder.foodUi.hide()
                         holder.rechargeUi.hide()
                         holder.movieui.hide()
+                        holder.paymentUi.hide()
                         holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
                     }
                 }
@@ -301,6 +306,7 @@ class AdapterBookingHistory(private val context: Activity,
         var foodUi: ConstraintLayout = view.findViewById(R.id.foodUi)
         var foodMUi: ConstraintLayout = view.findViewById(R.id.foodMUi)
         var foodList: RecyclerView = view.findViewById(R.id.recyclerView)
+        var paymentUi: ConstraintLayout = view.findViewById(R.id.constraintLayout36)
 
         var payDone: TextView = view.findViewById(R.id.textView85)
         var rechargeTime: TextView = view.findViewById(R.id.textView89)

@@ -115,7 +115,6 @@
                 android:focusableInTouchMode="true"
                 android:focusable="true"
                 android:inputType="textNoSuggestions"
-
                 android:lineSpacingExtra="1.8sp"
                 android:textColor="@color/white"
                 android:textCursorDrawable="@null"
@@ -125,7 +124,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <View
-            android:visibility="invisible"
+            android:visibility="visible"
             android:id="@+id/view32_line"
             android:layout_width="wrap_content"
             android:layout_height="1dp"
@@ -534,51 +533,46 @@
             android:id="@+id/enter_mobile_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin12"
+            android:layout_marginTop="@dimen/margin12"
+            android:layout_marginBottom="4dp"
+            android:drawablePadding="@dimen/margin8"
             android:fontFamily="@font/sf_pro_text_regular"
             android:textColor="@color/white"
-            android:drawablePadding="@dimen/margin8"
-            tools:text="+92"
-            android:layout_marginTop="@dimen/margin12"
             app:drawableEndCompat="@drawable/ic_icons_light_next"
-            android:layout_marginStart="@dimen/margin12"
             app:layout_constraintBottom_toBottomOf="@+id/text_mobile_title"
-            app:layout_constraintEnd_toStartOf="@+id/enter_mobile_number"
+            app:layout_constraintEnd_toStartOf="@+id/enter_mobile_numberAccount"
             app:layout_constraintStart_toEndOf="@+id/text_mobile_title"
-            app:layout_constraintTop_toTopOf="@+id/text_mobile_title"/>
+            app:layout_constraintTop_toTopOf="@+id/text_mobile_title"
+            tools:text="+92" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/enter_mobile_number"
+        <EditText
+            android:id="@+id/enter_mobile_numberAccount"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@color/transparent"
+            android:layout_height="0dp"
             android:fontFamily="@font/sf_pro_text_regular"
             android:textColorHint="@color/white"
             app:boxStrokeColor="@color/edittext_profile"
+            android:background="@color/transparent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:inputType="phone"
+            android:lineSpacingExtra="1.8sp"
+            android:maxLength="12"
+            android:paddingBottom="@dimen/margin6"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/size14"
+            tools:text="8982183136"
             app:layout_constraintBottom_toBottomOf="@+id/text_mobile_title"
             app:layout_constraintEnd_toEndOf="@+id/view_mobile1"
             app:layout_constraintHorizontal_weight="3"
             app:layout_constraintStart_toEndOf="@+id/enter_mobile_code"
-            app:layout_constraintTop_toTopOf="@+id/text_mobile_title">
+            app:layout_constraintTop_toTopOf="@+id/enter_mobile_code"
+            tools:ignore="Autofill">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/enter_mobile_numbers"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/transparent"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:inputType="phone"
-                android:lineSpacingExtra="1.8sp"
-                android:maxLength="12"
-                android:paddingBottom="@dimen/margin6"
-                android:textAlignment="textStart"
-                android:textColor="@color/white"
-                android:textCursorDrawable="@null"
-                android:textSize="@dimen/size14"
-                tools:text="8982183136" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
+        </EditText>
         <View
             android:id="@+id/view43_line"
             android:layout_width="wrap_content"
@@ -835,7 +829,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="32dp"
             android:fontFamily="@font/sf_pro_text_regular"
             android:lineSpacingExtra="1.8sp"
             android:paddingStart="@dimen/margin6"
@@ -843,7 +836,6 @@
             android:text="@string/receive_promotional_mobile_notification"
             android:textColor="@color/hint_color"
             android:textSize="@dimen/size14"
-            app:layout_constraintBottom_toTopOf="@+id/UpdateAccount"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_receive_promotion_email" />
 
@@ -878,33 +870,37 @@
             app:layout_constraintTop_toBottomOf="@+id/txtRNotification" />
 
 
-        <View
-            android:id="@+id/view19"
-            android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:layout_marginTop="15dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textRecomNotification"
-            app:layout_constraintTop_toBottomOf="@+id/textRecomNotification" />
-
-
         <TextView
             android:id="@+id/UpdateAccount"
             android:layout_width="130dp"
             android:layout_height="32dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/btn_corner_bg_red"
             android:fontFamily="@font/sf_pro_text_bold"
             android:gravity="center"
             android:text="@string/save"
             android:textColor="@color/white"
             android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/view19"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/view19" />
+            app:layout_constraintTop_toBottomOf="@+id/txtRNotification" />
+
+        <TextView
+            android:id="@+id/textView168"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            android:layout_marginBottom="32dp"
+            android:drawablePadding="@dimen/margin22"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/delete_account"
+            android:textColor="@color/hint_color"
+            android:textSize="@dimen/size14"
+            app:drawableEndCompat="@drawable/ic_delete"
+            app:drawableTint="@color/hint_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txtRNotification"
+            app:layout_constraintTop_toBottomOf="@+id/UpdateAccount" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

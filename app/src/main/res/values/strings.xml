@@ -391,5 +391,10 @@
     <string name="noBookings">There are currently no bookings</string>
     <string name="noHistory">No order history found</string>
     <string name="i">i</string>
+    <string name="payment_details">Payment Details</string>
+    <string name="track_id">Track ID</string>
+    <string name="authentication_code">Authentication Code</string>
+    <string name="payment_modes">Payment Modes</string>
+    <string name="knet_credit_card">KNET/Credit Card</string>
 
 </resources>

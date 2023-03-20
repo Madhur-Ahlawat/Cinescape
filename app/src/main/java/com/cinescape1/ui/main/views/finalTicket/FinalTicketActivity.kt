@@ -229,6 +229,8 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
             statusBarColor = Color.TRANSPARENT
         }
+
+
         bookingId = intent.getStringExtra(Constant.IntentKey.BOOKING_ID).toString()
         transId = intent.getStringExtra(Constant.IntentKey.TRANSACTION_ID).toString()
         bookType = intent.getStringExtra(Constant.IntentKey.BOOK_TYPE).toString()

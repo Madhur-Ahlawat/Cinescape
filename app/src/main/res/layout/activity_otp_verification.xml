@@ -122,6 +122,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+
                     app:pinWidth="42dp"
                     app:pinHeight="42dp"
                     app:pinLength="6"

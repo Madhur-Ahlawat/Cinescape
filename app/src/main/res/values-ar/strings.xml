@@ -397,5 +397,8 @@
     <string name="noBookings">لا يوجد حاليا أي حجوزات</string>
     <string name="noHistory">لم يتم العثور على محفوظات الطلبات</string>
     <string name="i">i</string>
+    <string name="payment_details">Payment Details</string>
+    <string name="track_id">Track ID</string>
+    <string name="knet_credit_card">KNET/Credit Card</string>
 
 </resources>
