@@ -731,21 +731,21 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                             when (it.data.data.output.otp_require) {
                                 "BOTH" -> {
                                     val intent = Intent(this, OtpVerificationActivity::class.java)
-                                    intent.putExtra("userId", it.data.data.output.userid)
+                                    intent.putExtra("userId", it.data.data.output.userId)
                                     intent.putExtra("type", "login")
                                     intent.putExtra("verifyType", it.data.data.output.otp_require)
                                     startActivity(intent)
                                 }
                                 "MOBILE" -> {
                                     val intent = Intent(this, OtpVerificationActivity::class.java)
-                                    intent.putExtra("userId", it.data.data.output.userid)
+                                    intent.putExtra("userId", it.data.data.output.userId)
                                     intent.putExtra("type", "login")
                                     intent.putExtra("verifyType", it.data.data.output.otp_require)
                                     startActivity(intent)
                                 }
                                 "EMAIL" -> {
                                     val intent = Intent(this, OtpVerificationActivity::class.java)
-                                    intent.putExtra("userId", it.data.data.output.userid)
+                                    intent.putExtra("userId", it.data.data.output.userId)
                                     intent.putExtra("type", "login")
                                     intent.putExtra("verifyType", it.data.data.output.otp_require)
                                     startActivity(intent)
@@ -835,7 +835,7 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
     }
 
     private fun saveDataInPreference(output: LoginResponse.Output) {
-        preferences.putString(Constant.USER_ID, output.userid)
+        preferences.putString(Constant.USER_ID, output.userId)
         preferences.putBoolean(
             Constant.IS_LOGIN, true
         )
@@ -910,14 +910,15 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                     Status.SUCCESS -> {
                         loader?.dismiss()
                         if (Constant.status == it.data?.data?.result && SUCCESS_CODE == it.data.data.code) {
+                            preferences.putString(Constant.USER_ID,it.data.data.output.userId)
                             val intent = Intent(
                                 this, OtpVerificationActivity::class.java)
-                            intent.putExtra("userId", it.data.data.output.userid)
+                            intent.putExtra("userId", it.data.data.output.userId)
                             intent.putExtra("type", "signUp")
                             intent.putExtra("verifyType","")
-                            intent.flags =
-                                Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
                             startActivity(intent)
+
                             finish()
                         } else {
                             val dialog = OptionDialog(this,

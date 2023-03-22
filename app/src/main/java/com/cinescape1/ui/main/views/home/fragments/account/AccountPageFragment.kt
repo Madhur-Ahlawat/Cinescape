@@ -507,7 +507,9 @@ class AccountPageFragment : DaggerFragment(),
         countryCode = preferences.getString(Constant.COUNTRY_CODE).toString()
         dob = preferences.getString(Constant.USER_DOB).toString()
         type = preferences.getString(Constant.TYPE_LOGIN).toString()
-        binding?.textUserAccountName?.text = "$firstName $lastName"
+        binding?.textUserAccountName?.text =Constant().toCamelCase("$firstName $lastName")
+
+//        binding?.textUserAccountName?.text = "$firstName $lastName"
         enter_user_names.setText(userName)
         enter_first_name.setText(firstName)
         enter_last_name.setText(lastName)
@@ -3370,7 +3372,8 @@ class AccountPageFragment : DaggerFragment(),
         enter_mobile_numberAccount.setText(output.mobilePhone)
         enter_city.setText(output.city)
         enter_date_births.text = output.dob
-        binding?.textUserAccountName?.text = output.firstName + " " + output.lastName
+
+        binding?.textUserAccountName?.text =Constant().toCamelCase(output.firstName + " " + output.lastName.toString())
 
 
         if (output.userName.isNullOrEmpty()) {

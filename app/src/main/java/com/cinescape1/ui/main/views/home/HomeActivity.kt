@@ -229,6 +229,7 @@ class HomeActivity : DaggerAppCompatActivity(),
         }
 
 
+
     }
 
     private fun manageBooking() {

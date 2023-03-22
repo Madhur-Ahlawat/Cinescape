@@ -10,6 +10,6 @@ data class ForgotOtpsendResponse(
 ):Serializable{
     data class Output(
         val otp_require: String,
-        val userid: String
+        val userId: String
     )
 }

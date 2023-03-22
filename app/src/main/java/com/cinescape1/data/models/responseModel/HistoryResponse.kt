@@ -42,6 +42,7 @@ data class HistoryResponse(
         val showTime: String,
         val ticketPrice: String,
         val totalPrice: String,
+        val foodTotal: String,
         val totalTicketPrice: String,
         val trailerUrl: String,
         val transId: Int

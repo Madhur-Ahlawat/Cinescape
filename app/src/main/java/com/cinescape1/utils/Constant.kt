@@ -289,4 +289,22 @@ class Constant {
             statusBarColor = Color.TRANSPARENT
         }
     }
+
+    fun toCamelCase(s: String): String? {
+        if (s.length == 0) {
+            return s
+        }
+        val parts = s.split(" ".toRegex()).dropLastWhile { it.isEmpty() }
+            .toTypedArray()
+        var camelCaseString = ""
+        for (part in parts) {
+            camelCaseString = camelCaseString + toProperCase(part) + " "
+        }
+        return camelCaseString
+    }
+
+    fun toProperCase(s: String): String {
+        return s.substring(0, 1).uppercase(Locale.getDefault()) +
+                s.substring(1).lowercase(Locale.getDefault())
+    }
 }

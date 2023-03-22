@@ -262,6 +262,7 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
             finish()
         }
 
+
         tckSummary(
             TicketSummaryRequest(
                 intent.getStringExtra("TRANS_ID").toString(),

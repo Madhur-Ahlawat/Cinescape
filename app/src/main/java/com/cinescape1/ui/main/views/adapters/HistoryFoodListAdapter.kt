@@ -12,10 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.HistoryResponse
 import com.cinescape1.data.models.responseModel.MoviesResponse
+import com.cinescape1.utils.Constant
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
-import com.cinescape1.utils.toast
-
 
 class HistoryFoodListAdapter(
     private  val context: Activity,
@@ -46,6 +45,7 @@ class HistoryFoodListAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val concessionFoods = concessionFoods[position]
+        print("offerData123--->${concessionFoods}")
         context.windowManager.defaultDisplay.getMetrics(displayMetrics)
         val height = displayMetrics.heightPixels
         val width = displayMetrics.widthPixels
@@ -69,8 +69,8 @@ class HistoryFoodListAdapter(
         holder.title.text=concessionFoods.description
         holder.qty.text=concessionFoods.quantity.toString()
 //        holder.total.text=(concessionFoods.priceInCents/100).toString()+" "+ context.getString(R.string.price_kd)
-        holder.total.text=(concessionFoods.priceInCents/100).toDouble().toString()
-        holder.price.text=((concessionFoods.priceInCents*concessionFoods.quantity)/100).toDouble().toString()
+        holder.total.text="${Constant.DECIFORMAT.format(concessionFoods.priceInCents / 100.0)}"
+        holder.price.text="${Constant.DECIFORMAT.format((concessionFoods.priceInCents*concessionFoods.quantity) / 100.0)}"
 //        holder.price.text=((concessionFoods.priceInCents*concessionFoods.quantity)/100).toString()+" "+context.getString(R.string.price_kd)
         holder.type.text=concessionFoods.itemType
 

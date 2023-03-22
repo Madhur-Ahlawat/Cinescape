@@ -834,6 +834,7 @@
         android:id="@+id/view4_line4"
         android:layout_width="wrap_content"
         android:layout_height="1dp"
+        android:visibility="invisible"
         android:background="@color/view_bg_color_line"
         app:layout_constraintBottom_toBottomOf="@+id/uiCheckout"
         app:layout_constraintEnd_toEndOf="parent"

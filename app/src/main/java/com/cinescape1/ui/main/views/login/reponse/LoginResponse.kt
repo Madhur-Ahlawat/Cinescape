@@ -9,7 +9,7 @@ data class LoginResponse(
     data class Output(
         val otp_require: String,
         val user: User,
-        val userid: String
+        val userId: String
     ):java.io.Serializable{
         data class User(
             val arabic: Boolean,

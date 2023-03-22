@@ -228,7 +228,7 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
                                         negativeClick = {})
                                     dialog.show()
 
-                                    userId = it.data.output.userid
+                                    userId = it.data.output.userId
                                     binding?.sendOtpForgotUi?.hide()
                                     binding?.textSignup?.text =
                                         resources.getString(R.string.password_recovery)
