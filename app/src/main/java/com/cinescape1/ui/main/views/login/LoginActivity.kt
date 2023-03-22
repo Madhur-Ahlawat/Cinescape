@@ -610,7 +610,6 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                         negativeClick = {})
                     dialog.show()
                 }
-
             } else if (firstName.trim() == "") {
                 val dialog = OptionDialog(this,
                     R.mipmap.ic_launcher,

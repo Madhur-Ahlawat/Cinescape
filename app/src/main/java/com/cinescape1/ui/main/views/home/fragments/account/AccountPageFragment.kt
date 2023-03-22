@@ -22,7 +22,6 @@ import android.text.TextWatcher
 import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
@@ -55,7 +54,6 @@ import com.cinescape1.ui.main.views.adapters.ExperienceAdapter
 import com.cinescape1.ui.main.views.adapters.accountPageAdapters.AdapterBookingHistory
 import com.cinescape1.ui.main.views.adapters.accountPageAdapters.UpcomingBookingAdapter
 import com.cinescape1.ui.main.views.deleteAccount.DeleteAccountActivity
-import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.ui.main.views.home.adapter.CustomSpinnerAdapter
 import com.cinescape1.ui.main.views.home.fragments.account.adapter.RechargeSpinnerAdapter
 import com.cinescape1.ui.main.views.home.fragments.account.response.RechargeAmountResponse
@@ -133,10 +131,6 @@ class AccountPageFragment : DaggerFragment(),
         ModelPreferenceExperience(R.drawable.img_screenx, 0)
     )
 
-//    val seatTypeList: ArrayList<ModelPreferenceType> = arrayListOf(
-//        ModelPreferenceType("STANDARD", 0),
-//        ModelPreferenceType("PREMIUM", 0)
-//    )
 
     private var userName: String = ""
     private var firstName: String = ""
@@ -144,8 +138,6 @@ class AccountPageFragment : DaggerFragment(),
     private var email: String = ""
     private var mobile: String = ""
     private var countryCode: String = ""
-    private var countryCode1: String = ""
-    private var checkCuntryCode: Boolean = true
     private var dob: String = ""
     private var gender: String = ""
     private var type: String = ""
@@ -156,9 +148,6 @@ class AccountPageFragment : DaggerFragment(),
     private var seatAbility: Int = 0
     private var bookingText: String = ""
     private var broadcastReceiver: BroadcastReceiver? = null
-    private val LOCATION_PERMISSION_REQUEST_CODE = 1
-    private var latitude: String = ""
-    private var longitude: String = ""
 
     private var cinema: String = ""
     private var arbic: Boolean = false
@@ -168,9 +157,6 @@ class AccountPageFragment : DaggerFragment(),
 
     private var transId = ""
     private var bookingId = ""
-
-    private var seatCategory: String = ""
-    private var seatType: String = ""
 
     private var preferencesCheck = 0
 
@@ -528,6 +514,23 @@ class AccountPageFragment : DaggerFragment(),
         enter_emails.setText(email)
         enter_mobile_numberAccount.setText(mobile)
 
+
+        if (mobile == "") {
+            binding?.AccountUi?.hide()
+            preferences.putBoolean(
+                Constant.IS_LOGIN, false
+            )
+            val intent = Intent(requireContext(), LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+            requireActivity().finish()
+        }
+
+        manageFunctions()
+
+    }
+
+    private fun manageFunctions() {
         getProfile(
             ProfileRequest(
                 "",
@@ -537,41 +540,21 @@ class AccountPageFragment : DaggerFragment(),
         )
 
 
-//Image hide Home
-        (requireActivity().findViewById(R.id.imageView42) as ConstraintLayout).hide()
 
-        binding?.imageSwitcherLang?.setOnCheckedChangeListener { _, b ->
-            if (b) {
-                Constant.IntentKey.LANGUAGE_SELECT = "en"
-                LocaleHelper.setLocale(requireActivity(), "en")
-                preferences.putString(Constant.IntentKey.SELECT_LANGUAGE, "en")
-                OPEN_FROM = 1
-                val intent = requireActivity().intent
-                requireActivity().overridePendingTransition(0, 0)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-                requireActivity().finish()
-                requireActivity().overridePendingTransition(0, 0)
-                startActivity(intent)
-            } else {
-                Constant.IntentKey.LANGUAGE_SELECT = "ar"
-                LocaleHelper.setLocale(requireActivity(), "ar")
-                preferences.putString(Constant.IntentKey.SELECT_LANGUAGE, "ar")
-                OPEN_FROM = 1
-
-//                preferences.putString( Constant.IntentKey.OPEN_FROM,"More")
-                val intent = requireActivity().intent
-                requireActivity().overridePendingTransition(0, 0)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                requireActivity().finish()
-                requireActivity().overridePendingTransition(0, 0)
-                startActivity(intent)
-            }
-        }
+        view39_line.hide()
+        view_ConfPassword.hide()
+        textConfPassword.hide()
+        enter_ConfPassword.hide()
 
 
-        println("CheckLogin--->${preferences.getString(Constant.TYPE_LOGIN)}")
+        cinemaResponse()
+        countryCodeLoad()
+        manageClicks()
+
+        broadcastReceiver = MyReceiver()
+        broadcastIntent()
+        getAmountLoad()
+
         if (preferences.getString(Constant.TYPE_LOGIN) == "GUEST") {
 
             binding?.textWalletUserId?.invisible()
@@ -589,7 +572,8 @@ class AccountPageFragment : DaggerFragment(),
             binding?.viewPreference?.isFocusable = false
             binding?.viewPreference?.isClickable = false
 
-        } else {
+        }
+        else {
 
             binding?.textWalletUserId?.show()
             binding?.textUserWalletKd?.show()
@@ -608,20 +592,65 @@ class AccountPageFragment : DaggerFragment(),
 
         }
 
-        if (mobile == "") {
-            binding?.AccountUi?.hide()
-            preferences.putBoolean(
-                Constant.IS_LOGIN, false
-            )
-            val intent = Intent(requireContext(), LoginActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(intent)
-            requireActivity().finish()
+
+    }
+
+    private fun manageClicks() {
+        binding?.includeProfile?.enterMobileCode?.setOnClickListener {
+            bottomDialog(countryCodeList)
         }
+
+        enter_date_births.setOnClickListener {
+
+            var datePicker: DatePickerDialog? = null
+            val calendar = Calendar.getInstance()
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val year1 = year - 12
+            datePicker = DatePickerDialog(
+                requireActivity(),
+                { view, year, month, dayOfMonth -> // adding the selected date in the edittext
+//                        dob_et?.setText(dayOfMonth.toString() + "/" + (month + 1) + "/" + year)
+                    enter_date_births.text =
+                        "${Constant().changeFormat("$dayOfMonth-${month + 1}-$year")}"
+                }, year1, month, day
+            )
+            // set maximum date to be selected as today
+            datePicker.datePicker.maxDate = calendar.timeInMillis
+//                datePicker!!.datePicker.minDate = calendar.timeInMillis
+            // show the dialog
+            datePicker.show()
+        }
+
+
+        //Save Prefrence
+        textView3.setOnClickListener {
+            preferencesCheck = 1
+            println("updatePreferenceConstant------->${Constant.experience}--${Constant.ageRating}")
+            updatePreference(
+                PreferenceRequest(
+                    arbic,
+                    cinema,
+                    Constant.experience.toString(),
+                    Constant.ageRating.toString(),
+                    Constant.seatCategoryList.toString(),
+                    Constant.seatTypeList.toString(),
+                    preferences.getString(Constant.USER_ID).toString()
+                )
+            )
+
+        }
+
+        //delete button
+        textView168.setOnClickListener {
+            val intent = Intent(requireActivity(), DeleteAccountActivity::class.java)
+            startActivity(intent)
+        }
+
 
         binding?.view2?.setOnClickListener {
             signOut()
-
         }
 
         view_knet.setOnClickListener {
@@ -845,15 +874,13 @@ class AccountPageFragment : DaggerFragment(),
         }
 
         binding?.viewHistorys?.setOnClickListener {
-            binding?.nestedUi?.show()
-            binding?.appBarAccount?.show()
-            binding?.recycleUi?.hide()
-//          binding?.textUpcomingBooking?.text = getString(R.string.your_bookings_history)
-//            if (historyCheck == 0){
-
             myBooking(
                 MyBookingRequest("", "", 0, preferences.getString(Constant.USER_ID).toString())
             )
+
+            binding?.nestedUi?.show()
+            binding?.appBarAccount?.show()
+            binding?.recycleUi?.hide()
 
 
             binding?.imageUserProfile?.setColorFilter(requireActivity().getColor(R.color.text_color))
@@ -1017,7 +1044,7 @@ class AccountPageFragment : DaggerFragment(),
                     })
                 dialog.show()
 
-            } else if (Data(enter_date_births.text.toString()) < 12) {
+            } else if (data(enter_date_births.text.toString()) < 12) {
                 val dialog = OptionDialog(requireActivity(),
                     R.mipmap.ic_launcher,
                     R.string.app_name,
@@ -1047,82 +1074,41 @@ class AccountPageFragment : DaggerFragment(),
 
         }
 
-//        deleteAccount.setOnClickListener {
-//            val intent = Intent(requireContext(), DeleteAccountActivity::class.java)
-//            startActivity(intent)
-//        }
+        binding?.imageSwitcherLang?.setOnCheckedChangeListener { _, b ->
+            if (b) {
+                Constant.IntentKey.LANGUAGE_SELECT = "en"
+                LocaleHelper.setLocale(requireActivity(), "en")
+                preferences.putString(Constant.IntentKey.SELECT_LANGUAGE, "en")
+                OPEN_FROM = 1
+                val intent = requireActivity().intent
+                requireActivity().overridePendingTransition(0, 0)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                requireActivity().finish()
+                requireActivity().overridePendingTransition(0, 0)
+                startActivity(intent)
+            } else {
+                Constant.IntentKey.LANGUAGE_SELECT = "ar"
+                LocaleHelper.setLocale(requireActivity(), "ar")
+                preferences.putString(Constant.IntentKey.SELECT_LANGUAGE, "ar")
+                OPEN_FROM = 1
 
-        enter_date_births.setOnClickListener {
-
-            var datePicker: DatePickerDialog? = null
-            val calendar = Calendar.getInstance()
-            val day = calendar.get(Calendar.DAY_OF_MONTH)
-            val year = calendar.get(Calendar.YEAR)
-            val month = calendar.get(Calendar.MONTH)
-            val year1 = year - 12
-            datePicker = DatePickerDialog(
-                requireActivity(),
-                { view, year, month, dayOfMonth -> // adding the selected date in the edittext
-//                        dob_et?.setText(dayOfMonth.toString() + "/" + (month + 1) + "/" + year)
-                    enter_date_births.text =
-                        "${Constant().changeFormat("$dayOfMonth-${month + 1}-$year")}"
-                }, year1, month, day
-            )
-            // set maximum date to be selected as today
-            datePicker.datePicker.maxDate = calendar.timeInMillis
-//                datePicker!!.datePicker.minDate = calendar.timeInMillis
-            // show the dialog
-            datePicker.show()
-        }
-
-
-        //Save Prefrence
-        textView3.setOnClickListener {
-            preferencesCheck = 1
-            println("updatePreferenceConstant------->${Constant.experience}--${Constant.ageRating}")
-            updatePreference(
-                PreferenceRequest(
-                    arbic,
-                    cinema,
-                    Constant.experience.toString(),
-                    Constant.ageRating.toString(),
-                    Constant.seatCategoryList.toString(),
-                    Constant.seatTypeList.toString(),
-                    preferences.getString(Constant.USER_ID).toString()
-                )
-            )
-
-        }
-
-        //delete button
-        textView168.setOnClickListener {
-            val intent = Intent(requireActivity(), DeleteAccountActivity::class.java)
-            startActivity(intent)
-        }
-
-        broadcastReceiver = MyReceiver()
-        broadcastIntent()
-        getAmountLoad()
-
-        // Location Current
-//        loadLocation()
-
-        CinemaResponse()
-        countryCodeLoad()
-        view39_line.hide()
-        view_ConfPassword.hide()
-        textConfPassword.hide()
-        enter_ConfPassword.hide()
-
-        binding?.includeProfile?.enterMobileCode?.setOnClickListener {
-            bottomDialog(countryCodeList)
+//                preferences.putString( Constant.IntentKey.OPEN_FROM,"More")
+                val intent = requireActivity().intent
+                requireActivity().overridePendingTransition(0, 0)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                requireActivity().finish()
+                requireActivity().overridePendingTransition(0, 0)
+                startActivity(intent)
+            }
         }
 
     }
 
 
     @SuppressLint("SimpleDateFormat")
-    fun Data(date: String?): Int {
+    fun data(date: String?): Int {
         if (!TextUtils.isEmpty(date)) {
             val cal = Calendar.getInstance()
             val dateInString =
@@ -1687,374 +1673,9 @@ class AccountPageFragment : DaggerFragment(),
 
     }
 
-    private fun validateFields(proceedAlertDialog: AlertDialog): Boolean {
-        return if (proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                .isEmpty() && proceedAlertDialog.cardNumberTextInputEditText.text.toString().length != 16 && !CreditCardUtils.isValid(
-                proceedAlertDialog.cardNumberTextInputEditText.text.toString().replace(" ", "")
-            )
-        ) {
-            val dialog = OptionDialog(requireActivity(),
-                R.mipmap.ic_launcher,
-                R.string.app_name,
-                getString(R.string.valid_card),
-                positiveBtnText = R.string.ok,
-                negativeBtnText = R.string.no,
-                positiveClick = {},
-                negativeClick = {})
-            dialog.show()
-            false
-        } else if (proceedAlertDialog.expireDateTextInputEditText.text.toString()
-                .isEmpty() || proceedAlertDialog.expireDateTextInputEditText.text.toString().length < 5
-        ) {
-            val dialog = OptionDialog(requireActivity(),
-                R.mipmap.ic_launcher,
-                R.string.app_name,
-                getString(R.string.valid_expiry),
-                positiveBtnText = R.string.ok,
-                negativeBtnText = R.string.no,
-                positiveClick = {},
-                negativeClick = {})
-            dialog.show()
-            false
-        } else if (proceedAlertDialog.expireDateTextInputEditText.text.toString()
-                .isEmpty() || proceedAlertDialog.expireDateTextInputEditText.text.toString()
-                .split("/")
-                .toTypedArray()[0].toInt() > 12 || proceedAlertDialog.expireDateTextInputEditText.text.toString().length < 5
-        ) {
-            val dialog = OptionDialog(requireActivity(),
-                R.mipmap.ic_launcher,
-                R.string.app_name,
-                getString(R.string.valid_expiry),
-                positiveBtnText = R.string.ok,
-                negativeBtnText = R.string.no,
-                positiveClick = {},
-                negativeClick = {})
-            dialog.show()
-            false
-        } else if (proceedAlertDialog.ccvTextInputEditText.text.toString()
-                .isEmpty() && proceedAlertDialog.ccvTextInputEditText.length() != 3
-        ) {
-            val dialog = OptionDialog(requireActivity(),
-                R.mipmap.ic_launcher,
-                R.string.app_name,
-                getString(R.string.valid_cvv),
-                positiveBtnText = R.string.ok,
-                negativeBtnText = R.string.no,
-                positiveClick = {},
-                negativeClick = {})
-            dialog.show()
-            false
-        } else {
-            true
-        }
-    }
-
-    private fun postCardData(request: PostCardRequest) {
-        accountFragViewModel.postCardData(request).observe(requireActivity()) {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-//                            loader?.dismiss()
-                        resource.data?.let { it ->
-                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                try {
-                                    if (it.data.output.redirect == "0") {
-                                        cardinal.cca_continue(
-                                            it.data.output.authTransId,
-                                            it.data.output.pares,
-                                            requireActivity()
-                                        ) { context, validateResponse, s ->
-                                            println("consumerSessionId12-->" + validateResponse.actionCode + "----" + validateResponse.errorDescription)
-                                            if (validateResponse.actionCode == CardinalActionCode.CANCEL) {
-                                                toast("Transaction Cancelled!")
-                                            } else if (validateResponse.actionCode == CardinalActionCode.ERROR) {
-                                                toast(validateResponse.errorDescription)
-                                            } else if (validateResponse.actionCode == CardinalActionCode.SUCCESS) {
-                                                if (s != null) {
-                                                    requireActivity().runOnUiThread {
-                                                        validateJWT(
-                                                            ValidateJWTRequest(
-                                                                request.bookingid,
-                                                                request.cardNumber,
-                                                                request.cvNumber,
-                                                                request.expirationMonth,
-                                                                request.expirationYear,
-                                                                s,
-                                                                m_sessionID,
-                                                                ""
-                                                            )
-                                                        )
-                                                    }
-                                                } else {
-                                                    toast("Transaction Failed!")
-                                                }
-                                            } else {
-                                                toast(validateResponse.errorDescription)
-                                            }
-                                        }
-                                    } else {
-                                        loader?.dismiss()
-                                        val dialog = OptionDialog(requireActivity(),
-                                            R.mipmap.ic_launcher,
-                                            R.string.app_name,
-                                            it.data.output.errorDescription,
-                                            positiveBtnText = R.string.ok,
-                                            negativeBtnText = R.string.no,
-                                            positiveClick = {},
-                                            negativeClick = {})
-                                        dialog.show()
-                                    }
-                                } catch (e: Exception) {
-                                    loader?.dismiss()
-
-                                    println("updateUiCinemaSession ---> ${e.message}")
-                                }
-
-                            } else {
-                                loader?.dismiss()
-                                val dialog = OptionDialog(requireActivity(),
-                                    R.mipmap.ic_launcher,
-                                    R.string.app_name,
-                                    it.data?.msg.toString(),
-                                    positiveBtnText = R.string.ok,
-                                    negativeBtnText = R.string.no,
-                                    positiveClick = {},
-                                    negativeClick = {})
-                                dialog.show()
-                            }
-
-                        }
-                    }
-                    Status.ERROR -> {
-                        loader?.dismiss()
-                        val dialog = OptionDialog(requireContext(),
-                            R.mipmap.ic_launcher,
-                            R.string.app_name,
-                            it.message.toString(),
-                            positiveBtnText = R.string.ok,
-                            negativeBtnText = R.string.no,
-                            positiveClick = {},
-                            negativeClick = {})
-                        dialog.show()
-                    }
-                    Status.LOADING -> {
-//                            loader = LoaderDialog(R.string.pleasewait)
-//                            loader?.show(requireActivity().supportFragmentManager, null)
-                    }
-                }
-            }
-        }
-    }
-
-    private fun validateJWT(s: ValidateJWTRequest) {
-        accountFragViewModel.validateJWT(s).observe(requireActivity()) {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        loader?.dismiss()
-                        resource.data?.let { it ->
-                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                try {
-                                    proceedAlertDialog?.dismiss()
-                                    image_knet.setColorFilter(requireActivity().getColor(R.color.hint_color))
-                                    text_kent.setTextColor(requireContext().getColor(R.color.hint_color))
-
-                                    image_credit_card.setColorFilter(
-                                        requireActivity().getColor(
-                                            R.color.hint_color
-                                        )
-                                    )
-                                    text_credit_card.setTextColor(requireContext().getColor(R.color.hint_color))
-
-                                    clickEnable = 0
-                                    getProfile(
-                                        ProfileRequest(
-                                            "",
-                                            "",
-                                            preferences.getString(Constant.USER_ID).toString()
-                                        )
-                                    )
-
-                                } catch (e: Exception) {
-                                    println("updateUiCinemaSession ---> ${e.message}")
-                                }
-
-                            } else {
-                                loader?.dismiss()
-                                val dialog = OptionDialog(requireActivity(),
-                                    R.mipmap.ic_launcher,
-                                    R.string.app_name,
-                                    it.data?.msg.toString(),
-                                    positiveBtnText = R.string.ok,
-                                    negativeBtnText = R.string.no,
-                                    positiveClick = {},
-                                    negativeClick = {})
-                                dialog.show()
-                            }
-
-                        }
-                    }
-                    Status.ERROR -> {
-                        loader?.dismiss()
-                        val dialog = OptionDialog(requireActivity(),
-                            R.mipmap.ic_launcher,
-                            R.string.app_name,
-                            it.message.toString(),
-                            positiveBtnText = R.string.ok,
-                            negativeBtnText = R.string.no,
-                            positiveClick = {},
-                            negativeClick = {})
-                        dialog.show()
-                    }
-                    Status.LOADING -> {
-                    }
-                }
-            }
-        }
-    }
-
-    private fun creditCardInit(request: HmacKnetRequest, bookinId: String) {
-        accountFragViewModel.creditCardInit(request).observe(requireActivity()) {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        // loader?.dismiss()
-                        resource.data?.let { it ->
-                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-
-                                try {
-                                    cardinal = Cardinal.getInstance()
-                                    val serverJwt: String = it.data.output.jwtToken
-
-                                    val profilingConnections: TMXProfilingConnectionsInterface =
-                                        TMXProfilingConnections().setConnectionTimeout(
-                                            20, TimeUnit.SECONDS
-                                        ).setRetryTimes(3)
 
 
-                                    val config = TMXConfig() // (REQUIRED) Organisation ID
-                                        .setOrgId(it.data.output.orgId)
-                                        .setFPServer("h.online-metrix.net")
-                                        .setContext(requireActivity())
-                                        .setProfilingConnections(profilingConnections)
-                                        .setProfileTimeout(20, TimeUnit.SECONDS)
-                                        .setRegisterForLocationServices(true)
-//
-                                    TMXProfiling.getInstance().init(config)
-                                    doProfile(
-                                        it.data.output.deviceSessionId,
-                                        it.data.output.merchantId
-                                    )
-
-                                    cardinal.init(serverJwt, object : CardinalInitService {
-                                        /**
-                                         * You may have your Submit button disabled on page load. Once you are set up
-                                         * for CCA, you may then enable it. This will prevent users from submitting
-                                         * their order before CCA is ready.
-                                         */
-                                        override fun onSetupCompleted(consumerSessionId: String) {
-                                            refId = consumerSessionId
-                                            println("consumerSessionId-->$consumerSessionId")
-
-
-                                            activity?.runOnUiThread {
-                                                postCardData(
-                                                    PostCardRequest(
-                                                        bookinId,
-                                                        ccCardNo,
-                                                        ccCardCvv,
-                                                        ccCardExpiryMonth,
-                                                        ccCardExpiryYear,
-                                                        refId
-                                                    )
-                                                )
-                                            }
-
-
-                                        }
-
-                                        override fun onValidated(
-                                            validateResponse: ValidateResponse?,
-                                            serverJwt: String?
-                                        ) {
-                                            activity?.runOnUiThread {
-                                                loader?.dismiss()
-                                                proceedAlertDialog?.dismiss()
-                                                val dialog = OptionDialog(requireActivity(),
-                                                    R.mipmap.ic_launcher,
-                                                    R.string.app_name,
-                                                    getString(R.string.somethingWrong),
-                                                    positiveBtnText = R.string.ok,
-                                                    negativeBtnText = R.string.no,
-                                                    positiveClick = {},
-                                                    negativeClick = {})
-                                                dialog.show()
-                                            }
-
-                                            println("consumerSessionId-->" + validateResponse?.actionCode + "----" + serverJwt)
-                                        }
-                                    })
-
-                                } catch (e: Exception) {
-                                    println("updateUiCinemaSession ---> ${e.message}")
-                                }
-
-                            } else {
-                                loader?.dismiss()
-                                val dialog = OptionDialog(requireActivity(),
-                                    R.mipmap.ic_launcher,
-                                    R.string.app_name,
-                                    it.data?.msg.toString(),
-                                    positiveBtnText = R.string.ok,
-                                    negativeBtnText = R.string.no,
-                                    positiveClick = {},
-                                    negativeClick = {})
-                                dialog.show()
-                            }
-
-                        }
-                    }
-                    Status.ERROR -> {
-                        loader?.dismiss()
-                        val dialog = OptionDialog(requireActivity(),
-                            R.mipmap.ic_launcher,
-                            R.string.app_name,
-                            it.message.toString(),
-                            positiveBtnText = R.string.ok,
-                            negativeBtnText = R.string.no,
-                            positiveClick = {},
-                            negativeClick = {})
-                        dialog.show()
-                    }
-                    Status.LOADING -> {
-//                            loader = LoaderDialog(R.string.pleasewait)
-//                            loader?.show(requireActivity().supportFragmentManager, null)
-                    }
-                }
-            }
-        }
-    }
-
-    private fun doProfile(sessions1: String, merchent: String) {
-        val list: List<String> = ArrayList()
-        //        list.add("attribute 1");
-//        list.add("attribute 2");
-        val options =
-            TMXProfilingOptions().setCustomAttributes(list) // Fire off the profiling request. We could use a more complex request,
-        options.setSessionID(merchent + sessions1)
-//        val profilingHandle = TMXProfiling.getInstance().profile(options,
-//            CheckoutWithFoodActivity.CompletionNotifier()
-//        )
-        // Session id can be collected here
-//        Log.d("TAG", "Session id = " + profilingHandle.sessionID)
-        /*
-         * profilingHandle can also be used to cancel this profile if needed *
-         * profilingHandle.cancel();
-         * */m_sessionID = sessions1
-    }
-
-
-    private fun CinemaResponse() {
+    private fun cinemaResponse() {
         accountFragViewModel.foodResponse().observe(requireActivity()) {
             it?.let { resource ->
                 when (resource.status) {
@@ -2116,70 +1737,7 @@ class AccountPageFragment : DaggerFragment(),
 
     }
 
-    private fun loadLocation() {
-        if (ContextCompat.checkSelfPermission(
-                requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                LOCATION_PERMISSION_REQUEST_CODE
-            )
-        } else {
-            getLatLong()
-        }
-    }
-
-    private fun getLatLong() {
-        val locationRequest = LocationRequest()
-        locationRequest.interval = 10000
-        locationRequest.fastestInterval = 3000
-        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-
-        if (ActivityCompat.checkSelfPermission(
-                requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            return
-        }
-
-        LocationServices.getFusedLocationProviderClient(requireActivity())
-            .requestLocationUpdates(locationRequest, object : LocationCallback() {
-                override fun onLocationResult(locationResult: LocationResult) {
-                    super.onLocationResult(locationResult)
-                    if (isAdded) {
-                        LocationServices.getFusedLocationProviderClient(requireActivity())
-                            .removeLocationUpdates(this)
-                        if (locationResult.locations.size > 0) {
-                            val latestIndex = locationResult.locations.size - 1
-//                        val lati = locationResult.locations[latestlocIndex].latitude
-//                        val longi = locationResult.locations[latestlocIndex].longitude
-                            latitude = locationResult.locations[latestIndex].latitude.toString()
-                            longitude = locationResult.locations[latestIndex].longitude.toString()
-
-                            getProfile(
-                                ProfileRequest(
-                                    "",
-                                    "",
-                                    preferences.getString(Constant.USER_ID).toString()
-                                )
-                            )
-
-                            val location = Location("providerNA")
-                            location.longitude = longitude.toDouble()
-                            location.latitude = latitude.toDouble()
-//                        fetchAddressFromLocation(location)
-                        }
-                    }
-
-                }
-            }, Looper.getMainLooper())
-    }
-
-    //Prefrence
+    //////////// //////////////            Prefrence    /////////////////////////////////
     private fun updatePreference(profileRequest: PreferenceRequest) {
         accountFragViewModel.updatePreference(profileRequest).observe(requireActivity()) {
             it?.let { resource ->
@@ -2789,6 +2347,389 @@ class AccountPageFragment : DaggerFragment(),
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //payments
+    private fun validateFields(proceedAlertDialog: AlertDialog): Boolean {
+        return if (proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                .isEmpty() && proceedAlertDialog.cardNumberTextInputEditText.text.toString().length != 16 && !CreditCardUtils.isValid(
+                proceedAlertDialog.cardNumberTextInputEditText.text.toString().replace(" ", "")
+            )
+        ) {
+            val dialog = OptionDialog(requireActivity(),
+                R.mipmap.ic_launcher,
+                R.string.app_name,
+                getString(R.string.valid_card),
+                positiveBtnText = R.string.ok,
+                negativeBtnText = R.string.no,
+                positiveClick = {},
+                negativeClick = {})
+            dialog.show()
+            false
+        } else if (proceedAlertDialog.expireDateTextInputEditText.text.toString()
+                .isEmpty() || proceedAlertDialog.expireDateTextInputEditText.text.toString().length < 5
+        ) {
+            val dialog = OptionDialog(requireActivity(),
+                R.mipmap.ic_launcher,
+                R.string.app_name,
+                getString(R.string.valid_expiry),
+                positiveBtnText = R.string.ok,
+                negativeBtnText = R.string.no,
+                positiveClick = {},
+                negativeClick = {})
+            dialog.show()
+            false
+        } else if (proceedAlertDialog.expireDateTextInputEditText.text.toString()
+                .isEmpty() || proceedAlertDialog.expireDateTextInputEditText.text.toString()
+                .split("/")
+                .toTypedArray()[0].toInt() > 12 || proceedAlertDialog.expireDateTextInputEditText.text.toString().length < 5
+        ) {
+            val dialog = OptionDialog(requireActivity(),
+                R.mipmap.ic_launcher,
+                R.string.app_name,
+                getString(R.string.valid_expiry),
+                positiveBtnText = R.string.ok,
+                negativeBtnText = R.string.no,
+                positiveClick = {},
+                negativeClick = {})
+            dialog.show()
+            false
+        } else if (proceedAlertDialog.ccvTextInputEditText.text.toString()
+                .isEmpty() && proceedAlertDialog.ccvTextInputEditText.length() != 3
+        ) {
+            val dialog = OptionDialog(requireActivity(),
+                R.mipmap.ic_launcher,
+                R.string.app_name,
+                getString(R.string.valid_cvv),
+                positiveBtnText = R.string.ok,
+                negativeBtnText = R.string.no,
+                positiveClick = {},
+                negativeClick = {})
+            dialog.show()
+            false
+        } else {
+            true
+        }
+    }
+
+    private fun postCardData(request: PostCardRequest) {
+        accountFragViewModel.postCardData(request).observe(requireActivity()) {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+//                            loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                try {
+                                    if (it.data.output.redirect == "0") {
+                                        cardinal.cca_continue(
+                                            it.data.output.authTransId,
+                                            it.data.output.pares,
+                                            requireActivity()
+                                        ) { context, validateResponse, s ->
+                                            if (validateResponse.actionCode == CardinalActionCode.CANCEL) {
+                                                toast("Transaction Cancelled!")
+                                            } else if (validateResponse.actionCode == CardinalActionCode.ERROR) {
+                                                toast(validateResponse.errorDescription)
+                                            } else if (validateResponse.actionCode == CardinalActionCode.SUCCESS) {
+                                                if (s != null) {
+                                                    requireActivity().runOnUiThread {
+                                                        validateJWT(
+                                                            ValidateJWTRequest(
+                                                                request.bookingid,
+                                                                request.cardNumber,
+                                                                request.cvNumber,
+                                                                request.expirationMonth,
+                                                                request.expirationYear,
+                                                                s,
+                                                                m_sessionID,
+                                                                ""
+                                                            )
+                                                        )
+                                                    }
+                                                } else {
+                                                    toast("Transaction Failed!")
+                                                }
+                                            } else {
+                                                toast(validateResponse.errorDescription)
+                                            }
+                                        }
+                                    } else {
+                                        loader?.dismiss()
+                                        val dialog = OptionDialog(requireActivity(),
+                                            R.mipmap.ic_launcher,
+                                            R.string.app_name,
+                                            it.data.output.errorDescription,
+                                            positiveBtnText = R.string.ok,
+                                            negativeBtnText = R.string.no,
+                                            positiveClick = {},
+                                            negativeClick = {})
+                                        dialog.show()
+                                    }
+                                } catch (e: Exception) {
+                                    loader?.dismiss()
+
+                                    println("updateUiCinemaSession ---> ${e.message}")
+                                }
+
+                            } else {
+                                loader?.dismiss()
+                                val dialog = OptionDialog(requireActivity(),
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
+                            }
+
+                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(requireContext(),
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+//                            loader = LoaderDialog(R.string.pleasewait)
+//                            loader?.show(requireActivity().supportFragmentManager, null)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun validateJWT(s: ValidateJWTRequest) {
+        accountFragViewModel.validateJWT(s).observe(requireActivity()) {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                try {
+                                    proceedAlertDialog?.dismiss()
+                                    image_knet.setColorFilter(requireActivity().getColor(R.color.hint_color))
+                                    text_kent.setTextColor(requireContext().getColor(R.color.hint_color))
+
+                                    image_credit_card.setColorFilter(
+                                        requireActivity().getColor(
+                                            R.color.hint_color
+                                        )
+                                    )
+                                    text_credit_card.setTextColor(requireContext().getColor(R.color.hint_color))
+
+                                    clickEnable = 0
+                                    getProfile(
+                                        ProfileRequest(
+                                            "",
+                                            "",
+                                            preferences.getString(Constant.USER_ID).toString()
+                                        )
+                                    )
+
+                                } catch (e: Exception) {
+                                    println("updateUiCinemaSession ---> ${e.message}")
+                                }
+
+                            } else {
+                                loader?.dismiss()
+                                val dialog = OptionDialog(requireActivity(),
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
+                            }
+
+                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(requireActivity(),
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                    }
+                }
+            }
+        }
+    }
+
+    private fun creditCardInit(request: HmacKnetRequest, bookinId: String) {
+        accountFragViewModel.creditCardInit(request).observe(requireActivity()) {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        // loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+
+                                try {
+                                    cardinal = Cardinal.getInstance()
+                                    val serverJwt: String = it.data.output.jwtToken
+
+                                    val profilingConnections: TMXProfilingConnectionsInterface =
+                                        TMXProfilingConnections().setConnectionTimeout(
+                                            20, TimeUnit.SECONDS
+                                        ).setRetryTimes(3)
+
+
+                                    val config = TMXConfig() // (REQUIRED) Organisation ID
+                                        .setOrgId(it.data.output.orgId)
+                                        .setFPServer("h.online-metrix.net")
+                                        .setContext(requireActivity())
+                                        .setProfilingConnections(profilingConnections)
+                                        .setProfileTimeout(20, TimeUnit.SECONDS)
+                                        .setRegisterForLocationServices(true)
+//
+                                    TMXProfiling.getInstance().init(config)
+                                    doProfile(
+                                        it.data.output.deviceSessionId,
+                                        it.data.output.merchantId
+                                    )
+
+                                    cardinal.init(serverJwt, object : CardinalInitService {
+                                        /**
+                                         * You may have your Submit button disabled on page load. Once you are set up
+                                         * for CCA, you may then enable it. This will prevent users from submitting
+                                         * their order before CCA is ready.
+                                         */
+                                        override fun onSetupCompleted(consumerSessionId: String) {
+                                            refId = consumerSessionId
+                                            println("consumerSessionId-->$consumerSessionId")
+
+
+                                            activity?.runOnUiThread {
+                                                postCardData(
+                                                    PostCardRequest(
+                                                        bookinId,
+                                                        ccCardNo,
+                                                        ccCardCvv,
+                                                        ccCardExpiryMonth,
+                                                        ccCardExpiryYear,
+                                                        refId
+                                                    )
+                                                )
+                                            }
+
+
+                                        }
+
+                                        override fun onValidated(
+                                            validateResponse: ValidateResponse?,
+                                            serverJwt: String?
+                                        ) {
+                                            activity?.runOnUiThread {
+                                                loader?.dismiss()
+                                                proceedAlertDialog?.dismiss()
+                                                val dialog = OptionDialog(requireActivity(),
+                                                    R.mipmap.ic_launcher,
+                                                    R.string.app_name,
+                                                    getString(R.string.somethingWrong),
+                                                    positiveBtnText = R.string.ok,
+                                                    negativeBtnText = R.string.no,
+                                                    positiveClick = {},
+                                                    negativeClick = {})
+                                                dialog.show()
+                                            }
+
+                                            println("consumerSessionId-->" + validateResponse?.actionCode + "----" + serverJwt)
+                                        }
+                                    })
+
+                                } catch (e: Exception) {
+                                    println("updateUiCinemaSession ---> ${e.message}")
+                                }
+
+                            } else {
+                                loader?.dismiss()
+                                val dialog = OptionDialog(requireActivity(),
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
+                            }
+
+                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(requireActivity(),
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+//                            loader = LoaderDialog(R.string.pleasewait)
+//                            loader?.show(requireActivity().supportFragmentManager, null)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun doProfile(sessions1: String, merchent: String) {
+        val list: List<String> = ArrayList()
+        //        list.add("attribute 1");
+//        list.add("attribute 2");
+        val options =
+            TMXProfilingOptions().setCustomAttributes(list) // Fire off the profiling request. We could use a more complex request,
+        options.setSessionID(merchent + sessions1)
+//        val profilingHandle = TMXProfiling.getInstance().profile(options,
+//            CheckoutWithFoodActivity.CompletionNotifier()
+//        )
+        // Session id can be collected here
+//        Log.d("TAG", "Session id = " + profilingHandle.sessionID)
+        /*
+         * profilingHandle can also be used to cancel this profile if needed *
+         * profilingHandle.cancel();
+         * */m_sessionID = sessions1
+    }
+
     private fun setCancelBackSpan(view: View) {
 //        try {
 //            val tvCancelBack = view.findViewById<TextView>(R.id.tv_cancel_back)
@@ -2817,6 +2758,49 @@ class AccountPageFragment : DaggerFragment(),
 //        } catch (e: Exception) {
 //
 //        }
+    }
+
+    //recharhge Amount
+    private fun getAmountLoad() {
+        accountFragViewModel.getAmount(requireActivity()).observe(requireActivity()) {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        loader?.dismiss()
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                getAmountList = it.data.output.amounts
+                                rechargeAmount(it.data.output)
+                            } else {
+                                val dialog = OptionDialog(requireActivity(),
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
+                            }
+                        }
+                    }
+                    Status.ERROR -> {
+                        loader?.dismiss()
+                        val dialog = OptionDialog(requireActivity(),
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    }
+                    Status.LOADING -> {
+                    }
+                }
+            }
+        }
     }
 
     private fun rechargeCard(addClubRechargeRequest: AddClubRechargeRequest) {
@@ -2896,6 +2880,25 @@ class AccountPageFragment : DaggerFragment(),
             }
     }
 
+    private fun rechargeAmount(output: RechargeAmountResponse.Output) {
+        val customAdapter = RechargeSpinnerAdapter(
+            requireActivity(), output.amounts
+        )
+        text_select_amount.adapter = customAdapter
+        text_select_amount.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>, view: View, position: Int, id: Long
+            ) {
+                rechargeAmount = getAmountList[position].amount.toString()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
+        }
+
+    }
+
     // Hmac Request
     private fun paymentMac(request: HmacKnetRequest) {
         accountFragViewModel.paymentKnetHmac(request).observe(requireActivity()) {
@@ -2955,7 +2958,16 @@ class AccountPageFragment : DaggerFragment(),
         }
     }
 
-    //country Code Data
+
+
+
+
+
+
+
+
+
+    ////////////////////////       country Code Data              ////////////////////
     private fun countryCodeLoad() {
         accountFragViewModel.countryCode(requireActivity()).observe(requireActivity()) {
             it?.let { resource ->
@@ -2998,8 +3010,82 @@ class AccountPageFragment : DaggerFragment(),
         binding?.includeProfile?.enterMobileCode?.setOnClickListener {
             bottomDialog(output)
         }
+    }
+
+    private fun bottomDialog(countryList: ArrayList<CountryCodeResponse.Output>) {
+        val mDialogView = layoutInflater.inflate(R.layout.countrycode_new_dialog, null)
+        val mBuilder =
+            AlertDialog.Builder(requireContext(), R.style.MyDialogTransparent).setView(mDialogView)
+        val mAlertDialog = mBuilder.show()
+        mAlertDialog.setCancelable(false)
+        mAlertDialog.setCanceledOnTouchOutside(false)
+        mAlertDialog.window?.setBackgroundDrawableResource(R.color.transparent)
+        val recyclerView = mDialogView.findViewById<RecyclerView>(R.id.NewCountryRecycler)
+        val cancel = mDialogView.findViewById<View>(R.id.view73)
+        val edSearch = mDialogView.findViewById<EditText>(R.id.searchData)
+        val proceed = mDialogView.findViewById<View>(R.id.textView57)
+        mAdapter = CountryCodeAdapter(countryCodeList, this, requireActivity())
+        recyclerView.adapter = mAdapter
+        //Recycler
+        val layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        recyclerView.layoutManager = layoutManager
+        countryCodeList = countryList
+        edSearch.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int, count: Int, after: Int
+            ) {
+
+            }
+
+            override fun onTextChanged(
+                cs: CharSequence, start: Int, before: Int, count: Int
+            ) {
+                countryCodeList = ArrayList()
+                countryCodeList = if (cs == "") {
+                    countryList
+                } else {
+                    ArrayList()
+                }
+                for (i in 0 until countryList.size) {
+                    try {
+                        if (countryList[i].countryName.lowercase()
+                                .contains(cs.toString().lowercase())
+                        ) {
+                            countryCodeList.add(countryList[i])
+                        }
+
+                    } catch (e: Exception) {
+                        println("SearchMsg--->${e.message}")
+                    }
+                }
+                println("comingSoonSize--->${countryCodeList.size}")
+
+                mAdapter?.updateList(countryCodeList)
+//                field1.setText("")
+            }
+        })
+
+        cancel.setOnClickListener {
+
+//            checkCuntryCode = false
+            mAlertDialog?.dismiss()
+
+//            if (checkCuntryCode == false){
+//                binding?.includeProfile?.mobileCode?.setText("")
+//            }
+
+        }
+
+        proceed.setOnClickListener {
+            binding?.includeProfile?.enterMobileCode?.text = countryCode
+            mAlertDialog?.dismiss()
+            edSearch.text.clear()
+        }
 
     }
+
 
     //update Account
     private fun updateAccount(updateAccountRequest: UpdateAccountRequest) {
@@ -3064,67 +3150,6 @@ class AccountPageFragment : DaggerFragment(),
 
     }
 
-    //recharhge Amount
-    private fun getAmountLoad() {
-        accountFragViewModel.getAmount(requireActivity()).observe(requireActivity()) {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        loader?.dismiss()
-                        resource.data?.let { it ->
-                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                getAmountList = it.data.output.amounts
-                                rechargeAmount(it.data.output)
-                            } else {
-                                val dialog = OptionDialog(requireActivity(),
-                                    R.mipmap.ic_launcher,
-                                    R.string.app_name,
-                                    it.data?.msg.toString(),
-                                    positiveBtnText = R.string.ok,
-                                    negativeBtnText = R.string.no,
-                                    positiveClick = {},
-                                    negativeClick = {})
-                                dialog.show()
-                            }
-                        }
-                    }
-                    Status.ERROR -> {
-                        loader?.dismiss()
-                        val dialog = OptionDialog(requireActivity(),
-                            R.mipmap.ic_launcher,
-                            R.string.app_name,
-                            it.message.toString(),
-                            positiveBtnText = R.string.ok,
-                            negativeBtnText = R.string.no,
-                            positiveClick = {},
-                            negativeClick = {})
-                        dialog.show()
-                    }
-                    Status.LOADING -> {
-                    }
-                }
-            }
-        }
-    }
-
-    private fun rechargeAmount(output: RechargeAmountResponse.Output) {
-        val customAdapter = RechargeSpinnerAdapter(
-            requireActivity(), output.amounts
-        )
-        text_select_amount.adapter = customAdapter
-        text_select_amount.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>, view: View, position: Int, id: Long
-            ) {
-                rechargeAmount = getAmountList[position].amount.toString()
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-
-            }
-        }
-
-    }
 
     private fun myBooking(request: MyBookingRequest) {
         accountFragViewModel.getMyBookingData(request).observe(requireActivity()) {
@@ -3176,8 +3201,6 @@ class AccountPageFragment : DaggerFragment(),
     }
 
     private fun setBookingHistoryAdapter(output: ArrayList<HistoryResponse.Output>) {
-
-
         include_history.show()
         val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
         binding?.includeHistory?.recyclerviewBookingHistory?.layoutManager =
@@ -3186,22 +3209,21 @@ class AccountPageFragment : DaggerFragment(),
         binding?.includeHistory?.recyclerviewBookingHistory?.layoutManager = gridLayout
         binding?.includeHistory?.recyclerviewBookingHistory?.adapter = adapter
         adapter.notifyDataSetChanged()
-//        include_history.show()
-//        if (output.isNullOrEmpty()){
-//            binding?.noHistory?.text=getString(R.string.noBookings)
-//
-//            binding?.noHistory?.show()
-//        }else{
-//            binding?.noHistory?.hide()
-//            binding?.nestedUi?.show()
-//            val gridLayout = GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
-//            binding?.includeHistory?.recyclerviewBookingHistory?.layoutManager = LinearLayoutManager(context)
-//            val adapter = AdapterBookingHistory(requireActivity(), output, this)
-//            binding?.includeHistory?.recyclerviewBookingHistory?.layoutManager = gridLayout
-//            binding?.includeHistory?.recyclerviewBookingHistory?.adapter = adapter
-//        }
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+    //////////////////////////////       Bookings    ///////////////////////////////////////////
 
     private fun myNextBooking(request: NextBookingsRequest) {
         accountFragViewModel.getNextBookingData(request).observe(requireActivity()) {
@@ -3262,6 +3284,10 @@ class AccountPageFragment : DaggerFragment(),
             binding?.recyclerviewBooking?.show()
         }
     }
+
+
+
+    //////////////////////////////       Profile    ///////////////////////////////////////////
 
     private fun getProfile(profileRequest: ProfileRequest) {
         accountFragViewModel.getProfile(profileRequest).observe(requireActivity()) {
@@ -3345,8 +3371,6 @@ class AccountPageFragment : DaggerFragment(),
         enter_city.setText(output.city)
         enter_date_births.text = output.dob
         binding?.textUserAccountName?.text = output.firstName + " " + output.lastName
-//        loginType = output.guest
-        println("GuestChwck21--->${output.guest}----->${output.dob}")
 
 
         if (output.userName.isNullOrEmpty()) {
@@ -3402,80 +3426,6 @@ class AccountPageFragment : DaggerFragment(),
 
     override fun onItemClick(view: String) {
         Constant.taglist.add(view)
-    }
-
-    private fun bottomDialog(countryList: ArrayList<CountryCodeResponse.Output>) {
-        val mDialogView = layoutInflater.inflate(R.layout.countrycode_new_dialog, null)
-        val mBuilder =
-            AlertDialog.Builder(requireContext(), R.style.MyDialogTransparent).setView(mDialogView)
-        val mAlertDialog = mBuilder.show()
-        mAlertDialog.setCancelable(false)
-        mAlertDialog.setCanceledOnTouchOutside(false)
-        mAlertDialog.window?.setBackgroundDrawableResource(R.color.transparent)
-        val recyclerView = mDialogView.findViewById<RecyclerView>(R.id.NewCountryRecycler)
-        val cancel = mDialogView.findViewById<View>(R.id.view73)
-        val edSearch = mDialogView.findViewById<EditText>(R.id.searchData)
-        val proceed = mDialogView.findViewById<View>(R.id.textView57)
-        mAdapter = CountryCodeAdapter(countryCodeList, this, requireActivity())
-        recyclerView.adapter = mAdapter
-        //Recycler
-        val layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        recyclerView.layoutManager = layoutManager
-        countryCodeList = countryList
-        edSearch.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {}
-            override fun beforeTextChanged(
-                s: CharSequence, start: Int, count: Int, after: Int
-            ) {
-
-            }
-
-            override fun onTextChanged(
-                cs: CharSequence, start: Int, before: Int, count: Int
-            ) {
-                countryCodeList = ArrayList()
-                countryCodeList = if (cs == "") {
-                    countryList
-                } else {
-                    ArrayList()
-                }
-                for (i in 0 until countryList.size) {
-                    try {
-                        if (countryList[i].countryName.lowercase()
-                                .contains(cs.toString().lowercase())
-                        ) {
-                            countryCodeList.add(countryList[i])
-                        }
-
-                    } catch (e: Exception) {
-                        println("SearchMsg--->${e.message}")
-                    }
-                }
-                println("comingSoonSize--->${countryCodeList.size}")
-
-                mAdapter?.updateList(countryCodeList)
-//                field1.setText("")
-            }
-        })
-
-        cancel.setOnClickListener {
-
-//            checkCuntryCode = false
-            mAlertDialog?.dismiss()
-
-//            if (checkCuntryCode == false){
-//                binding?.includeProfile?.mobileCode?.setText("")
-//            }
-
-        }
-
-        proceed.setOnClickListener {
-            binding?.includeProfile?.enterMobileCode?.text = countryCode
-            mAlertDialog?.dismiss()
-            edSearch.text.clear()
-        }
-
     }
 
     private fun signOut() {
@@ -3799,7 +3749,6 @@ class AccountPageFragment : DaggerFragment(),
     }
 
     override fun foodPrepareClick(foodPrepareItem: NextBookingResponse.Current) {
-
         foodPickup(
             FoodPrepareRequest(
                 foodPrepareItem.bookingId,

@@ -46,8 +46,6 @@ class HistoryFoodListAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val concessionFoods = concessionFoods[position]
-        print("offerData123--->${concessionFoods}")
-        context.toast("2345678op")
         context.windowManager.defaultDisplay.getMetrics(displayMetrics)
         val height = displayMetrics.heightPixels
         val width = displayMetrics.widthPixels

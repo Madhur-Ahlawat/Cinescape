@@ -182,19 +182,23 @@ class AdapterBookingHistory(private val context: Activity,
                         holder.movieui.hide()
                         holder.imageArrowDrop.setImageResource(R.drawable.arrow_up)
 
-                        if (bookingHistoryItem.concessionFoods.isNullOrEmpty()){
-                            println("---------Check>1")
-                            holder.foodList.hide()
-                        }else{
-                            println("---------Check>2---->${bookingHistoryItem.concessionFoods.size}")
-                            holder.paymentUi.hide()
-                            holder.foodList.show()
-                            val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                            holder.foodList.layoutManager = LinearLayoutManager(context)
-                            val adapter = HistoryFoodListAdapter(context, bookingHistoryItem.concessionFoods)
-                            holder.foodList.layoutManager = layoutManager
-                            holder.foodList.adapter = adapter
+                        holder.paymentUi.hide()
+                        holder.foodList.show()
+
+                        if (bookingHistoryItem.concessionFoods.isNotEmpty()) {
+                            holder.foodMUi.show()
+                        } else {
+                            holder.foodMUi.hide()
                         }
+                        holder.title.text = " gjnkmnj"
+
+                        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                        holder.foodList.layoutManager = LinearLayoutManager(context)
+                        val adapter = HistoryFoodListAdapter(context, bookingHistoryItem.concessionFoods)
+                        holder.foodList.layoutManager = layoutManager
+                        holder.foodList.adapter = adapter
+
+                        println("---------Food>${bookingHistoryItem.concessionFoods}")
 
                     }else{
                         holder.paymentUi.hide()
@@ -217,7 +221,6 @@ class AdapterBookingHistory(private val context: Activity,
                         } else {
                             holder.foodMUi.hide()
                         }
-
 
                         //food
                         holder.foodTotalPrice.text=bookingHistoryItem.totalPrice
@@ -304,8 +307,9 @@ class AdapterBookingHistory(private val context: Activity,
         var movieui: ConstraintLayout = view.findViewById(R.id.movieUi)
         var rechargeUi: ConstraintLayout = view.findViewById(R.id.rechargeUi)
         var foodUi: ConstraintLayout = view.findViewById(R.id.foodUi)
+        var title: TextView = view.findViewById(R.id.textView90)
         var foodMUi: ConstraintLayout = view.findViewById(R.id.foodMUi)
-        var foodList: RecyclerView = view.findViewById(R.id.recyclerView)
+        var foodList: RecyclerView = view.findViewById(R.id.recyclerViewFood)
         var paymentUi: ConstraintLayout = view.findViewById(R.id.constraintLayout36)
 
         var payDone: TextView = view.findViewById(R.id.textView85)

@@ -110,7 +110,6 @@ class HomeActivity : DaggerAppCompatActivity(),
         setContentView(view)
 
         navigationView.setOnNavigationItemSelectedListener {
-
             when (it.itemId) {
                 R.id.homeFragment -> {
                     foodNotHomeTab = true

@@ -1391,7 +1391,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                             btnDecrease.hide()
                         } else {
                             btnDecrease.show()
-
                         }
                         toast(
                             "${getString(R.string.seatLimit)} ${" " + output.seatCount} ${
