@@ -41,6 +41,9 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
         val view = binding?.root
         setContentView(view)
 
+        binding?.imageView59?.setOnClickListener {
+            onBackPressed()
+        }
 
         manageFunctions()
     }
@@ -50,16 +53,15 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
         type = intent.getStringExtra("type").toString()
         verifyType = intent.getStringExtra("verifyType").toString()
 
+        println("typesData-------->${type}---->${verifyType}")
+
         //AppBar Hide
-        Constant().appBarHide(this@OtpVerificationActivity)
+//        Constant().appBarHide(this@OtpVerificationActivity)
+
         movedNext()
     }
 
     private fun movedNext() {
-        binding?.imageView59?.setOnClickListener {
-            onBackPressed()
-        }
-
         manageVerification()
     }
 

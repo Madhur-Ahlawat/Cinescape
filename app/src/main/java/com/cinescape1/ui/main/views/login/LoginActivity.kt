@@ -916,10 +916,10 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                             intent.putExtra("userId", it.data.data.output.userId)
                             intent.putExtra("type", "signUp")
                             intent.putExtra("verifyType","")
-                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+//                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
                             startActivity(intent)
+//                            finish()
 
-                            finish()
                         } else {
                             val dialog = OptionDialog(this,
                                 R.mipmap.ic_launcher,

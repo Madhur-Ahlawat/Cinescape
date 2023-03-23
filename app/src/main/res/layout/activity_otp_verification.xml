@@ -130,6 +130,7 @@
                     app:forceKeyboard="false"
                     app:inputType="number"
                     app:password="false"
+                    android:textColor="#FFFFFF"
                     android:layout_marginStart="-47dp"
                     app:pinBackground="@drawable/background"
                     app:layout_constraintEnd_toEndOf="parent"
