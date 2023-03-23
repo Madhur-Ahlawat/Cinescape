@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/linearLayout3"
+    android:background="@color/black">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        android:layout_marginTop="@dimen/margin4"
+        app:layout_constraintTop_toBottomOf="@+id/consUi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textPaymentName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.6"
+            android:fontFamily="@font/sf_pro_text_regular"
+            tools:text="Wallet "
+            android:ellipsize="end"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size14"
+            app:layout_constraintEnd_toStartOf="@+id/textView92"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textPrices"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.1"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:gravity="start"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size14"
+            app:layout_constraintEnd_toStartOf="@+id/textView93"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="6.500"/>
+    </LinearLayout>
+
+</LinearLayout>

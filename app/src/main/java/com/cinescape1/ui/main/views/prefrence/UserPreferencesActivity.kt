@@ -21,10 +21,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.cinescape1.R
-import com.cinescape1.data.models.ModelPreferenceAgeRating
-import com.cinescape1.data.models.ModelPreferenceCategory
-import com.cinescape1.data.models.ModelPreferenceExperience
-import com.cinescape1.data.models.ModelPreferenceType
+import com.cinescape1.data.models.*
 import com.cinescape1.data.models.requestModel.PreferenceRequest
 import com.cinescape1.data.models.requestModel.ProfileRequest
 import com.cinescape1.data.models.responseModel.FoodResponse
@@ -43,6 +40,7 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import dagger.android.support.DaggerAppCompatActivity
+import kotlinx.android.synthetic.main.account_preference_layout.*
 import javax.inject.Inject
 
 class UserPreferencesActivity : DaggerAppCompatActivity() {
@@ -53,6 +51,7 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
     private val userPreferencesViewModel: UserPreferencesViewModel by viewModels { viewModelFactory }
     private var binding: ActivityUserPreferencesBinding? = null
     private var MyReceiver: BroadcastReceiver? = null
+    private var ageRatingList: java.util.ArrayList<ProfileResponse.Output.Rating>? = null
     private var loader: LoaderDialog? = null
     private var profileList: ArrayList<ProfileResponse.Output.Experience>? = null
     private val list: ArrayList<ModelPreferenceExperience> = arrayListOf(
@@ -186,7 +185,7 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
                                     if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                         locationlist = it.data.output.cinemas
                                         cinemaId =  it.data.output.cinemas[0].id
-                                        setSpinner(it.data.output.cinemas)
+                                        setSpinnerData(it.data.output.cinemas)
                                     }
                                 } catch (e: Exception) {
 
@@ -217,29 +216,30 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
             }
     }
 
-    private fun setSpinner(cinemas: ArrayList<FoodResponse.Output.Cinema>) {
+    private fun setSpinnerData(cinemas: ArrayList<FoodResponse.Output.Cinema>) {
+        try {
+            val customAdapter = CustomSpinnerAdapter(this, cinemas)
+            binding?.spinnerPref?.adapter = customAdapter
+            binding?.spinnerPref?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>, view: View, position: Int, id: Long
+                ) {
+                    cinema = locationlist[position].name
 
-        val customAdapter = CustomSpinnerAdapter(
-            this,
-            cinemas
-        )
-        binding?.SpinerPref?.adapter = customAdapter
-        binding?.SpinerPref?.onItemSelectedListener=  object :
-            AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View,
-                position: Int,
-                id: Long
-            ) {
-                cinema = locationlist[position].name
+                    println("LocationData------------->${cinema}")
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+
+                }
             }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-
-            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
+
+
     }
+
 
     private fun loadLocation() {
         if (ContextCompat.checkSelfPermission(
@@ -310,10 +310,10 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
             val editor = sharedPreferences?.edit()
             editor?.putBoolean(onBoardingClick, true)
             editor?.commit()
-
             println("UpdateExperience--->$experience")
             updatePreference(PreferenceRequest(arbic,cinema,experience.toString(), ageRating.toString(), seatCateogry, seatType, preferences.getString(Constant.USER_ID).toString()))
         }
+
         binding?.textSkipProceed?.setOnClickListener {
             val editor = sharedPreferences?.edit()
             editor?.putBoolean(onBoardingClick, true)
@@ -331,14 +331,24 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
     }
 
     @SuppressLint("InflateParams")
-    val viewListForDates = ArrayList<View>()
-    private fun  createSeatCategory(layout: FlexboxLayout) {
-        val list: ArrayList<ModelPreferenceCategory> = arrayListOf(
-            ModelPreferenceCategory(R.drawable.family,"Family",0),
-            ModelPreferenceCategory(R.drawable.bachlor,"Bachelor",0),
+    private fun  createSeatCategory(layout: FlexboxLayout, seatCategory: String) {
+        val list: java.util.ArrayList<ModelPreferenceCategory> = arrayListOf(
+            ModelPreferenceCategory(R.drawable.family_icons, "Family", 0),
+            ModelPreferenceCategory(R.drawable.family_normal_icon, "Bachelor", 0)
         )
 
+        val listFA: java.util.ArrayList<ModelSeatCategoryFA> =
+            arrayListOf(ModelSeatCategoryFA(R.drawable.family_active))
+        val listFN: java.util.ArrayList<ModelSeatCategoryFA> =
+            arrayListOf(ModelSeatCategoryFA(R.drawable.family_icons))
+        val listBA: java.util.ArrayList<ModelSeatCategoryFA> =
+            arrayListOf(ModelSeatCategoryFA(R.drawable.family_n_active))
+        val listBN: java.util.ArrayList<ModelSeatCategoryFA> =
+            arrayListOf(ModelSeatCategoryFA(R.drawable.family_normal_icon))
+
         layout.removeAllViews()
+        val viewListForDates = ArrayList<View>()
+
         for (item in list) {
             val v: View = layoutInflater.inflate(R.layout.seat_category_item, null)
             val categoryImage: ImageView = v.findViewById(R.id.image_family) as ImageView
@@ -358,33 +368,170 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
             } else {
                 0
             }
+
             categoryName.text = item.cateTypeText
-            Glide.with(this)
-                .load(item.imgCate)
-                .placeholder(R.drawable.family)
-                .into(categoryImage)
+            Glide.with(this).load(item.imgCate).placeholder(R.drawable.family).into(categoryImage)
 
             viewListForDates.add(v)
             layout.addView(v)
+
+            val seat = seatCategory.replace("[", "").replace("]", "")
+            println("SeatCategory212--->${item.cateTypeText}--->${seat}")
+
+            if (item.cateTypeText == seat) {
+
+                if (seat == "Family") {
+
+                    for (items in listFA) {
+                        println("SeatListClick22222 ------------->2")
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.family_active)
+                            .into(categoryImage)
+//                        categoryImage.setImageResource(R.drawable.family_active)
+                    }
+                    categoryName.setTextColor(
+                        ContextCompat.getColor(
+                            this,
+                            R.color.text_alert_color_red
+                        )
+                    )
+                }
+
+                if (seat == "Bachelor") {
+                    for (items in listBA) {
+                        println("SeatListClick22222 ------------->22")
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.family_n_active)
+                            .into(categoryImage)
+                    }
+                    categoryName.setTextColor(
+                        ContextCompat.getColor(
+                            this,
+                            R.color.text_alert_color_red
+                        )
+                    )
+                }
+
+
+            } else {
+
+                if (seat == "Family") {
+                    Glide.with(this).load(listBN[0].imgCate).placeholder(R.drawable.family_icons)
+                        .into(categoryImage)
+
+                    categoryName.setTextColor(
+                        ContextCompat.getColor(
+                            this,
+                            R.color.hint_color
+                        )
+                    )
+                }
+
+                if (seat == "Bachelor") {
+                    Glide.with(this).load(listFN[0].imgCate)
+                        .placeholder(R.drawable.family_normal_icon).into(categoryImage)
+                    categoryName.setTextColor(
+                        ContextCompat.getColor(
+                            this,
+                            R.color.hint_color
+                        )
+                    )
+                }
+
+            }
+
+
             v.setOnClickListener {
-                for (v in viewListForDates){
+
+                for (v in viewListForDates) {
                     val categoryImage1: ImageView = v.findViewById(R.id.image_family) as ImageView
                     val categoryName1: TextView = v.findViewById(R.id.category_name) as TextView
-                    categoryImage1.setColorFilter(getColor(R.color.hint_color))
-                    categoryName1.setTextColor(getColor(R.color.hint_color))
+
+                    if (item.cateTypeText == "Family") {
+                        for (items in listFN) {
+                            Glide.with(this).load(listBN[0].imgCate)
+                                .placeholder(R.drawable.family_normal_icon).into(categoryImage1)
+                            println("SeatListClick22222 ------------->listFN1")
+                        }
+                    }
+
+                    if (item.cateTypeText == "Bachelor") {
+                        for (items in listBN) {
+                            println("SeatListClick22222 ------------->listBN1")
+
+                            Glide.with(this).load(listFN[0].imgCate)
+                                .placeholder(R.drawable.family_icons).into(categoryImage1)
+                        }
+                    }
+
+                    categoryName1.setTextColor(
+                        ContextCompat.getColorStateList(
+                            this,
+                            R.color.hint_color
+                        )
+                    )
                 }
-                println("categoryName--->${categoryName.text}")
-                seatCateogry=categoryName.text.toString()
-                categoryImage.setColorFilter(getColor(R.color.text_alert_color_red))
-                categoryName.setTextColor(getColor(R.color.text_alert_color_red))
+
+                if (Constant.seatCategoryList.contains(item.cateTypeText)) {
+                    Constant.seatCategoryList.remove(item.cateTypeText)
+
+                    if (item.cateTypeText == "Family") {
+                        for (items in listFN) {
+                            println("SeatListClick22222 ------------->listFN3")
+                            Glide.with(this).load(listFN[0].imgCate)
+                                .placeholder(R.drawable.family_icons).into(categoryImage)
+                        }
+                    }
+
+                    if (item.cateTypeText == "Bachelor") {
+                        for (items in listBN) {
+                            println("SeatListClick22222 ------------->listFN3")
+                            Glide.with(this).load(listBN[0].imgCate)
+                                .placeholder(R.drawable.family_normal_icon).into(categoryImage)
+                        }
+                    }
+                    categoryName.setTextColor(
+                        ContextCompat.getColorStateList(
+                            this,
+                            R.color.hint_color
+                        )
+                    )
+
+                } else {
+                    Constant.seatCategoryList.clear()
+                    Constant.seatCategoryList.add(item.cateTypeText)
+//                    categoryImage.setColorFilter(resources.getColor(R.color.text_alert_color_red))
+                    if (item.cateTypeText == "Family") {
+                        for (items in listFA) {
+                            println("SeatListClick22222 ------------->listFA2")
+//                            seatTypeCheck = 1
+                            Glide.with(this).load(items.imgCate).dontAnimate()
+                                .placeholder(R.drawable.family_active).into(categoryImage)
+                        }
+                    }
+
+                    if (item.cateTypeText == "Bachelor") {
+                        for (items in listBA) {
+                            println("SeatListClick22222 ------------->listBA2")
+                            Glide.with(this).load(items.imgCate).dontAnimate()
+                                .placeholder(R.drawable.family_n_active).into(categoryImage)
+                        }
+                    }
+                    categoryName.setTextColor(
+                        ContextCompat.getColorStateList(
+                            this,
+                            R.color.text_alert_color_red
+                        )
+                    )
+                    println("SeatListClick2123 ------------->${Constant.seatCategoryList}")
+                }
             }
+
         }
     }
 
     @SuppressLint("InflateParams")
     val viewListForSeatType = ArrayList<View>()
     @SuppressLint("CutPasteId")
-    private fun createSeatType(layout: FlexboxLayout) {
+    private fun createSeatType(layout: FlexboxLayout, seatType : String) {
 
         val list: ArrayList<ModelPreferenceType> = arrayListOf(
             ModelPreferenceType("Standard",0),
@@ -412,18 +559,56 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
             }
 
             typeName.text = type_item.seatType
-
             viewListForSeatType.add(v)
             layout.addView(v)
 
+            val seat = seatType.replace("[", "").replace("]", "")
+
+            if (type_item.seatType == seat) {
+                typeName.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.text_alert_color_red
+                    )
+                )
+
+                Constant.seatTypeList.add(type_item.seatType)
+            } else {
+                typeName.setTextColor(ContextCompat.getColor(this, R.color.hint_color))
+            }
+
             v.setOnClickListener {
-                for (v in viewListForSeatType){
+
+                for (v in viewListForSeatType) {
                     val typeName1: TextView = v.findViewById(R.id.tv_seat_selectiopn) as TextView
-                    typeName1.setTextColor(getColor(R.color.hint_color))
+                    typeName1.setTextColor(
+                        ContextCompat.getColorStateList(
+                            this,
+                            R.color.hint_color
+                        )
+                    )
                 }
-                println("seatType--->${type_item.seatType}")
-                seatType=type_item.seatType
-                typeName.setTextColor(getColor(R.color.text_alert_color_red))
+
+                if (Constant.seatTypeList.contains(type_item.seatType)) {
+                    Constant.seatTypeList.remove(type_item.seatType)
+                    println("SeatListClick21 ------------->yes")
+                    typeName.setTextColor(
+                        ContextCompat.getColorStateList(
+                            this,
+                            R.color.hint_color
+                        )
+                    )
+
+                } else {
+                    Constant.seatTypeList.clear()
+                    Constant.seatTypeList.add(type_item.seatType)
+                    typeName.setTextColor(
+                        ContextCompat.getColorStateList(
+                            this, R.color.text_alert_color_red
+                        )
+                    )
+                    println("SeatListClick21 ------------->no")
+                }
 
             }
         }
@@ -431,21 +616,114 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
     }
 
     @SuppressLint("InflateParams")
-    val viewListForSeatExperience = ArrayList<View>()
-    private fun createExperience(layout: FlexboxLayout) {
+    private fun createExperience(layout: FlexboxLayout,
+                                 experience:ArrayList<ProfileResponse.Output.Experience>) {
+
+        val list4dx: java.util.ArrayList<ModelExperiences> =
+            arrayListOf(ModelExperiences(R.drawable.fourdx_white))
+        val listStandard: java.util.ArrayList<ModelExperiences> =
+            arrayListOf(ModelExperiences(R.drawable.standard_white))
+        val listVip: java.util.ArrayList<ModelExperiences> =
+            arrayListOf(ModelExperiences(R.drawable.vip_white))
+        val listImax: java.util.ArrayList<ModelExperiences> =
+            arrayListOf(ModelExperiences(R.drawable.imax_white))
+        val list3D: java.util.ArrayList<ModelExperiences> =
+            arrayListOf(ModelExperiences(R.drawable.threed_white))
+        val listDolby: java.util.ArrayList<ModelExperiences> =
+            arrayListOf(ModelExperiences(R.drawable.dolby_white))
+        val listEleven: java.util.ArrayList<ModelExperiences> =
+            arrayListOf(ModelExperiences(R.drawable.eleven_white))
+        val listScreen: java.util.ArrayList<ModelExperiences> =
+            arrayListOf(ModelExperiences(R.drawable.screenx_white))
+        val listPremium: java.util.ArrayList<ModelExperiences> =
+            arrayListOf(ModelExperiences(R.drawable.premium_white))
+
         layout.removeAllViews()
+        val viewListForSeatExperience = java.util.ArrayList<View>()
+
         for (data in profileList!!) {
-            val v: View = layoutInflater.inflate(R.layout.experience_item, null)
+            val v: View = layoutInflater.inflate(R.layout.experience_account_item, null)
             val experienceName = v.findViewById(R.id.experience_name) as ImageView
             val experienceText = v.findViewById(R.id.experience_nametxt) as TextView
-            if (languageCheck == "ar"){
-                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
-                experienceText.typeface = regular
 
-            }else{
-                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
-                experienceText.typeface = regular
+            val lowerCase = data.name.toLowerCase()
+            val url = "https://s3.eu-west-1.amazonaws.com/cinescape.uat/experience/${lowerCase}.png"
+            println("data.name--------->${data.name}------>${lowerCase}")
+
+
+            when (data.name) {
+
+                "4DX" -> {
+                    Glide.with(this).load(list4dx[0].imgCate).placeholder(R.drawable.four_dx)
+                        .into(experienceName)
+
+                }
+                "STANDARD" -> {
+//                    Glide.with(requireContext()).load(R.drawable.standard).into(experienceName)
+                    for (items in listStandard) {
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.standard)
+                            .into(experienceName)
+                    }
+
+                }
+
+                "VIP" -> {
+//                    Glide.with(requireContext()).load(R.drawable.vip).into(experienceName)
+                    for (items in listVip) {
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.vip)
+                            .into(experienceName)
+                    }
+
+
+                }
+                "IMAX" -> {
+//                    Glide.with(requireContext()).load(R.drawable.imax).into(experienceName)
+
+                    for (items in listImax) {
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.imax)
+                            .into(experienceName)
+                    }
+                }
+                "3D" -> {
+                    for (items in list3D) {
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.threed_black)
+                            .into(experienceName)
+                    }
+
+                }
+                "DOLBY" -> {
+                    for (items in listDolby) {
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.dolby_black)
+                            .into(experienceName)
+                    }
+
+                }
+                "ELEVEN" -> {
+
+                    for (items in listEleven) {
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.eleven_black)
+                            .into(experienceName)
+                    }
+
+
+                }
+                "SCREENX" -> {
+                    for (items in listScreen) {
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.screenx_black)
+                            .into(experienceName)
+                    }
+
+                }
+                "PREMIUM" -> {
+                    for (items in listPremium) {
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.premium_black)
+                            .into(experienceName)
+                    }
+
+                }
+
             }
+
 
             seatAbility = if (data.count > 0) {
                 1
@@ -453,34 +731,54 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
                 0
             }
 
-            val iconId=getMatchIcon(data.name)
-            if (iconId==0){
-                experienceText.text=getMatchIcon(data.name).toString()
-                experienceText.show()
-                experienceName.hide()
-            }else{
-                experienceName.setImageResource(getMatchIcon(data.name))
-                experienceText.hide()
-                experienceName.show()
-            }
+
             layout.addView(v)
             viewListForSeatExperience.add(v)
-            v.setOnClickListener {
-                for (v in viewListForSeatExperience){
-                    val experienceName1 = v.findViewById(R.id.experience_name) as ImageView
-                    experienceName1.setBackgroundColor(getColor(R.color.transparent))
-                }
-                if (experience.contains(data.name)){
-                    experience.remove(data.name)
-                    experienceName.setColorFilter(ContextCompat.getColor(this, R.color.hint_color), android.graphics.PorterDuff.Mode.MULTIPLY)
 
-                }else{
-                experience.add(data.name)
-                experienceName.setColorFilter(ContextCompat.getColor(this, R.color.text_alert_color_red), android.graphics.PorterDuff.Mode.MULTIPLY)
-                println("Experience--->${data.name}")
+            println("SeatType21--->${data.name}---<${experience}")
+            if (data.likes) {
+                experienceName.setColorFilter(
+                    ContextCompat.getColor(this, R.color.text_alert_color_red),
+                    android.graphics.PorterDuff.Mode.MULTIPLY
+                )
+                println("ExperienceLikes----->${data.name}---->${data.likes}")
+                Constant.experience.add(data.name)
+
+            } else {
+                experienceName.setColorFilter(
+                    ContextCompat.getColor(this, R.color.hint_color),
+                    android.graphics.PorterDuff.Mode.MULTIPLY
+                )
+            }
+
+            v.setOnClickListener {
+                for (v in viewListForSeatExperience) {
+                    val experienceName1 = v.findViewById(R.id.experience_name) as ImageView
+                    experienceName1.setBackgroundColor(
+                        ContextCompat.getColor(
+                            this,
+                            R.color.transparent
+                        )
+                    )
+                }
+                if (Constant.experience.contains(data.name)) {
+                    Constant.experience.remove(data.name)
+                    experienceName.setColorFilter(
+                        ContextCompat.getColor(this, R.color.hint_color),
+                        android.graphics.PorterDuff.Mode.MULTIPLY
+                    )
+                } else {
+                    Constant.experience.add(data.name)
+                    experienceName.setColorFilter(
+                        ContextCompat.getColor(
+                            this, R.color.text_alert_color_red
+                        ), android.graphics.PorterDuff.Mode.MULTIPLY
+                    )
+                    println("Experience--->${data.name}")
                 }
             }
         }
+
     }
 
     private fun getMatchIcon(image:String):Int{
@@ -493,7 +791,7 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
     }
 
     @SuppressLint("InflateParams")
-    val viewListForSeatAgeRating = ArrayList<View>()
+    val viewListForSeatAgeRating = ArrayList<String>()
     private fun createAgeRating(layout: FlexboxLayout) {
         val list: ArrayList<ModelPreferenceAgeRating> = arrayListOf(
             ModelPreferenceAgeRating("E",0),
@@ -502,63 +800,65 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
             ModelPreferenceAgeRating("15+",0),
             ModelPreferenceAgeRating("18+",0)
         )
-
         layout.removeAllViews()
-        for (type_item in list) {
+
+        for (age_rating_item in ageRatingList!!) {
             val v: View = layoutInflater.inflate(R.layout.age_rating_item, null)
             val ageRatingName: TextView = v.findViewById(R.id.age_rating_name) as TextView
-            if (languageCheck == "ar"){
-                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
-                ageRatingName.typeface = regular
 
-            }else{
-                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
-                ageRatingName.typeface = regular
-            }
-            ageRatingName.text = type_item.seatAgeRating
-            seatAbility = if (type_item.count > 0) {
+            ageRatingName.text = age_rating_item.name
+            seatAbility = if (age_rating_item.count > 0) {
                 1
             } else {
                 0
             }
 
             layout.addView(v)
-            viewListForSeatAgeRating.add(v)
-            v.setOnClickListener {
+            viewListForSeatAgeRating.add(v.toString())
 
-                if (ageRating.contains(type_item.seatAgeRating)){
-                    ageRating.remove(type_item.seatAgeRating)
-                    ageRatingName.setTextColor(getColor(R.color.hint_color))
+            if (age_rating_item.likes) {
+                ageRatingName.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.text_alert_color_red
+                    )
+                )
+                Constant.ageRating.add(age_rating_item.name)
 
-                }else{
-                    when (type_item.seatAgeRating) {
-                        "E" -> {
-                            ageRatingName.setTextColor(getColor(R.color.green))
-
-                        }
-                        "PG" -> {
-                            ageRatingName.setTextColor(getColor(R.color.grey))
-
-                        }
-                        "13+" -> {
-                            ageRatingName.setTextColor(getColor(R.color.yellow))
-
-                        }
-                        "15+" -> {
-                            ageRatingName.setTextColor(getColor(R.color.yellow))
-
-                        }
-                        "18+" -> {
-                            ageRatingName.setTextColor(getColor(R.color.text_alert_color_red))
-
-                        }
-                    }
-                    ageRating.add(type_item.seatAgeRating)
-                }
-
+            } else {
+                ageRatingName.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.hint_color
+                    )
+                )
             }
 
+
+            v.setOnClickListener {
+
+                if (Constant.ageRating.contains(age_rating_item.name)) {
+                    Constant.ageRating.remove(age_rating_item.name)
+                    ageRatingName.setTextColor(
+                        ContextCompat.getColor(
+                            this,
+                            R.color.hint_color
+                        )
+                    )
+
+                } else {
+
+                    ageRatingName.setTextColor(
+                        ContextCompat.getColor(
+                            this,
+                            R.color.text_alert_color_red
+                        )
+                    )
+                    Constant.ageRating.add(age_rating_item.name)
+                }
+            }
         }
+
     }
 
     private fun updatePreference(profileRequest: PreferenceRequest) {
@@ -627,9 +927,10 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
                                 if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                     println("SomethingWrong--->${it.data.msg}")
                                     profileList = it.data.output.experience
-                                    createSeatCategory(binding?.seatList!!)
-                                    createSeatType(binding?.typeList!!)
-                                    createExperience(binding?.experienceList!!)
+                                    ageRatingList = it.data.output.rating
+                                    createSeatCategory(binding?.seatList!!, it.data.output.seatCategory)
+                                    createSeatType(binding?.typeList!!, it.data.output.seatType)
+                                    createExperience(binding?.experienceList!!, it.data.output.experience)
                                     createAgeRating(binding?.ageRatingList!!)
                                 } else {
                                     println("Something Wrong")

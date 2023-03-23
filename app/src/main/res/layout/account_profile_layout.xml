@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,8 +12,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/black">
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/editUi"
@@ -46,10 +50,10 @@
                 android:drawablePadding="@dimen/margin4"
                 android:fontFamily="@font/sf_pro_text_bold"
                 android:gravity="end"
-                android:paddingTop="@dimen/margin4"
-                android:paddingBottom="@dimen/margin4"
                 android:paddingStart="@dimen/margin12"
+                android:paddingTop="@dimen/margin4"
                 android:paddingEnd="@dimen/margin12"
+                android:paddingBottom="@dimen/margin4"
                 android:text="@string/edit_password"
                 android:textColor="@color/white"
                 android:textSize="@dimen/size12"
@@ -96,9 +100,9 @@
             android:layout_height="wrap_content"
             android:background="@color/transparent"
             android:fontFamily="@font/sf_pro_text_regular"
+            android:inputType="textNoSuggestions"
             android:textColorHint="@color/white"
             app:boxStrokeColor="@color/edittext_profile"
-            android:inputType="textNoSuggestions"
             app:boxStrokeErrorColor="@color/transparent"
             app:errorTextColor="@color/transparent"
             app:layout_constraintBottom_toBottomOf="@+id/text_user_name_title"
@@ -112,8 +116,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:focusableInTouchMode="true"
                 android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:inputType="textNoSuggestions"
                 android:lineSpacingExtra="1.8sp"
                 android:textColor="@color/white"
@@ -124,12 +128,12 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <View
-            android:visibility="visible"
             android:id="@+id/view32_line"
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_marginTop="2dp"
             android:background="@color/lineColor"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_user_name" />
@@ -169,8 +173,8 @@
             android:layout_height="wrap_content"
             android:background="@color/transparent"
             android:fontFamily="@font/sf_pro_text_regular"
-            android:textColorHint="@color/white"
             android:inputType="textNoSuggestions"
+            android:textColorHint="@color/white"
 
             app:boxStrokeColor="@color/edittext_profile"
             app:layout_constraintBottom_toBottomOf="@+id/text_first_name"
@@ -241,8 +245,8 @@
             android:layout_height="wrap_content"
             android:background="@color/transparent"
             android:fontFamily="@font/sf_pro_text_regular"
-            android:textColorHint="@color/white"
             android:inputType="textNoSuggestions"
+            android:textColorHint="@color/white"
             app:boxStrokeColor="@color/edittext_profile"
             app:layout_constraintBottom_toBottomOf="@+id/text_last_name"
             app:layout_constraintEnd_toEndOf="@+id/view36_last_name"
@@ -255,8 +259,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
-                android:focusableInTouchMode="true"
                 android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:inputType="textNoSuggestions"
                 android:lineSpacingExtra="1.8sp"
                 android:textAlignment="textStart"
@@ -272,8 +276,8 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_marginTop="2dp"
-            android:visibility="gone"
             android:background="@color/view_bg_color_line"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view36_last_name" />
@@ -292,7 +296,6 @@
             android:id="@+id/text1_password"
             android:layout_width="0dp"
             android:layout_height="@dimen/margin43"
-            android:visibility="gone"
             android:fontFamily="@font/sf_pro_text_regular"
             android:gravity="bottom"
             android:letterSpacing="-0.01"
@@ -303,6 +306,7 @@
             android:textColor="@color/hint_color"
             android:textSize="@dimen/size14"
             android:textStyle="normal"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/view_password"
             app:layout_constraintEnd_toStartOf="@+id/enter_password"
             app:layout_constraintHorizontal_weight="1.5"
@@ -311,12 +315,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/enter_password"
-            android:visibility="gone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
             android:fontFamily="@font/sf_pro_text_regular"
             android:textColorHint="@color/white"
+            android:visibility="gone"
             app:boxStrokeColor="@color/edittext_profile"
             app:layout_constraintBottom_toBottomOf="@+id/text1_password"
             app:layout_constraintEnd_toEndOf="@+id/view_password"
@@ -476,8 +480,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
-                android:focusableInTouchMode="true"
                 android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:inputType="textEmailAddress"
                 android:lineSpacingExtra="1.8sp"
                 android:textAlignment="textStart"
@@ -550,29 +554,30 @@
             android:id="@+id/enter_mobile_numberAccount"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:fontFamily="@font/sf_pro_text_regular"
-            android:textColorHint="@color/white"
-            app:boxStrokeColor="@color/edittext_profile"
             android:background="@color/transparent"
             android:focusable="true"
             android:focusableInTouchMode="true"
+            android:fontFamily="@font/sf_pro_text_regular"
             android:inputType="phone"
             android:lineSpacingExtra="1.8sp"
             android:maxLength="12"
             android:paddingBottom="@dimen/margin6"
             android:textAlignment="textStart"
             android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:textCursorDrawable="@null"
             android:textSize="@dimen/size14"
-            tools:text="8982183136"
+            app:boxStrokeColor="@color/edittext_profile"
             app:layout_constraintBottom_toBottomOf="@+id/text_mobile_title"
             app:layout_constraintEnd_toEndOf="@+id/view_mobile1"
             app:layout_constraintHorizontal_weight="3"
             app:layout_constraintStart_toEndOf="@+id/enter_mobile_code"
             app:layout_constraintTop_toTopOf="@+id/enter_mobile_code"
-            tools:ignore="Autofill">
+            tools:ignore="Autofill"
+            tools:text="8982183136">
 
         </EditText>
+
         <View
             android:id="@+id/view43_line"
             android:layout_width="wrap_content"
@@ -620,11 +625,11 @@
             android:focusableInTouchMode="false"
             android:fontFamily="@font/sf_pro_text_regular"
             android:gravity="bottom"
+            android:paddingStart="@dimen/margin10"
+            android:paddingEnd="0dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             app:boxStrokeColor="@color/edittext_profile"
-            android:paddingStart="@dimen/margin10"
-            android:paddingEnd="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/text_date_birth"
             app:layout_constraintEnd_toEndOf="@+id/view_date_of_birth"
             app:layout_constraintHorizontal_weight="4"
@@ -763,19 +768,19 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/transparent"
-            android:focusableInTouchMode="true"
             android:focusable="true"
+            android:focusableInTouchMode="true"
             android:fontFamily="@font/sf_pro_text_regular"
             android:hint="@string/select_city"
             android:lineSpacingExtra="1.8sp"
+            android:paddingStart="@dimen/margin14"
+            android:paddingEnd="0dp"
             android:textAlignment="textStart"
             android:textColor="@color/white"
             android:textColorHint="@color/text_color"
             android:textCursorDrawable="@null"
             android:textSize="@dimen/size14"
             android:visibility="visible"
-            android:paddingStart="@dimen/margin14"
-            android:paddingEnd="0dp"
             app:boxStrokeColor="@color/edittext_profile"
             app:layout_constraintBottom_toBottomOf="@+id/text_city"
             app:layout_constraintEnd_toEndOf="@+id/view_city"
@@ -903,4 +908,4 @@
             app:layout_constraintTop_toBottomOf="@+id/UpdateAccount" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

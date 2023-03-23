@@ -76,8 +76,11 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
                     binding?.textView149?.hide()
 
                     binding?.textView150?.setOnClickListener {
+
                         val otpEmail = binding?.textView146?.value
-                        if (otpEmail == "null") {
+                        println("otpEmailValue ----------->${otpEmail}")
+
+                        if (otpEmail == "") {
                             val dialog = OptionDialog(this,
                                 R.mipmap.ic_launcher,
                                 R.string.app_name,
@@ -107,7 +110,7 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
 
                     binding?.textView150?.setOnClickListener {
                         val otpMobile = binding?.textView149?.value
-                        if (otpMobile == "null") {
+                        if (otpMobile == "") {
                             val dialog = OptionDialog(this,
                                 R.mipmap.ic_launcher,
                                 R.string.app_name,
@@ -131,9 +134,12 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
 
                 "BOTH" -> {
                     binding?.textView150?.setOnClickListener {
+
                         val otpEmail = binding?.textView146?.value
                         val otpMobile = binding?.textView149?.value
-                        if (otpEmail == "null") {
+                        println("otpEmailValue21 ----------->${otpEmail}-->${otpMobile}")
+
+                        if (otpEmail == "") {
                             val dialog = OptionDialog(this,
                                 R.mipmap.ic_launcher,
                                 R.string.app_name,
@@ -143,7 +149,7 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
                                 positiveClick = {},
                                 negativeClick = {})
                             dialog.show()
-                        } else if (otpMobile == "null") {
+                        } else if (otpMobile == "") {
                             val dialog = OptionDialog(this,
                                 R.mipmap.ic_launcher,
                                 R.string.app_name,
@@ -174,7 +180,10 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
             binding?.textView150?.setOnClickListener {
                 val otpEmail = binding?.textView146?.value
                 val otpMobile = binding?.textView149?.value
-                if (otpEmail == "null") {
+
+                println("otpEmailValueSignUp ----------->${otpEmail}-->${otpMobile}")
+
+                if (otpEmail == "") {
                     val dialog = OptionDialog(this,
                         R.mipmap.ic_launcher,
                         R.string.app_name,
@@ -184,7 +193,7 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
                         positiveClick = {},
                         negativeClick = {})
                     dialog.show()
-                } else if (otpMobile == "null") {
+                } else if (otpMobile == "") {
                     val dialog = OptionDialog(this,
                         R.mipmap.ic_launcher,
                         R.string.app_name,
@@ -203,7 +212,6 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
                         )
                     )
                 }
-
 
             }
 

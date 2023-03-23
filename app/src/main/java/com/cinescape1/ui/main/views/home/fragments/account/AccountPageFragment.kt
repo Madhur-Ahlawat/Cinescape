@@ -1727,7 +1727,6 @@ class AccountPageFragment : DaggerFragment(),
                 ) {
                     cinema = locationlist[position].name
                 }
-
                 override fun onNothingSelected(parent: AdapterView<*>) {
 
                 }
@@ -1735,7 +1734,6 @@ class AccountPageFragment : DaggerFragment(),
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
 
     }
 
@@ -1824,6 +1822,7 @@ class AccountPageFragment : DaggerFragment(),
 
         layout.removeAllViews()
         val viewListForDates = ArrayList<View>()
+
         for (item in list) {
             val v: View = layoutInflater.inflate(R.layout.seat_category_item, null)
             val categoryImage: ImageView = v.findViewById(R.id.image_family) as ImageView
@@ -2064,12 +2063,6 @@ class AccountPageFragment : DaggerFragment(),
                     )
                 }
 
-//                this.seatType = type_item.seatType
-//                this.seatTypeList.add(type_item.seatType)
-//                println("seatTypeV212----------yes2")
-//                preferences.putString(Constant.SEAT_TYPE, type_item.seatType)
-//                typeName.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.text_alert_color_red))
-
                 if (Constant.seatTypeList.contains(type_item.seatType)) {
                     Constant.seatTypeList.remove(type_item.seatType)
                     println("SeatListClick21 ------------->yes")
@@ -2305,6 +2298,7 @@ class AccountPageFragment : DaggerFragment(),
             ModelPreferenceAgeRating("18+", 0)
         )
         layout.removeAllViews()
+
         for (age_rating_item in ageRatingList!!) {
             val v: View = layoutInflater.inflate(R.layout.age_rating_item, null)
             val ageRatingName: TextView = v.findViewById(R.id.age_rating_name) as TextView

@@ -108,7 +108,7 @@
                 android:id="@+id/cinemaSpinner"
                 android:layout_width="0dp"
                 android:layout_height="53dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="6dp"
                 android:layout_marginEnd="32dp"
                 android:background="@drawable/a_edit_bg"
                 app:layout_constraintEnd_toStartOf="@+id/text_find_near_location"
@@ -117,26 +117,26 @@
                 app:layout_constraintTop_toBottomOf="@+id/text_location">
 
                 <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/SpinerPref"
+                    android:id="@+id/spinnerPref"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    app:backgroundTint="@color/text_alert_color"
+                    android:popupBackground="@color/dropDownColor"
+                    app:backgroundTint="@color/black"
                     tools:ignore="SpeakableTextPresentCheck" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
             <TextView
                 android:id="@+id/text_find_near_location"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
-                android:drawablePadding="4.35dp"
+                android:drawablePadding="8dp"
                 android:drawableEnd="@drawable/ic_icon_metro_location"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:gravity="center"
                 android:letterSpacing="-0.01"
-                android:padding="@dimen/margin8"
+                android:padding="@dimen/margin6"
                 android:text="@string/find_near_me"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/size14"
@@ -165,7 +165,7 @@
                 android:id="@+id/text_seat_category"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/margin18"
                 android:fontFamily="@font/sf_pro_text_bold"
                 android:text="@string/seat_category"
                 android:textColor="@color/white"
@@ -176,7 +176,7 @@
 
             <com.google.android.flexbox.FlexboxLayout
                 android:id="@+id/seat_list"
-                android:layout_marginTop="@dimen/margin25"
+                android:layout_marginTop="@dimen/margin20"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:alignContent="flex_start"
@@ -193,7 +193,7 @@
                 android:id="@+id/view5_line"
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
                 android:background="@color/view_line_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -217,7 +217,7 @@
                 android:id="@+id/view4_line"
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
                 android:background="@color/view_line_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -225,7 +225,7 @@
 
             <com.google.android.flexbox.FlexboxLayout
                 android:id="@+id/type_list"
-                android:layout_marginTop="@dimen/margin25"                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/margin20"                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:alignContent="stretch"
                 app:alignItems="stretch"
@@ -239,7 +239,7 @@
                 android:id="@+id/text_experience"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin25"
+                android:layout_marginTop="@dimen/margin20"
                 android:fontFamily="@font/sf_pro_text_bold"
                 android:text="@string/experience"
                 android:textColor="@color/white"
@@ -250,7 +250,7 @@
 
             <com.google.android.flexbox.FlexboxLayout
                 android:id="@+id/experience_list"
-                android:layout_marginTop="@dimen/margin25"                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/margin20"                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:alignContent="stretch"
                 app:alignItems="stretch"
@@ -263,7 +263,7 @@
                 android:id="@+id/view6_line"
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
                 android:background="@color/view_line_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -273,7 +273,7 @@
                 android:id="@+id/text_age_rating"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin25"
+                android:layout_marginTop="@dimen/margin20"
                 android:fontFamily="@font/sf_pro_text_bold"
                 android:text="@string/age_rating"
                 android:textColor="@color/white"
@@ -284,7 +284,7 @@
 
             <com.google.android.flexbox.FlexboxLayout
                 android:id="@+id/age_rating_list"
-                android:layout_marginTop="@dimen/margin25"                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/margin20"                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:alignContent="stretch"
                 app:alignItems="stretch"
@@ -365,7 +365,7 @@
                 android:id="@+id/view8_line"
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
                 android:background="@color/view_line_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
