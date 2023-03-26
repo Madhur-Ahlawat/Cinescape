@@ -14,6 +14,7 @@ import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.GetFoodResponse
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
+import com.cinescape1.utils.toast
 
 class AdapterFoodCombo(
     context: Context, private var foodComboList: ArrayList<GetFoodResponse.ConcessionItem>,
@@ -47,25 +48,35 @@ class AdapterFoodCombo(
         }
 
         if (foodSelectedItem.foodtype == "Individual"){
+
+            holder.totalItems.show()
+            holder.totalItems.text = foodSelectedItem.quantityUpdate.toString()+" "+mContext.getString(R.string.ItemAdded)
             if (foodSelectedItem.quantity > 0) {
+                println("123--->${foodSelectedItem.foodtype}---->${foodSelectedItem.quantity}")
+
                 holder.viewIncreaseDecrease.show()
                 holder.addBtn.hide()
                 holder.txtNumber.text = foodSelectedItem.quantity.toString()
                 holder.foodKdName.show()
+                holder.totalItems.show()
+                holder.totalItems.text = foodSelectedItem.quantityUpdate.toString()+" "+mContext.getString(R.string.ItemAdded)
             } else {
+
+                holder.totalItems.hide()
                 holder.viewIncreaseDecrease.hide()
                 holder.addBtn.show()
+            }
+        }else{
+            if (foodSelectedItem.quantityUpdate>0){
+                holder.totalItems.show()
+                holder.totalItems.text = foodSelectedItem.quantityUpdate.toString()+" "+mContext.getString(R.string.ItemAdded)
+            }else{
+                holder.totalItems.hide()
             }
         }
         holder.foodKdName.text = foodSelectedItem.itemPrice
 
 
-        if (foodSelectedItem.quantityUpdate>0){
-            holder.totalItems.show()
-            holder.totalItems.text = foodSelectedItem.quantityUpdate.toString()+" "+mContext.getString(R.string.ItemAdded)
-        }else{
-            holder.totalItems.hide()
-        }
 
         Glide.with(mContext)
             .load(foodSelectedItem.itemImageUrl)
@@ -73,6 +84,7 @@ class AdapterFoodCombo(
             .into(holder.imgFood)
 
         holder.addBtn.setOnClickListener {
+            println("------------>${foodSelectedItem.foodtype}")
             if (foodSelectedItem.foodtype == "Individual"){
                 holder.addBtn.hide()
                 holder.txtNumber.show()
@@ -81,10 +93,12 @@ class AdapterFoodCombo(
                 holder.btnIncrease.show()
                 holder.viewIncreaseDecrease.show()
             }
+            mContext.toast("1")
             listener.onAddFood(foodSelectedItem, position,foodComboList)
         }
 
         holder.btnIncrease.setOnClickListener {
+
 //            Toast.makeText(mContext, "callled this", Toast.LENGTH_SHORT).show()
             listener.onIncreaseFood(foodSelectedItem, position)
         }

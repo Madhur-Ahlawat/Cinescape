@@ -44,6 +44,7 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
         binding?.imageView59?.setOnClickListener {
             onBackPressed()
         }
+        Constant().appBarHide(this)
 
         manageFunctions()
     }

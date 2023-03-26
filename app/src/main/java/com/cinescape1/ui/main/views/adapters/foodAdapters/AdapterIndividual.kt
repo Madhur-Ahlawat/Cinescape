@@ -16,6 +16,7 @@ import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.GetFoodResponse
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
+import com.cinescape1.utils.toast
 
 class AdapterIndividual(
     context: Context,
@@ -38,19 +39,22 @@ class AdapterIndividual(
     override fun onBindViewHolder(holder: MyViewHolderFoodCombo, position: Int) {
         val foodSelectedItem = foodComboList[position]
         holder.foodTitleName.hide()
-        holder.textItemAdded.show()
+//        holder.textItemAdded.show()
 
         holder.foodcomboName.text = foodSelectedItem.description
         if (foodSelectedItem.quantity > 0) {
             holder.viewIncreaseDecrease.show()
             holder.addBtn.hide()
             holder.txtNumber.text = foodSelectedItem.quantity.toString()
+            holder.textItemAdded.show()
             holder.textItemAdded.text = foodSelectedItem.quantity.toString() + " item added"
         } else {
+            holder.textItemAdded.hide()
             holder.textItemAdded.text = ""
             holder.viewIncreaseDecrease.hide()
             holder.addBtn.show()
         }
+
         holder.foodKdName.text = foodSelectedItem.itemPrice
         holder.foodKdName.show()
 
@@ -66,8 +70,7 @@ class AdapterIndividual(
             holder.btnIncrease.show()
             holder.viewIncreaseDecrease.show()
             listener.onAddIndiVidual(foodSelectedItem, position)
-
-            println("listener.onAddFoodIndividual---->${position}---->${foodSelectedItem.description}---->${foodSelectedItem.foodtype}")
+            notifyDataSetChanged()
         }
 
         holder.btnIncrease.setOnClickListener {

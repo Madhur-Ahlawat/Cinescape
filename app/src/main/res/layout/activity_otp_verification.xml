@@ -14,7 +14,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,7 @@
 
             <ImageView
                 android:id="@+id/image_cinema"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/contentDes"
@@ -130,13 +130,12 @@
                     app:forceKeyboard="false"
                     app:inputType="number"
                     app:password="false"
-                    android:textColor="#FFFFFF"
+                    android:outlineAmbientShadowColor="@color/red"
                     android:layout_marginStart="-47dp"
                     app:pinBackground="@drawable/background"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/view14"
-                    app:layout_constraintTop_toBottomOf="@+id/textView145"
-                />
+                    app:layout_constraintTop_toBottomOf="@+id/textView145" />
 
                 <TextView
                     android:id="@+id/textView147"
