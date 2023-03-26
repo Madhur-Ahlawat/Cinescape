@@ -2,6 +2,7 @@ package com.cinescape1.data.network
 
 import com.cinescape1.data.models.requestModel.*
 import com.cinescape1.data.models.responseModel.*
+import com.cinescape1.ui.main.views.deleteAccount.DeleteAccountRequest
 import com.cinescape1.ui.main.views.home.fragments.account.response.RechargeAmountResponse
 import com.cinescape1.ui.main.views.login.activeWallet.repsonse.ActivateWalletResponse
 import com.cinescape1.ui.main.views.login.reponse.LoginResponse
@@ -69,6 +70,9 @@ interface DataServices {
 
     @POST("content/getmovie")
     suspend fun getComingSoonMovieInfo(@Query("mid") movieId: String): Response<MovieDetailResponse>
+
+    @POST("customer/delete")
+    suspend fun deleteAccount(@Body movieId: DeleteAccountRequest): Response<MovieDetailResponse>
 
     @POST("content/trans/seatlayout")
     suspend fun getSeatLayout(@Body request: SeatLayoutRequest): Response<SeatLayoutResponse>

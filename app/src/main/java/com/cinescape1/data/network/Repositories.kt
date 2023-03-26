@@ -2,6 +2,7 @@ package com.cinescape1.data.network
 
 import com.cinescape1.data.models.requestModel.*
 import com.cinescape1.data.models.responseModel.*
+import com.cinescape1.ui.main.views.deleteAccount.DeleteAccountRequest
 import com.cinescape1.ui.main.views.home.fragments.account.response.RechargeAmountResponse
 import com.cinescape1.ui.main.views.login.activeWallet.repsonse.ActivateWalletResponse
 import com.cinescape1.ui.main.views.login.reponse.LoginResponse
@@ -52,6 +53,10 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
 
     suspend fun getMovieDetail(mid: String = ""): Result<MovieDetailResponse> {
         return apiRequest { api.getComingSoonMovieInfo(mid) }
+    }
+
+    suspend fun deleteAccount(deletAccountRequest: DeleteAccountRequest): Result<MovieDetailResponse> {
+        return apiRequest { api.deleteAccount(deletAccountRequest) }
     }
 
     suspend fun userLogin(

@@ -217,7 +217,6 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
                 threeTrackId1?.typeface = bold
                 threeDateTime1?.typeface = bold
                 threePayMode1?.typeface = bold
-
             }
         }
         setContentView(view)

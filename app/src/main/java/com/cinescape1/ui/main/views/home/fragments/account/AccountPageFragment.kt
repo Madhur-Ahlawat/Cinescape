@@ -3140,6 +3140,18 @@ class AccountPageFragment : DaggerFragment(),
             positiveBtnText = R.string.ok,
             negativeBtnText = R.string.no,
             positiveClick = {
+                FirebaseAuth.getInstance().signOut()
+                preferences.clearData()
+                Constant.IntentKey.BOOKINGClick = 0
+                Constant.IntentKey.BACKFinlTicket = 0
+                NextBookingsResponse = null
+
+                val intent =
+                    Intent(requireActivity(), LoginActivity::class.java)
+                intent.flags =
+                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(intent)
+                requireActivity().finish()
             },
             negativeClick = {})
         dialog.show()

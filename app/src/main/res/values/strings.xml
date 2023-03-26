@@ -393,8 +393,9 @@
     <string name="i">i</string>
     <string name="payment_details">Payment Details</string>
     <string name="track_id">Track ID</string>
+    <string name="knet_credit_card">KNET/Credit Card</string>
     <string name="authentication_code">Authentication Code</string>
     <string name="payment_modes">Payment Modes</string>
-    <string name="knet_credit_card">KNET/Credit Card</string>
+    <string name="deleteMsg">Please select or type message reason.</string>
 
 </resources>
