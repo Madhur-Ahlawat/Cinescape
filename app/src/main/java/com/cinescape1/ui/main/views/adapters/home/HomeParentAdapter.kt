@@ -67,14 +67,22 @@ class HomeParentAdapter(
                 holder.viewpager.setCurrentItem(1,false)
                 holder.viewpager.registerOnPageChangeCallback(object:
                     androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback() {
+                    var mPosition:Int=-1
                     override fun onPageSelected(position: Int) {
-                        if(obj.movieData[position].isFakeFirstElement){
-                            holder.viewpager.setCurrentItem(1,false)
-                        }
-                        if(obj.movieData[position].isFakeLastElement){
-                            holder.viewpager.setCurrentItem(obj.movieData.size-2,false)
-                        }
+                        mPosition=position
                         super.onPageSelected(position)
+                    }
+
+                    override fun onPageScrollStateChanged(state: Int) {
+                        if(state== androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE){
+                            if(obj.movieData[mPosition].isFakeFirstElement){
+                                holder.viewpager.setCurrentItem(1,false)
+                            }
+                            if(obj.movieData[mPosition].isFakeLastElement){
+                                holder.viewpager.setCurrentItem(obj.movieData.size-2,false)
+                            }
+                        }
+                        super.onPageScrollStateChanged(state)
                     }
                 })
                 holder.viewpager.offscreenPageLimit = 3

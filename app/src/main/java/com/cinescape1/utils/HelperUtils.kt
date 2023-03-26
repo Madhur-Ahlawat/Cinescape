@@ -1,11 +1,21 @@
 package com.cinescape1.utils
 
 import android.graphics.*
-import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.view.View
 
-object HelperUtils {
 
+object HelperUtils {
+    fun setGradient(view:View,colors:IntArray=intArrayOf(Color.parseColor("#008000"), Color.parseColor("#ADFF2F"))){
+        val gd = GradientDrawable(
+            GradientDrawable.Orientation.TOP_BOTTOM, colors
+        )
+
+        gd.cornerRadius = 0f
+        //apply the button background to newly created drawable gradient
+        //apply the button background to newly created drawable gradient
+        view.setBackground(gd)
+    }
     fun getBitmapFromView(
         view: View, leftDiffrence: Int,
         topDifference: Int, rightDifference: Int, bottomDifference: Int
