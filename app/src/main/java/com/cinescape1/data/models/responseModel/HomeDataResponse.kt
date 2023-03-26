@@ -73,6 +73,8 @@ data class HomeDataResponse(
         val timeZoneId: String
     ):Serializable
     data class MovieData(
+        var isFakeFirstElement:Boolean = false,
+        var isFakeLastElement:Boolean = false,
         val cast: List<Cast>,
         val comingSoon: Boolean,
         val director: Director,

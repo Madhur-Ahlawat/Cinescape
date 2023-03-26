@@ -64,6 +64,19 @@ class HomeParentAdapter(
 //                holder.viewpagerBack.show()
                 holder.viewpager.show()
                 holder.viewpager.adapter = HomeFrontSliderAdapter(mContext, obj.movieData,holder.viewpager)
+                holder.viewpager.setCurrentItem(1,false)
+                holder.viewpager.registerOnPageChangeCallback(object:
+                    androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback() {
+                    override fun onPageSelected(position: Int) {
+                        if(obj.movieData[position].isFakeFirstElement){
+                            holder.viewpager.setCurrentItem(1,false)
+                        }
+                        if(obj.movieData[position].isFakeLastElement){
+                            holder.viewpager.setCurrentItem(obj.movieData.size-2,false)
+                        }
+                        super.onPageSelected(position)
+                    }
+                })
                 holder.viewpager.offscreenPageLimit = 3
                 holder.viewpager.clipChildren = false
                 holder.viewpager.clipToPadding = false
@@ -122,8 +135,6 @@ class HomeParentAdapter(
                     ) {
                         super.onPageScrolled(position, positionOffset, positionOffsetPixels)
                         println("positionOffset3--->${holder.viewpager?.getChildAt(position)?.scrollX}---->$position---->${positionOffsetPixels}")
-
-
                     }
 
                 })

@@ -18,9 +18,19 @@ import kotlinx.android.synthetic.main.home_slider_item.view.*
 
  class HomeFrontSliderAdapter(
     private val mContext: Activity,
-    private val movies: ArrayList<HomeDataResponse.MovieData>,
+    private val movies: MutableList<HomeDataResponse.MovieData>,
     val viewpager: androidx.viewpager2.widget.ViewPager2
 ) : CardSliderAdapter<HomeFrontSliderAdapter.SliderViewHolder>() {
+     init{
+         var lastElement = movies[movies.size-1]
+         var firstElement = movies[0]
+         firstElement.isFakeFirstElement=true
+         lastElement.isFakeLastElement = true
+         var finalList:MutableList<HomeDataResponse.MovieData> = (mutableListOf(lastElement) + movies) as MutableList<HomeDataResponse.MovieData>
+         finalList.add(firstElement)
+         movies.clear()
+         movies.addAll(finalList)
+     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SliderViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.home_slider_item, parent, false)

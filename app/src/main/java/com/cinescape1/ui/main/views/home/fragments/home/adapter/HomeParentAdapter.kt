@@ -70,8 +70,20 @@ class HomeParentAdapter(
                 holder.viewpager.adapter = pagerAdapter
 
 //                holder.viewpager.currentItem=1
-                onInfinitePageChangeCallback(obj.movieData.size + 2, holder, obj.movieData)
-
+//                onInfinitePageChangeCallback(obj.movieData.size + 2, holder, obj.movieData)
+                holder.viewpager.setCurrentItem(1,false)
+                holder.viewpager.registerOnPageChangeCallback(object:
+                    androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback() {
+                    override fun onPageSelected(position: Int) {
+                        if(obj.movieData[position].isFakeFirstElement){
+                            holder.viewpager.setCurrentItem(1,false)
+                        }
+                        if(obj.movieData[position].isFakeLastElement){
+                            holder.viewpager.setCurrentItem(obj.movieData.size-2,false)
+                        }
+                        super.onPageSelected(position)
+                    }
+                })
                 holder.viewpager.offscreenPageLimit = 3
                 holder.viewpager.clipChildren = false
                 holder.viewpager.clipToPadding = false
