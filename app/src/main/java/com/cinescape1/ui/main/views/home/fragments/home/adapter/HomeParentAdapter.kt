@@ -21,11 +21,8 @@ import com.cinescape1.ui.main.views.adapters.*
 import com.cinescape1.ui.main.views.adapters.sliderAdapter.HomeFrontSliderAdapter
 import com.cinescape1.ui.main.views.home.fragments.home.seeAll.SeeAllActivity
 import com.cinescape1.ui.main.views.home.fragments.movie.MoviesFragment
-import com.cinescape1.utils.Constant
+import com.cinescape1.utils.*
 import com.cinescape1.utils.Constant.Companion.SEE_ALL_TYPE
-import com.cinescape1.utils.LocaleHelper
-import com.cinescape1.utils.hide
-import com.cinescape1.utils.show
 import com.github.islamkhsh.viewpager2.ViewPager2
 import kotlinx.android.synthetic.main.home_parrent_list.view.*
 import java.util.*
@@ -69,10 +66,13 @@ class HomeParentAdapter(
 
                 val pagerAdapter = HomeFrontSliderAdapter(mContext, obj.movieData, holder.viewpager)
                 holder.viewpager.adapter = pagerAdapter
-
 //                holder.viewpager.currentItem=1
 //                onInfinitePageChangeCallback(obj.movieData.size + 2, holder, obj.movieData)
-                holder.viewpager.setCurrentItem(1,false)
+                if(obj.movieData.size>0){
+                    holder.viewpager.setCurrentItem(1,false)
+                    HelperUtils.setGradient(holder.viewpager,obj.movieData[1].sliderimgurl)
+                }
+
                 holder.viewpager.registerOnPageChangeCallback(object:
                     androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback() {
                     var mPosition:Int=-1
@@ -83,6 +83,7 @@ class HomeParentAdapter(
 
                     override fun onPageScrollStateChanged(state: Int) {
                         if(state==SCROLL_STATE_IDLE){
+                            HelperUtils.setGradient(holder.viewpager,obj.movieData[mPosition].sliderimgurl)
                             if(obj.movieData[mPosition].isFakeFirstElement){
                                 holder.viewpager.setCurrentItem(1,false)
                             }

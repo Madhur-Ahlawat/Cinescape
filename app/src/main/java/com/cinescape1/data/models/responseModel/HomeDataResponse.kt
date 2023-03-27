@@ -90,7 +90,7 @@ data class HomeDataResponse(
         val mobimgsmall: String,
         val tag: String,
         val tagColor: String,
-        val sliderimgurl: String,
+        val sliderimgurl: String="#FFFFFF",
         val mobadvance: String,
         val openingDate: String,
         val producer: Any,
@@ -105,7 +105,9 @@ data class HomeDataResponse(
         val titleAlt: String,
         val trailerUrl: String,
         val webimgbig: Any,
-        val webimgsmall: Any
+        val webimgsmall: Any,
+        val topColor:String="#FFFFFF",
+        val bottomColor:String="#000000"
     ):Serializable
     data class Cast(
         val firstName: String,

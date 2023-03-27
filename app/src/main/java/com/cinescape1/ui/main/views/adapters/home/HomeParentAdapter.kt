@@ -23,6 +23,7 @@ import com.cinescape1.ui.main.views.adapters.sliderAdapter.HomeFrontSliderAdapte
 import com.cinescape1.ui.main.views.home.fragments.home.adapter.OfferAdapter
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.Constant.Companion.SEE_ALL_TYPE
+import com.cinescape1.utils.HelperUtils
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 import com.github.islamkhsh.viewpager2.ViewPager2
@@ -64,7 +65,10 @@ class HomeParentAdapter(
 //                holder.viewpagerBack.show()
                 holder.viewpager.show()
                 holder.viewpager.adapter = HomeFrontSliderAdapter(mContext, obj.movieData,holder.viewpager)
-                holder.viewpager.setCurrentItem(1,false)
+                if(obj.movieData.size>0){
+                    holder.viewpager.setCurrentItem(1,false)
+                    HelperUtils.setGradient(holder.viewpager,obj.movieData[1].sliderimgurl)
+                }
                 holder.viewpager.registerOnPageChangeCallback(object:
                     androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback() {
                     var mPosition:Int=-1
@@ -75,6 +79,7 @@ class HomeParentAdapter(
 
                     override fun onPageScrollStateChanged(state: Int) {
                         if(state== androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE){
+                            HelperUtils.setGradient(holder.viewpager,obj.movieData[mPosition].sliderimgurl)
                             if(obj.movieData[mPosition].isFakeFirstElement){
                                 holder.viewpager.setCurrentItem(1,false)
                             }

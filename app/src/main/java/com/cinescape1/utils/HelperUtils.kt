@@ -3,19 +3,34 @@ package com.cinescape1.utils
 import android.graphics.*
 import android.graphics.drawable.GradientDrawable
 import android.view.View
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 
 object HelperUtils {
-    fun setGradient(view:View,colors:IntArray=intArrayOf(Color.parseColor("#008000"), Color.parseColor("#ADFF2F"))){
-        val gd = GradientDrawable(
-            GradientDrawable.Orientation.TOP_BOTTOM, colors
-        )
 
+
+    fun isValidHexColorCode(colorCode: String): Boolean {
+        val HEX_WEBCOLOR_PATTERN = "^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$"
+        val pattern: Pattern = Pattern.compile(HEX_WEBCOLOR_PATTERN)
+        val matcher: Matcher = pattern.matcher(colorCode)
+        return matcher.matches()
+    }
+
+    fun setGradient(
+        view: View,
+        topColorHexCode: String = "#FFFFFF",
+        bottomColorHexCode: String = "#000000"
+    ) {
+        var colorArray =
+            intArrayOf(if(isValidHexColorCode(topColorHexCode)) Color.parseColor(topColorHexCode) else Color.parseColor("#FFFFFF"), Color.parseColor(bottomColorHexCode))
+        val gd = GradientDrawable(
+            GradientDrawable.Orientation.TOP_BOTTOM, colorArray
+        )
         gd.cornerRadius = 0f
-        //apply the button background to newly created drawable gradient
-        //apply the button background to newly created drawable gradient
         view.setBackground(gd)
     }
+
     fun getBitmapFromView(
         view: View, leftDiffrence: Int,
         topDifference: Int, rightDifference: Int, bottomDifference: Int

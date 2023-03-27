@@ -8,9 +8,18 @@ import com.cinescape1.data.network.Repositories
 import com.cinescape1.data.network.Result
 import com.cinescape1.utils.Status
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(private val repositories: Repositories) : ViewModel() {
+
+    private var _homePageMovieSliderColor:MutableStateFlow<String> = MutableStateFlow("#FFFFFF")
+    var homePageMovieSliderColor = _homePageMovieSliderColor as StateFlow<String>
+
+    fun setHomePageMovieSliderColor(color:String){
+        _homePageMovieSliderColor.value=color
+    }
 
     fun getHomeData() = liveData(Dispatchers.IO) {
         emit(Result.loading(data = null))
