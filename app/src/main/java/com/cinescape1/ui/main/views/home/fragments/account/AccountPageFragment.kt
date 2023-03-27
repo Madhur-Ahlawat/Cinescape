@@ -1,20 +1,16 @@
 package com.cinescape1.ui.main.views.home.fragments.account
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.IntentFilter
-import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.location.Location
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.os.Looper
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextUtils
@@ -22,7 +18,6 @@ import android.text.TextWatcher
 import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.content.res.ResourcesCompat
@@ -64,10 +59,6 @@ import com.cinescape1.utils.*
 import com.cinescape1.utils.Constant.IntentKey.Companion.NextBookingsResponse
 import com.cinescape1.utils.Constant.IntentKey.Companion.OPEN_FROM
 import com.google.android.flexbox.FlexboxLayout
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationResult
-import com.google.android.gms.location.LocationServices
 import com.google.firebase.auth.FirebaseAuth
 import com.threatmetrix.TrustDefender.TMXConfig
 import com.threatmetrix.TrustDefender.TMXProfiling
@@ -3758,14 +3749,13 @@ class AccountPageFragment : DaggerFragment(),
     }
 
     override fun foodPrepareClick(foodPrepareItem: NextBookingResponse.Current) {
+
         foodPickup(
             FoodPrepareRequest(
                 foodPrepareItem.bookingId,
                 "",
                 0,
-                preferences.getString(Constant.USER_ID)!!
-            )
-        )
+                preferences.getString(Constant.USER_ID)!!))
 
     }
 

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_now_showing"
-    android:layout_width="77dp"
+    android:layout_width="76dp"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/margin6"
     android:background="@drawable/food_item_bg"
@@ -16,8 +16,8 @@
         android:id="@+id/constraint"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingStart="@dimen/margin3"
-        android:paddingEnd="@dimen/margin3"
+        android:paddingStart="@dimen/margin2"
+        android:paddingEnd="@dimen/margin2"
         android:paddingTop="@dimen/margin6"
         android:paddingBottom="@dimen/margin2">
 

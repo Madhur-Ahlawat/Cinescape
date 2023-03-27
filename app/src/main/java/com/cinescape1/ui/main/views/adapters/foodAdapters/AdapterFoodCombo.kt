@@ -93,7 +93,7 @@ class AdapterFoodCombo(
                 holder.btnIncrease.show()
                 holder.viewIncreaseDecrease.show()
             }
-            mContext.toast("1")
+//            mContext.toast("1")
             listener.onAddFood(foodSelectedItem, position,foodComboList)
         }
 

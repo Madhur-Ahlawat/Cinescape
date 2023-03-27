@@ -786,13 +786,10 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                 binding?.textView110?.text = daySessionResponse[position].cinema.address1
             }
 
-            override fun onPageScrolled(
-                position: Int, positionOffset: Float, positionOffsetPixels: Int
-            ) {
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels)
                 binding?.textView110?.show()
-                val gridLayout =
-                    GridLayoutManager(this@ShowTimesActivity, 1, GridLayoutManager.VERTICAL, false)
+                val gridLayout = GridLayoutManager(this@ShowTimesActivity, 1, GridLayoutManager.VERTICAL, false)
                 binding?.recyclerviewCinemaTitle?.layoutManager =
                     LinearLayoutManager(this@ShowTimesActivity)
                 adapterShowTimesCinemaTitle = AdapterShowTimesCinemaTitle(

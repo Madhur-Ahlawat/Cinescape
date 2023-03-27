@@ -833,8 +833,7 @@ class FoodActivity : DaggerAppCompatActivity(),
     //90
     private fun extendTime() {
         val viewGroup = findViewById<ViewGroup>(android.R.id.content)
-        val dialogView: View =
-            LayoutInflater.from(this).inflate(R.layout.cancel_dialog, viewGroup, false)
+        val dialogView: View = LayoutInflater.from(this).inflate(R.layout.cancel_dialog, viewGroup, false)
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         builder.setView(dialogView)
         builder.setCancelable(false)
