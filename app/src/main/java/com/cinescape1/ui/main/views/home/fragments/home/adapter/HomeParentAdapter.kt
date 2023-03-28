@@ -54,7 +54,7 @@ class HomeParentAdapter(
                 holder.homeTitle.hide()
                 holder.txtSeeAll.hide()
                 holder.homeList.hide()
-                holder.viewpagerBack.show()
+                holder.viewpagerBack.hide()
                 holder.viewpager.show()
                 holder.consAdvance.hide()
 
