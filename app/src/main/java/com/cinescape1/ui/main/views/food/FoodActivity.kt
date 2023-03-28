@@ -723,27 +723,50 @@ class FoodActivity : DaggerAppCompatActivity(),
 
         tvClearItem?.setOnClickListener {
 
-            foodCartListNew?.clear()
-            foodCartList?.clear()
-            updateFoodList()
-            binding?.textCartCountNotiication?.text = ""
-            binding?.textCartCountNotiication?.invisible()
-            foodCartAdapter?.loadNewData(foodCartListNew!!)
-            emptyCart?.show()
-            tvClearItem?.hide()
+            val dialog = AlertDialog.Builder(this, R.style.CustomAlertDialog).create()
+            val view = layoutInflater.inflate(R.layout.cancel_dialog, null)
+            dialog.setView(view)
 
-            updateSelectedList(null, 1)
-            foodCartAdapter?.notifyDataSetChanged()
-            individualAdapter?.notifyDataSetChanged()
-            mFoodCartDialog?.dismiss()
+            dialog.setCanceledOnTouchOutside(false)
+            dialog.show()
 
-            binding?.txtProceed?.hide()
-            binding?.txtSkipBtn?.show()
+            dialog.subtitle.text = getString(R.string.seatTypeReset)
+            dialog.negative_btn.text = getString(R.string.yes)
+            dialog.txtSureNew.text = getString(R.string.noComma)
+            dialog.txtGoBack.text = getString(R.string.gobackComma)
+            dialog.show()
+
+            dialog.consSure?.setOnClickListener {
+                dialog.dismiss()
+//                    finish()
+            }
+
+            dialog.negative_btn?.setOnClickListener {
+
+                foodCartListNew?.clear()
+                foodCartList?.clear()
+                updateFoodList()
+                binding?.textCartCountNotiication?.text = ""
+                binding?.textCartCountNotiication?.invisible()
+                foodCartAdapter?.loadNewData(foodCartListNew!!)
+                emptyCart?.show()
+                tvClearItem?.hide()
+
+                updateSelectedList(null, 1)
+                foodCartAdapter?.notifyDataSetChanged()
+                individualAdapter?.notifyDataSetChanged()
+                mFoodCartDialog?.dismiss()
+
+                binding?.txtProceed?.hide()
+                binding?.txtSkipBtn?.show()
 
 
-            overridePendingTransition(0, 0)
-            startActivity(intent)
-            finish()
+                overridePendingTransition(0, 0)
+                startActivity(intent)
+                finish()
+            }
+
+
 
         }
     }

@@ -73,13 +73,12 @@
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/constraintLayout18"
-                android:layout_width="55dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:gravity="bottom"
                 app:layout_alignSelf="stretch"
                 android:maxLines="1"
-                android:minWidth="37dp"
                 app:layout_constraintBottom_toBottomOf="@+id/summary_name_movie"
                 app:layout_constraintEnd_toEndOf="parent">
 
@@ -88,6 +87,7 @@
                     android:layout_width="@dimen/margin27"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="@dimen/margin2"
+                    android:layout_marginBottom="@dimen/margin2"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
 
@@ -99,7 +99,7 @@
                         android:gravity="center"
                         android:includeFontPadding="false"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/size10"
+                        android:textSize="@dimen/size9"
                         tools:ignore="HardcodedText,TextContrastCheck"
                         tools:text="13+"/>
 
@@ -114,7 +114,7 @@
             android:layout_height="60dp"
             android:layout_marginTop="@dimen/margin20"
             app:layout_constraintEnd_toStartOf="@+id/view_date"
-            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintHorizontal_weight="1.9"
             app:layout_constraintStart_toStartOf="@+id/view_mains"
             app:layout_constraintTop_toBottomOf="@+id/view_movie_name" />
 
@@ -194,7 +194,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/view_date"
             app:layout_constraintEnd_toEndOf="@+id/view_mains"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintHorizontal_weight="1.5"
+            app:layout_constraintHorizontal_weight="1.4"
             app:layout_constraintStart_toEndOf="@+id/view_date"
             app:layout_constraintTop_toTopOf="@+id/view_date"
             app:layout_constraintVertical_bias="0.0" />
@@ -209,6 +209,7 @@
             android:textColor="@color/hint_color"
             android:textSize="@dimen/size14"
             android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="@+id/view_times1"
             app:layout_constraintStart_toStartOf="@+id/view_times1"
             app:layout_constraintTop_toTopOf="@+id/view_times1"
             tools:ignore="TextContrastCheck" />
@@ -218,13 +219,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:includeFontPadding="false"
             android:fontFamily="@font/sf_pro_text_regular"
+            android:includeFontPadding="false"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="1sp"
             android:textColor="@color/white"
             android:textSize="@dimen/size14"
             android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="@+id/view_times1"
             app:layout_constraintStart_toStartOf="@+id/view_times1"
             app:layout_constraintTop_toBottomOf="@+id/texts_time"
             tools:text="Dolby Cinema" />
@@ -235,7 +237,7 @@
             android:layout_height="60dp"
             android:layout_marginTop="@dimen/margin20"
             app:layout_constraintEnd_toStartOf="@+id/view_times"
-            app:layout_constraintHorizontal_weight="1.6"
+            app:layout_constraintHorizontal_weight="1.56"
             app:layout_constraintStart_toStartOf="@+id/view_locations"
             app:layout_constraintTop_toBottomOf="@+id/view_locations" />
 
@@ -245,7 +247,7 @@
             android:layout_height="60dp"
             app:layout_constraintBottom_toBottomOf="@+id/view_dates"
             app:layout_constraintEnd_toEndOf="@+id/view_times1"
-            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintHorizontal_weight="1.9"
             app:layout_constraintStart_toEndOf="@+id/view_dates"
             app:layout_constraintTop_toTopOf="@+id/view_dates" />
 
@@ -355,7 +357,7 @@
             android:layout_height="70dp"
             app:layout_constraintBottom_toBottomOf="@+id/view_quntity"
             app:layout_constraintEnd_toEndOf="@+id/seatList"
-            app:layout_constraintHorizontal_weight="1.5"
+            app:layout_constraintHorizontal_weight="1.4"
             app:layout_constraintStart_toEndOf="@+id/view_quntity"
             app:layout_constraintTop_toTopOf="@+id/view_quntity" />
 
