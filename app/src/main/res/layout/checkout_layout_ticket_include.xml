@@ -153,7 +153,7 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/view_locations"
             app:layout_constraintEnd_toStartOf="@+id/view_times1"
-            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintHorizontal_weight="1.1"
             app:layout_constraintStart_toEndOf="@+id/view_locations"
             app:layout_constraintTop_toTopOf="@+id/view_locations" />
 
@@ -194,7 +194,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/view_date"
             app:layout_constraintEnd_toEndOf="@+id/view_mains"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintHorizontal_weight="1.4"
+            app:layout_constraintHorizontal_weight="1.2"
             app:layout_constraintStart_toEndOf="@+id/view_date"
             app:layout_constraintTop_toTopOf="@+id/view_date"
             app:layout_constraintVertical_bias="0.0" />
@@ -346,7 +346,7 @@
             android:layout_height="70dp"
             app:layout_constraintBottom_toBottomOf="@+id/view_ticket_price"
             app:layout_constraintEnd_toStartOf="@+id/view_total"
-            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintHorizontal_weight="1.1"
             app:layout_constraintStart_toEndOf="@+id/view_ticket_price"
             app:layout_constraintTop_toTopOf="@+id/view_ticket_price"
             app:layout_constraintVertical_bias="1.0" />
@@ -357,7 +357,7 @@
             android:layout_height="70dp"
             app:layout_constraintBottom_toBottomOf="@+id/view_quntity"
             app:layout_constraintEnd_toEndOf="@+id/seatList"
-            app:layout_constraintHorizontal_weight="1.4"
+            app:layout_constraintHorizontal_weight="1.2"
             app:layout_constraintStart_toEndOf="@+id/view_quntity"
             app:layout_constraintTop_toTopOf="@+id/view_quntity" />
 

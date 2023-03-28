@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -17,6 +18,7 @@ import com.cinescape1.data.models.responseModel.GetFoodResponse
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 import com.cinescape1.utils.toast
+import java.security.cert.Extension
 
 class AdapterIndividual(
     context: Context,
@@ -35,7 +37,7 @@ class AdapterIndividual(
         return MyViewHolderFoodCombo(view)
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     override fun onBindViewHolder(holder: MyViewHolderFoodCombo, position: Int) {
         val foodSelectedItem = foodComboList[position]
         holder.foodTitleName.hide()
@@ -69,6 +71,7 @@ class AdapterIndividual(
             holder.btnDecrease.show()
             holder.btnIncrease.show()
             holder.viewIncreaseDecrease.show()
+
             listener.onAddIndiVidual(foodSelectedItem, position)
             notifyDataSetChanged()
         }

@@ -1068,8 +1068,8 @@ class FoodActivity : DaggerAppCompatActivity(),
     override fun onAddFood(
         foodItem: GetFoodResponse.ConcessionItem,
         position: Int,
-        foodComboList: ArrayList<GetFoodResponse.ConcessionItem>
-    ) {
+        foodComboList: ArrayList<GetFoodResponse.ConcessionItem>) {
+
         if (foodItem.foodtype == "Individual") {
             var amount = 0.0
             val a = foodItem.quantity + 1
@@ -1092,10 +1092,10 @@ class FoodActivity : DaggerAppCompatActivity(),
             }
             individualAdapter?.notifyDataSetChanged()
             comboAdapter?.notifyDataSetChanged()
+
         } else {
             //combo Food
-            val mDialogView =
-                LayoutInflater.from(this).inflate(R.layout.food_selected_add_alert_dailog, null)
+            val mDialogView = LayoutInflater.from(this).inflate(R.layout.food_selected_add_alert_dailog, null)
             val mBuilder = AlertDialog.Builder(this).setView(mDialogView)
             val mAlertDialog = mBuilder.show()
             mAlertDialog.show()
@@ -1172,8 +1172,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                             }
                         }
 
-                        val gridLayout =
-                            GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
+                        val gridLayout = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
                         recyclerviewComboTitle.layoutManager = LinearLayoutManager(this)
                         val adapter = AdapterFoodAddComboTitle(
                             this,
@@ -2113,12 +2112,13 @@ class FoodActivity : DaggerAppCompatActivity(),
         foodItem.itemTotal = amount.toInt()
         updateCartList(foodItem)
         if (foodCartListNew?.size!! > 0) {
+
             binding?.textCartCountNotiication?.show()
             binding?.textCartCountNotiication?.text = foodCartListNew?.size.toString()
-
             binding?.txtProceed?.show()
             binding?.txtSkipBtn?.hide()
         } else {
+
             binding?.textCartCountNotiication?.text = "0"
             binding?.textCartCountNotiication?.show()
 
@@ -2129,6 +2129,7 @@ class FoodActivity : DaggerAppCompatActivity(),
     }
 
     override fun onDecreaseIndiVidual(foodItem: GetFoodResponse.ConcessionItem, position: Int) {
+
         var amount = 0.0
         if (foodItem.quantity > 0) {
             foodItem.quantity = foodItem.quantity - 1
@@ -2168,10 +2169,10 @@ class FoodActivity : DaggerAppCompatActivity(),
             updateCartList(foodItem)
             individualAdapter?.loadNewData(foodSelectedList!!)
             println("CheckSize--->${foodCartListNew!![0].foodQuan}")
-
         } else {
             toast("add less than 20 items")
         }
+
     }
 
     override fun onBackPressed() {

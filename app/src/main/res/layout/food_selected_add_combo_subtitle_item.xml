@@ -5,12 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/margin10"
+    android:id="@+id/consCombo"
+    android:layout_marginTop="@dimen/margin16"
     android:backgroundTint="@color/transparent">
 
     <ImageView
         android:id="@+id/img_sub_item"
-        android:layout_width="65dp"
+        android:layout_width="wrap_content"
         android:layout_height="56dp"
         android:layout_marginTop="2dp"
         android:adjustViewBounds="true"
@@ -24,10 +25,10 @@
 
     <View
         android:id="@+id/view34"
-        android:layout_width="61dp"
-        android:layout_height="82dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="1dp"
-        android:layout_marginEnd="45dp"
+        android:layout_marginEnd="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,6 +60,7 @@
         android:layout_marginStart="@dimen/margin6"
         android:visibility="invisible"
         android:layout_marginTop="@dimen/margin5"
+        android:layout_marginBottom="@dimen/margin2"
         android:background="@color/text_alert_color_red"
         app:layout_constraintEnd_toEndOf="@+id/text_sub_add_food_name"
         app:layout_constraintStart_toStartOf="@+id/text_sub_add_food_name"

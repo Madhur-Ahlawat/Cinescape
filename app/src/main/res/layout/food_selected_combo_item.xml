@@ -228,17 +228,16 @@
                 android:id="@+id/textView107"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:gravity="center"
-                tools:text="1 item added"
                 android:textColor="@color/white"
                 android:textSize="@dimen/size12"
                 android:textStyle="normal"
                 android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="@+id/text_add_btn"
-                app:layout_constraintStart_toEndOf="@+id/view25"
-                app:layout_constraintTop_toBottomOf="@+id/text_add_btn" />
+                app:layout_constraintBottom_toBottomOf="@+id/view27"
+                app:layout_constraintEnd_toEndOf="@+id/view27"
+                app:layout_constraintStart_toStartOf="@+id/view27"
+                tools:text="1 item added" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

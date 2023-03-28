@@ -12,12 +12,14 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.*
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.requestModel.*
@@ -31,6 +33,7 @@ import com.cinescape1.ui.main.views.adapters.checkoutAdapter.AdapterCheckoutFood
 import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.ui.main.views.login.LoginActivity
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity
+import com.cinescape1.ui.main.views.payment.paymentList.adapter.ItemInfoPopupAdapter
 import com.cinescape1.ui.main.views.summery.viewModel.SummeryViewModel
 import com.cinescape1.utils.*
 import com.google.android.flexbox.AlignItems
@@ -829,5 +832,30 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
                 }
             }
     }
+
+
+//    private fun paymentDialog() {
+//        val dialog = Dialog(this)
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+//        dialog.setContentView(R.layout.paymnet_info_dialog)
+//        dialog.window?.setLayout(
+//            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
+//        )
+//        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
+//        dialog.window?.setGravity(Gravity.BOTTOM)
+//        dialog.show()
+//        val imageView71 = dialog.findViewById<ImageView>(R.id.imageView71)
+//        val recyclerTicketPrice = dialog.findViewById<RecyclerView>(R.id.recyclerTicketPrice)
+//
+//        val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
+//        val adapter = ItemInfoPopupAdapter(this, outputlist!!)
+//        recyclerTicketPrice.layoutManager = gridLayout
+//        recyclerTicketPrice.adapter = adapter
+//
+//        imageView71.setOnClickListener {
+//            dialog.dismiss()
+//        }
+//    }
 
 }

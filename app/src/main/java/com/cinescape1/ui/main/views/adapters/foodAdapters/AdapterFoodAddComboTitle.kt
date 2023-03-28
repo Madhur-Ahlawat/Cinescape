@@ -44,12 +44,14 @@ class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitle
 //            val itemPadding = 1
 //            //here you may change the divide amount from 2.5 to whatever you need
 //            val itemWidth = (screenWidth - itemPadding).div(0.5)
-//
 //            val layoutParams = holder.itemView.layoutParams
 //            layoutParams.height = layoutParams.height
 //            layoutParams.width = itemWidth.toInt()
-//
 //            holder.itemView.layoutParams = layoutParams
+
+            screenWidth = displayMetrics.widthPixels
+            holder.popcornUi.layoutParams.width = ((screenWidth)/3.4f).toInt()
+            println("ScreenWidth22222-------->${((screenWidth)/4f).toInt()}")
 
             val foodSelctedItem: GetFoodResponse.AlternateItem = alternateItems[position]
             holder.textTitleCombo.text = foodSelctedItem.description
@@ -82,13 +84,14 @@ class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitle
 
         } else {
 
-            val itemPadding = 2
-            //here you may change the divide amount from 2.5 to whatever you need
-            val itemWidth = (screenWidth - itemPadding).div(0.5)
-            val layoutParams = holder.itemView.layoutParams
-            layoutParams.height = layoutParams.height
-            layoutParams.width = itemWidth.toInt()
-            holder.itemView.layoutParams = layoutParams
+//            val itemPadding = 2
+//            //here you may change the divide amount from 2.5 to whatever you need
+//            val itemWidth = (screenWidth - itemPadding).div(0.5)
+//            val layoutParams = holder.itemView.layoutParams
+//            layoutParams.height = layoutParams.height
+//            layoutParams.width = itemWidth.toInt()
+//            holder.itemView.layoutParams = layoutParams
+
             val foodSelectedItem = foodAddComboTitleList[position]
             holder.combo_title.text = foodSelectedItem.description
             holder.foodComboSubtitleList.show()
@@ -106,8 +109,11 @@ class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitle
             val viewList:ArrayList<View> = ArrayList()
             holder.foodComboSubtitleList.removeAllViews()
             for (item in foodSelectedItem.alternateItems) {
+
 //              v = LayoutInflater.from(mContext).inflate(R.layout.food_selected_add_combo_subtitle_item, holder.foodComboSubtitleList, false)
                 val  v : View = mContext.layoutInflater.inflate(R.layout.food_selected_add_combo_subtitle_item, null)
+                mContext.windowManager.defaultDisplay.getMetrics(displayMetrics)
+                screenWidth = displayMetrics.widthPixels
                 val imgSubItem: ImageView = v.findViewById(R.id.img_sub_item)
                 val textSubAddFoodName: TextView = v.findViewById(R.id.text_sub_add_food_name)
                 val view22: TextView = v.findViewById(R.id.view22)
@@ -115,12 +121,18 @@ class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitle
                 viewList.add(v)
                 imgSubItem.show()
 
+                screenWidth = displayMetrics.widthPixels
+                imgSubItem.layoutParams.width = ((screenWidth)/3.6f).toInt()
+
+                println("ScreenWidth111111-------->${((screenWidth)/3.6f).toInt()}")
+
                 Glide.with(mContext).asBitmap()
                     .load(item.itemImageUrl)
                     .placeholder(R.drawable.ic_back_button)
                     .into(imgSubItem)
 
                 v.tag = item
+
 
                 textSubAddFoodName.text = item.description
 

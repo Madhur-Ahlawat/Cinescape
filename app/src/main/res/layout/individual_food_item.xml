@@ -38,7 +38,7 @@
                 android:layout_height="64dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/contentDes"
-                android:padding="8dp"
+                android:padding="4dp"
                 app:layout_constraintBottom_toBottomOf="@+id/view26"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/view26"
@@ -110,22 +110,22 @@
             <View
                 android:id="@+id/view26"
                 android:layout_width="0dp"
-                android:layout_height="75dp"
+                android:layout_height="78dp"
                 app:layout_constraintEnd_toStartOf="@+id/view25"
                 app:layout_constraintHorizontal_weight="1.8"
                 app:layout_constraintStart_toStartOf="@+id/view24"
                 app:layout_constraintTop_toTopOf="@+id/view24" />
 
-            <View
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/view27"
                 android:layout_width="0dp"
-                android:layout_height="75dp"
-                android:layout_marginEnd="8dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="6dp"
                 app:layout_constraintBottom_toBottomOf="@+id/view25"
                 app:layout_constraintEnd_toEndOf="@+id/view24"
-                app:layout_constraintHorizontal_weight="2.4"
+                app:layout_constraintHorizontal_weight="2.45"
                 app:layout_constraintStart_toEndOf="@+id/view25"
-                app:layout_constraintTop_toTopOf="@+id/view25" />
+                app:layout_constraintTop_toTopOf="@+id/view25" >
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/text_add_btn"
@@ -134,6 +134,7 @@
                 android:layout_marginEnd="5dp"
                 app:cardBackgroundColor="#AD696969"
                 app:cardCornerRadius="5dp"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@+id/view27"
                 app:layout_constraintEnd_toEndOf="@+id/view27"
                 app:layout_constraintStart_toStartOf="@+id/view27"
@@ -150,16 +151,16 @@
                     android:visibility="visible" />
             </androidx.cardview.widget.CardView>
 
-            <View
-                android:id="@+id/view_increase_decrease"
-                android:layout_width="105dp"
-                android:layout_height="31dp"
-                android:background="@drawable/card_curv"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/view27"
-                app:layout_constraintEnd_toEndOf="@+id/view27"
-                app:layout_constraintStart_toEndOf="@+id/view25"
-                app:layout_constraintTop_toTopOf="@+id/view27" />
+                <View
+                    android:id="@+id/view_increase_decrease"
+                    android:layout_width="105dp"
+                    android:layout_height="31dp"
+                    android:background="@drawable/card_curv"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/text_decrease"
@@ -206,22 +207,23 @@
                 app:layout_constraintTop_toTopOf="@+id/text_number"
                 tools:ignore="TextContrastCheck" />
 
-            <TextView
-                android:id="@+id/text_item_added"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:textSize="@dimen/size12"
-                android:textStyle="normal"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@+id/view27"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/view25"
-                app:layout_constraintTop_toBottomOf="@+id/text_add_btn"
-                tools:text="1 item added" />
+                <TextView
+                    android:id="@+id/text_item_added"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:includeFontPadding="false"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size12"
+                    android:textStyle="normal"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="1 item added" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
