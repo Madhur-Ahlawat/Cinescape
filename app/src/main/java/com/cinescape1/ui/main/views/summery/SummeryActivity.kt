@@ -50,6 +50,7 @@ import javax.inject.Inject
 
 @Suppress("DEPRECATION")
 class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFaceSeatLists {
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -253,6 +254,7 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
         }
 
         if (!preferences.getBoolean(Constant.IS_LOGIN)) {
+
             val intent = Intent(this, LoginActivity::class.java)
                 .putExtra("BOOKING", bookType)
                 .putExtra("FROM", "Payment")

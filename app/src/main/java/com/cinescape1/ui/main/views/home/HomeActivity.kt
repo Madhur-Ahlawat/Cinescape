@@ -311,9 +311,10 @@ class HomeActivity : DaggerAppCompatActivity(),
             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
         )
         dialog.window?.setBackgroundDrawable(ColorDrawable(R.color.black50))
-        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
+//        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
         dialog.window?.setGravity(Gravity.BOTTOM)
         dialog.show()
+
         spinner = dialog.spinner
         dialog.text_cancel_goback.setOnClickListener {
             if (flagHome == true) {

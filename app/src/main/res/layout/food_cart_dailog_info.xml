@@ -453,8 +453,10 @@
                         android:textStyle="normal"
                         app:layout_constraintBottom_toBottomOf="@+id/text_ticket1_price"
                         app:layout_constraintEnd_toEndOf="@+id/proceed_btn1"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/proceed_btn1"
-                        app:layout_constraintTop_toTopOf="@+id/text_ticket1_price" />
+                        app:layout_constraintTop_toTopOf="@+id/text_ticket1_price"
+                        app:layout_constraintVertical_bias="1.0" />
 
                     <TextView
                         android:id="@+id/proceed_btn1"
@@ -481,6 +483,7 @@
                         android:id="@+id/text_ticket1_price"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
                         android:fontFamily="@font/sf_pro_text_regular"
                         android:letterSpacing="-0.01"
                         android:lineSpacingExtra="1.3sp"
@@ -491,7 +494,6 @@
                         app:layout_constraintEnd_toEndOf="@+id/view_kd"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/view_kd"
-                        tools:layout_editor_absoluteY="345dp"
                         tools:text="KD 30.500" />
 
                     <TextView

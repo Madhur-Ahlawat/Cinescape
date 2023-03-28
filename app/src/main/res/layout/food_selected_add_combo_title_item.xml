@@ -42,7 +42,6 @@
             android:gravity="center"
             android:textAlignment="center"
             android:includeFontPadding="false"
-
             android:textColor="@color/white"
             android:textSize="@dimen/size11"
             app:layout_constraintEnd_toEndOf="@+id/imageViewFlavor"
@@ -54,7 +53,7 @@
             android:id="@+id/textView18"
             android:layout_width="83dp"
             android:layout_height="3.5dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="5dp"
             android:background="@color/text_alert_color_red"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="@+id/text_title_combo"
