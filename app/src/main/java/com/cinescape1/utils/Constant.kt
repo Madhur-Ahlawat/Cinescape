@@ -130,10 +130,14 @@ class Constant {
 
 
     companion object {
-         val experience: java.util.ArrayList<String> = java.util.ArrayList()
+         var experience: java.util.ArrayList<String> = java.util.ArrayList()
+         val experienceList: java.util.ArrayList<String> = java.util.ArrayList()
          val seatTypeList: java.util.ArrayList<String> = java.util.ArrayList()
+         val seatTypeList1: java.util.ArrayList<String> = java.util.ArrayList()
          val seatCategoryList: java.util.ArrayList<String> = java.util.ArrayList()
+         val seatCategoryList1: java.util.ArrayList<String> = java.util.ArrayList()
          var ageRating: java.util.ArrayList<String> = java.util.ArrayList()
+         var ageRating1: java.util.ArrayList<String> = java.util.ArrayList()
 
         const val platform = "ANDROID"
         const val version = "1.5"

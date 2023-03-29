@@ -153,6 +153,7 @@ class AccountPageFragment : DaggerFragment(),
 
     private var locationlist = ArrayList<FoodResponse.Output.Cinema>()
     private var clickEnable: Int = 0
+    private var clickAdd: Int = 0
 
     //CC
     private var m_sessionID = ""
@@ -212,6 +213,9 @@ class AccountPageFragment : DaggerFragment(),
         requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         requireActivity().window.statusBarColor = Color.BLACK
+
+        Constant.experienceList.clear()
+        Constant.ageRating1.clear()
 
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
@@ -619,16 +623,20 @@ class AccountPageFragment : DaggerFragment(),
 
         //Save Prefrence
         textView3.setOnClickListener {
+
             preferencesCheck = 1
             println("updatePreferenceConstant------->${Constant.experience}--${Constant.ageRating}")
+                Constant.experience.addAll(Constant.experienceList)
+            Constant.ageRating.addAll(Constant.ageRating1)
+
             updatePreference(
                 PreferenceRequest(
                     arbic,
                     cinema,
-                    Constant.experience.toString(),
-                    Constant.ageRating.toString(),
-                    Constant.seatCategoryList.toString(),
-                    Constant.seatTypeList.toString(),
+                    Constant.experience.distinct().toString(),
+                    Constant.ageRating.distinct().toString(),
+                    Constant.seatCategoryList.distinct().toString(),
+                    Constant.seatTypeList.distinct().toString(),
                     preferences.getString(Constant.USER_ID).toString()
                 )
             )
@@ -1949,8 +1957,7 @@ class AccountPageFragment : DaggerFragment(),
                 }
 
                 if (Constant.seatCategoryList.contains(item.cateTypeText)) {
-                    Constant.seatCategoryList.remove(item.cateTypeText)
-//                  categoryImage.setColorFilter(resources.getColor(R.color.hint_color))
+                    Constant.seatCategoryList.removeAll{it == item.cateTypeText}
 
                     if (item.cateTypeText == "Family") {
                         for (items in listFN) {
@@ -2002,7 +2009,7 @@ class AccountPageFragment : DaggerFragment(),
                             R.color.text_alert_color_red
                         )
                     )
-                    println("SeatListClick2123 ------------->${Constant.seatCategoryList}")
+//                    println("SeatListClick2123 ------------->${Constant.seatCategoryList}")
                 }
 
             }
@@ -2055,14 +2062,14 @@ class AccountPageFragment : DaggerFragment(),
                 }
 
                 if (Constant.seatTypeList.contains(type_item.seatType)) {
-                    Constant.seatTypeList.remove(type_item.seatType)
+                    Constant.seatTypeList.removeAll{it == type_item.seatType}
+
+//                    Constant.seatTypeList.remove(type_item.seatType)
                     println("SeatListClick21 ------------->yes")
                     typeName.setTextColor(
                         ContextCompat.getColorStateList(
                             requireContext(),
-                            R.color.hint_color
-                        )
-                    )
+                            R.color.hint_color))
 
                 } else {
                     Constant.seatTypeList.clear()
@@ -2220,16 +2227,15 @@ class AccountPageFragment : DaggerFragment(),
             if (data.likes) {
                 experienceName.setColorFilter(
                     getColor(requireContext(), R.color.text_alert_color_red),
-                    android.graphics.PorterDuff.Mode.MULTIPLY
-                )
+                    android.graphics.PorterDuff.Mode.MULTIPLY)
+
                 println("ExperienceLikes----->${data.name}---->${data.likes}")
                 Constant.experience.add(data.name)
 
             } else {
                 experienceName.setColorFilter(
                     getColor(requireContext(), R.color.hint_color),
-                    android.graphics.PorterDuff.Mode.MULTIPLY
-                )
+                    android.graphics.PorterDuff.Mode.MULTIPLY)
             }
 
             v.setOnClickListener {
@@ -2242,21 +2248,23 @@ class AccountPageFragment : DaggerFragment(),
                         )
                     )
                 }
+
                 if (Constant.experience.contains(data.name)) {
-                    Constant.experience.remove(data.name)
+                    Constant.experience.removeAll{it == data.name}
+
                     experienceName.setColorFilter(
                         getColor(requireContext(), R.color.hint_color),
-                        android.graphics.PorterDuff.Mode.MULTIPLY
-                    )
+                        android.graphics.PorterDuff.Mode.MULTIPLY)
                 } else {
+                    clickAdd = 0
+//                    Constant.experience.add(data.name)
+                    Constant.experienceList.add(data.name)
 
-                    Constant.experience.add(data.name)
                     experienceName.setColorFilter(
-                        getColor(
-                            requireContext(), R.color.text_alert_color_red
-                        ), android.graphics.PorterDuff.Mode.MULTIPLY
-                    )
-                    println("Experience--->${data.name}")
+                        getColor(requireContext(), R.color.text_alert_color_red
+                        ), android.graphics.PorterDuff.Mode.MULTIPLY)
+                    println("ExperienceRed--->${data.name}")
+
                 }
             }
         }
@@ -2316,18 +2324,19 @@ class AccountPageFragment : DaggerFragment(),
             v.setOnClickListener {
 
                 if (Constant.ageRating.contains(age_rating_item.name)) {
-                    Constant.ageRating.remove(age_rating_item.name)
+                    Constant.ageRating.removeAll {it ==  age_rating_item.name }
+
                     ageRatingName.setTextColor(getColor(requireContext(), R.color.hint_color))
                 } else {
-
-
                     ageRatingName.setTextColor(
                         getColor(
                             requireContext(),
                             R.color.text_alert_color_red
                         )
                     )
-                    Constant.ageRating.add(age_rating_item.name)
+
+                    Constant.ageRating1.add(age_rating_item.name)
+
                 }
             }
         }
@@ -3055,10 +3064,8 @@ class AccountPageFragment : DaggerFragment(),
         })
 
         cancel.setOnClickListener {
-
 //            checkCuntryCode = false
             mAlertDialog?.dismiss()
-
 //            if (checkCuntryCode == false){
 //                binding?.includeProfile?.mobileCode?.setText("")
 //            }
@@ -3070,9 +3077,7 @@ class AccountPageFragment : DaggerFragment(),
             mAlertDialog?.dismiss()
             edSearch.text.clear()
         }
-
     }
-
 
     //update Account
     private fun updateAccount(updateAccountRequest: UpdateAccountRequest) {

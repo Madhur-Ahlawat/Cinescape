@@ -133,7 +133,6 @@ class AdapterFoodAddComboTitle( context: Activity, private var foodAddComboTitle
 
                 v.tag = item
 
-
                 textSubAddFoodName.text = item.description
 
                 holder.foodComboSubtitleList.addView(v)
