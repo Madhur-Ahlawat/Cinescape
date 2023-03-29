@@ -89,6 +89,10 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityUserPreferencesBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
+
+        Constant.experienceList.clear()
+        Constant.ageRating1.clear()
+
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 arbic=true
@@ -311,7 +315,12 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
             editor?.putBoolean(onBoardingClick, true)
             editor?.commit()
             println("UpdateExperience--->$experience")
-            updatePreference(PreferenceRequest(arbic,cinema,experience.toString(), ageRating.toString(), seatCateogry, seatType, preferences.getString(Constant.USER_ID).toString()))
+            updatePreference(PreferenceRequest(arbic,cinema,
+                Constant.experience.distinct().toString(),
+                Constant.ageRating.distinct().toString(),
+                Constant.seatCategoryList.distinct().toString(),
+                Constant.seatTypeList.distinct().toString(),
+                preferences.getString(Constant.USER_ID).toString()))
         }
 
         binding?.textSkipProceed?.setOnClickListener {
@@ -471,7 +480,9 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
                 }
 
                 if (Constant.seatCategoryList.contains(item.cateTypeText)) {
-                    Constant.seatCategoryList.remove(item.cateTypeText)
+                    Constant.seatCategoryList.removeAll{it == item.cateTypeText}
+
+//                    Constant.seatCategoryList.remove(item.cateTypeText)
 
                     if (item.cateTypeText == "Family") {
                         for (items in listFN) {
@@ -590,7 +601,10 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
                 }
 
                 if (Constant.seatTypeList.contains(type_item.seatType)) {
-                    Constant.seatTypeList.remove(type_item.seatType)
+                    Constant.seatTypeList.removeAll{it == type_item.seatType}
+
+//                    Constant.seatTypeList.remove(type_item.seatType)
+
                     println("SeatListClick21 ------------->yes")
                     typeName.setTextColor(
                         ContextCompat.getColorStateList(
@@ -762,7 +776,8 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
                     )
                 }
                 if (Constant.experience.contains(data.name)) {
-                    Constant.experience.remove(data.name)
+                    Constant.experience.removeAll{it == data.name}
+//                    Constant.experience.remove(data.name)
                     experienceName.setColorFilter(
                         ContextCompat.getColor(this, R.color.hint_color),
                         android.graphics.PorterDuff.Mode.MULTIPLY
@@ -838,7 +853,8 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
             v.setOnClickListener {
 
                 if (Constant.ageRating.contains(age_rating_item.name)) {
-                    Constant.ageRating.remove(age_rating_item.name)
+                    Constant.ageRating.removeAll{it == age_rating_item.name}
+//                    Constant.ageRating.remove(age_rating_item.name)
                     ageRatingName.setTextColor(
                         ContextCompat.getColor(
                             this,

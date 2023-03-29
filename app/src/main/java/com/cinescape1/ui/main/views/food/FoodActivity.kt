@@ -1126,8 +1126,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                 text_combo_head.hide()
             }
 
-            val recyclerviewComboTitle =
-                mDialogView.findViewById<View>(R.id.recyclerview_combo_title) as RecyclerView
+            val recyclerviewComboTitle = mDialogView.findViewById<View>(R.id.recyclerview_combo_title) as RecyclerView
             textDecrease = mDialogView.findViewById<View>(R.id.text_decrease) as ImageView
             textIncrease = mDialogView.findViewById<View>(R.id.text_increase) as TextView
             textNumber = mDialogView.findViewById<View>(R.id.text_number) as TextView
@@ -1139,6 +1138,11 @@ class FoodActivity : DaggerAppCompatActivity(),
             textIncrease?.isEnabled = false
             textDecrease?.isClickable = false
             textDecrease?.isEnabled = false
+
+            addBtn?.isClickable = false
+            addBtn?.isEnabled = false
+            addBtn?.background = ContextCompat.getDrawable(this,R.drawable.food_item_bg)
+
             itemFoodCount = foodItem.quantity
             itemFoodAmt = foodItem.itemTotal.toDouble()
             foodItem.quantity = 0
@@ -1341,8 +1345,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                             foodItem.itemTotal = amount.roundToInt()
                             textNumber?.text = a.toString()
                             itemCheckPrice = amount.toInt()
-                            tvKdTotal?.text =
-                                getString(R.string.price_kd) + " ${Constant.DECIFORMAT.format(amount / 100)}"
+                            tvKdTotal?.text = getString(R.string.price_kd) + " ${Constant.DECIFORMAT.format(amount / 100)}"
                         }
                     }
 
@@ -2058,6 +2061,11 @@ class FoodActivity : DaggerAppCompatActivity(),
         textNumber?.text = "1"
         textIncrease?.isClickable = true
         textIncrease?.isEnabled = true
+
+        addBtn?.isClickable = true
+        addBtn?.isEnabled = true
+        addBtn?.background = ContextCompat.getDrawable(this,R.drawable.btn_corner_bg_red)
+
         textDecrease?.isClickable = true
         textDecrease?.isEnabled = true
         foodAlterDis = item.description
@@ -2094,10 +2102,16 @@ class FoodActivity : DaggerAppCompatActivity(),
             textNumber?.text = "1"
             tvKdTotal?.text = foodItem.itemPrice
             textIncrease?.isClickable = true
+
 //            foodItem.packageChildItems[position].alternateItems[0].checkFlag = true
+
             textIncrease?.isEnabled = true
             textDecrease?.isClickable = true
             textDecrease?.isEnabled = true
+
+            addBtn?.isClickable = true
+            addBtn?.isEnabled = true
+            addBtn?.background = ContextCompat.getDrawable(this, R.drawable.btn_corner_bg_red)
             foodItem.quantity = 1
         }
 
