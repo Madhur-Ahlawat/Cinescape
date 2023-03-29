@@ -410,13 +410,13 @@
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/size12"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView65"
-                app:layout_constraintEnd_toStartOf="@+id/textView159"
+                app:layout_constraintEnd_toStartOf="@+id/textview_bt_wallet_apply"
                 app:layout_constraintStart_toEndOf="@+id/imageView65"
                 app:layout_constraintTop_toTopOf="@+id/imageView65"
                 tools:text="Wallet Balance KD 65.000" />
 
             <TextView
-                android:id="@+id/textView159"
+                android:id="@+id/textview_bt_wallet_apply"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_text_regular"

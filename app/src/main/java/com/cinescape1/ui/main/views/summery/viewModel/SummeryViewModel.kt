@@ -5,9 +5,12 @@ import androidx.lifecycle.liveData
 import com.cinescape1.data.models.requestModel.*
 import com.cinescape1.data.network.Repositories
 import com.cinescape1.data.network.Result
+import com.cinescape1.ui.main.views.payment.PaymentMethodSealedClass
 import com.cinescape1.ui.main.views.payment.paymentList.BankOfferRequest
 import com.cinescape1.utils.Status
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 class SummeryViewModel @Inject constructor(private val repositories: Repositories) : ViewModel() {
@@ -24,7 +27,11 @@ class SummeryViewModel @Inject constructor(private val repositories: Repositorie
             emit(Result.error(exception.message ?: "Error Occurred!", data = null))
         }
     }
-
+    var selectedPaymentMethod: PaymentMethodSealedClass =
+        PaymentMethodSealedClass.NONE
+    fun setPaymentMethodSelection(paymentMethodEnum: PaymentMethodSealedClass){
+        selectedPaymentMethod = paymentMethodEnum
+    }
     fun paymentList(request: TicketSummaryRequest) = liveData(Dispatchers.IO) {
         emit(Result.loading(data = null))
         try {

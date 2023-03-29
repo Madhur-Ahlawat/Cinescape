@@ -45,7 +45,7 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
         val view = binding?.root
         setContentView(view)
 
-        payUrl = intent.getStringExtra("PAY_URL").toString()
+        payUrl = intent.getStringExtra(Constant.IntentKey.PAY_URL).toString()
         bookingId = intent.getStringExtra(Constant.IntentKey.BOOKING_ID).toString()
         transId = intent.getStringExtra(Constant.IntentKey.TRANSACTION_ID).toString()
         from = intent.getStringExtra("From").toString()

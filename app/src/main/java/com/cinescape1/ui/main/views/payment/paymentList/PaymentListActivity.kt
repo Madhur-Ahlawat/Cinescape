@@ -6,6 +6,7 @@ import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
@@ -15,6 +16,7 @@ import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -40,6 +42,7 @@ import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
 import com.cinescape1.ui.main.views.home.HomeActivity
+import com.cinescape1.ui.main.views.payment.PaymentMethodSealedClass
 import com.cinescape1.ui.main.views.payment.PaymentWebActivity
 import com.cinescape1.ui.main.views.payment.paymentList.adapter.ItemInfoPopupAdapter
 import com.cinescape1.ui.main.views.payment.paymentList.adapter.PaymentListAdapter
@@ -48,7 +51,6 @@ import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResp
 import com.cinescape1.ui.main.views.summery.response.GiftCardResponse
 import com.cinescape1.ui.main.views.summery.viewModel.SummeryViewModel
 import com.cinescape1.utils.*
-import com.cinescape1.utils.Constant.Companion.applyCheck
 import com.cinescape1.utils.Constant.Companion.bankOfferClick
 import com.threatmetrix.TrustDefender.*
 import com.threatmetrix.TrustDefender.TMXProfilingConnections.TMXProfilingConnections
@@ -117,9 +119,12 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         binding = ActivityPaymentListBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
         setContentView(view)
-
-
         manageFunctions()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Constant.CARD_NO=""
     }
 
     private fun manageFunctions() {
@@ -182,30 +187,40 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
 
         binding?.txtProceed?.setOnClickListener {
-
-            if (applyCheck == 1) {
-                walletPay(
-                    HmacKnetRequest(
-                        bookingId,
-                        bookType,
-                        transId,
-                        preferences.getString(Constant.USER_ID).toString()
+            when(summeryViewModel.selectedPaymentMethod){
+                PaymentMethodSealedClass.CREDIT_CARD -> {
+                    creditCardDialog(Constant.CARD_NO)
+                }
+                PaymentMethodSealedClass.WALLET -> {
+                    walletPay(
+                        HmacKnetRequest(
+                            bookingId, bookType, transId, preferences.getString(Constant.USER_ID).toString()
+                        )
                     )
-                )
-                applyCheck = 2
-                println("applyCheck213--------->${applyCheck}")
-            } else {
-                val dialog = OptionDialog(this,
-                    R.mipmap.ic_launcher,
-                    R.string.app_name,
-                    getString(R.string.select_payment_methods),
-                    positiveBtnText = R.string.ok,
-                    negativeBtnText = R.string.no,
-                    positiveClick = {},
-                    negativeClick = {})
-                dialog.show()
-
+                }
+                PaymentMethodSealedClass.KNET -> {
+                    paymentHmac(
+                        HmacKnetRequest(
+                            bookingId,
+                            bookType,
+                            transId,
+                            preferences.getString(Constant.USER_ID).toString()
+                        )
+                    )
+                }
+                PaymentMethodSealedClass.NONE -> {
+                    val dialog = OptionDialog(this,
+                        R.mipmap.ic_launcher,
+                        R.string.app_name,
+                        getString(R.string.select_payment_methods),
+                        positiveBtnText = R.string.ok,
+                        negativeBtnText = R.string.no,
+                        positiveClick = {},
+                        negativeClick = {})
+                    dialog.show()
+                }
             }
+
 
         }
 
@@ -276,17 +291,13 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         binding?.paymentLayout?.show()
         binding?.textTimeToLeft?.text = output.amount
         val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
-        adapter = PaymentListAdapter(this, output.payMode, this)
+        adapter = PaymentListAdapter(this, output.payMode, this,summeryViewModel)
         binding?.recyclerPayMode?.layoutManager = gridLayout
         binding?.recyclerPayMode?.adapter = adapter
     }
 
     override fun walletItemApply(view: PaymentListResponse.Output.PayMode) {
-        walletPay(
-            HmacKnetRequest(
-                bookingId, bookType, transId, preferences.getString(Constant.USER_ID).toString()
-            )
-        )
+
     }
 
     override fun bankItemApply(
@@ -588,54 +599,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     override fun onSimilarItemClick(view: GetMovieResponse.Output.Similar) {
-
-    }
-
-    override fun onCreditCardItemClick(
-        view: PaymentListResponse.Output.PayMode,
-        cardNo: String,
-        creditCardClick1: Boolean,
-        knetClick1: Boolean
-    ) {
-        val knetClick = knetClick1
-        val creditCardClick = creditCardClick1
-        paymentOptionClick(view, knetClick, creditCardClick, cardNo)
-    }
-
-    private fun paymentOptionClick(
-        view: PaymentListResponse.Output.PayMode,
-        knetClick: Boolean,
-        creditCardClick: Boolean,
-        cardNo: String
-    ) {
-
-        binding?.txtProceed?.setOnClickListener {
-
-            if (!knetClick && !creditCardClick) {
-                val dialog = OptionDialog(this,
-                    R.mipmap.ic_launcher,
-                    R.string.app_name,
-                    getString(R.string.select_payment_methods),
-                    positiveBtnText = R.string.ok,
-                    negativeBtnText = R.string.no,
-                    positiveClick = {},
-                    negativeClick = {})
-                dialog.show()
-            } else if (creditCardClick) {
-                creditCardDialog(cardNo)
-            } else if (knetClick) {
-                paymentHmac(
-                    HmacKnetRequest(
-                        bookingId,
-                        bookType,
-                        transId,
-                        preferences.getString(Constant.USER_ID).toString()
-                    )
-                )
-
-            }
-
-        }
 
     }
 
@@ -962,6 +925,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             ) {
             }
 
+            @RequiresApi(Build.VERSION_CODES.N)
             @SuppressLint("SetTextI18n")
             override fun onTextChanged(
                 p0: CharSequence?, start: Int, removed: Int, added: Int
@@ -1360,17 +1324,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         }
     }
 
-    override fun onKnitItemClick(
-        view: PaymentListResponse.Output.PayMode, creditCardClick1: Boolean, knetClick1: Boolean
-    ) {
-
-        val knetClick = knetClick1
-        val creditCardClick = creditCardClick1
-        paymentOptionClick(view, knetClick, creditCardClick, "")
-
-
-    }
-
     override fun onVoucherApply(
         view: PaymentListResponse.Output.PayMode,
         offerCode: String,
@@ -1691,7 +1644,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
                                     val intent =
                                         Intent(applicationContext, PaymentWebActivity::class.java)
-                                    intent.putExtra("PAY_URL", it.data.output.callingUrl)
+                                    intent.putExtra(Constant.IntentKey.PAY_URL, it.data.output.callingUrl)
                                     intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
                                     intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
                                     startActivity(intent)

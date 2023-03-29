@@ -173,7 +173,6 @@ class Constant {
         const val ID_TOKEN = "id_token"
         const val USER_EMAIL = "user_email"
         var DISPLAY = 1
-        var applyCheck = 2
         const val MOBILE = "mobile"
         const val mid = "movieId"
         const val transId = ""
@@ -187,6 +186,7 @@ class Constant {
 
         var bankOfferClick = false
         const val promoClick = false
+        var CARD_NO = ""
 
         const val KNETID = "401"
         const val CREDITCARDID = "402"
@@ -204,6 +204,7 @@ class Constant {
             const val MOVIE_ID = "movieId"
             const val LANGUAGE = "language"
             const val TRANSACTION_ID = "transactionId"
+            const val PAY_URL = "PAY_URL"
             const val BOOK_TYPE = "booktype"
             const val transid = "transid"
             const val OFFER_ID = "offerId"
