@@ -15,7 +15,6 @@ import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResp
 import com.cinescape1.ui.main.views.splash.response.SplashResponse
 import com.cinescape1.ui.main.views.summery.response.GiftCardResponse
 import com.cinescape1.utils.Constant
-import com.mocklets.pluto.PlutoInterceptor
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
@@ -238,8 +237,6 @@ interface DataServices {
             val logging = HttpLoggingInterceptor()
 //                logging.level = HttpLoggingInterceptor.Level.BODY
             client.addInterceptor(logging)
-            client.addInterceptor(PlutoInterceptor())
-
             // }
 
             return Retrofit.Builder()

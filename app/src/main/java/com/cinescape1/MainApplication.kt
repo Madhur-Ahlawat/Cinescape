@@ -9,7 +9,6 @@ import com.cinescape1.utils.Constant
 import com.cinescape1.utils.LocaleHelper
 import com.instabug.library.Instabug
 import com.instabug.library.invocation.InstabugInvocationEvent
-import com.mocklets.pluto.Pluto
 import com.onesignal.OneSignal
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
