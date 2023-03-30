@@ -160,8 +160,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
         ticketList(
             TicketSummaryRequest(
-                "5010",
-                "5a12cd47d0f3497f81f06619c9a95664",
+                transId,
+                bookingId,
                 preferences.getString(Constant.USER_ID).toString()
             )
         )
