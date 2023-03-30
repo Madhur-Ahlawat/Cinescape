@@ -216,6 +216,8 @@ class AccountPageFragment : DaggerFragment(),
 
         Constant.experienceList.clear()
         Constant.ageRating1.clear()
+        Constant.seatCategoryList1.clear()
+        Constant.seatTypeList1.clear()
 
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
@@ -628,6 +630,8 @@ class AccountPageFragment : DaggerFragment(),
             println("updatePreferenceConstant------->${Constant.experience}--${Constant.ageRating}")
                 Constant.experience.addAll(Constant.experienceList)
             Constant.ageRating.addAll(Constant.ageRating1)
+            Constant.seatCategoryList.addAll(Constant.seatCategoryList1)
+            Constant.seatTypeList.addAll(Constant.seatTypeList1)
 
             updatePreference(
                 PreferenceRequest(
@@ -1957,9 +1961,10 @@ class AccountPageFragment : DaggerFragment(),
                 }
 
                 if (Constant.seatCategoryList.contains(item.cateTypeText)) {
-                    Constant.seatCategoryList.removeAll{it == item.cateTypeText}
 
                     if (item.cateTypeText == "Family") {
+                        Constant.seatCategoryList.removeAll{it == item.cateTypeText}
+
                         for (items in listFN) {
                             println("SeatListClick22222 ------------->listFN3")
                             Glide.with(this).load(listFN[0].imgCate)
@@ -1968,6 +1973,8 @@ class AccountPageFragment : DaggerFragment(),
                     }
 
                     if (item.cateTypeText == "Bachelor") {
+                        Constant.seatCategoryList.removeAll{it == item.cateTypeText}
+
                         for (items in listBN) {
                             println("SeatListClick22222 ------------->listFN3")
                             Glide.with(this).load(listBN[0].imgCate)
@@ -1982,10 +1989,10 @@ class AccountPageFragment : DaggerFragment(),
                     )
 
                 } else {
-                    Constant.seatCategoryList.clear()
-                    Constant.seatCategoryList.add(item.cateTypeText)
-//                    categoryImage.setColorFilter(resources.getColor(R.color.text_alert_color_red))
+
                     if (item.cateTypeText == "Family") {
+                        Constant.seatCategoryList1.add(item.cateTypeText)
+
                         for (items in listFA) {
                             println("SeatListClick22222 ------------->listFA2")
 //                            seatTypeCheck = 1
@@ -1995,11 +2002,12 @@ class AccountPageFragment : DaggerFragment(),
                     }
 
                     if (item.cateTypeText == "Bachelor") {
+                        Constant.seatCategoryList1.add(item.cateTypeText)
+
                         for (items in listBA) {
                             println("SeatListClick22222 ------------->listBA2")
                             Glide.with(this).load(items.imgCate).dontAnimate()
                                 .placeholder(R.drawable.family_n_active).into(categoryImage)
-
 
                         }
                     }
@@ -2009,10 +2017,11 @@ class AccountPageFragment : DaggerFragment(),
                             R.color.text_alert_color_red
                         )
                     )
-//                    println("SeatListClick2123 ------------->${Constant.seatCategoryList}")
+
                 }
 
             }
+
         }
     }
 
@@ -2052,6 +2061,7 @@ class AccountPageFragment : DaggerFragment(),
             v.setOnClickListener {
 
                 for (v in viewListForSeatType) {
+
                     val typeName1: TextView = v.findViewById(R.id.tv_seat_selectiopn) as TextView
                     typeName1.setTextColor(
                         ContextCompat.getColorStateList(
@@ -2059,6 +2069,7 @@ class AccountPageFragment : DaggerFragment(),
                             R.color.hint_color
                         )
                     )
+
                 }
 
                 if (Constant.seatTypeList.contains(type_item.seatType)) {
@@ -2072,8 +2083,9 @@ class AccountPageFragment : DaggerFragment(),
                             R.color.hint_color))
 
                 } else {
-                    Constant.seatTypeList.clear()
-                    Constant.seatTypeList.add(type_item.seatType)
+
+                    Constant.seatTypeList1.add(type_item.seatType)
+
                     typeName.setTextColor(
                         ContextCompat.getColorStateList(
                             requireContext(), R.color.text_alert_color_red
@@ -2081,6 +2093,7 @@ class AccountPageFragment : DaggerFragment(),
                     )
                     println("SeatListClick21 ------------->no")
                 }
+
             }
         }
     }

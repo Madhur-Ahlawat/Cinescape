@@ -77,6 +77,7 @@ class FoodActivity : DaggerAppCompatActivity(),
     private var seatPrice = "0.0"
     private var textNumber: TextView? = null
     private var addBtn: TextView? = null
+    private var tvDoneBtn: TextView? = null
     private var textDecrease: ImageView? = null
     private var emptyCart: TextView? = null
     private var textIncrease: TextView? = null
@@ -137,6 +138,9 @@ class FoodActivity : DaggerAppCompatActivity(),
     var btnDecrease2: TextView? = null
     var btnIncrease2: TextView? = null
     var totalItems2: TextView? = null
+
+    var positionRemove = 0
+    var foodItemRemove: GetFoodResponse.ConcessionItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -1071,12 +1075,14 @@ class FoodActivity : DaggerAppCompatActivity(),
         foodComboList: ArrayList<GetFoodResponse.ConcessionItem>) {
 
         if (foodItem.foodtype == "Individual") {
+
             var amount = 0.0
             val a = foodItem.quantity + 1
             foodItem.quantity = a
             amount = (foodItem.quantity * foodItem.priceInCents).toDouble()
             foodItem.itemTotal = amount.toInt()
             updateCartList(foodItem)
+
             if (foodCartListNew?.size!! > 0) {
                 binding?.textCartCountNotiication?.show()
                 binding?.textCartCountNotiication?.text = foodCartListNew?.size.toString()
@@ -1094,6 +1100,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             comboAdapter?.notifyDataSetChanged()
 
         } else {
+
             //combo Food
             val mDialogView = LayoutInflater.from(this).inflate(R.layout.food_selected_add_alert_dailog, null)
             val mBuilder = AlertDialog.Builder(this).setView(mDialogView)
@@ -1131,7 +1138,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             textIncrease = mDialogView.findViewById<View>(R.id.text_increase) as TextView
             textNumber = mDialogView.findViewById<View>(R.id.text_number) as TextView
             addBtn = mDialogView.findViewById(R.id.text_add_btn)
-            val tvDoneBtn: TextView = mDialogView.findViewById(R.id.tv_done_btn)
+             tvDoneBtn = mDialogView.findViewById(R.id.tv_done_btn)
             tvKdTotal = mDialogView.findViewById(R.id.tv_kd_total)
 //        val viewIncreaseDecreases: View = mDialogView.findViewById(R.id.view_increase_decrease)
             textIncrease?.isClickable = false
@@ -1139,9 +1146,9 @@ class FoodActivity : DaggerAppCompatActivity(),
             textDecrease?.isClickable = false
             textDecrease?.isEnabled = false
 
-            addBtn?.isClickable = false
-            addBtn?.isEnabled = false
-            addBtn?.background = ContextCompat.getDrawable(this,R.drawable.food_item_bg)
+            tvDoneBtn?.isClickable = false
+            tvDoneBtn?.isEnabled = false
+            tvDoneBtn?.background = ContextCompat.getDrawable(this,R.drawable.food_item_bg)
 
             itemFoodCount = foodItem.quantity
             itemFoodAmt = foodItem.itemTotal.toDouble()
@@ -1244,7 +1251,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                             }
                         }
 
-                        tvDoneBtn.setOnClickListener {
+                        tvDoneBtn?.setOnClickListener {
                             var valflag = false
                             for (i in foodItem.alternateItems.indices) {
                                 if (foodItem.alternateItems[i].checkFlag) {
@@ -1362,7 +1369,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                         }
                     }
 
-                    tvDoneBtn.setOnClickListener {
+                    tvDoneBtn?.setOnClickListener {
                         var valflag = 0
                         for (i in 0 until foodItem.packageChildItems.size) {
                             for (j in 0 until foodItem.packageChildItems[i].alternateItems.size) {
@@ -1422,6 +1429,8 @@ class FoodActivity : DaggerAppCompatActivity(),
 
     override fun onDecreaseFood(foodItem: GetFoodResponse.ConcessionItem, position: Int) {
         println("foodItem.foodtype-->${foodItem.foodtype}")
+        positionRemove = position
+        foodItemRemove = foodItem
         if (foodItem.foodtype == "Individual") {
             var amount = 0.0
             if (foodItem.quantity > 0) {
@@ -1464,6 +1473,7 @@ class FoodActivity : DaggerAppCompatActivity(),
     }
 
     override fun onIncreaseFood(foodItem: GetFoodResponse.ConcessionItem, position: Int) {
+
         if (foodItem.foodtype == "Individual") {
             var amount = 0.0
             if (foodItem.quantity < 20) {
@@ -1642,12 +1652,27 @@ class FoodActivity : DaggerAppCompatActivity(),
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onRemoveCart(foodItem: GetFoodResponse.FoodDtls, pos: Int) {
+
         totalFoodAmt -= (foodCartListNew?.get(pos)?.foodQuan!! * foodCartListNew?.get(pos)?.itemPrice!!)
-        if (pos <= (foodCartList?.size!! - 1))
+
+        if (pos <= (foodCartList?.size!! - 1)){
             foodCartList?.removeAt(pos)
 
-        if (pos <= (foodCartListNew?.size!! - 1))
-            foodCartListNew?.removeAt(pos)
+            foodSelectedList?.removeAt(positionRemove)
+            updateCartList(foodItemRemove!!)
+            foodSelectedList?.add(positionRemove, foodItemRemove!!)
+            foodAdapter?.loadNewData(foodSelectedList!!)
+        }
+
+
+        if (pos <= (foodCartListNew?.size!! - 1)){
+            foodCartList?.removeAt(pos)
+
+            updateCartList(foodItemRemove!!)
+            foodSelectedList?.add(positionRemove, foodItemRemove!!)
+            foodAdapter?.loadNewData(foodSelectedList!!)
+        }
+
 
         Log.w("Total", "" + totalFoodAmt)
         if (totalFoodAmt < 0) totalFoodAmt = 0.0
@@ -2062,9 +2087,9 @@ class FoodActivity : DaggerAppCompatActivity(),
         textIncrease?.isClickable = true
         textIncrease?.isEnabled = true
 
-        addBtn?.isClickable = true
-        addBtn?.isEnabled = true
-        addBtn?.background = ContextCompat.getDrawable(this,R.drawable.btn_corner_bg_red)
+        tvDoneBtn?.isClickable = true
+        tvDoneBtn?.isEnabled = true
+        tvDoneBtn?.background = ContextCompat.getDrawable(this,R.drawable.btn_corner_bg_red)
 
         textDecrease?.isClickable = true
         textDecrease?.isEnabled = true
@@ -2103,15 +2128,14 @@ class FoodActivity : DaggerAppCompatActivity(),
             tvKdTotal?.text = foodItem.itemPrice
             textIncrease?.isClickable = true
 
-//            foodItem.packageChildItems[position].alternateItems[0].checkFlag = true
-
             textIncrease?.isEnabled = true
             textDecrease?.isClickable = true
             textDecrease?.isEnabled = true
 
-            addBtn?.isClickable = true
-            addBtn?.isEnabled = true
-            addBtn?.background = ContextCompat.getDrawable(this, R.drawable.btn_corner_bg_red)
+            tvDoneBtn?.isClickable = true
+            tvDoneBtn?.isEnabled = true
+            tvDoneBtn?.background = ContextCompat.getDrawable(this, R.drawable.btn_corner_bg_red)
+
             foodItem.quantity = 1
         }
 

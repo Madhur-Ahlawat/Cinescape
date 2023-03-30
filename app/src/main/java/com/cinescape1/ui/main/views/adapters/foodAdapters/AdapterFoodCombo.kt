@@ -58,8 +58,11 @@ class AdapterFoodCombo(
                 holder.addBtn.hide()
                 holder.txtNumber.text = foodSelectedItem.quantity.toString()
                 holder.foodKdName.show()
+
                 holder.totalItems.show()
+                foodSelectedItem.quantityUpdate = foodSelectedItem.quantity
                 holder.totalItems.text = foodSelectedItem.quantityUpdate.toString()+" "+mContext.getString(R.string.ItemAdded)
+
             } else {
 
                 holder.totalItems.hide()
@@ -89,6 +92,8 @@ class AdapterFoodCombo(
                 holder.addBtn.hide()
                 holder.txtNumber.show()
                 holder.txtNumber.text = "1"
+                holder.totalItems.show()
+                holder.totalItems.text = holder.txtNumber.text.toString()+" "+mContext.getString(R.string.ItemAdded)
                 holder.btnDecrease.show()
                 holder.btnIncrease.show()
                 holder.viewIncreaseDecrease.show()

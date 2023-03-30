@@ -92,6 +92,8 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
 
         Constant.experienceList.clear()
         Constant.ageRating1.clear()
+        Constant.seatCategoryList1.clear()
+        Constant.seatTypeList1.clear()
 
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
@@ -314,6 +316,12 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
             val editor = sharedPreferences?.edit()
             editor?.putBoolean(onBoardingClick, true)
             editor?.commit()
+
+            Constant.experience.addAll(Constant.experienceList)
+            Constant.ageRating.addAll(Constant.ageRating1)
+            Constant.seatCategoryList.addAll(Constant.seatCategoryList1)
+            Constant.seatTypeList.addAll(Constant.seatTypeList1)
+
             println("UpdateExperience--->$experience")
             updatePreference(PreferenceRequest(arbic,cinema,
                 Constant.experience.distinct().toString(),
@@ -480,11 +488,10 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
                 }
 
                 if (Constant.seatCategoryList.contains(item.cateTypeText)) {
-                    Constant.seatCategoryList.removeAll{it == item.cateTypeText}
-
-//                    Constant.seatCategoryList.remove(item.cateTypeText)
 
                     if (item.cateTypeText == "Family") {
+                        Constant.seatCategoryList.removeAll{it == item.cateTypeText}
+
                         for (items in listFN) {
                             println("SeatListClick22222 ------------->listFN3")
                             Glide.with(this).load(listFN[0].imgCate)
@@ -493,6 +500,8 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
                     }
 
                     if (item.cateTypeText == "Bachelor") {
+                        Constant.seatCategoryList.removeAll{it == item.cateTypeText}
+
                         for (items in listBN) {
                             println("SeatListClick22222 ------------->listFN3")
                             Glide.with(this).load(listBN[0].imgCate)
@@ -507,10 +516,11 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
                     )
 
                 } else {
-                    Constant.seatCategoryList.clear()
-                    Constant.seatCategoryList.add(item.cateTypeText)
-//                    categoryImage.setColorFilter(resources.getColor(R.color.text_alert_color_red))
+
+
                     if (item.cateTypeText == "Family") {
+                        Constant.seatCategoryList1.add(item.cateTypeText)
+
                         for (items in listFA) {
                             println("SeatListClick22222 ------------->listFA2")
 //                            seatTypeCheck = 1
@@ -520,6 +530,8 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
                     }
 
                     if (item.cateTypeText == "Bachelor") {
+                        Constant.seatCategoryList1.add(item.cateTypeText)
+
                         for (items in listBA) {
                             println("SeatListClick22222 ------------->listBA2")
                             Glide.with(this).load(items.imgCate).dontAnimate()
@@ -532,7 +544,7 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
                             R.color.text_alert_color_red
                         )
                     )
-                    println("SeatListClick2123 ------------->${Constant.seatCategoryList}")
+
                 }
             }
 
@@ -603,7 +615,6 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
                 if (Constant.seatTypeList.contains(type_item.seatType)) {
                     Constant.seatTypeList.removeAll{it == type_item.seatType}
 
-//                    Constant.seatTypeList.remove(type_item.seatType)
 
                     println("SeatListClick21 ------------->yes")
                     typeName.setTextColor(
@@ -614,14 +625,15 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
                     )
 
                 } else {
-                    Constant.seatTypeList.clear()
+
+                    Constant.seatTypeList1.add(type_item.seatType)
+
                     Constant.seatTypeList.add(type_item.seatType)
                     typeName.setTextColor(
                         ContextCompat.getColorStateList(
                             this, R.color.text_alert_color_red
                         )
                     )
-                    println("SeatListClick21 ------------->no")
                 }
 
             }
@@ -783,7 +795,8 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
                         android.graphics.PorterDuff.Mode.MULTIPLY
                     )
                 } else {
-                    Constant.experience.add(data.name)
+
+                    Constant.experienceList.add(data.name)
                     experienceName.setColorFilter(
                         ContextCompat.getColor(
                             this, R.color.text_alert_color_red
@@ -849,12 +862,13 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
                 )
             }
 
-
             v.setOnClickListener {
 
                 if (Constant.ageRating.contains(age_rating_item.name)) {
                     Constant.ageRating.removeAll{it == age_rating_item.name}
+
 //                    Constant.ageRating.remove(age_rating_item.name)
+
                     ageRatingName.setTextColor(
                         ContextCompat.getColor(
                             this,
@@ -870,7 +884,8 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
                             R.color.text_alert_color_red
                         )
                     )
-                    Constant.ageRating.add(age_rating_item.name)
+                    Constant.ageRating1.add(age_rating_item.name)
+
                 }
             }
         }
