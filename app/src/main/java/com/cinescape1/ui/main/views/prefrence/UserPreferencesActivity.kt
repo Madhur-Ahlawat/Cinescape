@@ -92,8 +92,8 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
 
         Constant.experienceList.clear()
         Constant.ageRating1.clear()
-        Constant.seatCategoryList1.clear()
-        Constant.seatTypeList1.clear()
+
+
 
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
@@ -317,10 +317,14 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
             editor?.putBoolean(onBoardingClick, true)
             editor?.commit()
 
+            Constant.seatCategoryList.clear()
+            Constant.seatTypeList.clear()
+
             Constant.experience.addAll(Constant.experienceList)
             Constant.ageRating.addAll(Constant.ageRating1)
-            Constant.seatCategoryList.addAll(Constant.seatCategoryList1)
-            Constant.seatTypeList.addAll(Constant.seatTypeList1)
+
+            Constant.seatCategoryList.add(preferences.getString(Constant.SEAT_CATEGORY)!!)
+            Constant.seatTypeList.add(preferences.getString(Constant.SEAT_TYPE)!!)
 
             println("UpdateExperience--->$experience")
             updatePreference(PreferenceRequest(arbic,cinema,
@@ -397,7 +401,9 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
 
             if (item.cateTypeText == seat) {
 
+                preferences.putString(Constant.SEAT_CATEGORY, item.cateTypeText)
                 if (seat == "Family") {
+//                    Constant.seatCategoryList.add(item.cateTypeText)
 
                     for (items in listFA) {
                         println("SeatListClick22222 ------------->2")
@@ -414,6 +420,8 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
                 }
 
                 if (seat == "Bachelor") {
+//                    Constant.seatCategoryList.add(item.cateTypeText)
+
                     for (items in listBA) {
                         println("SeatListClick22222 ------------->22")
                         Glide.with(this).load(items.imgCate).placeholder(R.drawable.family_n_active)
@@ -517,9 +525,11 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
 
                 } else {
 
+                    Constant.seatCategoryList.clear()
+                    Constant.seatTypeList.clear()
+                    preferences.putString(Constant.SEAT_CATEGORY, item.cateTypeText)
 
                     if (item.cateTypeText == "Family") {
-                        Constant.seatCategoryList1.add(item.cateTypeText)
 
                         for (items in listFA) {
                             println("SeatListClick22222 ------------->listFA2")
@@ -530,7 +540,6 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
                     }
 
                     if (item.cateTypeText == "Bachelor") {
-                        Constant.seatCategoryList1.add(item.cateTypeText)
 
                         for (items in listBA) {
                             println("SeatListClick22222 ------------->listBA2")
@@ -552,8 +561,6 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
     }
 
     @SuppressLint("InflateParams")
-    val viewListForSeatType = ArrayList<View>()
-    @SuppressLint("CutPasteId")
     private fun createSeatType(layout: FlexboxLayout, seatType : String) {
 
         val list: ArrayList<ModelPreferenceType> = arrayListOf(
@@ -569,7 +576,6 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
             if (languageCheck == "ar"){
                 val regular = ResourcesCompat.getFont(this, R.font.gess_light)
                 typeName.typeface = regular
-
             }else{
                 val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
                 typeName.typeface = regular
@@ -582,12 +588,18 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
             }
 
             typeName.text = type_item.seatType
+            val viewListForSeatType = ArrayList<View>()
             viewListForSeatType.add(v)
             layout.addView(v)
 
             val seat = seatType.replace("[", "").replace("]", "")
+            println("SeatTypePreFrence--->${type_item.seatType}---<${seat}")
 
-            if (type_item.seatType == seat) {
+            if (type_item.seatType.uppercase() == seat.uppercase()) {
+
+//                Constant.seatTypeList.add(type_item.seatType)
+
+                preferences.putString(Constant.SEAT_TYPE, type_item.seatType)
                 typeName.setTextColor(
                     ContextCompat.getColor(
                         this,
@@ -595,8 +607,9 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
                     )
                 )
 
-                Constant.seatTypeList.add(type_item.seatType)
+
             } else {
+
                 typeName.setTextColor(ContextCompat.getColor(this, R.color.hint_color))
             }
 
@@ -615,7 +628,6 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
                 if (Constant.seatTypeList.contains(type_item.seatType)) {
                     Constant.seatTypeList.removeAll{it == type_item.seatType}
 
-
                     println("SeatListClick21 ------------->yes")
                     typeName.setTextColor(
                         ContextCompat.getColorStateList(
@@ -626,14 +638,16 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
 
                 } else {
 
-                    Constant.seatTypeList1.add(type_item.seatType)
+                    Constant.seatCategoryList.clear()
+                    Constant.seatTypeList.clear()
+                    preferences.putString(Constant.SEAT_TYPE, type_item.seatType)
 
-                    Constant.seatTypeList.add(type_item.seatType)
                     typeName.setTextColor(
                         ContextCompat.getColorStateList(
                             this, R.color.text_alert_color_red
                         )
                     )
+
                 }
 
             }

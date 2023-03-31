@@ -285,6 +285,8 @@ class FoodActivity : DaggerAppCompatActivity(),
             }
 
             binding?.txtProceed?.setOnClickListener {
+                println("foodCartListSizeFOOD---------->${foodCartList?.size}")
+
                 if (!foodCartList.isNullOrEmpty()) {
                     try {
                         val foodRequest = SaveFoodRequest()
@@ -313,7 +315,9 @@ class FoodActivity : DaggerAppCompatActivity(),
 
             resendTimer()
             seatPrice = intent.getStringExtra("PRICE").toString()
-        } else if (booktype != "ADDFOOD") {
+
+        } else if (booktype == "ADDFOOD") {
+
             binding?.viewCancel?.setOnClickListener {
                 cancelDialog()
             }
@@ -322,7 +326,10 @@ class FoodActivity : DaggerAppCompatActivity(),
             binding?.textTimeToLeft?.hide()
             binding?.textTimeLeft?.hide()
             binding?.textView112?.hide()
+
             binding?.txtProceed?.setOnClickListener {
+                println("foodCartListSizeADDFOOD---------->${foodCartList?.size}---->${booktype}")
+
                 if (!foodCartList.isNullOrEmpty()) {
                     try {
                         val foodRequest = SaveFoodRequest()
@@ -363,7 +370,9 @@ class FoodActivity : DaggerAppCompatActivity(),
             }
 
             binding?.txtProceed?.setOnClickListener {
-                if (!foodCartList.isNullOrEmpty()) {
+                println("foodCartListSize21---------->${foodCartList?.size}")
+
+                if (foodCartList!!.size > 0) {
                     try {
                         val foodRequest = SaveFoodRequest()
                         foodRequest.concessionFoods = foodCartList!!
@@ -1708,7 +1717,7 @@ class FoodActivity : DaggerAppCompatActivity(),
 
 
         } else {
-            Toast.makeText(this, "hello 33", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "hello 33", Toast.LENGTH_SHORT).show()
 
             binding?.textCartCountNotiication?.text = "0"
             binding?.textCartCountNotiication?.show()

@@ -194,15 +194,16 @@ class AccountPageFragment : DaggerFragment(),
     private var foodTotalPrice1: TextView? = null
     private var foodPaidby1: TextView? = null
 
+    var seatTypeItem = ""
+    var seatCategoryItem = ""
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+        savedInstanceState: Bundle?): View {
         binding = FragmentAccountPageBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
         return view!!
-
     }
 
     @SuppressLint("SetTextI18n")
@@ -216,8 +217,8 @@ class AccountPageFragment : DaggerFragment(),
 
         Constant.experienceList.clear()
         Constant.ageRating1.clear()
-        Constant.seatCategoryList1.clear()
-        Constant.seatTypeList1.clear()
+//        Constant.seatCategoryList1.clear()
+//        Constant.seatTypeList1.clear()
 
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
@@ -625,13 +626,18 @@ class AccountPageFragment : DaggerFragment(),
 
         //Save Prefrence
         textView3.setOnClickListener {
-
             preferencesCheck = 1
-            println("updatePreferenceConstant------->${Constant.experience}--${Constant.ageRating}")
-                Constant.experience.addAll(Constant.experienceList)
+
+            Constant.seatTypeList.clear()
+            Constant.seatCategoryList.clear()
+
+            Constant.experience.addAll(Constant.experienceList)
             Constant.ageRating.addAll(Constant.ageRating1)
-            Constant.seatCategoryList.addAll(Constant.seatCategoryList1)
-            Constant.seatTypeList.addAll(Constant.seatTypeList1)
+            Constant.seatCategoryList.add(preferences.getString(Constant.SEAT_CATEGORY)!!)
+            Constant.seatTypeList.add(preferences.getString(Constant.SEAT_TYPE)!!)
+
+            println("updatePreferenceConstant------->${preferences.getString(Constant.SEAT_CATEGORY)!!}")
+            println("updatePreferenceConstant21------->${preferences.getString(Constant.SEAT_TYPE)!!}")
 
             updatePreference(
                 PreferenceRequest(
@@ -1845,14 +1851,16 @@ class AccountPageFragment : DaggerFragment(),
             val seat = seatCategory.replace("[", "").replace("]", "")
             println("SeatCategory212--->${item.cateTypeText}--->${seat}")
 
-            if (item.cateTypeText == seat) {
+            if (item.cateTypeText.uppercase() == seat.uppercase()) {
 //                categoryImage.setColorFilter(resources.getColor(R.color.text_alert_color_red))
 //                categoryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_alert_color_red))
 
+                preferences.putString(Constant.SEAT_CATEGORY, item.cateTypeText)
                 if (seat == "Family") {
+//                    Constant.seatCategoryList.add(item.cateTypeText)
 
                     for (items in listFA) {
-                        println("SeatListClick22222 ------------->2")
+
                         Glide.with(this).load(items.imgCate).placeholder(R.drawable.family_active)
                             .into(categoryImage)
 //                        categoryImage.setImageResource(R.drawable.family_active)
@@ -1866,11 +1874,13 @@ class AccountPageFragment : DaggerFragment(),
                 }
 
                 if (seat == "Bachelor") {
+//                    Constant.seatCategoryList.add(item.cateTypeText)
+
                     for (items in listBA) {
                         println("SeatListClick22222 ------------->22")
                         Glide.with(this).load(items.imgCate).placeholder(R.drawable.family_n_active)
                             .into(categoryImage)
-//                        categoryImage.setImageResource(R.drawable.family_n_active)
+
                     }
                     categoryName.setTextColor(
                         getColor(
@@ -1882,17 +1892,12 @@ class AccountPageFragment : DaggerFragment(),
 
 
             } else {
-//                categoryImage.setColorFilter(resources.getColor(R.color.hint_color))
-//                categoryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.hint_color))
 
                 if (seat == "Family") {
+
                     Glide.with(this).load(listBN[0].imgCate).placeholder(R.drawable.family_icons)
                         .into(categoryImage)
 
-//                    for (items in listFN){
-//                        println("SeatListClick22222 ------------->1")
-//                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.family_icons).into(categoryImage)
-//                    }
                     categoryName.setTextColor(
                         getColor(
                             requireContext(),
@@ -1902,12 +1907,9 @@ class AccountPageFragment : DaggerFragment(),
                 }
 
                 if (seat == "Bachelor") {
+
                     Glide.with(this).load(listFN[0].imgCate)
                         .placeholder(R.drawable.family_normal_icon).into(categoryImage)
-//                    for (items in listBN){
-//                        println("SeatListClick22222 ------------->11")
-//                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.family_normal_icon).into(categoryImage)
-//                    }
                     categoryName.setTextColor(
                         getColor(
                             requireContext(),
@@ -1990,9 +1992,11 @@ class AccountPageFragment : DaggerFragment(),
 
                 } else {
 
-                    if (item.cateTypeText == "Family") {
-                        Constant.seatCategoryList1.add(item.cateTypeText)
+                    Constant.seatCategoryList.clear()
+                    Constant.seatTypeList.clear()
+                    preferences.putString(Constant.SEAT_CATEGORY, item.cateTypeText)
 
+                    if (item.cateTypeText == "Family") {
                         for (items in listFA) {
                             println("SeatListClick22222 ------------->listFA2")
 //                            seatTypeCheck = 1
@@ -2002,8 +2006,6 @@ class AccountPageFragment : DaggerFragment(),
                     }
 
                     if (item.cateTypeText == "Bachelor") {
-                        Constant.seatCategoryList1.add(item.cateTypeText)
-
                         for (items in listBA) {
                             println("SeatListClick22222 ------------->listBA2")
                             Glide.with(this).load(items.imgCate).dontAnimate()
@@ -2047,21 +2049,24 @@ class AccountPageFragment : DaggerFragment(),
             viewListForSeatType.add(v)
             layout.addView(v)
 
-            println("SeatType221--->${type_item.seatType}---<${seatType}")
-
             val seat = seatType.replace("[", "").replace("]", "")
 
-            if (type_item.seatType == seat) {
+            println("SeatType221--->${type_item.seatType}---<${seat}")
+
+            if (type_item.seatType == seat.uppercase()) {
+
+//                Constant.seatTypeList.add(type_item.seatType)
+
+                preferences.putString(Constant.SEAT_TYPE, type_item.seatType)
                 typeName.setTextColor(getColor(requireContext(), R.color.text_alert_color_red))
-                Constant.seatTypeList.add(type_item.seatType)
+
             } else {
                 typeName.setTextColor(getColor(requireContext(), R.color.hint_color))
             }
 
             v.setOnClickListener {
-
                 for (v in viewListForSeatType) {
-
+                    println("SeatListClick21No ------------->${type_item.seatType}")
                     val typeName1: TextView = v.findViewById(R.id.tv_seat_selectiopn) as TextView
                     typeName1.setTextColor(
                         ContextCompat.getColorStateList(
@@ -2072,26 +2077,25 @@ class AccountPageFragment : DaggerFragment(),
 
                 }
 
+                println("SeatListClick21Yes ------------->${type_item.seatType}")
+
                 if (Constant.seatTypeList.contains(type_item.seatType)) {
                     Constant.seatTypeList.removeAll{it == type_item.seatType}
-
-//                    Constant.seatTypeList.remove(type_item.seatType)
-                    println("SeatListClick21 ------------->yes")
                     typeName.setTextColor(
                         ContextCompat.getColorStateList(
                             requireContext(),
                             R.color.hint_color))
-
                 } else {
 
-                    Constant.seatTypeList1.add(type_item.seatType)
+                    Constant.seatTypeList.clear()
+                    Constant.seatCategoryList.clear()
+
+                    preferences.putString(Constant.SEAT_TYPE, type_item.seatType)
 
                     typeName.setTextColor(
                         ContextCompat.getColorStateList(
-                            requireContext(), R.color.text_alert_color_red
-                        )
-                    )
-                    println("SeatListClick21 ------------->no")
+                            requireContext(), R.color.text_alert_color_red))
+                    println("SeatListClick21Yes ------------->${type_item.seatType}")
                 }
 
             }
@@ -2280,6 +2284,7 @@ class AccountPageFragment : DaggerFragment(),
 
                 }
             }
+
         }
     }
 
@@ -3450,6 +3455,7 @@ class AccountPageFragment : DaggerFragment(),
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.cancel_dialog)
+
         dialog.window!!.setLayout(
             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
         )
@@ -3467,6 +3473,9 @@ class AccountPageFragment : DaggerFragment(),
             Constant.IntentKey.BOOKINGClick = 0
             Constant.IntentKey.BACKFinlTicket = 0
             NextBookingsResponse = null
+
+            Constant.experience.clear()
+            Constant.ageRating.clear()
 
             val intent = Intent(requireContext(), LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
