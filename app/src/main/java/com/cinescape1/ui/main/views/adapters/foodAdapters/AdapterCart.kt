@@ -61,6 +61,8 @@ class AdapterCart(
         holder.viewRemove.setOnClickListener {
             listener.onRemoveCart(cartSelctedItem, position)
         }
+
+
     }
 
     override fun getItemCount(): Int {
