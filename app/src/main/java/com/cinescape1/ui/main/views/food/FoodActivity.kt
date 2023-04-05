@@ -1300,8 +1300,14 @@ class FoodActivity : DaggerAppCompatActivity(),
                             } else {
                                 binding?.textCartCountNotiication?.invisible()
 
-                                binding?.txtProceed?.hide()
-                                binding?.txtSkipBtn?.show()
+                                if (booktype == "FOOD"){
+                                    binding?.txtProceed?.show()
+                                    binding?.txtSkipBtn?.hide()
+                                }else{
+                                    binding?.txtProceed?.hide()
+                                    binding?.txtSkipBtn?.show()
+                                }
+
                             }
 
                             updateItemUi(foodItem)
@@ -1314,6 +1320,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                 }
 
                 "combo" -> {
+
 //                    text_combo_head.show()
                     if (foodItem.title.isNotEmpty()) {
                         text_combo_head.show()
@@ -1353,9 +1360,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                     layoutManager.flexDirection = FlexDirection.ROW
                     layoutManager.justifyContent = JustifyContent.FLEX_START
                     layoutManager.alignItems = AlignItems.FLEX_START
-
                     recyclerviewComboTitle.layoutManager = layoutManager
-
 
                     recyclerviewComboTitle.adapter = comboAdapter
                     comboAdapter?.loadNewData(foodItem.packageChildItems, foodItem.alternateItems)
@@ -1464,13 +1469,23 @@ class FoodActivity : DaggerAppCompatActivity(),
             if (foodCartListNew?.size!! > 0) {
                 binding?.textCartCountNotiication?.show()
                 binding?.textCartCountNotiication?.text = foodCartListNew?.size.toString()
-                binding?.txtProceed?.show()
-                binding?.txtSkipBtn?.hide()
+
+
+                    binding?.txtProceed?.show()
+                    binding?.txtSkipBtn?.hide()
+
+
             } else {
                 binding?.textCartCountNotiication?.text = "0"
                 binding?.textCartCountNotiication?.show()
-                binding?.txtProceed?.hide()
-                binding?.txtSkipBtn?.show()
+
+                if (booktype == "FOOD"){
+                    binding?.txtProceed?.show()
+                    binding?.txtSkipBtn?.hide()
+                }else{
+                    binding?.txtProceed?.hide()
+                    binding?.txtSkipBtn?.show()
+                }
 
             }
             comboAdapter?.notifyDataSetChanged()
@@ -1555,6 +1570,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             foodCartAdapter?.notifyDataSetChanged()
             foodAdapter?.notifyDataSetChanged()
         } else {
+
             toast("Select only 20 items")
         }
         itemCartPrice += getCartFoodPrice()
@@ -1591,13 +1607,14 @@ class FoodActivity : DaggerAppCompatActivity(),
             foodCartAdapter?.notifyDataSetChanged()
             foodAdapter?.notifyDataSetChanged()
             if (foodItem.foodType.uppercase() == "INDIVIDUAL") {
+
                 foodAdapter?.loadNewData(tabItem?.concessionItems!!)
 //                Toast.makeText(this, "hello 44", Toast.LENGTH_SHORT).show()
 
             } else {
+
                 updateSelectedList(foodItem, 3)
 //                Toast.makeText(this, "hello 33", Toast.LENGTH_SHORT).show()
-
             }
         }
 
@@ -1676,8 +1693,14 @@ class FoodActivity : DaggerAppCompatActivity(),
             emptyCart?.show()
             binding?.textCartCountNotiication?.invisible()
 
-            binding?.txtProceed?.hide()
-            binding?.txtSkipBtn?.show()
+            if (booktype == "FOOD"){
+                binding?.txtProceed?.show()
+                binding?.txtSkipBtn?.hide()
+            }else{
+                binding?.txtProceed?.hide()
+                binding?.txtSkipBtn?.show()
+            }
+
         }
 
     }
@@ -1687,16 +1710,12 @@ class FoodActivity : DaggerAppCompatActivity(),
 
         totalFoodAmt -= (foodCartListNew?.get(pos)?.foodQuan!! * foodCartListNew?.get(pos)?.itemPrice!!)
 
-//        finish()
-//        startActivity(intent)
-
         if (pos <= (foodCartList?.size!! - 1))
             foodCartList?.removeAt(pos)
 
         if (pos <= (foodCartListNew?.size!! - 1))
             foodCartListNew?.removeAt(pos)
 
-//        Log.w("Total", "" + totalFoodAmt)
         if (totalFoodAmt < 0) totalFoodAmt = 0.0
 
         if (foodCartListNew?.size!! > 0) {
@@ -1719,15 +1738,23 @@ class FoodActivity : DaggerAppCompatActivity(),
                 println("item.foodtypeCase------->${item.foodtype.uppercase()}")
 
                 if (item.foodtype.uppercase() == "INDIVIDUAL") {
+                    if (pos <= (foodCartList?.size!! - 1))
+                        foodCartList?.removeAt(pos)
+
                     foodAdapter?.loadNewData(tabItem?.concessionItems!!)
                     foodAdapter?.notifyDataSetChanged()
-//                    Toast.makeText(this, "hello 00", Toast.LENGTH_SHORT).show()
+
+                    Toast.makeText(this, "hello 00", Toast.LENGTH_SHORT).show()
+
                 } else {
+
+                    Toast.makeText(this, "hello 11", Toast.LENGTH_SHORT).show()
+
                     if (mFoodCartDialog?.isShowing == true)
                         mFoodCartDialog?.dismiss()
-//                    Toast.makeText(this, "hello 11", Toast.LENGTH_SHORT).show()
-//                    foodAdapter?.loadNewData(foodSelectedList!!)
-//                    foodAdapter?.notifyDataSetChanged()
+
+                    if (pos <= (foodCartList?.size!! - 1))
+                        foodCartList?.removeAt(pos)
 
                 }
 
@@ -1735,7 +1762,8 @@ class FoodActivity : DaggerAppCompatActivity(),
 
 
         } else {
-            Toast.makeText(this, "hello 33", Toast.LENGTH_SHORT).show()
+
+//            Toast.makeText(this, "hello 33", Toast.LENGTH_SHORT).show()
 
             if (mFoodCartDialog?.isShowing == true)
                 mFoodCartDialog?.dismiss()
@@ -1762,6 +1790,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             if (mFoodCartDialog?.isShowing == true)
                 mFoodCartDialog?.dismiss()
         }
+
     }
 
     private fun updateSelectedList(foodItem: GetFoodResponse.FoodDtls?, type: Int) {
@@ -2284,7 +2313,6 @@ class FoodActivity : DaggerAppCompatActivity(),
 
                                     } catch (e: Exception) {
                                         println("updateUiCinemaSession ---> ${e.message}")
-
                                     }
                                 } else {
                                     loader?.dismiss()

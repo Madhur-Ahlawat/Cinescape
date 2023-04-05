@@ -2,6 +2,7 @@ package com.cinescape1.ui.main.views.login.resetPassword
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.MotionEvent
@@ -64,6 +65,14 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
         setContentView(binding?.root)
 
         manageFunctions()
+
+       otpView?.apply {
+//            setCursorShape(R.drawable.example_cursor)
+            setCursorColor(Color.WHITE)
+//            setTextSize(12)
+            setTextColor(Color.WHITE)
+            showCursor(true)
+        }
 
     }
 

@@ -45,8 +45,25 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
             onBackPressed()
         }
         Constant().appBarHide(this)
-
         manageFunctions()
+
+        binding?.textView146?.apply {
+//            setCursorShape(R.drawable.example_cursor)
+            setCursorColor(Color.WHITE)
+//            setTextSize(12)
+            setTextColor(Color.WHITE)
+            showCursor(true)
+        }
+
+        binding?.textView149?.apply {
+//            setCursorShape(R.drawable.example_cursor)
+            setCursorColor(Color.WHITE)
+//            setTextSize(12)
+            setTextColor(Color.WHITE)
+            showCursor(true)
+        }
+
+
     }
 
     private fun manageFunctions() {
