@@ -12,14 +12,12 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.*
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.requestModel.*
@@ -33,7 +31,6 @@ import com.cinescape1.ui.main.views.adapters.checkoutAdapter.AdapterCheckoutFood
 import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.ui.main.views.login.LoginActivity
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity
-import com.cinescape1.ui.main.views.payment.paymentList.adapter.ItemInfoPopupAdapter
 import com.cinescape1.ui.main.views.summery.viewModel.SummeryViewModel
 import com.cinescape1.utils.*
 import com.google.android.flexbox.AlignItems
@@ -53,6 +50,8 @@ import javax.inject.Inject
 
 @Suppress("DEPRECATION")
 class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFaceSeatLists {
+
+    private var mDialog: Dialog?=null
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -313,40 +312,36 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
     }
 
     private fun cancelDialog() {
-        val dialog = Dialog(this)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.cancel_dialog)
-        dialog.window!!.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
-        dialog.window!!.setGravity(Gravity.BOTTOM)
-        dialog.show()
-
-        dialog.consSure?.setOnClickListener {
-            Constant.IntentKey.TimerExtandCheck = true
-            Constant.IntentKey.TimerExtand = 90
-            Constant.IntentKey.TimerTime = 360
-            cancelTrans(CancelTransRequest(bookingId, transId))
-            if (bookType == "FOOD"){
-
-                Constant.IntentKey.DialogShow = true
-                val intent = Intent(this, HomeActivity::class.java)
-                Constant.IntentKey.OPEN_FROM = 0
-                startActivity(intent)
-                finish()
-
-            }else{
+        mDialog = Dialog(this).also {
+            it.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            it.setContentView(R.layout.cancel_dialog)
+            it.window!!.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            it.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            it.window!!.attributes.windowAnimations = R.style.DialogAnimation
+            it.window!!.setGravity(Gravity.BOTTOM)
+            it.show()
+            it.consSure?.setOnClickListener {
+                Constant.IntentKey.TimerExtandCheck = true
+                Constant.IntentKey.TimerExtand = 90
+                Constant.IntentKey.TimerTime = 360
+                cancelTrans(CancelTransRequest(bookingId, transId))
+                if (bookType == "FOOD"){
+                    Constant.IntentKey.DialogShow = true
+                    val intent = Intent(this, HomeActivity::class.java)
+                    Constant.IntentKey.OPEN_FROM = 0
+                    startActivity(intent)
+                }
                 finish()
             }
-
+            it.negative_btn?.setOnClickListener { it2->
+                it.dismiss()
+            }
         }
 
-        dialog.negative_btn?.setOnClickListener {
-            dialog.dismiss()
-        }
+
     }
 
     // Ticket Summary

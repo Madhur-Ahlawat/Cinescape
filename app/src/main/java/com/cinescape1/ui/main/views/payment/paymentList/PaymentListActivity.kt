@@ -6,6 +6,7 @@ import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
@@ -15,6 +16,7 @@ import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -40,6 +42,7 @@ import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
 import com.cinescape1.ui.main.views.home.HomeActivity
+import com.cinescape1.ui.main.views.payment.PaymentMethodSealedClass
 import com.cinescape1.ui.main.views.payment.PaymentWebActivity
 import com.cinescape1.ui.main.views.payment.paymentList.adapter.ItemInfoPopupAdapter
 import com.cinescape1.ui.main.views.payment.paymentList.adapter.PaymentListAdapter
@@ -48,7 +51,6 @@ import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResp
 import com.cinescape1.ui.main.views.summery.response.GiftCardResponse
 import com.cinescape1.ui.main.views.summery.viewModel.SummeryViewModel
 import com.cinescape1.utils.*
-import com.cinescape1.utils.Constant.Companion.applyCheck
 import com.cinescape1.utils.Constant.Companion.bankOfferClick
 import com.threatmetrix.TrustDefender.*
 import com.threatmetrix.TrustDefender.TMXProfilingConnections.TMXProfilingConnections
@@ -83,7 +85,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     private val summeryViewModel: SummeryViewModel by viewModels { viewModelFactory }
 
     private var binding: ActivityPaymentListBinding? = null
-    private var loader: LoaderDialog? = null
     private var cardinal = Cardinal.getInstance()
     private var bookingId = ""
     private var transId = ""
@@ -117,9 +118,12 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         binding = ActivityPaymentListBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
         setContentView(view)
-
-
         manageFunctions()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Constant.CARD_NO=""
     }
 
     private fun manageFunctions() {
@@ -155,8 +159,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
         ticketList(
             TicketSummaryRequest(
-                "5010",
-                "5a12cd47d0f3497f81f06619c9a95664",
+                transId,
+                bookingId,
                 preferences.getString(Constant.USER_ID).toString()
             )
         )
@@ -182,30 +186,43 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
 
         binding?.txtProceed?.setOnClickListener {
-
-            if (applyCheck == 1) {
-                walletPay(
-                    HmacKnetRequest(
-                        bookingId,
-                        bookType,
-                        transId,
-                        preferences.getString(Constant.USER_ID).toString()
+            when (summeryViewModel.selectedPaymentMethod) {
+                PaymentMethodSealedClass.CREDIT_CARD -> {
+                    creditCardDialog(Constant.CARD_NO)
+                }
+                PaymentMethodSealedClass.WALLET -> {
+                    walletPay(
+                        HmacKnetRequest(
+                            bookingId,
+                            bookType,
+                            transId,
+                            preferences.getString(Constant.USER_ID).toString()
+                        )
                     )
-                )
-                applyCheck = 2
-                println("applyCheck213--------->${applyCheck}")
-            } else {
-                val dialog = OptionDialog(this,
-                    R.mipmap.ic_launcher,
-                    R.string.app_name,
-                    getString(R.string.select_payment_methods),
-                    positiveBtnText = R.string.ok,
-                    negativeBtnText = R.string.no,
-                    positiveClick = {},
-                    negativeClick = {})
-                dialog.show()
-
+                }
+                PaymentMethodSealedClass.KNET -> {
+                    paymentHmac(
+                        HmacKnetRequest(
+                            bookingId,
+                            bookType,
+                            transId,
+                            preferences.getString(Constant.USER_ID).toString()
+                        )
+                    )
+                }
+                PaymentMethodSealedClass.NONE -> {
+                    val dialog = OptionDialog(this,
+                        R.mipmap.ic_launcher,
+                        R.string.app_name,
+                        getString(R.string.select_payment_methods),
+                        positiveBtnText = R.string.ok,
+                        negativeBtnText = R.string.no,
+                        positiveClick = {},
+                        negativeClick = {})
+                    dialog.show()
+                }
             }
+
 
         }
 
@@ -217,7 +234,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        loader?.dismiss()
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
@@ -237,7 +255,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 }
 
                             } else {
-                                loader?.dismiss()
+                                LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                                 val dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
                                     R.string.app_name,
@@ -252,7 +271,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         }
                     }
                     Status.ERROR -> {
-                        loader?.dismiss()
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                         val dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
@@ -264,8 +284,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        loader = LoaderDialog(R.string.pleasewait)
-                        loader?.show(supportFragmentManager, null)
+                        LoaderDialog.getInstance(R.string.pleasewait)?.show(supportFragmentManager, null)
+
                     }
                 }
             }
@@ -276,17 +296,13 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         binding?.paymentLayout?.show()
         binding?.textTimeToLeft?.text = output.amount
         val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
-        adapter = PaymentListAdapter(this, output.payMode, this)
+        adapter = PaymentListAdapter(this, output.payMode, this,summeryViewModel)
         binding?.recyclerPayMode?.layoutManager = gridLayout
         binding?.recyclerPayMode?.adapter = adapter
     }
 
     override fun walletItemApply(view: PaymentListResponse.Output.PayMode) {
-        walletPay(
-            HmacKnetRequest(
-                bookingId, bookType, transId, preferences.getString(Constant.USER_ID).toString()
-            )
-        )
+
     }
 
     override fun bankItemApply(
@@ -342,7 +358,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        loader?.dismiss()
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 binding?.textTimeToLeft?.text = it.data.output.amount
@@ -351,11 +367,9 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 apply.hide()
                                 close.hide()
                                 chekbox.hide()
-
+                                summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.BANK_OFFER)
                                 bankCancel.show()
                                 offerApplied = true
-                                adapter?.notifyDataSetChanged()
-
 //                             //bank  Clickable false
                                 bankEdit.isClickable = false
                                 bankEdit.isEnabled = false
@@ -381,12 +395,25 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 offerEditText.isEnabled = false
                                 offerEditText.isFocusable = false
                                 bankEdit.isFocusableInTouchMode = false
+                                adapter?.customAdapter?.notifyDataSetChanged()
+                            }
+                            else{
+                                val dialog = OptionDialog(this,
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
                             }
 
                         }
                     }
                     Status.ERROR -> {
-                        loader?.dismiss()
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                         val dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
@@ -399,8 +426,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     }
 
                     Status.LOADING -> {
-                        loader = LoaderDialog(R.string.pleasewait)
-                        loader?.show(supportFragmentManager, null)
+                        LoaderDialog.getInstance(R.string.pleasewait)?.show(supportFragmentManager, null)
                     }
                 }
             }
@@ -459,7 +485,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        loader?.dismiss()
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 msg.hide()
@@ -468,10 +495,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 apply.show()
                                 close.hide()
                                 checkbox.hide()
-
                                 banksCancel.hide()
                                 offerApplied = false
-                                adapter?.notifyDataSetChanged()
                                 bankEdit.text.clear()
                                 bankEdit.isClickable = true
                                 bankEdit.isFocusable = true
@@ -500,12 +525,13 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 offerEditText.isFocusable = true
                                 offerEditText.isFocusableInTouchMode = true
                                 offerEditText.inputType = InputType.TYPE_NULL
-
+                                adapter?.notifyDataSetChanged()
                             }
                         }
                     }
                     Status.ERROR -> {
-                        loader?.dismiss()
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                         val dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
@@ -517,8 +543,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        loader = LoaderDialog(R.string.pleasewait)
-                        loader?.show(supportFragmentManager, null)
+                        LoaderDialog.getInstance(R.string.pleasewait)?.show(supportFragmentManager, null)
                     }
                 }
             }
@@ -532,7 +557,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        loader?.dismiss()
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
@@ -551,7 +577,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 }
 
                             } else {
-                                loader?.dismiss()
+                                LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                                 val dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
                                     R.string.app_name,
@@ -566,7 +593,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         }
                     }
                     Status.ERROR -> {
-                        loader?.dismiss()
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                         val dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
@@ -578,8 +606,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        loader = LoaderDialog(R.string.pleasewait)
-                        loader?.show(supportFragmentManager, null)
+                        LoaderDialog.getInstance(R.string.pleasewait)?.show(supportFragmentManager, null)
                     }
                 }
             }
@@ -588,54 +615,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     override fun onSimilarItemClick(view: GetMovieResponse.Output.Similar) {
-
-    }
-
-    override fun onCreditCardItemClick(
-        view: PaymentListResponse.Output.PayMode,
-        cardNo: String,
-        creditCardClick1: Boolean,
-        knetClick1: Boolean
-    ) {
-        val knetClick = knetClick1
-        val creditCardClick = creditCardClick1
-        paymentOptionClick(view, knetClick, creditCardClick, cardNo)
-    }
-
-    private fun paymentOptionClick(
-        view: PaymentListResponse.Output.PayMode,
-        knetClick: Boolean,
-        creditCardClick: Boolean,
-        cardNo: String
-    ) {
-
-        binding?.txtProceed?.setOnClickListener {
-
-            if (!knetClick && !creditCardClick) {
-                val dialog = OptionDialog(this,
-                    R.mipmap.ic_launcher,
-                    R.string.app_name,
-                    getString(R.string.select_payment_methods),
-                    positiveBtnText = R.string.ok,
-                    negativeBtnText = R.string.no,
-                    positiveClick = {},
-                    negativeClick = {})
-                dialog.show()
-            } else if (creditCardClick) {
-                creditCardDialog(cardNo)
-            } else if (knetClick) {
-                paymentHmac(
-                    HmacKnetRequest(
-                        bookingId,
-                        bookType,
-                        transId,
-                        preferences.getString(Constant.USER_ID).toString()
-                    )
-                )
-
-            }
-
-        }
 
     }
 
@@ -962,6 +941,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             ) {
             }
 
+            @RequiresApi(Build.VERSION_CODES.N)
             @SuppressLint("SetTextI18n")
             override fun onTextChanged(
                 p0: CharSequence?, start: Int, removed: Int, added: Int
@@ -1069,7 +1049,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                             }
                                         }
                                     } else {
-                                        loader?.dismiss()
+                                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                                         val dialog = OptionDialog(this,
                                             R.mipmap.ic_launcher,
                                             R.string.app_name,
@@ -1085,7 +1066,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 }
 
                             } else {
-                                loader?.dismiss()
+                                LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                                 val dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
                                     R.string.app_name,
@@ -1100,7 +1082,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         }
                     }
                     Status.ERROR -> {
-                        loader?.dismiss()
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                         val dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
@@ -1112,8 +1095,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        loader = LoaderDialog(R.string.pleasewait)
-                        loader?.show(supportFragmentManager, null)
+                        LoaderDialog.getInstance(R.string.pleasewait)?.show(supportFragmentManager, null)
+
                     }
                 }
             }
@@ -1125,7 +1108,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        loader?.dismiss()
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
@@ -1149,7 +1133,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 }
 
                             } else {
-                                loader?.dismiss()
+                                LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                                 val dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
                                     R.string.app_name,
@@ -1164,7 +1149,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         }
                     }
                     Status.ERROR -> {
-                        loader?.dismiss()
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                         val dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
@@ -1176,8 +1162,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        loader = LoaderDialog(R.string.pleasewait)
-                        loader?.show(supportFragmentManager, null)
+                        LoaderDialog.getInstance(R.string.pleasewait)?.show(supportFragmentManager, null)
+
                     }
                 }
             }
@@ -1189,7 +1175,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        loader?.dismiss()
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
@@ -1238,7 +1225,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 }
 
                             } else {
-                                loader?.dismiss()
+                                LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                                 val dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
                                     R.string.app_name,
@@ -1253,7 +1241,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         }
                     }
                     Status.ERROR -> {
-                        loader?.dismiss()
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                         val dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
@@ -1265,8 +1254,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        loader = LoaderDialog(R.string.pleasewait)
-                        loader?.show(supportFragmentManager, null)
+                        LoaderDialog.getInstance(R.string.pleasewait)?.show(supportFragmentManager, null)
+
                     }
                 }
             }
@@ -1360,17 +1349,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         }
     }
 
-    override fun onKnitItemClick(
-        view: PaymentListResponse.Output.PayMode, creditCardClick1: Boolean, knetClick1: Boolean
-    ) {
-
-        val knetClick = knetClick1
-        val creditCardClick = creditCardClick1
-        paymentOptionClick(view, knetClick, creditCardClick, "")
-
-
-    }
-
     override fun onVoucherApply(
         view: PaymentListResponse.Output.PayMode,
         offerCode: String,
@@ -1444,7 +1422,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        loader?.dismiss()
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
@@ -1462,35 +1441,35 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 }
 
                             } else {
-                                loader?.dismiss()
-                                val dialog = OptionDialog(this,
+                                LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
+                               OptionDialog.getInstance(this,
                                     R.mipmap.ic_launcher,
                                     R.string.app_name,
                                     it.data?.msg.toString(),
                                     positiveBtnText = R.string.ok,
                                     negativeBtnText = R.string.no,
                                     positiveClick = {},
-                                    negativeClick = {})
-                                dialog.show()
+                                    negativeClick = {})?.show()
                             }
 
                         }
                     }
                     Status.ERROR -> {
-                        loader?.dismiss()
-                        val dialog = OptionDialog(this,
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
+                        OptionDialog.getInstance(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
                             it.message.toString(),
                             positiveBtnText = R.string.ok,
                             negativeBtnText = R.string.no,
                             positiveClick = {},
-                            negativeClick = {})
-                        dialog.show()
+                            negativeClick = {})?.show()
                     }
                     Status.LOADING -> {
-                        loader = LoaderDialog(R.string.pleasewait)
-                        loader?.show(supportFragmentManager, null)
+                        LoaderDialog.getInstance(R.string.pleasewait)?.show(supportFragmentManager, null)
+
                     }
                 }
             }
@@ -1509,7 +1488,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        loader?.dismiss()
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
@@ -1521,7 +1501,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 }
 
                             } else {
-                                loader?.dismiss()
+                                LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                                 val dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
                                     R.string.app_name,
@@ -1536,7 +1517,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         }
                     }
                     Status.ERROR -> {
-                        loader?.dismiss()
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                         val dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
@@ -1548,8 +1530,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        loader = LoaderDialog(R.string.pleasewait)
-                        loader?.show(supportFragmentManager, null)
+                        LoaderDialog.getInstance(R.string.pleasewait)?.show(supportFragmentManager, null)
+
                     }
                 }
             }
@@ -1575,7 +1557,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         offerEditText.isClickable = true
         offerEditText.isEnabled = true
         offerEditText.isFocusable = true
-        bankEdit.isFocusableInTouchMode = true
+        et_enter_card_number.isFocusableInTouchMode = true
 
     }
 
@@ -1591,7 +1573,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        loader?.dismiss()
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
@@ -1608,7 +1591,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 }
 
                             } else {
-                                loader?.dismiss()
+                                LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                                 val dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
                                     R.string.app_name,
@@ -1623,7 +1607,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         }
                     }
                     Status.ERROR -> {
-                        loader?.dismiss()
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                         val dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
@@ -1635,8 +1620,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        loader = LoaderDialog(R.string.pleasewait)
-                        loader?.show(supportFragmentManager, null)
+                        LoaderDialog.getInstance(R.string.pleasewait)?.show(supportFragmentManager, null)
+
                     }
                 }
             }
@@ -1658,7 +1643,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             offerEditText.isClickable = false
             offerEditText.isEnabled = false
             offerEditText.isFocusable = false
-            bankEdit.isFocusableInTouchMode = false
+            et_enter_card_number.isFocusableInTouchMode = false
             adapter?.notifyDataSetChanged()
 
             apply.hide()
@@ -1684,14 +1669,15 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        loader?.dismiss()
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
 
                                     val intent =
                                         Intent(applicationContext, PaymentWebActivity::class.java)
-                                    intent.putExtra("PAY_URL", it.data.output.callingUrl)
+                                    intent.putExtra(Constant.IntentKey.PAY_URL, it.data.output.callingUrl)
                                     intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
                                     intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
                                     startActivity(intent)
@@ -1702,7 +1688,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 }
 
                             } else {
-                                loader?.dismiss()
+                                LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                                 val dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
                                     R.string.app_name,
@@ -1717,7 +1704,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         }
                     }
                     Status.ERROR -> {
-                        loader?.dismiss()
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                         val dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
@@ -1894,7 +1882,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        loader?.dismiss()
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
@@ -1904,7 +1893,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 }
 
                             } else {
-                                loader?.dismiss()
+                                LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                                 val dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
                                     R.string.app_name,
@@ -1919,7 +1909,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         }
                     }
                     Status.ERROR -> {
-                        loader?.dismiss()
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
                         val dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,

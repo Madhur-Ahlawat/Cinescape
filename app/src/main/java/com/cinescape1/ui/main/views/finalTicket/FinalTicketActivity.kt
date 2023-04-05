@@ -295,7 +295,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
                                     val runnable = Runnable {
                                         binding?.successConstraintLayout?.hide()
                                         binding?.imageQrCode?.show()
-                                        binding?.cardUi?.show()
+                                        binding?.cardPaymentOptionsUi?.show()
                                     }
                                     val handler = Handler(Looper.getMainLooper())
                                     handler.postDelayed(runnable, 3000)
@@ -422,7 +422,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
         val runnable = Runnable {
             binding?.successConstraintLayout?.hide()
             binding?.imageQrCode?.show()
-            binding?.cardUi?.show()
+            binding?.cardPaymentOptionsUi?.show()
         }
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed(runnable, 3000)
@@ -508,7 +508,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
                                     binding?.imageQrCode?.show()
-                                    binding?.cardUi?.show()
+                                    binding?.cardPaymentOptionsUi?.show()
                                     binding?.uiFinalTaket?.show()
                                     retrieveBookedResponse(it.data.output)
                                 } catch (e: Exception) {

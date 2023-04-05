@@ -20,9 +20,11 @@ import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.GetMovieResponse
 import com.cinescape1.databinding.ItemPaymentListBinding
 import com.cinescape1.ui.main.dailogs.OptionDialog
+import com.cinescape1.ui.main.views.payment.PaymentMethodSealedClass
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity
 import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResponse
-import com.cinescape1.utils.Constant.Companion.applyCheck
+import com.cinescape1.ui.main.views.summery.viewModel.SummeryViewModel
+import com.cinescape1.utils.Constant
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 import com.cinescape1.utils.toast
@@ -34,27 +36,26 @@ import java.util.regex.Pattern
 class PaymentListAdapter(
     private val context: Activity,
     private val payMode: ArrayList<PaymentListResponse.Output.PayMode>,
-    private val listner: RecycleViewItemClickListener
+    private val listner: RecycleViewItemClickListener, private val viewModel: SummeryViewModel
 ) : RecyclerView.Adapter<PaymentListAdapter.ViewHolder>(),
     GiftCardAdapter.RecycleViewItemClickListener {
+    public var customAdapter: BankOfferAdapter? = null
     private var clickName = ""
     private var clickId = ""
     private var offerId = ""
     private var cardNo = ""
-
     private var knetClick = false
     private var creditCardClick = false
 
     private var cartBank = true
     private var cartGift = true
     private var cartWallet = true
-
-
     private var cancelWallet = false
 
-
     inner class ViewHolder(val binding: ItemPaymentListBinding) :
-        RecyclerView.ViewHolder(binding.root)
+        RecyclerView.ViewHolder(binding.root) {
+
+    }
 
     @SuppressLint("InflateParams")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -69,12 +70,12 @@ class PaymentListAdapter(
             with(payMode[position]) {
 
                 //title
-                binding.textView156.text = this.name
+                binding.headerOfferType.text = this.name
 
                 //wallet
                 if (this.payType == "GATEWAY") {
-                    binding.imageView63.setImageResource(R.drawable.arrow_up)
-                    binding.cardUi.show()
+                    binding.ivDropdown.setImageResource(R.drawable.arrow_up)
+                    binding.cardPaymentOptionsUi.show()
                     Glide.with(context)
                         .load(this.respPayModes[1].imageUrl)
                         .into(binding.imageCreditCard)
@@ -84,21 +85,21 @@ class PaymentListAdapter(
                         .into(binding.imageKnet)
 
                 } else {
-                    binding.cardUi.hide()
+                    binding.cardPaymentOptionsUi.hide()
                 }
 
                 if (PaymentListActivity.giftApplied) {
-                    binding.consItemClick.isClickable = false
-                    binding.consItemClick.isEnabled = false
+                    binding.clHeaderLabelAndDropdown.isClickable = false
+                    binding.clHeaderLabelAndDropdown.isEnabled = false
                     binding.knet.isClickable = false
                     binding.knet.isEnabled = false
 
                     //offer Click
-                    binding.textView157.isClickable = false
-                    binding.textView157.isEnabled = false
+                    binding.tvApplyCardOffer.isClickable = false
+                    binding.tvApplyCardOffer.isEnabled = false
                     //wallet
-                    binding.textView159.isClickable = false
-                    binding.textView159.isEnabled = false
+                    binding.textviewBtWalletApply.isClickable = false
+                    binding.textviewBtWalletApply.isEnabled = false
                     //gift Cart
                     binding.offerEditText.isClickable = false
                     binding.offerEditText.isEnabled = false
@@ -107,14 +108,14 @@ class PaymentListAdapter(
                 } else {
                     binding.knet.isClickable = true
                     binding.knet.isEnabled = true
-                    binding.consItemClick.isClickable = true
-                    binding.consItemClick.isEnabled = true
+                    binding.clHeaderLabelAndDropdown.isClickable = true
+                    binding.clHeaderLabelAndDropdown.isEnabled = true
                     //offer Click
-                    binding.textView157.isClickable = true
-                    binding.textView157.isEnabled = true
+                    binding.tvApplyCardOffer.isClickable = true
+                    binding.tvApplyCardOffer.isEnabled = true
                     //wallet
-                    binding.textView159.isClickable = true
-                    binding.textView159.isEnabled = true
+                    binding.textviewBtWalletApply.isClickable = true
+                    binding.textviewBtWalletApply.isEnabled = true
                     //gift Cart
                     binding.offerEditText.isClickable = true
                     binding.offerEditText.isEnabled = true
@@ -122,16 +123,18 @@ class PaymentListAdapter(
                 }
 
                 if (PaymentListActivity.offerApplied) {
-                    binding.consItemClick.isClickable = false
-                    binding.consItemClick.isEnabled = false
+                    binding.clHeaderLabelAndDropdown.isClickable = false
+                    binding.clHeaderLabelAndDropdown.isEnabled = false
                     binding.knet.isClickable = false
                     binding.knet.isEnabled = false
                     //offer Click
-                    binding.textView157.isClickable = false
-                    binding.textView157.isEnabled = false
+                    binding.tvApplyCardOffer.isClickable = false
+                    binding.tvApplyCardOffer.isEnabled = false
+                    binding.tvApplyCardOffer.hide()
+
                     //wallet
-                    binding.textView159.isClickable = false
-                    binding.textView159.isEnabled = false
+                    binding.textviewBtWalletApply.isClickable = false
+                    binding.textviewBtWalletApply.isEnabled = false
                     //gift Cart
                     binding.offerEditText.isClickable = false
                     binding.offerEditText.isEnabled = false
@@ -139,14 +142,14 @@ class PaymentListAdapter(
                 } else {
                     binding.knet.isClickable = true
                     binding.knet.isEnabled = true
-                    binding.consItemClick.isClickable = true
-                    binding.consItemClick.isEnabled = true
+                    binding.clHeaderLabelAndDropdown.isClickable = true
+                    binding.clHeaderLabelAndDropdown.isEnabled = true
                     //offer Click
-                    binding.textView157.isClickable = true
-                    binding.textView157.isEnabled = true
+                    binding.tvApplyCardOffer.isClickable = true
+                    binding.tvApplyCardOffer.isEnabled = true
                     //wallet
-                    binding.textView159.isClickable = true
-                    binding.textView159.isEnabled = true
+                    binding.textviewBtWalletApply.isClickable = true
+                    binding.textviewBtWalletApply.isEnabled = true
                     //gift Cart
                     binding.offerEditText.isClickable = true
                     binding.offerEditText.isEnabled = true
@@ -156,100 +159,53 @@ class PaymentListAdapter(
 
                 //Card Click
                 binding.creditCard.setOnClickListener {
-                    context.toast("$cancelWallet")
-                    if (cancelWallet) {
-                        binding.cancelBtn.show()
-                        binding.textView159.hide()
-                        context.toast("show")
-                    } else {
-                        binding.cancelBtn.hide()
-                        binding.textView159.show()
-                        context.toast("hide")
-                    }
-
                     creditCardClick = true
                     knetClick = false
-                    applyCheck = 2
-
-                    binding.imageCreditCard.setImageResource(0)
-                    binding.imageKnet.setImageResource(0)
-
-                    binding.imageCreditCard.setColorFilter(
-                        ContextCompat.getColor(
-                            context,
-                            R.color.red
-                        )
-                    )
-                    binding.imageKnet.setColorFilter(ContextCompat.getColor(context, R.color.white))
-
-                    binding.textKnetName.setTextColor(context.getColor(R.color.white))
-                    binding.textCreditCardName.setTextColor(context.getColor(R.color.red))
-                    listner.onCreditCardItemClick(this, cardNo, creditCardClick, knetClick)
-
+                    context.toast("$cancelWallet")
+                    Constant.CARD_NO = cardNo
+                    viewModel.setPaymentMethodSelection(PaymentMethodSealedClass.CREDIT_CARD)
                     notifyDataSetChanged()
                 }
 
                 //Knet Click
                 binding.knet.setOnClickListener {
-//                    if(binding.wallet.visibility== View.VISIBLE){
-//                        context.toast("show")
-//                    }else{
-//                        context.toast("hide")
-//                    }
-
-                    binding.cancelBtn.hide()
-                    binding.textView159.show()
-
+                    Constant.CARD_NO = ""
+                    cancelWallet = false
+                    viewModel.setPaymentMethodSelection(PaymentMethodSealedClass.KNET)
                     knetClick = true
                     creditCardClick = false
-
-                    applyCheck = 2
-
-                    binding.imageCreditCard.setColorFilter(
-                        ContextCompat.getColor(
-                            context,
-                            R.color.white
-                        )
-                    )
-                    binding.imageKnet.setColorFilter(ContextCompat.getColor(context, R.color.red))
-
-                    binding.textKnetName.setTextColor(context.getColor(R.color.red))
-                    binding.textCreditCardName.setTextColor(context.getColor(R.color.white))
-                    listner.onKnitItemClick(this, creditCardClick, knetClick)
-
                     notifyDataSetChanged()
                 }
-
                 // apply
-                binding.textView159.setOnClickListener {
+                binding.textviewBtWalletApply.setOnClickListener {
+                    viewModel.setPaymentMethodSelection(PaymentMethodSealedClass.WALLET)
                     context.toast("apply")
-                    cancelWallet = false
-                    applyCheck = 1
-                    binding.cancelBtn.show()
-                    binding.textView159.hide()
+                    Constant.CARD_NO = ""
+                    cancelWallet = true
+                    knetClick = false
+                    creditCardClick = false
                     notifyDataSetChanged()
                 }
-
 
 //                wallet cancel
                 binding.cancelBtn.setOnClickListener {
+                    Constant.CARD_NO = ""
                     context.toast("cancel Wallet")
                     cancelWallet = true
-                    applyCheck = 2
-                    binding.cancelBtn.hide()
-                    binding.textView159.show()
+                    knetClick = false
+                    creditCardClick = false
+                    viewModel.setPaymentMethodSelection(PaymentMethodSealedClass.NONE)
                     notifyDataSetChanged()
                 }
 
-
                 //show Hide
-                binding.consItemClick.setOnClickListener {
+                binding.clHeaderLabelAndDropdown.setOnClickListener {
                     println("payType---->${this.payType}")
                     when (this.payType) {
                         "BANK" -> {
                             if (cartBank == true) {
                                 cartBank = false
-                                binding.imageView63.setImageResource(R.drawable.arrow_up)
+                                binding.ivDropdown.setImageResource(R.drawable.arrow_up)
                                 binding.bankOffer.show()
                                 binding.wallet.hide()
                                 binding.giftCardUi.hide()
@@ -263,9 +219,9 @@ class PaymentListAdapter(
                                 )
                                 list.addAll(this.respPayModes[0].payModeBanks)
 
-                                val customAdapter = BankOfferAdapter(context, list)
-                                binding.spinner2.adapter = customAdapter
-                                binding.spinner2.onItemSelectedListener =
+                                customAdapter = BankOfferAdapter(context, list)
+                                binding.spinnerCardOptions.adapter = customAdapter
+                                binding.spinnerCardOptions.onItemSelectedListener =
                                     object : AdapterView.OnItemSelectedListener {
                                         override fun onItemSelected(
                                             parent: AdapterView<*>,
@@ -277,9 +233,9 @@ class PaymentListAdapter(
                                             println("customAdapterPosition------>${position}")
                                             offerId = list[position].id.toString()
                                             if (position == 0) {
-                                                binding.constraintLayout25.hide()
+                                                binding.clEnterCardNumber.hide()
                                             } else {
-                                                binding.constraintLayout25.show()
+                                                binding.clEnterCardNumber.show()
                                             }
 
                                             val value =
@@ -297,8 +253,9 @@ class PaymentListAdapter(
                                         }
                                     }
 
-                                binding.bankApply.setOnClickListener {
-                                    cardNo = binding.bankEdit.text.toString().replace(" ", "")
+                                binding.tvBankApply.setOnClickListener {
+                                    cardNo =
+                                        binding.etEnterCardNumber.text.toString().replace(" ", "")
                                     if (cardNo == "") {
 
                                         val dialog = OptionDialog(context,
@@ -327,14 +284,14 @@ class PaymentListAdapter(
                                             offerId,
                                             cardNo,
                                             binding.checkBox,
-                                            binding.imageView64,
-                                            binding.bankApply,
+                                            binding.ivCrossCancel,
+                                            binding.tvBankApply,
                                             binding.banksCancel,
-                                            binding.bankEdit,
-                                            binding.editTextTextPersonName2,
+                                            binding.etEnterCardNumber,
+                                            binding.tvOfferAppliedForNTickets,
                                             binding.knet,
-                                            binding.textView158,
-                                            binding.textView157,
+                                            binding.textViewWalletBalance,
+                                            binding.tvApplyCardOffer,
                                             binding.offerEditText
                                         )
 
@@ -346,7 +303,8 @@ class PaymentListAdapter(
 //                                )
 
 
-                                binding.bankEdit.addTextChangedListener(object : TextWatcher {
+                                binding.etEnterCardNumber.addTextChangedListener(object :
+                                    TextWatcher {
                                     private val space =
                                         " " // you can change this to whatever you want
                                     private val pattern: Pattern =
@@ -358,7 +316,8 @@ class PaymentListAdapter(
                                         be: Int,
                                         count: Int
                                     ) {
-                                        val currentText: String = binding.bankEdit.text.toString()
+                                        val currentText: String =
+                                            binding.etEnterCardNumber.text.toString()
                                         if (currentText.isEmpty() || pattern.matcher(currentText)
                                                 .matches()
                                         ) return  // no need to modify
@@ -373,8 +332,8 @@ class PaymentListAdapter(
                                             ) + space else numbersOnly.substring(i)
                                             i += 4
                                         }
-                                        binding.bankEdit.setText(formatted)
-                                        binding.bankEdit.setSelection(binding.bankEdit.text.toString().length)
+                                        binding.etEnterCardNumber.setText(formatted)
+                                        binding.etEnterCardNumber.setSelection(binding.etEnterCardNumber.text.toString().length)
 
                                     }
 
@@ -388,25 +347,25 @@ class PaymentListAdapter(
 
                                 //remove
                                 binding.banksCancel.setOnClickListener {
-                                    cardNo = binding.bankEdit.text.toString().replace(" ", "")
-
-                                    binding.bankEdit.isClickable = true
-                                    binding.bankEdit.isFocusable = true
-                                    binding.bankEdit.isEnabled = true
-                                    binding.bankEdit.isFocusableInTouchMode = true
+                                    cardNo =
+                                        binding.etEnterCardNumber.text.toString().replace(" ", "")
+                                    binding.etEnterCardNumber.isClickable = true
+                                    binding.etEnterCardNumber.isFocusable = true
+                                    binding.etEnterCardNumber.isEnabled = true
+                                    binding.etEnterCardNumber.isFocusableInTouchMode = true
 
                                     listner.bankItemRemove(
                                         offerId,
                                         cardNo,
                                         binding.checkBox,
-                                        binding.imageView64,
-                                        binding.bankApply,
+                                        binding.ivCrossCancel,
+                                        binding.tvBankApply,
                                         binding.banksCancel,
-                                        binding.bankEdit,
-                                        binding.editTextTextPersonName2,
+                                        binding.etEnterCardNumber,
+                                        binding.tvOfferAppliedForNTickets,
                                         binding.knet,
-                                        binding.textView158,
-                                        binding.textView157,
+                                        binding.textViewWalletBalance,
+                                        binding.tvApplyCardOffer,
                                         binding.offerEditText
                                     )
 
@@ -416,7 +375,7 @@ class PaymentListAdapter(
                                 cartBank = true
 
                                 println("cartBankTrue------->${cartBank}")
-                                binding.imageView63.setImageResource(R.drawable.arrow_down)
+                                binding.ivDropdown.setImageResource(R.drawable.arrow_down)
                                 binding.bankOffer.hide()
                                 binding.wallet.hide()
                                 binding.giftCardUi.hide()
@@ -428,7 +387,7 @@ class PaymentListAdapter(
                                 println("------>${this.respPayModes}")
                                 cartGift = false
                                 clickName = this.respPayModes[0].name
-                                binding.imageView63.setImageResource(R.drawable.arrow_up)
+                                binding.ivDropdown.setImageResource(R.drawable.arrow_up)
                                 binding.bankOffer.hide()
                                 binding.wallet.hide()
                                 binding.giftCardUi.show()
@@ -450,7 +409,7 @@ class PaymentListAdapter(
                                 )
                                 binding.recyclerOffer.adapter = adapter
 
-                                binding.textView157.setOnClickListener {
+                                binding.tvApplyCardOffer.setOnClickListener {
                                     val offerCode = binding.offerEditText.text.toString()
                                     if (offerCode == "") {
                                         val dialog = OptionDialog(context,
@@ -470,7 +429,7 @@ class PaymentListAdapter(
                                             clickName,
                                             clickId,
                                             binding.offerEditText,
-                                            binding.textView157,
+                                            binding.tvApplyCardOffer,
                                             binding.checkBox2,
                                             binding.imageView66,
                                             binding.textCancelBtn,
@@ -481,7 +440,7 @@ class PaymentListAdapter(
                                 // Cancel btn
                                 binding.textCancelBtn.setOnClickListener {
                                     binding.textCancelBtn.hide()
-                                    binding.textView157.show()
+                                    binding.tvApplyCardOffer.show()
                                 }
 
                                 //remove voucher
@@ -493,7 +452,7 @@ class PaymentListAdapter(
                                         clickName,
                                         clickId,
                                         binding.offerEditText,
-                                        binding.textView157,
+                                        binding.tvApplyCardOffer,
                                         binding.checkBox2,
                                         binding.imageView66
                                     )
@@ -501,7 +460,7 @@ class PaymentListAdapter(
                                 }
                             } else {
                                 cartGift = true
-                                binding.imageView63.setImageResource(R.drawable.arrow_down)
+                                binding.ivDropdown.setImageResource(R.drawable.arrow_down)
                                 binding.bankOffer.hide()
                                 binding.wallet.hide()
                                 binding.giftCardUi.hide()
@@ -515,109 +474,58 @@ class PaymentListAdapter(
                                 binding.wallet.show()
                                 binding.giftCardUi.hide()
 
-                                binding.imageView63.setImageResource(R.drawable.arrow_up)
-                                binding.textView158.text =
+                                binding.ivDropdown.setImageResource(R.drawable.arrow_up)
+                                binding.textViewWalletBalance.text =
                                     context.getString(R.string.wallet_balance) + this.respPayModes[0].balance
 //
 //                                // apply
-//                                binding.textView159.setOnClickListener {
+//                                binding.textviewBtWalletApply.setOnClickListener {
 //
 //                                    cancelWallet= false
 //                                    applyCheck = 1
 //                                    binding.cancelBtn.show()
-//                                    binding.textView159.hide()
+//                                    binding.textviewBtWalletApply.hide()
 //                                }
 //
 //                                binding.cancelBtn.setOnClickListener {
 //                                    cancelWallet= true
 //                                    applyCheck = 2
 //                                    binding.cancelBtn.hide()
-//                                    binding.textView159.show()
+//                                    binding.textviewBtWalletApply.show()
 //                                }
 
                             } else {
                                 cartWallet = true
-                                binding.imageView63.setImageResource(R.drawable.arrow_down)
+                                binding.ivDropdown.setImageResource(R.drawable.arrow_down)
                                 binding.bankOffer.hide()
                                 binding.wallet.hide()
                                 binding.giftCardUi.hide()
                             }
                         }
                         "GATEWAY" -> {
-                            binding.imageView63.setImageResource(R.drawable.arrow_up)
-                            binding.cardUi.show()
+                            binding.ivDropdown.setImageResource(R.drawable.arrow_up)
+                            binding.cardPaymentOptionsUi.show()
                             binding.bankOffer.hide()
                             binding.wallet.hide()
                             binding.giftCardUi.hide()
 
                             binding.creditCard.setOnClickListener {
-                                binding.cancelBtn.hide()
-                                binding.textView159.show()
-
                                 creditCardClick = true
                                 knetClick = false
-
-                                applyCheck = 2
-
-
-//                                  Glide.with(context).load(this.respPayModes[1].activeImageUrl).into(binding.imageCreditCard)
-//                                  Glide.with(context).load(this.respPayModes[0].imageUrl).into(binding.imageKnet)
-
-                                binding.imageCreditCard.setColorFilter(
-                                    ContextCompat.getColor(
-                                        context,
-                                        R.color.red
-                                    )
-                                )
-                                binding.imageKnet.setColorFilter(
-                                    ContextCompat.getColor(
-                                        context,
-                                        R.color.white
-                                    )
-                                )
-
-                                binding.textKnetName.setTextColor(context.getColor(R.color.white))
-                                binding.textCreditCardName.setTextColor(context.getColor(R.color.red))
-                                listner.onCreditCardItemClick(
-                                    this,
-                                    cardNo,
-                                    creditCardClick,
-                                    knetClick
-                                )
+                                cancelWallet = true
+                                viewModel.setPaymentMethodSelection(PaymentMethodSealedClass.CREDIT_CARD)
                                 notifyDataSetChanged()
 
                             }
                             binding.knet.setOnClickListener {
-
-                                binding.cancelBtn.hide()
-                                binding.textView159.show()
                                 knetClick = true
                                 creditCardClick = false
-
-                                applyCheck = 2
-
+                                cancelWallet = true
+                                viewModel.setPaymentMethodSelection(PaymentMethodSealedClass.KNET)
 //                                    Glide.with(context).load(this.respPayModes[0].activeImageUrl).into(binding.imageKnet)
 //                                    Glide.with(context).load(this.respPayModes[1].imageUrl).into(binding.imageCreditCard)
 
-                                binding.imageCreditCard.setColorFilter(
-                                    ContextCompat.getColor(
-                                        context,
-                                        R.color.white
-                                    )
-                                )
-                                binding.imageKnet.setColorFilter(
-                                    ContextCompat.getColor(
-                                        context,
-                                        R.color.red
-                                    )
-                                )
-
-                                binding.textKnetName.setTextColor(context.getColor(R.color.red))
-                                binding.textCreditCardName.setTextColor(context.getColor(R.color.white))
-
-                                listner.onKnitItemClick(this, creditCardClick, knetClick)
                                 notifyDataSetChanged()
-
                             }
 
                         }
@@ -627,7 +535,76 @@ class PaymentListAdapter(
 
             }
         }
-
+        when (viewModel.selectedPaymentMethod) {
+            PaymentMethodSealedClass.WALLET -> {
+                holder.binding?.apply {
+                    cancelBtn.show()
+                    textviewBtWalletApply.hide()
+                    imageCreditCard.setColorFilter(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.white
+                        )
+                    )
+                    imageKnet.setColorFilter(ContextCompat.getColor(context, R.color.white))
+                    textKnetName.setTextColor(context.getColor(R.color.white))
+                    textCreditCardName.setTextColor(context.getColor(R.color.white))
+                }
+            }
+            PaymentMethodSealedClass.KNET -> {
+                holder.binding.apply {
+                    textKnetName.setTextColor(context.getColor(R.color.red))
+                    textCreditCardName.setTextColor(context.getColor(R.color.white))
+                    cancelBtn.hide()
+                    textviewBtWalletApply.show()
+                    imageCreditCard.setColorFilter(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.white
+                        )
+                    )
+                    imageKnet.setColorFilter(ContextCompat.getColor(context, R.color.red))
+                    textKnetName.setTextColor(context.getColor(R.color.red))
+                    textCreditCardName.setTextColor(context.getColor(R.color.white))
+                }
+            }
+            PaymentMethodSealedClass.CREDIT_CARD -> {
+                holder.binding.apply {
+                    cancelBtn.hide()
+                    textviewBtWalletApply.show()
+                    imageCreditCard.setColorFilter(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.red
+                        )
+                    )
+                    imageKnet.setColorFilter(ContextCompat.getColor(context, R.color.white))
+                    imageCreditCard.setColorFilter(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.red
+                        )
+                    )
+                    textKnetName.setTextColor(context.getColor(R.color.white))
+                    textCreditCardName.setTextColor(context.getColor(R.color.red))
+                }
+            }
+            PaymentMethodSealedClass.NONE -> {
+                holder.binding.apply {
+                    cancelBtn.hide()
+                    textviewBtWalletApply.show()
+                    imageCreditCard.setColorFilter(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.white
+                        )
+                    )
+                    imageKnet.setColorFilter(ContextCompat.getColor(context, R.color.white))
+                    textKnetName.setTextColor(context.getColor(R.color.white))
+                    textCreditCardName.setTextColor(context.getColor(R.color.white))
+                }
+            }
+        }
 
     }
 
@@ -649,7 +626,7 @@ class PaymentListAdapter(
             editTextTextPersonName2: TextView,
             knet: LinearLayout,
             textView158: TextView,
-            textView157: TextView,
+            tvApply: TextView,
             offerEditText: EditText
         )
 
@@ -664,21 +641,11 @@ class PaymentListAdapter(
             editTextTextPersonName2: TextView,
             knet: LinearLayout,
             textView158: TextView,
-            textView157: TextView,
+            tvApply: TextView,
             offerEditText: EditText
         )
 
         fun onSimilarItemClick(view: GetMovieResponse.Output.Similar)
-        fun onCreditCardItemClick(
-            view: PaymentListResponse.Output.PayMode,
-            cardNo: String,
-            creditCardClick: Boolean,
-            knetClick: Boolean
-        )
-
-        fun onKnitItemClick(
-            view: PaymentListResponse.Output.PayMode, creditCardClick: Boolean, knetClick: Boolean
-        )
 
         fun onVoucherApply(
             view: PaymentListResponse.Output.PayMode,
@@ -686,7 +653,7 @@ class PaymentListAdapter(
             clickName: String,
             clickId: String,
             offerEditText: EditText,
-            textView157: TextView,
+            tvApply: TextView,
             checkBox2: ImageView,
             imageView66: ImageView,
             textCancelBtn: TextView
@@ -698,7 +665,7 @@ class PaymentListAdapter(
             clickName: String,
             clickId: String,
             offerEditText: EditText,
-            textView157: TextView,
+            tvApply: TextView,
             checkBox2: ImageView,
             imageView66: ImageView
         )

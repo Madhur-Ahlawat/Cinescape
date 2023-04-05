@@ -12,6 +12,16 @@ import com.cinescape1.databinding.DialogLoaderBinding
 
 class LoaderDialog(private val message: Int) : DialogFragment() {
     private var binding: DialogLoaderBinding? = null
+
+    companion object{
+        var dialog:LoaderDialog?=null
+        fun getInstance(message:Int): LoaderDialog? {
+            if(dialog==null){
+                dialog=LoaderDialog(message)
+            }
+            return dialog
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.AppTheme_Dialog)

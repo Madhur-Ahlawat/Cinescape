@@ -2,6 +2,8 @@ package com.cinescape1.ui.main.views.payment
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.net.http.SslError
@@ -14,8 +16,8 @@ import com.cinescape1.R
 import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.databinding.ActivityPaymentWebBinding
 import com.cinescape1.di.scoped.ActivityScoped
-import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
 import com.cinescape1.ui.main.dailogs.OptionDialog
+import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
 import com.cinescape1.ui.main.views.payment.paymentFaield.PaymentFailedActivity
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.hide
@@ -45,7 +47,7 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
         val view = binding?.root
         setContentView(view)
 
-        payUrl = intent.getStringExtra("PAY_URL").toString()
+        payUrl = intent.getStringExtra(Constant.IntentKey.PAY_URL).toString()
         bookingId = intent.getStringExtra(Constant.IntentKey.BOOKING_ID).toString()
         transId = intent.getStringExtra(Constant.IntentKey.TRANSACTION_ID).toString()
         from = intent.getStringExtra("From").toString()
@@ -175,8 +177,24 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
                 handler: SslErrorHandler,
                 error: SslError) {
 //                Utility.dismissDialog()
-                super.onReceivedSslError(view, handler, error)
-            }
+                val builder: AlertDialog.Builder = AlertDialog.Builder(this@PaymentWebActivity)
+                var message = "SSL Certificate error."
+                when (error.primaryError) {
+                    SslError.SSL_UNTRUSTED -> message = "The certificate authority is not trusted."
+                    SslError.SSL_EXPIRED -> message = "The certificate has expired."
+                    SslError.SSL_IDMISMATCH -> message = "The certificate Hostname mismatch."
+                    SslError.SSL_NOTYETVALID -> message = "The certificate is not yet valid."
+                }
+                message += " Do you want to continue anyway?"
+
+                builder.setTitle("SSL Certificate Error")
+                builder.setMessage(message)
+                builder.setPositiveButton("continue",
+                    DialogInterface.OnClickListener { dialog, which -> handler.proceed() })
+                builder.setNegativeButton("cancel",
+                    DialogInterface.OnClickListener { dialog, which -> handler.cancel() })
+                val dialog: AlertDialog = builder.create()
+                dialog.show()            }
         }
     }
 

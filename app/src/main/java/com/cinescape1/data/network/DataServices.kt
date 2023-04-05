@@ -36,7 +36,7 @@ interface DataServices {
     suspend fun getSplashText(): Response<SplashResponse>
 
     @POST("more/offer/detail")
-    suspend fun offerDetails(@Query("id") idCheck:String): Response<OfferDetailsResponse>
+    suspend fun offerDetails(@Query("id") idCheck: String): Response<OfferDetailsResponse>
 
     @POST("more/offer")
     suspend fun offer(): Response<OfferResponse>
@@ -63,7 +63,7 @@ interface DataServices {
     suspend fun getMsessionsNew(@Body request: CinemaSessionRequest): Response<CinemaSessionResponse>
 
     @POST("content/getmovie")
-    suspend fun movieDetails (@Query("mid") movieId: String): Response<GetMovieResponse>
+    suspend fun movieDetails(@Query("mid") movieId: String): Response<GetMovieResponse>
 
     @POST("content/csessions")
     suspend fun getCinemaData(@Body request: CinemaSessionRequest): Response<CSessionResponse>
@@ -176,20 +176,20 @@ interface DataServices {
     @Multipart
     @POST("more/contactus")
     suspend fun contactUs(
-        @Query ("email") email: String,
-        @Query ("name") name: String,
-        @Query ("mobile") mobile: String,
-        @Query ("msg") msg: String,
+        @Query("email") email: String,
+        @Query("name") name: String,
+        @Query("mobile") mobile: String,
+        @Query("msg") msg: String,
         @Part file: MultipartBody.Part
     ): Response<ContactUsResponse>
 
 
     @POST("more/contactus")
     suspend fun contactUsWithoutPhoto(
-        @Query ("email") email: String,
-        @Query ("name") name: String,
-        @Query ("mobile") mobile: String,
-        @Query ("msg") msg: String
+        @Query("email") email: String,
+        @Query("name") name: String,
+        @Query("mobile") mobile: String,
+        @Query("msg") msg: String
     ): Response<ContactUsResponse>
 
     @POST("customer/setpref")
@@ -214,7 +214,7 @@ interface DataServices {
     suspend fun activateCard(@Body request: ActivatwWalletRequest): Response<ActivateWalletResponse>
 
     companion object {
-        operator fun invoke(string: String?,lanuage:String): DataServices {
+        operator fun invoke(string: String?, lanuage: String): DataServices {
             println("LanguageString::=> ${lanuage}")
 //            val baseUrl = "http://192.168.1.7:8084/api/"
 //            val baseUrl = "https://cinescapeapi.wemonde.co/api/"
@@ -222,22 +222,22 @@ interface DataServices {
             val client = OkHttpClient.Builder()
             client.readTimeout(600, TimeUnit.SECONDS)
             client.connectTimeout(600, TimeUnit.SECONDS)
-                client.addInterceptor(Interceptor { chain ->
-                    val newRequest: Request = chain.request().newBuilder()
-                        .addHeader("Authorization", string.toString())
-                        .addHeader("appversion", Constant.version)
-                        .addHeader("platform", Constant.platform)
-                        .addHeader("Accept-Language", lanuage)
-                        .addHeader("Content-Type", "application/json")
-                        .build()
-                    chain.proceed(newRequest)
-                })
+            client.addInterceptor(Interceptor { chain ->
+                val newRequest: Request = chain.request().newBuilder()
+                    .addHeader("Authorization", string.toString())
+                    .addHeader("appversion", Constant.version)
+                    .addHeader("platform", Constant.platform)
+                    .addHeader("Accept-Language", lanuage)
+                    .addHeader("Content-Type", "application/json")
+                    .build()
+                chain.proceed(newRequest)
+            })
 
-           // if (BuildConfig.DEBUG) {
-                val logging = HttpLoggingInterceptor()
-                logging.level = HttpLoggingInterceptor.Level.BODY
-                client.addInterceptor(logging)
-           // }
+            // if (BuildConfig.DEBUG) {
+            val logging = HttpLoggingInterceptor()
+//                logging.level = HttpLoggingInterceptor.Level.BODY
+            client.addInterceptor(logging)
+            // }
 
             return Retrofit.Builder()
                 .client(client.build())

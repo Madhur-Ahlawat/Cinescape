@@ -17,10 +17,6 @@ class HomeViewModel @Inject constructor(private val repositories: Repositories) 
     private var _homePageMovieSliderColor:MutableStateFlow<String> = MutableStateFlow("#FFFFFF")
     var homePageMovieSliderColor = _homePageMovieSliderColor as StateFlow<String>
 
-    fun setHomePageMovieSliderColor(color:String){
-        _homePageMovieSliderColor.value=color
-    }
-
     fun getHomeData() = liveData(Dispatchers.IO) {
         emit(Result.loading(data = null))
         try {

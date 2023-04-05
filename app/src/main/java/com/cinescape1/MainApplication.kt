@@ -27,15 +27,25 @@ class MainApplication : DaggerApplication() {
 //        FacebookSdk.sdkInitialize(applicationContext)
         super.onCreate()
         Instabug.Builder(this, "3eec3a131dd9fbce57094276934f6eab")
-            .setInvocationEvents(InstabugInvocationEvent.SHAKE, InstabugInvocationEvent.FLOATING_BUTTON)
+            .setInvocationEvents(
+                InstabugInvocationEvent.SHAKE,
+                InstabugInvocationEvent.FLOATING_BUTTON
+            )
             .build()
         val preferences: SharedPreferences = getSharedPreferences("PiInsite", Context.MODE_PRIVATE)
         when {
-            preferences.getString(Constant.IntentKey.SELECT_LANGUAGE,"") == "ar" -> {
+            preferences.getString(Constant.IntentKey.SELECT_LANGUAGE, "") == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
-                println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE,"")}")
+                println(
+                    "getLocalLanguage--->${
+                        preferences.getString(
+                            Constant.IntentKey.SELECT_LANGUAGE,
+                            ""
+                        )
+                    }"
+                )
             }
-            preferences.getString(Constant.IntentKey.SELECT_LANGUAGE,"") == "en" -> {
+            preferences.getString(Constant.IntentKey.SELECT_LANGUAGE, "") == "en" -> {
                 LocaleHelper.setLocale(this, "en")
             }
             else -> {
