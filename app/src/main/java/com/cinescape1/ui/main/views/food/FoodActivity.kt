@@ -1511,6 +1511,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                 toast("add less than 20 items")
             }
         } else {
+
             var num = foodItem.quantity
             if (num > 10 || num == 10) {
                 Toast.makeText(this, "sorry 10 limit", Toast.LENGTH_LONG).show()
@@ -1566,7 +1567,7 @@ class FoodActivity : DaggerAppCompatActivity(),
 
         foodCartListNew?.get(pos)?.foodQuan?.minus(1)
         if (foodCartListNew?.get(pos)?.foodQuan!! > 0) {
-            Toast.makeText(this, "hello 00", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "hello 00", Toast.LENGTH_SHORT).show()
 
             foodCartListNew?.get(pos)?.foodQuan = foodCartListNew?.get(pos)?.foodQuan!! - 1
             foodCartListNew?.get(pos)?.foodAmount =
@@ -1575,7 +1576,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             for (i in tabItemArr.indices) {
                 for (j in 0 until tabItemArr[i].concessionItems.size) {
                     if (foodCartListNew?.get(pos)?.foodId.equals(tabItemArr[i].concessionItems[j].id)) {
-                        Toast.makeText(this, "hello 22", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(this, "hello 22", Toast.LENGTH_SHORT).show()
 
                         tabItemArr[i].concessionItems[j].footItemCount =
                             foodCartListNew?.get(pos)?.foodQuan!!
@@ -1591,11 +1592,11 @@ class FoodActivity : DaggerAppCompatActivity(),
             foodAdapter?.notifyDataSetChanged()
             if (foodItem.foodType.uppercase() == "INDIVIDUAL") {
                 foodAdapter?.loadNewData(tabItem?.concessionItems!!)
-                Toast.makeText(this, "hello 44", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "hello 44", Toast.LENGTH_SHORT).show()
 
             } else {
                 updateSelectedList(foodItem, 3)
-                Toast.makeText(this, "hello 33", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "hello 33", Toast.LENGTH_SHORT).show()
 
             }
         }
@@ -1695,7 +1696,7 @@ class FoodActivity : DaggerAppCompatActivity(),
         if (pos <= (foodCartListNew?.size!! - 1))
             foodCartListNew?.removeAt(pos)
 
-        Log.w("Total", "" + totalFoodAmt)
+//        Log.w("Total", "" + totalFoodAmt)
         if (totalFoodAmt < 0) totalFoodAmt = 0.0
 
         if (foodCartListNew?.size!! > 0) {
@@ -1720,11 +1721,11 @@ class FoodActivity : DaggerAppCompatActivity(),
                 if (item.foodtype.uppercase() == "INDIVIDUAL") {
                     foodAdapter?.loadNewData(tabItem?.concessionItems!!)
                     foodAdapter?.notifyDataSetChanged()
-                    Toast.makeText(this, "hello 00", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, "hello 00", Toast.LENGTH_SHORT).show()
                 } else {
                     if (mFoodCartDialog?.isShowing == true)
                         mFoodCartDialog?.dismiss()
-                    Toast.makeText(this, "hello 11", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, "hello 11", Toast.LENGTH_SHORT).show()
 //                    foodAdapter?.loadNewData(foodSelectedList!!)
 //                    foodAdapter?.notifyDataSetChanged()
 
