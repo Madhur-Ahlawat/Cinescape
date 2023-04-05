@@ -21,7 +21,18 @@ import kotlinx.android.synthetic.main.home_slider_item.view.*
     private val movies: MutableList<HomeDataResponse.MovieData>,
     val viewpager: androidx.viewpager2.widget.ViewPager2
 ) : CardSliderAdapter<HomeFrontSliderAdapter.SliderViewHolder>() {
+     companion object{
+         var movies2:MutableList<HomeDataResponse.MovieData> = mutableListOf()
+     }
      init{
+         if(movies2.size==0){
+             movies2.addAll(movies)
+         }
+         else{
+             movies.clear()
+             movies.addAll(movies2)
+
+         }
          var lastElement = movies[movies.size-1]
          var firstElement = movies[0]
          firstElement.isFakeFirstElement=true
@@ -30,6 +41,7 @@ import kotlinx.android.synthetic.main.home_slider_item.view.*
          finalList.add(firstElement)
          movies.clear()
          movies.addAll(finalList)
+
      }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SliderViewHolder {
