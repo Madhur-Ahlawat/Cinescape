@@ -24,6 +24,25 @@ class OptionDialog(
     private val negativeClick: (() -> Unit)? = null
 ) : Dialog(context, R.style.AppTheme_Dialog) {
 
+    companion object{
+        var optionDialog:OptionDialog?=null
+        fun getInstance(  context: Context,
+                          @DrawableRes illustrationRes: Int = -1,
+                          @StringRes title: Int,
+                          subtitle: String,
+                          @StringRes positiveBtnText: Int,
+                          @StringRes negativeBtnText: Int,
+                          positiveClick: (() -> Unit)? = null,
+                          negativeClick: (() -> Unit)? = null): OptionDialog? {
+            if(optionDialog!=null){
+            }
+            else{
+                optionDialog= OptionDialog(context,illustrationRes,title,subtitle,positiveBtnText,negativeBtnText,positiveClick,negativeClick)
+            }
+            return optionDialog
+        }
+    }
+
     private var binding: DialogOptionBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

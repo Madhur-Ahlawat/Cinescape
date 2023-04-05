@@ -51,6 +51,8 @@ import javax.inject.Inject
 @Suppress("DEPRECATION")
 class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFaceSeatLists {
 
+    private var mDialog: Dialog?=null
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -310,40 +312,36 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
     }
 
     private fun cancelDialog() {
-        val dialog = Dialog(this)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.cancel_dialog)
-        dialog.window!!.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
-        dialog.window!!.setGravity(Gravity.BOTTOM)
-        dialog.show()
-
-        dialog.consSure?.setOnClickListener {
-            Constant.IntentKey.TimerExtandCheck = true
-            Constant.IntentKey.TimerExtand = 90
-            Constant.IntentKey.TimerTime = 360
-            cancelTrans(CancelTransRequest(bookingId, transId))
-            if (bookType == "FOOD"){
-
-                Constant.IntentKey.DialogShow = true
-                val intent = Intent(this, HomeActivity::class.java)
-                Constant.IntentKey.OPEN_FROM = 0
-                startActivity(intent)
-                finish()
-
-            }else{
+        mDialog = Dialog(this).also {
+            it.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            it.setContentView(R.layout.cancel_dialog)
+            it.window!!.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            it.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            it.window!!.attributes.windowAnimations = R.style.DialogAnimation
+            it.window!!.setGravity(Gravity.BOTTOM)
+            it.show()
+            it.consSure?.setOnClickListener {
+                Constant.IntentKey.TimerExtandCheck = true
+                Constant.IntentKey.TimerExtand = 90
+                Constant.IntentKey.TimerTime = 360
+                cancelTrans(CancelTransRequest(bookingId, transId))
+                if (bookType == "FOOD"){
+                    Constant.IntentKey.DialogShow = true
+                    val intent = Intent(this, HomeActivity::class.java)
+                    Constant.IntentKey.OPEN_FROM = 0
+                    startActivity(intent)
+                }
                 finish()
             }
-
+            it.negative_btn?.setOnClickListener { it2->
+                it.dismiss()
+            }
         }
 
-        dialog.negative_btn?.setOnClickListener {
-            dialog.dismiss()
-        }
+
     }
 
     // Ticket Summary
