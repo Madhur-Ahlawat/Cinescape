@@ -180,7 +180,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             cancelDialog()
         }
 
-        binding?.viewTimeLeft?.setOnClickListener {
+        binding?.constraintLayout6?.setOnClickListener {
             paymentDialog()
         }
 
@@ -367,7 +367,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 apply.hide()
                                 close.hide()
                                 chekbox.hide()
-                                summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.BANK_OFFER)
+                                summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.CREDIT_CARD)
                                 bankCancel.show()
                                 offerApplied = true
 //                             //bank  Clickable false
@@ -395,7 +395,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 offerEditText.isEnabled = false
                                 offerEditText.isFocusable = false
                                 bankEdit.isFocusableInTouchMode = false
-                                adapter?.customAdapter?.notifyDataSetChanged()
+                                adapter?.notifyDataSetChanged()
                             }
                             else{
                                 val dialog = OptionDialog(this,
@@ -503,7 +503,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 bankEdit.isEnabled = true
                                 bankEdit.isFocusableInTouchMode = true
                                 bankEdit.inputType = InputType.TYPE_NULL
-
+                                summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.NONE)
                                 //knet
                                 knet.isClickable = true
                                 knet.isEnabled = true
@@ -1734,7 +1734,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     val second = millisUntilFinished / 1000 % 60
                     val minutes = millisUntilFinished / (1000 * 60) % 60
                     val display = java.lang.String.format("%02d:%02d", minutes, second)
-
+                    binding?.textTimeToLeft?.text=display
                     textView111?.text = display
                     timeCount = minutes * 60 + second
                     secondLeft = second
@@ -1752,7 +1752,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                     val minutes = millisUntilFinished / (1000 * 60) % 60
                                     val display =
                                         java.lang.String.format("%02d:%02d", minutes, second)
-
+                                    binding?.textTimeToLeft?.text=display
                                     textView111?.text = display
                                     Constant.IntentKey.TimerExtand = minutes * 60 + second
                                 }

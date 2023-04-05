@@ -22,12 +22,13 @@ import com.cinescape1.databinding.ItemPaymentListBinding
 import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.payment.PaymentMethodSealedClass
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity
+import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.giftApplied
+import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.offerApplied
 import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResponse
 import com.cinescape1.ui.main.views.summery.viewModel.SummeryViewModel
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
-import com.cinescape1.utils.toast
 import kotlinx.android.synthetic.main.account_preference_layout.*
 import kotlinx.android.synthetic.main.activity_checkout_with_food.*
 import java.util.*
@@ -88,22 +89,22 @@ class PaymentListAdapter(
                     binding.cardPaymentOptionsUi.hide()
                 }
 
-                if (PaymentListActivity.giftApplied) {
-                    binding.clHeaderLabelAndDropdown.isClickable = false
-                    binding.clHeaderLabelAndDropdown.isEnabled = false
-                    binding.knet.isClickable = false
-                    binding.knet.isEnabled = false
+                if (giftApplied) {
+                        binding.clHeaderLabelAndDropdown.isClickable = false
+                        binding.clHeaderLabelAndDropdown.isEnabled = false
+                        binding.knet.isClickable = false
+                        binding.knet.isEnabled = false
 
-                    //offer Click
-                    binding.tvApplyCardOffer.isClickable = false
-                    binding.tvApplyCardOffer.isEnabled = false
-                    //wallet
-                    binding.textviewBtWalletApply.isClickable = false
-                    binding.textviewBtWalletApply.isEnabled = false
-                    //gift Cart
-                    binding.offerEditText.isClickable = false
-                    binding.offerEditText.isEnabled = false
-                    binding.offerEditText.isFocusable = false
+                        //offer Click
+                        binding.tvApplyCardOffer.isClickable = false
+                        binding.tvApplyCardOffer.isEnabled = false
+                        //wallet
+                        binding.textviewBtWalletApply.isClickable = false
+                        binding.textviewBtWalletApply.isEnabled = false
+                        //gift Cart
+                        binding.offerEditText.isClickable = false
+                        binding.offerEditText.isEnabled = false
+                        binding.offerEditText.isFocusable = false
 
                 } else {
                     binding.knet.isClickable = true
@@ -122,7 +123,7 @@ class PaymentListAdapter(
                     binding.offerEditText.isFocusable = true
                 }
 
-                if (PaymentListActivity.offerApplied) {
+                if (offerApplied) {
                     binding.clHeaderLabelAndDropdown.isClickable = false
                     binding.clHeaderLabelAndDropdown.isEnabled = false
                     binding.knet.isClickable = false
@@ -161,7 +162,7 @@ class PaymentListAdapter(
                 binding.creditCard.setOnClickListener {
                     creditCardClick = true
                     knetClick = false
-                    context.toast("$cancelWallet")
+//                    context.toast("$cancelWallet")
                     Constant.CARD_NO = cardNo
                     viewModel.setPaymentMethodSelection(PaymentMethodSealedClass.CREDIT_CARD)
                     notifyDataSetChanged()
@@ -179,7 +180,7 @@ class PaymentListAdapter(
                 // apply
                 binding.textviewBtWalletApply.setOnClickListener {
                     viewModel.setPaymentMethodSelection(PaymentMethodSealedClass.WALLET)
-                    context.toast("apply")
+//                    context.toast("apply")
                     Constant.CARD_NO = ""
                     cancelWallet = true
                     knetClick = false
@@ -190,7 +191,7 @@ class PaymentListAdapter(
 //                wallet cancel
                 binding.cancelBtn.setOnClickListener {
                     Constant.CARD_NO = ""
-                    context.toast("cancel Wallet")
+//                    context.toast("cancel Wallet")
                     cancelWallet = true
                     knetClick = false
                     creditCardClick = false
@@ -234,8 +235,10 @@ class PaymentListAdapter(
                                             offerId = list[position].id.toString()
                                             if (position == 0) {
                                                 binding.clEnterCardNumber.hide()
+                                                binding.tvBankApply.hide()
                                             } else {
                                                 binding.clEnterCardNumber.show()
+                                                binding.tvBankApply.show()
                                             }
 
                                             val value =
@@ -515,7 +518,6 @@ class PaymentListAdapter(
                                 cancelWallet = true
                                 viewModel.setPaymentMethodSelection(PaymentMethodSealedClass.CREDIT_CARD)
                                 notifyDataSetChanged()
-
                             }
                             binding.knet.setOnClickListener {
                                 knetClick = true
@@ -537,21 +539,38 @@ class PaymentListAdapter(
         }
         when (viewModel.selectedPaymentMethod) {
             PaymentMethodSealedClass.WALLET -> {
+                viewModel.setpaymentMethodSelectionStateFlow(PaymentMethodSealedClass.WALLET)
                 holder.binding?.apply {
-                    cancelBtn.show()
-                    textviewBtWalletApply.hide()
-                    imageCreditCard.setColorFilter(
-                        ContextCompat.getColor(
-                            context,
-                            R.color.white
+//                    if(offerApplied){
+                        cancelBtn.show()
+                        textviewBtWalletApply.hide()
+                        imageCreditCard.setColorFilter(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.white
+                            )
                         )
-                    )
-                    imageKnet.setColorFilter(ContextCompat.getColor(context, R.color.white))
-                    textKnetName.setTextColor(context.getColor(R.color.white))
-                    textCreditCardName.setTextColor(context.getColor(R.color.white))
+                        imageKnet.setColorFilter(ContextCompat.getColor(context, R.color.white))
+                        textKnetName.setTextColor(context.getColor(R.color.white))
+                        textCreditCardName.setTextColor(context.getColor(R.color.white))
+//                    }
+//                    else{
+//                        cancelBtn.show()
+//                        textviewBtWalletApply.show()
+//                        imageCreditCard.setColorFilter(
+//                            ContextCompat.getColor(
+//                                context,
+//                                R.color.white
+//                            )
+//                        )
+//                        imageKnet.setColorFilter(ContextCompat.getColor(context, R.color.white))
+//                        textKnetName.setTextColor(context.getColor(R.color.white))
+//                        textCreditCardName.setTextColor(context.getColor(R.color.white))
+//                    }
                 }
             }
             PaymentMethodSealedClass.KNET -> {
+                viewModel.setpaymentMethodSelectionStateFlow(PaymentMethodSealedClass.KNET)
                 holder.binding.apply {
                     textKnetName.setTextColor(context.getColor(R.color.red))
                     textCreditCardName.setTextColor(context.getColor(R.color.white))
@@ -569,27 +588,27 @@ class PaymentListAdapter(
                 }
             }
             PaymentMethodSealedClass.CREDIT_CARD -> {
-                holder.binding.apply {
-                    cancelBtn.hide()
-                    textviewBtWalletApply.show()
-                    imageCreditCard.setColorFilter(
-                        ContextCompat.getColor(
-                            context,
-                            R.color.red
+                viewModel.setpaymentMethodSelectionStateFlow(PaymentMethodSealedClass.CREDIT_CARD)
+                    holder.binding.apply {
+                        cancelBtn.hide()
+                        textviewBtWalletApply.show()
+                        imageCreditCard.setColorFilter(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.red
+                            )
                         )
-                    )
-                    imageKnet.setColorFilter(ContextCompat.getColor(context, R.color.white))
-                    imageCreditCard.setColorFilter(
-                        ContextCompat.getColor(
-                            context,
-                            R.color.red
-                        )
-                    )
-                    textKnetName.setTextColor(context.getColor(R.color.white))
-                    textCreditCardName.setTextColor(context.getColor(R.color.red))
-                }
+                        textCreditCardName.setTextColor(context.getColor(R.color.red))
+                        imageKnet.setColorFilter(ContextCompat.getColor(context, R.color.gray))
+                        textKnetName.setTextColor(context.getColor(R.color.gray))
+                    }
+
+
+
             }
             PaymentMethodSealedClass.NONE -> {
+                viewModel.setpaymentMethodSelectionStateFlow(PaymentMethodSealedClass.NONE)
+
                 holder.binding.apply {
                     cancelBtn.hide()
                     textviewBtWalletApply.show()
