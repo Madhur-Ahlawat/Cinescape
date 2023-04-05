@@ -77,6 +77,7 @@ class FoodActivity : DaggerAppCompatActivity(),
     private var seatPrice = "0.0"
     private var textNumber: TextView? = null
     private var addBtn: TextView? = null
+    private var tvDoneBtn: TextView? = null
     private var textDecrease: ImageView? = null
     private var emptyCart: TextView? = null
     private var textIncrease: TextView? = null
@@ -137,6 +138,9 @@ class FoodActivity : DaggerAppCompatActivity(),
     var btnDecrease2: TextView? = null
     var btnIncrease2: TextView? = null
     var totalItems2: TextView? = null
+
+    var positionRemove = 0
+    var foodItemRemove: ArrayList<GetFoodResponse.ConcessionItem> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -275,12 +279,14 @@ class FoodActivity : DaggerAppCompatActivity(),
 
         movieRatingColor = intent.getStringExtra("movieRatingColor").toString()
 
-        if (booktype != "FOOD" ) {
+        if (booktype != "FOOD") {
             binding?.viewCancel?.setOnClickListener {
                 cancelDialog()
             }
 
             binding?.txtProceed?.setOnClickListener {
+                println("foodCartListSizeFOOD---------->${foodCartList?.size}")
+
                 if (!foodCartList.isNullOrEmpty()) {
                     try {
                         val foodRequest = SaveFoodRequest()
@@ -309,7 +315,9 @@ class FoodActivity : DaggerAppCompatActivity(),
 
             resendTimer()
             seatPrice = intent.getStringExtra("PRICE").toString()
-        } else if (booktype != "ADDFOOD") {
+
+        } else if (booktype == "ADDFOOD") {
+
             binding?.viewCancel?.setOnClickListener {
                 cancelDialog()
             }
@@ -318,7 +326,10 @@ class FoodActivity : DaggerAppCompatActivity(),
             binding?.textTimeToLeft?.hide()
             binding?.textTimeLeft?.hide()
             binding?.textView112?.hide()
+
             binding?.txtProceed?.setOnClickListener {
+                println("foodCartListSizeADDFOOD---------->${foodCartList?.size}---->${booktype}")
+
                 if (!foodCartList.isNullOrEmpty()) {
                     try {
                         val foodRequest = SaveFoodRequest()
@@ -359,7 +370,9 @@ class FoodActivity : DaggerAppCompatActivity(),
             }
 
             binding?.txtProceed?.setOnClickListener {
-                if (!foodCartList.isNullOrEmpty()) {
+                println("foodCartListSize21---------->${foodCartList?.size}")
+
+                if (foodCartList!!.size > 0) {
                     try {
                         val foodRequest = SaveFoodRequest()
                         foodRequest.concessionFoods = foodCartList!!
@@ -436,6 +449,11 @@ class FoodActivity : DaggerAppCompatActivity(),
     }
 
     private fun setFoodSelectAdapter(concessionTabs: ArrayList<GetFoodResponse.ConcessionTab>) {
+        for (item in concessionTabs) {
+            foodItemRemove = item.concessionItems
+        }
+
+
         if (concessionTabs.isNotEmpty()) {
             binding?.uiFood?.show()
             val horizontalLayoutManagaer =
@@ -448,6 +466,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             foodSelectedList = concessionTabs[0].concessionItems
             tabItem = concessionTabs[0]
             setFoodComboAdapter(foodSelectedList!!)
+
         } else {
             val dialog = OptionDialog(this,
                 R.mipmap.ic_launcher,
@@ -767,7 +786,6 @@ class FoodActivity : DaggerAppCompatActivity(),
             }
 
 
-
         }
     }
 
@@ -856,7 +874,8 @@ class FoodActivity : DaggerAppCompatActivity(),
     //90
     private fun extendTime() {
         val viewGroup = findViewById<ViewGroup>(android.R.id.content)
-        val dialogView: View = LayoutInflater.from(this).inflate(R.layout.cancel_dialog, viewGroup, false)
+        val dialogView: View =
+            LayoutInflater.from(this).inflate(R.layout.cancel_dialog, viewGroup, false)
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         builder.setView(dialogView)
         builder.setCancelable(false)
@@ -951,6 +970,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                             loader?.dismiss()
                             resource.data?.let { it ->
                                 if (it.data?.code == Constant.SUCCESS_CODE) {
+
                                     tabItemArr = it.data.output.concessionTabs
                                     setFoodSelectAdapter(it.data.output.concessionTabs)
                                 } else {
@@ -1068,15 +1088,18 @@ class FoodActivity : DaggerAppCompatActivity(),
     override fun onAddFood(
         foodItem: GetFoodResponse.ConcessionItem,
         position: Int,
-        foodComboList: ArrayList<GetFoodResponse.ConcessionItem>) {
+        foodComboList: ArrayList<GetFoodResponse.ConcessionItem>
+    ) {
 
         if (foodItem.foodtype == "Individual") {
+
             var amount = 0.0
             val a = foodItem.quantity + 1
             foodItem.quantity = a
             amount = (foodItem.quantity * foodItem.priceInCents).toDouble()
             foodItem.itemTotal = amount.toInt()
             updateCartList(foodItem)
+
             if (foodCartListNew?.size!! > 0) {
                 binding?.textCartCountNotiication?.show()
                 binding?.textCartCountNotiication?.text = foodCartListNew?.size.toString()
@@ -1094,8 +1117,10 @@ class FoodActivity : DaggerAppCompatActivity(),
             comboAdapter?.notifyDataSetChanged()
 
         } else {
+
             //combo Food
-            val mDialogView = LayoutInflater.from(this).inflate(R.layout.food_selected_add_alert_dailog, null)
+            val mDialogView =
+                LayoutInflater.from(this).inflate(R.layout.food_selected_add_alert_dailog, null)
             val mBuilder = AlertDialog.Builder(this).setView(mDialogView)
             val mAlertDialog = mBuilder.show()
             mAlertDialog.show()
@@ -1120,18 +1145,19 @@ class FoodActivity : DaggerAppCompatActivity(),
                 mAlertDialog.dismiss()
             }
 
-            if(foodItem.title!=""){
+            if (foodItem.title != "") {
                 text_combo_head.show()
-            }else{
+            } else {
                 text_combo_head.hide()
             }
 
-            val recyclerviewComboTitle = mDialogView.findViewById<View>(R.id.recyclerview_combo_title) as RecyclerView
+            val recyclerviewComboTitle =
+                mDialogView.findViewById<View>(R.id.recyclerview_combo_title) as RecyclerView
             textDecrease = mDialogView.findViewById<View>(R.id.text_decrease) as ImageView
             textIncrease = mDialogView.findViewById<View>(R.id.text_increase) as TextView
             textNumber = mDialogView.findViewById<View>(R.id.text_number) as TextView
             addBtn = mDialogView.findViewById(R.id.text_add_btn)
-            val tvDoneBtn: TextView = mDialogView.findViewById(R.id.tv_done_btn)
+            tvDoneBtn = mDialogView.findViewById(R.id.tv_done_btn)
             tvKdTotal = mDialogView.findViewById(R.id.tv_kd_total)
 //        val viewIncreaseDecreases: View = mDialogView.findViewById(R.id.view_increase_decrease)
             textIncrease?.isClickable = false
@@ -1139,9 +1165,9 @@ class FoodActivity : DaggerAppCompatActivity(),
             textDecrease?.isClickable = false
             textDecrease?.isEnabled = false
 
-            addBtn?.isClickable = false
-            addBtn?.isEnabled = false
-            addBtn?.background = ContextCompat.getDrawable(this,R.drawable.food_item_bg)
+            tvDoneBtn?.isClickable = false
+            tvDoneBtn?.isEnabled = false
+            tvDoneBtn?.background = ContextCompat.getDrawable(this, R.drawable.food_item_bg)
 
             itemFoodCount = foodItem.quantity
             itemFoodAmt = foodItem.itemTotal.toDouble()
@@ -1176,7 +1202,8 @@ class FoodActivity : DaggerAppCompatActivity(),
                             }
                         }
 
-                        val gridLayout = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
+                        val gridLayout =
+                            GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
                         recyclerviewComboTitle.layoutManager = LinearLayoutManager(this)
                         val adapter = AdapterFoodAddComboTitle(
                             this,
@@ -1244,7 +1271,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                             }
                         }
 
-                        tvDoneBtn.setOnClickListener {
+                        tvDoneBtn?.setOnClickListener {
                             var valflag = false
                             for (i in foodItem.alternateItems.indices) {
                                 if (foodItem.alternateItems[i].checkFlag) {
@@ -1288,9 +1315,9 @@ class FoodActivity : DaggerAppCompatActivity(),
 
                 "combo" -> {
 //                    text_combo_head.show()
-                    if(foodItem.title.isNotEmpty()){
+                    if (foodItem.title.isNotEmpty()) {
                         text_combo_head.show()
-                    }else{
+                    } else {
                         text_combo_head.hide()
                     }
 
@@ -1345,7 +1372,8 @@ class FoodActivity : DaggerAppCompatActivity(),
                             foodItem.itemTotal = amount.roundToInt()
                             textNumber?.text = a.toString()
                             itemCheckPrice = amount.toInt()
-                            tvKdTotal?.text = getString(R.string.price_kd) + " ${Constant.DECIFORMAT.format(amount / 100)}"
+                            tvKdTotal?.text =
+                                getString(R.string.price_kd) + " ${Constant.DECIFORMAT.format(amount / 100)}"
                         }
                     }
 
@@ -1362,7 +1390,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                         }
                     }
 
-                    tvDoneBtn.setOnClickListener {
+                    tvDoneBtn?.setOnClickListener {
                         var valflag = 0
                         for (i in 0 until foodItem.packageChildItems.size) {
                             for (j in 0 until foodItem.packageChildItems[i].alternateItems.size) {
@@ -1436,17 +1464,17 @@ class FoodActivity : DaggerAppCompatActivity(),
             if (foodCartListNew?.size!! > 0) {
                 binding?.textCartCountNotiication?.show()
                 binding?.textCartCountNotiication?.text = foodCartListNew?.size.toString()
-
                 binding?.txtProceed?.show()
                 binding?.txtSkipBtn?.hide()
             } else {
                 binding?.textCartCountNotiication?.text = "0"
                 binding?.textCartCountNotiication?.show()
-
                 binding?.txtProceed?.hide()
                 binding?.txtSkipBtn?.show()
+
             }
             comboAdapter?.notifyDataSetChanged()
+
         } else {
             var num = foodItem.quantity
             if (num < 0 || num == 0) {
@@ -1458,12 +1486,14 @@ class FoodActivity : DaggerAppCompatActivity(),
                 updateCartList(foodItem)
                 foodSelectedList?.add(position, foodItem)
                 foodAdapter?.loadNewData(foodSelectedList!!)
+
             }
         }
 
     }
 
     override fun onIncreaseFood(foodItem: GetFoodResponse.ConcessionItem, position: Int) {
+
         if (foodItem.foodtype == "Individual") {
             var amount = 0.0
             if (foodItem.quantity < 20) {
@@ -1481,6 +1511,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                 toast("add less than 20 items")
             }
         } else {
+
             var num = foodItem.quantity
             if (num > 10 || num == 10) {
                 Toast.makeText(this, "sorry 10 limit", Toast.LENGTH_LONG).show()
@@ -1533,8 +1564,11 @@ class FoodActivity : DaggerAppCompatActivity(),
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onDecreaseCart(foodItem: GetFoodResponse.FoodDtls, pos: Int) {
+
         foodCartListNew?.get(pos)?.foodQuan?.minus(1)
         if (foodCartListNew?.get(pos)?.foodQuan!! > 0) {
+//            Toast.makeText(this, "hello 00", Toast.LENGTH_SHORT).show()
+
             foodCartListNew?.get(pos)?.foodQuan = foodCartListNew?.get(pos)?.foodQuan!! - 1
             foodCartListNew?.get(pos)?.foodAmount =
                 foodCartListNew?.get(pos)?.foodQuan!! * foodCartListNew?.get(pos)?.itemPrice!!
@@ -1542,6 +1576,8 @@ class FoodActivity : DaggerAppCompatActivity(),
             for (i in tabItemArr.indices) {
                 for (j in 0 until tabItemArr[i].concessionItems.size) {
                     if (foodCartListNew?.get(pos)?.foodId.equals(tabItemArr[i].concessionItems[j].id)) {
+//                        Toast.makeText(this, "hello 22", Toast.LENGTH_SHORT).show()
+
                         tabItemArr[i].concessionItems[j].footItemCount =
                             foodCartListNew?.get(pos)?.foodQuan!!
                         tabItemArr[i].concessionItems[j].quantity =
@@ -1555,17 +1591,23 @@ class FoodActivity : DaggerAppCompatActivity(),
             foodCartAdapter?.notifyDataSetChanged()
             foodAdapter?.notifyDataSetChanged()
             if (foodItem.foodType.uppercase() == "INDIVIDUAL") {
-                individualAdapter?.loadNewData(tabItem?.concessionItems!!)
+                foodAdapter?.loadNewData(tabItem?.concessionItems!!)
+//                Toast.makeText(this, "hello 44", Toast.LENGTH_SHORT).show()
+
             } else {
                 updateSelectedList(foodItem, 3)
+//                Toast.makeText(this, "hello 33", Toast.LENGTH_SHORT).show()
+
             }
         }
+
         itemCartPrice -= getCartFoodPrice()
         itemSetCartPrice = Constant.DECIFORMAT.format(itemCheckPrice / 100.0)
         tvFoodPrice?.text = getAllFoodPrice()
         if (foodCartListNew?.size == 0) {
             if (mFoodCartDialog?.isShowing == true)
                 mFoodCartDialog?.dismiss()
+            Toast.makeText(this, "hello 55", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -1584,7 +1626,7 @@ class FoodActivity : DaggerAppCompatActivity(),
         foodItem: GetFoodResponse.FoodDtls
     ) {
         if (isAdd) {
-            if (foodItem.foodType == "INDIVIDUAL") {
+            if (foodItem.foodType.uppercase() == "INDIVIDUAL") {
                 for (item in concessionItems) {
                     if (item.id == foodItem.foodId) {
                         item.quantity = foodItem.foodQuan
@@ -1595,7 +1637,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             totalFoodAmt += foodCartListNew?.get(position)?.itemPrice!!
             updateCartPrice()
         } else {
-            if (foodItem.foodType == "INDIVIDUAL") {
+            if (foodItem.foodType.uppercase() == "INDIVIDUAL") {
                 for (item in concessionItems) {
                     if (item.id == foodItem.foodId) {
                         item.quantity = foodItem.foodQuan
@@ -1642,46 +1684,77 @@ class FoodActivity : DaggerAppCompatActivity(),
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onRemoveCart(foodItem: GetFoodResponse.FoodDtls, pos: Int) {
+
         totalFoodAmt -= (foodCartListNew?.get(pos)?.foodQuan!! * foodCartListNew?.get(pos)?.itemPrice!!)
+
+//        finish()
+//        startActivity(intent)
+
         if (pos <= (foodCartList?.size!! - 1))
             foodCartList?.removeAt(pos)
 
         if (pos <= (foodCartListNew?.size!! - 1))
             foodCartListNew?.removeAt(pos)
 
-        Log.w("Total", "" + totalFoodAmt)
+//        Log.w("Total", "" + totalFoodAmt)
         if (totalFoodAmt < 0) totalFoodAmt = 0.0
 
         if (foodCartListNew?.size!! > 0) {
+
             binding?.textCartCountNotiication?.show()
             binding?.textCartCountNotiication?.text = foodCartListNew?.size.toString()
 
-//            if (booktype!="FOOD"){
-//                binding?.txtProceed?.show()
-//                binding?.txtSkipBtn?.hide()
-//            }else{
-//                binding?.txtProceed?.show()
-//                binding?.txtSkipBtn?.hide()
-//            }
             binding?.txtProceed?.show()
             binding?.txtSkipBtn?.hide()
+
+            if (mFoodCartDialog?.isShowing == true) {
+                mFoodCartDialog?.dismiss()
+
+                foodAdapter?.loadNewData(foodSelectedList!!)
+                foodAdapter?.notifyDataSetChanged()
+            }
+
+
+            for (item in foodItemRemove) {
+                println("item.foodtypeCase------->${item.foodtype.uppercase()}")
+
+                if (item.foodtype.uppercase() == "INDIVIDUAL") {
+                    foodAdapter?.loadNewData(tabItem?.concessionItems!!)
+                    foodAdapter?.notifyDataSetChanged()
+//                    Toast.makeText(this, "hello 00", Toast.LENGTH_SHORT).show()
+                } else {
+                    if (mFoodCartDialog?.isShowing == true)
+                        mFoodCartDialog?.dismiss()
+//                    Toast.makeText(this, "hello 11", Toast.LENGTH_SHORT).show()
+//                    foodAdapter?.loadNewData(foodSelectedList!!)
+//                    foodAdapter?.notifyDataSetChanged()
+
+                }
+
+            }
+
+
         } else {
+            Toast.makeText(this, "hello 33", Toast.LENGTH_SHORT).show()
+
+            if (mFoodCartDialog?.isShowing == true)
+                mFoodCartDialog?.dismiss()
+
             binding?.textCartCountNotiication?.text = "0"
             binding?.textCartCountNotiication?.show()
 
-            if (booktype=="FOOD"){
+            if (booktype == "FOOD") {
                 binding?.txtProceed?.show()
                 binding?.txtSkipBtn?.hide()
-            }else{
+            } else {
                 binding?.txtProceed?.hide()
                 binding?.txtSkipBtn?.show()
             }
-//            binding?.txtProceed?.hide()
-//            binding?.txtSkipBtn?.show()
-        }
-        foodCartAdapter?.notifyDataSetChanged()
-        updateSelectedList(foodItem, 0)
 
+
+        }
+
+        updateSelectedList(foodItem, 0)
         itemCartPrice -= getCartFoodPrice()
         itemSetCartPrice = Constant.DECIFORMAT.format(itemCheckPrice / 100.0)
         tvFoodPrice?.text = getAllFoodPrice()
@@ -1699,6 +1772,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                     item.quantityUpdate = item.quantityUpdate - foodItem.foodQuan
                     break
                 }
+
             } else if (type == 2) {
                 if (item.id == foodItem?.foodId) {
                     item.quantityUpdate = item.quantityUpdate + 1
@@ -2062,9 +2136,9 @@ class FoodActivity : DaggerAppCompatActivity(),
         textIncrease?.isClickable = true
         textIncrease?.isEnabled = true
 
-        addBtn?.isClickable = true
-        addBtn?.isEnabled = true
-        addBtn?.background = ContextCompat.getDrawable(this,R.drawable.btn_corner_bg_red)
+        tvDoneBtn?.isClickable = true
+        tvDoneBtn?.isEnabled = true
+        tvDoneBtn?.background = ContextCompat.getDrawable(this, R.drawable.btn_corner_bg_red)
 
         textDecrease?.isClickable = true
         textDecrease?.isEnabled = true
@@ -2103,15 +2177,14 @@ class FoodActivity : DaggerAppCompatActivity(),
             tvKdTotal?.text = foodItem.itemPrice
             textIncrease?.isClickable = true
 
-//            foodItem.packageChildItems[position].alternateItems[0].checkFlag = true
-
             textIncrease?.isEnabled = true
             textDecrease?.isClickable = true
             textDecrease?.isEnabled = true
 
-            addBtn?.isClickable = true
-            addBtn?.isEnabled = true
-            addBtn?.background = ContextCompat.getDrawable(this, R.drawable.btn_corner_bg_red)
+            tvDoneBtn?.isClickable = true
+            tvDoneBtn?.isEnabled = true
+            tvDoneBtn?.background = ContextCompat.getDrawable(this, R.drawable.btn_corner_bg_red)
+
             foodItem.quantity = 1
         }
 
@@ -2252,13 +2325,13 @@ class FoodActivity : DaggerAppCompatActivity(),
     }
 
     private fun updateCartPrice() {
-        if (booktype=="FOOD"){
+        if (booktype == "FOOD") {
             textTotal1?.text = getString(R.string.price_kd) + " ${
                 Constant.DECIFORMAT.format(
-                    getAllFoodPrice().replace("KWD ", "").toDouble() 
+                    getAllFoodPrice().replace("KWD ", "").toDouble()
                 )
             }"
-        }else {
+        } else {
 
             try {
                 textTotal1?.text = getString(R.string.price_kd) + " ${

@@ -157,8 +157,9 @@ class Constant {
         var FNB = "fnb"
         var taglist: ArrayList<String> = ArrayList()
         var select_pos = 0
-        var SEAT_TYPE = ""
-        var SEAT_CATEGORY = ""
+
+        const val SEAT_TYPE = "seatType"
+        const val SEAT_CATEGORY = "seatCategory"
 
         // Preferences
         var DECIFORMAT = DecimalFormat("0.000")
