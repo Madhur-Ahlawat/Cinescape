@@ -8,31 +8,31 @@
 
     <!-- Strings used for fragments for navigation -->
     <string name="modifi_seat">بالضغط على نعم، سيتم إعادة ضبط كافة اختياراتك</string>
-    <string name="username">اسم المستخدم / البريد الالكتروني</string>
-    <string name="password">كلمة السر</string>
+    <string name="username">اسم االمستخدم / البريد الإلكتروني</string>
+    <string name="password">كلمة المرور</string>
     <string name="forgot_password">هل نسيت كلمة السر؟</string>
     <string name="not_register">غير مسجل؟</string>
     <string name="not_registers">غير مسجل؟</string>
     <string name="login_btn">تسجيل الدخول</string>
     <string name="or">أو</string>
     <string name="sign_up">التسجيل</string>
-    <string name="continueAs">متابعة باسم ""</string>
-    <string name="guest"> زائر</string>
+    <string name="continueAs">متابعة كـ ""</string>
+    <string name="guest"> ضيف</string>
     <string name="sign_in">تسجيل الدخول</string>
 
-    <string name="skip">التخطي</string>
+    <string name="skip">تخطي</string>
     <string name="and_proceed">والاستمرار</string>
-    <string name="have_club_card">هل لديك بطاقة نادي؟ ""</string>
+    <string name="have_club_card">لديك بطاقة عضوية؟ ""</string>
     <string name="activate">تفعيل</string>
     <string name="english">إنجليزي</string>
     <string name="dateTime">التاريخ والوقت</string>
 
     <string name="have_an_account">" "هل لديك حساب؟</string>
-    <string name="email">بريد الكتروني</string>
+    <string name="email">البريد الإلكتروني</string>
     <string name="first_name">الاسم الأول</string>
     <string name="last_name">اسم العائلة</string>
     <string name="confirm_password">تأكيد كلمة المرور</string>
-    <string name="mobile">رقم الهاتف</string>
+    <string name="mobile">الهاتف</string>
     <string name="date_of_birth">تاريخ الولادة</string>
     <string name="male">ذكر</string>
     <string name="female">أنثى</string>

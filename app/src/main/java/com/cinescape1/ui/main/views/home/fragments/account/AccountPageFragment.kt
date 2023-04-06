@@ -1728,7 +1728,7 @@ class AccountPageFragment : DaggerFragment(),
 
     private fun setSpinner(cinemas: ArrayList<FoodResponse.Output.Cinema>) {
         try {
-            val customAdapter = CustomSpinnerAdapter(requireContext(), cinemas)
+            val customAdapter = CustomSpinnerAdapter(context!!, cinemas)
             spinnerPref?.adapter = customAdapter
             spinnerPref?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(

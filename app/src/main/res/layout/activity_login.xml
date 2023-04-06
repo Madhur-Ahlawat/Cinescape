@@ -42,7 +42,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="@+id/imageView" />
 
-
         <TextView
             android:id="@+id/textView81"
             android:layout_width="wrap_content"
@@ -69,7 +68,6 @@
             app:layout_constraintStart_toEndOf="@+id/textView2"
             app:layout_constraintTop_toTopOf="@+id/textView2" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -90,7 +88,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/signInUi"
                 android:layout_width="0dp"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="10dp"
@@ -331,8 +329,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gess_medium"
                     android:gravity="center"
-                    android:text="إنجليزي"
-                    android:textColor="@color/arabic_color"
+                    android:text="عربي"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/size15"
                     app:layout_constraintBottom_toBottomOf="@+id/image_switcher"
                     app:layout_constraintEnd_toStartOf="@+id/image_switcher"
@@ -464,7 +462,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="10dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
