@@ -294,7 +294,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
     private fun retrieveData(output: PaymentListResponse.Output) {
         binding?.paymentLayout?.show()
-        binding?.textTimeToLeft?.text = output.amount
+        binding?.textTotalAmount?.text = output.amount
         val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
         adapter = PaymentListAdapter(this, output.payMode, this,summeryViewModel)
         binding?.recyclerPayMode?.layoutManager = gridLayout
@@ -361,7 +361,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                binding?.textTimeToLeft?.text = it.data.output.amount
+                                binding?.textTotalAmount?.text = it.data.output.amount
                                 msg.show()
                                 msg.text = it.data.output.MSG
                                 apply.hide()
@@ -398,6 +398,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 adapter?.notifyDataSetChanged()
                             }
                             else{
+                                summeryViewModel.setpaymentMethodSelectionStateFlow(PaymentMethodSealedClass.NONE)
+                                offerApplied=false
                                 val dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
                                     R.string.app_name,
@@ -502,7 +504,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 bankEdit.isFocusable = true
                                 bankEdit.isEnabled = true
                                 bankEdit.isFocusableInTouchMode = true
-                                bankEdit.inputType = InputType.TYPE_NULL
+                                bankEdit.inputType = InputType.TYPE_CLASS_NUMBER
                                 summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.NONE)
                                 //knet
                                 knet.isClickable = true
@@ -1545,7 +1547,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         imageCheck: ImageView,
         remove: ImageView
     ) {
-        binding?.textTimeToLeft?.text = output.amount
+        binding?.textTotalAmount?.text = output.amount
         apply.show()
         imageCheck.hide()
         remove.hide()
@@ -1638,7 +1640,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         textCancelBtn: TextView
     ) {
         if (output.PAID == "NO") {
-            binding?.textTimeToLeft?.text = output.amount
+            binding?.textTotalAmount?.text = output.amount
             giftApplied = true
             offerEditText.isClickable = false
             offerEditText.isEnabled = false
@@ -1734,7 +1736,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     val second = millisUntilFinished / 1000 % 60
                     val minutes = millisUntilFinished / (1000 * 60) % 60
                     val display = java.lang.String.format("%02d:%02d", minutes, second)
-                    binding?.textTimeToLeft?.text=display
                     textView111?.text = display
                     timeCount = minutes * 60 + second
                     secondLeft = second
@@ -1752,7 +1753,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                     val minutes = millisUntilFinished / (1000 * 60) % 60
                                     val display =
                                         java.lang.String.format("%02d:%02d", minutes, second)
-                                    binding?.textTimeToLeft?.text=display
                                     textView111?.text = display
                                     Constant.IntentKey.TimerExtand = minutes * 60 + second
                                 }

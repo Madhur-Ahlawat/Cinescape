@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
@@ -90,21 +91,21 @@ class PaymentListAdapter(
                 }
 
                 if (giftApplied) {
-                        binding.clHeaderLabelAndDropdown.isClickable = false
-                        binding.clHeaderLabelAndDropdown.isEnabled = false
-                        binding.knet.isClickable = false
-                        binding.knet.isEnabled = false
+                    binding.clHeaderLabelAndDropdown.isClickable = false
+                    binding.clHeaderLabelAndDropdown.isEnabled = false
+                    binding.knet.isClickable = false
+                    binding.knet.isEnabled = false
 
-                        //offer Click
-                        binding.tvApplyCardOffer.isClickable = false
-                        binding.tvApplyCardOffer.isEnabled = false
-                        //wallet
-                        binding.textviewBtWalletApply.isClickable = false
-                        binding.textviewBtWalletApply.isEnabled = false
-                        //gift Cart
-                        binding.offerEditText.isClickable = false
-                        binding.offerEditText.isEnabled = false
-                        binding.offerEditText.isFocusable = false
+                    //offer Click
+                    binding.tvApplyCardOffer.isClickable = false
+                    binding.tvApplyCardOffer.isEnabled = false
+                    //wallet
+                    binding.textviewBtWalletApply.isClickable = false
+                    binding.textviewBtWalletApply.isEnabled = false
+                    //gift Cart
+                    binding.offerEditText.isClickable = false
+                    binding.offerEditText.isEnabled = false
+                    binding.offerEditText.isFocusable = false
 
                 } else {
                     binding.knet.isClickable = true
@@ -237,6 +238,18 @@ class PaymentListAdapter(
                                                 binding.clEnterCardNumber.hide()
                                                 binding.tvBankApply.hide()
                                             } else {
+                                                binding?.apply {
+                                                    offerEditText?.apply {
+                                                        etEnterCardNumber.text?.clear()
+                                                        etEnterCardNumber.isClickable = true
+                                                        etEnterCardNumber.isFocusable = true
+                                                        etEnterCardNumber.isEnabled = true
+                                                        etEnterCardNumber.isFocusableInTouchMode = true
+                                                        etEnterCardNumber.inputType =
+                                                            InputType.TYPE_CLASS_NUMBER
+                                                    }
+
+                                                }
                                                 binding.clEnterCardNumber.show()
                                                 binding.tvBankApply.show()
                                             }
@@ -424,7 +437,6 @@ class PaymentListAdapter(
                                             positiveClick = {},
                                             negativeClick = {})
                                         dialog.show()
-
                                     } else {
                                         listner.onVoucherApply(
                                             this,
@@ -542,17 +554,17 @@ class PaymentListAdapter(
                 viewModel.setpaymentMethodSelectionStateFlow(PaymentMethodSealedClass.WALLET)
                 holder.binding?.apply {
 //                    if(offerApplied){
-                        cancelBtn.show()
-                        textviewBtWalletApply.hide()
-                        imageCreditCard.setColorFilter(
-                            ContextCompat.getColor(
-                                context,
-                                R.color.white
-                            )
+                    cancelBtn.show()
+                    textviewBtWalletApply.hide()
+                    imageCreditCard.setColorFilter(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.white
                         )
-                        imageKnet.setColorFilter(ContextCompat.getColor(context, R.color.white))
-                        textKnetName.setTextColor(context.getColor(R.color.white))
-                        textCreditCardName.setTextColor(context.getColor(R.color.white))
+                    )
+                    imageKnet.setColorFilter(ContextCompat.getColor(context, R.color.white))
+                    textKnetName.setTextColor(context.getColor(R.color.white))
+                    textCreditCardName.setTextColor(context.getColor(R.color.white))
 //                    }
 //                    else{
 //                        cancelBtn.show()
@@ -589,20 +601,19 @@ class PaymentListAdapter(
             }
             PaymentMethodSealedClass.CREDIT_CARD -> {
                 viewModel.setpaymentMethodSelectionStateFlow(PaymentMethodSealedClass.CREDIT_CARD)
-                    holder.binding.apply {
-                        cancelBtn.hide()
-                        textviewBtWalletApply.show()
-                        imageCreditCard.setColorFilter(
-                            ContextCompat.getColor(
-                                context,
-                                R.color.red
-                            )
+                holder.binding.apply {
+                    cancelBtn.hide()
+                    textviewBtWalletApply.show()
+                    imageCreditCard.setColorFilter(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.red
                         )
-                        textCreditCardName.setTextColor(context.getColor(R.color.red))
-                        imageKnet.setColorFilter(ContextCompat.getColor(context, R.color.gray))
-                        textKnetName.setTextColor(context.getColor(R.color.gray))
-                    }
-
+                    )
+                    textCreditCardName.setTextColor(context.getColor(R.color.red))
+                    imageKnet.setColorFilter(ContextCompat.getColor(context, R.color.gray))
+                    textKnetName.setTextColor(context.getColor(R.color.gray))
+                }
 
 
             }
