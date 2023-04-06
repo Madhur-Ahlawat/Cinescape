@@ -1738,23 +1738,17 @@ class FoodActivity : DaggerAppCompatActivity(),
                 println("item.foodtypeCase------->${item.foodtype.uppercase()}")
 
                 if (item.foodtype.uppercase() == "INDIVIDUAL") {
-                    if (pos <= (foodCartList?.size!! - 1))
-                        foodCartList?.removeAt(pos)
 
                     foodAdapter?.loadNewData(tabItem?.concessionItems!!)
                     foodAdapter?.notifyDataSetChanged()
 
-                    Toast.makeText(this, "hello 00", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, "hello 00", Toast.LENGTH_SHORT).show()
 
                 } else {
-
-                    Toast.makeText(this, "hello 11", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, "hello 11", Toast.LENGTH_SHORT).show()
 
                     if (mFoodCartDialog?.isShowing == true)
                         mFoodCartDialog?.dismiss()
-
-                    if (pos <= (foodCartList?.size!! - 1))
-                        foodCartList?.removeAt(pos)
 
                 }
 
@@ -1763,10 +1757,34 @@ class FoodActivity : DaggerAppCompatActivity(),
 
         } else {
 
-//            Toast.makeText(this, "hello 33", Toast.LENGTH_SHORT).show()
+            if (pos <= (foodCartList?.size!! -1))
+                foodCartList?.removeAt(pos)
 
-            if (mFoodCartDialog?.isShowing == true)
-                mFoodCartDialog?.dismiss()
+            if (pos <= (foodCartListNew?.size!! -1))
+                foodCartListNew?.removeAt(pos)
+
+            for (item in foodItemRemove) {
+
+                println("foodtypeCaseValues------->${item.foodtype.uppercase()}")
+
+                if (item.foodtype.uppercase() == "INDIVIDUAL") {
+                    if (mFoodCartDialog?.isShowing == true)
+                        mFoodCartDialog?.dismiss()
+
+                    foodAdapter?.loadNewData(tabItem?.concessionItems!!)
+                    foodAdapter?.notifyDataSetChanged()
+//                    Toast.makeText(this, "hello 12", Toast.LENGTH_SHORT).show()
+                } else {
+//                    Toast.makeText(this, "hello 21", Toast.LENGTH_SHORT).show()
+
+                    if (mFoodCartDialog?.isShowing == true)
+                        mFoodCartDialog?.dismiss()
+
+                    foodAdapter?.loadNewData(tabItem?.concessionItems!!)
+                    foodAdapter?.notifyDataSetChanged()
+                }
+
+            }
 
             binding?.textCartCountNotiication?.text = "0"
             binding?.textCartCountNotiication?.show()
