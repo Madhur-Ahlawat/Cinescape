@@ -9,6 +9,7 @@ data class BankOfferApply(
     data class Output(
         val MSG: String,
         val PAID: String,
-        val amount: String
+        val amount: String,
+        val payInfo: ArrayList<PaymentListResponse.Output.PayInfo>
     )
 }

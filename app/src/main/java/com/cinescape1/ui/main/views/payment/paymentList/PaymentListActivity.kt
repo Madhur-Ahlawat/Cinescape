@@ -367,6 +367,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 apply.hide()
                                 close.hide()
                                 chekbox.hide()
+                                outputlist?.clear()
+                                outputlist?.addAll(it.data.output.payInfo)
                                 summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.CREDIT_CARD)
                                 bankCancel.show()
                                 offerApplied = true
@@ -492,6 +494,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 msg.hide()
+                                binding?.textTotalAmount?.text = it.data.output.amount
+                                msg.text = it.data.output.MSG
                                 bankOfferClick = false
                                 //bank
                                 apply.show()
@@ -505,6 +509,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 bankEdit.isEnabled = true
                                 bankEdit.isFocusableInTouchMode = true
                                 bankEdit.inputType = InputType.TYPE_CLASS_NUMBER
+                                outputlist?.clear()
+                                outputlist?.addAll(it.data.output.payInfo)
                                 summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.NONE)
                                 //knet
                                 knet.isClickable = true
