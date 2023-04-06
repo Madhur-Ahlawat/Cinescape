@@ -460,6 +460,7 @@
                 android:layout_gravity="center_horizontal|center"
                 android:layout_marginTop="@dimen/margin35"
                 android:weightSum="2"
+                android:id="@+id/linearlayout_knet_credit_card"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">

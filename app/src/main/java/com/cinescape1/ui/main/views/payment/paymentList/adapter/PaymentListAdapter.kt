@@ -73,10 +73,10 @@ class PaymentListAdapter(
 
                 //title
                 binding.headerOfferType.text = this.name
-
+                binding.ivDropdown.show()
                 //wallet
                 if (this.payType == "GATEWAY") {
-                    binding.ivDropdown.setImageResource(R.drawable.arrow_up)
+                    binding.ivDropdown.hide()
                     binding.cardPaymentOptionsUi.show()
                     Glide.with(context)
                         .load(this.respPayModes[1].imageUrl)
@@ -220,7 +220,6 @@ class PaymentListAdapter(
                                     )
                                 )
                                 list.addAll(this.respPayModes[0].payModeBanks)
-
                                 customAdapter = BankOfferAdapter(context, list)
                                 binding.spinnerCardOptions.adapter = customAdapter
                                 binding.spinnerCardOptions.onItemSelectedListener =
@@ -248,10 +247,10 @@ class PaymentListAdapter(
                                                         etEnterCardNumber.inputType =
                                                             InputType.TYPE_CLASS_NUMBER
                                                     }
-
+                                                    clEnterCardNumber.show()
+                                                    tvBankApply.show()
                                                 }
-                                                binding.clEnterCardNumber.show()
-                                                binding.tvBankApply.show()
+
                                             }
 
                                             val value =
@@ -387,14 +386,18 @@ class PaymentListAdapter(
 
                                 }
 
-                            } else {
+                            }
+                            else {
                                 cartBank = true
 
                                 println("cartBankTrue------->${cartBank}")
-                                binding.ivDropdown.setImageResource(R.drawable.arrow_down)
-                                binding.bankOffer.hide()
-                                binding.wallet.hide()
-                                binding.giftCardUi.hide()
+                                binding?.apply {
+                                    ivDropdown.setImageResource(R.drawable.arrow_down)
+                                    bankOffer.hide()
+                                    wallet.hide()
+                                    giftCardUi.hide()
+                                }
+
                             }
                         }
                         "OFFER" -> {
@@ -403,17 +406,21 @@ class PaymentListAdapter(
                                 println("------>${this.respPayModes}")
                                 cartGift = false
                                 clickName = this.respPayModes[0].name
-                                binding.ivDropdown.setImageResource(R.drawable.arrow_up)
-                                binding.bankOffer.hide()
-                                binding.wallet.hide()
-                                binding.giftCardUi.show()
+                                binding?.apply {
+                                    ivDropdown.setImageResource(R.drawable.arrow_up)
+                                    bankOffer.hide()
+                                    wallet.hide()
+                                    giftCardUi.show()
+                                    offerEditText.hint = clickName
+                                }
 
-                                binding.offerEditText.hint = clickName
 
                                 binding.giftCard.setOnClickListener {
-                                    binding.bankOffer.hide()
-                                    binding.wallet.hide()
-                                    binding.giftCardUi.show()
+                                    binding?.apply {
+                                        bankOffer.hide()
+                                        wallet.hide()
+                                        giftCardUi.show()
+                                    }
                                     notifyDataSetChanged()
                                 }
 
@@ -483,7 +490,6 @@ class PaymentListAdapter(
                         }
                         "WALLET" -> {
                             if (cartWallet == true) {
-
                                 cartWallet = false
                                 binding.bankOffer.hide()
                                 binding.wallet.show()
@@ -523,25 +529,6 @@ class PaymentListAdapter(
                             binding.bankOffer.hide()
                             binding.wallet.hide()
                             binding.giftCardUi.hide()
-
-                            binding.creditCard.setOnClickListener {
-                                creditCardClick = true
-                                knetClick = false
-                                cancelWallet = true
-                                viewModel.setPaymentMethodSelection(PaymentMethodSealedClass.CREDIT_CARD)
-                                notifyDataSetChanged()
-                            }
-                            binding.knet.setOnClickListener {
-                                knetClick = true
-                                creditCardClick = false
-                                cancelWallet = true
-                                viewModel.setPaymentMethodSelection(PaymentMethodSealedClass.KNET)
-//                                    Glide.with(context).load(this.respPayModes[0].activeImageUrl).into(binding.imageKnet)
-//                                    Glide.with(context).load(this.respPayModes[1].imageUrl).into(binding.imageCreditCard)
-
-                                notifyDataSetChanged()
-                            }
-
                         }
                     }
                     notifyDataSetChanged()
