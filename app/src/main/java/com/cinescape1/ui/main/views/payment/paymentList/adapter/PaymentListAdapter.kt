@@ -48,7 +48,8 @@ class PaymentListAdapter(
     private var cardNo = ""
     private var knetClick = false
     private var creditCardClick = false
-
+    val list: ArrayList<PaymentListResponse.Output.PayMode.RespPayMode.PayModeBank> =
+        ArrayList()
     private var cartBank = true
     private var cartGift = true
     private var cartWallet = true
@@ -107,7 +108,8 @@ class PaymentListAdapter(
                     binding.offerEditText.isEnabled = false
                     binding.offerEditText.isFocusable = false
 
-                } else {
+                }
+                else {
                     binding.knet.isClickable = true
                     binding.knet.isEnabled = true
                     binding.clHeaderLabelAndDropdown.isClickable = true
@@ -141,7 +143,8 @@ class PaymentListAdapter(
                     binding.offerEditText.isClickable = false
                     binding.offerEditText.isEnabled = false
                     binding.offerEditText.isFocusable = false
-                } else {
+                }
+                else {
                     binding.knet.isClickable = true
                     binding.knet.isEnabled = true
                     binding.clHeaderLabelAndDropdown.isClickable = true
@@ -211,6 +214,8 @@ class PaymentListAdapter(
                         setClickable(true);
                     }
                 }
+                customAdapter = BankOfferAdapter(context, list)
+                binding.spinnerCardOptions.adapter=customAdapter
                 //show Hide
                 binding.clHeaderLabelAndDropdown.setOnClickListener {
                     println("payType---->${this.payType}")
@@ -219,11 +224,7 @@ class PaymentListAdapter(
                             if (cartBank == true) {
                                 cartBank = false
                                 binding.ivDropdown.setImageResource(R.drawable.arrow_up)
-                                binding.bankOffer.show()
-                                binding.wallet.hide()
-                                binding.giftCardUi.hide()
-                                val list: ArrayList<PaymentListResponse.Output.PayMode.RespPayMode.PayModeBank> =
-                                    ArrayList()
+                                list?.clear()
                                 list.add(
                                     PaymentListResponse.Output.PayMode.RespPayMode.PayModeBank(
                                         0,
@@ -231,9 +232,6 @@ class PaymentListAdapter(
                                     )
                                 )
                                 list.addAll(this.respPayModes[0].payModeBanks)
-                                customAdapter = BankOfferAdapter(context, list)
-                                binding.spinnerCardOptions.adapter=customAdapter
-
                                 binding.spinnerCardOptions.onItemSelectedListener =
                                     object : AdapterView.OnItemSelectedListener {
                                         override fun onItemSelected(
@@ -324,7 +322,8 @@ class PaymentListAdapter(
                                         )
                                     }
                                 }
-
+                                binding.wallet.hide()
+                                binding.giftCardUi.hide()
 //                                binding.bankEdit.addTextChangedListener(
 //                                    FourDigitCardFormatWatcher()
 //                                )
@@ -397,7 +396,7 @@ class PaymentListAdapter(
                                     )
 
                                 }
-
+                                binding.bankOffer.show()
                             }
                             else {
                                 cartBank = true
