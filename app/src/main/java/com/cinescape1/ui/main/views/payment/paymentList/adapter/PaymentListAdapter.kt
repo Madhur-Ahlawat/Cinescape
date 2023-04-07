@@ -85,7 +85,7 @@ class PaymentListAdapter(
                     Glide.with(context)
                         .load(this.respPayModes[0].imageUrl)
                         .into(binding.imageKnet)
-
+                    binding?.view105.hide()
                 } else {
                     binding.cardPaymentOptionsUi.hide()
                 }
@@ -411,7 +411,7 @@ class PaymentListAdapter(
                                     bankOffer.hide()
                                     wallet.hide()
                                     giftCardUi.show()
-                                    offerEditText.hint = clickName
+                                    offerEditText.hint = context.resources.getString(R.string.enter_gift_card)
                                 }
 
 
@@ -444,7 +444,8 @@ class PaymentListAdapter(
                                             positiveClick = {},
                                             negativeClick = {})
                                         dialog.show()
-                                    } else {
+                                    }
+                                    else {
                                         listner.onVoucherApply(
                                             this,
                                             offerCode,

@@ -1663,7 +1663,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             Constant.IntentKey.TimerTime = 360
             apply.hide()
             textCancelBtn.show()
-
 //            val intent = Intent(applicationContext, FinalTicketActivity::class.java)
 //            intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
 //            intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
