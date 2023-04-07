@@ -215,7 +215,52 @@ class PaymentListAdapter(
                     }
                 }
                 customAdapter = BankOfferAdapter(context, list)
-                binding.spinnerCardOptions.adapter=customAdapter
+                binding.spinnerCardOptions.onItemSelectedListener =
+                    object : AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(
+                            parent: AdapterView<*>,
+                            view: View,
+                            position: Int,
+                            id: Long
+                        ) {
+
+                            println("customAdapterPosition------>${position}")
+                            offerId = list[position].id.toString()
+                            if (position == 0) {
+                                binding.clEnterCardNumber.hide()
+                                binding.tvBankApply.hide()
+                            }
+                            else {
+                                binding?.apply {
+                                    offerEditText?.apply {
+                                        etEnterCardNumber.text?.clear()
+                                        etEnterCardNumber.isClickable = true
+                                        etEnterCardNumber.isFocusable = true
+                                        etEnterCardNumber.isEnabled = true
+                                        etEnterCardNumber.isFocusableInTouchMode = true
+                                        etEnterCardNumber.inputType =
+                                            InputType.TYPE_CLASS_NUMBER
+                                    }
+                                    clEnterCardNumber.show()
+                                    tvBankApply.show()
+                                }
+
+                            }
+
+                            val value =
+                                parent.getItemAtPosition(position) as PaymentListResponse.Output.PayMode.RespPayMode.PayModeBank
+                            view.setBackgroundColor(Color.parseColor("#000000"))
+                            if (value == list[0]) {
+                                (view as ConstraintLayout).findViewById<TextView>(R.id.textView21)
+                                    .setTextColor(Color.parseColor("#ADADAD"))
+                            }
+
+                        }
+
+                        override fun onNothingSelected(parent: AdapterView<*>) {
+//                                            view.setBackgroundColor(Color.parseColor("#000000"))
+                        }
+                    }
                 //show Hide
                 binding.clHeaderLabelAndDropdown.setOnClickListener {
                     println("payType---->${this.payType}")
@@ -232,53 +277,8 @@ class PaymentListAdapter(
                                     )
                                 )
                                 list.addAll(this.respPayModes[0].payModeBanks)
-                                binding.spinnerCardOptions.onItemSelectedListener =
-                                    object : AdapterView.OnItemSelectedListener {
-                                        override fun onItemSelected(
-                                            parent: AdapterView<*>,
-                                            view: View,
-                                            position: Int,
-                                            id: Long
-                                        ) {
-
-                                            println("customAdapterPosition------>${position}")
-                                            offerId = list[position].id.toString()
-                                            if (position == 0) {
-                                                binding.clEnterCardNumber.hide()
-                                                binding.tvBankApply.hide()
-                                            }
-                                            else {
-                                                binding?.apply {
-                                                    offerEditText?.apply {
-                                                        etEnterCardNumber.text?.clear()
-                                                        etEnterCardNumber.isClickable = true
-                                                        etEnterCardNumber.isFocusable = true
-                                                        etEnterCardNumber.isEnabled = true
-                                                        etEnterCardNumber.isFocusableInTouchMode = true
-                                                        etEnterCardNumber.inputType =
-                                                            InputType.TYPE_CLASS_NUMBER
-                                                    }
-                                                    clEnterCardNumber.show()
-                                                    tvBankApply.show()
-                                                }
-
-                                            }
-
-                                            val value =
-                                                parent.getItemAtPosition(position) as PaymentListResponse.Output.PayMode.RespPayMode.PayModeBank
-                                            view.setBackgroundColor(Color.parseColor("#000000"))
-                                            if (value == list[0]) {
-                                                (view as ConstraintLayout).findViewById<TextView>(R.id.textView21)
-                                                    .setTextColor(Color.parseColor("#ADADAD"))
-                                            }
-
-                                        }
-
-                                        override fun onNothingSelected(parent: AdapterView<*>) {
-//                                            view.setBackgroundColor(Color.parseColor("#000000"))
-                                        }
-                                    }
-
+                                binding.spinnerCardOptions.setBackgroundColor(context.resources.getColor(R.color.dropDownColor))
+                                binding.spinnerCardOptions.adapter=customAdapter
                                 binding.tvBankApply.setOnClickListener {
                                     cardNo =
                                         binding.etEnterCardNumber.text.toString().replace(" ", "")
@@ -322,8 +322,6 @@ class PaymentListAdapter(
                                         )
                                     }
                                 }
-                                binding.wallet.hide()
-                                binding.giftCardUi.hide()
 //                                binding.bankEdit.addTextChangedListener(
 //                                    FourDigitCardFormatWatcher()
 //                                )
@@ -397,6 +395,8 @@ class PaymentListAdapter(
 
                                 }
                                 binding.bankOffer.show()
+                                binding.wallet.hide()
+                                binding.giftCardUi.hide()
                             }
                             else {
                                 cartBank = true
