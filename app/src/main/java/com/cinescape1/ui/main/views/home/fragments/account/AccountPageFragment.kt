@@ -122,7 +122,6 @@ class AccountPageFragment : DaggerFragment(),
         ModelPreferenceExperience(R.drawable.img_screenx, 0)
     )
 
-
     private var userName: String = ""
     private var firstName: String = ""
     private var lastName: String = ""
