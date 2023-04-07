@@ -83,6 +83,7 @@ class DeleteAccountActivity : DaggerAppCompatActivity() {
                     }
 
                 }
+                
                 R.id.radio3 -> {
                     if (id == R.id.radio3) {
                         checkedRadioButton.buttonTintList = ColorStateList.valueOf(
