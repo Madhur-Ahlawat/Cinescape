@@ -354,18 +354,17 @@
             app:layout_constraintStart_toEndOf="@+id/view_times1"
             app:layout_constraintTop_toTopOf="@+id/view_times1" />
 
-
         <ImageView
             android:id="@+id/text_ss"
             android:layout_width="0dp"
             android:layout_height="18dp"
             android:adjustViewBounds="true"
             android:visibility="visible"
+            android:layout_marginEnd="@dimen/margin4"
             app:layout_constraintEnd_toEndOf="@+id/view33_experience"
             app:layout_constraintStart_toEndOf="@+id/tv_no_of_screen"
             app:layout_constraintTop_toBottomOf="@+id/text_experience2"
             tools:ignore="ContentDescription" />
-
 
         <TextView
             android:id="@+id/food_pickup_btn"

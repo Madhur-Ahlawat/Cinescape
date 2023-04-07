@@ -395,13 +395,12 @@
             android:layout_marginStart="20dp"
             android:paddingTop="@dimen/margin20"
             android:fontFamily="@font/sf_pro_text_bold"
-            android:text="Location"
+            android:text="@string/location"
             android:textColor="@color/white"
             android:textSize="@dimen/size22"
             android:visibility="visible"
             app:layout_constraintStart_toStartOf="@+id/constraintLayout7"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout7"
-            tools:ignore="HardcodedText" />
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout7" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerMore"

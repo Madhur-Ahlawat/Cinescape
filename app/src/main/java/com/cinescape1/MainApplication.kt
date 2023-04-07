@@ -4,6 +4,7 @@ package com.cinescape1
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatDelegate
 import com.cinescape1.di.DaggerAppComponent
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.LocaleHelper
@@ -60,6 +61,9 @@ class MainApplication : DaggerApplication() {
         // OneSignal Initialization
         OneSignal.initWithContext(this);
         OneSignal.setAppId(ONESIGNAL_APP_ID);
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
     }
 //    private fun broadcastIntent() {
 //        registerReceiver(broadcastReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))

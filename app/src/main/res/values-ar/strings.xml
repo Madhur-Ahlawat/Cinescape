@@ -405,4 +405,10 @@
     <string name="authentication_code">رمز الدخول</string>
     <string name="payment_modes">طرق الدفع</string>
     <string name="deleteMsg">الرجاء تحديد أو كتابة سبب الرسالة.</string>
+
+    <string name="bachlor">بكالوريوس</string>
+    <string name="premium">غالي</string>
+
+    <string name="standards">معيار</string>
+    <string name="premiums">غالي</string>
 </resources>
