@@ -106,9 +106,9 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                 LocaleHelper.setLocale(this, "ar")
                 Constant.LANGUAGE = "${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}"
                 languageCheck = "ar"
-                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
-                val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
-                val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
+                val regular = ResourcesCompat.getFont(this, R.font.montserrat_light)
+                val bold = ResourcesCompat.getFont(this, R.font.montserrat_bold)
+                val medium = ResourcesCompat.getFont(this, R.font.montserrat_medium)
 
                 binding?.textFilmHouseName?.typeface = bold // heavy
                 binding?.textMovieType?.typeface = regular

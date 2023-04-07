@@ -103,9 +103,9 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
-                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
-                val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
-//                val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
+                val regular = ResourcesCompat.getFont(this, R.font.montserrat_light)
+                val bold = ResourcesCompat.getFont(this, R.font.montserrat_bold)
+//                val medium = ResourcesCompat.getFont(this, R.font.montserrat_medium)
 
                 binding?.textBookingAddedWallet?.typeface = regular
                 binding?.textBookingSuccess?.typeface = regular

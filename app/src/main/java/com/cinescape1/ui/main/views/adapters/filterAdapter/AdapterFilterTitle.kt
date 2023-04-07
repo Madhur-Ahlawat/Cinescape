@@ -46,9 +46,9 @@ class AdapterFilterTitle(
 
         if (Constant.LANGUAGE == "ar"){
             LocaleHelper.setLocale(mContext, "ar")
-            val regular = ResourcesCompat.getFont(mContext, R.font.gess_light)
-            val bold = ResourcesCompat.getFont(mContext, R.font.gess_bold)
-            val medium = ResourcesCompat.getFont(mContext, R.font.gess_medium)
+            val regular = ResourcesCompat.getFont(mContext, R.font.montserrat_light)
+            val bold = ResourcesCompat.getFont(mContext, R.font.montserrat_bold)
+            val medium = ResourcesCompat.getFont(mContext, R.font.montserrat_medium)
             holder.textTitleFilter.typeface = bold
 
         }else if (Constant.LANGUAGE == "en"){

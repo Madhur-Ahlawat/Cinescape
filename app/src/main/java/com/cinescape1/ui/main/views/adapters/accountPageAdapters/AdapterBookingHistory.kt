@@ -33,9 +33,9 @@ class AdapterBookingHistory(private val context: Activity,
 
         if (Constant.LANGUAGE == "ar"){
             LocaleHelper.setLocale(context, "ar")
-            val regular = ResourcesCompat.getFont(context, R.font.gess_light)
-            val bold = ResourcesCompat.getFont(context, R.font.gess_bold)
-            val medium = ResourcesCompat.getFont(context, R.font.gess_medium)
+            val regular = ResourcesCompat.getFont(context, R.font.montserrat_light)
+            val bold = ResourcesCompat.getFont(context, R.font.montserrat_bold)
+            val medium = ResourcesCompat.getFont(context, R.font.montserrat_medium)
 
             holder.textBookingHistoryTitle.typeface = bold
             holder.textBookingHistoryDate.typeface = regular

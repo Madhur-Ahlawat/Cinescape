@@ -327,7 +327,7 @@
                     android:id="@+id/text_arabic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/gess_medium"
+                    android:fontFamily="@font/montserrat_medium"
                     android:gravity="center"
                     android:text="عربي"
                     android:textColor="@color/white"

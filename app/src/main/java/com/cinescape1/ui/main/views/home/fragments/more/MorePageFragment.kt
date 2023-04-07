@@ -127,9 +127,9 @@ class MorePageFragment : DaggerFragment(),
                 LocaleHelper.setLocale(requireActivity(), "ar")
                 image_switcher?.isChecked = false
                 println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
-                val regular = ResourcesCompat.getFont(requireActivity(), R.font.gess_light)
-                val bold = ResourcesCompat.getFont(requireActivity(), R.font.gess_bold)
-                val medium = ResourcesCompat.getFont(requireActivity(), R.font.gess_medium)
+                val regular = ResourcesCompat.getFont(requireActivity(), R.font.montserrat_light)
+                val bold = ResourcesCompat.getFont(requireActivity(), R.font.montserrat_bold)
+                val medium = ResourcesCompat.getFont(requireActivity(), R.font.montserrat_medium)
 
                 binding?.textProfileTitle?.typeface = regular
                 binding?.textBookingTitle?.typeface = regular

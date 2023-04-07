@@ -57,8 +57,8 @@ class ComingSoonActivity : DaggerAppCompatActivity(),
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
                 languageCheck = "ar"
-                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
-                val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
+                val regular = ResourcesCompat.getFont(this, R.font.montserrat_light)
+                val bold = ResourcesCompat.getFont(this, R.font.montserrat_bold)
                 binding?.textFilmHouseName?.typeface = bold // heavy
                 binding?.textShare?.typeface = regular
                 binding?.textNotify?.typeface = regular

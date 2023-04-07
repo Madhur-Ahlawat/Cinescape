@@ -227,9 +227,9 @@ class AccountPageFragment : DaggerFragment(),
                 arbic = true
                 println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
 
-                val regular = ResourcesCompat.getFont(requireActivity(), R.font.gess_light)
-                val bold = ResourcesCompat.getFont(requireActivity(), R.font.gess_bold)
-                val medium = ResourcesCompat.getFont(requireActivity(), R.font.gess_medium)
+                val regular = ResourcesCompat.getFont(requireActivity(), R.font.montserrat_light)
+                val bold = ResourcesCompat.getFont(requireActivity(), R.font.montserrat_bold)
+                val medium = ResourcesCompat.getFont(requireActivity(), R.font.montserrat_medium)
 
                 binding?.textSwitcher?.typeface = regular
                 binding?.textArabic?.typeface = regular
