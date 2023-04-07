@@ -378,7 +378,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
             binding?.tvCinemaName?.text = output.cinema.name
             movieCinemaName = output.cinema.name
 
-            println("PositionCinemas------->${cinemaPos1}---->${showPos}---->${Constant.select_pos}")
+            println("Position------->${output}")
 
 
             movieImage = output.movie.mobimgbig

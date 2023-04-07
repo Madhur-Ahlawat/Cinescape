@@ -3,10 +3,12 @@ package com.cinescape1.ui.main.views.home.fragments.home.adapter
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.LAYOUT_DIRECTION_LTR
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -26,7 +28,6 @@ import com.cinescape1.utils.Constant.Companion.SEE_ALL_TYPE
 import com.github.islamkhsh.viewpager2.ViewPager2
 import kotlinx.android.synthetic.main.home_parrent_list.view.*
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.math.abs
 
 class HomeParentAdapter(
@@ -58,16 +59,8 @@ class HomeParentAdapter(
                 holder.viewpager.show()
                 holder.consAdvance.hide()
 
-                if (Constant.LANGUAGE == "ar") {
-                    LocaleHelper.setLocale(mContext, "ar")
-                } else {
-                    LocaleHelper.setLocale(mContext, "en")
-                }
-
                 val pagerAdapter = HomeFrontSliderAdapter(mContext, obj.movieData, holder.viewpager)
                 holder.viewpager.adapter = pagerAdapter
-//                holder.viewpager.currentItem=1
-//                onInfinitePageChangeCallback(obj.movieData.size + 2, holder, obj.movieData)
                 if(obj.movieData.size>0){
                     holder.viewpager.setCurrentItem(1,false)
                     HelperUtils.setGradient(holder.viewpager,obj.movieData[1].sliderimgurl)
@@ -116,6 +109,69 @@ class HomeParentAdapter(
                     }
                 })
                 holder.viewpager.setPageTransformer(transfer)
+
+//                if (Constant.LANGUAGE == "ar") {
+////                    mContext.window.decorView.layoutDirection = LAYOUT_DIRECTION_LTR
+//
+//
+//
+//
+//                } else {
+//                    mContext.toast("${Constant.LANGUAGE}")
+//                    LocaleHelper.setLocale(mContext, "en")
+//                    val pagerAdapter = HomeFrontSliderAdapter(mContext, obj.movieData, holder.viewpager)
+//                    holder.viewpager.adapter = pagerAdapter
+////                holder.viewpager.currentItem=1
+////                onInfinitePageChangeCallback(obj.movieData.size + 2, holder, obj.movieData)
+//                    if(obj.movieData.size>0){
+//                        holder.viewpager.setCurrentItem(1,false)
+//                        HelperUtils.setGradient(holder.viewpager,obj.movieData[1].sliderimgurl)
+//                    }
+//
+//                    holder.viewpager.registerOnPageChangeCallback(object:
+//                        androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback() {
+//                        var mPosition:Int=-1
+//                        override fun onPageSelected(position: Int) {
+//                            mPosition=position
+//                            super.onPageSelected(position)
+//                        }
+//
+//                        override fun onPageScrollStateChanged(state: Int) {
+//                            if(state==SCROLL_STATE_IDLE){
+//                                HelperUtils.setGradient(holder.viewpager,obj.movieData[mPosition].sliderimgurl)
+//                                if(obj.movieData[mPosition].isFakeFirstElement){
+//                                    holder.viewpager.setCurrentItem(1,false)
+//                                }
+//                                if(obj.movieData[mPosition].isFakeLastElement){
+//                                    holder.viewpager.setCurrentItem(obj.movieData.size-2,false)
+//                                }
+//                            }
+//                            super.onPageScrollStateChanged(state)
+//                        }
+//                    })
+//                    holder.viewpager.offscreenPageLimit = 3
+//                    holder.viewpager.clipChildren = false
+//                    holder.viewpager.clipToPadding = false
+//                    holder.viewpager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+//                    val transfer = CompositePageTransformer()
+//                    val nextItemVisiblePx =
+//                        mContext.resources.getDimension(R.dimen.viewpager_next_item_visible)
+//                    val currentItemHorizontalMarginPx =
+//                        mContext.resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
+//
+//                    val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
+//                    transfer.addTransformer(object : ViewPager2.PageTransformer,
+//                        androidx.viewpager2.widget.ViewPager2.PageTransformer {
+//                        override fun transformPage(page: View, position: Float) {
+//                            val r = 1 - abs(position)
+//                            page.translationX = -pageTranslationX * position
+//                            page.scaleY = 1 - (0.35f * abs(position))
+//
+//                            println("FrontSliderPositionY---------->${page.scaleY}-----positionX--->${page.translationX}")
+//                        }
+//                    })
+//                    holder.viewpager.setPageTransformer(transfer)
+//                }
 
             }
             "advance" -> {
