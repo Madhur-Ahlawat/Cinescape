@@ -111,8 +111,6 @@
                             tools:ignore="HardcodedText,TextContrastCheck" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -242,7 +240,7 @@
                             <View
                                 android:id="@+id/view_preference"
                                 android:layout_width="0dp"
-                                android:layout_height="60dp"
+                                android:layout_height="0dp"
                                 app:layout_constraintBottom_toBottomOf="@+id/view_booking"
                                 app:layout_constraintEnd_toEndOf="@+id/text_user_wallet_kd"
                                 app:layout_constraintStart_toEndOf="@+id/view_booking"
@@ -536,10 +534,12 @@
                                 android:id="@+id/recyclerview_booking"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/margin25"
+                                android:layout_marginTop="@dimen/margin18"
                                 android:layout_marginBottom="@dimen/margin12"
                                 android:nestedScrollingEnabled="false"
                                 android:visibility="visible"
+                                tools:listitem="@layout/account_booking_item"
+                                tools:itemCount="2"
                                 app:layout_constraintEnd_toEndOf="@+id/text_upcoming_booking"
                                 app:layout_constraintStart_toStartOf="@+id/text_upcoming_booking"
                                 app:layout_constraintTop_toBottomOf="@+id/text_upcoming_booking" />

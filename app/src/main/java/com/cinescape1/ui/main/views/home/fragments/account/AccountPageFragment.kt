@@ -312,7 +312,6 @@ class AccountPageFragment : DaggerFragment(),
                 textBooking.typeface = bold
                 textHistory.typeface = bold
 
-
             }
 
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
@@ -508,6 +507,7 @@ class AccountPageFragment : DaggerFragment(),
         binding?.textUserAccountName?.text =Constant().toCamelCase("$firstName $lastName")
 
 //        binding?.textUserAccountName?.text = "$firstName $lastName"
+        println("ProfileUserName21---------->${userName}")
         enter_user_names.setText(userName)
         enter_first_name.setText(firstName)
         enter_last_name.setText(lastName)
@@ -1728,7 +1728,7 @@ class AccountPageFragment : DaggerFragment(),
 
     private fun setSpinner(cinemas: ArrayList<FoodResponse.Output.Cinema>) {
         try {
-            val customAdapter = CustomSpinnerAdapter(context!!, cinemas)
+            val customAdapter = CustomSpinnerAdapter(requireContext(), cinemas)
             spinnerPref?.adapter = customAdapter
             spinnerPref?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -3385,6 +3385,8 @@ class AccountPageFragment : DaggerFragment(),
 
     @SuppressLint("SetTextI18n")
     private fun retrievedProfile(output: ProfileResponse.Output) {
+        println("ProfileUserName---------->${output.userName}")
+
         enter_user_names.setText(output.userName)
         enter_first_name.setText(output.firstName)
         enter_last_name.setText(output.lastName)
@@ -3393,7 +3395,7 @@ class AccountPageFragment : DaggerFragment(),
         enter_city.setText(output.city)
         enter_date_births.text = output.dob
 
-        binding?.textUserAccountName?.text =Constant().toCamelCase(output.firstName + " " + output.lastName.toString())
+        binding?.textUserAccountName?.text =Constant().toCamelCase(output.firstName + " " + output.lastName)
 
 
         if (output.userName.isNullOrEmpty()) {

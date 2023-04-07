@@ -85,6 +85,8 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
     private val myPreference = "MyPrefs"
     private var sharedPreferences: SharedPreferences? = null
     private val onBoardingClick = "Name"
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUserPreferencesBinding.inflate(layoutInflater, null, false)
@@ -170,6 +172,8 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
 
+
+
         broadcastIntent()
         movedNext()
         getProfile(ProfileRequest(latitude, longitude,preferences.getString(Constant.USER_ID).toString()))
@@ -177,6 +181,7 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
         broadcastIntent()
         loadLocation()
         CinemaResponse()
+
     }
 
     private fun CinemaResponse() {
@@ -353,9 +358,13 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
 
     @SuppressLint("InflateParams")
     private fun  createSeatCategory(layout: FlexboxLayout, seatCategory: String) {
+//        val list: java.util.ArrayList<ModelPreferenceCategory> = arrayListOf(
+//            ModelPreferenceCategory(R.drawable.family_icons, "Family", 0),
+//            ModelPreferenceCategory(R.drawable.family_normal_icon, "Bachelor", 0)
+//        )
         val list: java.util.ArrayList<ModelPreferenceCategory> = arrayListOf(
-            ModelPreferenceCategory(R.drawable.family_icons, "Family", 0),
-            ModelPreferenceCategory(R.drawable.family_normal_icon, "Bachelor", 0)
+            ModelPreferenceCategory(R.drawable.family,getString(R.string.family),0),
+                    ModelPreferenceCategory(R.drawable.bachlor,getString(R.string.bachlor),0)
         )
 
         val listFA: java.util.ArrayList<ModelSeatCategoryFA> =
@@ -564,8 +573,8 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
     private fun createSeatType(layout: FlexboxLayout, seatType : String) {
 
         val list: ArrayList<ModelPreferenceType> = arrayListOf(
-            ModelPreferenceType("Standard",0),
-            ModelPreferenceType("Premium",0)
+            ModelPreferenceType(getString(R.string.standard),0),
+                    ModelPreferenceType(getString(R.string.premium),0)
         )
 
         layout.removeAllViews()

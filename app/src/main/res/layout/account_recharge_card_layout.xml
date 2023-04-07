@@ -34,8 +34,9 @@
                 android:id="@+id/text_amount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="27dp"
                 android:fontFamily="@font/sf_pro_text_bold"
+                android:includeFontPadding="false"
                 android:lineSpacingExtra="5.5sp"
                 android:text="@string/amount"
                 android:textColor="@color/white"
@@ -122,6 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/sf_pro_text_bold"
+                android:includeFontPadding="false"
                 android:lineSpacingExtra="5.5sp"
                 android:text="@string/payment_method"
                 android:textColor="@color/white"
@@ -301,6 +303,7 @@
                 android:id="@+id/view33_liness"
                 android:layout_width="1dp"
                 android:layout_height="0dp"
+                android:layout_marginBottom="@dimen/margin15"
                 android:background="@color/lineColor"
                 app:layout_constraintBottom_toBottomOf="@+id/view_knet"
                 app:layout_constraintEnd_toEndOf="@+id/view_knet"
@@ -339,6 +342,16 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:id="@+id/view110"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginTop="-8dp"
+                android:background="@color/lineColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/text_amount" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

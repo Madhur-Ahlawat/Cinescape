@@ -398,4 +398,7 @@
     <string name="payment_modes">Payment Modes</string>
     <string name="deleteMsg">Please select or type message reason.</string>
 
+    <string name="bachlor">Bachelor</string>
+    <string name="premium">Premium</string>
+
 </resources>
