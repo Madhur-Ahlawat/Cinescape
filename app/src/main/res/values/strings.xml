@@ -44,8 +44,6 @@
     <string name="choose_prefernces">Choose your preference from the below \n options to help us personalize your experience</string>
     <string name="find_near_me">Find near me</string>
     <string name="cinescape_al_kout">Cinescape Al-Kout</string>
-    <string name="family">Family</string>
-    <string name="standard">Standard</string>
     <string name="seat_category">Seat Category</string>
     <string name="location">Location</string>
     <string name="seat_type">Seat Type</string>
@@ -400,5 +398,11 @@
 
     <string name="bachlor">Bachelor</string>
     <string name="premium">Premium</string>
+
+    <string name="family">Family</string>
+    <string name="standard">Standard</string>
+
+    <string name="standards">STANDARD</string>
+    <string name="premiums">PREMIUM</string>
 
 </resources>
