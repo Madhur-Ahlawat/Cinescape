@@ -2008,8 +2008,13 @@ class FoodActivity : DaggerAppCompatActivity(),
                     arrFoodDetails[j].quantity = quantity
                     arrFoodDetails[j].finalPriceInCents = amount.toString()
                 }
-
-                foodCartList = ArrayList(arrFoodDetails)
+                if(foodCartList!=null){
+                    foodCartList?.clear()
+                    foodCartList?.addAll(arrFoodDetails)
+                }
+                else{
+                    foodCartList= ArrayList(arrFoodDetails)
+                }
             }
 
             val foodDtls = GetFoodResponse.FoodDtls()

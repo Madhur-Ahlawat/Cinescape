@@ -58,7 +58,7 @@ data class TicketSummaryResponse(
         val headOfficeItemCode: String,
         val itemId: String,
         val itemType: String,
-        val items: List<Any>,
+        val items: List<FoodItem>,
         val modifiers: List<Any>,
         val parentId: String,
         val priceInCents: Int,

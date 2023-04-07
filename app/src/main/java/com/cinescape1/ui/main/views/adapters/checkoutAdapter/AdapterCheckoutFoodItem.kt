@@ -26,10 +26,14 @@ class AdapterCheckoutFoodItem ( context: Context, private var foodComboList: Lis
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolderCheckoutFoodItem, position: Int) {
             val foodSelctedItem = foodComboList[position]
-            holder.foodTitleName.text = foodSelctedItem.description
-            holder.foodItemcomboName.text = foodSelctedItem.itemType
+            var sub_item = foodSelctedItem.description
+            foodSelctedItem.items.forEachIndexed {index,it ->
+                var spacer:String = if(index<(foodSelctedItem.items.size-1)) " " else ""
+                sub_item= sub_item + " " + "( "+it.description+" )" + spacer  }
+            holder.foodTitleName.text = foodSelctedItem.itemType
+            holder.foodItemcomboName.text = sub_item
             val price = (foodSelctedItem.priceInCents*foodSelctedItem.quantity)/100.0
-            holder.foodKd.text = mContext.getString(R.string.price_kd)+" "+Constant.DECIFORMAT.format(price)
+            holder.foodKd.text = mContext.getString(R.string.price_kd)+" " + Constant.DECIFORMAT.format(price)
 
             Glide.with(mContext).load(foodSelctedItem.itemImageUrl)
                 .placeholder(R.drawable.app_icon)
