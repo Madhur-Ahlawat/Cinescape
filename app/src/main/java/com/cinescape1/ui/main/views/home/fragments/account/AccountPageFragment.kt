@@ -631,8 +631,8 @@ class AccountPageFragment : DaggerFragment(),
             Constant.seatTypeList.clear()
             Constant.seatCategoryList.clear()
 
-            Constant.experience.addAll(Constant.experienceList)
-            Constant.ageRating.addAll(Constant.ageRating1)
+//            Constant.experience.addAll(Constant.experienceList)
+//            Constant.ageRating.addAll(Constant.ageRating1)
             Constant.seatCategoryList.add(preferences.getString(Constant.SEAT_CATEGORY)!!)
             Constant.seatTypeList.add(preferences.getString(Constant.SEAT_TYPE)!!)
 
@@ -1816,8 +1816,8 @@ class AccountPageFragment : DaggerFragment(),
     private fun setSeatCategoryFlexbox(layout: FlexboxLayout, seatCategory: String) {
 
         val list: ArrayList<ModelPreferenceCategory> = arrayListOf(
-            ModelPreferenceCategory(R.drawable.family_icons, "Family", 0),
-            ModelPreferenceCategory(R.drawable.family_normal_icon, "Bachelor", 0)
+            ModelPreferenceCategory(R.drawable.family_icons,getString(R.string.family),0),
+            ModelPreferenceCategory(R.drawable.family_normal_icon,getString(R.string.bachlor),0)
         )
 
         val listFA: ArrayList<ModelSeatCategoryFA> =
@@ -1852,11 +1852,9 @@ class AccountPageFragment : DaggerFragment(),
             println("SeatCategory212--->${item.cateTypeText}--->${seat}")
 
             if (item.cateTypeText.uppercase() == seat.uppercase()) {
-//                categoryImage.setColorFilter(resources.getColor(R.color.text_alert_color_red))
-//                categoryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_alert_color_red))
 
                 preferences.putString(Constant.SEAT_CATEGORY, item.cateTypeText)
-                if (seat == "Family") {
+                if (seat == resources.getString(R.string.family)) {
 //                    Constant.seatCategoryList.add(item.cateTypeText)
 
                     for (items in listFA) {
@@ -1873,7 +1871,7 @@ class AccountPageFragment : DaggerFragment(),
                     )
                 }
 
-                if (seat == "Bachelor") {
+                if (seat == resources.getString(R.string.bachlor)) {
 //                    Constant.seatCategoryList.add(item.cateTypeText)
 
                     for (items in listBA) {
@@ -1893,7 +1891,7 @@ class AccountPageFragment : DaggerFragment(),
 
             } else {
 
-                if (seat == "Family") {
+                if (seat == resources.getString(R.string.family)) {
 
                     Glide.with(this).load(listBN[0].imgCate).placeholder(R.drawable.family_icons)
                         .into(categoryImage)
@@ -1906,7 +1904,7 @@ class AccountPageFragment : DaggerFragment(),
                     )
                 }
 
-                if (seat == "Bachelor") {
+                if (seat == resources.getString(R.string.bachlor)) {
 
                     Glide.with(this).load(listFN[0].imgCate)
                         .placeholder(R.drawable.family_normal_icon).into(categoryImage)
@@ -1927,7 +1925,7 @@ class AccountPageFragment : DaggerFragment(),
                     val categoryName1: TextView = v.findViewById(R.id.category_name) as TextView
 //                  categoryImage1.setColorFilter(getColor(requireContext(), R.color.hint_color))
 
-                    if (item.cateTypeText == "Family") {
+                    if (item.cateTypeText == resources.getString(R.string.family)) {
                         for (items in listFN) {
                             Glide.with(this).load(listBN[0].imgCate)
                                 .placeholder(R.drawable.family_normal_icon).into(categoryImage1)
@@ -1940,7 +1938,7 @@ class AccountPageFragment : DaggerFragment(),
                         }
                     }
 
-                    if (item.cateTypeText == "Bachelor") {
+                    if (item.cateTypeText == resources.getString(R.string.bachlor)) {
                         for (items in listBN) {
                             println("SeatListClick22222 ------------->listBN1")
 
@@ -1963,8 +1961,7 @@ class AccountPageFragment : DaggerFragment(),
                 }
 
                 if (Constant.seatCategoryList.contains(item.cateTypeText)) {
-
-                    if (item.cateTypeText == "Family") {
+                    if (item.cateTypeText == resources.getString(R.string.family)) {
                         Constant.seatCategoryList.removeAll{it == item.cateTypeText}
 
                         for (items in listFN) {
@@ -1974,7 +1971,7 @@ class AccountPageFragment : DaggerFragment(),
                         }
                     }
 
-                    if (item.cateTypeText == "Bachelor") {
+                    if (item.cateTypeText == resources.getString(R.string.bachlor)) {
                         Constant.seatCategoryList.removeAll{it == item.cateTypeText}
 
                         for (items in listBN) {
@@ -1995,8 +1992,9 @@ class AccountPageFragment : DaggerFragment(),
                     Constant.seatCategoryList.clear()
                     Constant.seatTypeList.clear()
                     preferences.putString(Constant.SEAT_CATEGORY, item.cateTypeText)
+                    Constant.seatCategoryList.add(item.cateTypeText)
 
-                    if (item.cateTypeText == "Family") {
+                    if (item.cateTypeText == resources.getString(R.string.family)) {
                         for (items in listFA) {
                             println("SeatListClick22222 ------------->listFA2")
 //                            seatTypeCheck = 1
@@ -2005,7 +2003,7 @@ class AccountPageFragment : DaggerFragment(),
                         }
                     }
 
-                    if (item.cateTypeText == "Bachelor") {
+                    if (item.cateTypeText == resources.getString(R.string.bachlor)) {
                         for (items in listBA) {
                             println("SeatListClick22222 ------------->listBA2")
                             Glide.with(this).load(items.imgCate).dontAnimate()
@@ -2030,8 +2028,8 @@ class AccountPageFragment : DaggerFragment(),
     @SuppressLint("InflateParams", "CutPasteId")
     private fun setSeatTypeFlexbox(layout: FlexboxLayout, seatType: String) {
         val list: ArrayList<ModelPreferenceType> = arrayListOf(
-            ModelPreferenceType("STANDARD", 0),
-            ModelPreferenceType("PREMIUM", 0)
+            ModelPreferenceType(getString(R.string.standards),0),
+            ModelPreferenceType(getString(R.string.premiums),0)
         )
 
         layout.removeAllViews()
@@ -2053,7 +2051,7 @@ class AccountPageFragment : DaggerFragment(),
 
             println("SeatType221--->${type_item.seatType}---<${seat}")
 
-            if (type_item.seatType == seat.uppercase()) {
+            if (type_item.seatType.uppercase() == seat.uppercase()) {
 
 //                Constant.seatTypeList.add(type_item.seatType)
 
@@ -2089,6 +2087,8 @@ class AccountPageFragment : DaggerFragment(),
 
                     Constant.seatTypeList.clear()
                     Constant.seatCategoryList.clear()
+
+                    Constant.seatTypeList.add(type_item.seatType)
 
                     preferences.putString(Constant.SEAT_TYPE, type_item.seatType)
 
@@ -2136,7 +2136,6 @@ class AccountPageFragment : DaggerFragment(),
 
             val lowerCase = data.name.toLowerCase()
             val url = "https://s3.eu-west-1.amazonaws.com/cinescape.uat/experience/${lowerCase}.png"
-            println("data.name--------->${data.name}------>${lowerCase}")
 
 
             when (data.name) {
@@ -2147,7 +2146,6 @@ class AccountPageFragment : DaggerFragment(),
 
                 }
                 "STANDARD" -> {
-//                    Glide.with(requireContext()).load(R.drawable.standard).into(experienceName)
                     for (items in listStandard) {
                         Glide.with(this).load(items.imgCate).placeholder(R.drawable.standard)
                             .into(experienceName)
@@ -2156,7 +2154,6 @@ class AccountPageFragment : DaggerFragment(),
                 }
 
                 "VIP" -> {
-//                    Glide.with(requireContext()).load(R.drawable.vip).into(experienceName)
                     for (items in listVip) {
                         Glide.with(this).load(items.imgCate).placeholder(R.drawable.vip)
                             .into(experienceName)
@@ -2219,23 +2216,6 @@ class AccountPageFragment : DaggerFragment(),
                 0
             }
 
-//            val iconId = getMatchIcon(data.name)
-//            if (iconId == 0) {
-//                experienceText.text = getMatchIcon(data.name).toString()
-//                experienceText.show()
-//                experienceName.hide()
-//            } else {
-//                experienceName.setImageResource(getMatchIcon(data.name))
-//                experienceText.hide()
-//                experienceName.show()
-//            }
-//           experienceName.setImageResource(getMatchIcon(data.name))
-
-
-//            Glide.with(requireContext()).load(url)
-//                .error(R.drawable.placeholder_home_small_poster)
-//                .into(experienceName)
-
 
             layout.addView(v)
             viewListForSeatExperience.add(v)
@@ -2274,8 +2254,9 @@ class AccountPageFragment : DaggerFragment(),
                         android.graphics.PorterDuff.Mode.MULTIPLY)
                 } else {
                     clickAdd = 0
-//                    Constant.experience.add(data.name)
-                    Constant.experienceList.add(data.name)
+                    Constant.experience.add(data.name)
+
+//                    Constant.experienceList.add(data.name)
 
                     experienceName.setColorFilter(
                         getColor(requireContext(), R.color.text_alert_color_red
@@ -2305,15 +2286,8 @@ class AccountPageFragment : DaggerFragment(),
     val viewListForSeatAgeRating = ArrayList<String>()
     private fun setAgeRatingFlexbox(
         layout: FlexboxLayout,
-        rating: List<ProfileResponse.Output.Rating>
-    ) {
-        val list: ArrayList<ModelPreferenceAgeRating> = arrayListOf(
-            ModelPreferenceAgeRating("E", 0),
-            ModelPreferenceAgeRating("PG", 0),
-            ModelPreferenceAgeRating("13+", 0),
-            ModelPreferenceAgeRating("15+", 0),
-            ModelPreferenceAgeRating("18+", 0)
-        )
+        rating: List<ProfileResponse.Output.Rating>) {
+
         layout.removeAllViews()
 
         for (age_rating_item in ageRatingList!!) {
@@ -2345,7 +2319,10 @@ class AccountPageFragment : DaggerFragment(),
                     Constant.ageRating.removeAll {it ==  age_rating_item.name }
 
                     ageRatingName.setTextColor(getColor(requireContext(), R.color.hint_color))
+
                 } else {
+
+                    Constant.ageRating.add(age_rating_item.name)
                     ageRatingName.setTextColor(
                         getColor(
                             requireContext(),
@@ -2353,7 +2330,7 @@ class AccountPageFragment : DaggerFragment(),
                         )
                     )
 
-                    Constant.ageRating1.add(age_rating_item.name)
+//                    Constant.ageRating1.add(age_rating_item.name)
 
                 }
             }
@@ -3470,6 +3447,7 @@ class AccountPageFragment : DaggerFragment(),
 
         dialog.consSure?.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
+
             preferences.clearData()
 
             Constant.IntentKey.BOOKINGClick = 0

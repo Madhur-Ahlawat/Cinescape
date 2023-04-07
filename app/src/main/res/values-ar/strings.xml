@@ -408,4 +408,7 @@
 
     <string name="bachlor">بكالوريوس</string>
     <string name="premium">غالي</string>
+
+    <string name="standards">معيار</string>
+    <string name="premiums">غالي</string>
 </resources>
