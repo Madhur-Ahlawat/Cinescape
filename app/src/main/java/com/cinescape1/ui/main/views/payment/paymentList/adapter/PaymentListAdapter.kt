@@ -199,7 +199,18 @@ class PaymentListAdapter(
                     viewModel.setPaymentMethodSelection(PaymentMethodSealedClass.NONE)
                     notifyDataSetChanged()
                 }
-
+                if(!PaymentListActivity.spinnerClickable){
+                    binding.spinnerCardOptions?.apply {
+                        setEnabled(false);
+                        setClickable(false);
+                    }
+                }
+                else{
+                    binding.spinnerCardOptions?.apply {
+                        setEnabled(true);
+                        setClickable(true);
+                    }
+                }
                 //show Hide
                 binding.clHeaderLabelAndDropdown.setOnClickListener {
                     println("payType---->${this.payType}")
@@ -221,7 +232,8 @@ class PaymentListAdapter(
                                 )
                                 list.addAll(this.respPayModes[0].payModeBanks)
                                 customAdapter = BankOfferAdapter(context, list)
-                                binding.spinnerCardOptions.adapter = customAdapter
+                                binding.spinnerCardOptions.adapter=customAdapter
+
                                 binding.spinnerCardOptions.onItemSelectedListener =
                                     object : AdapterView.OnItemSelectedListener {
                                         override fun onItemSelected(
@@ -236,7 +248,8 @@ class PaymentListAdapter(
                                             if (position == 0) {
                                                 binding.clEnterCardNumber.hide()
                                                 binding.tvBankApply.hide()
-                                            } else {
+                                            }
+                                            else {
                                                 binding?.apply {
                                                     offerEditText?.apply {
                                                         etEnterCardNumber.text?.clear()
@@ -309,7 +322,6 @@ class PaymentListAdapter(
                                             binding.tvApplyCardOffer,
                                             binding.offerEditText
                                         )
-
                                     }
                                 }
 
@@ -481,7 +493,8 @@ class PaymentListAdapter(
                                     )
 
                                 }
-                            } else {
+                            }
+                            else {
                                 cartGift = true
                                 binding.ivDropdown.setImageResource(R.drawable.arrow_down)
                                 binding.bankOffer.hide()
