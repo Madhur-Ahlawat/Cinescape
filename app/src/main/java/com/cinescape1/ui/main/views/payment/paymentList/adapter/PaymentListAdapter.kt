@@ -87,20 +87,18 @@ class PaymentListAdapter(
                         .load(this.respPayModes[0].imageUrl)
                         .into(binding.imageKnet)
                     binding?.view105.hide()
-                }
-                else if (this.payType == "BANK") {
-                    if(giftApplied){
-                        binding.clHeaderLabelAndDropdown.isClickable=false
+                } else if (this.payType == "BANK") {
+                    if (giftApplied) {
+                        binding.clHeaderLabelAndDropdown.isClickable = false
                         binding.headerOfferType.setTextColor(context.getColor(R.color.gray))
                         binding.ivDropdown.setImageResource(R.drawable.arrow_down)
-                    }
-                    else{
+                    } else {
                         binding.headerOfferType.setTextColor(context.getColor(R.color.white))
-                        binding.clHeaderLabelAndDropdown.isClickable=true
+                        binding.clHeaderLabelAndDropdown.isClickable = true
                     }
                 } else {
                     binding.headerOfferType.setTextColor(context.getColor(R.color.white))
-                    binding.clHeaderLabelAndDropdown.isClickable=true
+                    binding.clHeaderLabelAndDropdown.isClickable = true
                     binding.cardPaymentOptionsUi.hide()
                 }
 
@@ -573,6 +571,7 @@ class PaymentListAdapter(
         }
         when (viewModel.selectedPaymentMethod) {
             PaymentMethodSealedClass.WALLET -> {
+
                 viewModel.setpaymentMethodSelectionStateFlow(PaymentMethodSealedClass.WALLET)
                 holder.binding?.apply {
 //                    if(offerApplied){
@@ -584,23 +583,14 @@ class PaymentListAdapter(
                             R.color.white
                         )
                     )
+                    offerEditText.isEnabled = true
+                    offerEditText.isFocusable = true
+                    clHeaderLabelAndDropdown.isFocusable = true
+                    clHeaderLabelAndDropdown.isClickable = true
+
                     imageKnet.setColorFilter(ContextCompat.getColor(context, R.color.white))
                     textKnetName.setTextColor(context.getColor(R.color.white))
                     textCreditCardName.setTextColor(context.getColor(R.color.white))
-//                    }
-//                    else{
-//                        cancelBtn.show()
-//                        textviewBtWalletApply.show()
-//                        imageCreditCard.setColorFilter(
-//                            ContextCompat.getColor(
-//                                context,
-//                                R.color.white
-//                            )
-//                        )
-//                        imageKnet.setColorFilter(ContextCompat.getColor(context, R.color.white))
-//                        textKnetName.setTextColor(context.getColor(R.color.white))
-//                        textCreditCardName.setTextColor(context.getColor(R.color.white))
-//                    }
                 }
             }
             PaymentMethodSealedClass.KNET -> {
