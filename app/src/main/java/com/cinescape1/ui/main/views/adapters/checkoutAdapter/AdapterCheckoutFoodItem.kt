@@ -28,7 +28,7 @@ class AdapterCheckoutFoodItem ( context: Context, private var foodComboList: Lis
             val foodSelctedItem = foodComboList[position]
             var sub_item = foodSelctedItem.description
             foodSelctedItem.items.forEachIndexed {index,it ->
-                var spacer:String = if(index<(foodSelctedItem.items.size-1)) " " else ""
+                var spacer:String = if(index<(foodSelctedItem.items.size-1)) " & " else ""
                 sub_item= sub_item + " " + "( "+it.description+" )" + spacer  }
             holder.foodTitleName.text = foodSelctedItem.itemType
             holder.foodItemcomboName.text = sub_item

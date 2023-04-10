@@ -87,7 +87,20 @@ class PaymentListAdapter(
                         .load(this.respPayModes[0].imageUrl)
                         .into(binding.imageKnet)
                     binding?.view105.hide()
+                }
+                else if (this.payType == "BANK") {
+                    if(giftApplied){
+                        binding.clHeaderLabelAndDropdown.isClickable=false
+                        binding.headerOfferType.setTextColor(context.getColor(R.color.gray))
+                        binding.ivDropdown.setImageResource(R.drawable.arrow_down)
+                    }
+                    else{
+                        binding.headerOfferType.setTextColor(context.getColor(R.color.white))
+                        binding.clHeaderLabelAndDropdown.isClickable=true
+                    }
                 } else {
+                    binding.headerOfferType.setTextColor(context.getColor(R.color.white))
+                    binding.clHeaderLabelAndDropdown.isClickable=true
                     binding.cardPaymentOptionsUi.hide()
                 }
 
@@ -108,8 +121,7 @@ class PaymentListAdapter(
                     binding.offerEditText.isEnabled = false
                     binding.offerEditText.isFocusable = false
 
-                }
-                else {
+                } else {
                     binding.knet.isClickable = true
                     binding.knet.isEnabled = true
                     binding.clHeaderLabelAndDropdown.isClickable = true
@@ -143,8 +155,7 @@ class PaymentListAdapter(
                     binding.offerEditText.isClickable = false
                     binding.offerEditText.isEnabled = false
                     binding.offerEditText.isFocusable = false
-                }
-                else {
+                } else {
                     binding.knet.isClickable = true
                     binding.knet.isEnabled = true
                     binding.clHeaderLabelAndDropdown.isClickable = true
@@ -202,13 +213,12 @@ class PaymentListAdapter(
                     viewModel.setPaymentMethodSelection(PaymentMethodSealedClass.NONE)
                     notifyDataSetChanged()
                 }
-                if(!PaymentListActivity.spinnerClickable){
+                if (!PaymentListActivity.spinnerClickable) {
                     binding.spinnerCardOptions?.apply {
                         setEnabled(false);
                         setClickable(false);
                     }
-                }
-                else{
+                } else {
                     binding.spinnerCardOptions?.apply {
                         setEnabled(true);
                         setClickable(true);
@@ -229,8 +239,7 @@ class PaymentListAdapter(
                             if (position == 0) {
                                 binding.clEnterCardNumber.hide()
                                 binding.tvBankApply.hide()
-                            }
-                            else {
+                            } else {
                                 binding?.apply {
                                     offerEditText?.apply {
                                         etEnterCardNumber.text?.clear()
@@ -266,47 +275,132 @@ class PaymentListAdapter(
                     println("payType---->${this.payType}")
                     when (this.payType) {
                         "BANK" -> {
-                            if (cartBank == true) {
-                                cartBank = false
-                                binding.ivDropdown.setImageResource(R.drawable.arrow_up)
-                                list?.clear()
-                                list.add(
-                                    PaymentListResponse.Output.PayMode.RespPayMode.PayModeBank(
-                                        0,
-                                        "Available Bank Offers"
+                            if (giftApplied) {
+                                binding.clHeaderLabelAndDropdown.isClickable = false
+                                binding.headerOfferType.setTextColor(context.getColor(R.color.gray))
+                                binding.ivDropdown.setImageResource(R.drawable.arrow_down)
+                            } else {
+                                binding.headerOfferType.setTextColor(context.getColor(R.color.white))
+                                binding.clHeaderLabelAndDropdown.isClickable = true
+                                if (cartBank == true) {
+                                    cartBank = false
+                                    binding.ivDropdown.setImageResource(R.drawable.arrow_up)
+                                    list?.clear()
+                                    list.add(
+                                        PaymentListResponse.Output.PayMode.RespPayMode.PayModeBank(
+                                            0,
+                                            "Available Bank Offers"
+                                        )
                                     )
-                                )
-                                list.addAll(this.respPayModes[0].payModeBanks)
-                                binding.spinnerCardOptions.setBackgroundColor(context.resources.getColor(R.color.dropDownColor))
-                                binding.spinnerCardOptions.adapter=customAdapter
-                                binding.tvBankApply.setOnClickListener {
-                                    cardNo =
-                                        binding.etEnterCardNumber.text.toString().replace(" ", "")
-                                    if (cardNo == "") {
+                                    list.addAll(this.respPayModes[0].payModeBanks)
+                                    binding.spinnerCardOptions.setBackgroundColor(
+                                        context.resources.getColor(
+                                            R.color.dropDownColor
+                                        )
+                                    )
+                                    binding.spinnerCardOptions.adapter = customAdapter
+                                    binding.tvBankApply.setOnClickListener {
+                                        cardNo =
+                                            binding.etEnterCardNumber.text.toString()
+                                                .replace(" ", "")
+                                        if (cardNo == "") {
 
-                                        val dialog = OptionDialog(context,
-                                            R.mipmap.ic_launcher,
-                                            R.string.app_name,
-                                            "Bank offer can not be empty",
-                                            positiveBtnText = R.string.ok,
-                                            negativeBtnText = R.string.no,
-                                            positiveClick = {},
-                                            negativeClick = {})
-                                        dialog.show()
+                                            val dialog = OptionDialog(context,
+                                                R.mipmap.ic_launcher,
+                                                R.string.app_name,
+                                                "Bank offer can not be empty",
+                                                positiveBtnText = R.string.ok,
+                                                negativeBtnText = R.string.no,
+                                                positiveClick = {},
+                                                negativeClick = {})
+                                            dialog.show()
 
-                                    } else if (cardNo.length != 16) {
-                                        val dialog = OptionDialog(context,
-                                            R.mipmap.ic_launcher,
-                                            R.string.app_name,
-                                            "Enter valid card number.",
-                                            positiveBtnText = R.string.ok,
-                                            negativeBtnText = R.string.no,
-                                            positiveClick = {},
-                                            negativeClick = {})
-                                        dialog.show()
-                                    } else {
+                                        } else if (cardNo.length != 16) {
+                                            val dialog = OptionDialog(context,
+                                                R.mipmap.ic_launcher,
+                                                R.string.app_name,
+                                                "Enter valid card number.",
+                                                positiveBtnText = R.string.ok,
+                                                negativeBtnText = R.string.no,
+                                                positiveClick = {},
+                                                negativeClick = {})
+                                            dialog.show()
+                                        } else {
 
-                                        listner.bankItemApply(
+                                            listner.bankItemApply(
+                                                offerId,
+                                                cardNo,
+                                                binding.checkBox,
+                                                binding.ivCrossCancel,
+                                                binding.tvBankApply,
+                                                binding.banksCancel,
+                                                binding.etEnterCardNumber,
+                                                binding.tvOfferAppliedForNTickets,
+                                                binding.knet,
+                                                binding.textViewWalletBalance,
+                                                binding.tvApplyCardOffer,
+                                                binding.offerEditText
+                                            )
+                                        }
+                                    }
+//                                binding.bankEdit.addTextChangedListener(
+//                                    FourDigitCardFormatWatcher()
+//                                )
+
+
+                                    binding.etEnterCardNumber.addTextChangedListener(object :
+                                        TextWatcher {
+                                        private val space =
+                                            " " // you can change this to whatever you want
+                                        private val pattern: Pattern =
+                                            Pattern.compile("^(\\d{4}$space{1}){0,3}\\d{1,4}$") // check whether we need to modify or not
+
+                                        override fun onTextChanged(
+                                            s: CharSequence,
+                                            st: Int,
+                                            be: Int,
+                                            count: Int
+                                        ) {
+                                            val currentText: String =
+                                                binding.etEnterCardNumber.text.toString()
+                                            if (currentText.isEmpty() || pattern.matcher(currentText)
+                                                    .matches()
+                                            ) return  // no need to modify
+                                            val numbersOnly = currentText.trim { it <= ' ' }
+                                                .replace("[^\\d.]".toRegex(), "")
+                                            // remove everything but numbers
+                                            var formatted = ""
+                                            var i = 0
+                                            while (i < numbersOnly.length) {
+                                                formatted += if (i + 4 < numbersOnly.length) numbersOnly.substring(
+                                                    i, i + 4
+                                                ) + space else numbersOnly.substring(i)
+                                                i += 4
+                                            }
+                                            binding.etEnterCardNumber.setText(formatted)
+                                            binding.etEnterCardNumber.setSelection(binding.etEnterCardNumber.text.toString().length)
+
+                                        }
+
+                                        override fun beforeTextChanged(
+                                            s: CharSequence, start: Int, count: Int, after: Int
+                                        ) {
+                                        }
+
+                                        override fun afterTextChanged(e: Editable) {}
+                                    })
+
+                                    //remove
+                                    binding.banksCancel.setOnClickListener {
+                                        cardNo =
+                                            binding.etEnterCardNumber.text.toString()
+                                                .replace(" ", "")
+                                        binding.etEnterCardNumber.isClickable = true
+                                        binding.etEnterCardNumber.isFocusable = true
+                                        binding.etEnterCardNumber.isEnabled = true
+                                        binding.etEnterCardNumber.isFocusableInTouchMode = true
+
+                                        listner.bankItemRemove(
                                             offerId,
                                             cardNo,
                                             binding.checkBox,
@@ -320,96 +414,25 @@ class PaymentListAdapter(
                                             binding.tvApplyCardOffer,
                                             binding.offerEditText
                                         )
-                                    }
-                                }
-//                                binding.bankEdit.addTextChangedListener(
-//                                    FourDigitCardFormatWatcher()
-//                                )
-
-
-                                binding.etEnterCardNumber.addTextChangedListener(object :
-                                    TextWatcher {
-                                    private val space =
-                                        " " // you can change this to whatever you want
-                                    private val pattern: Pattern =
-                                        Pattern.compile("^(\\d{4}$space{1}){0,3}\\d{1,4}$") // check whether we need to modify or not
-
-                                    override fun onTextChanged(
-                                        s: CharSequence,
-                                        st: Int,
-                                        be: Int,
-                                        count: Int
-                                    ) {
-                                        val currentText: String =
-                                            binding.etEnterCardNumber.text.toString()
-                                        if (currentText.isEmpty() || pattern.matcher(currentText)
-                                                .matches()
-                                        ) return  // no need to modify
-                                        val numbersOnly = currentText.trim { it <= ' ' }
-                                            .replace("[^\\d.]".toRegex(), "")
-                                        // remove everything but numbers
-                                        var formatted = ""
-                                        var i = 0
-                                        while (i < numbersOnly.length) {
-                                            formatted += if (i + 4 < numbersOnly.length) numbersOnly.substring(
-                                                i, i + 4
-                                            ) + space else numbersOnly.substring(i)
-                                            i += 4
-                                        }
-                                        binding.etEnterCardNumber.setText(formatted)
-                                        binding.etEnterCardNumber.setSelection(binding.etEnterCardNumber.text.toString().length)
 
                                     }
+                                    binding.bankOffer.show()
+                                    binding.wallet.hide()
+                                    binding.giftCardUi.hide()
+                                } else {
+                                    cartBank = true
 
-                                    override fun beforeTextChanged(
-                                        s: CharSequence, start: Int, count: Int, after: Int
-                                    ) {
+                                    println("cartBankTrue------->${cartBank}")
+                                    binding?.apply {
+                                        ivDropdown.setImageResource(R.drawable.arrow_down)
+                                        bankOffer.hide()
+                                        wallet.hide()
+                                        giftCardUi.hide()
                                     }
-
-                                    override fun afterTextChanged(e: Editable) {}
-                                })
-
-                                //remove
-                                binding.banksCancel.setOnClickListener {
-                                    cardNo =
-                                        binding.etEnterCardNumber.text.toString().replace(" ", "")
-                                    binding.etEnterCardNumber.isClickable = true
-                                    binding.etEnterCardNumber.isFocusable = true
-                                    binding.etEnterCardNumber.isEnabled = true
-                                    binding.etEnterCardNumber.isFocusableInTouchMode = true
-
-                                    listner.bankItemRemove(
-                                        offerId,
-                                        cardNo,
-                                        binding.checkBox,
-                                        binding.ivCrossCancel,
-                                        binding.tvBankApply,
-                                        binding.banksCancel,
-                                        binding.etEnterCardNumber,
-                                        binding.tvOfferAppliedForNTickets,
-                                        binding.knet,
-                                        binding.textViewWalletBalance,
-                                        binding.tvApplyCardOffer,
-                                        binding.offerEditText
-                                    )
 
                                 }
-                                binding.bankOffer.show()
-                                binding.wallet.hide()
-                                binding.giftCardUi.hide()
                             }
-                            else {
-                                cartBank = true
 
-                                println("cartBankTrue------->${cartBank}")
-                                binding?.apply {
-                                    ivDropdown.setImageResource(R.drawable.arrow_down)
-                                    bankOffer.hide()
-                                    wallet.hide()
-                                    giftCardUi.hide()
-                                }
-
-                            }
                         }
                         "OFFER" -> {
 
@@ -422,7 +445,8 @@ class PaymentListAdapter(
                                     bankOffer.hide()
                                     wallet.hide()
                                     giftCardUi.show()
-                                    offerEditText.hint = context.resources.getString(R.string.enter_gift_card)
+                                    offerEditText.hint =
+                                        context.resources.getString(R.string.enter_gift_card)
                                 }
 
 
@@ -455,8 +479,7 @@ class PaymentListAdapter(
                                             positiveClick = {},
                                             negativeClick = {})
                                         dialog.show()
-                                    }
-                                    else {
+                                    } else {
                                         listner.onVoucherApply(
                                             this,
                                             offerCode,
@@ -492,8 +515,7 @@ class PaymentListAdapter(
                                     )
 
                                 }
-                            }
-                            else {
+                            } else {
                                 cartGift = true
                                 binding.ivDropdown.setImageResource(R.drawable.arrow_down)
                                 binding.bankOffer.hide()

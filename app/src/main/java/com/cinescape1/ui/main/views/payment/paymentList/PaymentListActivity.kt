@@ -1576,14 +1576,14 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         remove.hide()
 
         giftApplied = false
-        adapter?.notifyDataSetChanged()
-
+        outputlist?.clear()
+        outputlist?.addAll(output.payInfo)
         offerEditText.text.clear()
         offerEditText.isClickable = true
         offerEditText.isEnabled = true
         offerEditText.isFocusable = true
         et_enter_card_number.isFocusableInTouchMode = true
-
+        adapter?.notifyDataSetChanged()
     }
 
     private fun giftCardApply(
@@ -1665,12 +1665,15 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     ) {
         if (output.PAID == "NO") {
             giftCardPartial=true
-            giftApplied = false
+            giftApplied = true
             binding?.textTotalAmount?.text = output.amount
             offerEditText.isClickable = false
             offerEditText.isEnabled = false
             offerEditText.isFocusable = false
             et_enter_card_number.isFocusableInTouchMode = false
+            outputlist!!.clear()
+            outputlist!!.addAll(output.payInfo)
+            binding?.textTotalAmount?.text = output.amount
             //show cancel button
             //hide apply button
             //disable input
@@ -1683,7 +1686,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             if(output.CAN_PAY!=null && output.CAN_PAY=="YES"){
                 apply.hide()
                 remove.show()
-
+                giftCardPartial=false
                 textCancelBtn.show()
                 offerEditText.isClickable = false
                 offerEditText.isEnabled = false
@@ -1692,7 +1695,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 //hide apply button
                 //enable input
                 //show offer applied label
-                giftApplied=true
+                giftApplied=false
+                binding!!.txtProceed.performClick()
             }
             Constant.IntentKey.TimerExtandCheck = true
             Constant.IntentKey.TimerExtand = 90
@@ -1702,6 +1706,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 //            intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
 //            intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
 //            startActivity(intent)
+            adapter?.notifyDataSetChanged()
+
         }
     }
 

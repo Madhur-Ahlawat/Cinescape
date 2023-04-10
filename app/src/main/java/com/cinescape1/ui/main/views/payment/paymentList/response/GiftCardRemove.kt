@@ -7,7 +7,9 @@ data class GiftCardRemove(
     val result: String
 ):java.io.Serializable{
     data class Output(
+        val amount: String,
         val PAID: String,
-        val amount: String
+        val CAN_PAY:String,
+        val payInfo: ArrayList<PaymentListResponse.Output.PayInfo>,
     )
 }
