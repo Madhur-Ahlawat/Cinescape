@@ -35,38 +35,39 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cons"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:layout_marginTop="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView">
 
-
         <TextView
-            android:id="@+id/textView96"
+            android:id="@+id/textViewFoodTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="42dp"
             android:fontFamily="@font/sf_pro_text_heavy"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="TextView" />
 
         <TextView
             android:id="@+id/textView97"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin40"
             android:fontFamily="@font/sf_pro_text_regular"
-            android:text="@string/total_price"
+            android:text="@string/total_food_price"
             android:textColor="@color/hint_color"
             android:textSize="@dimen/size14"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@+id/textView98"
-            app:layout_constraintStart_toStartOf="@+id/textView98"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewFoodTotal"
+            app:layout_constraintEnd_toStartOf="@+id/textViewFoodTotal"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -95,6 +96,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cons">
 
+        <include
+            layout="@layout/payment_detail_history"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

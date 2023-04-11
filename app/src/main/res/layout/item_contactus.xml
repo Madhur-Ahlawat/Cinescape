@@ -30,18 +30,21 @@
         app:layout_constraintStart_toStartOf="@+id/view33"
         app:layout_constraintTop_toTopOf="@+id/view33"/>
 
+<!--    app:boxStrokeColor="@color/edittext_selector"-->
+<!--    android:hint="@string/name"-->
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/enterUsernames"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/transparent"
-        android:hint="@string/name"
         android:textColorHint="@color/arabic_color"
-        app:boxStrokeColor="@color/edittext_selector"
         app:hintTextColor="@color/editColor"
+        android:layout_marginBottom="@dimen/margin12"
+        app:layout_constraintBottom_toBottomOf="@+id/textView156"
         app:layout_constraintEnd_toEndOf="@+id/view33"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11">
+        app:layout_constraintStart_toEndOf="@+id/textView156"
+        app:layout_constraintTop_toTopOf="@+id/textView156">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/enterUsername"
@@ -62,14 +65,12 @@
         android:id="@+id/enterEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin10"
         android:background="@color/transparent"
-        android:hint="@string/email"
         android:textColorHint="@color/arabic_color"
-        app:boxStrokeColor="@color/edittext_selector"
         app:hintTextColor="@color/editColor"
+        android:layout_marginBottom="@dimen/margin12"
         app:layout_constraintEnd_toEndOf="@+id/view33"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView157"
         app:layout_constraintTop_toBottomOf="@+id/enterUsernames">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -93,7 +94,6 @@
         android:layout_height="60dp"
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/enterEmail"
         app:layout_constraintTop_toBottomOf="@+id/enterEmail" />
 
     <TextView
@@ -109,6 +109,7 @@
         android:paddingEnd="@dimen/margin10"
         android:paddingBottom="@dimen/margin4"
         android:text="@string/mobile"
+        android:layout_marginTop="@dimen/margin4"
         android:textColor="@color/hint_color"
         android:textSize="@dimen/size14"
         android:textStyle="normal"
@@ -129,6 +130,7 @@
         app:endIconMode="dropdown_menu"
         android:textColor="@color/white"
         tools:text="+92"
+        android:layout_marginTop="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/text_mobile_title"
         app:layout_constraintEnd_toStartOf="@+id/enter_mobile_number"
         app:layout_constraintHorizontal_weight="1.5"
@@ -182,6 +184,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_mobile1" />
 
+    <View
+        android:id="@+id/view50line"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@color/view_bg_color_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterUsernames" />
+
+    <View
+        android:id="@+id/view51line"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@color/view_bg_color_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterEmail" />
+
     <TextView
         android:id="@+id/textView17"
         android:layout_width="wrap_content"
@@ -216,6 +236,7 @@
         android:text=""
         android:textColor="@color/white"
         android:textSize="@dimen/size20"
+        android:layout_marginEnd="@dimen/margin8"
         app:layout_constraintEnd_toEndOf="@+id/view33"
         app:layout_constraintStart_toStartOf="@+id/view33"
         app:layout_constraintTop_toBottomOf="@+id/textView17"
@@ -234,6 +255,7 @@
         android:textColor="@color/white"
         android:textSize="@dimen/size14"
         android:textStyle="normal"
+        android:layout_marginEnd="@dimen/margin20"
         app:layout_constraintBottom_toBottomOf="@+id/textView29"
         app:layout_constraintEnd_toEndOf="@+id/view33"
         app:layout_constraintTop_toTopOf="@+id/textView29" />
@@ -291,8 +313,8 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="60dp"
-        android:layout_height="34dp"
+        android:layout_width="50dp"
+        android:layout_height="32dp"
         android:background="@drawable/card_border"
         android:padding="@dimen/size10"
         android:adjustViewBounds="true"
@@ -333,8 +355,8 @@
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="60dp"
-        android:layout_height="34dp"
+        android:layout_width="50dp"
+        android:layout_height="32dp"
         android:background="@drawable/card_border"
         android:padding="@dimen/size10"
         android:adjustViewBounds="true"
@@ -401,4 +423,30 @@
         app:layout_constraintTop_toTopOf="@+id/imageView19"
         app:srcCompat="@drawable/ic_youtube"
         tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/textView156"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/name"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size14"
+        android:textStyle="normal"
+        android:layout_marginStart="@dimen/margin4"
+        app:layout_constraintStart_toStartOf="@+id/textView11"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <TextView
+        android:id="@+id/textView157"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/email"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/size14"
+        android:textStyle="normal"
+        android:layout_marginTop="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/view_mobile1"
+        app:layout_constraintStart_toStartOf="@+id/textView156"
+        app:layout_constraintTop_toBottomOf="@+id/enterUsernames" />
 </androidx.constraintlayout.widget.ConstraintLayout>

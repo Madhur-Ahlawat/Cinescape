@@ -20,22 +20,21 @@
 
     <View
         android:id="@+id/view30_locations"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="57dp"
-        app:layout_constraintEnd_toStartOf="@+id/view32_screens"
-        app:layout_constraintHorizontal_weight="2"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView90" />
 
     <View
         android:id="@+id/view32_screens"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view30_locations"
+        android:layout_height="50dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight="2"
-        app:layout_constraintStart_toEndOf="@+id/view30_locations"
-        app:layout_constraintTop_toTopOf="@+id/view30_locations" />
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view30_locations" />
 
     <TextView
         android:id="@+id/tvBookingId"
@@ -56,9 +55,11 @@
         android:id="@+id/tvBookingIdNumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/sf_pro_text_regular"
         android:layout_marginTop="@dimen/margin4"
+        android:ellipsize="end"
+        android:fontFamily="@font/sf_pro_text_regular"
         android:lineSpacingExtra="9sp"
+        android:lines="1"
         android:text="WES096T"
         android:textColor="@color/white"
         android:textSize="@dimen/size12"
@@ -72,7 +73,7 @@
         android:id="@+id/tvTrackId"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="4dp"
         android:fontFamily="@font/sf_pro_text_regular"
         android:includeFontPadding="false"
         android:text="@string/track_id"
@@ -94,6 +95,8 @@
         android:textColor="@color/white"
         android:textSize="@dimen/size12"
         android:textStyle="normal"
+        android:lines="1"
+        android:ellipsize="end"
         app:layout_constraintEnd_toEndOf="@+id/tvTrackId"
         app:layout_constraintStart_toStartOf="@+id/tvTrackId"
         app:layout_constraintTop_toBottomOf="@+id/tvTrackId" />
@@ -103,20 +106,18 @@
         android:layout_width="0dp"
         android:layout_height="53dp"
         android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toStartOf="@+id/view34_time"
-        app:layout_constraintHorizontal_weight="2"
-        app:layout_constraintStart_toStartOf="@+id/view30_locations"
-        app:layout_constraintTop_toBottomOf="@+id/view30_locations" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view32_screens" />
 
     <View
         android:id="@+id/view34_time"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view33_date"
+        android:layout_height="57dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight="2"
-        app:layout_constraintStart_toEndOf="@+id/view33_date"
-        app:layout_constraintTop_toTopOf="@+id/view33_date" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view33_date" />
 
     <TextView
         android:id="@+id/tvReferenceId"
@@ -143,6 +144,8 @@
         android:textColor="@color/white"
         android:textSize="@dimen/size12"
         android:textStyle="normal"
+        android:lines="1"
+        android:ellipsize="end"
         app:layout_constraintEnd_toEndOf="@+id/tvReferenceId"
         app:layout_constraintStart_toStartOf="@+id/tvReferenceId"
         app:layout_constraintTop_toBottomOf="@+id/tvReferenceId"
@@ -158,6 +161,7 @@
         android:textColor="@color/hint_color"
         android:textSize="@dimen/size12"
         android:textStyle="normal"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/view34_time"
         app:layout_constraintStart_toStartOf="@+id/view34_time"
         app:layout_constraintTop_toTopOf="@+id/view34_time" />
@@ -173,6 +177,9 @@
         android:textColor="@color/white"
         android:textSize="@dimen/size12"
         android:textStyle="normal"
+        android:lines="1"
+        android:ellipsize="end"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/tvAppCode"
         app:layout_constraintStart_toStartOf="@+id/tvAppCode"
         app:layout_constraintTop_toBottomOf="@+id/tvAppCode" />
@@ -183,7 +190,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view33_date">
+        app:layout_constraintTop_toBottomOf="@+id/view34_time">
 
         <TextView
             android:id="@+id/tvMethod"
@@ -199,11 +206,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="0dp"
+            android:id="@+id/recyclerViewPaymode"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvMethod"
             tools:itemCount="2"
@@ -213,6 +220,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/consGrandTotal"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -222,7 +230,7 @@
 
 
         <TextView
-            android:id="@+id/textView96"
+            android:id="@+id/textViewTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"

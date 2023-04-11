@@ -14,24 +14,31 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.HistoryResponse
 import com.cinescape1.ui.main.views.adapters.HistoryFoodListAdapter
+import com.cinescape1.ui.main.views.home.fragments.account.adapter.PaymentHistoryAdapter
 import com.cinescape1.utils.*
 
-class AdapterBookingHistory(private val context: Activity,
-                            private var bookingHistoryList: ArrayList<HistoryResponse.Output>,
-                            var listener : typeFaceItem) :
+class AdapterBookingHistory(
+    private val context: Activity,
+    private var bookingHistoryList: ArrayList<HistoryResponse.Output>,
+    var listener: typeFaceItem
+) :
     RecyclerView.Adapter<AdapterBookingHistory.MyViewHolderBookingHistory>() {
     private var rowIndex = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderBookingHistory {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.account_booking_history_item, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.account_booking_history_item, parent, false)
         return MyViewHolderBookingHistory(view)
     }
 
     @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
-    override fun onBindViewHolder(holder: MyViewHolderBookingHistory, @SuppressLint("RecyclerView") position: Int) {
+    override fun onBindViewHolder(
+        holder: MyViewHolderBookingHistory,
+        @SuppressLint("RecyclerView") position: Int
+    ) {
         val bookingHistoryItem = bookingHistoryList[position]
         println("BookType--->${bookingHistoryItem.bookingType}")
 
-        if (Constant.LANGUAGE == "ar"){
+        if (Constant.LANGUAGE == "ar") {
             LocaleHelper.setLocale(context, "ar")
             val regular = ResourcesCompat.getFont(context, R.font.gess_light)
             val bold = ResourcesCompat.getFont(context, R.font.gess_bold)
@@ -56,7 +63,7 @@ class AdapterBookingHistory(private val context: Activity,
             holder.foodPaidby.typeface = regular
 
 
-        }else if (Constant.LANGUAGE == "en"){
+        } else if (Constant.LANGUAGE == "en") {
             LocaleHelper.setLocale(context, "en")
             val regular = ResourcesCompat.getFont(context, R.font.sf_pro_text_regular)
             val bold = ResourcesCompat.getFont(context, R.font.sf_pro_text_bold)
@@ -81,7 +88,7 @@ class AdapterBookingHistory(private val context: Activity,
             holder.foodTotalPrice.typeface = regular
             holder.foodPaidby.typeface = regular
 
-        }else{
+        } else {
 
             LocaleHelper.setLocale(context, "en")
             val regular = ResourcesCompat.getFont(context, R.font.sf_pro_text_regular)
@@ -111,24 +118,25 @@ class AdapterBookingHistory(private val context: Activity,
 
         when (bookingHistoryItem.bookingType) {
             "CLUBRECHARGE" -> {
-                holder.textBookingHistoryTitle.text= context.getString(R.string.clubCardrecharge)
+                holder.textBookingHistoryTitle.text = context.getString(R.string.clubCardrecharge)
 
                 holder.textBookingHistoryDate.hide()
             }
             "FOOD" -> {
-                holder.textBookingHistoryTitle.text= context.getString(R.string.foodorder)
+                holder.textBookingHistoryTitle.text = context.getString(R.string.foodorder)
                 holder.textBookingHistoryDate.hide()
             }
             "BOOKING" -> {
-                holder.textBookingHistoryTitle.text= bookingHistoryItem.moviename
+                holder.textBookingHistoryTitle.text = bookingHistoryItem.moviename
                 holder.textBookingHistoryDate.show()
             }
             else -> {
-                holder.textBookingHistoryTitle.text=bookingHistoryItem.bookingType
+                holder.textBookingHistoryTitle.text = bookingHistoryItem.bookingType
             }
         }
 
-        holder.textBookingHistoryDate.text = bookingHistoryItem.showDate +"  "+ bookingHistoryItem.showTime
+        holder.textBookingHistoryDate.text =
+            bookingHistoryItem.showDate + "  " + bookingHistoryItem.showTime
 //        holder.textBookingHistoryTime.text = bookingHistoryItem.showTime
 
         holder.textviewDateInfo.text = bookingHistoryItem.showDate
@@ -143,16 +151,30 @@ class AdapterBookingHistory(private val context: Activity,
 
         holder.textKdTicketPrice.text = bookingHistoryItem.totalPrice
 
-        listener.datatypeFace(holder.textBookingHistoryTitle,holder.textBookingHistoryDate,
-            holder.textBookingHistoryTime,holder.textAddress,holder.textviewScreenNumber,
-            holder.textviewDateInfo,holder.textviewTimeInfo,holder.textviewExperienceName,holder.textviewSeatName,
-            holder.textKdTicketPrice, holder.payDone, holder.rechargeTime,holder.rechargePrice,holder.rechargeDate,
-            holder.paidBy,holder.foodTotalPrice,holder.foodPaidby)
+        listener.datatypeFace(
+            holder.textBookingHistoryTitle,
+            holder.textBookingHistoryDate,
+            holder.textBookingHistoryTime,
+            holder.textAddress,
+            holder.textviewScreenNumber,
+            holder.textviewDateInfo,
+            holder.textviewTimeInfo,
+            holder.textviewExperienceName,
+            holder.textviewSeatName,
+            holder.textKdTicketPrice,
+            holder.payDone,
+            holder.rechargeTime,
+            holder.rechargePrice,
+            holder.rechargeDate,
+            holder.paidBy,
+            holder.foodTotalPrice,
+            holder.foodPaidby
+        )
 
 
-        if (bookingHistoryItem.concessionFoods.isNullOrEmpty()){
+        if (bookingHistoryItem.concessionFoods.isNullOrEmpty()) {
             println("foodHistoryList---------->${bookingHistoryItem.concessionFoods}")
-        }else{
+        } else {
             val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             holder.foodList.layoutManager = LinearLayoutManager(context)
             val adapter = HistoryFoodListAdapter(context, bookingHistoryItem.concessionFoods)
@@ -161,20 +183,52 @@ class AdapterBookingHistory(private val context: Activity,
             println("foodHistoryList---------->${bookingHistoryItem.concessionFoods}")
         }
 
+        try {
+            val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            holder.recyclerViewPayMode.layoutManager = LinearLayoutManager(context)
+            val adapter = PaymentHistoryAdapter(context, bookingHistoryItem.payInfos)
+            holder.recyclerViewPayMode.layoutManager = layoutManager
+            holder.recyclerViewPayMode.adapter = adapter
+        }catch (e : Exception){
+            e.printStackTrace()
+            println("ErrrorPrice--------->${e.message}")
+        }
+
+
 
         //recharge
-        holder.payDone.text=bookingHistoryItem.payDone
-        holder.rechargePrice.text=bookingHistoryItem.totalPrice
-        if (bookingHistoryItem.showDate!=null) {
-            holder.rechargeDate.text= bookingHistoryItem.showDate
+        holder.payDone.text = bookingHistoryItem.payDone
+        holder.rechargePrice.text = bookingHistoryItem.totalPrice
+        if (bookingHistoryItem.showDate != null) {
+            holder.rechargeDate.text = bookingHistoryItem.showDate
         }
-        if (bookingHistoryItem.showTime!=null) {
+        if (bookingHistoryItem.showTime != null) {
             holder.rechargeTime.text = bookingHistoryItem.showTime
         }
 
+        // payment Detail
+        holder.tvBookingIdNumber.text = bookingHistoryItem.bookingId
+        holder.tvTrackIdNumber.text = bookingHistoryItem.transId.toString()
+
+        if (bookingHistoryItem.referenceId == ""){
+            holder.tvReferenceIdInfo.visibility = View.INVISIBLE
+        }else{
+            holder.tvReferenceIdInfo.text = bookingHistoryItem.referenceId
+        }
+
+        holder.tvAppCodeInfo.visibility = View.INVISIBLE
+//        holder.tvAppCodeInfo.text = bookingHistoryItem
+        holder.tvGrandTotal.text = bookingHistoryItem.totalPrice
+
+        holder.foodTotalPrice.text = bookingHistoryItem.foodTotal
+
+        holder.tvTicketPrice.text = bookingHistoryItem.totalTicketPrice
+
         //food
-        holder.foodPaidby.text=context.resources.getString(R.string.paid_by_club_card)+" "+bookingHistoryItem.payDone
-        holder.paidBy.text=context.resources.getString(R.string.paid_by_club_card)+" "+bookingHistoryItem.payDone
+        holder.foodPaidby.text =
+            context.resources.getString(R.string.paid_by_club_card) + " " + bookingHistoryItem.payDone
+        holder.paidBy.text =
+            context.resources.getString(R.string.paid_by_club_card) + " " + bookingHistoryItem.payDone
 
         holder.itemView.setOnClickListener {
             rowIndex = position
@@ -186,10 +240,12 @@ class AdapterBookingHistory(private val context: Activity,
                         holder.foodUi.hide()
                         holder.movieui.hide()
 
-                    }else{
+                    } else {
                         holder.rechargeUi.hide()
                         holder.foodUi.hide()
                         holder.movieui.hide()
+                        holder.viewBookingId.hide()
+                        holder.consGrandTotal.hide()
                         holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
                     }
                 }
@@ -215,6 +271,7 @@ class AdapterBookingHistory(private val context: Activity,
 
                         if (bookingHistoryItem.concessionFoods.isNotEmpty()) {
                             holder.foodMUi.show()
+                            holder.viewBookingId.show()
 
                             holder.tvTicketPrice.hide()
                             holder.tvTicketPrices.hide()
@@ -225,17 +282,20 @@ class AdapterBookingHistory(private val context: Activity,
                             holder.foodMUi.hide()
                         }
 
-                    }else{
+                    } else {
 
                         holder.foodUi.hide()
                         holder.rechargeUi.hide()
                         holder.movieui.hide()
                         holder.imageArrowDrop.setImageResource(R.drawable.arrow_down)
 
-                        holder.foodTotalPrice.text=bookingHistoryItem.totalPrice
-                        holder.tvTicketPrice.text=bookingHistoryItem.totalTicketPrice
-                        holder.tvFoodPrice.text=bookingHistoryItem.foodTotal
-                        holder.paidBy.text=context.resources.getString(R.string.paid_by_club_card)+" "+bookingHistoryItem.payDone
+                        holder.foodTotalPrice.text = bookingHistoryItem.foodTotal
+                        println("foodTotalPrice21---------->${holder.foodTotalPrice.text}")
+
+                        holder.tvTicketPrice.text = bookingHistoryItem.totalTicketPrice
+                        holder.tvFoodPrice.text = bookingHistoryItem.foodTotal
+                        holder.paidBy.text =
+                            context.resources.getString(R.string.paid_by_club_card) + " " + bookingHistoryItem.payDone
                     }
                 }
 
@@ -246,13 +306,15 @@ class AdapterBookingHistory(private val context: Activity,
                         holder.rechargeUi.hide()
                         holder.movieui.show()
 
+
                         if (bookingHistoryItem.concessionFoods.isNotEmpty()) {
                             holder.foodMUi.show()
+                            holder.viewBookingId.show()
 
                             holder.tvTicketPrice.show()
                             holder.tvTicketPrices.show()
-                            holder.tvFoodPrices.show()
-                            holder.tvFoodPrice.show()
+                            holder.tvFoodPrices.hide()
+                            holder.tvFoodPrice.hide()
                         } else {
                             holder.foodMUi.hide()
 
@@ -264,7 +326,7 @@ class AdapterBookingHistory(private val context: Activity,
 
                         holder.textBookingHistoryDate.hide()
 
-                    }else{
+                    } else {
 
                         holder.foodUi.hide()
                         holder.rechargeUi.hide()
@@ -273,11 +335,16 @@ class AdapterBookingHistory(private val context: Activity,
 
                         holder.textBookingHistoryDate.show()
 
-                        holder.foodTotalPrice.text=bookingHistoryItem.totalPrice
-                        holder.tvTicketPrice.text=bookingHistoryItem.totalTicketPrice
-                        holder.tvFoodPrice.text=bookingHistoryItem.foodTotal
-                        holder.foodPaidby.text=context.resources.getString(R.string.paid_by_club_card)+" "+bookingHistoryItem.payDone
-                        holder.paidBy.text=context.resources.getString(R.string.paid_by_club_card)+" "+bookingHistoryItem.payDone
+                        holder.foodTotalPrice.text = bookingHistoryItem.foodTotal
+
+                        println("foodTotalPrice21---------->${holder.foodTotalPrice.text}")
+
+                        holder.tvTicketPrice.text = bookingHistoryItem.totalTicketPrice
+                        holder.tvFoodPrice.text = bookingHistoryItem.foodTotal
+                        holder.foodPaidby.text =
+                            context.resources.getString(R.string.paid_by_club_card) + " " + bookingHistoryItem.payDone
+                        holder.paidBy.text =
+                            context.resources.getString(R.string.paid_by_club_card) + " " + bookingHistoryItem.payDone
 
                     }
                 }
@@ -285,11 +352,12 @@ class AdapterBookingHistory(private val context: Activity,
         }
 
     }
-     override fun getItemCount(): Int {
-          if (bookingHistoryList.size == 0)
-              return 0 else
-                return bookingHistoryList.size
-     }
+
+    override fun getItemCount(): Int {
+        if (bookingHistoryList.size == 0)
+            return 0 else
+            return bookingHistoryList.size
+    }
 
     override fun getItemId(position: Int): Long {
         return position.toLong()
@@ -299,11 +367,11 @@ class AdapterBookingHistory(private val context: Activity,
         return position
     }
 
-      @SuppressLint("NotifyDataSetChanged")
-      fun loadNewData(newFoodSelectors: List<HistoryResponse.Output>) {
-          bookingHistoryList = newFoodSelectors as ArrayList<HistoryResponse.Output>
-          notifyDataSetChanged()
-      }
+    @SuppressLint("NotifyDataSetChanged")
+    fun loadNewData(newFoodSelectors: List<HistoryResponse.Output>) {
+        bookingHistoryList = newFoodSelectors as ArrayList<HistoryResponse.Output>
+        notifyDataSetChanged()
+    }
 
     class MyViewHolderBookingHistory(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -332,7 +400,7 @@ class AdapterBookingHistory(private val context: Activity,
         var rechargePrice: TextView = view.findViewById(R.id.textView83)
         var rechargeDate: TextView = view.findViewById(R.id.textView87)
         var paidBy: TextView = view.findViewById(R.id.textView_paid_by_club_card)
-        var foodTotalPrice: TextView = view.findViewById(R.id.textView96)
+        var foodTotalPrice: TextView = view.findViewById(R.id.textViewFoodTotal)
         var foodPaidby: TextView = view.findViewById(R.id.textView98)
 
         var tvTicketPrice: TextView = view.findViewById(R.id.tvTicket_price)
@@ -351,17 +419,31 @@ class AdapterBookingHistory(private val context: Activity,
         var textViewSeatsTitle: TextView = view.findViewById(R.id.textView_seats_title)
         var textViewScreen: TextView = view.findViewById(R.id.textView_screen)
 
+        //        payment detail
+        var tvBookingIdNumber: TextView = view.findViewById(R.id.tvBookingIdNumber)
+        var tvTrackIdNumber: TextView = view.findViewById(R.id.tvTrackIdNumber)
+        var tvReferenceIdInfo: TextView = view.findViewById(R.id.tvReferenceIdInfo)
+        var tvAppCodeInfo: TextView = view.findViewById(R.id.tvAppCodeInfo)
+        var tvGrandTotal: TextView = view.findViewById(R.id.textViewTotal)
+        var recyclerViewPayMode: RecyclerView = view.findViewById(R.id.recyclerViewPaymode)
+        var viewBookingId: View = view.findViewById(R.id.view30_locations)
+        var viewAuthCode: View = view.findViewById(R.id.view34_time)
+        var consGrandTotal: ConstraintLayout = view.findViewById(R.id.consGrandTotal)
+
     }
 
-    interface typeFaceItem{
-       fun datatypeFace(textBookingHistoryTitle: TextView, textBookingHistoryDate: TextView,
-                        textBookingHistoryTime: TextView, textAddress: TextView,
-                        textviewScreenNumber: TextView, textviewDateInfo: TextView,
-                        textviewTimeInfo: TextView,textviewExperienceName: TextView,
-                        textviewSeatName: TextView, textKdTicketPrice: TextView,
-                        payDone: TextView, rechargeTime: TextView, rechargePrice: TextView,
-                        rechargeDate: TextView, paidBy: TextView, foodTotalPrice: TextView,
-                        foodPaidby: TextView)
+    interface typeFaceItem {
+        fun datatypeFace(
+            textBookingHistoryTitle: TextView, textBookingHistoryDate: TextView,
+            textBookingHistoryTime: TextView, textAddress: TextView,
+            textviewScreenNumber: TextView, textviewDateInfo: TextView,
+            textviewTimeInfo: TextView, textviewExperienceName: TextView,
+            textviewSeatName: TextView, textKdTicketPrice: TextView,
+            payDone: TextView, rechargeTime: TextView, rechargePrice: TextView,
+            rechargeDate: TextView, paidBy: TextView, foodTotalPrice: TextView,
+            foodPaidby: TextView
+        )
     }
+
 
 }
