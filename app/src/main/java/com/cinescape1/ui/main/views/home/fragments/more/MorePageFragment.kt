@@ -68,6 +68,7 @@ class MorePageFragment : DaggerFragment(),
     LocationAdapter.TypefaceListenerLocation ,
     PhotoUtils.OnImageSelectListener,
     ViewRefreshListener{
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 

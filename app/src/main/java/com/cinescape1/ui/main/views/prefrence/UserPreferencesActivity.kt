@@ -575,22 +575,24 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
     @SuppressLint("InflateParams")
     private fun createSeatType(layout: FlexboxLayout, seatType : String) {
 
-        val list: ArrayList<ModelPreferenceType> = arrayListOf(
+        val list: java.util.ArrayList<ModelPreferenceType> = arrayListOf(
             ModelPreferenceType(getString(R.string.standards),0),
-                    ModelPreferenceType(getString(R.string.premiums),0)
-        )
+            ModelPreferenceType(getString(R.string.premiums),0))
 
         layout.removeAllViews()
+        val viewListForSeatType = java.util.ArrayList<View>()
         for (type_item in list) {
-            val v: View = layoutInflater.inflate(R.layout.seat_type_item, null)
+            val v: View = layoutInflater.inflate(R.layout.seat_type_list_item, null)
             val typeName: TextView = v.findViewById(R.id.tv_seat_selectiopn) as TextView
+            val imgSeatSelectiopn: ImageView = v.findViewById(R.id.imgSeatSelectiopn) as ImageView
 
-            if (languageCheck == "ar"){
-                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
-                typeName.typeface = regular
+
+            if (type_item.seatType == getString(R.string.standards)){
+                imgSeatSelectiopn.setImageResource(R.drawable.standard_white)
+
             }else{
-                val regular = ResourcesCompat.getFont(this, R.font.sf_pro_text_regular)
-                typeName.typeface = regular
+
+                imgSeatSelectiopn.setImageResource(R.drawable.premium_white)
             }
 
             seatAbility = if (type_item.count > 0) {
@@ -598,18 +600,16 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
             } else {
                 0
             }
-
             typeName.text = type_item.seatType
-            val viewListForSeatType = ArrayList<View>()
+
+
             viewListForSeatType.add(v)
             layout.addView(v)
 
             val seat = seatType.replace("[", "").replace("]", "")
-            println("SeatTypePreFrence--->${type_item.seatType}---<${seat}")
+            println("SeatType221--->${type_item.seatType}---<${seat}")
 
             if (type_item.seatType.uppercase() == seat.uppercase()) {
-
-                Constant.seatTypeList.add(type_item.seatType)
 
                 preferences.putString(Constant.SEAT_TYPE, type_item.seatType)
                 typeName.setTextColor(
@@ -619,48 +619,66 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
                     )
                 )
 
+                imgSeatSelectiopn.setColorFilter(
+                    ContextCompat.getColor(this, R.color.text_alert_color_red),
+                    android.graphics.PorterDuff.Mode.MULTIPLY)
 
             } else {
 
                 typeName.setTextColor(ContextCompat.getColor(this, R.color.hint_color))
+
+                imgSeatSelectiopn.setColorFilter(
+                    ContextCompat.getColor(this, R.color.hint_color),
+                    android.graphics.PorterDuff.Mode.MULTIPLY)
             }
 
             v.setOnClickListener {
-
                 for (v in viewListForSeatType) {
+                    println("SeatListClick21No ------------->${type_item.seatType}")
                     val typeName1: TextView = v.findViewById(R.id.tv_seat_selectiopn) as TextView
+                    val imgSeatSelectiopn1: ImageView = v.findViewById(R.id.imgSeatSelectiopn) as ImageView
                     typeName1.setTextColor(
                         ContextCompat.getColorStateList(
                             this,
                             R.color.hint_color
                         )
                     )
+
+                    imgSeatSelectiopn1.setColorFilter(
+                        ContextCompat.getColor(this, R.color.hint_color),
+                        android.graphics.PorterDuff.Mode.MULTIPLY)
+
                 }
+
+                println("SeatListClick21Yes ------------->${type_item.seatType}")
 
                 if (Constant.seatTypeList.contains(type_item.seatType)) {
                     Constant.seatTypeList.removeAll{it == type_item.seatType}
 
-                    println("SeatListClick21 ------------->yes")
-                    typeName.setTextColor(
-                        ContextCompat.getColorStateList(
-                            this,
-                            R.color.hint_color
-                        )
-                    )
+                    typeName.setTextColor(ContextCompat.getColorStateList(this, R.color.hint_color))
+
+                    imgSeatSelectiopn.setColorFilter(
+                        ContextCompat.getColor(this, R.color.hint_color),
+                        android.graphics.PorterDuff.Mode.MULTIPLY)
 
                 } else {
 
-                    Constant.seatCategoryList.clear()
                     Constant.seatTypeList.clear()
-                    preferences.putString(Constant.SEAT_TYPE, type_item.seatType)
+                    Constant.seatCategoryList.clear()
+
                     Constant.seatTypeList.add(type_item.seatType)
+
+                    preferences.putString(Constant.SEAT_TYPE, type_item.seatType)
 
                     typeName.setTextColor(
                         ContextCompat.getColorStateList(
-                            this, R.color.text_alert_color_red
-                        )
-                    )
+                            this, R.color.text_alert_color_red))
 
+                    imgSeatSelectiopn.setColorFilter(
+                        ContextCompat.getColor(this, R.color.text_alert_color_red),
+                        android.graphics.PorterDuff.Mode.MULTIPLY)
+
+                    println("SeatListClick21Yes ------------->${type_item.seatType}")
                 }
 
             }

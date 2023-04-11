@@ -139,6 +139,9 @@ class Constant {
          var ageRating: java.util.ArrayList<String> = java.util.ArrayList()
          var ageRating1: java.util.ArrayList<String> = java.util.ArrayList()
 
+
+        var experienceItemList: ArrayList<String> = ArrayList()
+
         const val platform = "ANDROID"
         const val version = "1.5"
         const val status = "success"

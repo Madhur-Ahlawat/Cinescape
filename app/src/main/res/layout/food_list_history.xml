@@ -34,10 +34,10 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cons"
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:layout_marginTop="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView">
@@ -62,9 +62,9 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/sf_pro_text_regular"
             android:text="@string/total_price"
-            android:visibility="gone"
             android:textColor="@color/hint_color"
             android:textSize="@dimen/size14"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/textView98"
             app:layout_constraintStart_toStartOf="@+id/textView98"
             app:layout_constraintTop_toTopOf="parent" />
@@ -82,6 +82,18 @@
             app:layout_constraintEnd_toStartOf="@+id/textView96"
             app:layout_constraintTop_toBottomOf="@+id/textView97"
             tools:text="Paid by Club Card" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/paymentDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cons">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

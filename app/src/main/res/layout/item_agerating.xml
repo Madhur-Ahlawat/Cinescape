@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/size20"
+    android:layout_marginStart="@dimen/fab_margin_16"
+    android:layout_marginEnd="@dimen/fab_margin_16"
     android:background="@color/black">
 
     <View
@@ -24,7 +25,6 @@
         tools:itemCount="4"
         android:orientation="vertical"
         tools:listitem="@layout/item_agerules_list"
-        android:layout_marginTop="@dimen/margin15"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

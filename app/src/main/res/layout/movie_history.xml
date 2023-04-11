@@ -353,6 +353,7 @@
             android:textColor="@color/hint_color"
             android:textSize="@dimen/size12"
             android:textStyle="normal"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="@+id/tvTicketPrices"
             app:layout_constraintTop_toBottomOf="@+id/tvTicketPrices" />
 
@@ -366,6 +367,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/size12"
             android:textStyle="normal"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/tvFoodPrices"
             app:layout_constraintStart_toStartOf="@+id/tvTicket_price"
             app:layout_constraintTop_toBottomOf="@+id/tvTicketPrices" />
@@ -380,6 +382,7 @@
             android:textColor="@color/hint_color"
             android:textSize="@dimen/size12"
             android:textStyle="normal"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="@+id/tvFoodPrices"
             app:layout_constraintTop_toBottomOf="@+id/tvFoodPrices" />
 
@@ -393,6 +396,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/size14"
             android:textStyle="normal"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/tv_total_tc_price_text"
             app:layout_constraintStart_toStartOf="@+id/tvFoodPrice"
             app:layout_constraintTop_toTopOf="@+id/tv_total_tc_price_text"
@@ -407,12 +411,11 @@
             android:textColor="@color/hint_color"
             android:textSize="@dimen/size12"
             android:textStyle="normal"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_total_tc_price_text"
             app:layout_constraintTop_toBottomOf="@+id/tv_total_tc_price_text"
             tools:text="@string/paid_by_club_card" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -22,7 +23,6 @@
             android:layout_width="0dp"
             android:layout_weight="0.9"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:drawablePadding="@dimen/margin5"
             android:fontFamily="@font/sf_pro_text_regular"
             android:gravity="center_vertical"
@@ -55,8 +55,8 @@
         android:id="@+id/view94"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="@dimen/margin8"
-        android:layout_marginBottom="@dimen/margin8"
+        android:layout_marginTop="@dimen/margin25"
+        android:layout_marginBottom="@dimen/margin20"
         android:background="@color/lineColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView55" />

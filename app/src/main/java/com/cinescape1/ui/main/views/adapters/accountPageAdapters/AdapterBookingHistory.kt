@@ -186,7 +186,6 @@ class AdapterBookingHistory(private val context: Activity,
                         holder.foodUi.hide()
                         holder.movieui.hide()
 
-
                     }else{
                         holder.rechargeUi.hide()
                         holder.foodUi.hide()
