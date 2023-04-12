@@ -1300,10 +1300,10 @@ class FoodActivity : DaggerAppCompatActivity(),
                             } else {
                                 binding?.textCartCountNotiication?.invisible()
 
-                                if (booktype == "FOOD"){
+                                if (booktype == "FOOD") {
                                     binding?.txtProceed?.show()
                                     binding?.txtSkipBtn?.hide()
-                                }else{
+                                } else {
                                     binding?.txtProceed?.hide()
                                     binding?.txtSkipBtn?.show()
                                 }
@@ -1469,20 +1469,18 @@ class FoodActivity : DaggerAppCompatActivity(),
             if (foodCartListNew?.size!! > 0) {
                 binding?.textCartCountNotiication?.show()
                 binding?.textCartCountNotiication?.text = foodCartListNew?.size.toString()
-
-
-                    binding?.txtProceed?.show()
-                    binding?.txtSkipBtn?.hide()
+                binding?.txtProceed?.show()
+                binding?.txtSkipBtn?.hide()
 
 
             } else {
                 binding?.textCartCountNotiication?.text = "0"
                 binding?.textCartCountNotiication?.show()
 
-                if (booktype == "FOOD"){
+                if (booktype == "FOOD") {
                     binding?.txtProceed?.show()
                     binding?.txtSkipBtn?.hide()
-                }else{
+                } else {
                     binding?.txtProceed?.hide()
                     binding?.txtSkipBtn?.show()
                 }
@@ -1495,7 +1493,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             if (num < 0 || num == 0) {
                 Toast.makeText(this, "sorry", Toast.LENGTH_LONG).show()
             } else {
-                num -= 1
+                num--
                 foodItem.quantity = num
                 foodSelectedList?.removeAt(position)
                 updateCartList(foodItem)
@@ -1581,7 +1579,7 @@ class FoodActivity : DaggerAppCompatActivity(),
     @SuppressLint("NotifyDataSetChanged")
     override fun onDecreaseCart(foodItem: GetFoodResponse.FoodDtls, pos: Int) {
 
-        foodCartListNew?.get(pos)?.foodQuan?.minus(1)
+        (foodCartListNew?.get(pos)?.foodQuan as Int) - 1
         if (foodCartListNew?.get(pos)?.foodQuan!! > 0) {
 //            Toast.makeText(this, "hello 00", Toast.LENGTH_SHORT).show()
 
@@ -1693,10 +1691,10 @@ class FoodActivity : DaggerAppCompatActivity(),
             emptyCart?.show()
             binding?.textCartCountNotiication?.invisible()
 
-            if (booktype == "FOOD"){
+            if (booktype == "FOOD") {
                 binding?.txtProceed?.show()
                 binding?.txtSkipBtn?.hide()
-            }else{
+            } else {
                 binding?.txtProceed?.hide()
                 binding?.txtSkipBtn?.show()
             }
@@ -1757,10 +1755,10 @@ class FoodActivity : DaggerAppCompatActivity(),
 
         } else {
 
-            if (pos <= (foodCartList?.size!! -1))
+            if (pos <= (foodCartList?.size!! - 1))
                 foodCartList?.removeAt(pos)
 
-            if (pos <= (foodCartListNew?.size!! -1))
+            if (pos <= (foodCartListNew?.size!! - 1))
                 foodCartListNew?.removeAt(pos)
 
             for (item in foodItemRemove) {
@@ -1921,7 +1919,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                 foodRequestData.ModifiersText = modifiers
             }
 
-//            /*todo combo items add*/
+//
 
             if (foodItem.packageChildItems.isNotEmpty()) {
                 foodRequestData.headOfficeItemCode = foodItem.headOfficeItemCode
@@ -1978,7 +1976,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             if (foodCartList?.size!! > 0) {
                 val arrFoodDetails = foodCartList?.distinctBy {
                     Triple(
-                        it.description,
+                        it.id,
                         it.description,
                         it.ModifiersText
                     )
@@ -2008,8 +2006,12 @@ class FoodActivity : DaggerAppCompatActivity(),
                     arrFoodDetails[j].quantity = quantity
                     arrFoodDetails[j].finalPriceInCents = amount.toString()
                 }
-
-                foodCartList = ArrayList(arrFoodDetails)
+                if (foodCartList != null) {
+                    foodCartList?.clear()
+                    foodCartList?.addAll(arrFoodDetails)
+                } else {
+                    foodCartList = ArrayList(arrFoodDetails)
+                }
             }
 
             val foodDtls = GetFoodResponse.FoodDtls()

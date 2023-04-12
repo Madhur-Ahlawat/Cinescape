@@ -35,17 +35,17 @@ class GiftCardAdapter(
             with(respPayModes[position]) {
                 println("offerList--->${this}")
                 //title
-                binding.textView152.text = this.name
+                binding.labelGiftCard.text = this.name
                 Glide.with(context)
                     .load(this.imageUrl)
                     .into(binding.imageView55)
 
                 if (rowIndex == position) {
                     Glide.with(context).load(this.activeImageUrl).into(binding.imageView55)
-                    binding.textView152.setTextColor(context.getColor(R.color.white))
+                    binding.labelGiftCard.setTextColor(context.getColor(R.color.red))
                 } else {
                     Glide.with(context).load(this.imageUrl).into(binding.imageView55)
-                    binding.textView152.setTextColor(context.getColor(R.color.hint_color))
+                    binding.labelGiftCard.setTextColor(context.getColor(R.color.hint_color))
                 }
 
                 holder.itemView.setOnClickListener {

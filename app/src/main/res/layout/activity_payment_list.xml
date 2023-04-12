@@ -168,7 +168,7 @@
             android:layout_width="70dp"
             android:layout_height="65dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="@dimen/margin15"
+            android:layout_marginTop="5dp"
             app:layout_constraintEnd_toStartOf="@+id/view_time_left"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"

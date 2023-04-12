@@ -76,8 +76,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     companion object {
-        var offerApplied: Boolean = false
-        var giftApplied: Boolean = false
+        var spinnerClickable: Boolean = true
+        var bankApplied: Boolean = false
     }
 
     @Inject
@@ -123,7 +123,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
     override fun onDestroy() {
         super.onDestroy()
-        Constant.CARD_NO=""
+        Constant.CARD_NO = ""
     }
 
     private fun manageFunctions() {
@@ -186,6 +186,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
 
         binding?.txtProceed?.setOnClickListener {
+
             when (summeryViewModel.selectedPaymentMethod) {
                 PaymentMethodSealedClass.CREDIT_CARD -> {
                     creditCardDialog(Constant.CARD_NO)
@@ -284,7 +285,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        LoaderDialog.getInstance(R.string.pleasewait)?.show(supportFragmentManager, null)
+                        LoaderDialog.getInstance(R.string.pleasewait)
+                            ?.show(supportFragmentManager, null)
 
                     }
                 }
@@ -296,7 +298,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         binding?.paymentLayout?.show()
         binding?.textTotalAmount?.text = output.amount
         val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
-        adapter = PaymentListAdapter(this, output.payMode, this,summeryViewModel)
+        adapter = PaymentListAdapter(this, output.payMode, this, summeryViewModel)
         binding?.recyclerPayMode?.layoutManager = gridLayout
         binding?.recyclerPayMode?.adapter = adapter
     }
@@ -367,9 +369,12 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 apply.hide()
                                 close.hide()
                                 chekbox.hide()
+                                outputlist?.clear()
+                                outputlist?.addAll(it.data.output.payInfo)
                                 summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.CREDIT_CARD)
                                 bankCancel.show()
-                                offerApplied = true
+                                bankApplied = true
+                                spinnerClickable = false
 //                             //bank  Clickable false
                                 bankEdit.isClickable = false
                                 bankEdit.isEnabled = false
@@ -396,10 +401,12 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 offerEditText.isFocusable = false
                                 bankEdit.isFocusableInTouchMode = false
                                 adapter?.notifyDataSetChanged()
-                            }
-                            else{
-                                summeryViewModel.setpaymentMethodSelectionStateFlow(PaymentMethodSealedClass.NONE)
-                                offerApplied=false
+                            } else {
+                                summeryViewModel.setpaymentMethodSelectionStateFlow(
+                                    PaymentMethodSealedClass.NONE
+                                )
+                                bankApplied = false
+                                spinnerClickable = true
                                 val dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
                                     R.string.app_name,
@@ -415,7 +422,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     }
                     Status.ERROR -> {
                         LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
-
+                        bankApplied = false
+                        spinnerClickable = true
                         val dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
@@ -428,7 +436,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     }
 
                     Status.LOADING -> {
-                        LoaderDialog.getInstance(R.string.pleasewait)?.show(supportFragmentManager, null)
+                        LoaderDialog.getInstance(R.string.pleasewait)
+                            ?.show(supportFragmentManager, null)
                     }
                 }
             }
@@ -492,19 +501,24 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 msg.hide()
+                                binding?.textTotalAmount?.text = it.data.output.amount
+                                msg.text = it.data.output.MSG
                                 bankOfferClick = false
                                 //bank
                                 apply.show()
                                 close.hide()
                                 checkbox.hide()
                                 banksCancel.hide()
-                                offerApplied = false
+                                bankApplied = false
+                                spinnerClickable = true
                                 bankEdit.text.clear()
                                 bankEdit.isClickable = true
                                 bankEdit.isFocusable = true
                                 bankEdit.isEnabled = true
                                 bankEdit.isFocusableInTouchMode = true
                                 bankEdit.inputType = InputType.TYPE_CLASS_NUMBER
+                                outputlist?.clear()
+                                outputlist?.addAll(it.data.output.payInfo)
                                 summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.NONE)
                                 //knet
                                 knet.isClickable = true
@@ -533,7 +547,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     }
                     Status.ERROR -> {
                         LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
-
+                        bankApplied = false
+                        spinnerClickable = true
                         val dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
@@ -545,7 +560,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        LoaderDialog.getInstance(R.string.pleasewait)?.show(supportFragmentManager, null)
+                        LoaderDialog.getInstance(R.string.pleasewait)
+                            ?.show(supportFragmentManager, null)
                     }
                 }
             }
@@ -608,7 +624,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        LoaderDialog.getInstance(R.string.pleasewait)?.show(supportFragmentManager, null)
+                        LoaderDialog.getInstance(R.string.pleasewait)
+                            ?.show(supportFragmentManager, null)
                     }
                 }
             }
@@ -944,7 +961,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             }
 
             @RequiresApi(Build.VERSION_CODES.N)
-            @SuppressLint("SetTextI18n")
+            @SuppressLint("SetTextI18n", "NewApi")
             override fun onTextChanged(
                 p0: CharSequence?, start: Int, removed: Int, added: Int
             ) {
@@ -1097,7 +1114,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        LoaderDialog.getInstance(R.string.pleasewait)?.show(supportFragmentManager, null)
+                        LoaderDialog.getInstance(R.string.pleasewait)
+                            ?.show(supportFragmentManager, null)
 
                     }
                 }
@@ -1164,7 +1182,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        LoaderDialog.getInstance(R.string.pleasewait)?.show(supportFragmentManager, null)
+                        LoaderDialog.getInstance(R.string.pleasewait)
+                            ?.show(supportFragmentManager, null)
 
                     }
                 }
@@ -1256,7 +1275,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        LoaderDialog.getInstance(R.string.pleasewait)?.show(supportFragmentManager, null)
+                        LoaderDialog.getInstance(R.string.pleasewait)
+                            ?.show(supportFragmentManager, null)
 
                     }
                 }
@@ -1445,7 +1465,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             } else {
                                 LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
 
-                               OptionDialog.getInstance(this,
+                                OptionDialog.getInstance(this,
                                     R.mipmap.ic_launcher,
                                     R.string.app_name,
                                     it.data?.msg.toString(),
@@ -1470,7 +1490,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             negativeClick = {})?.show()
                     }
                     Status.LOADING -> {
-                        LoaderDialog.getInstance(R.string.pleasewait)?.show(supportFragmentManager, null)
+                        LoaderDialog.getInstance(R.string.pleasewait)
+                            ?.show(supportFragmentManager, null)
 
                     }
                 }
@@ -1532,7 +1553,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        LoaderDialog.getInstance(R.string.pleasewait)?.show(supportFragmentManager, null)
+                        LoaderDialog.getInstance(R.string.pleasewait)
+                            ?.show(supportFragmentManager, null)
 
                     }
                 }
@@ -1552,15 +1574,14 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         imageCheck.hide()
         remove.hide()
 
-        giftApplied = false
-        adapter?.notifyDataSetChanged()
-
+        outputlist?.clear()
+        outputlist?.addAll(output.payInfo)
         offerEditText.text.clear()
         offerEditText.isClickable = true
         offerEditText.isEnabled = true
         offerEditText.isFocusable = true
         et_enter_card_number.isFocusableInTouchMode = true
-
+        adapter?.notifyDataSetChanged()
     }
 
     private fun giftCardApply(
@@ -1622,7 +1643,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        LoaderDialog.getInstance(R.string.pleasewait)?.show(supportFragmentManager, null)
+                        LoaderDialog.getInstance(R.string.pleasewait)
+                            ?.show(supportFragmentManager, null)
 
                     }
                 }
@@ -1640,28 +1662,45 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         textCancelBtn: TextView
     ) {
         if (output.PAID == "NO") {
+            summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.GIFT_CARD_PARTIAL)
             binding?.textTotalAmount?.text = output.amount
-            giftApplied = true
             offerEditText.isClickable = false
             offerEditText.isEnabled = false
             offerEditText.isFocusable = false
             et_enter_card_number.isFocusableInTouchMode = false
-            adapter?.notifyDataSetChanged()
-
+            outputlist!!.clear()
+            outputlist!!.addAll(output.payInfo)
+            binding?.textTotalAmount?.text = output.amount
             apply.hide()
             imageCheck.show()
             remove.show()
+            adapter?.notifyDataSetChanged()
         } else {
+            if(output.CAN_PAY!=null && output.CAN_PAY=="YES"){
+                summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.GIFT_CARD_COMPLETE)
+                apply.hide()
+                remove.show()
+                summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.GIFT_CARD_COMPLETE)
+                textCancelBtn.show()
+                offerEditText.isClickable = false
+                offerEditText.isEnabled = false
+                offerEditText.isFocusable = false
+                //show cancel button
+                //hide apply button
+                //enable input
+                //show offer applied label
+                binding!!.txtProceed.performClick()
+            }
             Constant.IntentKey.TimerExtandCheck = true
             Constant.IntentKey.TimerExtand = 90
             Constant.IntentKey.TimerTime = 360
-            apply.hide()
-            textCancelBtn.show()
 
 //            val intent = Intent(applicationContext, FinalTicketActivity::class.java)
 //            intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
 //            intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
 //            startActivity(intent)
+            adapter?.notifyDataSetChanged()
+
         }
     }
 
@@ -1679,7 +1718,10 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
                                     val intent =
                                         Intent(applicationContext, PaymentWebActivity::class.java)
-                                    intent.putExtra(Constant.IntentKey.PAY_URL, it.data.output.callingUrl)
+                                    intent.putExtra(
+                                        Constant.IntentKey.PAY_URL,
+                                        it.data.output.callingUrl
+                                    )
                                     intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
                                     intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
                                     startActivity(intent)

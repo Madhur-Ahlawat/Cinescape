@@ -54,12 +54,12 @@
 
         <!--                Bank Offer                  -->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/bankOffer"
+            android:id="@+id/bankOfferChooseCards"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:paddingTop="@dimen/margin35"
+            android:paddingTop="@dimen/margin15"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -216,7 +216,7 @@
             android:id="@+id/giftCardUi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/margin35"
+            android:paddingTop="@dimen/margin20"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -251,13 +251,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toStartOf="@+id/linearLayout8"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/couponUi">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/enterUsernames"
+                    android:id="@+id/editext_gift_card"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -379,12 +379,12 @@
 
         <!--                 Wallet                     -->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/wallet"
+            android:id="@+id/walletUi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:paddingTop="@dimen/margin35"
+            android:paddingTop="@dimen/margin20"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -445,10 +445,10 @@
 
         <!--                 Card   -->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/card_payment_options_ui"
+            android:id="@+id/knet_cc_ui"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -458,8 +458,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center"
-                android:layout_marginTop="@dimen/margin35"
+                android:layout_marginTop="20dp"
                 android:weightSum="2"
+                android:id="@+id/linearlayout_knet_credit_card"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -563,9 +564,8 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="20dp"
         android:background="@color/lineColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
