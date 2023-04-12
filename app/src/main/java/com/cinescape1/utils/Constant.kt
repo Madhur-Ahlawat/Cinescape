@@ -110,7 +110,6 @@ class Constant {
         })
     }
 
-
     fun getSpanableText(
         color: ForegroundColorSpan,
         font: Typeface,

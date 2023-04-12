@@ -45,7 +45,8 @@ class FaqChildAdapter(
         val height = displayMetrics.heightPixels
         val width = displayMetrics.widthPixels
         holder.todoTitle.text = obj.ques
-        holder.desc.text = obj.answer
+        val answer= obj.answer
+        holder.desc.text =answer.replace("(","").replace(")","")
 
         println("Descriptin------>${obj.answer}")
 

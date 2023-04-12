@@ -33,7 +33,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="How early can I book a ticket?"
             app:drawableEndCompat="@drawable/arrow_down" />
-
     </LinearLayout>
 
     <TextView
