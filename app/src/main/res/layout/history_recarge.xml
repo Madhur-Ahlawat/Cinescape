@@ -47,15 +47,13 @@
         android:id="@+id/textView85"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin12"
         android:fontFamily="@font/sf_pro_text_regular"
         android:includeFontPadding="false"
-        tools:text="Knet"
         android:textColor="@color/white"
         android:textSize="@dimen/size14"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView84"
-        app:layout_constraintTop_toBottomOf="@+id/textView84" />
+        app:layout_constraintTop_toBottomOf="@+id/textView84"
+        tools:text="Knet" />
 
     <TextView
         android:id="@+id/textView86"
@@ -102,6 +100,16 @@
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@+id/textView88"
         app:layout_constraintTop_toBottomOf="@+id/textView88" />
+
+    <include
+        layout="@layout/payment_detail_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView85" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -111,6 +111,7 @@ class AccountPageFragment : DaggerFragment(),
     private var ageRatingList: ArrayList<ProfileResponse.Output.Rating>? = null
     private val accountFragViewModel: AccountFragViewModel by viewModels { viewModelFactory }
 
+
     private val list: ArrayList<ModelPreferenceExperience> = arrayListOf(
         ModelPreferenceExperience(R.drawable.img_vip, 0),
         ModelPreferenceExperience(R.drawable.img_vip, 0),
@@ -121,7 +122,6 @@ class AccountPageFragment : DaggerFragment(),
         ModelPreferenceExperience(R.drawable.img_eleven, 0),
         ModelPreferenceExperience(R.drawable.img_screenx, 0)
     )
-
 
     private var userName: String = ""
     private var firstName: String = ""
@@ -195,7 +195,7 @@ class AccountPageFragment : DaggerFragment(),
     private var foodPaidby1: TextView? = null
 
     var seatTypeItem = ""
-    var seatCategoryItem = ""
+    var seatExoerience = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -217,8 +217,10 @@ class AccountPageFragment : DaggerFragment(),
 
         Constant.experienceList.clear()
         Constant.ageRating1.clear()
+
 //        Constant.seatCategoryList1.clear()
 //        Constant.seatTypeList1.clear()
+        seatExoerience = 0
 
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
@@ -228,9 +230,10 @@ class AccountPageFragment : DaggerFragment(),
                 arbic = true
                 println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
 
-                val regular = ResourcesCompat.getFont(requireActivity(), R.font.gess_light)
-                val bold = ResourcesCompat.getFont(requireActivity(), R.font.gess_bold)
-                val medium = ResourcesCompat.getFont(requireActivity(), R.font.gess_medium)
+                val regular = ResourcesCompat.getFont(requireActivity(), R.font.montserrat_regular)
+
+                val bold = ResourcesCompat.getFont(requireActivity(), R.font.montserrat_bold)
+                val medium = ResourcesCompat.getFont(requireActivity(), R.font.montserrat_medium)
 
                 binding?.textSwitcher?.typeface = regular
                 binding?.textArabic?.typeface = regular
@@ -658,7 +661,6 @@ class AccountPageFragment : DaggerFragment(),
             val intent = Intent(requireActivity(), DeleteAccountActivity::class.java)
             startActivity(intent)
         }
-
 
         binding?.view2?.setOnClickListener {
             signOut()
@@ -2029,43 +2031,60 @@ class AccountPageFragment : DaggerFragment(),
     private fun setSeatTypeFlexbox(layout: FlexboxLayout, seatType: String) {
         val list: ArrayList<ModelPreferenceType> = arrayListOf(
             ModelPreferenceType(getString(R.string.standards),0),
-            ModelPreferenceType(getString(R.string.premiums),0)
-        )
+            ModelPreferenceType(getString(R.string.premiums),0))
 
         layout.removeAllViews()
         val viewListForSeatType = ArrayList<View>()
         for (type_item in list) {
-
-            val v: View = layoutInflater.inflate(R.layout.seat_type_item, null)
+            val v: View = layoutInflater.inflate(R.layout.seat_type_list_item, null)
             val typeName: TextView = v.findViewById(R.id.tv_seat_selectiopn) as TextView
+            val imgSeatSelectiopn: ImageView = v.findViewById(R.id.imgSeatSelectiopn) as ImageView
+
+
+                if (type_item.seatType == getString(R.string.standards)){
+                    imgSeatSelectiopn.setImageResource(R.drawable.standard_white)
+                }else{
+
+                    imgSeatSelectiopn.setImageResource(R.drawable.premium_white)
+                }
+
             seatAbility = if (type_item.count > 0) {
                 1
             } else {
                 0
             }
             typeName.text = type_item.seatType
+
+
             viewListForSeatType.add(v)
             layout.addView(v)
 
             val seat = seatType.replace("[", "").replace("]", "")
-
             println("SeatType221--->${type_item.seatType}---<${seat}")
 
             if (type_item.seatType.uppercase() == seat.uppercase()) {
 
-//                Constant.seatTypeList.add(type_item.seatType)
-
                 preferences.putString(Constant.SEAT_TYPE, type_item.seatType)
                 typeName.setTextColor(getColor(requireContext(), R.color.text_alert_color_red))
 
+                imgSeatSelectiopn.setColorFilter(
+                    getColor(requireContext(), R.color.text_alert_color_red),
+                    android.graphics.PorterDuff.Mode.MULTIPLY)
+
             } else {
+
                 typeName.setTextColor(getColor(requireContext(), R.color.hint_color))
+
+                imgSeatSelectiopn.setColorFilter(
+                    getColor(requireContext(), R.color.hint_color),
+                    android.graphics.PorterDuff.Mode.MULTIPLY)
             }
 
             v.setOnClickListener {
                 for (v in viewListForSeatType) {
                     println("SeatListClick21No ------------->${type_item.seatType}")
                     val typeName1: TextView = v.findViewById(R.id.tv_seat_selectiopn) as TextView
+                    val imgSeatSelectiopn1: ImageView = v.findViewById(R.id.imgSeatSelectiopn) as ImageView
                     typeName1.setTextColor(
                         ContextCompat.getColorStateList(
                             requireContext(),
@@ -2073,16 +2092,23 @@ class AccountPageFragment : DaggerFragment(),
                         )
                     )
 
+                    imgSeatSelectiopn1.setColorFilter(
+                        getColor(requireContext(), R.color.hint_color),
+                        android.graphics.PorterDuff.Mode.MULTIPLY)
+
                 }
 
                 println("SeatListClick21Yes ------------->${type_item.seatType}")
 
                 if (Constant.seatTypeList.contains(type_item.seatType)) {
                     Constant.seatTypeList.removeAll{it == type_item.seatType}
-                    typeName.setTextColor(
-                        ContextCompat.getColorStateList(
-                            requireContext(),
-                            R.color.hint_color))
+
+                    typeName.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.hint_color))
+
+                    imgSeatSelectiopn.setColorFilter(
+                        getColor(requireContext(), R.color.hint_color),
+                        android.graphics.PorterDuff.Mode.MULTIPLY)
+
                 } else {
 
                     Constant.seatTypeList.clear()
@@ -2095,6 +2121,11 @@ class AccountPageFragment : DaggerFragment(),
                     typeName.setTextColor(
                         ContextCompat.getColorStateList(
                             requireContext(), R.color.text_alert_color_red))
+
+                    imgSeatSelectiopn.setColorFilter(
+                        getColor(requireContext(), R.color.text_alert_color_red),
+                        android.graphics.PorterDuff.Mode.MULTIPLY)
+
                     println("SeatListClick21Yes ------------->${type_item.seatType}")
                 }
 
@@ -2105,8 +2136,8 @@ class AccountPageFragment : DaggerFragment(),
     @SuppressLint("InflateParams")
     private fun setExperienceFlexbox(
         layout: FlexboxLayout,
-        experience: ArrayList<ProfileResponse.Output.Experience>
-    ) {
+        experience: ArrayList<ProfileResponse.Output.Experience>) {
+
         val list4dx: ArrayList<ModelExperiences> =
             arrayListOf(ModelExperiences(R.drawable.fourdx_white))
         val listStandard: ArrayList<ModelExperiences> =
@@ -2137,18 +2168,23 @@ class AccountPageFragment : DaggerFragment(),
             val lowerCase = data.name.toLowerCase()
             val url = "https://s3.eu-west-1.amazonaws.com/cinescape.uat/experience/${lowerCase}.png"
 
+            println("ExperienceDataItem---------->${data.name}")
+
 
             when (data.name) {
 
                 "4DX" -> {
-                    Glide.with(this).load(list4dx[0].imgCate).placeholder(R.drawable.four_dx)
-                        .into(experienceName)
+//                    experienceName.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.four_dx))
+//                    experienceName.setImageResource(R.drawable.four_dx)
 
+                    Glide.with(this).load(list4dx[0].imgCate).placeholder(R.drawable.four_dx).into(experienceName)
                 }
                 "STANDARD" -> {
+//                    experienceName.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.standard))
+//                    experienceName.setImageResource(R.drawable.standard)
+
                     for (items in listStandard) {
-                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.standard)
-                            .into(experienceName)
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.standard).into(experienceName)
                     }
 
                 }

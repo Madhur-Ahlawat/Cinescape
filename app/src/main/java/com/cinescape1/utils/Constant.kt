@@ -24,7 +24,6 @@ import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "DEPRECATED_IDENTITY_EQUALS")
 class Constant {
     private fun addClickablePartTextViewResizable(
@@ -59,8 +58,7 @@ class Constant {
         tv: TextView,
         maxLine: Int,
         expandText: String,
-        viewMore: Boolean
-    ) {
+        viewMore: Boolean) {
         if (tv.tag == null) {
             tv.tag = tv.text
         }
@@ -80,8 +78,7 @@ class Constant {
                         addClickablePartTextViewResizable(
                             Html.fromHtml(tv.text.toString()), tv, maxLine, expandText,
                             viewMore
-                        ), TextView.BufferType.SPANNABLE
-                    )
+                        ), TextView.BufferType.SPANNABLE)
                 } else if (maxLine > 0 && tv.lineCount >= maxLine) {
                     val lineEndIndex = tv.layout.getLineEnd(maxLine - 1)
                     val text =
@@ -113,7 +110,6 @@ class Constant {
         })
     }
 
-
     fun getSpanableText(
         color: ForegroundColorSpan,
         font: Typeface,
@@ -139,8 +135,11 @@ class Constant {
          var ageRating: java.util.ArrayList<String> = java.util.ArrayList()
          var ageRating1: java.util.ArrayList<String> = java.util.ArrayList()
 
+
+        var experienceItemList: ArrayList<String> = ArrayList()
+
         const val platform = "ANDROID"
-        const val version = "1.5"
+        const val version = "1.0"
         const val status = "success"
         const val SUCCESS_CODE = 10001
 

@@ -1,5 +1,6 @@
 package com.cinescape1.data.network
 
+import com.cinescape1.BuildConfig
 import com.cinescape1.data.models.requestModel.*
 import com.cinescape1.data.models.responseModel.*
 import com.cinescape1.ui.main.views.deleteAccount.DeleteAccountRequest
@@ -233,11 +234,11 @@ interface DataServices {
                 chain.proceed(newRequest)
             })
 
-            // if (BuildConfig.DEBUG) {
+             if (BuildConfig.DEBUG) {
             val logging = HttpLoggingInterceptor()
-//                logging.level = HttpLoggingInterceptor.Level.BODY
+                logging.level = HttpLoggingInterceptor.Level.BODY
             client.addInterceptor(logging)
-            // }
+             }
 
             return Retrofit.Builder()
                 .client(client.build())

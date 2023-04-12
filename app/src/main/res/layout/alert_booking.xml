@@ -70,7 +70,6 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/size14"
                 android:textStyle="normal"
-                android:includeFontPadding="false"
                 app:layout_constraintEnd_toEndOf="@+id/text_booking_alert"
                 app:layout_constraintHorizontal_bias="0.511"
                 app:layout_constraintStart_toStartOf="@+id/text_booking_alert"
@@ -145,7 +144,7 @@
                             android:fontFamily="@font/sf_pro_text_heavy"
                             android:gravity="start"
                             android:includeFontPadding="false"
-                            android:maxLines="1"
+                            android:maxLines="2"
                             android:layout_marginEnd="@dimen/margin8"
                             android:textColor="@color/white"
                             android:textSize="@dimen/size16"
@@ -154,16 +153,17 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_minWidth="50dp"
-                            tools:text="klkllkm " />
+                            tools:text="klkllkm jdiioie uiioi iudoood ii9dofd iidod jid9doi jidh " />
 
-                        <LinearLayout
+                        <androidx.appcompat.widget.LinearLayoutCompat
                             android:id="@+id/constraintLayout18"
-                            android:layout_width="wrap_content"
+                            android:layout_width="72dp"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
+                            android:gravity="bottom"
+                            app:layout_alignSelf="stretch"
                             android:maxLines="1"
-                            android:minWidth="50dp"
-                            android:layout_marginBottom="@dimen/margin2"
+                            android:layout_marginEnd="@dimen/margin4"
                             app:layout_constraintBottom_toBottomOf="@+id/text_bombshell"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_minWidth="@dimen/margin36">
@@ -190,7 +190,7 @@
                                     tools:text="13+" />
 
                             </androidx.cardview.widget.CardView>
-                        </LinearLayout>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
                 </com.google.android.flexbox.FlexboxLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 

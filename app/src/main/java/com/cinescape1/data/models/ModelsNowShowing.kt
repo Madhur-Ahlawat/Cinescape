@@ -52,6 +52,10 @@ data class ModelExperiences(
     var imgCate: Int
 )
 
+data class ModelSeatType(
+    var imgCate: Int
+)
+
 
 data class ModelPreferenceType(
     var seatType: String,
