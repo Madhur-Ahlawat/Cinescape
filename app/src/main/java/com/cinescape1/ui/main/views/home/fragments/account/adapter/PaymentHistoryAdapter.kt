@@ -26,8 +26,8 @@ class PaymentHistoryAdapter(
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val itemList = paymentInfo[position]
-        holder.textPaymentName.text = itemList.key
-        holder.textPrices.text = itemList.amt
+//        holder.textPaymentName.text = itemList.key
+//        holder.textPrices.text = itemList.amt
 
         println("Food And TicketPrices------->${itemList.amt}---->${holder.textPaymentName.text}")
     }

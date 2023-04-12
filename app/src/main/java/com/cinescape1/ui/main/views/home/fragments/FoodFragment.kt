@@ -52,9 +52,9 @@ class FoodFragment : DaggerFragment(), AdapterView.OnItemSelectedListener {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(requireActivity(), "ar")
                 println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
-                val regular = ResourcesCompat.getFont(requireActivity(), R.font.gess_light)
-                val bold = ResourcesCompat.getFont(requireActivity(), R.font.gess_bold)
-                val medium = ResourcesCompat.getFont(requireActivity(), R.font.gess_medium)
+                val regular = ResourcesCompat.getFont(requireActivity(), R.font.montserrat_regular)
+                val bold = ResourcesCompat.getFont(requireActivity(), R.font.montserrat_bold)
+                val medium = ResourcesCompat.getFont(requireActivity(), R.font.montserrat_medium)
 
                 binding?.textFoodPrefeeredLocation?.typeface = bold
                 binding?.textOrderInfo?.typeface = regular

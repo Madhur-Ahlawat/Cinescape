@@ -23,7 +23,6 @@ import com.cinescape1.ui.main.views.adapters.showTimesAdapters.AdpaterShowTimesC
 import com.cinescape1.ui.main.views.details.adapter.SimilarMovieAdapter
 import com.cinescape1.ui.main.views.details.commingSoon.viewModel.ComingSoonViewModel
 import com.cinescape1.ui.main.views.details.nowShowing.ShowTimesActivity
-import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.ui.main.views.player.PlayerActivity
 import com.cinescape1.utils.*
 import dagger.android.support.DaggerAppCompatActivity
@@ -57,8 +56,8 @@ class ComingSoonActivity : DaggerAppCompatActivity(),
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
                 languageCheck = "ar"
-                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
-                val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
+                val regular = ResourcesCompat.getFont(this, R.font.montserrat_regular)
+                val bold = ResourcesCompat.getFont(this, R.font.montserrat_bold)
                 binding?.textFilmHouseName?.typeface = bold // heavy
                 binding?.textShare?.typeface = regular
                 binding?.textNotify?.typeface = regular

@@ -198,7 +198,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/sf_pro_text_regular"
             android:includeFontPadding="false"
-            android:text="@string/payment_method"
+            android:text="@string/payment_modes"
             android:textColor="@color/hint_color"
             android:textSize="@dimen/size12"
             android:textStyle="normal"
@@ -221,8 +221,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/consGrandTotal"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="@dimen/margin8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -233,14 +234,13 @@
             android:id="@+id/textViewTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:fontFamily="@font/sf_pro_text_heavy"
+            android:fontFamily="@font/sf_pro_text_semibold"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:visibility="visible"
+            android:layout_marginEnd="@dimen/margin16"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView97"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="KD 9.400" />
 

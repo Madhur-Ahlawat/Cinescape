@@ -103,9 +103,9 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
                 LocaleHelper.setLocale(this, "ar")
                 languageCheck = "ar"
                 println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
-                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
-                val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
-                val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
+                val regular = ResourcesCompat.getFont(this, R.font.montserrat_regular)
+                val bold = ResourcesCompat.getFont(this, R.font.montserrat_bold)
+                val medium = ResourcesCompat.getFont(this, R.font.montserrat_medium)
 
                 binding?.btnGetPersonal?.typeface = bold
                 binding?.textChoosePreference?.typeface = regular

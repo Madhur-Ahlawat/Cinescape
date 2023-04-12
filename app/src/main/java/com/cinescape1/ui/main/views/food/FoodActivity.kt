@@ -11,7 +11,6 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
@@ -150,9 +149,9 @@ class FoodActivity : DaggerAppCompatActivity(),
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
-                val regular = ResourcesCompat.getFont(this, R.font.gess_light)
-                val bold = ResourcesCompat.getFont(this, R.font.gess_bold)
-                val medium = ResourcesCompat.getFont(this, R.font.gess_medium)
+                val regular = ResourcesCompat.getFont(this, R.font.montserrat_regular)
+                val bold = ResourcesCompat.getFont(this, R.font.montserrat_bold)
+                val medium = ResourcesCompat.getFont(this, R.font.montserrat_medium)
 
                 binding?.textFoodSelect?.typeface = bold   // semiBold
                 binding?.skip?.typeface = bold

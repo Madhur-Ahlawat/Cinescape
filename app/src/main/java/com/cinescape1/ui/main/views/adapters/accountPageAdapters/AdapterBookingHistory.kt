@@ -40,9 +40,9 @@ class AdapterBookingHistory(
 
         if (Constant.LANGUAGE == "ar") {
             LocaleHelper.setLocale(context, "ar")
-            val regular = ResourcesCompat.getFont(context, R.font.gess_light)
-            val bold = ResourcesCompat.getFont(context, R.font.gess_bold)
-            val medium = ResourcesCompat.getFont(context, R.font.gess_medium)
+            val regular = ResourcesCompat.getFont(context, R.font.montserrat_regular)
+            val bold = ResourcesCompat.getFont(context, R.font.montserrat_bold)
+            val medium = ResourcesCompat.getFont(context, R.font.montserrat_medium)
 
             holder.textBookingHistoryTitle.typeface = bold
             holder.textBookingHistoryDate.typeface = regular
@@ -259,7 +259,7 @@ class AdapterBookingHistory(
                         holder.movieui.show()
 
                         holder.textviewExperienceName.invisible()
-                        holder.textviewScreenNumber.invisible()
+//                        holder.textviewScreenNumber.invisible()
                         holder.textviewSeatName.hide()
                         holder.viewExperience.hide()
                         holder.viewCategorys.hide()
@@ -267,7 +267,11 @@ class AdapterBookingHistory(
                         holder.textViewCategoryName.hide()
                         holder.textViewExperience.hide()
                         holder.textViewSeatsTitle.hide()
-                        holder.textViewScreen.hide()
+//                        holder.textViewScreen.hide()
+                        holder.textViewScreen.text = context.getString(R.string.times)
+                        holder.textviewScreenNumber.text = bookingHistoryItem.showTime
+                        holder.textviewTimeInfo.invisible()
+                        holder.textViewTime.invisible()
 
                         if (bookingHistoryItem.concessionFoods.isNotEmpty()) {
                             holder.foodMUi.show()
@@ -305,6 +309,8 @@ class AdapterBookingHistory(
                         holder.foodUi.hide()
                         holder.rechargeUi.hide()
                         holder.movieui.show()
+//                        holder.textviewTimeInfo.show()
+//                        holder.textViewTime.show()
 
 
                         if (bookingHistoryItem.concessionFoods.isNotEmpty()) {
@@ -384,6 +390,7 @@ class AdapterBookingHistory(
         var textviewDateInfo: TextView = view.findViewById(R.id.textView_date_info)
 
         var textviewTimeInfo: TextView = view.findViewById(R.id.textView_time_info)
+        var textViewTime: TextView = view.findViewById(R.id.textView_time)
         var textviewCategoryName: TextView = view.findViewById(R.id.textView_category_name)
 
 

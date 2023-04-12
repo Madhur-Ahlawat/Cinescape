@@ -305,7 +305,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/view_ticket_total_price"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -318,10 +318,12 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/sf_pro_text_regular"
             android:gravity="start"
-            android:text="@string/ticket_price"
+            android:text="@string/total_ticket_price"
             android:textColor="@color/hint_color"
             android:textSize="@dimen/size12"
             android:textStyle="normal"
+            android:layout_marginStart="60dp"
+            app:layout_constraintEnd_toStartOf="@+id/tvTicket_price"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -329,17 +331,15 @@
             android:id="@+id/tvTicket_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
+            android:layout_marginEnd="16dp"
+            tools:text="KD 30.500"
             android:fontFamily="@font/sf_pro_text_bold"
             android:lineSpacingExtra="9sp"
-            android:text="KD 30.500"
-            android:layout_marginStart="@dimen/margin40"
             android:textColor="@color/white"
             android:textSize="@dimen/size12"
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="@+id/tvTicketPrices"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvTicketPrices"
             app:layout_constraintTop_toTopOf="parent" />
 
 
