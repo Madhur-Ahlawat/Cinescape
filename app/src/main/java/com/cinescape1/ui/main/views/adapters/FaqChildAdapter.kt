@@ -2,6 +2,8 @@ package com.cinescape1.ui.main.views.adapters
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.text.Html
+import android.text.method.LinkMovementMethod
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +17,7 @@ import com.cinescape1.data.models.responseModel.MoreTabResponse
 import com.cinescape1.data.models.responseModel.MoviesResponse
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
+
 
 class FaqChildAdapter(
     private val faqList: ArrayList<MoreTabResponse.Faq.Faqs>,
@@ -44,6 +47,8 @@ class FaqChildAdapter(
         holder.todoTitle.text = obj.ques
         holder.desc.text = obj.answer
 
+        println("Descriptin------>${obj.answer}")
+
         onTypefaceFaqChild(holder.todoTitle,holder.desc)
 
         val params = ConstraintLayout.LayoutParams(
@@ -58,6 +63,7 @@ class FaqChildAdapter(
         )
         // or set height to any fixed value you want
         holder.linearLayout.layoutParams = lp
+
 
 
         holder.todoTitle.setOnClickListener {
