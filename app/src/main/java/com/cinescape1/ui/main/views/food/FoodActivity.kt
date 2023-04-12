@@ -11,7 +11,6 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
@@ -150,7 +149,7 @@ class FoodActivity : DaggerAppCompatActivity(),
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
-                val regular = ResourcesCompat.getFont(this, R.font.montserrat_light)
+                val regular = ResourcesCompat.getFont(this, R.font.montserrat_regular)
                 val bold = ResourcesCompat.getFont(this, R.font.montserrat_bold)
                 val medium = ResourcesCompat.getFont(this, R.font.montserrat_medium)
 
@@ -1300,10 +1299,10 @@ class FoodActivity : DaggerAppCompatActivity(),
                             } else {
                                 binding?.textCartCountNotiication?.invisible()
 
-                                if (booktype == "FOOD") {
+                                if (booktype == "FOOD"){
                                     binding?.txtProceed?.show()
                                     binding?.txtSkipBtn?.hide()
-                                } else {
+                                }else{
                                     binding?.txtProceed?.hide()
                                     binding?.txtSkipBtn?.show()
                                 }
@@ -1469,18 +1468,20 @@ class FoodActivity : DaggerAppCompatActivity(),
             if (foodCartListNew?.size!! > 0) {
                 binding?.textCartCountNotiication?.show()
                 binding?.textCartCountNotiication?.text = foodCartListNew?.size.toString()
-                binding?.txtProceed?.show()
-                binding?.txtSkipBtn?.hide()
+
+
+                    binding?.txtProceed?.show()
+                    binding?.txtSkipBtn?.hide()
 
 
             } else {
                 binding?.textCartCountNotiication?.text = "0"
                 binding?.textCartCountNotiication?.show()
 
-                if (booktype == "FOOD") {
+                if (booktype == "FOOD"){
                     binding?.txtProceed?.show()
                     binding?.txtSkipBtn?.hide()
-                } else {
+                }else{
                     binding?.txtProceed?.hide()
                     binding?.txtSkipBtn?.show()
                 }
@@ -1493,7 +1494,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             if (num < 0 || num == 0) {
                 Toast.makeText(this, "sorry", Toast.LENGTH_LONG).show()
             } else {
-                num--
+                num -= 1
                 foodItem.quantity = num
                 foodSelectedList?.removeAt(position)
                 updateCartList(foodItem)
@@ -1579,7 +1580,7 @@ class FoodActivity : DaggerAppCompatActivity(),
     @SuppressLint("NotifyDataSetChanged")
     override fun onDecreaseCart(foodItem: GetFoodResponse.FoodDtls, pos: Int) {
 
-        (foodCartListNew?.get(pos)?.foodQuan as Int) - 1
+        foodCartListNew?.get(pos)?.foodQuan?.minus(1)
         if (foodCartListNew?.get(pos)?.foodQuan!! > 0) {
 //            Toast.makeText(this, "hello 00", Toast.LENGTH_SHORT).show()
 
@@ -1691,10 +1692,10 @@ class FoodActivity : DaggerAppCompatActivity(),
             emptyCart?.show()
             binding?.textCartCountNotiication?.invisible()
 
-            if (booktype == "FOOD") {
+            if (booktype == "FOOD"){
                 binding?.txtProceed?.show()
                 binding?.txtSkipBtn?.hide()
-            } else {
+            }else{
                 binding?.txtProceed?.hide()
                 binding?.txtSkipBtn?.show()
             }
@@ -1755,10 +1756,10 @@ class FoodActivity : DaggerAppCompatActivity(),
 
         } else {
 
-            if (pos <= (foodCartList?.size!! - 1))
+            if (pos <= (foodCartList?.size!! -1))
                 foodCartList?.removeAt(pos)
 
-            if (pos <= (foodCartListNew?.size!! - 1))
+            if (pos <= (foodCartListNew?.size!! -1))
                 foodCartListNew?.removeAt(pos)
 
             for (item in foodItemRemove) {
@@ -1919,7 +1920,7 @@ class FoodActivity : DaggerAppCompatActivity(),
                 foodRequestData.ModifiersText = modifiers
             }
 
-//
+//            /*todo combo items add*/
 
             if (foodItem.packageChildItems.isNotEmpty()) {
                 foodRequestData.headOfficeItemCode = foodItem.headOfficeItemCode
@@ -1976,7 +1977,7 @@ class FoodActivity : DaggerAppCompatActivity(),
             if (foodCartList?.size!! > 0) {
                 val arrFoodDetails = foodCartList?.distinctBy {
                     Triple(
-                        it.id,
+                        it.description,
                         it.description,
                         it.ModifiersText
                     )
@@ -2006,12 +2007,8 @@ class FoodActivity : DaggerAppCompatActivity(),
                     arrFoodDetails[j].quantity = quantity
                     arrFoodDetails[j].finalPriceInCents = amount.toString()
                 }
-                if (foodCartList != null) {
-                    foodCartList?.clear()
-                    foodCartList?.addAll(arrFoodDetails)
-                } else {
-                    foodCartList = ArrayList(arrFoodDetails)
-                }
+
+                foodCartList = ArrayList(arrFoodDetails)
             }
 
             val foodDtls = GetFoodResponse.FoodDtls()

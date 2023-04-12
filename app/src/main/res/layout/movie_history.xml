@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/black"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -285,11 +285,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/foodMUi"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/textView_seat_name"
         app:layout_constraintStart_toStartOf="@+id/textView_seat_name"
-        app:layout_constraintTop_toBottomOf="@+id/textView_seat_name"
+        app:layout_constraintTop_toBottomOf="@+id/view_ticket_total_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -305,12 +305,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/view_ticket_total_price"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/foodMUi">
+        app:layout_constraintTop_toBottomOf="@+id/textView_seat_name">
 
         <TextView
             android:id="@+id/tvTicketPrices"
@@ -318,10 +318,12 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/sf_pro_text_regular"
             android:gravity="start"
-            android:text="@string/ticket_price"
+            android:text="@string/total_ticket_price"
             android:textColor="@color/hint_color"
             android:textSize="@dimen/size12"
             android:textStyle="normal"
+            android:layout_marginStart="60dp"
+            app:layout_constraintEnd_toStartOf="@+id/tvTicket_price"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -329,17 +331,15 @@
             android:id="@+id/tvTicket_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
+            android:layout_marginEnd="16dp"
+            tools:text="KD 30.500"
             android:fontFamily="@font/sf_pro_text_bold"
             android:lineSpacingExtra="9sp"
-            android:text="KD 30.500"
-            android:layout_marginStart="@dimen/margin40"
             android:textColor="@color/white"
             android:textSize="@dimen/size12"
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="@+id/tvTicketPrices"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvTicketPrices"
             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -353,6 +353,7 @@
             android:textColor="@color/hint_color"
             android:textSize="@dimen/size12"
             android:textStyle="normal"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="@+id/tvTicketPrices"
             app:layout_constraintTop_toBottomOf="@+id/tvTicketPrices" />
 
@@ -366,6 +367,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/size12"
             android:textStyle="normal"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/tvFoodPrices"
             app:layout_constraintStart_toStartOf="@+id/tvTicket_price"
             app:layout_constraintTop_toBottomOf="@+id/tvTicketPrices" />
@@ -380,6 +382,7 @@
             android:textColor="@color/hint_color"
             android:textSize="@dimen/size12"
             android:textStyle="normal"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="@+id/tvFoodPrices"
             app:layout_constraintTop_toBottomOf="@+id/tvFoodPrices" />
 
@@ -393,6 +396,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/size14"
             android:textStyle="normal"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/tv_total_tc_price_text"
             app:layout_constraintStart_toStartOf="@+id/tvFoodPrice"
             app:layout_constraintTop_toTopOf="@+id/tv_total_tc_price_text"
@@ -407,13 +411,24 @@
             android:textColor="@color/hint_color"
             android:textSize="@dimen/size12"
             android:textStyle="normal"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_total_tc_price_text"
             app:layout_constraintTop_toBottomOf="@+id/tv_total_tc_price_text"
             tools:text="@string/paid_by_club_card" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--    <include-->
+<!--        layout="@layout/payment_detail_history"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="@dimen/margin12"-->
+<!--        android:layout_marginBottom="@dimen/margin12"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/view_ticket_total_price" />-->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

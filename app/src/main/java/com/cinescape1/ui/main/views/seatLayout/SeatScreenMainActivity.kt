@@ -95,7 +95,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
         when {
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(this, "ar")
-                val regular = ResourcesCompat.getFont(this, R.font.montserrat_light)
+                val regular = ResourcesCompat.getFont(this, R.font.montserrat_regular)
                 val bold = ResourcesCompat.getFont(this, R.font.montserrat_bold)
                 val medium = ResourcesCompat.getFont(this, R.font.montserrat_medium)
 

@@ -83,7 +83,6 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/size15"
                 android:textStyle="normal"
-                android:includeFontPadding="false"
                 app:layout_constraintEnd_toEndOf="@+id/text_booking_alert"
                 app:layout_constraintHorizontal_bias="0.511"
                 app:layout_constraintStart_toStartOf="@+id/text_booking_alert"

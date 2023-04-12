@@ -62,7 +62,7 @@ class ActivateWalletActivity : DaggerAppCompatActivity(),
                 LocaleHelper.setLocale(this, "ar")
                 println("getLocalLanguage--->${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}")
                 languageCheck = "ar"
-                val regular = ResourcesCompat.getFont(this, R.font.montserrat_light)
+                val regular = ResourcesCompat.getFont(this, R.font.montserrat_regular)
                 val bold = ResourcesCompat.getFont(this, R.font.montserrat_bold)
                 val medium = ResourcesCompat.getFont(this, R.font.montserrat_medium)
 
@@ -368,7 +368,7 @@ class ActivateWalletActivity : DaggerAppCompatActivity(),
         val textGoBack = mDialogView.findViewById<TextView>(R.id.textView60)
 
         if (languageCheck == "ar") {
-            val regular = ResourcesCompat.getFont(this, R.font.montserrat_light)
+            val regular = ResourcesCompat.getFont(this, R.font.montserrat_regular)
             val bold = ResourcesCompat.getFont(this, R.font.montserrat_bold)
             proceed.typeface = bold
             textCancel.typeface = bold

@@ -1,6 +1,5 @@
 package com.cinescape1
 
-
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.SharedPreferences
@@ -13,7 +12,6 @@ import com.instabug.library.invocation.InstabugInvocationEvent
 import com.onesignal.OneSignal
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
-
 
 class MainApplication : DaggerApplication() {
     private val ONESIGNAL_APP_ID = "b62fc843-477b-4cba-802f-9bc0bded6c5a"
@@ -63,8 +61,8 @@ class MainApplication : DaggerApplication() {
         OneSignal.setAppId(ONESIGNAL_APP_ID);
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-
     }
+
 //    private fun broadcastIntent() {
 //        registerReceiver(broadcastReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
 //    }

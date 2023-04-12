@@ -39,7 +39,7 @@ class FilterChildAdapter(private val mContext: Context, private val items: Array
         holder.todoTitle.text = obj.toString()
         if (Constant.LANGUAGE == "ar"){
             LocaleHelper.setLocale(mContext, "ar")
-            val regular = ResourcesCompat.getFont(mContext, R.font.montserrat_light)
+            val regular = ResourcesCompat.getFont(mContext, R.font.montserrat_regular)
             val bold = ResourcesCompat.getFont(mContext, R.font.montserrat_bold)
             val medium = ResourcesCompat.getFont(mContext, R.font.montserrat_medium)
 

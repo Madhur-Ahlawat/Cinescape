@@ -2,7 +2,6 @@ package com.cinescape1.ui.main.views.home.fragments.home
 
 import android.content.BroadcastReceiver
 import android.content.IntentFilter
-import android.graphics.Color
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -58,7 +57,7 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "ar" -> {
                 LocaleHelper.setLocale(requireActivity(), "ar")
                 Constant.LANGUAGE = "${preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)}"
-                val regular = ResourcesCompat.getFont(requireActivity(), R.font.montserrat_light)
+                val regular = ResourcesCompat.getFont(requireActivity(), R.font.montserrat_regular)
                 val bold = ResourcesCompat.getFont(requireActivity(), R.font.montserrat_bold)
                 val medium = ResourcesCompat.getFont(requireActivity(), R.font.montserrat_medium)
 
