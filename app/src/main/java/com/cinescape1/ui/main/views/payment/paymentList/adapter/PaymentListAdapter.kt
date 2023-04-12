@@ -200,6 +200,50 @@ class PaymentListAdapter(
                                         }
                                         clEnterCardNumber.show()
                                         tvBankApply.show()
+                                        binding.tvBankApply.setOnClickListener {
+                                            cardNo =
+                                                binding.etEnterCardNumber.text.toString().replace(" ", "")
+                                            if (cardNo == "") {
+
+                                                val dialog = OptionDialog(context,
+                                                    R.mipmap.ic_launcher,
+                                                    R.string.app_name,
+                                                    "Bank offer can not be empty",
+                                                    positiveBtnText = R.string.ok,
+                                                    negativeBtnText = R.string.no,
+                                                    positiveClick = {},
+                                                    negativeClick = {})
+                                                dialog.show()
+
+                                            } else if (cardNo.length != 16) {
+                                                val dialog = OptionDialog(context,
+                                                    R.mipmap.ic_launcher,
+                                                    R.string.app_name,
+                                                    "Enter valid card number.",
+                                                    positiveBtnText = R.string.ok,
+                                                    negativeBtnText = R.string.no,
+                                                    positiveClick = {},
+                                                    negativeClick = {})
+                                                dialog.show()
+                                            } else {
+
+                                                listner.bankItemApply(
+                                                    offerId,
+                                                    cardNo,
+                                                    binding.checkBox,
+                                                    binding.ivCrossCancel,
+                                                    binding.tvBankApply,
+                                                    binding.banksCancel,
+                                                    binding.etEnterCardNumber,
+                                                    binding.tvOfferAppliedForNTickets,
+                                                    binding.knet,
+                                                    binding.textViewWalletBalance,
+                                                    binding.tvApplyCardOffer,
+                                                    binding.offerEditText
+                                                )
+
+                                            }
+                                        }
                                     }
 
                                 }
@@ -280,7 +324,6 @@ class PaymentListAdapter(
                             context, LinearLayoutManager.HORIZONTAL, false
                         )
                         binding.recyclerOffer.adapter = adapter
-
                         binding.tvApplyCardOffer.setOnClickListener {
                             val offerCode = binding.offerEditText.text.toString()
                             if (offerCode == "") {

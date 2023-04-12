@@ -961,7 +961,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             }
 
             @RequiresApi(Build.VERSION_CODES.N)
-            @SuppressLint("SetTextI18n", "NewApi")
+            @SuppressLint("SetTextI18n")
             override fun onTextChanged(
                 p0: CharSequence?, start: Int, removed: Int, added: Int
             ) {
