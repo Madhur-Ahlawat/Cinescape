@@ -256,7 +256,6 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
         }
 
         if (!preferences.getBoolean(Constant.IS_LOGIN)) {
-
             val intent = Intent(this, LoginActivity::class.java)
                 .putExtra("BOOKING", bookType)
                 .putExtra("FROM", "Payment")
@@ -285,10 +284,8 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
             transId = intent.getStringExtra("TRANS_ID").toString()
             broadcastReceiver = MyReceiver()
 
-            println("SummeryPageIntentResult-----from--->${from} ----->${bookType}-" +
-                    "--->${sessionId}------>${cinemaId}---->${transId}----->${broadcastReceiver}")
         }catch (e : Exception){
-            println("SummeryPageError-------->${e.message}")
+            e.printStackTrace()
         }
 
 
@@ -405,9 +402,7 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
     }
 
     private fun movedNext() {
-
         binding?.txtProceed?.setOnClickListener {
-
             try {
                 val intent = Intent(this, PaymentListActivity::class.java)
                 intent.putExtra("CINEMA_ID", cinemaId)
@@ -492,8 +487,13 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
 
         if (output.bookingType == "FOOD") {
             setCheckoutOnlyFoodItemAdapter(output.concessionFoods)
-            Glide.with(this).load(output.posterhori).placeholder(R.drawable.food_final_icon).into(binding?.imageView6!!)
+            Glide.with(this)
+                .load(output.posterhori)
+                .placeholder(R.drawable.food_final_icon)
+                .into(binding?.imageView6!!)
+
             ticketPage.hide()
+            vie109.invisible()
             priceView.hide()
             binding?.view?.visibility = View.INVISIBLE
             totalPrice = output.totalTicketPrice
@@ -503,6 +503,7 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
             foodViewCheck.hide()
 
         } else {
+            vie109.show()
 
             ticketPage.show()
             priceView.show()

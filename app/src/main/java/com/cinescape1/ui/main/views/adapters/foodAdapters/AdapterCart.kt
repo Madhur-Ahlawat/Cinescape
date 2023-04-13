@@ -14,6 +14,7 @@ import com.cinescape1.data.models.responseModel.GetFoodResponse
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
+import com.cinescape1.utils.toast
 import kotlinx.android.synthetic.main.cart_items.view.*
 
 class AdapterCart(
@@ -31,16 +32,21 @@ class AdapterCart(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolderCart, position: Int) {
         val cartSelctedItem = cartComboList[position]
-//        holder.cartFoodTitleName.text = cartSelctedItem.foodName+" ( "+cartSelctedItem.foodModifiers+" ) "
+        println("itemssssssss------->${cartSelctedItem}")
         holder.cartKdPrice.text = mContext.getString(R.string.price_kd)+" ${Constant.DECIFORMAT.format((cartSelctedItem.foodAmount / 100.0))}"
         holder.textNumber.text = cartSelctedItem.foodQuan.toString()
 
-        println("CartQtyNumber --------->${holder.textNumber.text}")
-
         if (cartSelctedItem.title==""){
+            mContext.toast("1")
+            holder.cartComboName.text=cartSelctedItem.title+"hi"
+
             holder.cartComboName.text = cartSelctedItem.foodName+" ( "+cartSelctedItem.foodModifiers.removePrefix(", ")+" ) "
             holder.cartComboName.show()
         }else{
+            mContext.toast("2")
+
+            holder.cartComboName.text=cartSelctedItem.title+"h"
+
             holder.cartComboName.text = cartSelctedItem.foodName+" ( "+cartSelctedItem.foodModifiers.removePrefix(", ")+" ) "
             holder.cartComboName.show()
         }
@@ -51,14 +57,17 @@ class AdapterCart(
             .into(holder.imgCartItem)
 
         holder.textDecrease.setOnClickListener {
+            notifyDataSetChanged()
             listener.onDecreaseCart(cartSelctedItem, position)
         }
 
         holder.textIncrease.setOnClickListener {
+            notifyDataSetChanged()
             listener.onIncreaseCart(cartSelctedItem, position)
         }
 
         holder.viewRemove.setOnClickListener {
+            notifyDataSetChanged()
             listener.onRemoveCart(cartSelctedItem, position)
         }
 

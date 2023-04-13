@@ -264,7 +264,6 @@ class FoodActivity : DaggerAppCompatActivity(),
             sessionId = intent.getStringExtra("SESSION_ID").toString()
             booktype = intent.getStringExtra("BOOKING").toString()
             transId = intent.getStringExtra("TRANS_ID").toString()
-
             skipBtn = intent.getStringExtra("typeSkip").toString()
 
         } catch (e: Exception) {
@@ -1808,10 +1807,12 @@ class FoodActivity : DaggerAppCompatActivity(),
                 mFoodCartDialog?.dismiss()
         }
 
+
+
     }
 
     private fun updateSelectedList(foodItem: GetFoodResponse.FoodDtls?, type: Int) {
-        println("updateSelectedList----$type")
+        toast("remove")
         for (item in foodSelectedList!!) {
             if (type == 0) {
                 if (item.id == foodItem?.foodId) {
@@ -1833,6 +1834,9 @@ class FoodActivity : DaggerAppCompatActivity(),
                 item.quantityUpdate = 0
             }
         }
+        foodAdapter?.notifyDataSetChanged()
+        individualAdapter?.notifyDataSetChanged()
+        foodCartAdapter?.notifyDataSetChanged()
         foodAdapter?.notifyDataSetChanged()
     }
 

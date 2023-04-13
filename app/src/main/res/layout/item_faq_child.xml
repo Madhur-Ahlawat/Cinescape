@@ -43,13 +43,15 @@
         android:textColor="#A6ADB4"
         android:textSize="@dimen/size14"
         android:visibility="gone"
+        android:textColorLink="@color/blue"
         android:justificationMode="inter_word"
         android:autoLink="web"
         android:linksClickable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TopUi"
-        tools:text="The Problem that caused your crash is that you want to instantiate your fragment with a constructor with parameter. but you in android you should create fragment with a non parameter constructor. so how to solve this problem to pass parameters in to your fragment:" />
+        tools:text="The Problem that caused your crash is that you want to instantiate your fragment with a constructor with parameter. but you in android you should create fragment with a non parameter constructor. so how to solve this problem to pass parameters in to your fragment:"
+        tools:ignore="UnusedAttribute" />
 
 
     <View

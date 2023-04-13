@@ -217,9 +217,6 @@ class AccountPageFragment : DaggerFragment(),
 
         Constant.experienceList.clear()
         Constant.ageRating1.clear()
-
-//        Constant.seatCategoryList1.clear()
-//        Constant.seatTypeList1.clear()
         seatExoerience = 0
 
         when {

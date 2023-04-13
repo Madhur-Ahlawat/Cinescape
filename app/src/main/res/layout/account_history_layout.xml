@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/black">
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,8 +16,8 @@
         android:id="@+id/textBooking"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:fontFamily="@font/sf_pro_text_bold"
+        android:includeFontPadding="false"
         android:gravity="center_horizontal"
         android:lineSpacingExtra="5.5sp"
         android:text="@string/your_booking_history"
@@ -47,7 +47,7 @@
         android:id="@+id/recyclerview_booking_history"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin22"
+        android:layout_marginTop="@dimen/margin18"
         tools:listitem="@layout/account_booking_history_item"
         tools:itemCount="4"
         app:layout_constraintBottom_toBottomOf="parent"
