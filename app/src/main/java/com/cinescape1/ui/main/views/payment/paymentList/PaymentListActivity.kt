@@ -10,7 +10,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
-import android.text.InputType
 import android.text.TextWatcher
 import android.util.Log
 import android.view.*
@@ -51,7 +50,6 @@ import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResp
 import com.cinescape1.ui.main.views.summery.response.GiftCardResponse
 import com.cinescape1.ui.main.views.summery.viewModel.SummeryViewModel
 import com.cinescape1.utils.*
-import com.cinescape1.utils.Constant.Companion.bankOfferClick
 import com.threatmetrix.TrustDefender.*
 import com.threatmetrix.TrustDefender.TMXProfilingConnections.TMXProfilingConnections
 import dagger.android.support.DaggerAppCompatActivity
@@ -78,6 +76,21 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     companion object {
         var spinnerClickable: Boolean = true
         var bankApplied: Boolean = false
+        var bankCardNumber: String = ""
+        var giftCardNumber: String = ""
+        var voucherApplied: Boolean = false
+        var giftCardApplied: Boolean = false
+        var selectedCardType: Int = -1
+        var clickName = ""
+        var clickId = ""
+        var offerId = ""
+        var cardNo = ""
+        var knetClicked = false
+        var creditCardClicked = false
+        var bankClicked = false
+        var giftCardClicked = false
+        var walletClicked = false
+        var walletApplied = false
     }
 
     @Inject
@@ -309,17 +322,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
     override fun bankItemApply(
         offerId: String,
-        cardNo: String,
-        check: ImageView,
-        close: ImageView,
-        apply: TextView,
-        bankCancel: TextView,
-        bankEdit: EditText,
-        msg: TextView,
-        knet: LinearLayout,
-        walletApply: TextView,
-        offerApply: TextView,
-        offerEditText: EditText
+        cardNo: String
     ) {
 
         bankOfferApply(
@@ -329,32 +332,12 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 offerId,
                 transId,
                 preferences.getString(Constant.USER_ID).toString()
-            ),
-            check,
-            close,
-            apply,
-            bankCancel,
-            bankEdit,
-            msg,
-            knet,
-            walletApply,
-            offerApply,
-            offerEditText
+            )
         )
     }
 
     private fun bankOfferApply(
-        bankOfferRequest: BankOfferRequest,
-        chekbox: ImageView,
-        close: ImageView,
-        apply: TextView,
-        bankCancel: TextView,
-        bankEdit: EditText,
-        msg: TextView,
-        knet: LinearLayout,
-        walletApply: TextView,
-        offerApply: TextView,
-        offerEditText: EditText
+        bankOfferRequest: BankOfferRequest
     ) {
         summeryViewModel.bankApply(bankOfferRequest).observe(this) {
             it?.let { resource ->
@@ -364,42 +347,42 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 binding?.textTotalAmount?.text = it.data.output.amount
-                                msg.show()
-                                msg.text = it.data.output.MSG
-                                apply.hide()
-                                close.hide()
-                                chekbox.hide()
+//                                apply.hide()
+//                                close.hide()
+//                                chekbox.hide()
                                 outputlist?.clear()
+                                creditCardClicked=true
+                                knetClicked=false
                                 outputlist?.addAll(it.data.output.payInfo)
                                 summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.CREDIT_CARD)
-                                bankCancel.show()
+//                                bankCancel.show()
                                 bankApplied = true
                                 spinnerClickable = false
-//                             //bank  Clickable false
-                                bankEdit.isClickable = false
-                                bankEdit.isEnabled = false
-                                bankEdit.isFocusable = false
-
-//                          //knet
-                                knet.isClickable = false
-                                knet.isEnabled = false
-                                knet.isFocusable = false
-
-//                          //wallet
-                                walletApply.isClickable = false
-                                walletApply.isEnabled = false
-                                walletApply.isFocusable = false
-
-//                          //offer
-                                offerApply.isClickable = false
-                                offerApply.isEnabled = false
-                                offerApply.isFocusable = false
-
-//                          //offer EditText
-                                offerEditText.isClickable = false
-                                offerEditText.isEnabled = false
-                                offerEditText.isFocusable = false
-                                bankEdit.isFocusableInTouchMode = false
+////                             //bank  Clickable false
+//                                bankEdit.isClickable = false
+//                                bankEdit.isEnabled = false
+//                                bankEdit.isFocusable = false
+//
+////                          //knet
+//                                knet.isClickable = false
+//                                knet.isEnabled = false
+//                                knet.isFocusable = false
+//
+////                          //wallet
+//                                walletApply.isClickable = false
+//                                walletApply.isEnabled = false
+//                                walletApply.isFocusable = false
+//
+////                          //offer
+//                                offerApply.isClickable = false
+//                                offerApply.isEnabled = false
+//                                offerApply.isFocusable = false
+//
+////                          //offer EditText
+//                                offerEditText.isClickable = false
+//                                offerEditText.isEnabled = false
+//                                offerEditText.isFocusable = false
+//                                bankEdit.isFocusableInTouchMode = false
                                 adapter?.notifyDataSetChanged()
                             } else {
                                 summeryViewModel.setpaymentMethodSelectionStateFlow(
@@ -446,17 +429,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
     override fun bankItemRemove(
         offerId: String,
-        cardNo: String,
-        check: ImageView,
-        close: ImageView,
-        apply: TextView,
-        banksCancel: TextView,
-        bankEdit: EditText,
-        msg: TextView,
-        knet: LinearLayout,
-        walletApply: TextView,
-        offerApply: TextView,
-        offerEditText: EditText
+        cardNo: String
     ) {
         bankOfferRemove(
             BankOfferRequest(
@@ -465,32 +438,12 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 offerId,
                 transId,
                 preferences.getString(Constant.USER_ID).toString()
-            ),
-            check,
-            close,
-            apply,
-            banksCancel,
-            bankEdit,
-            msg,
-            knet,
-            walletApply,
-            offerApply,
-            offerEditText
+            )
         )
     }
 
     private fun bankOfferRemove(
-        bankOfferRequest: BankOfferRequest,
-        checkbox: ImageView,
-        close: ImageView,
-        apply: TextView,
-        banksCancel: TextView,
-        bankEdit: EditText,
-        msg: TextView,
-        knet: LinearLayout,
-        walletApply: TextView,
-        offerApply: TextView,
-        offerEditText: EditText
+        bankOfferRequest: BankOfferRequest
     ) {
         summeryViewModel.bankRemove(bankOfferRequest).observe(this) {
             it?.let { resource ->
@@ -500,47 +453,45 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                msg.hide()
+                                creditCardClicked=false
                                 binding?.textTotalAmount?.text = it.data.output.amount
-                                msg.text = it.data.output.MSG
-                                bankOfferClick = false
                                 //bank
-                                apply.show()
-                                close.hide()
-                                checkbox.hide()
-                                banksCancel.hide()
+//                                apply.show()
+//                                close.hide()
+//                                checkbox.hide()
+//                                banksCancel.hide()
                                 bankApplied = false
                                 spinnerClickable = true
-                                bankEdit.text.clear()
-                                bankEdit.isClickable = true
-                                bankEdit.isFocusable = true
-                                bankEdit.isEnabled = true
-                                bankEdit.isFocusableInTouchMode = true
-                                bankEdit.inputType = InputType.TYPE_CLASS_NUMBER
-                                outputlist?.clear()
-                                outputlist?.addAll(it.data.output.payInfo)
-                                summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.NONE)
-                                //knet
-                                knet.isClickable = true
-                                knet.isEnabled = true
-                                knet.isFocusable = true
-
-//                          //wallet
-                                walletApply.isClickable = true
-                                walletApply.isEnabled = true
-                                walletApply.isFocusable = true
-
-//                          //offer
-                                offerApply.isClickable = true
-                                offerApply.isEnabled = true
-                                offerApply.isFocusable = true
-
-                                //offer EditText
-                                offerEditText.isClickable = true
-                                offerEditText.isEnabled = true
-                                offerEditText.isFocusable = true
-                                offerEditText.isFocusableInTouchMode = true
-                                offerEditText.inputType = InputType.TYPE_NULL
+//                                bankEdit.text.clear()
+//                                bankEdit.isClickable = true
+//                                bankEdit.isFocusable = true
+//                                bankEdit.isEnabled = true
+//                                bankEdit.isFocusableInTouchMode = true
+//                                bankEdit.inputType = InputType.TYPE_CLASS_NUMBER
+//                                outputlist?.clear()
+//                                outputlist?.addAll(it.data.output.payInfo)
+//                                summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.NONE)
+//                                //knet
+//                                knet.isClickable = true
+//                                knet.isEnabled = true
+//                                knet.isFocusable = true
+//
+////                          //wallet
+//                                walletApply.isClickable = true
+//                                walletApply.isEnabled = true
+//                                walletApply.isFocusable = true
+//
+////                          //offer
+//                                offerApply.isClickable = true
+//                                offerApply.isEnabled = true
+//                                offerApply.isFocusable = true
+//
+//                                //offer EditText
+//                                offerEditText.isClickable = true
+//                                offerEditText.isEnabled = true
+//                                offerEditText.isFocusable = true
+//                                offerEditText.isFocusableInTouchMode = true
+//                                offerEditText.inputType = InputType.TYPE_NULL
                                 adapter?.notifyDataSetChanged()
                             }
                         }
@@ -961,7 +912,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             }
 
             @RequiresApi(Build.VERSION_CODES.N)
-            @SuppressLint("SetTextI18n")
+            @SuppressLint("SetTextI18n", "NewApi")
             override fun onTextChanged(
                 p0: CharSequence?, start: Int, removed: Int, added: Int
             ) {
@@ -1375,12 +1326,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         view: PaymentListResponse.Output.PayMode,
         offerCode: String,
         clickName: String,
-        clickId: String,
-        offerEditText: EditText,
-        textView157: TextView,
-        checkBox2: ImageView,
-        imageView66: ImageView,
-        textCancelBtn: TextView
+        clickId: String
     ) {
         if (clickName == "Gift Card") {
             giftCardApply(
@@ -1390,7 +1336,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     offerCode,
                     transId,
                     preferences.getString(Constant.USER_ID).toString()
-                ), offerEditText, textView157, checkBox2, imageView66, textCancelBtn
+                )
             )
         } else if (clickName == "Voucher") {
 
@@ -1401,7 +1347,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     offerCode,
                     transId,
                     preferences.getString(Constant.USER_ID).toString()
-                ), offerEditText, textView157, checkBox2, imageView66, textCancelBtn
+                )
             )
 
         }
@@ -1411,11 +1357,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         view: PaymentListResponse.Output.PayMode,
         offerCode: String,
         clickName: String,
-        clickId: String,
-        offerEditText: EditText,
-        textView157: TextView,
-        checkBox2: ImageView,
-        imageView66: ImageView
+        clickId: String
     ) {
         if (clickName == "Gift Card") {
             giftCardRemove(
@@ -1425,7 +1367,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     offerCode,
                     transId,
                     preferences.getString(Constant.USER_ID).toString()
-                ), offerEditText, textView157, checkBox2, imageView66
+                )
             )
         } else if (clickName == "Voucher") {
 
@@ -1433,12 +1375,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     private fun voucherApply(
-        request: GiftCardRequest,
-        offerEditText: EditText,
-        textView157: TextView,
-        checkBox2: ImageView,
-        imageView66: ImageView,
-        textCancelBtn: TextView
+        request: GiftCardRequest
     ) {
         summeryViewModel.voucherApply(request).observe(this) {
             it?.let { resource ->
@@ -1501,11 +1438,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     private fun giftCardRemove(
-        request: GiftCardRequest,
-        offerEditText: EditText,
-        apply: TextView,
-        imageCheck: ImageView,
-        remove: ImageView
+        request: GiftCardRequest
     ) {
         summeryViewModel.giftCardRemove(request).observe(this) {
             it?.let { resource ->
@@ -1517,7 +1450,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
                                     retriveRemoveGiftCard(
-                                        it.data.output, offerEditText, apply, imageCheck, remove
+                                        it.data.output
                                     )
                                 } catch (e: Exception) {
                                     println("updateUiCinemaSession ---> ${e.message}")
@@ -1563,34 +1496,28 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     private fun retriveRemoveGiftCard(
-        output: GiftCardRemove.Output,
-        offerEditText: EditText,
-        apply: TextView,
-        imageCheck: ImageView,
-        remove: ImageView
+        output: GiftCardRemove.Output
     ) {
+        outputlist!!.clear()
+        giftCardApplied = false
+        outputlist!!.addAll(output.payInfo)
         binding?.textTotalAmount?.text = output.amount
-        apply.show()
-        imageCheck.hide()
-        remove.hide()
-
-        outputlist?.clear()
-        outputlist?.addAll(output.payInfo)
-        offerEditText.text.clear()
-        offerEditText.isClickable = true
-        offerEditText.isEnabled = true
-        offerEditText.isFocusable = true
-        et_enter_card_number.isFocusableInTouchMode = true
+//        apply.show()
+//        imageCheck.hide()
+//        remove.hide()
+//
+//        outputlist?.clear()
+//        outputlist?.addAll(output.payInfo)
+//        offerEditText.text.clear()
+//        offerEditText.isClickable = true
+//        offerEditText.isEnabled = true
+//        offerEditText.isFocusable = true
+//        et_enter_card_number.isFocusableInTouchMode = true
         adapter?.notifyDataSetChanged()
     }
 
     private fun giftCardApply(
-        request: GiftCardRequest,
-        offerEditText: EditText,
-        apply: TextView,
-        imageCheck: ImageView,
-        remove: ImageView,
-        textCancelBtn: TextView
+        request: GiftCardRequest
     ) {
         summeryViewModel.giftCardApply(request).observe(this) {
             it?.let { resource ->
@@ -1602,12 +1529,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
                                     retrieveDataGiftCard(
-                                        it.data.output,
-                                        offerEditText,
-                                        apply,
-                                        imageCheck,
-                                        remove,
-                                        textCancelBtn
+                                        it.data.output
                                     )
                                 } catch (e: Exception) {
                                     println("updateUiCinemaSession ---> ${e.message}")
@@ -1654,51 +1576,35 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     private fun retrieveDataGiftCard(
-        output: GiftCardResponse.Output,
-        offerEditText: EditText,
-        apply: TextView,
-        imageCheck: ImageView,
-        remove: ImageView,
-        textCancelBtn: TextView
+        output: GiftCardResponse.Output
     ) {
         if (output.PAID == "NO") {
             summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.GIFT_CARD_PARTIAL)
-            binding?.textTotalAmount?.text = output.amount
-            offerEditText.isClickable = false
-            offerEditText.isEnabled = false
-            offerEditText.isFocusable = false
-            et_enter_card_number.isFocusableInTouchMode = false
             outputlist!!.clear()
+            giftCardApplied = true
             outputlist!!.addAll(output.payInfo)
             binding?.textTotalAmount?.text = output.amount
-            apply.hide()
-            imageCheck.show()
-            remove.show()
             adapter?.notifyDataSetChanged()
         } else {
-            if(output.CAN_PAY!=null && output.CAN_PAY=="YES"){
+            if (output.CAN_PAY != null && output.CAN_PAY == "YES") {
                 summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.GIFT_CARD_COMPLETE)
-                apply.hide()
-                remove.show()
-                summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.GIFT_CARD_COMPLETE)
-                textCancelBtn.show()
-                offerEditText.isClickable = false
-                offerEditText.isEnabled = false
-                offerEditText.isFocusable = false
+                giftCardApplied = true
+                outputlist!!.clear()
+                giftCardApplied = true
+                outputlist!!.addAll(output.payInfo)
+                binding?.textTotalAmount?.text = output.amount
                 //show cancel button
                 //hide apply button
                 //enable input
                 //show offer applied label
-                binding!!.txtProceed.performClick()
+                val intent = Intent(applicationContext, FinalTicketActivity::class.java)
+                intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
+                intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
+                startActivity(intent)
             }
             Constant.IntentKey.TimerExtandCheck = true
             Constant.IntentKey.TimerExtand = 90
             Constant.IntentKey.TimerTime = 360
-
-//            val intent = Intent(applicationContext, FinalTicketActivity::class.java)
-//            intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
-//            intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
-//            startActivity(intent)
             adapter?.notifyDataSetChanged()
 
         }

@@ -43,6 +43,7 @@ android {
     }
     buildFeatures {
         viewBinding true
+        dataBinding true
     }
     noArg {
         annotation("com.cinescape1.utils.NoArg")
