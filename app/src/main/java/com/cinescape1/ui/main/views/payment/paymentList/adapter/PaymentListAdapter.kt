@@ -2,8 +2,11 @@ package com.cinescape1.ui.main.views.payment.paymentList.adapter
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +20,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.GetMovieResponse
 import com.cinescape1.databinding.ItemBankOfferBinding
@@ -31,11 +38,12 @@ import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Comp
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.cardNo
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.clickId
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.clickName
-import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.creditCardClicked
+import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.creditCardSelected
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.giftCardApplied
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.giftCardClicked
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.giftCardNumber
-import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.knetClicked
+import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.knetSelected
+import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.offerCode
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.offerId
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.selectedCardType
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.walletApplied
@@ -57,6 +65,7 @@ class PaymentListAdapter(
     private val listner: RecycleViewItemClickListener, private val viewModel: SummeryViewModel
 ) : RecyclerView.Adapter<PaymentListAdapter.PaymentListViewHolder>(),
     GiftCardAdapter.RecycleViewItemClickListener {
+
     private var pos: Int = -1
     public var customAdapter: BankOfferAdapter? = null
     val list: ArrayList<PaymentListResponse.Output.PayMode.RespPayMode.PayModeBank> =
@@ -156,8 +165,7 @@ class PaymentListAdapter(
                         negativeClick = {})
                     dialog.show()
 
-                }
-                else if (cardNo.length != 16) {
+                } else if (cardNo.length != 16) {
                     val dialog = OptionDialog(context,
                         R.mipmap.ic_launcher,
                         R.string.app_name,
@@ -167,8 +175,7 @@ class PaymentListAdapter(
                         positiveClick = {},
                         negativeClick = {})
                     dialog.show()
-                }
-                else {
+                } else {
                     listner.bankItemApply(
                         offerId,
                         cardNo
@@ -177,7 +184,7 @@ class PaymentListAdapter(
                 }
             }
             binding?.textviewCancelBankOffer.setOnClickListener {
-                pos=position
+                pos = position
                 val offerCode = binding.etEnterBankOfferCardNumber.text.toString()
                 listner.bankItemRemove(
                     offerId,
@@ -216,7 +223,7 @@ class PaymentListAdapter(
                         R.color.dropDownColor
                     )
                 )
-                if(binding?.spinnerCardOptions.adapter == null || !(binding?.spinnerCardOptions.adapter is BankOfferAdapter)){
+                if (binding?.spinnerCardOptions.adapter == null || !(binding?.spinnerCardOptions.adapter is BankOfferAdapter)) {
                     binding.spinnerCardOptions.adapter = customAdapter
                 }
                 binding.spinnerCardOptions.onItemSelectedListener =
@@ -271,6 +278,7 @@ class PaymentListAdapter(
                         textviewCancelBankOffer.hide()
                         textviewApplyBankOffer.show()
                         etEnterBankOfferCardNumber.isEnabled = true
+                        tvOfferAppliedForNTickets.hide()
                     }
                 }
                 if (bankClicked) {
@@ -291,7 +299,6 @@ class PaymentListAdapter(
             with(payMode[position]) {
                 var binding = holder.binding as ItemGiftCardBinding
                 binding!!.headerOfferType.text = this.name
-
                 binding?.apply {
                     headerUi.setOnClickListener {
                         pos = position
@@ -302,41 +309,13 @@ class PaymentListAdapter(
                         }
                         notifyItemChanged(pos)
                     }
-                    giftCardUi.show()
                 }
                 if (giftCardClicked) {
                     clickName = this.respPayModes[0].name
                     binding?.apply {
                         ivDropdown.setImageResource(R.drawable.arrow_up)
                         giftCardUi.show()
-                        editTextGiftCard.hint =
-                            context.resources.getString(R.string.enter_gift_card)
                     }
-                    if (viewModel.selectedPaymentMethod == PaymentMethodSealedClass.GIFT_CARD_COMPLETE || viewModel.selectedPaymentMethod == PaymentMethodSealedClass.GIFT_CARD_PARTIAL) {
-                        binding?.apply {
-                            editTextGiftCard.isEnabled = false
-                            tvApplyGiftCard.hide()
-                            textviewCancelGiftCard.show()
-                            editTextGiftCard.setText(giftCardNumber)
-                        }
-                    } else {
-                        binding?.apply {
-                            editTextGiftCard.isEnabled = true
-                            tvApplyGiftCard.show()
-                            textviewCancelGiftCard.hide()
-                            editTextGiftCard.setText(giftCardNumber)
-                        }
-                    }
-
-
-//                        mBinding.giftCard.setOnClickListener {
-//                            binding?.apply {
-//                                bankOfferChooseCards.hide()
-//                                walletUi.hide()
-//                                giftCardUi.show()
-//                            }
-//                            notifyDataSetChanged()
-//                        }
 
                     val adapter = GiftCardAdapter(
                         context, this.respPayModes, this@PaymentListAdapter
@@ -346,7 +325,7 @@ class PaymentListAdapter(
                     )
                     binding.recyclerOffer.adapter = adapter
                     binding.tvApplyGiftCard.setOnClickListener {
-                        val offerCode = binding.editTextGiftCard.text.toString()
+                        offerCode = binding.editTextGiftCard.text.toString()
                         if (offerCode == "") {
                             val dialog = OptionDialog(context,
                                 R.mipmap.ic_launcher,
@@ -360,17 +339,12 @@ class PaymentListAdapter(
                         } else {
                             listner.onVoucherApply(
                                 this,
-                                offerCode,
+                                offerCode!!,
                                 clickName,
                                 clickId
                             )
                         }
                     }
-                    // Cancel btn
-//                        mBinding.textCancelBtn.setOnClickListener {
-//                            mBinding.textCancelBtn.hide()
-//                            mBinding.tvApplyCardOffer.show()
-//                        }
 
                     //remove voucher
                     binding.textviewCancelGiftCard.setOnClickListener {
@@ -386,6 +360,19 @@ class PaymentListAdapter(
                 } else {
                     binding.ivDropdown.setImageResource(R.drawable.arrow_down)
                     binding.giftCardUi.hide()
+                }
+                if (giftCardApplied) {
+                    binding?.apply {
+                        editTextGiftCard.isEnabled = false
+                        tvApplyGiftCard.hide()
+                        textviewCancelGiftCard.show()
+                    }
+                } else {
+                    binding?.apply {
+                        editTextGiftCard.isEnabled = true
+                        tvApplyGiftCard.show()
+                        textviewCancelGiftCard.hide()
+                    }
                 }
             }
         } else if (holder.viewType == 2) {
@@ -410,13 +397,6 @@ class PaymentListAdapter(
                         textViewWalletBalance.text =
                             context.getString(R.string.wallet_balance) + respPayModes[0].balance
                         ivDropdown.setImageResource(R.drawable.arrow_up)
-                        if (walletApplied) {
-                            textviewBtWalletApply.hide()
-                            textviewBtWalletCancel.show()
-                        } else {
-                            textviewBtWalletApply.show()
-                            textviewBtWalletCancel.hide()
-                        }
                     }
                 } else {
                     binding?.apply {
@@ -424,13 +404,22 @@ class PaymentListAdapter(
                         walletUi.hide()
                     }
                 }
+                if (walletApplied) {
+                    binding?.apply {
+                        textviewBtWalletApply.hide()
+                        textviewBtWalletCancel.show()
+                    }
+
+                } else {
+                    binding?.apply {
+                        textviewBtWalletApply.show()
+                        textviewBtWalletCancel.hide()
+                    }
+                }
                 binding.textviewBtWalletApply.setOnClickListener {
                     pos = position
-                    Constant.CARD_NO = ""
                     walletApplied = true
-                    knetClicked = false
                     viewModel.setPaymentMethodSelection(PaymentMethodSealedClass.NONE)
-                    creditCardClicked = false
                     notifyItemChanged(pos)
                 }
 
@@ -438,8 +427,6 @@ class PaymentListAdapter(
                 binding.textviewBtWalletCancel.setOnClickListener {
                     pos = position
                     viewModel.setPaymentMethodSelection(PaymentMethodSealedClass.NONE)
-                    Constant.CARD_NO = ""
-//                    context.toast("cancel Wallet")
                     walletApplied = false
                     notifyItemChanged(pos)
                 }
@@ -448,89 +435,140 @@ class PaymentListAdapter(
             with(payMode[position]) {
                 var binding = holder.binding as ItemGatewayUiBinding
                 binding!!.headerOfferType.text = this.name
+                if (giftCardApplied) {
+                    creditCardSelected=true
+                    knetSelected=false
+                    binding.apply {
+                        knet.isClickable = false
+                        knet.isFocusable = false
+                        knet.isEnabled = false
+                        creditCard.isClickable = false
+                        creditCard.isFocusable = false
+                        creditCard.isEnabled = false
+                    }
+                } else {
+                    binding?.apply {
+                        knet.isClickable = true
+                        knet.isFocusable = true
+                        knet.isEnabled = true
+                        creditCard.isClickable = true
+                        creditCard.isFocusable = true
+                        creditCard.isEnabled = true
+                    }
+                }
                 binding?.apply {
                     ivDropdown.hide()
                     knetCcUi.show()
                 }
-                if (creditCardClicked) {
-                    holder.binding.apply {
-                        imageCreditCard.setColorFilter(
-                            ContextCompat.getColor(
-                                context,
-                                R.color.red
-                            )
-                        )
-                        textCreditCardName.setTextColor(context.getColor(R.color.red))
-                    }
-                } else {
-                    holder.binding.apply {
-                        imageCreditCard.setColorFilter(
-                            ContextCompat.getColor(
-                                context,
-                                R.color.white
-                            )
-                        )
-                        textCreditCardName.setTextColor(context.getColor(R.color.white))
-                    }
-                }
-                if (knetClicked) {
-                    binding.apply {
-                        textKnetName.setTextColor(context.getColor(R.color.red))
-                        imageKnet.setColorFilter(ContextCompat.getColor(context, R.color.red))
-                    }
-                } else {
-                    binding.apply {
-                        imageKnet.setColorFilter(ContextCompat.getColor(context, R.color.white))
-                        textKnetName.setTextColor(context.getColor(R.color.white))
-                    }
-                }
-
                 Glide.with(context)
                     .load(this.respPayModes[1].imageUrl)
+                    .listener(object : RequestListener<Drawable> {
+                        override fun onLoadFailed(
+                            e: GlideException?,
+                            model: Any?,
+                            target: Target<Drawable>?,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            Log.e(TAG, "onLoadFailed")
+                            //do something if error loading
+                            return false
+                        }
+
+                        override fun onResourceReady(
+                            resource: Drawable?,
+                            model: Any?,
+                            target: com.bumptech.glide.request.target.Target<Drawable>?,
+                            dataSource: DataSource?,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            Log.d(TAG, "OnResourceReady")
+                            if (creditCardSelected) {
+
+                                holder.binding.apply {
+                                    imageCreditCard.setColorFilter(
+                                        ContextCompat.getColor(
+                                            context,
+                                            R.color.red
+                                        )
+                                    )
+                                    textCreditCardName.setTextColor(context.getColor(R.color.red))
+                                }
+                            } else {
+                                holder.binding.apply {
+                                    imageCreditCard.setColorFilter(
+                                        ContextCompat.getColor(
+                                            context,
+                                            R.color.white
+                                        )
+                                    )
+                                    textCreditCardName.setTextColor(context.getColor(R.color.white))
+                                }
+                            }
+                            return false
+                        }
+                    })
                     .into(binding.imageCreditCard)
 
                 Glide.with(context)
                     .load(this.respPayModes[0].imageUrl)
-                    .into(binding.imageKnet)
-
-                if (viewModel.selectedPaymentMethod == PaymentMethodSealedClass.GIFT_CARD_COMPLETE || viewModel.selectedPaymentMethod == PaymentMethodSealedClass.GIFT_CARD_PARTIAL) {
-                    binding.apply {
-                        imageCreditCard.setColorFilter(
-                            ContextCompat.getColor(
-                                context,
-                                R.color.red
-                            )
-                        )
-                        textCreditCardName.setTextColor(context.getColor(R.color.red))
-                        imageKnet.setColorFilter(ContextCompat.getColor(context, R.color.gray))
-                        textKnetName.setTextColor(context.getColor(R.color.gray))
-                        imageKnet.isClickable = false
-                        imageCreditCard.isClickable = false
-                    }
-                }
-                binding?.apply {
-                    imageKnet.setOnClickListener {
-                        pos = position
-                        if (knetClicked) {
-                            knetClicked = false
-                        } else {
-                            giftCardApplied = false
-                            creditCardClicked = false
-                            knetClicked = true
+                    .listener(object : RequestListener<Drawable> {
+                        override fun onLoadFailed(
+                            e: GlideException?,
+                            model: Any?,
+                            target: com.bumptech.glide.request.target.Target<Drawable>?,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            Log.e(TAG, "onLoadFailed")
+                            //do something if error loading
+                            return false
                         }
+
+                        override fun onResourceReady(
+                            resource: Drawable?,
+                            model: Any?,
+                            target: com.bumptech.glide.request.target.Target<Drawable>?,
+                            dataSource: DataSource?,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            Log.d(TAG, "OnResourceReady")
+                            if (knetSelected) {
+                                binding.apply {
+                                    textKnetName.setTextColor(context.getColor(R.color.red))
+                                    imageKnet.setColorFilter(
+                                        ContextCompat.getColor(
+                                            context,
+                                            R.color.red
+                                        )
+                                    )
+                                }
+                            } else {
+                                binding.apply {
+                                    imageKnet.setColorFilter(
+                                        ContextCompat.getColor(
+                                            context,
+                                            R.color.white
+                                        )
+                                    )
+                                    textKnetName.setTextColor(context.getColor(R.color.white))
+                                }
+                            }
+                            return false
+                        }
+                    })
+                    .into(binding.imageKnet)
+                binding?.apply {
+                    knet.setOnClickListener {
+                        creditCardSelected=false
+                        knetSelected=true
+                        pos = position
                         notifyItemChanged(pos)
                     }
                 }
                 binding?.apply {
                     creditCard.setOnClickListener {
+                        knetSelected=false
+                        creditCardSelected=true
                         pos = position
-                        if (creditCardClicked) {
-                            creditCardClicked = false
-                        } else {
-                            giftCardApplied = false
-                            knetClicked = false
-                            creditCardClicked = true
-                        }
                         notifyItemChanged(pos)
                     }
                 }

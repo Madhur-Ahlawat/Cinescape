@@ -81,11 +81,14 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         var voucherApplied: Boolean = false
         var giftCardApplied: Boolean = false
         var selectedCardType: Int = -1
+        var offerCode: String?=null
         var clickName = ""
         var clickId = ""
         var offerId = ""
         var cardNo = ""
         var knetClicked = false
+        var knetSelected = false
+        var creditCardSelected = false
         var creditCardClicked = false
         var bankClicked = false
         var giftCardClicked = false
@@ -199,42 +202,39 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
 
         binding?.txtProceed?.setOnClickListener {
-
-            when (summeryViewModel.selectedPaymentMethod) {
-                PaymentMethodSealedClass.CREDIT_CARD -> {
-                    creditCardDialog(Constant.CARD_NO)
-                }
-                PaymentMethodSealedClass.WALLET -> {
-                    walletPay(
-                        HmacKnetRequest(
-                            bookingId,
-                            bookType,
-                            transId,
-                            preferences.getString(Constant.USER_ID).toString()
-                        )
+            if(walletApplied){
+                walletPay(
+                    HmacKnetRequest(
+                        bookingId,
+                        bookType,
+                        transId,
+                        preferences.getString(Constant.USER_ID).toString()
                     )
-                }
-                PaymentMethodSealedClass.KNET -> {
-                    paymentHmac(
-                        HmacKnetRequest(
-                            bookingId,
-                            bookType,
-                            transId,
-                            preferences.getString(Constant.USER_ID).toString()
-                        )
+                )
+            }
+            else if(creditCardSelected){
+                creditCardDialog(Constant.CARD_NO)
+            }
+            else if(knetSelected){
+                paymentHmac(
+                    HmacKnetRequest(
+                        bookingId,
+                        bookType,
+                        transId,
+                        preferences.getString(Constant.USER_ID).toString()
                     )
-                }
-                PaymentMethodSealedClass.NONE -> {
-                    val dialog = OptionDialog(this,
-                        R.mipmap.ic_launcher,
-                        R.string.app_name,
-                        getString(R.string.select_payment_methods),
-                        positiveBtnText = R.string.ok,
-                        negativeBtnText = R.string.no,
-                        positiveClick = {},
-                        negativeClick = {})
-                    dialog.show()
-                }
+                )
+            }
+            else{
+                val dialog = OptionDialog(this,
+                    R.mipmap.ic_launcher,
+                    R.string.app_name,
+                    getString(R.string.select_payment_methods),
+                    positiveBtnText = R.string.ok,
+                    negativeBtnText = R.string.no,
+                    positiveClick = {},
+                    negativeClick = {})
+                dialog.show()
             }
 
 
@@ -1329,6 +1329,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         clickId: String
     ) {
         if (clickName == "Gift Card") {
+            giftCardNumber=offerCode
             giftCardApply(
                 GiftCardRequest(
                     bookingId,
@@ -1339,7 +1340,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 )
             )
         } else if (clickName == "Voucher") {
-
+            cardNo=offerCode
             voucherApply(
                 GiftCardRequest(
                     bookingId,
@@ -1349,7 +1350,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     preferences.getString(Constant.USER_ID).toString()
                 )
             )
-
         }
     }
 
@@ -1453,6 +1453,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                         it.data.output
                                     )
                                 } catch (e: Exception) {
+
                                     println("updateUiCinemaSession ---> ${e.message}")
                                 }
 
@@ -1473,6 +1474,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         }
                     }
                     Status.ERROR -> {
+                        giftCardApplied=false
                         LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
 
                         val dialog = OptionDialog(this,
@@ -1532,6 +1534,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                         it.data.output
                                     )
                                 } catch (e: Exception) {
+                                    giftCardApplied=false
                                     println("updateUiCinemaSession ---> ${e.message}")
                                 }
 
@@ -1552,8 +1555,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         }
                     }
                     Status.ERROR -> {
+                        giftCardApplied=false
                         LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
-
                         val dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
@@ -1590,7 +1593,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.GIFT_CARD_COMPLETE)
                 giftCardApplied = true
                 outputlist!!.clear()
-                giftCardApplied = true
                 outputlist!!.addAll(output.payInfo)
                 binding?.textTotalAmount?.text = output.amount
                 //show cancel button
