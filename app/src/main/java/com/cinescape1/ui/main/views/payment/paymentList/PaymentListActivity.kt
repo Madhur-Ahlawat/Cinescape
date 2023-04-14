@@ -131,15 +131,40 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
+        resetStaticFlags()
         binding = ActivityPaymentListBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
         setContentView(view)
         manageFunctions()
     }
 
+    private fun resetStaticFlags() {
+        spinnerClickable= true
+        bankApplied = false
+        bankCardNumber  = ""
+        giftCardNumber = ""
+        voucherApplied = false
+        giftCardApplied = false
+        selectedCardType = -1
+        offerCode = null
+        clickName = ""
+        clickId = ""
+        offerId = ""
+        cardNo = ""
+        knetClicked = false
+        knetSelected = false
+        creditCardSelected = false
+        creditCardClicked = false
+        bankClicked = false
+        giftCardClicked = false
+        walletClicked = false
+        walletApplied = false
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         Constant.CARD_NO = ""
+
     }
 
     private fun manageFunctions() {

@@ -299,6 +299,29 @@ class PaymentListAdapter(
             with(payMode[position]) {
                 var binding = holder.binding as ItemGiftCardBinding
                 binding!!.headerOfferType.text = this.name
+                if(bankApplied){
+                    giftCardApplied=false
+                    giftCardClicked=false
+                    binding?.apply {
+                        headerUi.isClickable=false
+                        headerUi.isEnabled=false
+                        headerUi.isFocusable=false
+
+                        giftCardUi.isClickable=false
+                        giftCardUi.isEnabled=false
+                        giftCardUi.isFocusable=false
+                    }
+                }
+                else{
+                    binding?.apply {
+                        headerUi.isClickable=true
+                        headerUi.isEnabled=true
+                        headerUi.isFocusable=true
+
+                        giftCardUi.isClickable=true
+                        giftCardUi.isEnabled=true
+                        giftCardUi.isFocusable=true
+                    }
                 binding?.apply {
                     headerUi.setOnClickListener {
                         pos = position
@@ -357,7 +380,8 @@ class PaymentListAdapter(
                         )
 
                     }
-                } else {
+                }
+                else {
                     binding.ivDropdown.setImageResource(R.drawable.arrow_down)
                     binding.giftCardUi.hide()
                 }
@@ -378,6 +402,31 @@ class PaymentListAdapter(
         } else if (holder.viewType == 2) {
             with(payMode[position]) {
                 var binding = holder.binding as ItemWalletUiBinding
+                if(bankApplied){
+                    walletApplied=false
+                    walletClicked=false
+                    binding?.apply {
+                        headerUi.isClickable=false
+                        headerUi.isEnabled=false
+                        headerUi.isFocusable=false
+
+                        walletUi.isClickable=false
+                        walletUi.isEnabled=false
+                        walletUi.isFocusable=false
+                    }
+                }
+                else{
+                    binding?.apply {
+                        headerUi.isClickable=true
+                        headerUi.isEnabled=true
+                        headerUi.isFocusable=true
+
+                        walletUi.isClickable=true
+                        walletUi.isEnabled=true
+                        walletUi.isFocusable=true
+                    }
+                }
+
                 binding!!.headerOfferType.text = this.name
                 binding?.apply {
                     headerUi.setOnClickListener {
@@ -398,7 +447,8 @@ class PaymentListAdapter(
                             context.getString(R.string.wallet_balance) + respPayModes[0].balance
                         ivDropdown.setImageResource(R.drawable.arrow_up)
                     }
-                } else {
+                }
+                else {
                     binding?.apply {
                         ivDropdown.setImageResource(R.drawable.arrow_down)
                         walletUi.hide()
