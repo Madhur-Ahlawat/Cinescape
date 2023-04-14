@@ -198,6 +198,13 @@ class Constant {
 
         var walletCheck = 0
 
+        fun setMargins(view: View, left: Int, top: Int, right: Int, bottom: Int) {
+            if (view.layoutParams is ViewGroup.MarginLayoutParams) {
+                val p = view.layoutParams as ViewGroup.MarginLayoutParams
+                p.setMargins(left, top, right, bottom)
+                view.requestLayout()
+            }
+        }
     }
 
 

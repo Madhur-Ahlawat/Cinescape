@@ -8,7 +8,6 @@
     android:background="@color/black"
     android:paddingStart="@dimen/margin8"
     android:paddingEnd="@dimen/margin20"
-    android:paddingTop="@dimen/margin20"
     android:paddingBottom="@dimen/margin5">
 
     <View

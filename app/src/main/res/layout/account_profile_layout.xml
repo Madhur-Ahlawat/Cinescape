@@ -30,6 +30,7 @@
                 android:id="@+id/text_profile_titles"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:includeFontPadding="false"
                 android:fontFamily="@font/sf_pro_text_bold"
                 android:gravity="center"
                 android:lineSpacingExtra="5.5sp"
