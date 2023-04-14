@@ -71,6 +71,8 @@ import javax.inject.Inject
 class PaymentListActivity : DaggerAppCompatActivity(),
     RecycleViewItemClickListener {
 
+    private var giftCardApplyRequest: GiftCardResponse.Output?=null
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -231,6 +233,17 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
 
         binding?.txtProceed?.setOnClickListener {
+            if(giftCardApplied && summeryViewModel.selectedPaymentMethod == PaymentMethodSealedClass.GIFT_CARD_COMPLETE){
+                giftCardApply(
+                    GiftCardRequest(
+                        bookingId,
+                        bookType,
+                        offerCode!!,
+                        transId,
+                        preferences.getString(Constant.USER_ID).toString(), giftCardApplied
+                    )
+                )
+            }
             if (walletApplied) {
                 walletPay(
                     HmacKnetRequest(
@@ -1315,7 +1328,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     bookType,
                     offerCode,
                     transId,
-                    preferences.getString(Constant.USER_ID).toString()
+                    preferences.getString(Constant.USER_ID).toString(),false
                 )
             )
         } else if (clickName == "Voucher") {
@@ -1326,7 +1339,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     bookType,
                     offerCode,
                     transId,
-                    preferences.getString(Constant.USER_ID).toString()
+                    preferences.getString(Constant.USER_ID).toString(),false
                 )
             )
         }
@@ -1345,7 +1358,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     bookType,
                     offerCode,
                     transId,
-                    preferences.getString(Constant.USER_ID).toString()
+                    preferences.getString(Constant.USER_ID).toString(),false
                 )
             )
         } else if (clickName == "Voucher") {
@@ -1561,35 +1574,47 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     private fun retrieveDataGiftCard(
         output: GiftCardResponse.Output
     ) {
-        if (output.PAID == "NO") {
+        giftCardApplyRequest=output
+        if (output.PAID!=null && output.PAID == "NO") {
             summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.GIFT_CARD_PARTIAL)
             outputlist!!.clear()
             giftCardApplied = true
             outputlist!!.addAll(output.payInfo)
             binding?.textTotalAmount?.text = output.amount
-            adapter?.notifyDataSetChanged()
-        } else {
-            if (output.CAN_PAY != null && output.CAN_PAY == "YES") {
-                summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.GIFT_CARD_COMPLETE)
-                giftCardApplied = true
-                outputlist!!.clear()
-                outputlist!!.addAll(output.payInfo)
-                binding?.textTotalAmount?.text = output.amount
-                //show cancel button
-                //hide apply button
-                //enable input
-                //show offer applied label
-                val intent = Intent(applicationContext, FinalTicketActivity::class.java)
-                intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
-                intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
-                startActivity(intent)
-            }
-            Constant.IntentKey.TimerExtandCheck = true
-            Constant.IntentKey.TimerExtand = 90
-            Constant.IntentKey.TimerTime = 360
-            adapter?.notifyDataSetChanged()
-
+        } else if(output.PAID !=null && output.PAID == "YES") {
+            summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.GIFT_CARD_COMPLETE)
+            giftCardApplied = true
+            outputlist!!.clear()
+            outputlist!!.addAll(output.payInfo)
+            binding?.textTotalAmount?.text = output.amount
+            //show cancel button
+            //hide apply button
+            //enable input
+            //show offer applied label
+//            val intent = Intent(applicationContext, FinalTicketActivity::class.java)
+//            intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
+//            intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
+//            startActivity(intent)
         }
+        else if (output.CAN_PAY != null && output.CAN_PAY == "YES") {
+            summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.GIFT_CARD_COMPLETE)
+            giftCardApplied = true
+            outputlist!!.clear()
+            outputlist!!.addAll(output.payInfo)
+            binding?.textTotalAmount?.text = output.amount
+            //show cancel button
+            //hide apply button
+            //enable input
+            //show offer applied label
+//            val intent = Intent(applicationContext, FinalTicketActivity::class.java)
+//            intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
+//            intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
+//            startActivity(intent)
+        }
+        Constant.IntentKey.TimerExtandCheck = true
+        Constant.IntentKey.TimerExtand = 90
+        Constant.IntentKey.TimerTime = 360
+        adapter?.notifyDataSetChanged()
     }
 
     // hmac Request

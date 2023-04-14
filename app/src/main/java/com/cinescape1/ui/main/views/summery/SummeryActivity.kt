@@ -688,9 +688,8 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
                                         },
                                         negativeClick = {
                                         })
-                                    if (!(this as Activity).isFinishing) {
+                                    if (!this@SummeryActivity.isFinishing) {
                                         //show dialog
-
                                         dialog.show()
                                     }
 

@@ -485,6 +485,8 @@ class PaymentListAdapter(
                     walletUi.show()
                 }
                 if (walletClicked) {
+                    knetSelected=false
+                    creditCardSelected=false
                     binding?.apply {
                         walletUi.show()
                         textViewWalletBalance.text =
@@ -577,7 +579,6 @@ class PaymentListAdapter(
                         ): Boolean {
                             Log.d(TAG, "OnResourceReady")
                             if (creditCardSelected) {
-
                                 holder.binding.apply {
                                     imageCreditCard.setColorFilter(
                                         ContextCompat.getColor(
@@ -654,6 +655,7 @@ class PaymentListAdapter(
                     knet.setOnClickListener {
                         creditCardSelected = false
                         knetSelected = true
+                        walletApplied=false
                         pos = position
                         notifyItemChanged(pos)
                     }
@@ -662,6 +664,7 @@ class PaymentListAdapter(
                     creditCard.setOnClickListener {
                         knetSelected = false
                         creditCardSelected = true
+                        walletApplied=false
                         pos = position
                         notifyItemChanged(pos)
                     }
