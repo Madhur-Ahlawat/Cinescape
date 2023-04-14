@@ -1,376 +1,379 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/card_title"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:elevation="@dimen/margin2"
-    app:cardBackgroundColor="@color/black"
-    app:cardElevation="@dimen/margin2">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin4"
-        android:background="@drawable/alert_cart_payment_bg">
-
-        <View
-            android:id="@+id/view1_main"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/text_credit_payment"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/sf_pro_text_heavy"
-            android:gravity="center_horizontal"
-            android:text="@string/credit_card_payment"
-            android:textColor="@color/white"
-            android:textSize="@dimen/size18"
-            android:textStyle="normal"
-            app:layout_constraintEnd_toEndOf="@+id/view1_main"
-            app:layout_constraintStart_toStartOf="@+id/view1_main"
-            app:layout_constraintTop_toTopOf="@+id/view1_main" />
-
-        <TextView
-            android:id="@+id/text_amt_paid"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/sf_pro_text_light"
-            android:gravity="end"
-            android:letterSpacing="-0.01"
-            android:text="@string/amount_to_be_paid"
-            android:textColor="@color/hint_color"
-            android:textSize="@dimen/size16"
-            android:textStyle="normal"
-            app:layout_constraintEnd_toStartOf="@+id/kd_to_pay"
-            app:layout_constraintHorizontal_weight="2"
-            app:layout_constraintStart_toStartOf="@+id/text_credit_payment"
-            app:layout_constraintTop_toBottomOf="@+id/text_credit_payment" />
-
-        <TextView
-            android:id="@+id/kd_to_pay"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/sf_pro_text_heavy"
-            android:letterSpacing="-0.01"
-            tools:text=" KD 34.000 "
-            android:textColor="@color/hint_color"
-            android:textSize="@dimen/size16"
-            android:textStyle="normal"
-            app:layout_constraintBottom_toBottomOf="@+id/text_amt_paid"
-            app:layout_constraintEnd_toEndOf="@+id/text_credit_payment"
-            app:layout_constraintHorizontal_weight="1.8"
-            app:layout_constraintStart_toEndOf="@+id/text_amt_paid"
-            app:layout_constraintTop_toTopOf="@+id/text_amt_paid" />
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/cardHolderTextInputLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_marginTop="8dp"
-            app:boxCornerRadiusBottomEnd="@dimen/margin10"
-            app:boxCornerRadiusBottomStart="@dimen/margin10"
-            app:boxCornerRadiusTopEnd="@dimen/margin10"
-            app:boxCornerRadiusTopStart="@dimen/margin10"
-            app:boxStrokeColor="@color/edittext_selector"
-            app:hintTextColor="@color/editColor"
-            android:textColorHint="@color/editColor"
-            app:layout_constraintEnd_toEndOf="@+id/view1_main"
-            app:layout_constraintStart_toStartOf="@+id/view1_main"
-            app:layout_constraintTop_toBottomOf="@+id/text_amt_paid"
-            app:startIconDrawable="@drawable/ic_icon_account">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/cardHolderTextInputEditText"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:hint="@string/cardholder_name"
-                android:textColor="@color/white"
-                android:textCursorDrawable="@null"
-                app:hintTextColor="@color/editColor"
-                tools:ignore="TextContrastCheck"
-                tools:layout_editor_absoluteX="13dp"
-                tools:layout_editor_absoluteY="243dp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/cardNumberTextInputLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/white"
-            app:boxCornerRadiusBottomEnd="@dimen/margin10"
-            app:boxCornerRadiusBottomStart="@dimen/margin10"
-            app:boxCornerRadiusTopEnd="@dimen/margin10"
-            app:boxCornerRadiusTopStart="@dimen/margin10"
-            app:boxStrokeColor="@color/edittext_selector"
-            app:hintTextColor="@color/editColor"
-            android:textColorHint="@color/editColor"
-            app:layout_constraintEnd_toEndOf="@+id/view1_main"
-            app:layout_constraintStart_toStartOf="@+id/view1_main"
-            app:layout_constraintTop_toBottomOf="@+id/cardHolderTextInputLayout"
-            app:startIconDrawable="@drawable/ic_icon_payment">
-
-            <com.santalu.maskedittext.MaskEditText
-                android:id="@+id/cardNumberTextInputEditText"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:hint="XXXX XXXX XXXX XXXX"
-                android:inputType="number"
-                android:maxLength="19"
-                android:maxLines="1"
-                android:paddingStart="20dp"
-                android:textColor="@color/white"
-                android:textCursorDrawable="@null"
-                app:hintTextColor="@color/editColor"
-                app:met_mask="#### #### #### ####"
-                tools:ignore="HardcodedText,RtlSymmetry,TextContrastCheck" />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <View
-            android:id="@+id/view_atm_card"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            app:layout_constraintEnd_toEndOf="@+id/cardNumberTextInputLayout"
-            app:layout_constraintTop_toBottomOf="@+id/cardNumberTextInputLayout" />
-
-        <ImageView
-            android:id="@+id/image_visa_card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:contentDescription="@string/contentDes"
-            app:layout_constraintBottom_toBottomOf="@+id/image_master_card"
-            app:layout_constraintEnd_toEndOf="@+id/view_atm_card"
-            app:layout_constraintStart_toEndOf="@+id/image_master_card"
-            app:layout_constraintTop_toTopOf="@+id/image_master_card"
-            app:srcCompat="@drawable/ic_icon_metro_visa" />
-
-        <ImageView
-            android:id="@+id/image_master_card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:contentDescription="@string/contentDes"
-            app:layout_constraintBottom_toBottomOf="@+id/image_american_express_card"
-            app:layout_constraintEnd_toStartOf="@+id/image_visa_card"
-            app:layout_constraintStart_toEndOf="@+id/image_american_express_card"
-            app:layout_constraintTop_toTopOf="@+id/image_american_express_card"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/ic_icon_awesome_cc_mastercard" />
-
-        <ImageView
-            android:id="@+id/image_american_express_card"
-            android:layout_width="@dimen/margin40"
-            android:layout_height="@dimen/margin20"
-            android:visibility="gone"
-            android:contentDescription="@string/contentDes"
-            app:layout_constraintBottom_toBottomOf="@+id/view_atm_card"
-            app:layout_constraintEnd_toEndOf="@+id/view_atm_card"
-            app:layout_constraintTop_toTopOf="@+id/view_atm_card"
-            app:srcCompat="@drawable/ic_icon_americon_express" />
-
-        <View
-            android:id="@+id/view_expiredate"
-            android:layout_width="0dp"
-            android:layout_height="90dp"
-            android:layout_marginTop="2dp"
-            app:layout_constraintEnd_toEndOf="@+id/view1_main"
-            app:layout_constraintStart_toStartOf="@+id/view1_main"
-            app:layout_constraintTop_toBottomOf="@+id/view_atm_card" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/expireDateTextInputLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:textColor="@color/white"
-            app:boxCornerRadiusBottomEnd="@dimen/margin10"
-            app:boxCornerRadiusBottomStart="@dimen/margin10"
-            app:boxCornerRadiusTopEnd="@dimen/margin10"
-            app:boxCornerRadiusTopStart="@dimen/margin10"
-            app:boxStrokeColor="@color/edittext_selector"
-            app:hintTextColor="@color/editColor"
-            android:textColorHint="@color/editColor"
-            app:layout_constraintBottom_toBottomOf="@+id/view_expiredate"
-            app:layout_constraintEnd_toStartOf="@+id/ccVTextInputLayout"
-            app:layout_constraintHorizontal_weight="2"
-            app:layout_constraintStart_toStartOf="@+id/view_expiredate"
-            app:layout_constraintTop_toTopOf="@+id/view_expiredate"
-            app:startIconDrawable="@drawable/ic_icon_feather_calendar">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/expireDateTextInputEditText"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:hint="@string/expiry_dateMM"
-                android:inputType="number"
-                android:maxLength="5"
-                android:maxLines="1"
-                android:textColor="@color/white"
-                android:textCursorDrawable="@null"
-                app:hintTextColor="@color/editColor"
-                tools:ignore="TextContrastCheck" />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ccVTextInputLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:textColor="@color/white"
-            app:boxCornerRadiusBottomEnd="@dimen/margin10"
-            app:boxCornerRadiusBottomStart="@dimen/margin10"
-            app:boxCornerRadiusTopEnd="@dimen/margin10"
-            app:boxCornerRadiusTopStart="@dimen/margin10"
-            app:boxStrokeColor="@color/edittext_selector"
-            app:hintTextColor="@color/editColor"
-            android:textColorHint="@color/editColor"
-            app:layout_constraintBottom_toBottomOf="@+id/expireDateTextInputLayout"
-            app:layout_constraintEnd_toEndOf="@+id/view_expiredate"
-            app:layout_constraintHorizontal_weight="1.5"
-            app:layout_constraintStart_toEndOf="@+id/expireDateTextInputLayout"
-            app:layout_constraintTop_toTopOf="@+id/expireDateTextInputLayout"
-            app:startIconDrawable="@drawable/ic_icon_lock">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ccvTextInputEditText"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:hint="@string/ccv"
-                android:inputType="number"
-                android:maxLength="3"
-                android:maxLines="1"
-                android:textColor="@color/white"
-                android:textCursorDrawable="@null"
-                app:hintTextColor="@color/editColor"
-                tools:ignore="TextContrastCheck"
-                tools:layout_editor_absoluteX="13dp"
-                tools:layout_editor_absoluteY="243dp" />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <View
-            android:id="@+id/view_cancel_back"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/view_expiredate"
-            app:layout_constraintStart_toStartOf="@+id/view_expiredate"
-            app:layout_constraintTop_toBottomOf="@+id/view_expiredate" />
-
+        android:elevation="@dimen/margin2"
+        app:cardBackgroundColor="@color/black"
+        app:cardElevation="@dimen/margin2">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/text_cancel_go_back"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/view_cancel_back"
-            app:layout_constraintEnd_toStartOf="@+id/btn_pay"
-            app:layout_constraintStart_toStartOf="@+id/view_cancel_back"
-            app:layout_constraintTop_toTopOf="@+id/view_cancel_back">
+            android:layout_margin="@dimen/margin4"
+            android:background="@drawable/alert_cart_payment_bg">
 
-
-            <TextView
-                android:id="@+id/cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_pro_text_bold"
-                android:gravity="center_horizontal"
-                android:text="@string/cancel"
-                android:textColor="@color/white"
-                android:textSize="@dimen/size17"
+            <View
+                android:id="@+id/view1_main"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/text_credit_payment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:fontFamily="@font/sf_pro_text_light"
-                android:text="@string/go_back"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/sf_pro_text_heavy"
+                android:gravity="center_horizontal"
+                android:text="@string/credit_card_payment"
                 android:textColor="@color/white"
-                android:textSize="@dimen/size14"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/cancel"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="@dimen/size18"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="@+id/view1_main"
+                app:layout_constraintStart_toStartOf="@+id/view1_main"
+                app:layout_constraintTop_toTopOf="@+id/view1_main" />
+
+            <TextView
+                android:id="@+id/text_amt_paid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/sf_pro_text_light"
+                android:gravity="end"
+                android:letterSpacing="-0.01"
+                android:text="@string/amount_to_be_paid"
+                android:textColor="@color/hint_color"
+                android:textSize="@dimen/size16"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toStartOf="@+id/kd_to_pay"
+                app:layout_constraintHorizontal_weight="2"
+                app:layout_constraintStart_toStartOf="@+id/text_credit_payment"
+                app:layout_constraintTop_toBottomOf="@+id/text_credit_payment" />
+
+            <TextView
+                android:id="@+id/kd_to_pay"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_heavy"
+                android:letterSpacing="-0.01"
+                tools:text=" KD 34.000 "
+                android:textColor="@color/hint_color"
+                android:textSize="@dimen/size16"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toBottomOf="@+id/text_amt_paid"
+                app:layout_constraintEnd_toEndOf="@+id/text_credit_payment"
+                app:layout_constraintHorizontal_weight="1.8"
+                app:layout_constraintStart_toEndOf="@+id/text_amt_paid"
+                app:layout_constraintTop_toTopOf="@+id/text_amt_paid" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/cardHolderTextInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_marginTop="8dp"
+                app:boxCornerRadiusBottomEnd="@dimen/margin10"
+                app:boxCornerRadiusBottomStart="@dimen/margin10"
+                app:boxCornerRadiusTopEnd="@dimen/margin10"
+                app:boxCornerRadiusTopStart="@dimen/margin10"
+                app:boxStrokeColor="@color/edittext_selector"
+                app:hintTextColor="@color/editColor"
+                android:textColorHint="@color/editColor"
+                app:layout_constraintEnd_toEndOf="@+id/view1_main"
+                app:layout_constraintStart_toStartOf="@+id/view1_main"
+                app:layout_constraintTop_toBottomOf="@+id/text_amt_paid"
+                app:startIconDrawable="@drawable/ic_icon_account">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/cardHolderTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:hint="@string/cardholder_name"
+                    android:textColor="@color/white"
+                    android:textCursorDrawable="@null"
+                    app:hintTextColor="@color/editColor"
+                    tools:ignore="TextContrastCheck"
+                    tools:layout_editor_absoluteX="13dp"
+                    tools:layout_editor_absoluteY="243dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/cardNumberTextInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/white"
+                app:boxCornerRadiusBottomEnd="@dimen/margin10"
+                app:boxCornerRadiusBottomStart="@dimen/margin10"
+                app:boxCornerRadiusTopEnd="@dimen/margin10"
+                app:boxCornerRadiusTopStart="@dimen/margin10"
+                app:boxStrokeColor="@color/edittext_selector"
+                app:hintTextColor="@color/editColor"
+                android:textColorHint="@color/editColor"
+                app:layout_constraintEnd_toEndOf="@+id/view1_main"
+                app:layout_constraintStart_toStartOf="@+id/view1_main"
+                app:layout_constraintTop_toBottomOf="@+id/cardHolderTextInputLayout"
+                app:startIconDrawable="@drawable/ic_icon_payment">
+
+                <com.santalu.maskedittext.MaskEditText
+                    android:id="@+id/cardNumberTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:hint="XXXX XXXX XXXX XXXX"
+                    android:inputType="number"
+                    android:maxLength="19"
+                    android:maxLines="1"
+                    android:paddingStart="20dp"
+                    android:textColor="@color/white"
+                    android:textCursorDrawable="@null"
+                    app:hintTextColor="@color/editColor"
+                    app:met_mask="#### #### #### ####"
+                    tools:ignore="HardcodedText,RtlSymmetry,TextContrastCheck" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <View
+                android:id="@+id/view_atm_card"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                app:layout_constraintEnd_toEndOf="@+id/cardNumberTextInputLayout"
+                app:layout_constraintTop_toBottomOf="@+id/cardNumberTextInputLayout" />
+
+            <ImageView
+                android:id="@+id/image_visa_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:contentDescription="@string/contentDes"
+                app:layout_constraintBottom_toBottomOf="@+id/image_master_card"
+                app:layout_constraintEnd_toEndOf="@+id/view_atm_card"
+                app:layout_constraintStart_toEndOf="@+id/image_master_card"
+                app:layout_constraintTop_toTopOf="@+id/image_master_card"
+                app:srcCompat="@drawable/ic_icon_metro_visa" />
+
+            <ImageView
+                android:id="@+id/image_master_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:contentDescription="@string/contentDes"
+                app:layout_constraintBottom_toBottomOf="@+id/image_american_express_card"
+                app:layout_constraintEnd_toStartOf="@+id/image_visa_card"
+                app:layout_constraintStart_toEndOf="@+id/image_american_express_card"
+                app:layout_constraintTop_toTopOf="@+id/image_american_express_card"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/ic_icon_awesome_cc_mastercard" />
+
+            <ImageView
+                android:id="@+id/image_american_express_card"
+                android:layout_width="@dimen/margin40"
+                android:layout_height="@dimen/margin20"
+                android:visibility="gone"
+                android:contentDescription="@string/contentDes"
+                app:layout_constraintBottom_toBottomOf="@+id/view_atm_card"
+                app:layout_constraintEnd_toEndOf="@+id/view_atm_card"
+                app:layout_constraintTop_toTopOf="@+id/view_atm_card"
+                app:srcCompat="@drawable/ic_icon_americon_express" />
+
+            <View
+                android:id="@+id/view_expiredate"
+                android:layout_width="0dp"
+                android:layout_height="90dp"
+                android:layout_marginTop="2dp"
+                app:layout_constraintEnd_toEndOf="@+id/view1_main"
+                app:layout_constraintStart_toStartOf="@+id/view1_main"
+                app:layout_constraintTop_toBottomOf="@+id/view_atm_card" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/expireDateTextInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:textColor="@color/white"
+                app:boxCornerRadiusBottomEnd="@dimen/margin10"
+                app:boxCornerRadiusBottomStart="@dimen/margin10"
+                app:boxCornerRadiusTopEnd="@dimen/margin10"
+                app:boxCornerRadiusTopStart="@dimen/margin10"
+                app:boxStrokeColor="@color/edittext_selector"
+                app:hintTextColor="@color/editColor"
+                android:textColorHint="@color/editColor"
+                app:layout_constraintBottom_toBottomOf="@+id/view_expiredate"
+                app:layout_constraintEnd_toStartOf="@+id/ccVTextInputLayout"
+                app:layout_constraintHorizontal_weight="2"
+                app:layout_constraintStart_toStartOf="@+id/view_expiredate"
+                app:layout_constraintTop_toTopOf="@+id/view_expiredate"
+                app:startIconDrawable="@drawable/ic_icon_feather_calendar">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/expireDateTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:hint="@string/expiry_dateMM"
+                    android:inputType="number"
+                    android:maxLength="5"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textCursorDrawable="@null"
+                    app:hintTextColor="@color/editColor"
+                    tools:ignore="TextContrastCheck" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ccVTextInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:textColor="@color/white"
+                app:boxCornerRadiusBottomEnd="@dimen/margin10"
+                app:boxCornerRadiusBottomStart="@dimen/margin10"
+                app:boxCornerRadiusTopEnd="@dimen/margin10"
+                app:boxCornerRadiusTopStart="@dimen/margin10"
+                app:boxStrokeColor="@color/edittext_selector"
+                app:hintTextColor="@color/editColor"
+                android:textColorHint="@color/editColor"
+                app:layout_constraintBottom_toBottomOf="@+id/expireDateTextInputLayout"
+                app:layout_constraintEnd_toEndOf="@+id/view_expiredate"
+                app:layout_constraintHorizontal_weight="1.5"
+                app:layout_constraintStart_toEndOf="@+id/expireDateTextInputLayout"
+                app:layout_constraintTop_toTopOf="@+id/expireDateTextInputLayout"
+                app:startIconDrawable="@drawable/ic_icon_lock">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ccvTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:hint="@string/ccv"
+                    android:inputType="number"
+                    android:maxLength="3"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textCursorDrawable="@null"
+                    app:hintTextColor="@color/editColor"
+                    tools:ignore="TextContrastCheck"
+                    tools:layout_editor_absoluteX="13dp"
+                    tools:layout_editor_absoluteY="243dp" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <View
+                android:id="@+id/view_cancel_back"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/view_expiredate"
+                app:layout_constraintStart_toStartOf="@+id/view_expiredate"
+                app:layout_constraintTop_toBottomOf="@+id/view_expiredate" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/text_cancel_go_back"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/view_cancel_back"
+                app:layout_constraintEnd_toStartOf="@+id/btn_pay"
+                app:layout_constraintStart_toStartOf="@+id/view_cancel_back"
+                app:layout_constraintTop_toTopOf="@+id/view_cancel_back">
+
+
+                <TextView
+                    android:id="@+id/cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_text_bold"
+                    android:gravity="center_horizontal"
+                    android:text="@string/cancel"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size17"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/sf_pro_text_light"
+                    android:text="@string/go_back"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/cancel"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/btn_pay"
+                android:layout_width="110dp"
+                android:layout_height="42dp"
+                android:background="@drawable/btn_curv"
+                android:fontFamily="@font/sf_pro_text_bold"
+                android:gravity="center"
+                android:text="@string/pay"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/text_cancel_go_back"
+                app:layout_constraintEnd_toEndOf="@+id/view_cancel_back"
+                app:layout_constraintStart_toEndOf="@+id/text_cancel_go_back"
+                app:layout_constraintTop_toTopOf="@+id/text_cancel_go_back" />
+
+            <ImageView
+                android:id="@+id/imageView44"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="9dp"
+                app:layout_constraintBottom_toBottomOf="@+id/view_atm_card"
+                app:layout_constraintEnd_toStartOf="@+id/imageView51"
+                app:layout_constraintTop_toTopOf="@+id/view_atm_card"
+                app:srcCompat="@drawable/american_express_normal"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/imageView51"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="9dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView44"
+                app:layout_constraintEnd_toStartOf="@+id/imageView52"
+                app:layout_constraintTop_toTopOf="@+id/imageView44"
+                app:srcCompat="@drawable/ic_icon_awesome_cc_mastercard"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/imageView52"
+                android:layout_width="30.84dp"
+                android:layout_height="21dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView51"
+                app:layout_constraintEnd_toStartOf="@+id/image_visa_card"
+                app:layout_constraintTop_toTopOf="@+id/imageView51"
+                app:srcCompat="@drawable/ic_icon_metro_visa"
+                tools:ignore="ContentDescription" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/btn_pay"
-            android:layout_width="110dp"
-            android:layout_height="42dp"
-            android:background="@drawable/btn_curv"
-            android:fontFamily="@font/sf_pro_text_bold"
-            android:gravity="center"
-            android:text="@string/pay"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/text_cancel_go_back"
-            app:layout_constraintEnd_toEndOf="@+id/view_cancel_back"
-            app:layout_constraintStart_toEndOf="@+id/text_cancel_go_back"
-            app:layout_constraintTop_toTopOf="@+id/text_cancel_go_back" />
-
-        <ImageView
-            android:id="@+id/imageView44"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="9dp"
-            app:layout_constraintBottom_toBottomOf="@+id/view_atm_card"
-            app:layout_constraintEnd_toStartOf="@+id/imageView51"
-            app:layout_constraintTop_toTopOf="@+id/view_atm_card"
-            app:srcCompat="@drawable/american_express_normal"
-            tools:ignore="ContentDescription" />
-
-        <ImageView
-            android:id="@+id/imageView51"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="9dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView44"
-            app:layout_constraintEnd_toStartOf="@+id/imageView52"
-            app:layout_constraintTop_toTopOf="@+id/imageView44"
-            app:srcCompat="@drawable/ic_icon_awesome_cc_mastercard"
-            tools:ignore="ContentDescription" />
-
-        <ImageView
-            android:id="@+id/imageView52"
-            android:layout_width="30.84dp"
-            android:layout_height="21dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView51"
-            app:layout_constraintEnd_toStartOf="@+id/image_visa_card"
-            app:layout_constraintTop_toTopOf="@+id/imageView51"
-            app:srcCompat="@drawable/ic_icon_metro_visa"
-            tools:ignore="ContentDescription" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+</layout>

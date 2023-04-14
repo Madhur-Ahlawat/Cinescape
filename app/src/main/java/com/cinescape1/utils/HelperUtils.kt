@@ -2,20 +2,42 @@ package com.cinescape1.utils
 
 import android.graphics.*
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.view.View
+import androidx.annotation.RequiresApi
+import java.time.LocalDate
+import java.time.YearMonth
+import java.time.format.DateTimeFormatter
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 
 object HelperUtils {
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun dateHasExpired(dateInput: String): Boolean {
+        val today: LocalDate = LocalDate.now()
+        var dateParsed: LocalDate? = null
+        dateParsed = if (dateInput.contains("/")) {
+            // parse credit card expiration date
+            val ym: YearMonth = YearMonth.parse(dateInput, DateTimeFormatter.ofPattern("MM/yy"))
+            // get last day of month (taking care of leap years)
+            ym.atEndOfMonth()
+        } else {
+            // parse funding expiration date
+            LocalDate.parse(dateInput, DateTimeFormatter.ofPattern("yyyyMMdd"))
+        }
 
+        // expired if today is equals or after dateParsed
+        return !today.isBefore(dateParsed)
+    }
     fun isValidHexColorCode(colorCode: String): Boolean {
         val HEX_WEBCOLOR_PATTERN = "^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$"
         val pattern: Pattern = Pattern.compile(HEX_WEBCOLOR_PATTERN)
         val matcher: Matcher = pattern.matcher(colorCode)
         return matcher.matches()
     }
+
 
     fun setGradient(
         view: View,

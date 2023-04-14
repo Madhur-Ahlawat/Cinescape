@@ -6,6 +6,9 @@ import android.content.ContentValues.TAG
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -25,7 +28,6 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.cinescape1.R
-import com.cinescape1.data.models.responseModel.GetMovieResponse
 import com.cinescape1.databinding.ItemBankOfferBinding
 import com.cinescape1.databinding.ItemGatewayUiBinding
 import com.cinescape1.databinding.ItemGiftCardBinding
@@ -41,22 +43,20 @@ import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Comp
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.creditCardSelected
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.giftCardApplied
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.giftCardClicked
-import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.giftCardNumber
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.knetSelected
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.offerCode
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.offerId
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.selectedCardType
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.walletApplied
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.walletClicked
+import com.cinescape1.ui.main.views.payment.paymentList.RecycleViewItemClickListener
 import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResponse
 import com.cinescape1.ui.main.views.summery.viewModel.SummeryViewModel
-import com.cinescape1.utils.Constant
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 import kotlinx.android.synthetic.main.account_preference_layout.*
 import kotlinx.android.synthetic.main.activity_checkout_with_food.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class PaymentListAdapter(
@@ -149,6 +149,52 @@ class PaymentListAdapter(
         pos = -1
         if (holder.viewType == 0) {
             var binding = holder.binding as ItemBankOfferBinding
+            binding?.etEnterBankOfferCardNumber.addTextChangedListener(object:TextWatcher{
+                val space = ' '
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    // Remove spacing char
+                    if (s!!.length > 0 && s!!.length % 5 == 0) {
+                        val c = s[s.length - 1]
+                        if (space == c) {
+                            s.delete(s.length - 1, s.length)
+                        }
+                    }
+                    // Insert char where needed.
+                    if (s.length > 0 && s!!.length % 5 == 0) {
+                        val c = s[s.length - 1]
+                        // Only if its a digit where there should be a space we insert a space
+                        if (Character.isDigit(c) && TextUtils.split(
+                                s.toString(),
+                                space.toString()
+                            ).size <= 3
+                        ) {
+                            s.insert(s.length - 1, space.toString())
+                        }
+                    }
+                    if(s.toString().length<19){
+                        binding?.apply {
+                            textviewApplyBankOffer.hide()
+                        }
+                    }
+                    else{
+                        binding?.apply {
+                            textviewApplyBankOffer.show()
+                        }
+                    }
+                }
+            })
+
             binding.textviewApplyBankOffer.setOnClickListener {
                 cardNo =
                     binding.etEnterBankOfferCardNumber.text.toString()
@@ -299,131 +345,129 @@ class PaymentListAdapter(
             with(payMode[position]) {
                 var binding = holder.binding as ItemGiftCardBinding
                 binding!!.headerOfferType.text = this.name
-                if(bankApplied){
-                    giftCardApplied=false
-                    giftCardClicked=false
+                if (bankApplied) {
+                    giftCardApplied = false
+                    giftCardClicked = false
                     binding?.apply {
-                        headerUi.isClickable=false
-                        headerUi.isEnabled=false
-                        headerUi.isFocusable=false
+                        headerUi.isClickable = false
+                        headerUi.isEnabled = false
+                        headerUi.isFocusable = false
 
-                        giftCardUi.isClickable=false
-                        giftCardUi.isEnabled=false
-                        giftCardUi.isFocusable=false
-                    }
-                }
-                else{
-                    binding?.apply {
-                        headerUi.isClickable=true
-                        headerUi.isEnabled=true
-                        headerUi.isFocusable=true
-
-                        giftCardUi.isClickable=true
-                        giftCardUi.isEnabled=true
-                        giftCardUi.isFocusable=true
-                    }
-                binding?.apply {
-                    headerUi.setOnClickListener {
-                        pos = position
-                        if (giftCardClicked) {
-                            giftCardClicked = false
-                        } else {
-                            giftCardClicked = true
-                        }
-                        notifyItemChanged(pos)
-                    }
-                }
-                if (giftCardClicked) {
-                    clickName = this.respPayModes[0].name
-                    binding?.apply {
-                        ivDropdown.setImageResource(R.drawable.arrow_up)
-                        giftCardUi.show()
-                    }
-
-                    val adapter = GiftCardAdapter(
-                        context, this.respPayModes, this@PaymentListAdapter
-                    )
-                    binding.recyclerOffer.layoutManager = LinearLayoutManager(
-                        context, LinearLayoutManager.HORIZONTAL, false
-                    )
-                    binding.recyclerOffer.adapter = adapter
-                    binding.tvApplyGiftCard.setOnClickListener {
-                        offerCode = binding.editTextGiftCard.text.toString()
-                        if (offerCode == "") {
-                            val dialog = OptionDialog(context,
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                "$clickName can not be empty",
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
-                        } else {
-                            listner.onVoucherApply(
-                                this,
-                                offerCode!!,
-                                clickName,
-                                clickId
-                            )
-                        }
-                    }
-
-                    //remove voucher
-                    binding.textviewCancelGiftCard.setOnClickListener {
-                        val offerCode = binding.editTextGiftCard.text.toString()
-                        listner.onGiftCardItemRemove(
-                            this,
-                            offerCode,
-                            clickName,
-                            clickId,
-                        )
-
-                    }
-                }
-                else {
-                    binding.ivDropdown.setImageResource(R.drawable.arrow_down)
-                    binding.giftCardUi.hide()
-                }
-                if (giftCardApplied) {
-                    binding?.apply {
-                        editTextGiftCard.isEnabled = false
-                        tvApplyGiftCard.hide()
-                        textviewCancelGiftCard.show()
+                        giftCardUi.isClickable = false
+                        giftCardUi.isEnabled = false
+                        giftCardUi.isFocusable = false
                     }
                 } else {
                     binding?.apply {
-                        editTextGiftCard.isEnabled = true
-                        tvApplyGiftCard.show()
-                        textviewCancelGiftCard.hide()
+                        headerUi.isClickable = true
+                        headerUi.isEnabled = true
+                        headerUi.isFocusable = true
+
+                        giftCardUi.isClickable = true
+                        giftCardUi.isEnabled = true
+                        giftCardUi.isFocusable = true
+                    }
+                    binding?.apply {
+                        headerUi.setOnClickListener {
+                            pos = position
+                            if (giftCardClicked) {
+                                giftCardClicked = false
+                            } else {
+                                giftCardClicked = true
+                            }
+                            notifyItemChanged(pos)
+                        }
+                    }
+                    if (giftCardClicked) {
+                        clickName = this.respPayModes[0].name
+                        binding?.apply {
+                            ivDropdown.setImageResource(R.drawable.arrow_up)
+                            giftCardUi.show()
+                        }
+
+                        val adapter = GiftCardAdapter(
+                            context, this.respPayModes, this@PaymentListAdapter
+                        )
+                        binding.recyclerOffer.layoutManager = LinearLayoutManager(
+                            context, LinearLayoutManager.HORIZONTAL, false
+                        )
+                        binding.recyclerOffer.adapter = adapter
+                        binding.tvApplyGiftCard.setOnClickListener {
+                            offerCode = binding.editTextGiftCard.text.toString()
+                            if (offerCode == "") {
+                                val dialog = OptionDialog(context,
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    "$clickName can not be empty",
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
+                            } else {
+                                listner.onVoucherApply(
+                                    this,
+                                    offerCode!!,
+                                    clickName,
+                                    clickId
+                                )
+                            }
+                        }
+
+                        //remove voucher
+                        binding.textviewCancelGiftCard.setOnClickListener {
+                            val offerCode = binding.editTextGiftCard.text.toString()
+                            listner.onGiftCardItemRemove(
+                                this,
+                                offerCode,
+                                clickName,
+                                clickId,
+                            )
+
+                        }
+                    } else {
+                        binding.ivDropdown.setImageResource(R.drawable.arrow_down)
+                        binding.giftCardUi.hide()
+                    }
+                    if (giftCardApplied) {
+                        binding?.apply {
+                            editTextGiftCard.isEnabled = false
+                            tvApplyGiftCard.hide()
+                            textviewCancelGiftCard.show()
+                        }
+                    } else {
+                        binding?.apply {
+                            editTextGiftCard.isEnabled = true
+                            tvApplyGiftCard.show()
+                            textviewCancelGiftCard.hide()
+                        }
                     }
                 }
             }
         } else if (holder.viewType == 2) {
             with(payMode[position]) {
                 var binding = holder.binding as ItemWalletUiBinding
-                if(bankApplied){
-                    walletApplied=false
-                    walletClicked=false
+                if (bankApplied) {
+                    walletApplied = false
+                    walletClicked = false
                     binding?.apply {
-                        headerUi.isClickable=false
-                        headerUi.isEnabled=false
-                        headerUi.isFocusable=false
+                        headerUi.isClickable = false
+                        headerUi.isEnabled = false
+                        headerUi.isFocusable = false
 
-                        walletUi.isClickable=false
-                        walletUi.isEnabled=false
-                        walletUi.isFocusable=false
+                        walletUi.isClickable = false
+                        walletUi.isEnabled = false
+                        walletUi.isFocusable = false
                     }
-                }
-                else{
+                } else {
                     binding?.apply {
-                        headerUi.isClickable=true
-                        headerUi.isEnabled=true
-                        headerUi.isFocusable=true
+                        headerUi.isClickable = true
+                        headerUi.isEnabled = true
+                        headerUi.isFocusable = true
 
-                        walletUi.isClickable=true
-                        walletUi.isEnabled=true
-                        walletUi.isFocusable=true
+                        walletUi.isClickable = true
+                        walletUi.isEnabled = true
+                        walletUi.isFocusable = true
                     }
                 }
 
@@ -447,8 +491,7 @@ class PaymentListAdapter(
                             context.getString(R.string.wallet_balance) + respPayModes[0].balance
                         ivDropdown.setImageResource(R.drawable.arrow_up)
                     }
-                }
-                else {
+                } else {
                     binding?.apply {
                         ivDropdown.setImageResource(R.drawable.arrow_down)
                         walletUi.hide()
@@ -481,13 +524,14 @@ class PaymentListAdapter(
                     notifyItemChanged(pos)
                 }
             }
-        } else if (holder.viewType == 3) {
+        }
+        else if (holder.viewType == 3) {
             with(payMode[position]) {
                 var binding = holder.binding as ItemGatewayUiBinding
                 binding!!.headerOfferType.text = this.name
-                if (giftCardApplied) {
-                    creditCardSelected=true
-                    knetSelected=false
+                if (bankApplied) {
+                    creditCardSelected = true
+                    knetSelected = false
                     binding.apply {
                         knet.isClickable = false
                         knet.isFocusable = false
@@ -608,16 +652,16 @@ class PaymentListAdapter(
                     .into(binding.imageKnet)
                 binding?.apply {
                     knet.setOnClickListener {
-                        creditCardSelected=false
-                        knetSelected=true
+                        creditCardSelected = false
+                        knetSelected = true
                         pos = position
                         notifyItemChanged(pos)
                     }
                 }
                 binding?.apply {
                     creditCard.setOnClickListener {
-                        knetSelected=false
-                        creditCardSelected=true
+                        knetSelected = false
+                        creditCardSelected = true
                         pos = position
                         notifyItemChanged(pos)
                     }
@@ -629,36 +673,6 @@ class PaymentListAdapter(
 
     override fun getItemCount(): Int {
         return payMode.size
-    }
-
-
-    interface RecycleViewItemClickListener {
-        fun walletItemApply(view: PaymentListResponse.Output.PayMode)
-        fun bankItemApply(
-            view: String,
-            cardNo: String
-        )
-
-        fun bankItemRemove(
-            view: String,
-            cardNo: String
-        )
-
-        fun onSimilarItemClick(view: GetMovieResponse.Output.Similar)
-
-        fun onVoucherApply(
-            view: PaymentListResponse.Output.PayMode,
-            offerCode: String,
-            clickName: String,
-            clickId: String
-        )
-
-        fun onGiftCardItemRemove(
-            item: PaymentListResponse.Output.PayMode,
-            offerCode: String,
-            clickName: String,
-            clickId: String
-        )
     }
 
     override fun giftCardClick(view: PaymentListResponse.Output.PayMode.RespPayMode) {
