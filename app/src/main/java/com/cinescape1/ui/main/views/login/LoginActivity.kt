@@ -28,10 +28,10 @@ import com.cinescape1.databinding.ActivityLoginBinding
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.*
-import com.cinescape1.ui.main.views.login.activeWallet.ActivateWalletActivity
 import com.cinescape1.ui.main.views.adapters.CountryCodeAdapter
 import com.cinescape1.ui.main.views.details.nowShowing.ShowTimesActivity
 import com.cinescape1.ui.main.views.home.HomeActivity
+import com.cinescape1.ui.main.views.login.activeWallet.ActivateWalletActivity
 import com.cinescape1.ui.main.views.login.guest.ContinueGuestActivity
 import com.cinescape1.ui.main.views.login.otpVerification.OtpVerificationActivity
 import com.cinescape1.ui.main.views.login.reponse.LoginResponse
@@ -307,6 +307,7 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
 
         callbackManager = create()
         broadcastReceiver = MyReceiver()
+        Constant().appBarHide(this@LoginActivity)
 
         socialCredential()
         broadcastIntent()
@@ -359,7 +360,11 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
 
         //signingUi
         binding?.textView2?.setOnClickListener {
-            Constant().appBarHide(this)
+
+            binding?.male?.isChecked= false
+            binding?.female?.isChecked= false
+            binding?.male?.buttonTintList = ColorStateList.valueOf(getColor(R.color.text_color))
+            binding?.female?.buttonTintList = ColorStateList.valueOf(getColor(R.color.text_color))
             binding?.textView2?.typeface = bold
             binding?.textView108?.typeface = regular
 
@@ -369,11 +374,22 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
             binding?.textView2?.setBackgroundResource(R.drawable.signin_bt_ui)
             binding?.textView108?.setBackgroundResource(R.drawable.signup_ui_trans)
 
+
+            binding?.enterEmails?.text?.clear()
+            binding?.enterFirstNames?.text?.clear()
+            binding?.enterLastNames?.text?.clear()
+            binding?.enterPasswords?.text?.clear()
+            binding?.enterConfirmPasswords?.text?.clear()
+            binding?.editTextPhone?.text?.clear()
+            binding?.enterDateBirths?.text?.clear()
         }
         //signUpUi
         binding?.textView108?.setOnClickListener {
 
-            Constant().appBarHide(this)
+            binding?.male?.isChecked= false
+            binding?.female?.isChecked= false
+            binding?.male?.buttonTintList = ColorStateList.valueOf(getColor(R.color.text_color))
+            binding?.female?.buttonTintList = ColorStateList.valueOf(getColor(R.color.text_color))
             binding?.textView2?.typeface = regular
             binding?.textView108?.typeface = bold
 
@@ -383,6 +399,11 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
             binding?.textView2?.setBackgroundResource(R.drawable.signin_bt_ui_trans)
             binding?.textView108?.setBackgroundResource(R.drawable.signup_ui)
 
+
+            binding?.enterUsername?.text?.clear()
+            binding?.enterpassword?.text?.clear()
+
+            Constant().hideKeyboard(this@LoginActivity)
         }
 
         binding?.txtForgotPassword?.setOnClickListener {
@@ -910,12 +931,13 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                     Status.SUCCESS -> {
                         loader?.dismiss()
                         if (Constant.status == it.data?.data?.result && SUCCESS_CODE == it.data.data.code) {
-                            preferences.putString(Constant.USER_ID,it.data.data.output.userId)
+                            preferences.putString(Constant.USER_ID, it.data.data.output.userId)
                             val intent = Intent(
-                                this, OtpVerificationActivity::class.java)
+                                this, OtpVerificationActivity::class.java
+                            )
                             intent.putExtra("userId", it.data.data.output.userId)
                             intent.putExtra("type", "signUp")
-                            intent.putExtra("verifyType","")
+                            intent.putExtra("verifyType", "")
 //                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
                             startActivity(intent)
 //                            finish()

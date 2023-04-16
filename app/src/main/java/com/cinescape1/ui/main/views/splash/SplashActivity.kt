@@ -135,13 +135,13 @@ class SplashActivity : DaggerAppCompatActivity() {
                                     try {
                                         openMovieForYou()
                                     } catch (e: Exception) {
-                                        println("exception--->${e.message}")
+                                       e.printStackTrace()
                                     }
                                 } else {
                                     val dialog = OptionDialog(this,
                                         R.mipmap.ic_launcher,
                                         R.string.app_name,
-                                        it.data?.msg.toString(),
+                                        getString(R.string.somethingWrong),
                                         positiveBtnText = R.string.ok,
                                         negativeBtnText = R.string.no,
                                         positiveClick = {
@@ -158,7 +158,7 @@ class SplashActivity : DaggerAppCompatActivity() {
                             val dialog = OptionDialog(this,
                                 R.mipmap.ic_launcher,
                                 R.string.app_name,
-                                it.message.toString(),
+                                getString(R.string.somethingWrong),
                                 positiveBtnText = R.string.ok,
                                 negativeBtnText = R.string.no,
                                 positiveClick = {
