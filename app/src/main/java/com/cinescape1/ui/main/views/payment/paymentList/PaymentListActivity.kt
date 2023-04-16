@@ -245,15 +245,12 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
         binding?.txtProceed?.setOnClickListener {
             if (giftCardAppliedFull) {
-                giftCardApply(
-                    GiftCardRequest(
-                        bookingId,
-                        bookType,
-                        offerCode!!,
-                        transId,
-                        preferences.getString(Constant.USER_ID).toString(), giftCardAppliedFull
-                    )
-                )
+                val intent =
+                    Intent(applicationContext, FinalTicketActivity::class.java)
+                intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
+                intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
+                startActivity(intent)
+                finish()
             }
             else if(giftCardApplied){
                 if(walletApplied){

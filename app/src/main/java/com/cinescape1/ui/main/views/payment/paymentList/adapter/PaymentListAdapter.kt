@@ -482,7 +482,7 @@ class PaymentListAdapter(
                         } else {
                             walletClicked = true
                         }
-                        notifyItemChanged(pos)
+                        notifyDataSetChanged()
                     }
                     textviewBtWalletApply.setOnClickListener {
                         pos = position
@@ -540,7 +540,6 @@ class PaymentListAdapter(
                         walletUi.hide()
                     }
                 }
-
             }
         } else if (holder.viewType == 3) {
             with(payMode[position]) {
@@ -553,11 +552,12 @@ class PaymentListAdapter(
                     knetCcUi.show()
 
                     knet.setOnClickListener {
+                        knetSelected=true
                         creditCardSelected = false
-                        knetSelected = true
                         walletApplied = false
                         pos = position
-                        notifyDataSetChanged()                    }
+                        notifyDataSetChanged()
+                    }
                     creditCard.setOnClickListener {
                         knetSelected = false
                         creditCardSelected = true
