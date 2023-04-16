@@ -255,7 +255,22 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     )
                 )
             }
-            if (walletApplied) {
+            else if(giftCardApplied){
+                if(walletApplied){
+                    walletPay(
+                        HmacKnetRequest(
+                            bookingId,
+                            bookType,
+                            transId,
+                            preferences.getString(Constant.USER_ID).toString()
+                        )
+                    )
+                }
+                else if(creditCardSelected){
+                    creditCardDialog(Constant.CARD_NO)
+                }
+            }
+            else if (walletApplied) {
                 walletPay(
                     HmacKnetRequest(
                         bookingId,
@@ -264,7 +279,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         preferences.getString(Constant.USER_ID).toString()
                     )
                 )
-            } else if (creditCardSelected) {
+            }
+            else if (creditCardSelected) {
                 creditCardDialog(Constant.CARD_NO)
             } else if (knetSelected) {
                 paymentHmac(
@@ -1597,6 +1613,12 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             outputlist!!.clear()
             giftCardApplied = true
             giftCardAppliedFull = false
+            bankEnabled=false
+            walletEnabled=true
+            knetEnabled=true
+            creditCardEnabled = true
+            knetSelected=false
+            creditCardSelected=false
             outputlist!!.addAll(output.payInfo)
             binding?.textTotalAmount?.text = output.amount
         } else if (output.PAID != null && output.PAID == "YES") {
@@ -1604,23 +1626,16 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             giftCardAppliedFull = true
             bankEnabled = false
             walletEnabled = false
-
             knetSelected = false
             creditCardEnabled = false
-
-            creditCardSelected = false
-            knetSelected = false
             adapter!!.notifyDataSetChanged()
         } else if (output.CAN_PAY != null && output.CAN_PAY == "YES") {
             giftCardApplied = true
             giftCardAppliedFull = true
             bankEnabled = false
             walletEnabled = false
-
             knetSelected = false
-            creditCardSelected = false
-            creditCardSelected = false
-            knetSelected = false
+            creditCardEnabled = false
             adapter!!.notifyDataSetChanged()
         }
         Constant.IntentKey.TimerExtandCheck = true
