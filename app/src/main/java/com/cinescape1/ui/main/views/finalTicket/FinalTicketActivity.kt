@@ -359,30 +359,36 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
             )
         }
 
-        if (output.food == 0) {
-            binding?.btnPreparedFood?.hide()
-            binding?.btnAddFood?.hide()
-            binding?.consFoodPickupId?.hide()
-        } else if (output.food == 1) {
-            binding?.btnPreparedFood?.hide()
-            binding?.btnAddFood?.show()
-            binding?.consFoodPickupId?.hide()
-        } else if (output.food == 2) {
-            binding?.btnPreparedFood?.show()
-            binding?.btnAddFood?.hide()
-            binding?.consFoodPickupId?.hide()
-            binding?.btnPreparedFood?.background =
-                ContextCompat.getDrawable(this@FinalTicketActivity, R.drawable.food_pickup_bg)
-            binding?.btnPreparedFood?.isClickable = false
-        } else if (output.food == 3) {
-            binding?.btnPreparedFood?.show()
-            binding?.btnAddFood?.hide()
-            binding?.consFoodPickupId?.hide()
-            binding?.btnPreparedFood?.isClickable = true
-        } else if (output.food == 4) {
-            binding?.btnPreparedFood?.hide()
-            binding?.btnAddFood?.hide()
-            binding?.consFoodPickupId?.show()
+        when (output.food) {
+            0 -> {
+                binding?.btnPreparedFood?.hide()
+                binding?.btnAddFood?.hide()
+                binding?.consFoodPickupId?.hide()
+            }
+            1 -> {
+                binding?.btnPreparedFood?.hide()
+                binding?.btnAddFood?.show()
+                binding?.consFoodPickupId?.hide()
+            }
+            2 -> {
+                binding?.btnPreparedFood?.show()
+                binding?.btnAddFood?.hide()
+                binding?.consFoodPickupId?.hide()
+                binding?.btnPreparedFood?.background =
+                    ContextCompat.getDrawable(this@FinalTicketActivity, R.drawable.food_pickup_bg)
+                binding?.btnPreparedFood?.isClickable = false
+            }
+            3 -> {
+                binding?.btnPreparedFood?.show()
+                binding?.btnAddFood?.hide()
+                binding?.consFoodPickupId?.hide()
+                binding?.btnPreparedFood?.isClickable = true
+            }
+            4 -> {
+                binding?.btnPreparedFood?.hide()
+                binding?.btnAddFood?.hide()
+                binding?.consFoodPickupId?.show()
+            }
         }
 
         //ALert Dialog
