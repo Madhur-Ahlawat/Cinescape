@@ -42,7 +42,6 @@ import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
 import com.cinescape1.ui.main.views.home.HomeActivity
-import com.cinescape1.ui.main.views.payment.PaymentMethodSealedClass
 import com.cinescape1.ui.main.views.payment.PaymentWebActivity
 import com.cinescape1.ui.main.views.payment.paymentList.adapter.ItemInfoPopupAdapter
 import com.cinescape1.ui.main.views.payment.paymentList.adapter.PaymentListAdapter
@@ -90,10 +89,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         var clickId = ""
         var offerId = ""
         var cardNo = ""
-        var knetClicked = false
         var knetSelected = false
         var creditCardSelected = false
-        var creditCardClicked = false
         var bankClicked = false
         var giftCardClicked = false
         var walletClicked = false
@@ -171,10 +168,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         clickId = ""
         offerId = ""
         cardNo = ""
-        knetClicked = false
         knetSelected = false
         creditCardSelected = false
-        creditCardClicked = false
         bankClicked = false
         giftCardClicked = false
         walletClicked = false
@@ -249,7 +244,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
 
         binding?.txtProceed?.setOnClickListener {
-            if (giftCardApplied && giftCardAppliedFull) {
+            if (giftCardApplied || giftCardAppliedFull) {
                 giftCardApply(
                     GiftCardRequest(
                         bookingId,
@@ -405,17 +400,21 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 binding?.textTotalAmount?.text = it.data.output.amount
                                 outputlist?.clear()
 
-                                creditCardClicked = true
+                                creditCardSelected = true
                                 creditCardEnabled=true
                                 bankApplied = true
 
-                                knetClicked = false
+                                knetSelected = false
                                 giftCardEnabled = false
                                 knetEnabled=false
                                 walletEnabled = false
+                                giftCardClicked=false
+                                walletClicked=false
                                 outputlist?.addAll(it.data.output.payInfo)
                                 adapter?.notifyDataSetChanged()
                             } else {
+                                giftCardClicked=false
+                                walletClicked=false
                                 Constant.CARD_NO = ""
                                 bankApplied = false
                                 spinnerClickable = true
@@ -434,6 +433,10 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         }
                     }
                     Status.ERROR -> {
+                        giftCardClicked=false
+                        walletClicked=false
+                        knetSelected=false
+                        creditCardSelected=false
                         Constant.CARD_NO = ""
                         LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
                         bankApplied = false
@@ -485,14 +488,13 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                creditCardClicked = false
+                                creditCardEnabled = false
                                 binding?.textTotalAmount?.text = it.data.output.amount
                                 bankApplied = false
                                 spinnerClickable = true
 
                                 giftCardEnabled = true
                                 walletEnabled = true
-
                                 creditCardEnabled=true
                                 knetEnabled=true
 
@@ -504,6 +506,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
                         bankApplied = false
                         spinnerClickable = true
+                        giftCardEnabled = true
+                        walletEnabled=true
                         val dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
@@ -1547,7 +1551,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
                             } else {
                                 LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
-
+                                giftCardApplied = false
+                                giftCardAppliedFull = false
                                 val dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
                                     R.string.app_name,
@@ -1600,8 +1605,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             bankEnabled = false
             walletEnabled = false
 
-            knetClicked = false
-            creditCardClicked = false
+            knetSelected = false
+            creditCardEnabled = false
 
             creditCardSelected = false
             knetSelected = false
@@ -1609,21 +1614,22 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             outputlist!!.clear()
             outputlist!!.addAll(output.payInfo)
             binding?.textTotalAmount?.text = output.amount
+            adapter!!.notifyDataSetChanged()
         } else if (output.CAN_PAY != null && output.CAN_PAY == "YES") {
             giftCardApplied = true
             giftCardAppliedFull = true
             bankEnabled = false
             walletEnabled = false
 
-            knetClicked = false
-            creditCardClicked = false
-
+            knetSelected = false
+            creditCardSelected = false
             creditCardSelected = false
             knetSelected = false
 
             outputlist!!.clear()
             outputlist!!.addAll(output.payInfo)
             binding?.textTotalAmount?.text = output.amount
+            adapter!!.notifyDataSetChanged()
         }
         Constant.IntentKey.TimerExtandCheck = true
         Constant.IntentKey.TimerExtand = 90
