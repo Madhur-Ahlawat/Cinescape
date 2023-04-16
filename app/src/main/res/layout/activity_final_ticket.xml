@@ -11,7 +11,7 @@
         android:id="@+id/uiFinalTaket"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -91,43 +91,6 @@
             app:layout_constraintTop_toTopOf="@+id/image_head"
             tools:drawableEnd="@drawable/ic_icon_checkmark_circle_outline" />
 
-        <View
-            android:id="@+id/view29"
-            android:layout_width="100dp"
-            android:layout_height="38dp"
-            android:layout_marginTop="-40dp"
-            android:layout_marginEnd="32dp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_head" />
-
-        <ImageView
-            android:id="@+id/imag_share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/contentDes"
-            android:paddingStart="@dimen/margin10"
-            android:paddingEnd="@dimen/margin10"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/view29"
-            app:layout_constraintEnd_toStartOf="@+id/tv_share"
-            app:layout_constraintTop_toTopOf="@+id/view29"
-            app:srcCompat="@drawable/ic_icon_feather_upload" />
-
-        <TextView
-            android:id="@+id/tv_share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/sf_pro_text_regular"
-            android:text="@string/share"
-            android:textColor="@color/hint_color"
-            android:textSize="@dimen/size14"
-            android:textStyle="normal"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/imag_share"
-            app:layout_constraintEnd_toEndOf="@+id/view29"
-            app:layout_constraintTop_toTopOf="@+id/imag_share" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/nestedScrollView"
@@ -163,13 +126,14 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ContentDescription" />
-
+<!--List Data-->
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginStart="27dp"
                     android:layout_marginEnd="27dp"
+                    android:layout_marginTop="-3dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -188,6 +152,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
                             android:layout_marginEnd="16dp"
                             android:paddingStart="@dimen/margin3"
                             android:paddingTop="@dimen/margin10"
@@ -209,7 +174,7 @@
                                 android:id="@+id/text_bookig_id_one"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
+                                android:includeFontPadding="false"
                                 android:fontFamily="@font/sf_pro_text_regular"
                                 android:text="@string/booking_id"
                                 android:textColor="@color/text_alert_color"
@@ -224,6 +189,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
+                                android:layout_marginTop="5dp"
                                 android:fontFamily="@font/sf_pro_text_bold"
                                 android:includeFontPadding="false"
                                 android:maxLines="2"
@@ -262,9 +228,8 @@
                                     android:id="@+id/textView163"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/margin8"
                                     android:fontFamily="@font/sf_pro_text_regular"
-                                    android:includeFontPadding="true"
+                                    android:includeFontPadding="false"
                                     android:text="@string/food_pickup_id"
                                     android:textColor="@color/hint_color"
                                     android:textSize="@dimen/size15"
@@ -292,6 +257,7 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/sf_pro_text_bold"
                                     android:includeFontPadding="false"
+                                    android:layout_marginTop="5dp"
                                     android:lineSpacingExtra="1sp"
                                     android:paddingTop="@dimen/margin2"
                                     android:textColor="@color/black"
@@ -354,7 +320,7 @@
                             android:id="@+id/view_bookin_line_one"
                             android:layout_width="wrap_content"
                             android:layout_height="1dp"
-                            android:layout_marginTop="28dp"
+                            android:layout_marginTop="18dp"
                             android:background="@color/view_bg_color_line"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -404,25 +370,27 @@
             app:srcCompat="@drawable/ic_back_button"
             app:layout_constraintStart_toStartOf="@+id/image_head"
             app:layout_constraintTop_toTopOf="@+id/image_head"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            app:tint="@color/white" />
 
         <View
             android:id="@+id/view102"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:rotation="180"
-            android:background="@drawable/ticket_confirmation_background_image_gradient"
+            android:background="@drawable/final_ticket_bg"
             app:layout_constraintBottom_toBottomOf="@+id/image_head"
             app:layout_constraintEnd_toEndOf="@+id/image_head"
             app:layout_constraintStart_toStartOf="@+id/image_head"
             app:layout_constraintTop_toTopOf="@+id/image_head" />
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="23dp"
+            android:layout_marginStart="25dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="23.5dp"
+            android:layout_marginEnd="25dp"
             app:cardPreventCornerOverlap="false"
             app:cardElevation="0dp"
             app:cardBackgroundColor="@color/transparent"
@@ -458,7 +426,7 @@
                     app:layout_constraintVertical_bias="0.0"
                     app:siArrowPosition="right"
                     app:siShape="@drawable/curve_ticket"
-                    app:siSquare="true"/>
+                    app:siSquare="true" />
 
                 <LinearLayout
                     android:visibility="gone"
@@ -513,6 +481,57 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/final_ticket_center_bg"
+            android:rotation="180"
+            app:layout_constraintBottom_toBottomOf="@+id/cardView"
+            app:layout_constraintEnd_toEndOf="@+id/cardView"
+            app:layout_constraintStart_toStartOf="@+id/cardView"
+            app:layout_constraintTop_toTopOf="@+id/cardView" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_head"
+            app:layout_constraintEnd_toEndOf="@+id/cardView">
+
+
+            <ImageView
+                android:id="@+id/imag_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/contentDes"
+                android:paddingStart="@dimen/margin10"
+                android:paddingEnd="@dimen/margin10"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_share"
+                app:layout_constraintEnd_toStartOf="@+id/tv_share"
+                app:layout_constraintTop_toTopOf="@+id/tv_share"
+                app:srcCompat="@drawable/ic_icon_feather_upload" />
+
+            <TextView
+                android:id="@+id/tv_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:text="@string/share"
+                android:textColor="@color/hint_color"
+                android:textSize="@dimen/size14"
+                android:textStyle="normal"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

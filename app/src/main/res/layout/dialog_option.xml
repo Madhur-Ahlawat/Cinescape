@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="@color/transparent"
+    android:background="@drawable/cancel_background"
     app:cardCornerRadius="@dimen/margin15"
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/seat">
+        android:background="@drawable/cancel_background">
 
         <ImageView
             android:id="@+id/illustration"

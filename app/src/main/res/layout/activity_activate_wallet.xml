@@ -87,7 +87,7 @@
 
     <View
         android:id="@+id/view78"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -104,234 +104,247 @@
         app:layout_constraintStart_toStartOf="@+id/view76"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout15" />
 
-    <TextView
-        android:id="@+id/textView68"
-        android:layout_width="wrap_content"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout37"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
-        android:text="@string/wallet_id"
-        android:textColor="@color/hint_color"
-        android:textSize="@dimen/size14"
-        app:layout_constraintBottom_toBottomOf="@+id/editText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view80" />
-
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/margin48"
-        android:layout_marginStart="32dp"
-        android:background="@null"
-        android:focusableInTouchMode="true"
-        android:fontFamily="@font/sf_pro_text_regular"
-        tools:hint=""
-        android:maxLength="16"
-        android:importantForAutofill="no"
-        android:inputType="number"
-        android:textColor="@color/white"
-        android:textColorHint="@color/hint_color"
-        android:textSize="@dimen/size14"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView68"
-        app:layout_constraintTop_toTopOf="@+id/view80"
-        tools:ignore="HardcodedText,LabelFor,TouchTargetSizeCheck" />
-
-    <View
-        android:id="@+id/view81"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/editColor"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/view80">
 
-    <TextView
-        android:id="@+id/textView69"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
-        android:text="@string/email"
-        android:textColor="@color/hint_color"
-        android:textSize="@dimen/size14"
-        app:layout_constraintBottom_toBottomOf="@+id/editText1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        <TextView
+            android:id="@+id/textView68"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:text="@string/wallet_id"
+            android:textColor="@color/hint_color"
+            android:textSize="@dimen/size14"
+            app:layout_constraintBottom_toBottomOf="@+id/editText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/margin48"
-        android:background="@null"
-        android:focusableInTouchMode="true"
-        android:fontFamily="@font/sf_pro_text_regular"
-        tools:hint=""
-        android:importantForAutofill="no"
-        android:inputType="textEmailAddress"
-        android:textColor="@color/white"
-        android:textColorHint="@color/hint_color"
-        android:textSize="@dimen/size14"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/editText"
-        app:layout_constraintTop_toBottomOf="@id/view81"
-        tools:ignore="HardcodedText,LabelFor,TouchTargetSizeCheck" />
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/margin48"
+            android:layout_marginStart="32dp"
+            android:background="@null"
+            android:focusableInTouchMode="true"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="16"
+            android:textColor="@color/white"
+            android:textColorHint="@color/hint_color"
+            android:textSize="@dimen/size14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView68"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:hint=""
+            tools:ignore="HardcodedText,LabelFor,TouchTargetSizeCheck" />
 
-    <View
-        android:id="@+id/view82"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/editColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText1" />
+        <View
+            android:id="@+id/view81"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/editColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText" />
 
-    <TextView
-        android:id="@+id/textView70"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
-        android:text="@string/password"
-        android:textColor="@color/hint_color"
-        android:textSize="@dimen/size14"
-        app:layout_constraintBottom_toBottomOf="@+id/editText2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editText2" />
+        <TextView
+            android:id="@+id/textView69"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:text="@string/email"
+            android:textColor="@color/hint_color"
+            android:textSize="@dimen/size14"
+            app:layout_constraintBottom_toBottomOf="@+id/editText1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/editText1" />
 
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/margin48"
-        android:background="@null"
-        android:focusableInTouchMode="true"
-        android:fontFamily="@font/sf_pro_text_regular"
-        tools:hint=""
-        android:importantForAutofill="no"
-        android:inputType="textPassword"
-        android:textColor="@color/white"
-        android:textColorHint="@color/hint_color"
-        android:textSize="@dimen/size14"
-        android:maxLength="20"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/editText1"
-        app:layout_constraintTop_toBottomOf="@id/view82"
-        tools:ignore="HardcodedText,LabelFor,TouchTargetSizeCheck" />
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/margin48"
+            android:background="@null"
+            android:focusableInTouchMode="true"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:importantForAutofill="no"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/white"
+            android:textColorHint="@color/hint_color"
+            android:textSize="@dimen/size14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/editText"
+            app:layout_constraintTop_toBottomOf="@id/view81"
+            tools:hint=""
+            tools:ignore="HardcodedText,LabelFor,TouchTargetSizeCheck" />
 
-    <View
-        android:id="@+id/view83"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/editColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        <View
+            android:id="@+id/view82"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/editColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText1" />
 
-    <TextView
-        android:id="@+id/textView71"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
-        android:text="@string/confirm_password"
-        android:textColor="@color/hint_color"
-        android:textSize="@dimen/size14"
-        app:layout_constraintBottom_toBottomOf="@+id/editText3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editText3" />
+        <TextView
+            android:id="@+id/textView70"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:text="@string/password"
+            android:textColor="@color/hint_color"
+            android:textSize="@dimen/size14"
+            app:layout_constraintBottom_toBottomOf="@+id/editText2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/editText2" />
 
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/margin48"
-        android:background="@null"
-        android:focusableInTouchMode="true"
-        android:fontFamily="@font/sf_pro_text_regular"
-        android:importantForAutofill="no"
-        android:inputType="textPassword"
-        android:maxLength="20"
-        android:textColor="@color/white"
-        android:textColorHint="@color/hint_color"
-        android:layout_marginStart="8dp"
-        android:textSize="@dimen/size14"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView71"
-        app:layout_constraintTop_toBottomOf="@id/view83"
-        tools:hint=""
-        tools:ignore="HardcodedText,LabelFor,TouchTargetSizeCheck" />
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/margin48"
+            android:background="@null"
+            android:focusableInTouchMode="true"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:maxLength="20"
+            android:textColor="@color/white"
+            android:textColorHint="@color/hint_color"
+            android:textSize="@dimen/size14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/editText1"
+            app:layout_constraintTop_toBottomOf="@id/view82"
+            tools:hint=""
+            tools:ignore="HardcodedText,LabelFor,TouchTargetSizeCheck" />
 
-    <View
-        android:id="@+id/view84"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/editColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText3" />
+        <View
+            android:id="@+id/view83"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/editColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText2" />
 
-    <TextView
-        android:id="@+id/textView72"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
-        android:text="@string/mobile"
-        android:textColor="@color/hint_color"
-        android:textSize="@dimen/size14"
-        app:layout_constraintBottom_toBottomOf="@+id/editText4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editText4" />
+        <TextView
+            android:id="@+id/textView71"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:text="@string/confirm_password"
+            android:textColor="@color/hint_color"
+            android:textSize="@dimen/size14"
+            app:layout_constraintBottom_toBottomOf="@+id/editText3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/editText3" />
 
-    <AutoCompleteTextView
-        android:id="@+id/editText4"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/margin48"
-        android:background="@drawable/a_edit_bg"
-        android:completionThreshold="1"
-        android:drawablePadding="10dp"
-        android:focusable="false"
-        android:focusableInTouchMode="true"
-        android:gravity="center"
-        android:paddingStart="@dimen/margin10"
-        android:paddingEnd="@dimen/margin10"
-        android:text=""
-        android:textColor="@color/text_color"
-        android:textColorHint="@color/arabic_color"
-        android:textSize="@dimen/size14"
-        app:drawableEndCompat="@drawable/ic_icons_light_next"
-        app:layout_constraintStart_toStartOf="@+id/editText3"
-        app:layout_constraintTop_toBottomOf="@id/view84"
-        tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/margin48"
+            android:layout_marginStart="8dp"
+            android:background="@null"
+            android:focusableInTouchMode="true"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:maxLength="20"
+            android:textColor="@color/white"
+            android:textColorHint="@color/hint_color"
+            android:textSize="@dimen/size14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView71"
+            app:layout_constraintTop_toBottomOf="@id/view83"
+            tools:hint=""
+            tools:ignore="HardcodedText,LabelFor,TouchTargetSizeCheck" />
+
+        <View
+            android:id="@+id/view84"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/editColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText3" />
+
+        <TextView
+            android:id="@+id/textView72"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:text="@string/mobile"
+            android:textColor="@color/hint_color"
+            android:textSize="@dimen/size14"
+            app:layout_constraintBottom_toBottomOf="@+id/editText4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/editText4" />
+
+        <AutoCompleteTextView
+            android:id="@+id/editText4"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/margin48"
+            android:background="@drawable/a_edit_bg"
+            android:completionThreshold="1"
+            android:drawablePadding="10dp"
+            android:focusable="false"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:paddingStart="@dimen/margin10"
+            android:paddingEnd="@dimen/margin10"
+            android:text=""
+            android:textColor="@color/text_color"
+            android:textColorHint="@color/arabic_color"
+            android:textSize="@dimen/size14"
+            app:drawableEndCompat="@drawable/ic_icons_light_next"
+            app:layout_constraintStart_toStartOf="@+id/editText3"
+            app:layout_constraintTop_toBottomOf="@id/view84"
+            tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
 
-    <EditText
-        android:id="@+id/editText6"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/margin48"
-        android:layout_marginStart="8dp"
-        android:background="@null"
-        android:focusableInTouchMode="true"
-        android:fontFamily="@font/sf_pro_text_regular"
-        tools:hint=""
-        android:importantForAutofill="no"
-        android:inputType="number"
-        android:textColor="@color/white"
-        android:textColorHint="@color/hint_color"
-        android:textSize="@dimen/size14"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editText4"
-        app:layout_constraintTop_toBottomOf="@id/view84"
-        tools:ignore="HardcodedText,LabelFor,TouchTargetSizeCheck" />
+        <EditText
+            android:id="@+id/editText6"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/margin48"
+            android:layout_marginStart="8dp"
+            android:background="@null"
+            android:focusableInTouchMode="true"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:textColor="@color/white"
+            android:textColorHint="@color/hint_color"
+            android:textSize="@dimen/size14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/editText4"
+            app:layout_constraintTop_toBottomOf="@id/view84"
+            tools:hint=""
+            tools:ignore="HardcodedText,LabelFor,TouchTargetSizeCheck" />
 
 
-    <View
-        android:id="@+id/view85"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/editColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
+        <View
+            android:id="@+id/view85"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/editColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText4" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <View
@@ -341,7 +354,7 @@
         android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view85" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout37" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout16"

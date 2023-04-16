@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/black"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,10 +42,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:adjustViewBounds="true"
-                android:visibility="invisible"
-                android:background="@drawable/movie_info_page_gradient"
+                android:visibility="visible"
+                android:background="@drawable/summery_img_bg"
                 android:contentDescription="@string/contentDes"
-                android:rotation="180"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +64,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/margin15"
+                android:layout_marginTop="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -88,8 +87,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="35dp"
-                    android:paddingEnd="@dimen/margin15"
                     android:paddingStart="@dimen/margin15"
+                    android:paddingEnd="@dimen/margin15"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -162,7 +161,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/view_food"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -368,9 +367,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/voucherUi"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@+id/priceView"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/priceView"
@@ -389,17 +388,17 @@
                         android:id="@+id/couponUi"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:baselineAligned="false"
                         android:orientation="horizontal"
-                        android:weightSum="3"
-                        android:baselineAligned="false">
+                        android:weightSum="3">
 
                         <LinearLayout
                             android:id="@+id/giftCardClick"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:orientation="horizontal"
-                            android:gravity="center">
+                            android:gravity="center"
+                            android:orientation="horizontal">
 
                             <ImageView
                                 android:id="@+id/imageView55"
@@ -410,13 +409,13 @@
 
                             <TextView
                                 android:id="@+id/textView152"
-                                android:layout_marginStart="@dimen/margin8"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin8"
+                                android:fontFamily="@font/sf_pro_text_regular"
                                 android:text="@string/gift_card"
-                                android:textSize="@dimen/size15"
                                 android:textColor="@color/hint_color"
-                                android:fontFamily="@font/sf_pro_text_regular" />
+                                android:textSize="@dimen/size15" />
 
 
                         </LinearLayout>
@@ -426,8 +425,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:orientation="horizontal"
-                            android:gravity="center">
+                            android:gravity="center"
+                            android:orientation="horizontal">
 
                             <ImageView
                                 android:id="@+id/imageView56"
@@ -438,13 +437,13 @@
 
                             <TextView
                                 android:id="@+id/textView153"
-                                android:layout_marginStart="@dimen/margin8"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin8"
+                                android:fontFamily="@font/sf_pro_text_regular"
                                 android:text="@string/voucher"
-                                android:textSize="@dimen/size15"
                                 android:textColor="@color/hint_color"
-                                android:fontFamily="@font/sf_pro_text_regular"/>
+                                android:textSize="@dimen/size15" />
 
                         </LinearLayout>
 
@@ -453,8 +452,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:orientation="horizontal"
-                            android:gravity="center">
+                            android:gravity="center"
+                            android:orientation="horizontal">
 
                             <ImageView
                                 android:id="@+id/imageView57"
@@ -465,13 +464,13 @@
 
                             <TextView
                                 android:id="@+id/textView154"
-                                android:layout_marginStart="@dimen/margin8"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin8"
+                                android:fontFamily="@font/sf_pro_text_regular"
                                 android:text="@string/promo"
-                                android:textSize="@dimen/size15"
                                 android:textColor="@color/hint_color"
-                                android:fontFamily="@font/sf_pro_text_regular" />
+                                android:textSize="@dimen/size15" />
 
                         </LinearLayout>
 
@@ -487,14 +486,14 @@
                         app:layout_constraintTop_toBottomOf="@+id/couponUi">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="32dp"
+                            android:background="@drawable/curve_offer"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/textView151"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/curve_offer"
-                            android:layout_marginEnd="32dp">
+                            app:layout_constraintTop_toTopOf="parent">
 
                             <EditText
                                 android:id="@+id/enterCode"
@@ -563,52 +562,52 @@
                     android:layout_height="1dp"
                     android:fontFamily="@font/sf_pro_text_bold"
                     android:gravity="center"
-                    android:visibility="gone"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size18"
                     android:textStyle="bold"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@+id/priceView"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/priceView"
                     app:layout_constraintTop_toBottomOf="@+id/text_food" />
 
                 <View
-                    android:visibility="gone"
                     android:id="@+id/viewWallet"
                     android:layout_width="0dp"
                     android:layout_height="90dp"
                     android:layout_marginTop="35dp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toStartOf="@+id/viewKnet"
                     app:layout_constraintStart_toStartOf="@+id/text_select_payment_method"
                     app:layout_constraintTop_toBottomOf="@+id/text_select_payment_method" />
 
                 <View
-                    android:visibility="gone"
                     android:id="@+id/viewKnet"
                     android:layout_width="0dp"
                     android:layout_height="90dp"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/viewWallet"
                     app:layout_constraintEnd_toStartOf="@+id/viewCreditCard"
                     app:layout_constraintStart_toEndOf="@+id/viewWallet"
                     app:layout_constraintTop_toTopOf="@+id/viewWallet" />
 
                 <View
-                    android:visibility="gone"
                     android:id="@+id/viewCreditCard"
                     android:layout_width="0dp"
                     android:layout_height="90dp"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/viewKnet"
                     app:layout_constraintEnd_toEndOf="@+id/text_select_payment_method"
                     app:layout_constraintStart_toEndOf="@+id/viewKnet"
                     app:layout_constraintTop_toTopOf="@+id/viewKnet" />
 
                 <ImageView
-                    android:visibility="gone"
                     android:id="@+id/imageCreditCard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:adjustViewBounds="true"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@+id/viewCreditCard"
                     app:layout_constraintStart_toStartOf="@+id/viewCreditCard"
                     app:layout_constraintTop_toTopOf="@+id/viewCreditCard"
@@ -616,7 +615,6 @@
                     tools:ignore="ContentDescription" />
 
                 <TextView
-                    android:visibility="gone"
                     android:id="@+id/textCreditCardName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -629,17 +627,18 @@
                     android:textColor="@color/hint_color"
                     android:textSize="@dimen/size16"
                     android:textStyle="normal"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@+id/viewCreditCard"
                     app:layout_constraintStart_toStartOf="@+id/viewCreditCard"
                     app:layout_constraintTop_toBottomOf="@+id/imageCreditCard" />
 
                 <ImageView
-                    android:visibility="gone"
                     android:id="@+id/imageKnet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:adjustViewBounds="true"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@+id/viewKnet"
                     app:layout_constraintStart_toStartOf="@+id/viewKnet"
                     app:layout_constraintTop_toTopOf="@+id/viewKnet"
@@ -647,7 +646,6 @@
                     tools:ignore="ContentDescription" />
 
                 <TextView
-                    android:visibility="gone"
                     android:id="@+id/textKnetName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -660,16 +658,17 @@
                     android:textColor="@color/hint_color"
                     android:textSize="@dimen/size16"
                     android:textStyle="normal"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@+id/viewKnet"
                     app:layout_constraintStart_toStartOf="@+id/viewKnet"
                     app:layout_constraintTop_toBottomOf="@+id/imageKnet" />
 
                 <ImageView
-                    android:visibility="gone"
                     android:id="@+id/imageWallet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@+id/viewWallet"
                     app:layout_constraintStart_toStartOf="@+id/viewWallet"
                     app:layout_constraintTop_toTopOf="@+id/viewWallet"
@@ -677,7 +676,6 @@
                     tools:ignore="ContentDescription" />
 
                 <TextView
-                    android:visibility="gone"
                     android:id="@+id/textWalletName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -690,12 +688,12 @@
                     android:textColor="@color/hint_color"
                     android:textSize="@dimen/size16"
                     android:textStyle="normal"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@+id/viewWallet"
                     app:layout_constraintStart_toStartOf="@+id/viewWallet"
                     app:layout_constraintTop_toBottomOf="@+id/imageWallet" />
 
                 <TextView
-                    android:visibility="gone"
                     android:id="@+id/textWalletKd"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -706,6 +704,7 @@
                     android:textColor="#adadad"
                     android:textSize="@dimen/size14"
                     android:textStyle="normal"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@+id/viewWallet"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/viewWallet"
@@ -713,21 +712,21 @@
                     tools:text="KD 65  Balance" />
 
                 <View
-                    android:visibility="gone"
                     android:id="@+id/vwLine1"
                     android:layout_width="1dp"
                     android:layout_height="0dp"
                     android:background="@color/view_bg_color_line"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/viewKnet"
                     app:layout_constraintStart_toEndOf="@+id/viewKnet"
                     app:layout_constraintTop_toTopOf="@+id/viewKnet" />
 
                 <View
-                    android:visibility="gone"
                     android:id="@+id/vvLine2"
                     android:layout_width="1dp"
                     android:layout_height="0dp"
                     android:background="@color/view_bg_color_line"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/viewWallet"
                     app:layout_constraintStart_toStartOf="@+id/textKnetName"
                     app:layout_constraintTop_toTopOf="@+id/viewWallet" />

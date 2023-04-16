@@ -64,7 +64,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/margin8"
                             android:ellipsize="end"
-                            android:fontFamily="@font/sf_pro_text_heavy"
+                            android:fontFamily="@font/sf_pro_text_bold"
                             android:gravity="start"
                             android:includeFontPadding="false"
                             android:maxLines="2"
@@ -545,7 +545,7 @@
                     android:visibility="visible"
                     app:drawableStartCompat="@drawable/ic_delete"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -561,7 +561,7 @@
                     android:visibility="visible"
                     app:drawableStartCompat="@drawable/food"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

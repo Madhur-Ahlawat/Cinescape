@@ -296,7 +296,7 @@
 
         <TextView
             android:id="@+id/text_kd_total_ticket_price1"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sf_pro_text_bold"
             android:letterSpacing="-0.01"
@@ -306,6 +306,7 @@
             android:textStyle="normal"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="@+id/view_total_tickect_price"
+            app:layout_constraintStart_toStartOf="@+id/text_total_ticket_price2"
             app:layout_constraintTop_toBottomOf="@+id/text_total_ticket_price2"
             tools:text="KD 30.750" />
 

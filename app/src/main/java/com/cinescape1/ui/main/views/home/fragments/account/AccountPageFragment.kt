@@ -3458,13 +3458,10 @@ class AccountPageFragment : DaggerFragment(),
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.cancel_dialog)
-        dialog.window?.setBackgroundDrawable(ColorDrawable(R.color.black50))
-        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
-        dialog.window!!.setGravity(Gravity.BOTTOM)
-
-        dialog.window!!.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
+        dialog.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
         )
+        dialog.window?.setBackgroundDrawable(ColorDrawable(R.color.black50))
         dialog.subtitle.text = getString(R.string.signout)
         dialog.show()
 

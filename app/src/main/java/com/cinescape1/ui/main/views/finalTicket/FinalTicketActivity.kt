@@ -23,6 +23,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.cinescape1.R
 import com.cinescape1.data.models.requestModel.*
 import com.cinescape1.data.models.responseModel.TicketSummaryResponse
@@ -40,6 +42,7 @@ import com.cinescape1.utils.*
 import com.cinescape1.utils.Constant.IntentKey.Companion.BACKFinlTicket
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.cancel_dialog.*
+import java.security.MessageDigest
 import javax.inject.Inject
 
 @Suppress("DEPRECATION")
@@ -256,7 +259,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
 
     private fun movedNext() {
         val someText = "Share Data"
-        binding?.view29?.setOnClickListener {
+        binding?.share?.setOnClickListener {
             val shareIntent = Intent(Intent.ACTION_SEND)
             shareIntent.type = "text/plain"
             shareIntent.putExtra(Intent.EXTRA_TEXT, someText)
@@ -443,11 +446,18 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
         }
         if (output.bookingType == "BOOKING") {
             binding?.imageView49?.let {
-                Glide.with(this).load(output.posterhori).placeholder(R.drawable.app_icon).into(it)
+                Glide.with(this)
+                    .load(output.posterhori)
+                    .transform(CutOffLogo())
+                    .placeholder(R.drawable.app_icon)
+                    .into(it)
             }
         } else {
             binding?.imageView49?.let {
-                Glide.with(this).load(output.posterhori).placeholder(R.drawable.food_final_icon)
+                Glide.with(this)
+                    .load(output.posterhori)
+                    .transform(CutOffLogo())
+                    .placeholder(R.drawable.food_final_icon)
                     .into(it)
             }
         }
@@ -770,6 +780,15 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
                 }
             }
         }
+    }
+    class CutOffLogo : BitmapTransformation() {
+        override fun transform(
+            pool: BitmapPool, toTransform: Bitmap, outWidth: Int, outHeight: Int
+        ): Bitmap = Bitmap.createBitmap(
+            toTransform, 0, 0, toTransform.width, toTransform.height - 250   // number of pixels
+        )
+
+        override fun updateDiskCacheKey(messageDigest: MessageDigest) {}
     }
 
 
