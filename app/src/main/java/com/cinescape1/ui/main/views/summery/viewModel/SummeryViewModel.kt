@@ -27,18 +27,6 @@ class SummeryViewModel @Inject constructor(private val repositories: Repositorie
             emit(Result.error(exception.message ?: "Error Occurred!", data = null))
         }
     }
-    private var _selectedpaymentMethod:MutableStateFlow<PaymentMethodSealedClass> = MutableStateFlow(PaymentMethodSealedClass.NONE)
-    val selectedpaymentMethod:StateFlow<PaymentMethodSealedClass> = _selectedpaymentMethod
-
-    fun setpaymentMethodSelectionStateFlow(paymentMethodEnum: PaymentMethodSealedClass){
-        _selectedpaymentMethod.value=paymentMethodEnum
-    }
-
-    var selectedPaymentMethod: PaymentMethodSealedClass =
-        PaymentMethodSealedClass.NONE
-    fun setPaymentMethodSelection(paymentMethodEnum: PaymentMethodSealedClass){
-        selectedPaymentMethod = paymentMethodEnum
-    }
     fun paymentList(request: TicketSummaryRequest) = liveData(Dispatchers.IO) {
         emit(Result.loading(data = null))
         try {

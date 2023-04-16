@@ -71,7 +71,7 @@ import javax.inject.Inject
 class PaymentListActivity : DaggerAppCompatActivity(),
     RecycleViewItemClickListener {
 
-    private var giftCardApplyRequest: GiftCardResponse.Output?=null
+    private var giftCardApplyRequest: GiftCardResponse.Output? = null
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -83,6 +83,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         var giftCardNumber: String = ""
         var voucherApplied: Boolean = false
         var giftCardApplied: Boolean = false
+        var giftCardAppliedFull: Boolean = false
         var selectedCardType: Int = -1
         var offerCode: String? = null
         var clickName = ""
@@ -97,6 +98,14 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         var giftCardClicked = false
         var walletClicked = false
         var walletApplied = false
+
+        var bankEnabled = true
+        var giftCardEnabled = true
+        var walletEnabled = true
+        var gatewayEnabled = true
+
+        var knetEnabled = true
+        var creditCardEnabled = true
     }
 
     @Inject
@@ -143,12 +152,19 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     private fun resetStaticFlags() {
+
+        bankEnabled = true
+        giftCardEnabled = true
+        walletEnabled = true
+        gatewayEnabled = true
+
         spinnerClickable = true
         bankApplied = false
         bankCardNumber = ""
         giftCardNumber = ""
         voucherApplied = false
         giftCardApplied = false
+        giftCardAppliedFull = false
         selectedCardType = -1
         offerCode = null
         clickName = ""
@@ -233,14 +249,14 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
 
         binding?.txtProceed?.setOnClickListener {
-            if(giftCardApplied && summeryViewModel.selectedPaymentMethod == PaymentMethodSealedClass.GIFT_CARD_COMPLETE){
+            if (giftCardApplied && giftCardAppliedFull) {
                 giftCardApply(
                     GiftCardRequest(
                         bookingId,
                         bookType,
                         offerCode!!,
                         transId,
-                        preferences.getString(Constant.USER_ID).toString(), giftCardApplied
+                        preferences.getString(Constant.USER_ID).toString(), giftCardAppliedFull
                     )
                 )
             }
@@ -388,17 +404,19 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 Constant.CARD_NO = bankOfferRequest.cardNo
                                 binding?.textTotalAmount?.text = it.data.output.amount
                                 outputlist?.clear()
+
                                 creditCardClicked = true
-                                knetClicked = false
+                                creditCardEnabled=true
                                 bankApplied = true
+
+                                knetClicked = false
+                                giftCardEnabled = false
+                                knetEnabled=false
+                                walletEnabled = false
                                 outputlist?.addAll(it.data.output.payInfo)
-                                summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.CREDIT_CARD)
                                 adapter?.notifyDataSetChanged()
                             } else {
                                 Constant.CARD_NO = ""
-                                summeryViewModel.setpaymentMethodSelectionStateFlow(
-                                    PaymentMethodSealedClass.NONE
-                                )
                                 bankApplied = false
                                 spinnerClickable = true
                                 val dialog = OptionDialog(this,
@@ -471,6 +489,13 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 binding?.textTotalAmount?.text = it.data.output.amount
                                 bankApplied = false
                                 spinnerClickable = true
+
+                                giftCardEnabled = true
+                                walletEnabled = true
+
+                                creditCardEnabled=true
+                                knetEnabled=true
+
                                 adapter?.notifyDataSetChanged()
                             }
                         }
@@ -1328,7 +1353,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     bookType,
                     offerCode,
                     transId,
-                    preferences.getString(Constant.USER_ID).toString(),false
+                    preferences.getString(Constant.USER_ID).toString(), false
                 )
             )
         } else if (clickName == "Voucher") {
@@ -1339,7 +1364,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     bookType,
                     offerCode,
                     transId,
-                    preferences.getString(Constant.USER_ID).toString(),false
+                    preferences.getString(Constant.USER_ID).toString(), false
                 )
             )
         }
@@ -1358,7 +1383,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     bookType,
                     offerCode,
                     transId,
-                    preferences.getString(Constant.USER_ID).toString(),false
+                    preferences.getString(Constant.USER_ID).toString(), false
                 )
             )
         } else if (clickName == "Voucher") {
@@ -1495,19 +1520,9 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     ) {
         outputlist!!.clear()
         giftCardApplied = false
+        giftCardAppliedFull = false
         outputlist!!.addAll(output.payInfo)
         binding?.textTotalAmount?.text = output.amount
-//        apply.show()
-//        imageCheck.hide()
-//        remove.hide()
-//
-//        outputlist?.clear()
-//        outputlist?.addAll(output.payInfo)
-//        offerEditText.text.clear()
-//        offerEditText.isClickable = true
-//        offerEditText.isEnabled = true
-//        offerEditText.isFocusable = true
-//        et_enter_card_number.isFocusableInTouchMode = true
         adapter?.notifyDataSetChanged()
     }
 
@@ -1527,7 +1542,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                         it.data.output
                                     )
                                 } catch (e: Exception) {
-                                    giftCardApplied = false
                                     println("updateUiCinemaSession ---> ${e.message}")
                                 }
 
@@ -1548,7 +1562,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         }
                     }
                     Status.ERROR -> {
-                        giftCardApplied = false
                         LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
                         val dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
@@ -1574,42 +1587,43 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     private fun retrieveDataGiftCard(
         output: GiftCardResponse.Output
     ) {
-        giftCardApplyRequest=output
-        if (output.PAID!=null && output.PAID == "NO") {
-            summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.GIFT_CARD_PARTIAL)
+        giftCardApplyRequest = output
+        if (output.PAID != null && output.PAID == "NO") {
             outputlist!!.clear()
             giftCardApplied = true
+            giftCardAppliedFull = false
             outputlist!!.addAll(output.payInfo)
             binding?.textTotalAmount?.text = output.amount
-        } else if(output.PAID !=null && output.PAID == "YES") {
-            summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.GIFT_CARD_COMPLETE)
+        } else if (output.PAID != null && output.PAID == "YES") {
             giftCardApplied = true
-            outputlist!!.clear()
-            outputlist!!.addAll(output.payInfo)
-            binding?.textTotalAmount?.text = output.amount
-            //show cancel button
-            //hide apply button
-            //enable input
-            //show offer applied label
-//            val intent = Intent(applicationContext, FinalTicketActivity::class.java)
-//            intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
-//            intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
-//            startActivity(intent)
-        }
-        else if (output.CAN_PAY != null && output.CAN_PAY == "YES") {
-            summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.GIFT_CARD_COMPLETE)
-            giftCardApplied = true
+            giftCardAppliedFull = true
+            bankEnabled = false
+            walletEnabled = false
+
+            knetClicked = false
+            creditCardClicked = false
+
+            creditCardSelected = false
+            knetSelected = false
+
             outputlist!!.clear()
             outputlist!!.addAll(output.payInfo)
             binding?.textTotalAmount?.text = output.amount
-            //show cancel button
-            //hide apply button
-            //enable input
-            //show offer applied label
-//            val intent = Intent(applicationContext, FinalTicketActivity::class.java)
-//            intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
-//            intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
-//            startActivity(intent)
+        } else if (output.CAN_PAY != null && output.CAN_PAY == "YES") {
+            giftCardApplied = true
+            giftCardAppliedFull = true
+            bankEnabled = false
+            walletEnabled = false
+
+            knetClicked = false
+            creditCardClicked = false
+
+            creditCardSelected = false
+            knetSelected = false
+
+            outputlist!!.clear()
+            outputlist!!.addAll(output.payInfo)
+            binding?.textTotalAmount?.text = output.amount
         }
         Constant.IntentKey.TimerExtandCheck = true
         Constant.IntentKey.TimerExtand = 90
