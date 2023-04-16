@@ -23,7 +23,7 @@
         android:id="@+id/textView37"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="25dp"
         android:includeFontPadding="false"
         android:fontFamily="@font/sf_pro_text_regular"
         android:textColor="#A6ADB4"

@@ -449,7 +449,8 @@ class HomeActivity : DaggerAppCompatActivity(),
                 mDialogView.text_bombshell.text = output.output[0].moviename
                 mDialogView.text13.text = output.output[0].mcensor
 
-                Glide.with(this).load(output.output[0].posterhori).transform(CutOffLogo())
+                Glide.with(this).load(output.output[0].posterhori)
+                    .transform(CutOffLogo())
                     .placeholder(R.drawable.placeholder_movie_alert_poster)
                     .into(mDialogView.image_booking_alert)
 

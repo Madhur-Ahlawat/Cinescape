@@ -75,7 +75,6 @@ import kotlinx.android.synthetic.main.account_refund_layout.*
 import kotlinx.android.synthetic.main.alert_booking.view.*
 import kotlinx.android.synthetic.main.cancel_dialog.*
 import kotlinx.android.synthetic.main.cancel_dialog.consSure
-import kotlinx.android.synthetic.main.cancel_dialog.imageBackground
 import kotlinx.android.synthetic.main.cancel_dialog.subtitle
 import kotlinx.android.synthetic.main.cancel_dialog.view.*
 import kotlinx.android.synthetic.main.change_password.*
@@ -200,7 +199,8 @@ class AccountPageFragment : DaggerFragment(),
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?): View {
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentAccountPageBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
         return view!!
@@ -504,7 +504,7 @@ class AccountPageFragment : DaggerFragment(),
         countryCode = preferences.getString(Constant.COUNTRY_CODE).toString()
         dob = preferences.getString(Constant.USER_DOB).toString()
         type = preferences.getString(Constant.TYPE_LOGIN).toString()
-        binding?.textUserAccountName?.text =Constant().toCamelCase("$firstName $lastName")
+        binding?.textUserAccountName?.text = Constant().toCamelCase("$firstName $lastName")
 
 //        binding?.textUserAccountName?.text = "$firstName $lastName"
         println("ProfileUserName21---------->${userName}")
@@ -572,8 +572,7 @@ class AccountPageFragment : DaggerFragment(),
             binding?.viewPreference?.isFocusable = false
             binding?.viewPreference?.isClickable = false
 
-        }
-        else {
+        } else {
 
             binding?.textWalletUserId?.show()
             binding?.textUserWalletKd?.show()
@@ -1017,7 +1016,9 @@ class AccountPageFragment : DaggerFragment(),
                     negativeClick = {
                     })
                 dialog.show()
-            } else if (binding?.includeProfile?.enterMobileNumberAccount?.text.toString().trim() == "") {
+            } else if (binding?.includeProfile?.enterMobileNumberAccount?.text.toString()
+                    .trim() == ""
+            ) {
                 val dialog = OptionDialog(requireActivity(),
                     R.mipmap.ic_launcher,
                     R.string.app_name,
@@ -1041,20 +1042,22 @@ class AccountPageFragment : DaggerFragment(),
                     negativeClick = {
                     })
                 dialog.show()
-            } else if (binding?.includeProfile?.enterCity?.text.toString().trim() == "") {
-                val dialog = OptionDialog(requireActivity(),
-                    R.mipmap.ic_launcher,
-                    R.string.app_name,
-                    resources.getString(R.string.enterCity),
-                    positiveBtnText = R.string.ok,
-                    negativeBtnText = R.string.no,
-                    positiveClick = {
-                    },
-                    negativeClick = {
-                    })
-                dialog.show()
-
-            } else if (data(enter_date_births.text.toString()) < 12) {
+            }
+//            else if (binding?.includeProfile?.enterCity?.text.toString().trim() == "") {
+//                val dialog = OptionDialog(requireActivity(),
+//                    R.mipmap.ic_launcher,
+//                    R.string.app_name,
+//                    resources.getString(R.string.enterCity),
+//                    positiveBtnText = R.string.ok,
+//                    negativeBtnText = R.string.no,
+//                    positiveClick = {
+//                    },
+//                    negativeClick = {
+//                    })
+//                dialog.show()
+//
+//            }
+            else if (data(enter_date_births.text.toString()) < 12) {
                 val dialog = OptionDialog(requireActivity(),
                     R.mipmap.ic_launcher,
                     R.string.app_name,
@@ -1164,7 +1167,13 @@ class AccountPageFragment : DaggerFragment(),
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.change_password)
         dialog.window?.setBackgroundDrawable(ColorDrawable(R.color.black50))
-
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
+        dialog.window!!.setGravity(Gravity.BOTTOM)
+        dialog.negative_btn?.text = getString(R.string.proceed)
+        if (isAdded) {
+            dialog.show()
+        }
         dialog.window!!.setLayout(
             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
         )
@@ -1251,13 +1260,6 @@ class AccountPageFragment : DaggerFragment(),
         }
 
 
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
-        dialog.window!!.setGravity(Gravity.BOTTOM)
-        if (isAdded) {
-            dialog.show()
-        }
-        dialog.negative_btn?.text = getString(R.string.proceed)
         dialog.consSure?.setOnClickListener {
             dialog.dismiss()
         }
@@ -1684,7 +1686,6 @@ class AccountPageFragment : DaggerFragment(),
     }
 
 
-
     private fun cinemaResponse() {
         accountFragViewModel.foodResponse().observe(requireActivity()) {
             it?.let { resource ->
@@ -1735,6 +1736,7 @@ class AccountPageFragment : DaggerFragment(),
                 ) {
                     cinema = locationlist[position].name
                 }
+
                 override fun onNothingSelected(parent: AdapterView<*>) {
 
                 }
@@ -1815,8 +1817,8 @@ class AccountPageFragment : DaggerFragment(),
     private fun setSeatCategoryFlexbox(layout: FlexboxLayout, seatCategory: String) {
 
         val list: ArrayList<ModelPreferenceCategory> = arrayListOf(
-            ModelPreferenceCategory(R.drawable.family_icons,getString(R.string.family),0),
-            ModelPreferenceCategory(R.drawable.family_normal_icon,getString(R.string.bachlor),0)
+            ModelPreferenceCategory(R.drawable.family_icons, getString(R.string.family), 0),
+            ModelPreferenceCategory(R.drawable.family_normal_icon, getString(R.string.bachlor), 0)
         )
 
         val listFA: ArrayList<ModelSeatCategoryFA> =
@@ -1961,7 +1963,7 @@ class AccountPageFragment : DaggerFragment(),
 
                 if (Constant.seatCategoryList.contains(item.cateTypeText)) {
                     if (item.cateTypeText == resources.getString(R.string.family)) {
-                        Constant.seatCategoryList.removeAll{it == item.cateTypeText}
+                        Constant.seatCategoryList.removeAll { it == item.cateTypeText }
 
                         for (items in listFN) {
                             println("SeatListClick22222 ------------->listFN3")
@@ -1971,7 +1973,7 @@ class AccountPageFragment : DaggerFragment(),
                     }
 
                     if (item.cateTypeText == resources.getString(R.string.bachlor)) {
-                        Constant.seatCategoryList.removeAll{it == item.cateTypeText}
+                        Constant.seatCategoryList.removeAll { it == item.cateTypeText }
 
                         for (items in listBN) {
                             println("SeatListClick22222 ------------->listFN3")
@@ -2027,8 +2029,9 @@ class AccountPageFragment : DaggerFragment(),
     @SuppressLint("InflateParams", "CutPasteId")
     private fun setSeatTypeFlexbox(layout: FlexboxLayout, seatType: String) {
         val list: ArrayList<ModelPreferenceType> = arrayListOf(
-            ModelPreferenceType(getString(R.string.standards),0),
-            ModelPreferenceType(getString(R.string.premiums),0))
+            ModelPreferenceType(getString(R.string.standards), 0),
+            ModelPreferenceType(getString(R.string.premiums), 0)
+        )
 
         layout.removeAllViews()
         val viewListForSeatType = ArrayList<View>()
@@ -2038,12 +2041,12 @@ class AccountPageFragment : DaggerFragment(),
             val imgSeatSelectiopn: ImageView = v.findViewById(R.id.imgSeatSelectiopn) as ImageView
 
 
-                if (type_item.seatType == getString(R.string.standards)){
-                    imgSeatSelectiopn.setImageResource(R.drawable.standard_white)
-                }else{
+            if (type_item.seatType == getString(R.string.standards)) {
+                imgSeatSelectiopn.setImageResource(R.drawable.standard_white)
+            } else {
 
-                    imgSeatSelectiopn.setImageResource(R.drawable.premium_white)
-                }
+                imgSeatSelectiopn.setImageResource(R.drawable.premium_white)
+            }
 
             seatAbility = if (type_item.count > 0) {
                 1
@@ -2066,7 +2069,8 @@ class AccountPageFragment : DaggerFragment(),
 
                 imgSeatSelectiopn.setColorFilter(
                     getColor(requireContext(), R.color.text_alert_color_red),
-                    android.graphics.PorterDuff.Mode.MULTIPLY)
+                    android.graphics.PorterDuff.Mode.MULTIPLY
+                )
 
             } else {
 
@@ -2074,14 +2078,16 @@ class AccountPageFragment : DaggerFragment(),
 
                 imgSeatSelectiopn.setColorFilter(
                     getColor(requireContext(), R.color.hint_color),
-                    android.graphics.PorterDuff.Mode.MULTIPLY)
+                    android.graphics.PorterDuff.Mode.MULTIPLY
+                )
             }
 
             v.setOnClickListener {
                 for (v in viewListForSeatType) {
                     println("SeatListClick21No ------------->${type_item.seatType}")
                     val typeName1: TextView = v.findViewById(R.id.tv_seat_selectiopn) as TextView
-                    val imgSeatSelectiopn1: ImageView = v.findViewById(R.id.imgSeatSelectiopn) as ImageView
+                    val imgSeatSelectiopn1: ImageView =
+                        v.findViewById(R.id.imgSeatSelectiopn) as ImageView
                     typeName1.setTextColor(
                         ContextCompat.getColorStateList(
                             requireContext(),
@@ -2091,20 +2097,27 @@ class AccountPageFragment : DaggerFragment(),
 
                     imgSeatSelectiopn1.setColorFilter(
                         getColor(requireContext(), R.color.hint_color),
-                        android.graphics.PorterDuff.Mode.MULTIPLY)
+                        android.graphics.PorterDuff.Mode.MULTIPLY
+                    )
 
                 }
 
                 println("SeatListClick21Yes ------------->${type_item.seatType}")
 
                 if (Constant.seatTypeList.contains(type_item.seatType)) {
-                    Constant.seatTypeList.removeAll{it == type_item.seatType}
+                    Constant.seatTypeList.removeAll { it == type_item.seatType }
 
-                    typeName.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.hint_color))
+                    typeName.setTextColor(
+                        ContextCompat.getColorStateList(
+                            requireContext(),
+                            R.color.hint_color
+                        )
+                    )
 
                     imgSeatSelectiopn.setColorFilter(
                         getColor(requireContext(), R.color.hint_color),
-                        android.graphics.PorterDuff.Mode.MULTIPLY)
+                        android.graphics.PorterDuff.Mode.MULTIPLY
+                    )
 
                 } else {
 
@@ -2117,11 +2130,14 @@ class AccountPageFragment : DaggerFragment(),
 
                     typeName.setTextColor(
                         ContextCompat.getColorStateList(
-                            requireContext(), R.color.text_alert_color_red))
+                            requireContext(), R.color.text_alert_color_red
+                        )
+                    )
 
                     imgSeatSelectiopn.setColorFilter(
                         getColor(requireContext(), R.color.text_alert_color_red),
-                        android.graphics.PorterDuff.Mode.MULTIPLY)
+                        android.graphics.PorterDuff.Mode.MULTIPLY
+                    )
 
                     println("SeatListClick21Yes ------------->${type_item.seatType}")
                 }
@@ -2133,7 +2149,8 @@ class AccountPageFragment : DaggerFragment(),
     @SuppressLint("InflateParams")
     private fun setExperienceFlexbox(
         layout: FlexboxLayout,
-        experience: ArrayList<ProfileResponse.Output.Experience>) {
+        experience: ArrayList<ProfileResponse.Output.Experience>
+    ) {
 
         val list4dx: ArrayList<ModelExperiences> =
             arrayListOf(ModelExperiences(R.drawable.fourdx_white))
@@ -2174,14 +2191,16 @@ class AccountPageFragment : DaggerFragment(),
 //                    experienceName.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.four_dx))
 //                    experienceName.setImageResource(R.drawable.four_dx)
 
-                    Glide.with(this).load(list4dx[0].imgCate).placeholder(R.drawable.four_dx).into(experienceName)
+                    Glide.with(this).load(list4dx[0].imgCate).placeholder(R.drawable.four_dx)
+                        .into(experienceName)
                 }
                 "STANDARD" -> {
 //                    experienceName.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.standard))
 //                    experienceName.setImageResource(R.drawable.standard)
 
                     for (items in listStandard) {
-                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.standard).into(experienceName)
+                        Glide.with(this).load(items.imgCate).placeholder(R.drawable.standard)
+                            .into(experienceName)
                     }
 
                 }
@@ -2257,7 +2276,8 @@ class AccountPageFragment : DaggerFragment(),
             if (data.likes) {
                 experienceName.setColorFilter(
                     getColor(requireContext(), R.color.text_alert_color_red),
-                    android.graphics.PorterDuff.Mode.MULTIPLY)
+                    android.graphics.PorterDuff.Mode.MULTIPLY
+                )
 
                 println("ExperienceLikes----->${data.name}---->${data.likes}")
                 Constant.experience.add(data.name)
@@ -2265,7 +2285,8 @@ class AccountPageFragment : DaggerFragment(),
             } else {
                 experienceName.setColorFilter(
                     getColor(requireContext(), R.color.hint_color),
-                    android.graphics.PorterDuff.Mode.MULTIPLY)
+                    android.graphics.PorterDuff.Mode.MULTIPLY
+                )
             }
 
             v.setOnClickListener {
@@ -2280,11 +2301,12 @@ class AccountPageFragment : DaggerFragment(),
                 }
 
                 if (Constant.experience.contains(data.name)) {
-                    Constant.experience.removeAll{it == data.name}
+                    Constant.experience.removeAll { it == data.name }
 
                     experienceName.setColorFilter(
                         getColor(requireContext(), R.color.hint_color),
-                        android.graphics.PorterDuff.Mode.MULTIPLY)
+                        android.graphics.PorterDuff.Mode.MULTIPLY
+                    )
                 } else {
                     clickAdd = 0
                     Constant.experience.add(data.name)
@@ -2292,8 +2314,10 @@ class AccountPageFragment : DaggerFragment(),
 //                    Constant.experienceList.add(data.name)
 
                     experienceName.setColorFilter(
-                        getColor(requireContext(), R.color.text_alert_color_red
-                        ), android.graphics.PorterDuff.Mode.MULTIPLY)
+                        getColor(
+                            requireContext(), R.color.text_alert_color_red
+                        ), android.graphics.PorterDuff.Mode.MULTIPLY
+                    )
                     println("ExperienceRed--->${data.name}")
 
                 }
@@ -2319,7 +2343,8 @@ class AccountPageFragment : DaggerFragment(),
     val viewListForSeatAgeRating = ArrayList<String>()
     private fun setAgeRatingFlexbox(
         layout: FlexboxLayout,
-        rating: List<ProfileResponse.Output.Rating>) {
+        rating: List<ProfileResponse.Output.Rating>
+    ) {
 
         layout.removeAllViews()
 
@@ -2349,7 +2374,7 @@ class AccountPageFragment : DaggerFragment(),
             v.setOnClickListener {
 
                 if (Constant.ageRating.contains(age_rating_item.name)) {
-                    Constant.ageRating.removeAll {it ==  age_rating_item.name }
+                    Constant.ageRating.removeAll { it == age_rating_item.name }
 
                     ageRatingName.setTextColor(getColor(requireContext(), R.color.hint_color))
 
@@ -2369,23 +2394,6 @@ class AccountPageFragment : DaggerFragment(),
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     //payments
@@ -2983,14 +2991,6 @@ class AccountPageFragment : DaggerFragment(),
     }
 
 
-
-
-
-
-
-
-
-
     ////////////////////////       country Code Data              ////////////////////
     private fun countryCodeLoad() {
         accountFragViewModel.countryCode(requireActivity()).observe(requireActivity()) {
@@ -3245,16 +3245,6 @@ class AccountPageFragment : DaggerFragment(),
     }
 
 
-
-
-
-
-
-
-
-
-
-
     //////////////////////////////       Bookings    ///////////////////////////////////////////
 
     private fun myNextBooking(request: NextBookingsRequest) {
@@ -3316,7 +3306,6 @@ class AccountPageFragment : DaggerFragment(),
             binding?.recyclerviewBooking?.show()
         }
     }
-
 
 
     //////////////////////////////       Profile    ///////////////////////////////////////////
@@ -3405,7 +3394,8 @@ class AccountPageFragment : DaggerFragment(),
         enter_city.setText(output.city)
         enter_date_births.text = output.dob
 
-        binding?.textUserAccountName?.text =Constant().toCamelCase(output.firstName + " " + output.lastName)
+        binding?.textUserAccountName?.text =
+            Constant().toCamelCase(output.firstName + " " + output.lastName)
 
 
         if (output.userName.isNullOrEmpty()) {
@@ -3463,19 +3453,19 @@ class AccountPageFragment : DaggerFragment(),
         Constant.taglist.add(view)
     }
 
+    @SuppressLint("ResourceAsColor")
     private fun signOut() {
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.cancel_dialog)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(R.color.black50))
+        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
+        dialog.window!!.setGravity(Gravity.BOTTOM)
 
         dialog.window!!.setLayout(
             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
-        dialog.window!!.setGravity(Gravity.CENTER)
         dialog.subtitle.text = getString(R.string.signout)
-        dialog.imageBackground.setImageResource(R.drawable.cancel_background)
         dialog.show()
 
         dialog.consSure?.setOnClickListener {
@@ -3795,7 +3785,9 @@ class AccountPageFragment : DaggerFragment(),
                 foodPrepareItem.bookingId,
                 "",
                 0,
-                preferences.getString(Constant.USER_ID)!!))
+                preferences.getString(Constant.USER_ID)!!
+            )
+        )
 
     }
 

@@ -43,7 +43,7 @@
         android:textColor="#A6ADB4"
         android:textSize="@dimen/size14"
         android:visibility="gone"
-        android:textColorLink="@color/blue"
+        android:textColorLink="@color/white"
         android:justificationMode="inter_word"
         android:autoLink="web"
         android:linksClickable="true"

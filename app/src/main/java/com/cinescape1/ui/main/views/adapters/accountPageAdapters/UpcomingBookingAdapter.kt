@@ -3,6 +3,7 @@ package com.cinescape1.ui.main.views.adapters.accountPageAdapters
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Build
 import android.text.Html
@@ -17,14 +18,18 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.NextBookingResponse
 import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
 import com.cinescape1.ui.main.views.food.FoodActivity
+import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
 import kotlinx.android.synthetic.main.alert_booking.view.*
+import java.security.MessageDigest
 
 class UpcomingBookingAdapter(
     private val context: Context,
@@ -49,9 +54,12 @@ class UpcomingBookingAdapter(
         holder.textNameMovie.isSelected = true
 
 
+
+        println("poster images")
         Glide.with(mContext)
             .load(foodSelctedItem.posterhori)
-            .placeholder(R.drawable.pos_not_avilbale)
+            .transform(CutOffLogo())
+            .placeholder(R.drawable.app_icon)
             .into(holder.thumbnail)
 
         holder.textNameMovie.text = foodSelctedItem.moviename
@@ -299,4 +307,14 @@ class UpcomingBookingAdapter(
         var resendMail: TextView = view.findViewById(R.id.imageView32)
 
     }
+    class CutOffLogo : BitmapTransformation() {
+        override fun transform(
+            pool: BitmapPool, toTransform: Bitmap, outWidth: Int, outHeight: Int
+        ): Bitmap = Bitmap.createBitmap(
+            toTransform, 0, 0, toTransform.width, toTransform.height - 350   // number of pixels
+        )
+
+        override fun updateDiskCacheKey(messageDigest: MessageDigest) {}
+    }
+
 }

@@ -12,13 +12,12 @@
     <ImageView
         android:id="@+id/imageView7"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_bias="0.0"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
         android:contentDescription="@string/contentDes"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout11"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/bombshell_alert" />
@@ -71,7 +70,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/constraintLayout18"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="klkllkmhjshf hshf hshd ndud jjsjd jsjdf jusj " />
+                tools:text="klkllkmhjshf hshf " />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/constraintLayout18"
@@ -81,6 +80,7 @@
                 android:gravity="bottom"
                 app:layout_alignSelf="stretch"
                 android:maxLines="1"
+                android:layout_marginBottom="@dimen/margin3"
                 android:layout_marginEnd="@dimen/margin4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="@+id/text_name_movie">
@@ -185,7 +185,7 @@
             android:id="@+id/view_date"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -348,6 +348,7 @@
             android:id="@+id/view_food_pickup_info_btn"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="3dp"
             app:layout_constraintBottom_toBottomOf="@+id/view_times1"
             app:layout_constraintEnd_toEndOf="@+id/view33_experience"
             app:layout_constraintHorizontal_weight="1.6"
@@ -356,13 +357,12 @@
 
         <ImageView
             android:id="@+id/text_ss"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:adjustViewBounds="true"
+            android:src="@drawable/standard_gray"
             android:visibility="visible"
-            android:layout_marginEnd="@dimen/margin4"
-            app:layout_constraintEnd_toEndOf="@+id/view33_experience"
-            app:layout_constraintStart_toEndOf="@+id/tv_no_of_screen"
+            app:layout_constraintStart_toStartOf="@+id/text_experience2"
             app:layout_constraintTop_toBottomOf="@+id/text_experience2"
             tools:ignore="ContentDescription" />
 
@@ -370,8 +370,10 @@
             android:id="@+id/food_pickup_btn"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/curv_bt"
             android:drawablePadding="@dimen/margin9"
+            android:layout_marginTop="2dp"
             android:fontFamily="@font/sf_pro_text_regular"
             android:gravity="center"
             android:paddingStart="@dimen/margin6"
@@ -381,12 +383,11 @@
             android:text="@string/prepare_food"
             android:textColor="@color/white"
             android:textSize="@dimen/size13"
-            android:visibility="visible"
+            android:visibility="gone"
             app:drawableStartCompat="@drawable/ic_food"
             app:drawableTint="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/text_times2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/view_food_pickup_info_btn"
+            app:layout_constraintEnd_toEndOf="@+id/view31"
             app:layout_constraintTop_toTopOf="@+id/view_times1" />
 
         <TextView
@@ -394,6 +395,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin1"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/curv_bt"
             android:drawablePadding="@dimen/margin9"
             android:fontFamily="@font/sf_pro_text_regular"
@@ -405,11 +407,10 @@
             android:text="@string/add_food"
             android:textColor="@color/white"
             android:textSize="@dimen/size13"
-            android:visibility="gone"
+            android:visibility="visible"
             app:drawableStartCompat="@drawable/ic_food"
             app:drawableTint="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/view_food_pickup_info_btn"
+            app:layout_constraintEnd_toEndOf="@+id/view31"
             app:layout_constraintTop_toTopOf="@+id/view_food_pickup_info_btn" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
