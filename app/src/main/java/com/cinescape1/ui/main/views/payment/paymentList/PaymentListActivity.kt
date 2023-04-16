@@ -244,7 +244,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
 
         binding?.txtProceed?.setOnClickListener {
-            if (giftCardApplied || giftCardAppliedFull) {
+            if (giftCardAppliedFull) {
                 giftCardApply(
                     GiftCardRequest(
                         bookingId,
@@ -1610,10 +1610,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
             creditCardSelected = false
             knetSelected = false
-
-            outputlist!!.clear()
-            outputlist!!.addAll(output.payInfo)
-            binding?.textTotalAmount?.text = output.amount
             adapter!!.notifyDataSetChanged()
         } else if (output.CAN_PAY != null && output.CAN_PAY == "YES") {
             giftCardApplied = true
@@ -1625,10 +1621,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             creditCardSelected = false
             creditCardSelected = false
             knetSelected = false
-
-            outputlist!!.clear()
-            outputlist!!.addAll(output.payInfo)
-            binding?.textTotalAmount?.text = output.amount
             adapter!!.notifyDataSetChanged()
         }
         Constant.IntentKey.TimerExtandCheck = true
