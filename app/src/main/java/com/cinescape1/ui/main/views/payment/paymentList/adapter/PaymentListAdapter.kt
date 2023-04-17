@@ -199,23 +199,24 @@ class PaymentListAdapter(
                     }
                 }
             })
-            if (bankEnabled) {
-                binding?.apply {
-                    headerUi.isClickable = true
-                    headerUi.isEnabled = true
-                    headerUi.isFocusable = true
-                }
-            } else {
-                bankClicked = false
-                bankApplied = false
-                binding?.apply {
-                    headerUi.isClickable = false
-                    headerUi.isEnabled = false
-                    headerUi.isFocusable = false
-                }
-            }
+
             with(payMode[position]) {
                 binding?.apply {
+                    if (bankEnabled) {
+                        headerUi.isClickable = true
+                        headerUi.isEnabled = true
+                        headerUi.isFocusable = true
+                        headerOfferType.setTextColor(context.resources.getColor(R.color.white))
+
+                    } else {
+                        bankClicked = false
+                        bankApplied = false
+                        headerOfferType.setTextColor(context.resources.getColor(R.color.gray))
+                        headerUi.isClickable = false
+                        headerUi.isEnabled = false
+                        headerUi.isFocusable = false
+
+                    }
                     textviewCancelBankOffer.setOnClickListener {
                         pos = position
                         val offerCode = binding.etEnterBankOfferCardNumber.text.toString()
@@ -335,6 +336,7 @@ class PaymentListAdapter(
                         }
                     }
                 binding?.apply {
+                    headerOfferType.text = name
                     if (bankApplied) {
                         textviewCancelBankOffer.show()
                         textviewApplyBankOffer.hide()
@@ -349,8 +351,8 @@ class PaymentListAdapter(
                 }
                 if (bankClicked) {
                     binding?.apply {
-                        bankOfferUi.show()
                         ivDropdown.setImageResource(R.drawable.arrow_up)
+                        bankOfferUi.show()
                     }
                 } else {
                     binding?.apply {
@@ -377,7 +379,7 @@ class PaymentListAdapter(
                     }
                 }
                 binding.tvApplyGiftCard.setOnClickListener {
-                    clickName="Gift Card"
+                    clickName = "Gift Card"
                     offerCode = binding.editTextGiftCard.text.toString()
                     if (offerCode == "") {
                         val dialog = OptionDialog(context,
@@ -398,11 +400,33 @@ class PaymentListAdapter(
                         )
                     }
                 }
+                binding.textviewCancelGiftCard.setOnClickListener {
+                    clickName = "Gift Card"
+                    offerCode = binding.editTextGiftCard.text.toString()
+                    if (offerCode == "") {
+                        val dialog = OptionDialog(context,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            "$clickName can not be empty",
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        dialog.show()
+                    } else {
+                        listner.onGiftCardItemRemove(
+                            this,
+                            offerCode!!,
+                            clickName,
+                            clickId
+                        )
+                    }
+                }
                 if (giftCardAppliedFull) {
                     binding?.apply {
-                        headerUi.isEnabled = false
-                        headerUi.isFocusable = false
-                        headerUi.isClickable = false
+                        headerUi.isEnabled = true
+                        headerUi.isFocusable = true
+                        headerUi.isClickable = true
                         editTextGiftCard?.apply {
                             isClickable = false
                             isEnabled = false
@@ -412,11 +436,11 @@ class PaymentListAdapter(
                         tvApplyGiftCard.hide()
                     }
                 }
-                if(giftCardApplied){
+                if (giftCardApplied) {
                     binding?.apply {
-                        headerUi.isEnabled = false
-                        headerUi.isFocusable = false
-                        headerUi.isClickable = false
+                        headerUi.isEnabled = true
+                        headerUi.isFocusable = true
+                        headerUi.isClickable = true
                         editTextGiftCard?.apply {
                             isEnabled = false
                             isFocusable = false
@@ -426,7 +450,7 @@ class PaymentListAdapter(
                         tvApplyGiftCard.hide()
                     }
                 }
-                if(!giftCardApplied && !giftCardAppliedFull){
+                if (!giftCardApplied && !giftCardAppliedFull) {
                     binding?.apply {
                         headerUi.isEnabled = true
                         headerUi.isFocusable = true
@@ -442,6 +466,7 @@ class PaymentListAdapter(
                 }
                 if (giftCardEnabled) {
                     binding?.apply {
+                        headerOfferType.setTextColor(context.resources.getColor(R.color.white))
                         headerUi.isClickable = true
                         headerUi.isEnabled = true
                         headerUi.isFocusable = true
@@ -451,6 +476,7 @@ class PaymentListAdapter(
                     giftCardApplied = false
                     giftCardAppliedFull = false
                     binding?.apply {
+                        headerOfferType.setTextColor(context.resources.getColor(R.color.gray))
                         headerUi.isClickable = false
                         headerUi.isEnabled = false
                         headerUi.isFocusable = false
@@ -482,7 +508,7 @@ class PaymentListAdapter(
                         } else {
                             walletClicked = true
                         }
-                        notifyDataSetChanged()
+                        notifyItemChanged(pos)
                     }
                     textviewBtWalletApply.setOnClickListener {
                         pos = position
@@ -495,7 +521,8 @@ class PaymentListAdapter(
                     textviewBtWalletCancel.setOnClickListener {
                         pos = position
                         walletApplied = false
-                        notifyDataSetChanged()                    }
+                        notifyDataSetChanged()
+                    }
                 }
                 if (walletApplied) {
                     binding?.apply {
@@ -511,23 +538,22 @@ class PaymentListAdapter(
                 }
                 if (walletEnabled) {
                     binding?.apply {
+                        headerOfferType.setTextColor(context.resources.getColor(R.color.white))
                         headerUi.isClickable = true
                         headerUi.isEnabled = true
                         headerUi.isFocusable = true
                     }
-                }
-                else {
+                } else {
                     walletClicked = false
                     walletApplied = false
                     binding?.apply {
+                        headerOfferType.setTextColor(context.resources.getColor(R.color.gray))
                         headerUi.isClickable = false
                         headerUi.isEnabled = false
                         headerUi.isFocusable = false
                     }
                 }
                 if (walletClicked) {
-                    knetSelected = false
-                    creditCardSelected = false
                     binding?.apply {
                         walletUi.show()
                         textViewWalletBalance.text =
@@ -545,14 +571,13 @@ class PaymentListAdapter(
             with(payMode[position]) {
                 var binding = holder.binding as ItemGatewayUiBinding
                 binding?.apply {
+                    ivDropdown.hide()
                     headerOfferType.text = name
                     headerUi.show()
-                    headerOfferType.text = name
-                    ivDropdown.hide()
                     knetCcUi.show()
 
                     knet.setOnClickListener {
-                        knetSelected=true
+                        knetSelected = true
                         creditCardSelected = false
                         walletApplied = false
                         pos = position
@@ -563,7 +588,8 @@ class PaymentListAdapter(
                         creditCardSelected = true
                         walletApplied = false
                         pos = position
-                        notifyDataSetChanged()                    }
+                        notifyDataSetChanged()
+                    }
                 }
                 if (knetEnabled) {
                     binding?.apply {

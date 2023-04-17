@@ -410,24 +410,23 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 Constant.CARD_NO = bankOfferRequest.cardNo
-                                binding?.textTotalAmount?.text = it.data.output.amount
+                                binding?.textTotalAmount?.text = it?.data?.output?.amount
                                 outputlist?.clear()
-
+                                outputlist?.addAll(it?.data?.output?.payInfo)
                                 creditCardSelected = true
                                 creditCardEnabled=true
                                 bankApplied = true
-
                                 knetSelected = false
                                 giftCardEnabled = false
                                 knetEnabled=false
                                 walletEnabled = false
                                 giftCardClicked=false
                                 walletClicked=false
-                                outputlist?.addAll(it.data.output.payInfo)
-                                adapter?.notifyDataSetChanged()
-                            } else {
+                            }
+                            else {
                                 giftCardClicked=false
                                 walletClicked=false
+                                outputlist?.clear()
                                 Constant.CARD_NO = ""
                                 bankApplied = false
                                 spinnerClickable = true
@@ -439,11 +438,10 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                     negativeBtnText = R.string.no,
                                     positiveClick = {},
                                     negativeClick = {})
-                                adapter?.notifyDataSetChanged()
                                 dialog.show()
                             }
-
                         }
+                        adapter?.notifyDataSetChanged()
                     }
                     Status.ERROR -> {
                         giftCardClicked=false
@@ -451,6 +449,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         knetSelected=false
                         creditCardSelected=false
                         Constant.CARD_NO = ""
+                        outputlist?.clear()
                         LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
                         bankApplied = false
                         spinnerClickable = true
@@ -505,13 +504,12 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 binding?.textTotalAmount?.text = it.data.output.amount
                                 bankApplied = false
                                 spinnerClickable = true
-
                                 giftCardEnabled = true
                                 walletEnabled = true
                                 creditCardEnabled=true
                                 knetEnabled=true
-
-                                adapter?.notifyDataSetChanged()
+                                outputlist?.clear()
+                                outputlist?.addAll(it.data.output.payInfo)
                             }
                         }
                     }
@@ -520,6 +518,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         bankApplied = false
                         spinnerClickable = true
                         giftCardEnabled = true
+                        outputlist?.clear()
                         walletEnabled=true
                         val dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
@@ -529,7 +528,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             negativeBtnText = R.string.no,
                             positiveClick = {},
                             negativeClick = {})
-                        adapter?.notifyDataSetChanged()
                         dialog.show()
                     }
                     Status.LOADING -> {
@@ -537,6 +535,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             ?.show(supportFragmentManager, null)
                     }
                 }
+                adapter?.notifyDataSetChanged()
             }
         }
 
@@ -1487,7 +1486,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                         it.data.output
                                     )
                                 } catch (e: Exception) {
-
+                                    outputlist?.clear()
                                     println("updateUiCinemaSession ---> ${e.message}")
                                 }
 
@@ -1502,11 +1501,10 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                     negativeBtnText = R.string.no,
                                     positiveClick = {},
                                     negativeClick = {})
-                                adapter?.notifyDataSetChanged()
                                 dialog.show()
                             }
-
                         }
+                        adapter?.notifyDataSetChanged()
                     }
                     Status.ERROR -> {
                         LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
@@ -1535,9 +1533,11 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     private fun retriveRemoveGiftCard(
         output: GiftCardRemove.Output
     ) {
-        outputlist!!.clear()
+        outputlist?.clear()
+        outputlist?.addAll(output.payInfo)
         giftCardApplied = false
         giftCardAppliedFull = false
+        bankEnabled=true
         outputlist!!.addAll(output.payInfo)
         binding?.textTotalAmount?.text = output.amount
         adapter?.notifyDataSetChanged()
@@ -1578,6 +1578,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             }
 
                         }
+                        adapter?.notifyDataSetChanged()
                     }
                     Status.ERROR -> {
                         LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
@@ -1589,6 +1590,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             negativeBtnText = R.string.no,
                             positiveClick = {},
                             negativeClick = {})
+                        adapter?.notifyDataSetChanged()
                         dialog.show()
                     }
                     Status.LOADING -> {
@@ -1607,7 +1609,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     ) {
         giftCardApplyRequest = output
         if (output.PAID != null && output.PAID == "NO") {
-            outputlist!!.clear()
             giftCardApplied = true
             giftCardAppliedFull = false
             bankEnabled=false
@@ -1616,8 +1617,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             creditCardEnabled = true
             knetSelected=false
             creditCardSelected=false
-            outputlist!!.addAll(output.payInfo)
-            binding?.textTotalAmount?.text = output.amount
         } else if (output.PAID != null && output.PAID == "YES") {
             giftCardApplied = true
             giftCardAppliedFull = true
@@ -1625,7 +1624,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             walletEnabled = false
             knetSelected = false
             creditCardEnabled = false
-            adapter!!.notifyDataSetChanged()
         } else if (output.CAN_PAY != null && output.CAN_PAY == "YES") {
             giftCardApplied = true
             giftCardAppliedFull = true
@@ -1633,12 +1631,14 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             walletEnabled = false
             knetSelected = false
             creditCardEnabled = false
-            adapter!!.notifyDataSetChanged()
         }
         Constant.IntentKey.TimerExtandCheck = true
         Constant.IntentKey.TimerExtand = 90
         Constant.IntentKey.TimerTime = 360
-        adapter?.notifyDataSetChanged()
+
+        binding?.textTotalAmount?.text = output.amount
+        outputlist!!.clear()
+        outputlist!!.addAll(output.payInfo)
     }
 
     // hmac Request
