@@ -45,7 +45,6 @@ class FilterChildAdapter(private val mContext: Context, private val items: Array
 
             holder.todoTitle.typeface = regular
 
-
         }else if (Constant.LANGUAGE == "en"){
             LocaleHelper.setLocale(mContext, "en")
             val regular = ResourcesCompat.getFont(mContext, R.font.sf_pro_text_regular)
