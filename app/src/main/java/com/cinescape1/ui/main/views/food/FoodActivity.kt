@@ -690,6 +690,7 @@ class FoodActivity : DaggerAppCompatActivity(),
         recyclerviewCartItem.layoutManager = gridLayout
         recyclerviewCartItem.adapter = foodCartAdapter
         foodCartAdapter?.loadNewData(foodCartListNew!!)
+        println("foodCartListNewDetail--------->${foodCartListNew!!}")
 
         proceedBtn1.setOnClickListener {
             if (!foodCartList.isNullOrEmpty()) {
@@ -2015,13 +2016,14 @@ class FoodActivity : DaggerAppCompatActivity(),
             var foodSubName = ""
             var foodName = ""
             if (foodItem.quantity > 0) {
+
                 foodDtls.foodAmount = foodItem.itemTotal.toDouble()
                 foodDtls.foodId = foodItem.id
                 foodDtls.foodQuan = foodItem.quantity
                 foodDtls.foodType = foodItem.foodtype
                 foodDtls.foodUrl = foodItem.itemImageUrl
 //                foodDtls.title = foodItem.title
-                foodDtls.title = foodItem.description
+                foodDtls.title = foodItem.title
                 foodName = foodItem.description
                 foodDtls.itemPrice = foodItem.priceInCents.toDouble()
                 for (k in foodItem.alternateItems.indices) {

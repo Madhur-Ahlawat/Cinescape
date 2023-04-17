@@ -229,7 +229,7 @@
     <string name="yesComa">نعم,</string>
     <string name="stillHere">هل لا تزال هنا؟</string>
     <string name="go_back">العودة</string>
-    <string name="verify_code">رمز التحقق</string>
+    <string name="verify_code">التحقق من الرمز</string>
     <string name="email_code">رمز التحقق المرسل للبريد الالكتروني</string>
     <string name="mobile_code">رمز التحقق المرسل لرقم الهاتف</string>
     <string name="wallet_balance">رصيد المحفظة د.ك</string>
@@ -258,7 +258,7 @@
     <string name="selectPaymentMethod">يرجى اختيار طريقة الدفع</string>
     <string name="timeOut">نفذ الوقت المتاح, يرجى إعادة المحاولة</string>
     <string name="password_recovery">استعادة كلمة السر</string>
-    <string name="recovery_msg">لا تقلق, أعد ادخال البريد الالكتروني و سوف نقوم بالمساعدة</string>
+    <string name="recovery_msg">و سنتولى الأمر لا تقلق ، فقط أدخل بريدك الإلكتروني</string>
     <string name="resend">إعادة ارسال</string>
     <string name="sent_verification">تم ارسال رمز التأكيد على بريدك الالكتروني</string>
     <string name="enter_verification_code">أدخل رمز التأكيد</string>

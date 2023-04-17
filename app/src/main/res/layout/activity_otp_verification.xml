@@ -203,11 +203,10 @@
                 android:layout_marginTop="42dp"
                 app:layout_constraintStart_toStartOf="@+id/text_signup"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_back_button" />
+                app:srcCompat="@drawable/ic_back_button"
+                tools:ignore="ContentDescription" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.core.widget.NestedScrollView>

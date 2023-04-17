@@ -7,14 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.GetFoodResponse
 import com.cinescape1.utils.hide
 import com.cinescape1.utils.show
-import com.cinescape1.utils.toast
 
 class AdapterFoodCombo(
     context: Context, private var foodComboList: ArrayList<GetFoodResponse.ConcessionItem>,
@@ -24,15 +22,14 @@ class AdapterFoodCombo(
 
     private var mContext = context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderFoodCombo {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.food_selected_combo_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.food_selected_combo_item, parent, false)
         return MyViewHolderFoodCombo(view)
-
     }
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolderFoodCombo, position: Int) {
         val foodSelectedItem = foodComboList[position]
+
         if (type == "combo") {
             foodSelectedItem.description
 //            foodSelectedItem.title = "Combo " + (position + 1)

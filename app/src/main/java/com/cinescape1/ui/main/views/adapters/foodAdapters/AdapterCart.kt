@@ -31,22 +31,25 @@ class AdapterCart(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolderCart, position: Int) {
         val cartSelctedItem = cartComboList[position]
-//        holder.cartFoodTitleName.text = cartSelctedItem.foodName+" ( "+cartSelctedItem.foodModifiers+" ) "
+
+//        holder.cartFoodTitleName.text = cartSelctedItem.foodName+" ( "+cartSelctedItem.foodModifiers.removePrefix(", ")+" ) "
+        holder.cartFoodTitleName.text = cartSelctedItem.foodName +cartSelctedItem.foodModifiers
         holder.cartKdPrice.text = mContext.getString(R.string.price_kd)+" ${Constant.DECIFORMAT.format((cartSelctedItem.foodAmount / 100.0))}"
         holder.textNumber.text = cartSelctedItem.foodQuan.toString()
 
-        println("CartQtyNumber --------->${holder.textNumber.text}")
+        println("CartQtyNumber--------->${cartSelctedItem.foodName}---->${cartSelctedItem.foodModifiers}--->${cartSelctedItem.foodType}")
 
-        if (cartSelctedItem.title==""){
-            holder.cartComboName.text = cartSelctedItem.foodName+" ( "+cartSelctedItem.foodModifiers.removePrefix(", ")+" ) "
-            holder.cartComboName.show()
+        if (cartSelctedItem.foodType=="combo"){
+            holder.cartComboName.text = cartSelctedItem.title
+//            holder.cartFoodTitleName.text = cartSelctedItem.foodName+" ( "+cartSelctedItem.foodModifiers.removePrefix(", ")+" ) "
+            holder.cartFoodTitleName.show()
         }else{
-            holder.cartComboName.text = cartSelctedItem.foodName+" ( "+cartSelctedItem.foodModifiers.removePrefix(", ")+" ) "
-            holder.cartComboName.show()
+//            holder.cartFoodTitleName.text = cartSelctedItem.foodName+" ( "+cartSelctedItem.foodModifiers.removePrefix(", ")+" ) "
+            holder.cartComboName.text = cartSelctedItem.title
+            holder.cartFoodTitleName.hide()
         }
 
-        Glide.with(mContext)
-            .load(cartSelctedItem.foodUrl)
+        Glide.with(mContext).load(cartSelctedItem.foodUrl)
             .placeholder(R.drawable.placeholder_icon)
             .into(holder.imgCartItem)
 
@@ -93,4 +96,5 @@ class AdapterCart(
         var textIncrease: TextView = view.text_increase
         var textNumber: TextView = view.text_number
     }
+
 }
