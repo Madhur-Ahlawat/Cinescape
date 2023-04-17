@@ -45,6 +45,7 @@ import com.cinescape1.ui.main.views.home.fragments.more.viewModel.MoreInfoViewMo
 import com.cinescape1.ui.main.views.adapters.*
 import com.cinescape1.ui.main.views.login.LoginActivity
 import com.cinescape1.utils.*
+import com.cinescape1.utils.Constant.Companion.setMargins
 import com.cinescape1.utils.Constant.IntentKey.Companion.OPEN_FROM
 import com.google.firebase.auth.FirebaseAuth
 import dagger.android.support.DaggerFragment
@@ -347,8 +348,9 @@ class MorePageFragment : DaggerFragment(),
 
             binding?.textView35?.text= getString(R.string.location)
             binding?.textView35?.show()
+            binding?.otherDetails?.hide()
             binding?.recyclerMore?.show()
-            binding?.scrollNested?.hide()
+            binding?.contactUs?.hide()
             location(responseData?.output?.cinemas!!)
         }
 
@@ -374,8 +376,9 @@ class MorePageFragment : DaggerFragment(),
             binding?.textHistoery?.setTextColor(requireActivity().getColor(R.color.text_color))
 
             binding?.textView35?.hide()
-            binding?.scrollNested?.hide()
-            binding?.recyclerMore?.show()
+            binding?.contactUs?.hide()
+            binding?.recyclerMore?.hide()
+
             responseData?.output?.faqs?.let { it1 -> faq(it1) }
         }
 
@@ -399,10 +402,9 @@ class MorePageFragment : DaggerFragment(),
 
 //            binding?.imageHistory?.setColorFilter(requireActivity().getColor(R.color.text_color))
             binding?.textHistoery?.setTextColor(requireActivity().getColor(R.color.text_color))
-
             binding?.textView35?.hide()
             binding?.recyclerMore?.hide()
-            binding?.scrollNested?.show()
+            binding?.contactUs?.show()
         }
 
         //ageRating
@@ -431,8 +433,9 @@ class MorePageFragment : DaggerFragment(),
 
             binding?.textView35?.text =getString(R.string.age_rating)
             binding?.textView35?.show()
+            binding?.otherDetails?.hide()
             binding?.recyclerMore?.show()
-            binding?.scrollNested?.hide()
+            binding?.contactUs?.hide()
             responseData?.output?.ratings?.let { it1 -> ageRating(it1) }
 
         }
@@ -459,8 +462,8 @@ class MorePageFragment : DaggerFragment(),
             binding?.textHistoery?.setTextColor(requireActivity().getColor(R.color.text_color))
 
             binding?.textView35?.hide()
-            binding?.recyclerMore?.show()
-            binding?.scrollNested?.hide()
+            binding?.recyclerMore?.hide()
+            binding?.contactUs?.hide()
             termsAndCondition(responseData?.output?.tncs!!)
         }
 
@@ -485,10 +488,9 @@ class MorePageFragment : DaggerFragment(),
 //            binding?.imageHistory?.setColorFilter(requireActivity().getColor(R.color.white))
             binding?.textHistoery?.setTextColor(requireActivity().getColor(R.color.white))
 
-
-            scrollNested?.hide()
+            contactUs?.hide()
             binding?.textView35?.hide()
-            binding?.recyclerMore?.show()
+            binding?.recyclerMore?.hide()
             privacyPolicy(responseData?.output?.privacy!!)
         }
 
@@ -885,11 +887,12 @@ class MorePageFragment : DaggerFragment(),
     }
 
     private fun faq(faqs: ArrayList<MoreTabResponse.Faq>) {
+        binding?.otherDetails?.show()
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         val adapter = FaqAdapter(faqs, requireActivity(), this)
-        binding?.recyclerMore?.setHasFixedSize(true)
-        binding?.recyclerMore?.layoutManager = layoutManager
-        binding?.recyclerMore?.adapter = adapter
+        binding?.otherDetails?.setHasFixedSize(true)
+        binding?.otherDetails?.layoutManager = layoutManager
+        binding?.otherDetails?.adapter = adapter
     }
 
     override fun onTypefaceFaq(todoTitle: TextView) {
@@ -897,12 +900,13 @@ class MorePageFragment : DaggerFragment(),
     }
 
     private fun privacyPolicy(privacy: ArrayList<MoreTabResponse.Privacy>) {
+        binding?.otherDetails?.show()
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding?.recyclerMore?.setHasFixedSize(true)
+        binding?.otherDetails?.setHasFixedSize(true)
         val adapter = PrivacyAdapter(privacy, requireContext(), this)
-        binding?.recyclerMore?.layoutManager = layoutManager
-        binding?.recyclerMore?.adapter = adapter
+        binding?.otherDetails?.layoutManager = layoutManager
+        binding?.otherDetails?.adapter = adapter
     }
 
     override fun onTypefacePrivacy(todoTitle: TextView, todoDesc: TextView) {
@@ -926,12 +930,13 @@ class MorePageFragment : DaggerFragment(),
     }
 
     private fun termsAndCondition(tunics: ArrayList<MoreTabResponse.Tnc>) {
+        binding?.otherDetails?.show()
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding?.recyclerMore?.setHasFixedSize(true)
+        binding?.otherDetails?.setHasFixedSize(true)
         val adapter = TermsConditionAdapter(tunics, requireContext(), this)
-        binding?.recyclerMore?.layoutManager = layoutManager
-        binding?.recyclerMore?.adapter = adapter
+        binding?.otherDetails?.layoutManager = layoutManager
+        binding?.otherDetails?.adapter = adapter
 
     }
 

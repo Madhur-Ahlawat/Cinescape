@@ -1301,7 +1301,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         mSessionid = sessions1
     }
 
-    private class CompletionNotifier : TMXEndNotifier {
+    class CompletionNotifier : TMXEndNotifier {
         override fun complete(result: TMXProfilingHandle.Result) {
 //            m_sessionID = result.getSessionID();
             println("SessionId-->${PaymentListActivity().mSessionid}")
@@ -1768,6 +1768,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             }
         }
     }
+
     /////////////////////////////////  Extend Time   /////////////////////////////////
 
     private fun resendTimer() {

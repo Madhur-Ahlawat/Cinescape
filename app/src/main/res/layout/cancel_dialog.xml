@@ -3,46 +3,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#80000000"
     android:layout_width="match_parent"
-    android:layout_height="210dp"
-    android:background="@color/transparent"
-    android:layout_marginBottom="140dp">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageBackground"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:adjustViewBounds="true"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
-        android:rotation="180"
-        android:src="@drawable/cancel_background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        app:cardBackgroundColor="@color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="65dp"
+        android:background="@drawable/cancel_background"
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageBackground"
-        app:layout_constraintStart_toStartOf="@+id/imageBackground"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <ImageView
-            android:id="@+id/illustration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/black"
-            tools:ignore="ContentDescription" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/title"
@@ -81,10 +58,10 @@
             android:id="@+id/linId"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
+            android:layout_marginTop="@dimen/margin4"
+            android:layout_marginBottom="32dp"
             android:gravity="center"
             android:orientation="vertical"
-            android:layout_marginBottom="@dimen/margin10"
-            android:layout_marginTop="@dimen/margin4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -92,10 +92,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="2.3"
             android:fontFamily="@font/sf_pro_text_regular"
+            android:textSize="@dimen/size12"
             tools:text="Popcorn "
             android:ellipsize="end"
             android:textColor="@color/white"
-            android:textSize="@dimen/size14"
             app:layout_constraintEnd_toStartOf="@+id/textView92"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -109,7 +109,7 @@
             tools:text="1"
             android:gravity="start"
             android:textColor="@color/white"
-            android:textSize="@dimen/size14"
+            android:textSize="@dimen/size12"
             app:layout_constraintEnd_toStartOf="@+id/textView94"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -122,7 +122,7 @@
             tools:text="4.500"
             android:gravity="center"
             android:textColor="@color/white"
-            android:textSize="@dimen/size14"
+            android:textSize="@dimen/size12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -134,7 +134,7 @@
             android:fontFamily="@font/sf_pro_text_regular"
             android:gravity="start"
             android:textColor="@color/white"
-            android:textSize="@dimen/size14"
+            android:textSize="@dimen/size12"
             app:layout_constraintEnd_toStartOf="@+id/textView93"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="6.500"/>

@@ -880,7 +880,7 @@
                     android:id="@+id/text_receive_promotion_email"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="32dp"
                     android:fontFamily="@font/sf_pro_text_regular"
                     android:lineSpacingExtra="1.8sp"
                     android:paddingStart="@dimen/size16"

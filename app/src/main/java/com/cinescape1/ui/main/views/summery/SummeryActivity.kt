@@ -51,7 +51,7 @@ import javax.inject.Inject
 @Suppress("DEPRECATION")
 class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFaceSeatLists {
 
-    private var mDialog: Dialog?=null
+    private var mDialog: Dialog? = null
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -247,16 +247,11 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
             }
         }
         setContentView(view)
+
         //AppBar Hide
-        window.apply {
-            clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-            statusBarColor = Color.TRANSPARENT
-        }
+        Constant().appBarHide(this@SummeryActivity)
 
         if (!preferences.getBoolean(Constant.IS_LOGIN)) {
-
             val intent = Intent(this, LoginActivity::class.java)
                 .putExtra("BOOKING", bookType)
                 .putExtra("FROM", "Payment")
@@ -285,10 +280,8 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
             transId = intent.getStringExtra("TRANS_ID").toString()
             broadcastReceiver = MyReceiver()
 
-            println("SummeryPageIntentResult-----from--->${from} ----->${bookType}-" +
-                    "--->${sessionId}------>${cinemaId}---->${transId}----->${broadcastReceiver}")
-        }catch (e : Exception){
-            println("SummeryPageError-------->${e.message}")
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
 
 
@@ -328,7 +321,7 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
                 Constant.IntentKey.TimerExtand = 90
                 Constant.IntentKey.TimerTime = 360
                 cancelTrans(CancelTransRequest(bookingId, transId))
-                if (bookType == "FOOD"){
+                if (bookType == "FOOD") {
                     Constant.IntentKey.DialogShow = true
                     val intent = Intent(this, HomeActivity::class.java)
                     Constant.IntentKey.OPEN_FROM = 0
@@ -336,7 +329,7 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
                 }
                 finish()
             }
-            it.negative_btn?.setOnClickListener { it2->
+            it.negative_btn?.setOnClickListener { it2 ->
                 it.dismiss()
             }
         }
@@ -405,9 +398,7 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
     }
 
     private fun movedNext() {
-
         binding?.txtProceed?.setOnClickListener {
-
             try {
                 val intent = Intent(this, PaymentListActivity::class.java)
                 intent.putExtra("CINEMA_ID", cinemaId)
@@ -421,11 +412,13 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
                 startActivity(intent)
                 finish()
 
-                println("ListOfIdIntent-------->${cinemaId},--${sessionId}" +
-                        ",--${transId},---${bookingIdNEw},-----${bookType}," +
-                        "-----${image},----${paidPrice},--------${timeCount}")
+                println(
+                    "ListOfIdIntent-------->${cinemaId},--${sessionId}" +
+                            ",--${transId},---${bookingIdNEw},-----${bookType}," +
+                            "-----${image},----${paidPrice},--------${timeCount}"
+                )
 
-            }catch (e : Exception){
+            } catch (e: Exception) {
                 println("ListOfIdIntentError---->${e.message}")
             }
 
@@ -441,11 +434,11 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
 
         binding?.viewFood?.setOnClickListener {
 
-            if (recyclerview_food_chekout.visibility == View.GONE){
+            if (recyclerview_food_chekout.visibility == View.GONE) {
                 icon_down_arrow.setImageResource(R.drawable.arrow_up)
                 recyclerview_food_chekout.visibility = View.VISIBLE
 
-            }else{
+            } else {
 
                 icon_down_arrow.setImageResource(R.drawable.arrow_down)
                 recyclerview_food_chekout.visibility = View.GONE
@@ -492,8 +485,13 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
 
         if (output.bookingType == "FOOD") {
             setCheckoutOnlyFoodItemAdapter(output.concessionFoods)
-            Glide.with(this).load(output.posterhori).placeholder(R.drawable.food_final_icon).into(binding?.imageView6!!)
+            Glide.with(this)
+                .load(output.posterhori)
+                .placeholder(R.drawable.food_final_icon)
+                .into(binding?.imageView6!!)
+
             ticketPage.hide()
+            vie109.invisible()
             priceView.hide()
             binding?.view?.visibility = View.INVISIBLE
             totalPrice = output.totalTicketPrice
@@ -503,6 +501,7 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
             foodViewCheck.hide()
 
         } else {
+            vie109.show()
 
             ticketPage.show()
             priceView.show()
@@ -511,7 +510,8 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
             binding?.priceUi?.hide()
             checkout_food_include.hide()
             image = output.posterhori
-            Glide.with(this).load(output.posterhori).placeholder(R.drawable.bombshell).into(binding?.imageView6!!)
+            Glide.with(this).load(output.posterhori).placeholder(R.drawable.bombshell)
+                .into(binding?.imageView6!!)
             summary_name_movie.text = output.moviename
             txt_screen.text = output.screenId
             text_location_names.text = output.cinemaname
@@ -621,7 +621,8 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
                 this@SummeryActivity,
                 1,
                 GridLayoutManager.VERTICAL,
-                false)
+                false
+            )
 
             recyclerview_food_chekout.layoutManager = LinearLayoutManager(this)
             val adapter = AdapterCheckoutFoodItem(this@SummeryActivity, concessionFoods)
@@ -734,7 +735,7 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
         try {
 
             alertDialog.show()
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
 

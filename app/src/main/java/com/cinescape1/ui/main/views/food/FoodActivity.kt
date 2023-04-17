@@ -258,13 +258,12 @@ class FoodActivity : DaggerAppCompatActivity(),
         }
 
         setContentView(view)
-
+        Constant().appBarHide(this@FoodActivity)
         try {
             cinemaId = intent.getStringExtra("CINEMA_ID").toString()
             sessionId = intent.getStringExtra("SESSION_ID").toString()
             booktype = intent.getStringExtra("BOOKING").toString()
             transId = intent.getStringExtra("TRANS_ID").toString()
-
             skipBtn = intent.getStringExtra("typeSkip").toString()
 
         } catch (e: Exception) {
@@ -1300,10 +1299,10 @@ class FoodActivity : DaggerAppCompatActivity(),
                             } else {
                                 binding?.textCartCountNotiication?.invisible()
 
-                                if (booktype == "FOOD"){
+                                if (booktype == "FOOD") {
                                     binding?.txtProceed?.show()
                                     binding?.txtSkipBtn?.hide()
-                                }else{
+                                } else {
                                     binding?.txtProceed?.hide()
                                     binding?.txtSkipBtn?.show()
                                 }
@@ -1471,18 +1470,18 @@ class FoodActivity : DaggerAppCompatActivity(),
                 binding?.textCartCountNotiication?.text = foodCartListNew?.size.toString()
 
 
-                    binding?.txtProceed?.show()
-                    binding?.txtSkipBtn?.hide()
+                binding?.txtProceed?.show()
+                binding?.txtSkipBtn?.hide()
 
 
             } else {
                 binding?.textCartCountNotiication?.text = "0"
                 binding?.textCartCountNotiication?.show()
 
-                if (booktype == "FOOD"){
+                if (booktype == "FOOD") {
                     binding?.txtProceed?.show()
                     binding?.txtSkipBtn?.hide()
-                }else{
+                } else {
                     binding?.txtProceed?.hide()
                     binding?.txtSkipBtn?.show()
                 }
@@ -1693,10 +1692,10 @@ class FoodActivity : DaggerAppCompatActivity(),
             emptyCart?.show()
             binding?.textCartCountNotiication?.invisible()
 
-            if (booktype == "FOOD"){
+            if (booktype == "FOOD") {
                 binding?.txtProceed?.show()
                 binding?.txtSkipBtn?.hide()
-            }else{
+            } else {
                 binding?.txtProceed?.hide()
                 binding?.txtSkipBtn?.show()
             }
@@ -1757,10 +1756,10 @@ class FoodActivity : DaggerAppCompatActivity(),
 
         } else {
 
-            if (pos <= (foodCartList?.size!! -1))
+            if (pos <= (foodCartList?.size!! - 1))
                 foodCartList?.removeAt(pos)
 
-            if (pos <= (foodCartListNew?.size!! -1))
+            if (pos <= (foodCartListNew?.size!! - 1))
                 foodCartListNew?.removeAt(pos)
 
             for (item in foodItemRemove) {
@@ -1809,10 +1808,11 @@ class FoodActivity : DaggerAppCompatActivity(),
                 mFoodCartDialog?.dismiss()
         }
 
+
     }
 
     private fun updateSelectedList(foodItem: GetFoodResponse.FoodDtls?, type: Int) {
-        println("updateSelectedList----$type")
+        toast("remove")
         for (item in foodSelectedList!!) {
             if (type == 0) {
                 if (item.id == foodItem?.foodId) {
@@ -1834,6 +1834,9 @@ class FoodActivity : DaggerAppCompatActivity(),
                 item.quantityUpdate = 0
             }
         }
+        foodAdapter?.notifyDataSetChanged()
+        individualAdapter?.notifyDataSetChanged()
+        foodCartAdapter?.notifyDataSetChanged()
         foodAdapter?.notifyDataSetChanged()
     }
 

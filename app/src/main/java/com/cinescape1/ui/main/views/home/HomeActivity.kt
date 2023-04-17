@@ -308,10 +308,8 @@ class HomeActivity : DaggerAppCompatActivity(),
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.fragment_food)
         dialog.window?.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
-        )
+            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         dialog.window?.setBackgroundDrawable(ColorDrawable(R.color.black50))
-//        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
         dialog.window?.setGravity(Gravity.BOTTOM)
         dialog.show()
 
@@ -449,7 +447,8 @@ class HomeActivity : DaggerAppCompatActivity(),
                 mDialogView.text_bombshell.text = output.output[0].moviename
                 mDialogView.text13.text = output.output[0].mcensor
 
-                Glide.with(this).load(output.output[0].posterhori).transform(CutOffLogo())
+                Glide.with(this).load(output.output[0].posterhori)
+                    .transform(CutOffLogo())
                     .placeholder(R.drawable.placeholder_movie_alert_poster)
                     .into(mDialogView.image_booking_alert)
 

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,101 +8,105 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/uiFood"
-        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <View
-            android:id="@+id/view23"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_margin="@dimen/margin15"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout38"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin15"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="@dimen/margin15"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/text_food_select"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/gibson_semibold"
-            android:text="@string/select_food"
-            android:textColor="@color/white"
-            android:textSize="@dimen/size14"
-            app:layout_constraintBottom_toBottomOf="@+id/view23"
-            app:layout_constraintStart_toStartOf="@+id/view23"
-            app:layout_constraintTop_toTopOf="@+id/view23"
-            app:layout_constraintVertical_bias="0.493" />
-
-        <TextView
-            android:id="@+id/cartTime1"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:letterSpacing="0.05"
-            android:textColor="@color/white"
-            android:textSize="@dimen/size14"
-            android:textStyle="bold"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/textView112"
-            app:layout_constraintEnd_toEndOf="@+id/view23"
-            app:layout_constraintTop_toTopOf="@+id/textView112"
-            tools:text="6:00" />
-
-        <TextView
-            android:id="@+id/textView112"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin12"
-            android:fontFamily="@font/sf_pro_text_regular"
-            android:text="@string/time_left"
-            android:textColor="@color/white"
-            android:textSize="@dimen/size11"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/text_food_select"
-            app:layout_constraintEnd_toStartOf="@+id/cartTime1"
-            app:layout_constraintTop_toTopOf="@+id/text_food_select" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/txt_skip_proceed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/text_food_select"
-            app:layout_constraintEnd_toEndOf="@+id/view23"
-            app:layout_constraintTop_toTopOf="@+id/text_food_select">
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/skip"
-                android:layout_width="wrap_content"
+                android:id="@+id/text_food_select"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="3dp"
-                android:fontFamily="@font/sf_pro_text_bold"
-                android:gravity="end"
-                android:text="@string/skip"
+                android:fontFamily="@font/gibson_semibold"
+                android:text="@string/select_food"
                 android:textColor="@color/white"
-                android:textSize="@dimen/size16"
-                app:layout_constraintEnd_toStartOf="@+id/textView47"
+                android:textSize="@dimen/size14"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.493" />
 
             <TextView
-                android:id="@+id/textView47"
-                android:layout_width="wrap_content"
+                android:id="@+id/cartTime1"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:gravity="start"
-                android:text="@string/and_proceed"
-                android:textColor="@color/text_color"
+                android:gravity="center"
+                android:letterSpacing="0.05"
+                android:textColor="@color/white"
                 android:textSize="@dimen/size14"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/textView112"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/textView112"
+                tools:text="6:00" />
+
+            <TextView
+                android:id="@+id/textView112"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin12"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:text="@string/time_left"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size11"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/text_food_select"
+                app:layout_constraintEnd_toStartOf="@+id/cartTime1"
+                app:layout_constraintTop_toTopOf="@+id/text_food_select" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/txt_skip_proceed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/text_food_select"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/text_food_select">
+
+                <TextView
+                    android:id="@+id/skip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="3dp"
+                    android:fontFamily="@font/sf_pro_text_bold"
+                    android:gravity="end"
+                    android:text="@string/skip"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size16"
+                    app:layout_constraintEnd_toStartOf="@+id/textView47"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView47"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:gravity="start"
+                    android:text="@string/and_proceed"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/size14"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -111,13 +114,13 @@
             android:id="@+id/recycler_food_select_item"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="@+id/view23"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/view23"
-            app:layout_constraintTop_toBottomOf="@+id/view23"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout38"
             tools:itemCount="4"
             tools:listitem="@layout/food_selected_item" />
 
@@ -127,13 +130,13 @@
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin4"
             android:layout_marginBottom="@dimen/margin4"
-            tools:listitem="@layout/individual_food_item"
-            tools:itemCount="4"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
             app:layout_constraintEnd_toEndOf="@+id/recycler_food_select_item"
             app:layout_constraintStart_toStartOf="@+id/recycler_food_select_item"
-            app:layout_constraintTop_toBottomOf="@+id/recycler_food_select_item" />
+            app:layout_constraintTop_toBottomOf="@+id/recycler_food_select_item"
+            tools:itemCount="4"
+            tools:listitem="@layout/individual_food_item" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout3"
@@ -170,8 +173,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:gravity="center_horizontal"
-                android:textAllCaps="false"
                 android:text="@string/cancel"
+                android:textAllCaps="false"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/size12"
                 android:textStyle="normal"
@@ -245,9 +248,9 @@
                 android:layout_height="20dp"
                 android:layout_marginStart="-15dp"
                 android:layout_marginTop="8dp"
-                android:padding="@dimen/margin3"
                 android:background="@drawable/filter_cross"
                 android:gravity="center"
+                android:padding="@dimen/margin3"
                 android:textColor="@color/white"
                 android:textSize="@dimen/size11"
                 android:visibility="invisible"
@@ -283,8 +286,8 @@
                 android:fontFamily="@font/sf_pro_text_bold"
                 android:gravity="center"
                 android:text="@string/proceed"
-                android:visibility="gone"
                 android:textColor="@color/white"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/view_proceed"
                 app:layout_constraintEnd_toEndOf="@+id/view_proceed"
                 app:layout_constraintStart_toStartOf="@+id/view_proceed"
@@ -294,6 +297,7 @@
                 android:id="@+id/txtSkipBtn"
                 android:layout_width="90dp"
                 android:layout_height="34dp"
+                android:layout_marginStart="@dimen/margin10"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/btn_curv"
                 android:fontFamily="@font/sf_pro_text_bold"
@@ -301,7 +305,6 @@
                 android:text="@string/skip"
                 android:textColor="@color/white"
                 android:visibility="visible"
-                android:layout_marginStart="@dimen/margin10"
                 app:layout_constraintBottom_toBottomOf="@+id/view_proceed"
                 app:layout_constraintEnd_toEndOf="@+id/view_proceed"
                 app:layout_constraintStart_toStartOf="@+id/view_proceed"
@@ -312,7 +315,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="20dp" />
+                app:layout_constraintGuide_begin="23dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,32 +9,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/moreLayout"
-        android:visibility="visible"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="visible">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/languageUi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/container"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
 
-            <include
-                layout="@layout/language_ui"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-        
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout7"
             android:layout_width="match_parent"
@@ -45,15 +23,15 @@
             app:layout_constraintTop_toBottomOf="@+id/languageUi">
 
             <ImageView
-                android:src="@drawable/back_ui"
-                android:adjustViewBounds="true"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:scaleType="centerCrop"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/back_ui"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription" />
 
             <View
@@ -73,7 +51,7 @@
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="70dp"
                 app:layout_constraintEnd_toStartOf="@+id/view_booking"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -309,92 +287,54 @@
                 app:layout_constraintTop_toBottomOf="@+id/image_history" />
 
 
-            <TextView
-                android:id="@+id/text_upcoming_booking"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:fontFamily="@font/sf_pro_text_bold"
-                android:gravity="center_horizontal"
-                android:lineSpacingExtra="5.5sp"
-                android:text="@string/your_upcoming_bookings"
-                android:textColor="@color/white"
-                android:textSize="@dimen/size18"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@+id/view_mains1"
-                app:layout_constraintStart_toStartOf="@+id/view_mains1"
-                app:layout_constraintTop_toBottomOf="@+id/view_recharge" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerview_booking"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@+id/text_upcoming_booking"
-                app:layout_constraintStart_toStartOf="@+id/text_upcoming_booking"
-                app:layout_constraintTop_toBottomOf="@+id/text_upcoming_booking" />
+        <!--  Language Ui-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/languageUi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <View
-                android:id="@+id/view_profiles"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="10dp"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="@+id/view_mains1"
-                app:layout_constraintStart_toStartOf="@+id/view_mains1"
-                app:layout_constraintTop_toBottomOf="@+id/view_recharge" />
-
-            <TextView
-                android:id="@+id/text_profile_titles"
-                android:layout_width="0dp"
+            <include
+                layout="@layout/language_ui"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_pro_text_bold"
-                android:gravity="center"
-                android:lineSpacingExtra="5.5sp"
-                android:paddingStart="@dimen/margin30"
-                android:paddingEnd="0dp"
-                android:text="@string/profile"
-                android:textColor="@color/white"
-                android:textSize="@dimen/size18"
                 android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/view_profiles"
-                app:layout_constraintEnd_toStartOf="@+id/text_make_editable"
-                app:layout_constraintHorizontal_weight="2"
-                app:layout_constraintStart_toStartOf="@+id/view_profiles"
-                app:layout_constraintTop_toTopOf="@+id/view_profiles" />
-
-            <TextView
-                android:id="@+id/text_make_editable"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_icon_edit"
-                android:drawablePadding="@dimen/margin4"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:gravity="end"
-                android:paddingStart="@dimen/margin4"
-                android:paddingEnd="@dimen/margin4"
-                android:text="@string/edit"
-                android:textColor="@color/hint_color"
-                android:textSize="@dimen/size10"
-                android:textStyle="normal"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/text_profile_titles"
-                app:layout_constraintEnd_toEndOf="@+id/view_profiles"
-                app:layout_constraintHorizontal_weight=".4"
-                app:layout_constraintStart_toEndOf="@+id/text_profile_titles"
-                app:layout_constraintTop_toTopOf="@+id/text_profile_titles"
-                tools:ignore="UseCompatTextViewDrawableXml" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+<!--           Other Details-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/otherDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:visibility="gone"
+            tools:listitem="@layout/item_faq"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout7" />
+
+        <!--        List Title and Items-->
         <TextView
             android:id="@+id/textView35"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:paddingTop="@dimen/margin12"
+            android:layout_marginTop="70dp"
             android:fontFamily="@font/sf_pro_text_bold"
+            android:includeFontPadding="false"
             android:text="@string/location"
             android:textColor="@color/white"
             android:textSize="@dimen/size22"
@@ -407,7 +347,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="20dp"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
@@ -416,10 +356,12 @@
             tools:itemCount="1"
             tools:listitem="@layout/item_agerating" />
 
+        <!--Contact Us-->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/scrollNested"
+            android:id="@+id/contactUs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -45,7 +45,6 @@ class AdapterFoodCombo(
         }
 
         if (foodSelectedItem.foodtype == "Individual"){
-
             holder.totalItems.show()
             holder.totalItems.text = foodSelectedItem.quantityUpdate.toString()+" "+mContext.getString(R.string.ItemAdded)
             if (foodSelectedItem.quantity > 0) {

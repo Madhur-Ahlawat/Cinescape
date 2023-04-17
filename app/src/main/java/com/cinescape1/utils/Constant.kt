@@ -198,6 +198,13 @@ class Constant {
 
         var walletCheck = 0
 
+        fun setMargins(view: View, left: Int, top: Int, right: Int, bottom: Int) {
+            if (view.layoutParams is ViewGroup.MarginLayoutParams) {
+                val p = view.layoutParams as ViewGroup.MarginLayoutParams
+                p.setMargins(left, top, right, bottom)
+                view.requestLayout()
+            }
+        }
     }
 
 
@@ -231,16 +238,16 @@ class Constant {
     lateinit var mContext: Context
 
     fun hideKeyboard(activity: Activity) {
-        val imm =
-            activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        //Find the currently focused view, so we can grab the correct window token from it.
-        var view = activity.currentFocus
-        //If no view currently has focus, create a new one, just so we can grab a window token from it
-        if (view == null) {
-            view = View(activity)
+        val inputMethodManager = activity.getSystemService(
+            Activity.INPUT_METHOD_SERVICE
+        ) as InputMethodManager
+        if (inputMethodManager.isAcceptingText) {
+            inputMethodManager.hideSoftInputFromWindow(
+                activity.currentFocus?.windowToken, 0
+            )
         }
-        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
+
 
     fun createQrCode(text: String): Bitmap {
         val decodedString: ByteArray = Base64.decode(text, Base64.DEFAULT)

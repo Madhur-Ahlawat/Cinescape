@@ -218,7 +218,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <View
         android:id="@+id/vws_line"
         android:layout_width="wrap_content"
