@@ -249,12 +249,15 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
         binding?.txtProceed?.setOnClickListener {
             if (giftCardAppliedFull) {
-                val intent =
-                    Intent(applicationContext, FinalTicketActivity::class.java)
-                intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
-                intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
-                startActivity(intent)
-                finish()
+                giftCardApply(
+                    GiftCardRequest(
+                        bookingId,
+                        bookType,
+                        offerCode!!,
+                        transId,
+                        preferences.getString(Constant.USER_ID).toString(), giftCardAppliedFull
+                    )
+                )
             }
             else if(giftCardApplied){
                 if(walletApplied){
@@ -1627,39 +1630,52 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         output: GiftCardResponse.Output
     ) {
         giftCardApplyRequest = output
-        if (output.PAID != null && output.PAID == "NO") {
-            giftCardApplied = true
-            giftCardAppliedFull = false
-            bankEnabled=false
-            walletEnabled=true
-            knetEnabled=true
-            creditCardEnabled = true
-            knetSelected=false
-            creditCardSelected=false
-        } else if (output.PAID != null && output.PAID == "YES") {
-            giftCardApplied = true
-            giftCardAppliedFull = true
-            bankEnabled = false
-            walletEnabled = false
-            knetSelected = false
-            creditCardEnabled = false
-            knetEnabled=false
-        } else if (output.CAN_PAY != null && output.CAN_PAY == "YES") {
-            giftCardApplied = true
-            giftCardAppliedFull = true
-            bankEnabled = false
-            walletEnabled = false
-            knetSelected = false
-            creditCardEnabled = false
-            knetEnabled=false
+        if(giftCardAppliedFull){
+            val intent =
+                Intent(applicationContext, FinalTicketActivity::class.java)
+            intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
+            intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
+            startActivity(intent)
+            finish()
         }
-        Constant.IntentKey.TimerExtandCheck = true
-        Constant.IntentKey.TimerExtand = 90
-        Constant.IntentKey.TimerTime = 360
+        else{
+            if (output.PAID != null && output.PAID == "NO") {
+                giftCardApplied = true
+                giftCardAppliedFull = false
+                bankEnabled=false
+                walletEnabled=true
+                knetEnabled=true
+                creditCardEnabled = true
+                knetSelected=false
+                creditCardSelected=false
+            }
+            else if (output.PAID != null && output.PAID == "YES") {
+                giftCardApplied = true
+                giftCardAppliedFull = true
+                bankEnabled = false
+                walletEnabled = false
+                knetSelected = false
+                creditCardEnabled = false
+                knetEnabled=false
+            }
+            else if (output.CAN_PAY != null && output.CAN_PAY == "YES") {
+                giftCardApplied = true
+                giftCardAppliedFull = true
+                bankEnabled = false
+                walletEnabled = false
+                knetSelected = false
+                creditCardEnabled = false
+                knetEnabled=false
+            }
+            Constant.IntentKey.TimerExtandCheck = true
+            Constant.IntentKey.TimerExtand = 90
+            Constant.IntentKey.TimerTime = 360
 
-        binding?.textTotalAmount?.text = output.amount
-        outputlist!!.clear()
-        outputlist!!.addAll(output.payInfo)
+            binding?.textTotalAmount?.text = output.amount
+            outputlist!!.clear()
+            outputlist!!.addAll(output.payInfo)
+        }
+
     }
 
     // hmac Request
@@ -1772,7 +1788,9 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                             finish()
                                         },
                                         negativeClick = {})
-                                    dialog.show()
+                                    if(!this@PaymentListActivity.isFinishing){
+                                        dialog.show()
+                                    }
                                 }
                             }.start()
                         } else if (Constant.IntentKey.TimerExtandCheck && Constant.IntentKey.TimerExtand < 0) {
@@ -1784,7 +1802,9 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 negativeBtnText = R.string.no,
                                 positiveClick = {},
                                 negativeClick = {})
-                            dialog.show()
+                            if(!this@PaymentListActivity.isFinishing){
+                                dialog.show()
+                            }
                         }
                     }
                 }
@@ -1809,7 +1829,9 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         builder.setCancelable(false)
         val alertDialog: android.app.AlertDialog = builder.create()
         alertDialog.window?.setBackgroundDrawableResource(R.color.transparent)
-        alertDialog.show()
+        if(!this@PaymentListActivity.isFinishing){
+            alertDialog.show()
+        }
 
         dialogView.title.text = getString(R.string.app_name)
         dialogView.subtitle.text = getString(R.string.stillHere)

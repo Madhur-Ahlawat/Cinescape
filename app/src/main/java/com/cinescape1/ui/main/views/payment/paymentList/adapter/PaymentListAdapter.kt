@@ -406,6 +406,10 @@ class PaymentListAdapter(
                     if(giftCardAppliedFull){
                         giftCardApplied=false
                         giftCardAppliedFull=false
+                        bankEnabled=true
+                        walletEnabled=true
+                        knetEnabled=true
+                        creditCardEnabled=true
                         notifyDataSetChanged()
                     }
                     else if (giftCardApplied){
