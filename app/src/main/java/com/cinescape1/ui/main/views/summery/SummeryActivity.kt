@@ -717,7 +717,6 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
                         Constant.IntentKey.TimerTime = 360
                         finish()
                     }
-
                 }
             }.start()
     }

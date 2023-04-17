@@ -70,6 +70,8 @@ import javax.inject.Inject
 class PaymentListActivity : DaggerAppCompatActivity(),
     RecycleViewItemClickListener {
 
+    private var timerCancelDialog: Dialog?=null
+    private var proceedAlertDialog: AlertDialog?=null
     private var giftCardApplyRequest: GiftCardResponse.Output? = null
 
     @Inject
@@ -179,6 +181,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
     override fun onDestroy() {
         super.onDestroy()
+        proceedAlertDialog?.dismiss()
         Constant.CARD_NO = ""
 
     }
@@ -646,8 +649,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         val binding =
             CheckoutCreditcartPaymentAlertBinding.inflate(layoutInflater)
         val mBuilder = AlertDialog.Builder(this).setView(binding.root)
-        val proceedAlertDialog = mBuilder.create()
-        proceedAlertDialog.show()
+        proceedAlertDialog = mBuilder.create()
+        proceedAlertDialog!!.show()
         binding?.apply {
             kdToPay?.text = " $totalPrice"
             cardNumberTextInputEditText?.setText(cardNo)
@@ -672,179 +675,182 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 override fun beforeTextChanged(
                     charSequence: CharSequence, i: Int, i1: Int, i2: Int
                 ) {
-                    try {
-                        if (!proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                .isEmpty()
-                        ) {
-                            proceedAlertDialog.image_american_express_card.visibility = View.VISIBLE
-                            if (VISA_PREFIX.contains(
-                                    proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                        .substring(0, 1)
-                                ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                    proceedAlertDialog?.apply {
+                        try {
+                            if (!cardNumberTextInputEditText.text.toString()
                                     .isEmpty()
                             ) {
-                                proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                    ContextCompat.getDrawable(
-                                        this@PaymentListActivity, R.drawable.visa_card
+                                image_american_express_card.visibility = View.VISIBLE
+                                if (VISA_PREFIX.contains(
+                                        cardNumberTextInputEditText.text.toString()
+                                            .substring(0, 1)
+                                    ) && !cardNumberTextInputEditText.text.toString()
+                                        .isEmpty()
+                                ) {
+                                    image_american_express_card.setImageDrawable(
+                                        ContextCompat.getDrawable(
+                                            this@PaymentListActivity, R.drawable.visa_card
+                                        )
                                     )
-                                )
 
-                            } else if (MASTERCARD_PREFIX.contains(
-                                    proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                        .substring(0, 2) + ","
-                                ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                    .isEmpty()
-                            ) {
-                                proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                    ContextCompat.getDrawable(
-                                        this@PaymentListActivity, R.drawable.mastercard_card
+                                } else if (MASTERCARD_PREFIX.contains(
+                                        cardNumberTextInputEditText.text.toString()
+                                            .substring(0, 2) + ","
+                                    ) && !cardNumberTextInputEditText.text.toString()
+                                        .isEmpty()
+                                ) {
+                                    image_american_express_card.setImageDrawable(
+                                        ContextCompat.getDrawable(
+                                            this@PaymentListActivity, R.drawable.mastercard_card
+                                        )
                                     )
-                                )
-                            } else if (AMEX_PREFIX.contains(
-                                    proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                        .substring(0, 2) + ","
-                                ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                    .isEmpty()
-                            ) {
-                                proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                    ContextCompat.getDrawable(
-                                        this@PaymentListActivity, R.drawable.amerian_card
+                                } else if (AMEX_PREFIX.contains(
+                                        cardNumberTextInputEditText.text.toString()
+                                            .substring(0, 2) + ","
+                                    ) && !cardNumberTextInputEditText.text.toString()
+                                        .isEmpty()
+                                ) {
+                                    image_american_express_card.setImageDrawable(
+                                        ContextCompat.getDrawable(
+                                            this@PaymentListActivity, R.drawable.amerian_card
+                                        )
                                     )
-                                )
-                            } else if (DISCOVER_PREFIX.contains(
-                                    proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                        .substring(0, 4)
-                                ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                    .isEmpty()
-                            ) {
-                                proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                    ContextCompat.getDrawable(
-                                        this@PaymentListActivity, R.drawable.amerian_card
+                                } else if (DISCOVER_PREFIX.contains(
+                                        cardNumberTextInputEditText.text.toString()
+                                            .substring(0, 4)
+                                    ) && !cardNumberTextInputEditText.text.toString()
+                                        .isEmpty()
+                                ) {
+                                    image_american_express_card.setImageDrawable(
+                                        ContextCompat.getDrawable(
+                                            this@PaymentListActivity, R.drawable.amerian_card
+                                        )
                                     )
-                                )
-                            } else if (JCB.contains(
-                                    proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                        .substring(0, 1)
-                                ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                    .isEmpty()
-                            ) {
-                                proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                    ContextCompat.getDrawable(
-                                        this@PaymentListActivity, R.drawable.amerian_card
+                                } else if (JCB.contains(
+                                        cardNumberTextInputEditText.text.toString()
+                                            .substring(0, 1)
+                                    ) && !cardNumberTextInputEditText.text.toString()
+                                        .isEmpty()
+                                ) {
+                                    image_american_express_card.setImageDrawable(
+                                        ContextCompat.getDrawable(
+                                            this@PaymentListActivity, R.drawable.amerian_card
+                                        )
                                     )
-                                )
-                            } else if (MAESTRO.contains(
-                                    proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                        .substring(0, 2)
-                                ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                    .isEmpty()
-                            ) {
-                                proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                    ContextCompat.getDrawable(
-                                        this@PaymentListActivity, R.drawable.amerian_card
+                                } else if (MAESTRO.contains(
+                                        cardNumberTextInputEditText.text.toString()
+                                            .substring(0, 2)
+                                    ) && !cardNumberTextInputEditText.text.toString()
+                                        .isEmpty()
+                                ) {
+                                    image_american_express_card.setImageDrawable(
+                                        ContextCompat.getDrawable(
+                                            this@PaymentListActivity, R.drawable.amerian_card
+                                        )
                                     )
-                                )
+                                } else {
+                                    image_american_express_card.visibility =
+                                        View.GONE
+                                }
                             } else {
-                                proceedAlertDialog.image_american_express_card.visibility =
-                                    View.GONE
+                                image_american_express_card.visibility = View.GONE
                             }
-                        } else {
-                            proceedAlertDialog.image_american_express_card.visibility = View.GONE
-                        }
-                    } catch (e: java.lang.Exception) {
+                        } catch (e: java.lang.Exception) {
 
+                        }
                     }
+
                 }
 
                 override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
                     try {
-                        if (!proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                        if (!cardNumberTextInputEditText.text.toString()
                                 .isEmpty()
                         ) {
-                            proceedAlertDialog.image_american_express_card.visibility = View.VISIBLE
+                            image_american_express_card.visibility = View.VISIBLE
                             if (VISA_PREFIX.contains(
-                                    proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                    cardNumberTextInputEditText.text.toString()
                                         .substring(0, 1)
-                                ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                ) && !cardNumberTextInputEditText.text.toString()
                                     .isEmpty()
                             ) {
-                                proceedAlertDialog.image_american_express_card.setImageDrawable(
+                                image_american_express_card.setImageDrawable(
                                     ContextCompat.getDrawable(
                                         this@PaymentListActivity, R.drawable.visa_card
                                     )
                                 )
                             } else if (MASTERCARD_PREFIX.contains(
-                                    proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                    cardNumberTextInputEditText.text.toString()
                                         .substring(0, 2) + ","
-                                ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                ) && !cardNumberTextInputEditText.text.toString()
                                     .isEmpty()
                             ) {
-                                proceedAlertDialog.image_american_express_card.setImageDrawable(
+                                image_american_express_card.setImageDrawable(
                                     ContextCompat.getDrawable(
                                         this@PaymentListActivity, R.drawable.mastercard_card
                                     )
                                 )
                             } else if (AMEX_PREFIX.contains(
-                                    proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                    cardNumberTextInputEditText.text.toString()
                                         .substring(0, 2) + ","
-                                ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                ) && !cardNumberTextInputEditText.text.toString()
                                     .isEmpty()
                             ) {
-                                proceedAlertDialog.image_american_express_card.setImageDrawable(
+                                image_american_express_card.setImageDrawable(
                                     ContextCompat.getDrawable(
                                         this@PaymentListActivity, R.drawable.amerian_card
                                     )
                                 )
                             } else if (DISCOVER_PREFIX.contains(
-                                    proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                    cardNumberTextInputEditText.text.toString()
                                         .substring(0, 4)
-                                ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                ) && !cardNumberTextInputEditText.text.toString()
                                     .isEmpty()
                             ) {
-                                proceedAlertDialog.image_american_express_card.setImageDrawable(
+                                image_american_express_card.setImageDrawable(
                                     ContextCompat.getDrawable(
                                         this@PaymentListActivity, R.drawable.disover_card
                                     )
                                 )
                             } else if (JCB.contains(
-                                    proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                    cardNumberTextInputEditText.text.toString()
                                         .substring(0, 4)
-                                ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                ) && !cardNumberTextInputEditText.text.toString()
                                     .isEmpty()
                             ) {
-                                proceedAlertDialog.image_american_express_card.setImageDrawable(
+                                image_american_express_card.setImageDrawable(
                                     ContextCompat.getDrawable(
                                         this@PaymentListActivity, R.drawable.jcb_card
                                     )
                                 )
                             } else if (MAESTRO.contains(
-                                    proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                    cardNumberTextInputEditText.text.toString()
                                         .substring(0, 4)
-                                ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                ) && !cardNumberTextInputEditText.text.toString()
                                     .isEmpty()
                             ) {
-                                proceedAlertDialog.image_american_express_card.setImageDrawable(
+                                image_american_express_card.setImageDrawable(
                                     ContextCompat.getDrawable(
                                         this@PaymentListActivity, R.drawable.maestro_card
                                     )
                                 )
                             } else if (UATP.contains(
-                                    proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                    cardNumberTextInputEditText.text.toString()
                                         .substring(0, 4)
-                                ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                ) && !cardNumberTextInputEditText.text.toString()
                                     .isEmpty()
                             ) {
-                                proceedAlertDialog.image_american_express_card.setImageDrawable(
+                                image_american_express_card.setImageDrawable(
                                     ContextCompat.getDrawable(
                                         this@PaymentListActivity, R.drawable.uatp
                                     )
                                 )
                             } else {
-                                proceedAlertDialog.image_american_express_card.visibility =
+                                image_american_express_card.visibility =
                                     View.GONE
                             }
                         } else {
-                            proceedAlertDialog.image_american_express_card.visibility = View.GONE
+                            image_american_express_card.visibility = View.GONE
                         }
                     } catch (e: java.lang.Exception) {
                         e.printStackTrace()
@@ -854,83 +860,83 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 override fun afterTextChanged(editable: Editable) {
 
                     try {
-                        if (!proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                        if (!cardNumberTextInputEditText.text.toString()
                                 .isEmpty()
                         ) {
-                            proceedAlertDialog.imageView52.visibility = View.VISIBLE
+                            imageView52.visibility = View.VISIBLE
                             if (VISA_PREFIX.contains(
-                                    proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                    cardNumberTextInputEditText.text.toString()
                                         .substring(0, 1)
-                                ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                ) && !cardNumberTextInputEditText.text.toString()
                                     .isEmpty()
                             ) {
-                                proceedAlertDialog.imageView52.setImageDrawable(
+                                imageView52.setImageDrawable(
                                     ContextCompat.getDrawable(
                                         this@PaymentListActivity, R.drawable.visa_card
                                     )
                                 )
                             } else if (MASTERCARD_PREFIX.contains(
-                                    proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                    cardNumberTextInputEditText.text.toString()
                                         .substring(0, 2) + ","
-                                ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                ) && !cardNumberTextInputEditText.text.toString()
                                     .isEmpty()
                             ) {
-                                proceedAlertDialog.imageView52.setImageDrawable(
+                                imageView52.setImageDrawable(
                                     ContextCompat.getDrawable(
                                         this@PaymentListActivity, R.drawable.mastercard_card
                                     )
                                 )
                             } else if (AMEX_PREFIX.contains(
-                                    proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                    cardNumberTextInputEditText.text.toString()
                                         .substring(0, 2) + ","
-                                ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                ) && !cardNumberTextInputEditText.text.toString()
                                     .isEmpty()
                             ) {
-                                proceedAlertDialog.imageView52.setImageDrawable(
+                                imageView52.setImageDrawable(
                                     ContextCompat.getDrawable(
                                         this@PaymentListActivity, R.drawable.amerian_card
                                     )
                                 )
                             } else if (DISCOVER_PREFIX.contains(
-                                    proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                    cardNumberTextInputEditText.text.toString()
                                         .substring(0, 4)
-                                ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                ) && !cardNumberTextInputEditText.text.toString()
                                     .isEmpty()
                             ) {
-                                proceedAlertDialog.imageView52.setImageDrawable(
+                                imageView52.setImageDrawable(
                                     ContextCompat.getDrawable(
                                         this@PaymentListActivity, R.drawable.disover_card
                                     )
                                 )
                             } else if (JCB.contains(
-                                    proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                    cardNumberTextInputEditText.text.toString()
                                         .substring(0, 4)
-                                ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                ) && !cardNumberTextInputEditText.text.toString()
                                     .isEmpty()
                             ) {
-                                proceedAlertDialog.imageView52.setImageDrawable(
+                                imageView52.setImageDrawable(
                                     ContextCompat.getDrawable(
                                         this@PaymentListActivity, R.drawable.jcb_card
                                     )
                                 )
                             } else if (MAESTRO.contains(
-                                    proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                    cardNumberTextInputEditText.text.toString()
                                         .substring(0, 4)
-                                ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                ) && !cardNumberTextInputEditText.text.toString()
                                     .isEmpty()
                             ) {
-                                proceedAlertDialog.imageView52.setImageDrawable(
+                                imageView52.setImageDrawable(
                                     ContextCompat.getDrawable(
                                         this@PaymentListActivity, R.drawable.maestro_card
                                     )
                                 )
                             } else if (UATP.contains(
-                                    proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                    cardNumberTextInputEditText.text.toString()
                                         .substring(0, 4)
-                                ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                                ) && !cardNumberTextInputEditText.text.toString()
                                     .isEmpty()
                             ) {
-                                proceedAlertDialog.imageView52.setImageDrawable(
+                                imageView52.setImageDrawable(
                                     ContextCompat.getDrawable(
                                         this@PaymentListActivity, R.drawable.uatp
                                     )
@@ -968,42 +974,42 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         if (p0?.length == 2 && !lastInput.endsWith("/")) {
                             val month = Integer.parseInt(input)
                             if (month <= 12) {
-                                proceedAlertDialog.expireDateTextInputEditText.setText(
-                                    proceedAlertDialog.expireDateTextInputEditText.text.toString() + "/"
+                                expireDateTextInputEditText.setText(
+                                    expireDateTextInputEditText.text.toString() + "/"
                                 )
-                                proceedAlertDialog.expireDateTextInputEditText.setSelection(
+                                expireDateTextInputEditText.setSelection(
                                     3
                                 )
                             }
                         } else if (p0?.length == 2 && lastInput.endsWith("/")) {
                             val month = Integer.parseInt(input)
                             if (month <= 12) {
-                                proceedAlertDialog.expireDateTextInputEditText.setText(
-                                    proceedAlertDialog.expireDateTextInputEditText.text.toString()
+                                expireDateTextInputEditText.setText(
+                                    expireDateTextInputEditText.text.toString()
                                         .substring(0, 1)
                                 )
                             }
                         }
-                        lastInput = proceedAlertDialog.expireDateTextInputEditText.text.toString()
+                        lastInput = expireDateTextInputEditText.text.toString()
                         //because not valid so code exits here
                         return
                     }
                 }
             })
             textCancelGoBack.setOnClickListener {
-                proceedAlertDialog.dismiss()
+                proceedAlertDialog?.dismiss()
             }
             btnPay.setOnClickListener {
-                if (validateFields(proceedAlertDialog)) try {
+                if (validateFields(proceedAlertDialog!!)) try {
                     postCardData(
                         PostCardRequest(
                             bookingId,
-                            proceedAlertDialog.cardNumberTextInputEditText.text.toString()
+                            cardNumberTextInputEditText.text.toString()
                                 .replace(" ".toRegex(), "").trim(),
-                            proceedAlertDialog.ccvTextInputEditText.text.toString(),
-                            proceedAlertDialog.expireDateTextInputEditText.text.toString()
+                            ccvTextInputEditText.text.toString(),
+                            expireDateTextInputEditText.text.toString()
                                 .split("/")[0],
-                            proceedAlertDialog.expireDateTextInputEditText.text.toString()
+                            expireDateTextInputEditText.text.toString()
                                 .split("/")[1],
                             refId
                         )
@@ -1011,8 +1017,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 } catch (e: Exception) {
                     println("exception--->${e.message}")
                 }
-
-
             }
         }
         creditCardInit(
@@ -1037,9 +1041,13 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                             println("consumerSessionId12-->" + validateResponse.actionCode + "----" + validateResponse.errorDescription)
                                             if (validateResponse.actionCode == CardinalActionCode.CANCEL) {
                                                 toast("Transaction Cancelled!")
-                                            } else if (validateResponse.actionCode == CardinalActionCode.ERROR) {
+                                                finish()
+                                            }
+                                            else if (validateResponse.actionCode == CardinalActionCode.ERROR) {
                                                 toast(validateResponse.errorDescription)
-                                            } else if (validateResponse.actionCode == CardinalActionCode.SUCCESS) {
+                                                finish()
+                                            }
+                                            else if (validateResponse.actionCode == CardinalActionCode.SUCCESS) {
                                                 if (s != null) {
                                                     runOnUiThread {
                                                         validateJWT(
@@ -1142,6 +1150,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                             Constant.IntentKey.BOOKING_ID, bookingId
                                         )
                                         startActivity(intent)
+                                        finish()
                                     }
                                 } catch (e: Exception) {
                                     println("updateUiCinemaSession ---> ${e.message}")
@@ -1735,7 +1744,9 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
                         println("FinishTimer-=-->${Constant.IntentKey.TimerExtandCheck},Time--->${Constant.IntentKey.TimerExtand}")
                         if (!Constant.IntentKey.TimerExtandCheck) {
-                            extendTime()
+                            if(!this@PaymentListActivity.isFinishing){
+                                extendTime()
+                            }
                         } else if (Constant.IntentKey.TimerExtandCheck && Constant.IntentKey.TimerExtand > 0) {
                             object : CountDownTimer((Constant.IntentKey.TimerExtand * 1000), 1000) {
                                 @SuppressLint("SetTextI18n")
@@ -1834,36 +1845,36 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
     /////////////////////////////////       Cancel Booking Process /////////////////////////////////
     private fun cancelDialog() {
-        val dialog = Dialog(this)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.cancel_dialog)
-        dialog.window!!.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
-        dialog.window!!.setGravity(Gravity.BOTTOM)
-        dialog.show()
+        timerCancelDialog = Dialog(this@PaymentListActivity)
+        timerCancelDialog?.apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            setContentView(R.layout.cancel_dialog)
+            window!!.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            window!!.attributes.windowAnimations = R.style.DialogAnimation
+            window!!.setGravity(Gravity.BOTTOM)
+            show()
+            consSure?.setOnClickListener {
+                Constant.IntentKey.TimerExtandCheck = true
+                Constant.IntentKey.TimerExtand = 90
+                Constant.IntentKey.TimerTime = 360
+                cancelTrans(CancelTransRequest(bookingId, transId))
+                if (bookType == "FOOD") {
+                    Constant.IntentKey.DialogShow = true
+                    val intent = Intent(this@PaymentListActivity, HomeActivity::class.java)
+                    Constant.IntentKey.OPEN_FROM = 0
+                    startActivity(intent)
+                    finish()
 
-        dialog.consSure?.setOnClickListener {
-            Constant.IntentKey.TimerExtandCheck = true
-            Constant.IntentKey.TimerExtand = 90
-            Constant.IntentKey.TimerTime = 360
-            cancelTrans(CancelTransRequest(bookingId, transId))
-            if (bookType == "FOOD") {
-                Constant.IntentKey.DialogShow = true
-                val intent = Intent(this, HomeActivity::class.java)
-                Constant.IntentKey.OPEN_FROM = 0
-                startActivity(intent)
-                finish()
-
-            } else {
-                finish()
+                } else {
+                    finish()
+                }
             }
-        }
-
-        dialog.negative_btn?.setOnClickListener {
-            dialog.dismiss()
+            negative_btn?.setOnClickListener {
+                dismiss()
+            }
         }
     }
 
