@@ -33,30 +33,32 @@ class FilterChildAdapter(private val mContext: Context, private val items: Array
     @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(
         holder: TodoViewHolder,
-        @SuppressLint("RecyclerView") position: Int
-    ) {
+        @SuppressLint("RecyclerView") position: Int) {
         val obj = items[position]
         holder.todoTitle.text = obj.toString()
-        if (Constant.LANGUAGE == "ar"){
-            LocaleHelper.setLocale(mContext, "ar")
-            val regular = ResourcesCompat.getFont(mContext, R.font.montserrat_regular)
-            val bold = ResourcesCompat.getFont(mContext, R.font.montserrat_bold)
-            val medium = ResourcesCompat.getFont(mContext, R.font.montserrat_medium)
+        when (Constant.LANGUAGE) {
+            "ar" -> {
+                LocaleHelper.setLocale(mContext, "ar")
+                val regular = ResourcesCompat.getFont(mContext, R.font.montserrat_regular)
+                val bold = ResourcesCompat.getFont(mContext, R.font.montserrat_bold)
+                val medium = ResourcesCompat.getFont(mContext, R.font.montserrat_medium)
 
-            holder.todoTitle.typeface = regular
+                holder.todoTitle.typeface = regular
 
 
-        }else if (Constant.LANGUAGE == "en"){
-            LocaleHelper.setLocale(mContext, "en")
-            val regular = ResourcesCompat.getFont(mContext, R.font.sf_pro_text_regular)
-            holder.todoTitle.typeface = regular
+            }
+            "en" -> {
+                LocaleHelper.setLocale(mContext, "en")
+                val regular = ResourcesCompat.getFont(mContext, R.font.sf_pro_text_regular)
+                holder.todoTitle.typeface = regular
 
-        }else{
-            LocaleHelper.setLocale(mContext, "en")
-            val regular = ResourcesCompat.getFont(mContext, R.font.sf_pro_text_regular)
+            }
+            else -> {
+                LocaleHelper.setLocale(mContext, "en")
+                val regular = ResourcesCompat.getFont(mContext, R.font.sf_pro_text_regular)
 
-            holder.todoTitle.typeface = regular
-
+                holder.todoTitle.typeface = regular
+            }
         }
 
 
@@ -64,14 +66,11 @@ class FilterChildAdapter(private val mContext: Context, private val items: Array
             if (selected.contains(obj)){
                 selected.remove(obj)
                 holder.layoutFilterBg.setBackgroundDrawable(mContext.getDrawable(R.drawable.filter_unselect))
-
                 holder.todoTitle.setTextColor(ContextCompat.getColor(mContext, R.color.hint_color))
-
             }else {
                 selected.add(obj.toString())
                 holder.todoTitle.setTextColor(ContextCompat.getColor(mContext, R.color.white))
                 holder.layoutFilterBg.setBackgroundDrawable(mContext.getDrawable(R.drawable.filter_select))
-
             }
         }
 
