@@ -61,7 +61,7 @@
     <string name="done">اعتمد</string>
     <string name="home">الصفحة الرئيسية</string>
     <string name="movies">الأفلام</string>
-    <string name="food">المأكولات والمشروبات</string>
+    <string name="food">المأكولات</string>
     <string name="account">الحساب</string>
     <string name="more">المزيد</string>
     <string name="bombshell">قنبلة</string>
@@ -118,7 +118,7 @@
     <string name="credit_card_payment">الدفع ببطاقة الائتمان</string>
     <string name="expiry_date">تاريخ انتهاء الصلاحية</string>
     <string name="ccv">CCV</string>
-    <string name="pay">يدفع</string>
+    <string name="pay">ادفع</string>
     <string name="cancels">إلغاء" "</string>
     <string name="and_go_back">والعودة</string>
     <string name="booking_id">رقم الحجز</string>
@@ -263,11 +263,11 @@
     <string name="sent_verification">تم ارسال رمز التأكيد على بريدك الالكتروني</string>
     <string name="enter_verification_code">أدخل رمز التأكيد</string>
     <string name="enterVerification">أدخل رمز التحقق المرسل إلى عنوان بريدك الإلكتروني</string>
-    <string name="submit">إدخال</string>
+    <string name="submit">اعتماد</string>
     <string name="email_id">البريد الالكتروني</string>
     <string name="enter_new_password">أدخل كلمة السر الجديدة</string>
     <string name="confirm_new_password">تأكيد كلمة السر الجديدة</string>
-    <string name="Continue">متابعة</string>
+    <string name="Continue">استمرار</string>
     <string name="resetPassword">إعادة ضبط كلمة السر</string>
     <string name="selectGender">اختر الجنس</string>
     <string name="wallet_id">معرف المحفظة</string>
