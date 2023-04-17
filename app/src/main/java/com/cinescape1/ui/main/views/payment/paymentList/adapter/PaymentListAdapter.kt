@@ -19,7 +19,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
@@ -33,7 +32,6 @@ import com.cinescape1.databinding.ItemGatewayUiBinding
 import com.cinescape1.databinding.ItemGiftCardBinding
 import com.cinescape1.databinding.ItemWalletUiBinding
 import com.cinescape1.ui.main.dailogs.OptionDialog
-import com.cinescape1.ui.main.views.payment.PaymentMethodSealedClass
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.bankApplied
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.bankClicked
@@ -207,11 +205,14 @@ class PaymentListAdapter(
                         headerUi.isEnabled = true
                         headerUi.isFocusable = true
                         headerOfferType.setTextColor(context.resources.getColor(R.color.white))
+                        ivDropdown.setColorFilter(context.resources.getColor(R.color.white))
+
 
                     } else {
                         bankClicked = false
                         bankApplied = false
                         headerOfferType.setTextColor(context.resources.getColor(R.color.gray))
+                        ivDropdown.setColorFilter(context.resources.getColor(R.color.gray))
                         headerUi.isClickable = false
                         headerUi.isEnabled = false
                         headerUi.isFocusable = false
@@ -380,7 +381,7 @@ class PaymentListAdapter(
                 }
                 binding.tvApplyGiftCard.setOnClickListener {
                     clickName = "Gift Card"
-                    offerCode = binding.editTextGiftCard.text.toString()
+                    offerCode = binding.textInputGiftCard.editText!!.text.toString()
                     if (offerCode == "") {
                         val dialog = OptionDialog(context,
                             R.mipmap.ic_launcher,
@@ -402,24 +403,31 @@ class PaymentListAdapter(
                 }
                 binding.textviewCancelGiftCard.setOnClickListener {
                     clickName = "Gift Card"
-                    offerCode = binding.editTextGiftCard.text.toString()
-                    if (offerCode == "") {
-                        val dialog = OptionDialog(context,
-                            R.mipmap.ic_launcher,
-                            R.string.app_name,
-                            "$clickName can not be empty",
-                            positiveBtnText = R.string.ok,
-                            negativeBtnText = R.string.no,
-                            positiveClick = {},
-                            negativeClick = {})
-                        dialog.show()
-                    } else {
-                        listner.onGiftCardItemRemove(
-                            this,
-                            offerCode!!,
-                            clickName,
-                            clickId
-                        )
+                    if(giftCardAppliedFull){
+                        giftCardApplied=false
+                        giftCardAppliedFull=false
+                        notifyDataSetChanged()
+                    }
+                    else if (giftCardApplied){
+                        offerCode = binding.textInputGiftCard.editText!!.text.toString()
+                        if (offerCode == "") {
+                            val dialog = OptionDialog(context,
+                                R.mipmap.ic_launcher,
+                                R.string.app_name,
+                                "$clickName can not be empty",
+                                positiveBtnText = R.string.ok,
+                                negativeBtnText = R.string.no,
+                                positiveClick = {},
+                                negativeClick = {})
+                            dialog.show()
+                        } else {
+                            listner.onGiftCardItemRemove(
+                                this,
+                                offerCode!!,
+                                clickName,
+                                clickId
+                            )
+                        }
                     }
                 }
                 if (giftCardAppliedFull) {
@@ -427,7 +435,7 @@ class PaymentListAdapter(
                         headerUi.isEnabled = true
                         headerUi.isFocusable = true
                         headerUi.isClickable = true
-                        editTextGiftCard?.apply {
+                        textInputGiftCard?.apply {
                             isClickable = false
                             isEnabled = false
                             isFocusable = false
@@ -436,12 +444,12 @@ class PaymentListAdapter(
                         tvApplyGiftCard.hide()
                     }
                 }
-                if (giftCardApplied) {
+                else if (giftCardApplied) {
                     binding?.apply {
                         headerUi.isEnabled = true
                         headerUi.isFocusable = true
                         headerUi.isClickable = true
-                        editTextGiftCard?.apply {
+                        textInputGiftCard?.apply {
                             isEnabled = false
                             isFocusable = false
                             isClickable = false
@@ -450,12 +458,12 @@ class PaymentListAdapter(
                         tvApplyGiftCard.hide()
                     }
                 }
-                if (!giftCardApplied && !giftCardAppliedFull) {
+                else{
                     binding?.apply {
                         headerUi.isEnabled = true
                         headerUi.isFocusable = true
                         headerUi.isClickable = true
-                        editTextGiftCard?.apply {
+                        textInputGiftCard?.apply {
                             isEnabled = true
                             isFocusable = true
                             isClickable = true
@@ -467,6 +475,7 @@ class PaymentListAdapter(
                 if (giftCardEnabled) {
                     binding?.apply {
                         headerOfferType.setTextColor(context.resources.getColor(R.color.white))
+                        ivDropdown.setColorFilter(context.resources.getColor(R.color.white))
                         headerUi.isClickable = true
                         headerUi.isEnabled = true
                         headerUi.isFocusable = true
@@ -477,6 +486,7 @@ class PaymentListAdapter(
                     giftCardAppliedFull = false
                     binding?.apply {
                         headerOfferType.setTextColor(context.resources.getColor(R.color.gray))
+                        ivDropdown.setColorFilter(context.resources.getColor(R.color.gray))
                         headerUi.isClickable = false
                         headerUi.isEnabled = false
                         headerUi.isFocusable = false
@@ -515,7 +525,6 @@ class PaymentListAdapter(
                         walletApplied = true
                         knetSelected = false
                         creditCardSelected = false
-                        giftCardApplied = false
                         notifyDataSetChanged()
                     }
                     textviewBtWalletCancel.setOnClickListener {
@@ -539,6 +548,8 @@ class PaymentListAdapter(
                 if (walletEnabled) {
                     binding?.apply {
                         headerOfferType.setTextColor(context.resources.getColor(R.color.white))
+                        ivDropdown.setColorFilter(context.resources.getColor(R.color.white))
+
                         headerUi.isClickable = true
                         headerUi.isEnabled = true
                         headerUi.isFocusable = true
@@ -548,6 +559,7 @@ class PaymentListAdapter(
                     walletApplied = false
                     binding?.apply {
                         headerOfferType.setTextColor(context.resources.getColor(R.color.gray))
+                        ivDropdown.setColorFilter(context.resources.getColor(R.color.gray))
                         headerUi.isClickable = false
                         headerUi.isEnabled = false
                         headerUi.isFocusable = false

@@ -154,7 +154,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         giftCardEnabled = true
         walletEnabled = true
         gatewayEnabled = true
-
+        knetEnabled=true
+        creditCardEnabled=true
         spinnerClickable = true
         bankApplied = false
         bankCardNumber = ""
@@ -1538,9 +1539,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         giftCardApplied = false
         giftCardAppliedFull = false
         bankEnabled=true
-        outputlist!!.addAll(output.payInfo)
         binding?.textTotalAmount?.text = output.amount
-        adapter?.notifyDataSetChanged()
     }
 
     private fun giftCardApply(
@@ -1624,6 +1623,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             walletEnabled = false
             knetSelected = false
             creditCardEnabled = false
+            knetEnabled=false
         } else if (output.CAN_PAY != null && output.CAN_PAY == "YES") {
             giftCardApplied = true
             giftCardAppliedFull = true
@@ -1631,6 +1631,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             walletEnabled = false
             knetSelected = false
             creditCardEnabled = false
+            knetEnabled=false
         }
         Constant.IntentKey.TimerExtandCheck = true
         Constant.IntentKey.TimerExtand = 90
@@ -1931,5 +1932,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             dialog.dismiss()
         }
     }
-
+    fun clearAmountList(){
+        outputlist?.clear()
+    }
 }
