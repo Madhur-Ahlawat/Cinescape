@@ -81,6 +81,7 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
             binding?.paymentView?.loadUrl(url)
             val webSettings = binding?.paymentView?.settings
             webSettings?.javaScriptEnabled = true
+            webSettings?.javaScriptCanOpenWindowsAutomatically = true
             webSettings?.domStorageEnabled = true
             binding?.paymentView?.clearFormData()
             binding?.paymentView?.addJavascriptInterface(JavaScriptInterface(this), "Android")
@@ -96,7 +97,6 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
             }
 
             override fun onPageFinished(view: WebView, url: String) {
-//                Utility.dismissDialog()
                 println("url---$url")
                 super.onPageFinished(view, url)
                 if (url.contains("knetmobresp")) {

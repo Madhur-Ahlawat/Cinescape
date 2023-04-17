@@ -267,6 +267,16 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 else if(creditCardSelected){
                     creditCardDialog(Constant.CARD_NO)
                 }
+                else if(knetSelected){
+                    paymentHmac(
+                        HmacKnetRequest(
+                            bookingId,
+                            bookType,
+                            transId,
+                            preferences.getString(Constant.USER_ID).toString()
+                        )
+                    )
+                }
             }
             else if (walletApplied) {
                 walletPay(
@@ -280,7 +290,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             }
             else if (creditCardSelected) {
                 creditCardDialog(Constant.CARD_NO)
-            } else if (knetSelected) {
+            }
+            else if (knetSelected) {
                 paymentHmac(
                     HmacKnetRequest(
                         bookingId,
@@ -1112,7 +1123,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+//                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
 
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
@@ -1137,7 +1148,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 }
 
                             } else {
-                                LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+//                                LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
 
                                 val dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
@@ -1153,7 +1164,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         }
                     }
                     Status.ERROR -> {
-                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+//                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
 
                         val dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
@@ -1166,8 +1177,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        LoaderDialog.getInstance(R.string.pleasewait)
-                            ?.show(supportFragmentManager, null)
+//                        LoaderDialog.getInstance(R.string.pleasewait)
+//                            ?.show(supportFragmentManager, null)
 
                     }
                 }
