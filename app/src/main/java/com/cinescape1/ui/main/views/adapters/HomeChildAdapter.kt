@@ -37,8 +37,7 @@ class HomeChildAdapter(
                 MyViewHolderSlider(headerLayout)
             }
             else -> {
-                val view =
-                    LayoutInflater.from(context).inflate(R.layout.recommended_item, parent, false)
+                val view = LayoutInflater.from(context).inflate(R.layout.recommended_item, parent, false)
                 MyViewHolderRecommended(view)
             }
         }

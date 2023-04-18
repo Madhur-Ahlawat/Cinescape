@@ -50,10 +50,7 @@ class UpcomingBookingAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolderUpcomingBooking, position: Int) {
         val foodSelctedItem = upcomingBookingList[position]
-
         holder.textNameMovie.isSelected = true
-
-
 
         println("poster images")
         Glide.with(mContext)
@@ -71,7 +68,6 @@ class UpcomingBookingAdapter(
         holder.times.text = foodSelctedItem.showTime
 
         holder.txtFoodPickupId.text = foodSelctedItem.pickUpNumber
-
 
         when (foodSelctedItem.experience) {
             "4DX" -> {
@@ -211,7 +207,6 @@ class UpcomingBookingAdapter(
             intent.putExtra("FROM", "MTicket")
             intent.putExtra("FROM_ACCOUNT", "account")
             mContext.startActivity(intent)
-
         }
 
         holder.btFoodPrepare.setOnClickListener {
@@ -219,7 +214,6 @@ class UpcomingBookingAdapter(
         }
 
         holder.foodAddBtn.setOnClickListener {
-
             val intent = Intent(mContext, FoodActivity::class.java)
                 .putExtra("CINEMA_ID", foodSelctedItem.cinemacode)
                 .putExtra("BOOKING", "ADDFOOD")

@@ -92,7 +92,7 @@
     <string name="similar_movies_now_showing">تعرض حالياً أفلام شبيهة</string>
     <string name="filters">تصفية</string>
     <string name="showtimes">أوقات العرض</string>
-    <string name="choose_your_preferred_location">اختر موقعك المفضل</string>
+    <string name="choose_your_preferred_location">يمكنك طلب المأكولات لليوم الحالي فقط</string>
     <string name="you_can_order_only_for">بإمكانك الطلب فقط لعدد</string>
     <string name="today">اليوم</string>
     <string name="proceed">استمرار</string>
@@ -209,7 +209,7 @@
     <string name="now_showing">يعرض قريباً</string>
     <string name="coming_soon">قريبا</string>
     <string name="faq">الأسئلة الشائعة</string>
-    <string name="contact">تواصل</string>
+    <string name="contact">التواصل</string>
     <string name="terms_amp_condition">الشروط والأحكام</string>
     <string name="privacy_policy">سياسة الخصوصية</string>
     <string name="name">اسم</string>
@@ -321,8 +321,8 @@
     <string name="selectCateogry">يرجى تحديد الفئة الخاصة بك</string>
     <string name="no_movie_available">لا يوجد فيلم متاح</string>
 
-    <string name="nowSowing">يعرض الآن</string>
-    <string name="commingSoon">قريبا</string>
+    <string name="nowSowing">يعرض حالياً</string>
+    <string name="commingSoon">قريباً</string>
     <string name="advanceBooking">حجز مسبق</string>
     <string name="wallet_amount">مبلغ المحفظة</string>
     <string name="balance_amount_to_be_paid">مبلغ الرصيد الواجب دفعه</string>
@@ -392,7 +392,8 @@
     <string name="type_your_email_address">اكتب البريد الالكتروني الخاص بك</string>
     <string name="confirm_deletion">تأكيد الحذف</string>
     <string name="prepare_food">حضر الطعام</string>
-    <string name="add_food">أضف الطعام</string>
+<!--    <string name="add_food">أضف الطعام</string>-->
+    <string name="add_food"> الطعام</string>
     <string name="food_pickup_id">معرّف استلام الطعام</string>
     <string name="noBookings">لا يوجد حاليا أي حجوزات</string>
     <string name="noHistory">لم يتم العثور على محفوظات الطلبات</string>

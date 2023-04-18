@@ -137,6 +137,7 @@
     <string name="history">History</string>
     <string name="your_upcoming_bookings">Your Upcoming Bookings</string>
     <string name="your_bookings_history">Your Order History</string>
+
     <string name="modifi_seat">Choosing Yes will reset your current selections.</string>
     <string name="food_pickup_info">Food Pickup Info</string>
     <string name="edit">Edit</string>
@@ -383,7 +384,8 @@
     <string name="type_your_email_address">Type your email address</string>
     <string name="confirm_deletion">Confirm Deletion</string>
     <string name="prepare_food">Prepare Food</string>
-    <string name="add_food">Add Food</string>
+<!--    <string name="add_food">Add Food</string>-->
+    <string name="add_food">Food</string>
     <string name="food_pickup_id">Food Pickup Id</string>
 
     <string name="noBookings">There are currently no bookings</string>
