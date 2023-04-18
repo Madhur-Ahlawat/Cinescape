@@ -9,6 +9,7 @@ import com.cinescape1.ui.main.views.login.activeWallet.repsonse.ActivateWalletRe
 import com.cinescape1.ui.main.views.login.reponse.LoginResponse
 import com.cinescape1.ui.main.views.payment.paymentFaield.reponse.PaymentFailedResponse
 import com.cinescape1.ui.main.views.payment.paymentList.BankOfferRequest
+import com.cinescape1.ui.main.views.payment.paymentList.WalletApplyRequest
 import com.cinescape1.ui.main.views.payment.paymentList.response.BankOfferApply
 import com.cinescape1.ui.main.views.payment.paymentList.response.GiftCardRemove
 import com.cinescape1.ui.main.views.payment.paymentList.response.OfferRemove
@@ -98,7 +99,8 @@ interface DataServices {
 
     @POST("bankoffer/apply")
     suspend fun bankApply(@Body request: BankOfferRequest): Response<BankOfferApply>
-
+    @POST("clubcard/apply")
+    suspend fun newWalletApply(@Body request: WalletApplyRequest): Response<GiftCardResponse>
     @POST("bankoffer/remove")
     suspend fun bankRemove(@Body request: BankOfferRequest): Response<OfferRemove>
 

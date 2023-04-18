@@ -30,4 +30,6 @@ interface RecycleViewItemClickListener {
                 clickName: String,
                 clickId: String
             )
-        }
+
+    fun newWalletApplyApply(payFull: Boolean)
+}

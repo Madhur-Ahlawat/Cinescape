@@ -7,6 +7,7 @@ import com.cinescape1.data.network.Repositories
 import com.cinescape1.data.network.Result
 import com.cinescape1.ui.main.views.payment.PaymentMethodSealedClass
 import com.cinescape1.ui.main.views.payment.paymentList.BankOfferRequest
+import com.cinescape1.ui.main.views.payment.paymentList.WalletApplyRequest
 import com.cinescape1.utils.Status
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -87,6 +88,20 @@ class SummeryViewModel @Inject constructor(private val repositories: Repositorie
         emit(Result.loading(data = null))
         try {
             val data = repositories.bnankApply(request)
+            if (data.status == Status.ERROR) {
+                emit(Result.error(data.message.toString(), data))
+            } else {
+                emit(Result.success(data = data))
+            }
+        } catch (exception: Exception) {
+            emit(Result.error(exception.message ?: "Error Occurred!", data = null))
+        }
+    }
+
+    fun newWalletApplyApply(request: WalletApplyRequest) = liveData(Dispatchers.IO) {
+        emit(Result.loading(data = null))
+        try {
+            val data = repositories.newWalletApply(request)
             if (data.status == Status.ERROR) {
                 emit(Result.error(data.message.toString(), data))
             } else {

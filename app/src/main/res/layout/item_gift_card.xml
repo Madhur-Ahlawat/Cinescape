@@ -38,6 +38,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
                 android:padding="5dp"
+                android:layout_marginTop="@dimen/margin8"
+                android:foregroundGravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -50,7 +52,6 @@
             android:id="@+id/giftCardUi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/margin8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -59,7 +60,7 @@
                 android:id="@+id/couponUi"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:baselineAligned="false"
@@ -85,7 +86,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 app:layout_constraintEnd_toStartOf="@+id/linearLayout8"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/couponUi">
@@ -94,10 +95,12 @@
                     android:id="@+id/textInput_gift_card"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
+                    android:paddingTop="5dp"
                     android:layout_height="wrap_content"
                     android:autofillHints=""
                     android:importantForAutofill="no"
                     android:longClickable="false"
+                    android:gravity="center"
                     android:background="@drawable/curve_payment"
                     android:textColorHint="@color/lightGrey"
                     app:hintTextColor="@color/lightGrey"
@@ -187,7 +190,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
         <View
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/lineColor" />

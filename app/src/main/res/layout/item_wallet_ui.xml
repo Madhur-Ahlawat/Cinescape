@@ -48,7 +48,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/walletUi"
-            android:layout_marginTop="@dimen/margin37"
+            android:layout_marginTop="@dimen/margin20"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -110,7 +110,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
         <View
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/lineColor" />

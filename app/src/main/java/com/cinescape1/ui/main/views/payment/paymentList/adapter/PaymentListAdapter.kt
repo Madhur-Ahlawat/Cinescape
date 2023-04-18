@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
@@ -51,6 +52,7 @@ import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Comp
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.offerId
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.selectedCardType
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.walletApplied
+import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.walletAppliedFull
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.walletClicked
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.walletEnabled
 import com.cinescape1.ui.main.views.payment.paymentList.RecycleViewItemClickListener
@@ -155,6 +157,59 @@ class PaymentListAdapter(
             var binding = holder.binding as ItemBankOfferBinding
             with(payMode[position]) {
                 binding?.apply {
+                    headerUi.show()
+                    headerOfferType.text = name
+                    headerUi.setOnClickListener {
+                        pos = position
+                        if (bankClicked) {
+                            bankClicked = false
+                        } else {
+                            bankClicked = true
+                        }
+                        notifyItemChanged(pos)
+                    }
+                    textviewCancelBankOffer.setOnClickListener {
+                        pos = position
+                        val offerCode = binding.etEnterBankOfferCardNumber.text.toString()
+                        listner.bankItemRemove(
+                            offerId,
+                            offerCode
+                        )
+                    }
+                    textviewApplyBankOffer.setOnClickListener {
+                        cardNo =
+                            binding.etEnterBankOfferCardNumber.text.toString()
+                                .replace(" ", "")
+                        if (cardNo == "") {
+
+                            val dialog = OptionDialog(context,
+                                R.mipmap.ic_launcher,
+                                R.string.app_name,
+                                "Bank offer can not be empty",
+                                positiveBtnText = R.string.ok,
+                                negativeBtnText = R.string.no,
+                                positiveClick = {},
+                                negativeClick = {})
+                            dialog.show()
+
+                        } else if (cardNo.length != 16) {
+                            val dialog = OptionDialog(context,
+                                R.mipmap.ic_launcher,
+                                R.string.app_name,
+                                "Enter valid card number.",
+                                positiveBtnText = R.string.ok,
+                                negativeBtnText = R.string.no,
+                                positiveClick = {},
+                                negativeClick = {})
+                            dialog.show()
+                        } else {
+                            listner.bankItemApply(
+                                offerId,
+                                cardNo
+                            )
+
+                        }
+                    }
                     etEnterBankOfferCardNumber.addTextChangedListener(object : TextWatcher {
                         val space = ' '
                         override fun beforeTextChanged(
@@ -210,8 +265,6 @@ class PaymentListAdapter(
                         headerUi.isFocusable = true
                         headerOfferType.setTextColor(context.resources.getColor(R.color.white))
                         ivDropdown.setColorFilter(context.resources.getColor(R.color.white))
-
-
                     } else {
                         bankClicked = false
                         bankApplied = false
@@ -221,59 +274,6 @@ class PaymentListAdapter(
                         headerUi.isEnabled = false
                         headerUi.isFocusable = false
 
-                    }
-                    textviewCancelBankOffer.setOnClickListener {
-                        pos = position
-                        val offerCode = binding.etEnterBankOfferCardNumber.text.toString()
-                        listner.bankItemRemove(
-                            offerId,
-                            offerCode
-                        )
-                    }
-                    textviewApplyBankOffer.setOnClickListener {
-                        cardNo =
-                            binding.etEnterBankOfferCardNumber.text.toString()
-                                .replace(" ", "")
-                        if (cardNo == "") {
-
-                            val dialog = OptionDialog(context,
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                "Bank offer can not be empty",
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
-
-                        } else if (cardNo.length != 16) {
-                            val dialog = OptionDialog(context,
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                "Enter valid card number.",
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
-                        } else {
-                            listner.bankItemApply(
-                                offerId,
-                                cardNo
-                            )
-
-                        }
-                    }
-                    headerOfferType.text = name
-                    headerUi.show()
-                    headerUi.setOnClickListener {
-                        pos = position
-                        if (bankClicked) {
-                            bankClicked = false
-                        } else {
-                            bankClicked = true
-                        }
-                        notifyItemChanged(pos)
                     }
                 }
                 //title
@@ -315,13 +315,15 @@ class PaymentListAdapter(
                                     clEnterCardNumber.hide()
                                     textviewApplyBankOffer.hide()
                                     textviewCancelBankOffer.hide()
+                                    textviewApplyBankOffer.hide()
+                                    textviewCancelBankOffer.hide()
                                 }
                             } else {
                                 binding?.apply {
                                     etEnterBankOfferCardNumber.isEnabled = true
                                     clEnterCardNumber.show()
-                                    textviewApplyBankOffer.show()
-                                    textviewCancelBankOffer.hide()
+//                                    textviewApplyBankOffer.show()
+//                                    textviewCancelBankOffer.hide()
                                 }
 
                             }
@@ -343,11 +345,21 @@ class PaymentListAdapter(
                 binding?.apply {
                     headerOfferType.text = name
                     if (bankApplied) {
+                        spinnerCardOptions?.apply {
+                            isClickable=false
+                            isEnabled=false
+                            isFocusable=false
+                        }
                         textviewCancelBankOffer.show()
                         textviewApplyBankOffer.hide()
                         etEnterBankOfferCardNumber.isEnabled = false
                         tvOfferAppliedForNTickets.show()
                     } else {
+                        spinnerCardOptions?.apply {
+                            isClickable=true
+                            isEnabled=true
+                            isFocusable=true
+                        }
                         textviewCancelBankOffer.hide()
                         textviewApplyBankOffer.show()
                         etEnterBankOfferCardNumber.isEnabled = true
@@ -357,8 +369,22 @@ class PaymentListAdapter(
                 if (bankClicked) {
                     binding?.apply {
                         ivDropdown.setImageResource(R.drawable.arrow_up)
-
                         bankOfferUi.show()
+                        if(!bankApplied){
+                            textviewCancelBankOffer.hide()
+                            if(etEnterBankOfferCardNumber.isVisible &&  etEnterBankOfferCardNumber.text.toString().length>=19){
+                                textviewApplyBankOffer.show()
+                            }
+                            else{
+                                textviewApplyBankOffer.hide()
+                            }
+                        }
+                        else{
+                            textviewApplyBankOffer.hide()
+                            textviewCancelBankOffer.show()
+
+                        }
+
                     }
                 } else {
                     binding?.apply {
@@ -502,11 +528,14 @@ class PaymentListAdapter(
                     binding?.apply {
                         headerUi.show()
                         giftCardUi.show()
+                        ivDropdown.setImageResource(R.drawable.arrow_up)
                     }
                 } else {
                     binding?.apply {
                         headerUi.show()
                         giftCardUi.hide()
+                        ivDropdown.setImageResource(R.drawable.arrow_down)
+
                     }
                 }
             }
@@ -527,15 +556,18 @@ class PaymentListAdapter(
                         notifyItemChanged(pos)
                     }
                     textviewBtWalletApply.setOnClickListener {
-                        pos = position
-                        walletApplied = true
-                        knetSelected = false
-                        creditCardSelected = false
-                        notifyDataSetChanged()
+                        listner.newWalletApplyApply(payFull = false)
                     }
                     textviewBtWalletCancel.setOnClickListener {
                         pos = position
+                        bankEnabled = true
+                        giftCardEnabled=true
+                        knetSelected = false
+                        creditCardSelected=false
+                        creditCardEnabled = true
+                        knetEnabled=true
                         walletApplied = false
+                        walletAppliedFull=false
                         notifyDataSetChanged()
                     }
                 }
@@ -616,6 +648,7 @@ class PaymentListAdapter(
                             isFocusable = true
                             isEnabled = true
                         }
+                        imageKnet.setColorFilter(context.resources.getColor(R.color.white))
                     }
                 } else {
                     binding?.apply {
@@ -624,15 +657,18 @@ class PaymentListAdapter(
                             isFocusable = false
                             isEnabled = false
                         }
+                        imageKnet.setColorFilter(context.resources.getColor(R.color.gray))
                     }
                 }
                 if (creditCardEnabled) {
+
                     binding?.apply {
                         creditCard?.apply {
                             isClickable = true
                             isFocusable = true
                             isEnabled = true
                         }
+                        imageCreditCard.setColorFilter(context.resources.getColor(R.color.white))
                     }
                 } else {
                     binding?.apply {
@@ -641,6 +677,17 @@ class PaymentListAdapter(
                             isFocusable = false
                             isEnabled = false
                         }
+                        imageCreditCard.setColorFilter(context.resources.getColor(R.color.gray))
+                    }
+                }
+                if(!(knetEnabled && creditCardEnabled)){
+                    binding?.apply {
+                        headerOfferType.setTextColor(context.resources.getColor(R.color.gray))
+                    }
+                }
+                else{
+                    binding?.apply {
+                        headerOfferType.setTextColor(context.resources.getColor(R.color.white))
                     }
                 }
                 Glide.with(context)
@@ -696,14 +743,27 @@ class PaymentListAdapter(
                                     textCreditCardName.setTextColor(context.getColor(R.color.red))
                                 }
                             } else {
-                                holder.binding.apply {
-                                    imageCreditCard.setColorFilter(
-                                        ContextCompat.getColor(
-                                            context,
-                                            R.color.white
+                                if(!creditCardEnabled){
+                                    binding.apply {
+                                        imageCreditCard.setColorFilter(
+                                            ContextCompat.getColor(
+                                                context,
+                                                R.color.gray
+                                            )
                                         )
-                                    )
-                                    textCreditCardName.setTextColor(context.getColor(R.color.white))
+                                        textCreditCardName.setTextColor(context.getColor(R.color.gray))
+                                    }
+                                }
+                                else{
+                                    binding.apply {
+                                        imageCreditCard.setColorFilter(
+                                            ContextCompat.getColor(
+                                                context,
+                                                R.color.white
+                                            )
+                                        )
+                                        textCreditCardName.setTextColor(context.getColor(R.color.white))
+                                    }
                                 }
                             }
                             return false
@@ -731,14 +791,27 @@ class PaymentListAdapter(
                                     )
                                 }
                             } else {
-                                binding.apply {
-                                    imageKnet.setColorFilter(
-                                        ContextCompat.getColor(
-                                            context,
-                                            R.color.white
+                                if(!knetEnabled){
+                                    binding.apply {
+                                        imageKnet.setColorFilter(
+                                            ContextCompat.getColor(
+                                                context,
+                                                R.color.gray
+                                            )
                                         )
-                                    )
-                                    textKnetName.setTextColor(context.getColor(R.color.white))
+                                        textKnetName.setTextColor(context.getColor(R.color.gray))
+                                    }
+                                }
+                                else{
+                                    binding.apply {
+                                        imageKnet.setColorFilter(
+                                            ContextCompat.getColor(
+                                                context,
+                                                R.color.white
+                                            )
+                                        )
+                                        textKnetName.setTextColor(context.getColor(R.color.white))
+                                    }
                                 }
                             }
                             //do something if error loading
@@ -764,15 +837,29 @@ class PaymentListAdapter(
                                     )
                                 }
                             } else {
-                                binding.apply {
-                                    imageKnet.setColorFilter(
-                                        ContextCompat.getColor(
-                                            context,
-                                            R.color.white
+                                if(!knetEnabled){
+                                    binding.apply {
+                                        imageKnet.setColorFilter(
+                                            ContextCompat.getColor(
+                                                context,
+                                                R.color.gray
+                                            )
                                         )
-                                    )
-                                    textKnetName.setTextColor(context.getColor(R.color.white))
+                                        textKnetName.setTextColor(context.getColor(R.color.gray))
+                                    }
                                 }
+                                else{
+                                    binding.apply {
+                                        imageKnet.setColorFilter(
+                                            ContextCompat.getColor(
+                                                context,
+                                                R.color.white
+                                            )
+                                        )
+                                        textKnetName.setTextColor(context.getColor(R.color.white))
+                                    }
+                                }
+
                             }
                             return false
                         }

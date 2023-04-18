@@ -38,9 +38,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
                 android:padding="5dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/header_offer_type"
+                app:layout_constraintStart_toEndOf="@id/header_offer_type"
+                app:layout_constraintTop_toTopOf="@id/header_offer_type"
                 app:srcCompat="@drawable/arrow_down"
                 tools:ignore="ContentDescription" />
 
@@ -86,40 +87,12 @@
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-                <TextView
-                    android:id="@+id/textview_apply_bank_offer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:fontFamily="@font/sf_pro_text_regular"
-                    android:text="@string/apply"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/size15"
-                    app:layout_constraintBottom_toBottomOf="@id/cl_choose_cards"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@id/cl_choose_cards"
-                    app:layout_constraintTop_toTopOf="@id/cl_choose_cards" />
-
-                <TextView
-                    android:id="@+id/textview_cancel_bank_offer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:fontFamily="@font/sf_pro_text_regular"
-                    android:text="@string/cancel"
-                    android:textColor="@color/red"
-                    android:textSize="@dimen/size15"
-                    app:layout_constraintBottom_toBottomOf="@id/cl_choose_cards"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@id/cl_choose_cards"
-                    app:layout_constraintTop_toTopOf="@id/cl_choose_cards" />
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_enter_card_number"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:paddingVertical="5dp"
                     android:background="@drawable/curve_payment"
                     app:layout_constraintEnd_toStartOf="@+id/linearlayout_bank_offer_cancel"
                     app:layout_constraintStart_toStartOf="parent"
@@ -146,7 +119,31 @@
                         app:layout_constraintTop_toTopOf="parent"
                         tools:ignore="LabelFor" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/textview_apply_bank_offer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:text="@string/apply"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/size15"
+                    app:layout_constraintBottom_toBottomOf="@id/cl_enter_card_number"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/cl_enter_card_number"
+                    app:layout_constraintTop_toTopOf="@id/cl_enter_card_number" />
 
+                <TextView
+                    android:id="@+id/textview_cancel_bank_offer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:text="@string/cancel"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/size15"
+                    app:layout_constraintBottom_toBottomOf="@id/cl_enter_card_number"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/cl_enter_card_number"
+                    app:layout_constraintTop_toTopOf="@id/cl_enter_card_number" />
                 <TextView
                     android:id="@+id/tv_offer_applied_for_n_tickets"
                     android:layout_width="0dp"
@@ -175,7 +172,7 @@
         </LinearLayout>
 
         <View
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/lineColor" />

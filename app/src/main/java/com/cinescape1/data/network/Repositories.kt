@@ -8,6 +8,7 @@ import com.cinescape1.ui.main.views.login.activeWallet.repsonse.ActivateWalletRe
 import com.cinescape1.ui.main.views.login.reponse.LoginResponse
 import com.cinescape1.ui.main.views.payment.paymentFaield.reponse.PaymentFailedResponse
 import com.cinescape1.ui.main.views.payment.paymentList.BankOfferRequest
+import com.cinescape1.ui.main.views.payment.paymentList.WalletApplyRequest
 import com.cinescape1.ui.main.views.payment.paymentList.response.BankOfferApply
 import com.cinescape1.ui.main.views.payment.paymentList.response.GiftCardRemove
 import com.cinescape1.ui.main.views.payment.paymentList.response.OfferRemove
@@ -133,6 +134,12 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
         request: BankOfferRequest
     ): Result<BankOfferApply> {
         return apiRequest { api.bankApply(request) }
+    }
+
+    suspend fun newWalletApply(
+        request: WalletApplyRequest
+    ): Result<GiftCardResponse> {
+        return apiRequest { api.newWalletApply(request) }
     }
 
     suspend fun bnankRemove(
