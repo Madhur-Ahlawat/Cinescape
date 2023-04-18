@@ -153,53 +153,57 @@ class PaymentListAdapter(
         pos = -1
         if (holder.viewType == 0) {
             var binding = holder.binding as ItemBankOfferBinding
-            binding?.etEnterBankOfferCardNumber.addTextChangedListener(object : TextWatcher {
-                val space = ' '
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                }
-
-                override fun afterTextChanged(s: Editable?) {
-                    // Remove spacing char
-                    if (s!!.length > 0 && s!!.length % 5 == 0) {
-                        val c = s[s.length - 1]
-                        if (space == c) {
-                            s.delete(s.length - 1, s.length)
-                        }
-                    }
-                    // Insert char where needed.
-                    if (s.length > 0 && s!!.length % 5 == 0) {
-                        val c = s[s.length - 1]
-                        // Only if its a digit where there should be a space we insert a space
-                        if (Character.isDigit(c) && TextUtils.split(
-                                s.toString(),
-                                space.toString()
-                            ).size <= 3
-                        ) {
-                            s.insert(s.length - 1, space.toString())
-                        }
-                    }
-                    if (s.toString().length < 19) {
-                        binding?.apply {
-                            textviewApplyBankOffer.hide()
-                        }
-                    } else {
-                        binding?.apply {
-                            textviewApplyBankOffer.show()
-                        }
-                    }
-                }
-            })
-
             with(payMode[position]) {
                 binding?.apply {
+                    etEnterBankOfferCardNumber.addTextChangedListener(object : TextWatcher {
+                        val space = ' '
+                        override fun beforeTextChanged(
+                            s: CharSequence?,
+                            start: Int,
+                            count: Int,
+                            after: Int
+                        ) {
+                        }
+
+                        override fun onTextChanged(
+                            s: CharSequence?,
+                            start: Int,
+                            before: Int,
+                            count: Int
+                        ) {
+                        }
+
+                        override fun afterTextChanged(s: Editable?) {
+                            // Remove spacing char
+                            if (s!!.length > 0 && s!!.length % 5 == 0) {
+                                val c = s[s.length - 1]
+                                if (space == c) {
+                                    s.delete(s.length - 1, s.length)
+                                }
+                            }
+                            // Insert char where needed.
+                            if (s.length > 0 && s!!.length % 5 == 0) {
+                                val c = s[s.length - 1]
+                                // Only if its a digit where there should be a space we insert a space
+                                if (Character.isDigit(c) && TextUtils.split(
+                                        s.toString(),
+                                        space.toString()
+                                    ).size <= 3
+                                ) {
+                                    s.insert(s.length - 1, space.toString())
+                                }
+                            }
+                            if (s.toString().length < 19) {
+                                binding?.apply {
+                                    textviewApplyBankOffer.hide()
+                                }
+                            } else {
+                                binding?.apply {
+                                    textviewApplyBankOffer.show()
+                                }
+                            }
+                        }
+                    })
                     if (bankEnabled) {
                         headerUi.isClickable = true
                         headerUi.isEnabled = true
@@ -353,6 +357,7 @@ class PaymentListAdapter(
                 if (bankClicked) {
                     binding?.apply {
                         ivDropdown.setImageResource(R.drawable.arrow_up)
+
                         bankOfferUi.show()
                     }
                 } else {
@@ -403,16 +408,15 @@ class PaymentListAdapter(
                 }
                 binding.textviewCancelGiftCard.setOnClickListener {
                     clickName = "Gift Card"
-                    if(giftCardAppliedFull){
-                        giftCardApplied=false
-                        giftCardAppliedFull=false
-                        bankEnabled=true
-                        walletEnabled=true
-                        knetEnabled=true
-                        creditCardEnabled=true
+                    if (giftCardAppliedFull) {
+                        giftCardApplied = false
+                        giftCardAppliedFull = false
+                        bankEnabled = true
+                        walletEnabled = true
+                        knetEnabled = true
+                        creditCardEnabled = true
                         notifyDataSetChanged()
-                    }
-                    else if (giftCardApplied){
+                    } else if (giftCardApplied) {
                         offerCode = binding.textInputGiftCard.editText!!.text.toString()
                         if (offerCode == "") {
                             val dialog = OptionDialog(context,
@@ -447,8 +451,7 @@ class PaymentListAdapter(
                         textviewCancelGiftCard.show()
                         tvApplyGiftCard.hide()
                     }
-                }
-                else if (giftCardApplied) {
+                } else if (giftCardApplied) {
                     binding?.apply {
                         headerUi.isEnabled = true
                         headerUi.isFocusable = true
@@ -461,8 +464,7 @@ class PaymentListAdapter(
                         textviewCancelGiftCard.show()
                         tvApplyGiftCard.hide()
                     }
-                }
-                else{
+                } else {
                     binding?.apply {
                         headerUi.isEnabled = true
                         headerUi.isFocusable = true

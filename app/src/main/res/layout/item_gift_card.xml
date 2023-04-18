@@ -99,9 +99,8 @@
                     android:importantForAutofill="no"
                     android:longClickable="false"
                     android:background="@drawable/curve_payment"
-                    android:textColorHint="@color/hint_color"
-                    app:boxStrokeColor="@color/edittext_selector"
-                    app:hintTextColor="@color/editColor"
+                    android:textColorHint="@color/lightGrey"
+                    app:hintTextColor="@color/lightGrey"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -114,11 +113,10 @@
                         android:imeOptions="actionDone"
                         android:inputType="textEmailAddress"
                         android:textAlignment="textStart"
+                        android:hint="@string/enter_gift_card"
                         android:textColor="@color/white"
-                        android:textColorHint="@color/hint_color"
                         android:textCursorDrawable="@null"
                         android:textSize="@dimen/size15"
-                        android:hint="@string/enter_gift_card"
                         tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                 </com.google.android.material.textfield.TextInputLayout>

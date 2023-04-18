@@ -129,7 +129,7 @@
                         android:id="@+id/et_enter_bank_offer_card_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@null"
+                        android:background="@color/transparent"
                         android:fontFamily="@font/sf_pro_text_regular"
                         android:hint="@string/enter_bank_card"
                         android:importantForAutofill="no"
