@@ -707,7 +707,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     override fun onSimilarItemClick(view: GetMovieResponse.Output.Similar) {
 
     }
-
+    var ccDialogBinding: CheckoutCreditcartPaymentAlertBinding?=null
     @RequiresApi(Build.VERSION_CODES.O)
     private fun creditCardDialog(cardNo: String) {
         val cardinalConfigurationParameters = CardinalConfigurationParameters()
@@ -729,9 +729,9 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         cardinalConfigurationParameters.uiCustomization = yourUICustomizationObject
 
         cardinal.configure(this, cardinalConfigurationParameters)
-        val binding =
+        ccDialogBinding =
             CheckoutCreditcartPaymentAlertBinding.inflate(layoutInflater)
-        val mBuilder = AlertDialog.Builder(this).setView(binding.root)
+        val mBuilder = AlertDialog.Builder(this).setView(ccDialogBinding?.root)
         proceedAlertDialog = mBuilder.create()
         proceedAlertDialog?.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
         proceedAlertDialog?.setCancelable(false)
@@ -740,11 +740,10 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         }
         Log.e("dialog_error","657")
 
-        binding?.apply {
+        ccDialogBinding?.apply {
             kdToPay?.text = " $totalPrice"
             cardNumberTextInputEditText?.setText(cardNo)
         }
-
         if (cardNo == "") {
             binding?.apply {
                 cardNumberTextInputEditText?.isClickable = true
@@ -760,7 +759,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             }
         }
         var lastInput = ""
-        binding?.apply {
+        ccDialogBinding?.apply {
             cardNumberTextInputEditText.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
                     charSequence: CharSequence, i: Int, i1: Int, i2: Int
@@ -1090,23 +1089,43 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 proceedAlertDialog?.dismiss()
             }
             btnPay.setOnClickListener {
-                if (validateFields(proceedAlertDialog!!)) try {
-                    postCardData(
-                        PostCardRequest(
-                            bookingId,
-                            cardNumberTextInputEditText.text.toString()
-                                .replace(" ".toRegex(), "").trim(),
-                            ccvTextInputEditText.text.toString(),
-                            expireDateTextInputEditText.text.toString()
-                                .split("/")[0],
-                            expireDateTextInputEditText.text.toString()
-                                .split("/")[1],
-                            refId
-                        )
-                    )
-                } catch (e: Exception) {
-                    println("exception--->${e.message}")
+                btnPay.apply {
+                    isClickable=false
+                    isEnabled=false
+                    isFocusable=false
                 }
+                if (validateFields(proceedAlertDialog!!)){
+                    try {
+                        postCardData(
+                            PostCardRequest(
+                                bookingId,
+                                cardNumberTextInputEditText.text.toString()
+                                    .replace(" ".toRegex(), "").trim(),
+                                ccvTextInputEditText.text.toString(),
+                                expireDateTextInputEditText.text.toString()
+                                    .split("/")[0],
+                                expireDateTextInputEditText.text.toString()
+                                    .split("/")[1],
+                                refId
+                            )
+                        )
+                    } catch (e: Exception) {
+                        btnPay.apply {
+                            isClickable=true
+                            isEnabled=true
+                            isFocusable=true
+                        }
+                        println("exception--->${e.message}")
+                    }
+                }
+                else{
+                    btnPay.apply {
+                        isClickable=true
+                        isEnabled=true
+                        isFocusable=true
+                    }
+                }
+
             }
         }
         creditCardInit(
@@ -1121,6 +1140,11 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
+                        ccDialogBinding?.apply {
+                            btnPay.isEnabled=true
+                            btnPay.isFocusable=true
+                            btnPay.isClickable=true
+                        }
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
@@ -1194,6 +1218,11 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         }
                     }
                     Status.ERROR -> {
+                        ccDialogBinding?.apply {
+                            btnPay.isEnabled=true
+                            btnPay.isFocusable=true
+                            btnPay.isClickable=true
+                        }
                         LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
 
                         dialog = OptionDialog(this,
@@ -1209,7 +1238,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     Status.LOADING -> {
                         LoaderDialog.getInstance(R.string.pleasewait)
                             ?.show(supportFragmentManager, null)
-
                     }
                 }
             }
