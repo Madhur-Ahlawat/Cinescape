@@ -109,7 +109,8 @@ interface DataServices {
 
     @POST("giftcard/remove")
     suspend fun giftCardRemove(@Body request: GiftCardRequest): Response<GiftCardRemove>
-
+    @POST("clubcard/remove")
+    suspend fun newWalletRemove(@Body request: WalletApplyRequest): Response<GiftCardResponse>
     @POST("voucher/payment/apply")
     suspend fun voucherApply(@Body request: GiftCardRequest): Response<GiftCardResponse>
 

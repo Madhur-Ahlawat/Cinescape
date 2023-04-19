@@ -1547,6 +1547,18 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         }
     }
 
+    override fun onNewWalletRemove(
+    ) {
+            newWalletRemove(
+                WalletApplyRequest(
+                    bookingid = bookingId,
+                    booktype = bookType,
+                    transid = transId,
+                    userid = preferences.getString(Constant.USER_ID).toString(), payFull = false
+                )
+            )
+    }
+
     private fun voucherApply(
         request: GiftCardRequest
     ) {
@@ -1670,6 +1682,66 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         }
     }
 
+    private fun newWalletRemove(
+        request: WalletApplyRequest
+    ) {
+        summeryViewModel.newWalletRemove(request).observe(this) {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                try {
+                                    retriveRemoveNewWallet(
+                                        it.data
+                                    )
+                                } catch (e: Exception) {
+                                    outputlist?.clear()
+                                    println("updateUiCinemaSession ---> ${e.message}")
+                                }
+
+                            } else {
+                                LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
+                                dialog = OptionDialog(this,
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog!!.show()
+                            }
+                        }
+                        adapter?.notifyDataSetChanged()
+                    }
+                    Status.ERROR -> {
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
+                        dialog = OptionDialog(this,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        adapter?.notifyDataSetChanged()
+                        dialog!!.show()
+                    }
+                    Status.LOADING -> {
+                        LoaderDialog.getInstance(R.string.pleasewait)
+                            ?.show(supportFragmentManager, null)
+
+                    }
+                }
+            }
+        }
+    }
+
     private fun retriveRemoveGiftCard(
         output: GiftCardRemove.Output
     ) {
@@ -1679,6 +1751,20 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         giftCardAppliedFull = false
         bankEnabled=true
         binding?.textTotalAmount?.text = output.amount
+    }
+
+    private fun retriveRemoveNewWallet(
+        output: GiftCardResponse
+    ) {
+        walletApplied = false
+        walletAppliedFull = false
+        bankEnabled=true
+        creditCardEnabled = true
+        knetEnabled=true
+        giftCardEnabled=true
+        knetSelected=false
+        creditCardSelected=false
+        binding?.textTotalAmount?.text = output.output.amount
     }
 
     private fun giftCardApply(

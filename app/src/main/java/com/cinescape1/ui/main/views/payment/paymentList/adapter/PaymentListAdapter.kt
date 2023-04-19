@@ -559,16 +559,21 @@ class PaymentListAdapter(
                         listner.newWalletApplyApply(payFull = false)
                     }
                     textviewBtWalletCancel.setOnClickListener {
-                        pos = position
-                        bankEnabled = true
-                        giftCardEnabled=true
-                        knetSelected = false
-                        creditCardSelected=false
-                        creditCardEnabled = true
-                        knetEnabled=true
-                        walletApplied = false
-                        walletAppliedFull=false
-                        notifyDataSetChanged()
+                        if(walletAppliedFull) {
+                            pos = position
+                            bankEnabled = true
+                            giftCardEnabled = true
+                            knetSelected = false
+                            creditCardSelected = false
+                            creditCardEnabled = true
+                            knetEnabled = true
+                            walletApplied = false
+                            walletAppliedFull = false
+                            notifyDataSetChanged()
+                        }
+                        else{
+                                listner.onNewWalletRemove()
+                        }
                     }
                 }
                 if (walletApplied) {

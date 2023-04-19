@@ -160,6 +160,12 @@ class Repositories @Inject constructor(private val api: DataServices) : SafeApiR
         return apiRequest { api.giftCardRemove(request) }
     }
 
+    suspend fun newWalletRemove(
+        request: WalletApplyRequest
+    ): Result<GiftCardResponse> {
+        return apiRequest { api.newWalletRemove(request) }
+    }
+
     suspend fun voucherApply(
         request: GiftCardRequest
     ): Result<GiftCardResponse> {

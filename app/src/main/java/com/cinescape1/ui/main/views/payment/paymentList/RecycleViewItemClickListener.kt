@@ -32,4 +32,6 @@ interface RecycleViewItemClickListener {
             )
 
     fun newWalletApplyApply(payFull: Boolean)
+
+    fun onNewWalletRemove()
 }
