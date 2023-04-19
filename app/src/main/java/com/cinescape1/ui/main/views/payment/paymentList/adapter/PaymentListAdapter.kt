@@ -412,7 +412,7 @@ class PaymentListAdapter(
                 }
                 binding.tvApplyGiftCard.setOnClickListener {
                     clickName = "Gift Card"
-                    offerCode = binding.textInputGiftCard.editText!!.text.toString()
+                    offerCode = binding.etEnterGiftCardNumber!!.text.toString()
                     if (offerCode == "") {
                         val dialog = OptionDialog(context,
                             R.mipmap.ic_launcher,
@@ -443,7 +443,7 @@ class PaymentListAdapter(
                         creditCardEnabled = true
                         notifyDataSetChanged()
                     } else if (giftCardApplied) {
-                        offerCode = binding.textInputGiftCard.editText!!.text.toString()
+                        offerCode = binding.etEnterGiftCardNumber!!.text.toString()
                         if (offerCode == "") {
                             val dialog = OptionDialog(context,
                                 R.mipmap.ic_launcher,
@@ -469,7 +469,7 @@ class PaymentListAdapter(
                         headerUi.isEnabled = true
                         headerUi.isFocusable = true
                         headerUi.isClickable = true
-                        textInputGiftCard?.apply {
+                        etEnterGiftCardNumber?.apply {
                             isClickable = false
                             isEnabled = false
                             isFocusable = false
@@ -482,7 +482,7 @@ class PaymentListAdapter(
                         headerUi.isEnabled = true
                         headerUi.isFocusable = true
                         headerUi.isClickable = true
-                        textInputGiftCard?.apply {
+                        etEnterGiftCardNumber?.apply {
                             isEnabled = false
                             isFocusable = false
                             isClickable = false
@@ -495,7 +495,7 @@ class PaymentListAdapter(
                         headerUi.isEnabled = true
                         headerUi.isFocusable = true
                         headerUi.isClickable = true
-                        textInputGiftCard?.apply {
+                        etEnterGiftCardNumber?.apply {
                             isEnabled = true
                             isFocusable = true
                             isClickable = true
