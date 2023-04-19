@@ -131,7 +131,7 @@ class PaymentFailedActivity : DaggerAppCompatActivity() {
     override fun onBackPressed() {
         val intent = Intent(this@PaymentFailedActivity, HomeActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-       Constant.IntentKey.OPEN_FROM = 1
+       Constant.IntentKey.OPEN_FROM = 0
         startActivity(intent)
         finish()
 

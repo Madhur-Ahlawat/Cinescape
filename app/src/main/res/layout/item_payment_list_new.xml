@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/margin20"
+        android:background="@color/black"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/header_ui"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin40"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/header_offer_type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="@dimen/margin8"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size17"
+                app:layout_constraintEnd_toStartOf="@+id/iv_dropdown"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Use a Bank Offer" />
+
+            <ImageView
+                android:id="@+id/iv_dropdown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:padding="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/arrow_down"
+                tools:ignore="ContentDescription" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/bank_offer_ui"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--                Bank Offer                  -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/bankOfferChooseCards"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:paddingTop="@dimen/margin15"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view105">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_choose_cards"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_marginEnd="48dp"
+                    android:background="@drawable/curve_payment"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <Spinner
+                        android:id="@+id/spinner_card_options"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        app:backgroundTint="@color/transparent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_enter_card_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/curve_payment"
+                    app:layout_constraintEnd_toStartOf="@+id/linearlayout_bank_offer_cancel"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_choose_cards">
+
+                    <EditText
+                        android:id="@+id/et_enter_bank_offer_card_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:hint="@string/enter_bank_card"
+                        android:importantForAutofill="no"
+                        android:inputType="number"
+                        android:maxLength="19"
+                        android:maxLines="1"
+                        android:textColor="#7B7A7A"
+                        android:textColorHint="@color/hint_color"
+                        android:textSize="@dimen/size15"
+                        app:hintTextColor="@color/editColor"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="LabelFor" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tv_offer_applied_for_n_tickets"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/size15"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/cl_enter_card_number"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_enter_card_number"
+                    tools:text="@string/offer_applied_for_1_ticket" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/linearlayout_bank_offer_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/cl_enter_card_number"
+                    app:layout_constraintEnd_toEndOf="@+id/cl_choose_cards"
+                    app:layout_constraintTop_toTopOf="@+id/cl_enter_card_number">
+
+                    <TextView
+                        android:id="@+id/textview_apply_bank_offer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin32"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:text="@string/apply"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/size15"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textview_cancel_bank_offer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin32"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:text="@string/cancel"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/size15"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/giftCardUi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/margin20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bankOffer">
+
+            <LinearLayout
+                android:id="@+id/couponUi"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerOffer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="5"
+                    tools:listitem="@layout/item_offer" />
+
+            </LinearLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/giftCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toStartOf="@+id/linearLayout8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/couponUi">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editext_gift_card"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:autofillHints=""
+                    android:importantForAutofill="no"
+                    android:longClickable="false"
+                    android:textColorHint="@color/arabic_color"
+                    app:boxStrokeColor="@color/edittext_selector"
+                    app:hintTextColor="@color/editColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_text_gift_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/curve_payment"
+                        android:imeOptions="actionDone"
+                        android:inputType="textEmailAddress"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/hint_color"
+                        android:textCursorDrawable="@null"
+                        android:textSize="@dimen/size15"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!--                <EditText-->
+                <!--                    android:id="@+id/offerEditText"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:background="@null"-->
+                <!--                    android:fontFamily="@font/sf_pro_text_regular"-->
+                <!--                    android:importantForAutofill="no"-->
+                <!--                    android:textColor="#7B7A7A"-->
+                <!--                    android:imeOptions="actionDone"-->
+                <!--                    android:singleLine="true"-->
+                <!--                    android:maxLength="16"-->
+                <!--                    android:textSize="@dimen/size15"-->
+                <!--                    android:hint="@string/enter_gift_card"-->
+                <!--                    android:textColorHint="@color/hint_color"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toTopOf="parent"-->
+                <!--                    tools:ignore="LabelFor,TextFields" />-->
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/linearLayout8"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintBottom_toBottomOf="@+id/giftCard"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/giftCard">
+                <TextView
+                    android:id="@+id/textview_cancel_gift_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin32"
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:text="@string/cancel"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/size15"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_apply_gift_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin32"
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:text="@string/apply"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/size15"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--                 Wallet                     -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/walletUi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:paddingTop="@dimen/margin20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view105">
+
+            <ImageView
+                android:id="@+id/imageView_back_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_icon_wallet"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/textView_wallet_balance"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/size12"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView_back_arrow"
+                app:layout_constraintEnd_toStartOf="@+id/textview_bt_wallet_apply"
+                app:layout_constraintStart_toEndOf="@+id/imageView_back_arrow"
+                app:layout_constraintTop_toTopOf="@+id/imageView_back_arrow"
+                tools:text="Wallet Balance KD 65.000" />
+
+            <TextView
+                android:id="@+id/textview_bt_wallet_apply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:text="@string/apply"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/size15"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_wallet_balance"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView_wallet_balance" />
+
+            <TextView
+                android:id="@+id/textview_bt_wallet_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:text="@string/cancel"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/size15"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_wallet_balance"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView_wallet_balance" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--                 Card   -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/knet_cc_ui"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center"
+                android:layout_marginTop="20dp"
+                android:weightSum="2"
+                android:id="@+id/linearlayout_knet_credit_card"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/knet"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        android:id="@+id/imageKnet"
+                        android:layout_width="38dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="4dp"
+                        android:adjustViewBounds="true"
+                        app:layout_constraintEnd_toEndOf="@+id/viewKnet"
+                        app:layout_constraintStart_toStartOf="@+id/viewKnet"
+                        app:layout_constraintTop_toTopOf="@+id/viewKnet"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/textKnetName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:gravity="center_horizontal"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="1.8sp"
+                        android:text="@string/kent"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size16"
+                        android:textStyle="normal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageKnet" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/lineColor" />
+
+                <LinearLayout
+                    android:id="@+id/creditCard"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        android:id="@+id/imageCreditCard"
+                        android:layout_width="38dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="4dp"
+                        android:adjustViewBounds="true"
+                        app:layout_constraintEnd_toEndOf="@+id/viewCreditCard"
+                        app:layout_constraintStart_toStartOf="@+id/viewCreditCard"
+                        app:layout_constraintTop_toTopOf="@+id/viewCreditCard"
+                        tools:ignore="ContentDescription" />
+
+
+                    <TextView
+                        android:id="@+id/textCreditCardName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:gravity="center_horizontal"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="1.8sp"
+                        android:text="@string/credit_card"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size16"
+                        android:textStyle="normal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageCreditCard" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</layout>

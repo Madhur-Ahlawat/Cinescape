@@ -10,7 +10,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
-import android.text.InputType
 import android.text.TextWatcher
 import android.util.Log
 import android.view.*
@@ -37,12 +36,12 @@ import com.cinescape1.data.models.requestModel.*
 import com.cinescape1.data.models.responseModel.GetMovieResponse
 import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.databinding.ActivityPaymentListBinding
+import com.cinescape1.databinding.CheckoutCreditcartPaymentAlertBinding
 import com.cinescape1.di.scoped.ActivityScoped
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
 import com.cinescape1.ui.main.views.home.HomeActivity
-import com.cinescape1.ui.main.views.payment.PaymentMethodSealedClass
 import com.cinescape1.ui.main.views.payment.PaymentWebActivity
 import com.cinescape1.ui.main.views.payment.paymentList.adapter.ItemInfoPopupAdapter
 import com.cinescape1.ui.main.views.payment.paymentList.adapter.PaymentListAdapter
@@ -51,7 +50,6 @@ import com.cinescape1.ui.main.views.payment.paymentList.response.PaymentListResp
 import com.cinescape1.ui.main.views.summery.response.GiftCardResponse
 import com.cinescape1.ui.main.views.summery.viewModel.SummeryViewModel
 import com.cinescape1.utils.*
-import com.cinescape1.utils.Constant.Companion.bankOfferClick
 import com.threatmetrix.TrustDefender.*
 import com.threatmetrix.TrustDefender.TMXProfilingConnections.TMXProfilingConnections
 import dagger.android.support.DaggerAppCompatActivity
@@ -70,7 +68,13 @@ import javax.inject.Inject
 
 @ActivityScoped
 class PaymentListActivity : DaggerAppCompatActivity(),
-    PaymentListAdapter.RecycleViewItemClickListener {
+    RecycleViewItemClickListener {
+
+    private var newWalletApplyRequest: GiftCardResponse.Output?=null
+    private var dialog: OptionDialog?=null
+    private var timerCancelDialog: Dialog?=null
+    private var proceedAlertDialog: AlertDialog?=null
+    private var giftCardApplyRequest: GiftCardResponse.Output? = null
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -78,6 +82,31 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     companion object {
         var spinnerClickable: Boolean = true
         var bankApplied: Boolean = false
+        var bankCardNumber: String = ""
+        var giftCardNumber: String = ""
+        var voucherApplied: Boolean = false
+        var giftCardApplied: Boolean = false
+        var giftCardAppliedFull: Boolean = false
+        var selectedCardType: Int = -1
+        var offerCode: String? = null
+        var clickName = ""
+        var clickId = ""
+        var offerId = ""
+        var cardNo = ""
+        var knetSelected = false
+        var creditCardSelected = false
+        var bankClicked = false
+        var giftCardClicked = false
+        var walletClicked = false
+        var walletApplied = false
+        var walletAppliedFull = false
+        var bankEnabled = true
+        var giftCardEnabled = true
+        var walletEnabled = true
+        var gatewayEnabled = true
+
+        var knetEnabled = true
+        var creditCardEnabled = true
     }
 
     @Inject
@@ -112,20 +141,55 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
     private var outputlist: ArrayList<PaymentListResponse.Output.PayInfo>? = null
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
+        resetStaticFlags()
         binding = ActivityPaymentListBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
         setContentView(view)
         manageFunctions()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        Constant.CARD_NO = ""
+    private fun resetStaticFlags() {
+
+        bankEnabled = true
+        giftCardEnabled = true
+        walletEnabled = true
+        gatewayEnabled = true
+        knetEnabled=true
+        creditCardEnabled=true
+        spinnerClickable = true
+        bankApplied = false
+        bankCardNumber = ""
+        giftCardNumber = ""
+        voucherApplied = false
+        giftCardApplied = false
+        giftCardAppliedFull = false
+        selectedCardType = -1
+        offerCode = null
+        clickName = ""
+        clickId = ""
+        offerId = ""
+        cardNo = ""
+        knetSelected = false
+        creditCardSelected = false
+        bankClicked = false
+        giftCardClicked = false
+        walletClicked = false
+        walletApplied = false
+        walletAppliedFull=false
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        proceedAlertDialog?.dismiss()
+        Constant.CARD_NO = ""
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun manageFunctions() {
         try {
             bookingId = intent.getStringExtra("bookingId").toString()
@@ -174,6 +238,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         movedNext()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun movedNext() {
 
         binding?.viewCancel?.setOnClickListener {
@@ -186,22 +251,22 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
 
         binding?.txtProceed?.setOnClickListener {
-
-            when (summeryViewModel.selectedPaymentMethod) {
-                PaymentMethodSealedClass.CREDIT_CARD -> {
+            if (giftCardAppliedFull) {
+                giftCardApply(
+                    GiftCardRequest(
+                        bookingId,
+                        bookType,
+                        offerCode!!,
+                        transId,
+                        preferences.getString(Constant.USER_ID).toString(), giftCardAppliedFull
+                    )
+                )
+            }
+            else if(giftCardApplied){
+               if(creditCardSelected){
                     creditCardDialog(Constant.CARD_NO)
                 }
-                PaymentMethodSealedClass.WALLET -> {
-                    walletPay(
-                        HmacKnetRequest(
-                            bookingId,
-                            bookType,
-                            transId,
-                            preferences.getString(Constant.USER_ID).toString()
-                        )
-                    )
-                }
-                PaymentMethodSealedClass.KNET -> {
+                else if(knetSelected){
                     paymentHmac(
                         HmacKnetRequest(
                             bookingId,
@@ -211,17 +276,55 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         )
                     )
                 }
-                PaymentMethodSealedClass.NONE -> {
-                    val dialog = OptionDialog(this,
-                        R.mipmap.ic_launcher,
-                        R.string.app_name,
-                        getString(R.string.select_payment_methods),
-                        positiveBtnText = R.string.ok,
-                        negativeBtnText = R.string.no,
-                        positiveClick = {},
-                        negativeClick = {})
-                    dialog.show()
+            }
+            else if (walletAppliedFull) {
+                newWalletApplyObserve(
+                    WalletApplyRequest(
+                        bookingId,
+                        bookType,
+                        walletAppliedFull,
+                        transId,
+                        preferences.getString(Constant.USER_ID).toString()
+                    )
+                )
+            }
+            else if (walletApplied) {
+                if(creditCardSelected){
+                    creditCardDialog(Constant.CARD_NO)
                 }
+                else if(knetSelected){
+                    paymentHmac(
+                        HmacKnetRequest(
+                            bookingId,
+                            bookType,
+                            transId,
+                            preferences.getString(Constant.USER_ID).toString()
+                        )
+                    )
+                }
+            }
+            else if (creditCardSelected) {
+                creditCardDialog(Constant.CARD_NO)
+            }
+            else if (knetSelected) {
+                paymentHmac(
+                    HmacKnetRequest(
+                        bookingId,
+                        bookType,
+                        transId,
+                        preferences.getString(Constant.USER_ID).toString()
+                    )
+                )
+            } else {
+                dialog = OptionDialog(this,
+                    R.mipmap.ic_launcher,
+                    R.string.app_name,
+                    getString(R.string.select_payment_methods),
+                    positiveBtnText = R.string.ok,
+                    negativeBtnText = R.string.no,
+                    positiveClick = {},
+                    negativeClick = {})
+                dialog!!.show()
             }
 
 
@@ -244,7 +347,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                     retrieveData(it.data.output)
                                 } catch (e: Exception) {
                                     e.printStackTrace()
-                                    val dialog = OptionDialog(this,
+                                    dialog = OptionDialog(this,
                                         R.mipmap.ic_launcher,
                                         R.string.app_name,
                                         it.data.msg,
@@ -252,13 +355,13 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                         negativeBtnText = R.string.no,
                                         positiveClick = {},
                                         negativeClick = {})
-                                    dialog.show()
+                                    dialog!!.show()
                                 }
 
                             } else {
                                 LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
 
-                                val dialog = OptionDialog(this,
+                                dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
                                     R.string.app_name,
                                     it.data?.msg.toString(),
@@ -266,7 +369,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                     negativeBtnText = R.string.no,
                                     positiveClick = {},
                                     negativeClick = {})
-                                dialog.show()
+                                dialog!!.show()
                             }
 
                         }
@@ -274,7 +377,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     Status.ERROR -> {
                         LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
 
-                        val dialog = OptionDialog(this,
+                        dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
                             it.message.toString(),
@@ -282,7 +385,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             negativeBtnText = R.string.no,
                             positiveClick = {},
                             negativeClick = {})
-                        dialog.show()
+                        dialog!!.show()
                     }
                     Status.LOADING -> {
                         LoaderDialog.getInstance(R.string.pleasewait)
@@ -309,17 +412,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
     override fun bankItemApply(
         offerId: String,
-        cardNo: String,
-        check: ImageView,
-        close: ImageView,
-        apply: TextView,
-        bankCancel: TextView,
-        bankEdit: EditText,
-        msg: TextView,
-        knet: LinearLayout,
-        walletApply: TextView,
-        offerApply: TextView,
-        offerEditText: EditText
+        cardNo: String
     ) {
 
         bankOfferApply(
@@ -329,32 +422,24 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 offerId,
                 transId,
                 preferences.getString(Constant.USER_ID).toString()
-            ),
-            check,
-            close,
-            apply,
-            bankCancel,
-            bankEdit,
-            msg,
-            knet,
-            walletApply,
-            offerApply,
-            offerEditText
+            )
+        )
+    }
+
+    override fun newWalletApplyApply(payFull: Boolean) {
+
+        newWalletApplyObserve(
+            WalletApplyRequest(
+                bookingid=bookingId,
+                booktype=bookType,
+                transid = transId,
+                userid = preferences.getString(Constant.USER_ID).toString(), payFull = payFull
+            )
         )
     }
 
     private fun bankOfferApply(
-        bankOfferRequest: BankOfferRequest,
-        chekbox: ImageView,
-        close: ImageView,
-        apply: TextView,
-        bankCancel: TextView,
-        bankEdit: EditText,
-        msg: TextView,
-        knet: LinearLayout,
-        walletApply: TextView,
-        offerApply: TextView,
-        offerEditText: EditText
+        bankOfferRequest: BankOfferRequest
     ) {
         summeryViewModel.bankApply(bankOfferRequest).observe(this) {
             it?.let { resource ->
@@ -363,51 +448,28 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                binding?.textTotalAmount?.text = it.data.output.amount
-                                msg.show()
-                                msg.text = it.data.output.MSG
-                                apply.hide()
-                                close.hide()
-                                chekbox.hide()
+                                Constant.CARD_NO = bankOfferRequest.cardNo
+                                binding?.textTotalAmount?.text = it?.data?.output?.amount
                                 outputlist?.clear()
-                                outputlist?.addAll(it.data.output.payInfo)
-                                summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.CREDIT_CARD)
-                                bankCancel.show()
+                                outputlist?.addAll(it?.data?.output?.payInfo)
+                                creditCardSelected = true
+                                creditCardEnabled=true
                                 bankApplied = true
-                                spinnerClickable = false
-//                             //bank  Clickable false
-                                bankEdit.isClickable = false
-                                bankEdit.isEnabled = false
-                                bankEdit.isFocusable = false
-
-//                          //knet
-                                knet.isClickable = false
-                                knet.isEnabled = false
-                                knet.isFocusable = false
-
-//                          //wallet
-                                walletApply.isClickable = false
-                                walletApply.isEnabled = false
-                                walletApply.isFocusable = false
-
-//                          //offer
-                                offerApply.isClickable = false
-                                offerApply.isEnabled = false
-                                offerApply.isFocusable = false
-
-//                          //offer EditText
-                                offerEditText.isClickable = false
-                                offerEditText.isEnabled = false
-                                offerEditText.isFocusable = false
-                                bankEdit.isFocusableInTouchMode = false
-                                adapter?.notifyDataSetChanged()
-                            } else {
-                                summeryViewModel.setpaymentMethodSelectionStateFlow(
-                                    PaymentMethodSealedClass.NONE
-                                )
+                                knetSelected = false
+                                giftCardEnabled = false
+                                knetEnabled=false
+                                walletEnabled = false
+                                giftCardClicked=false
+                                walletClicked=false
+                            }
+                            else {
+                                giftCardClicked=false
+                                walletClicked=false
+                                outputlist?.clear()
+                                Constant.CARD_NO = ""
                                 bankApplied = false
                                 spinnerClickable = true
-                                val dialog = OptionDialog(this,
+                                dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
                                     R.string.app_name,
                                     it.data?.msg.toString(),
@@ -415,16 +477,22 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                     negativeBtnText = R.string.no,
                                     positiveClick = {},
                                     negativeClick = {})
-                                dialog.show()
+                                dialog!!.show()
                             }
-
                         }
+                        adapter?.notifyDataSetChanged()
                     }
                     Status.ERROR -> {
+                        giftCardClicked=false
+                        walletClicked=false
+                        knetSelected=false
+                        creditCardSelected=false
+                        Constant.CARD_NO = ""
+                        outputlist?.clear()
                         LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
                         bankApplied = false
                         spinnerClickable = true
-                        val dialog = OptionDialog(this,
+                        dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
                             it.message.toString(),
@@ -432,7 +500,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             negativeBtnText = R.string.no,
                             positiveClick = {},
                             negativeClick = {})
-                        dialog.show()
+                        adapter?.notifyDataSetChanged()
+                        dialog!!.show()
                     }
 
                     Status.LOADING -> {
@@ -444,19 +513,69 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         }
     }
 
+    private fun newWalletApplyObserve(
+        walletApplyRequest: WalletApplyRequest
+    ) {
+        summeryViewModel.newWalletApplyApply(walletApplyRequest).observe(this) {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+
+                        resource.data?.let { it ->
+                            if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
+                                try {
+                                    retrieveDataNewWallet(
+                                        it.data.output
+                                    )
+                                } catch (e: Exception) {
+                                    println("updateUiCinemaSession ---> ${e.message}")
+                                }
+
+                            } else {
+                                LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+                                giftCardApplied = false
+                                giftCardAppliedFull = false
+                                dialog = OptionDialog(this,
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    it.data?.msg.toString(),
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog!!.show()
+                            }
+
+                        }
+                        adapter?.notifyDataSetChanged()
+                    }
+                    Status.ERROR -> {
+                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+                        dialog = OptionDialog(this,
+                            R.mipmap.ic_launcher,
+                            R.string.app_name,
+                            it.message.toString(),
+                            positiveBtnText = R.string.ok,
+                            negativeBtnText = R.string.no,
+                            positiveClick = {},
+                            negativeClick = {})
+                        adapter?.notifyDataSetChanged()
+                        dialog!!.show()
+                    }
+                    Status.LOADING -> {
+                        LoaderDialog.getInstance(R.string.pleasewait)
+                            ?.show(supportFragmentManager, null)
+
+                    }
+                }
+            }
+        }
+    }
+
     override fun bankItemRemove(
         offerId: String,
-        cardNo: String,
-        check: ImageView,
-        close: ImageView,
-        apply: TextView,
-        banksCancel: TextView,
-        bankEdit: EditText,
-        msg: TextView,
-        knet: LinearLayout,
-        walletApply: TextView,
-        offerApply: TextView,
-        offerEditText: EditText
+        cardNo: String
     ) {
         bankOfferRemove(
             BankOfferRequest(
@@ -465,32 +584,12 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 offerId,
                 transId,
                 preferences.getString(Constant.USER_ID).toString()
-            ),
-            check,
-            close,
-            apply,
-            banksCancel,
-            bankEdit,
-            msg,
-            knet,
-            walletApply,
-            offerApply,
-            offerEditText
+            )
         )
     }
 
     private fun bankOfferRemove(
-        bankOfferRequest: BankOfferRequest,
-        checkbox: ImageView,
-        close: ImageView,
-        apply: TextView,
-        banksCancel: TextView,
-        bankEdit: EditText,
-        msg: TextView,
-        knet: LinearLayout,
-        walletApply: TextView,
-        offerApply: TextView,
-        offerEditText: EditText
+        bankOfferRequest: BankOfferRequest
     ) {
         summeryViewModel.bankRemove(bankOfferRequest).observe(this) {
             it?.let { resource ->
@@ -500,48 +599,16 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
-                                msg.hide()
+                                creditCardEnabled = false
                                 binding?.textTotalAmount?.text = it.data.output.amount
-                                msg.text = it.data.output.MSG
-                                bankOfferClick = false
-                                //bank
-                                apply.show()
-                                close.hide()
-                                checkbox.hide()
-                                banksCancel.hide()
                                 bankApplied = false
                                 spinnerClickable = true
-                                bankEdit.text.clear()
-                                bankEdit.isClickable = true
-                                bankEdit.isFocusable = true
-                                bankEdit.isEnabled = true
-                                bankEdit.isFocusableInTouchMode = true
-                                bankEdit.inputType = InputType.TYPE_CLASS_NUMBER
+                                giftCardEnabled = true
+                                walletEnabled = true
+                                creditCardEnabled=true
+                                knetEnabled=true
                                 outputlist?.clear()
                                 outputlist?.addAll(it.data.output.payInfo)
-                                summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.NONE)
-                                //knet
-                                knet.isClickable = true
-                                knet.isEnabled = true
-                                knet.isFocusable = true
-
-//                          //wallet
-                                walletApply.isClickable = true
-                                walletApply.isEnabled = true
-                                walletApply.isFocusable = true
-
-//                          //offer
-                                offerApply.isClickable = true
-                                offerApply.isEnabled = true
-                                offerApply.isFocusable = true
-
-                                //offer EditText
-                                offerEditText.isClickable = true
-                                offerEditText.isEnabled = true
-                                offerEditText.isFocusable = true
-                                offerEditText.isFocusableInTouchMode = true
-                                offerEditText.inputType = InputType.TYPE_NULL
-                                adapter?.notifyDataSetChanged()
                             }
                         }
                     }
@@ -549,7 +616,10 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                         LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
                         bankApplied = false
                         spinnerClickable = true
-                        val dialog = OptionDialog(this,
+                        giftCardEnabled = true
+                        outputlist?.clear()
+                        walletEnabled=true
+                        dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
                             it.message.toString(),
@@ -557,13 +627,14 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             negativeBtnText = R.string.no,
                             positiveClick = {},
                             negativeClick = {})
-                        dialog.show()
+                        dialog!!.show()
                     }
                     Status.LOADING -> {
                         LoaderDialog.getInstance(R.string.pleasewait)
                             ?.show(supportFragmentManager, null)
                     }
                 }
+                adapter?.notifyDataSetChanged()
             }
         }
 
@@ -597,7 +668,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             } else {
                                 LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
 
-                                val dialog = OptionDialog(this,
+                                dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
                                     R.string.app_name,
                                     it.data?.msg.toString(),
@@ -605,7 +676,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                     negativeBtnText = R.string.no,
                                     positiveClick = {},
                                     negativeClick = {})
-                                dialog.show()
+                                dialog!!.show()
                             }
 
                         }
@@ -613,7 +684,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     Status.ERROR -> {
                         LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
 
-                        val dialog = OptionDialog(this,
+                        dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
                             it.message.toString(),
@@ -621,7 +692,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             negativeBtnText = R.string.no,
                             positiveClick = {},
                             negativeClick = {})
-                        dialog.show()
+                        dialog!!.show()
                     }
                     Status.LOADING -> {
                         LoaderDialog.getInstance(R.string.pleasewait)
@@ -636,9 +707,9 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     override fun onSimilarItemClick(view: GetMovieResponse.Output.Similar) {
 
     }
-
+    var ccDialogBinding: CheckoutCreditcartPaymentAlertBinding?=null
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun creditCardDialog(cardNo: String) {
-
         val cardinalConfigurationParameters = CardinalConfigurationParameters()
         cardinalConfigurationParameters.environment = CardinalEnvironment.STAGING
         cardinalConfigurationParameters.requestTimeout = 8000
@@ -658,368 +729,405 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         cardinalConfigurationParameters.uiCustomization = yourUICustomizationObject
 
         cardinal.configure(this, cardinalConfigurationParameters)
-        val mDialogView =
-            LayoutInflater.from(this).inflate(R.layout.checkout_creditcart_payment_alert, null)
-        val mBuilder = AlertDialog.Builder(this).setView(mDialogView)
-        val proceedAlertDialog = mBuilder.show()
-        proceedAlertDialog.show()
-        proceedAlertDialog?.kd_to_pay?.text = " $totalPrice"
-        proceedAlertDialog?.cardNumberTextInputEditText?.setText(cardNo)
-        if (cardNo == "") {
-            proceedAlertDialog?.cardNumberTextInputEditText?.isClickable = true
-            proceedAlertDialog?.cardNumberTextInputEditText?.isEnabled = true
-            proceedAlertDialog?.cardNumberTextInputEditText?.isFocusable = true
-        } else {
-            proceedAlertDialog?.cardNumberTextInputEditText?.isClickable = false
-            proceedAlertDialog?.cardNumberTextInputEditText?.isEnabled = false
-            proceedAlertDialog?.cardNumberTextInputEditText?.isFocusable = false
-
+        ccDialogBinding =
+            CheckoutCreditcartPaymentAlertBinding.inflate(layoutInflater)
+        val mBuilder = AlertDialog.Builder(this).setView(ccDialogBinding?.root)
+        proceedAlertDialog = mBuilder.create()
+        proceedAlertDialog?.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+        proceedAlertDialog?.setCancelable(false)
+        if(!this@PaymentListActivity.isFinishing){
+            proceedAlertDialog!!.show()
         }
-        proceedAlertDialog.cardNumberTextInputEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(
-                charSequence: CharSequence, i: Int, i1: Int, i2: Int
-            ) {
-                try {
-                    if (!proceedAlertDialog.cardNumberTextInputEditText.text.toString().isEmpty()) {
-                        proceedAlertDialog.image_american_express_card.visibility = View.VISIBLE
-                        if (VISA_PREFIX.contains(
-                                proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                    .substring(0, 1)
-                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                .isEmpty()
-                        ) {
-                            proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                ContextCompat.getDrawable(
-                                    this@PaymentListActivity, R.drawable.visa_card
-                                )
-                            )
+        Log.e("dialog_error","657")
 
-                        } else if (MASTERCARD_PREFIX.contains(
-                                proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                    .substring(0, 2) + ","
-                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                .isEmpty()
-                        ) {
-                            proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                ContextCompat.getDrawable(
-                                    this@PaymentListActivity, R.drawable.mastercard_card
-                                )
-                            )
-                        } else if (AMEX_PREFIX.contains(
-                                proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                    .substring(0, 2) + ","
-                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                .isEmpty()
-                        ) {
-                            proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                ContextCompat.getDrawable(
-                                    this@PaymentListActivity, R.drawable.amerian_card
-                                )
-                            )
-                        } else if (DISCOVER_PREFIX.contains(
-                                proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                    .substring(0, 4)
-                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                .isEmpty()
-                        ) {
-                            proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                ContextCompat.getDrawable(
-                                    this@PaymentListActivity, R.drawable.amerian_card
-                                )
-                            )
-                        } else if (JCB.contains(
-                                proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                    .substring(0, 1)
-                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                .isEmpty()
-                        ) {
-                            proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                ContextCompat.getDrawable(
-                                    this@PaymentListActivity, R.drawable.amerian_card
-                                )
-                            )
-                        } else if (MAESTRO.contains(
-                                proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                    .substring(0, 2)
-                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                .isEmpty()
-                        ) {
-                            proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                ContextCompat.getDrawable(
-                                    this@PaymentListActivity, R.drawable.amerian_card
-                                )
-                            )
-                        } else {
-                            proceedAlertDialog.image_american_express_card.visibility = View.GONE
-                        }
-                    } else {
-                        proceedAlertDialog.image_american_express_card.visibility = View.GONE
-                    }
-                } catch (e: java.lang.Exception) {
-
-                }
+        ccDialogBinding?.apply {
+            kdToPay?.text = " $totalPrice"
+            cardNumberTextInputEditText?.setText(cardNo)
+        }
+        if (cardNo == "") {
+            binding?.apply {
+                cardNumberTextInputEditText?.isClickable = true
+                cardNumberTextInputEditText?.isEnabled = true
+                cardNumberTextInputEditText?.isFocusable = true
             }
-
-            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                try {
-                    if (!proceedAlertDialog.cardNumberTextInputEditText.text.toString().isEmpty()) {
-                        proceedAlertDialog.image_american_express_card.visibility = View.VISIBLE
-                        if (VISA_PREFIX.contains(
-                                proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                    .substring(0, 1)
-                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                .isEmpty()
-                        ) {
-                            proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                ContextCompat.getDrawable(
-                                    this@PaymentListActivity, R.drawable.visa_card
-                                )
-                            )
-                        } else if (MASTERCARD_PREFIX.contains(
-                                proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                    .substring(0, 2) + ","
-                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                .isEmpty()
-                        ) {
-                            proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                ContextCompat.getDrawable(
-                                    this@PaymentListActivity, R.drawable.mastercard_card
-                                )
-                            )
-                        } else if (AMEX_PREFIX.contains(
-                                proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                    .substring(0, 2) + ","
-                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                .isEmpty()
-                        ) {
-                            proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                ContextCompat.getDrawable(
-                                    this@PaymentListActivity, R.drawable.amerian_card
-                                )
-                            )
-                        } else if (DISCOVER_PREFIX.contains(
-                                proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                    .substring(0, 4)
-                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                .isEmpty()
-                        ) {
-                            proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                ContextCompat.getDrawable(
-                                    this@PaymentListActivity, R.drawable.disover_card
-                                )
-                            )
-                        } else if (JCB.contains(
-                                proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                    .substring(0, 4)
-                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                .isEmpty()
-                        ) {
-                            proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                ContextCompat.getDrawable(
-                                    this@PaymentListActivity, R.drawable.jcb_card
-                                )
-                            )
-                        } else if (MAESTRO.contains(
-                                proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                    .substring(0, 4)
-                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                .isEmpty()
-                        ) {
-                            proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                ContextCompat.getDrawable(
-                                    this@PaymentListActivity, R.drawable.maestro_card
-                                )
-                            )
-                        } else if (UATP.contains(
-                                proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                    .substring(0, 4)
-                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                .isEmpty()
-                        ) {
-                            proceedAlertDialog.image_american_express_card.setImageDrawable(
-                                ContextCompat.getDrawable(
-                                    this@PaymentListActivity, R.drawable.uatp
-                                )
-                            )
-                        } else {
-                            proceedAlertDialog.image_american_express_card.visibility = View.GONE
-                        }
-                    } else {
-                        proceedAlertDialog.image_american_express_card.visibility = View.GONE
-                    }
-                } catch (e: java.lang.Exception) {
-                    e.printStackTrace()
-                }
+        }
+        else {
+            binding?.apply {
+                cardNumberTextInputEditText?.isClickable = false
+                cardNumberTextInputEditText?.isEnabled = false
+                cardNumberTextInputEditText?.isFocusable = false
             }
-
-            override fun afterTextChanged(editable: Editable) {
-
-                try {
-                    if (!proceedAlertDialog.cardNumberTextInputEditText.text.toString().isEmpty()) {
-                        proceedAlertDialog.imageView52.visibility = View.VISIBLE
-                        if (VISA_PREFIX.contains(
-                                proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                    .substring(0, 1)
-                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                .isEmpty()
-                        ) {
-                            proceedAlertDialog.imageView52.setImageDrawable(
-                                ContextCompat.getDrawable(
-                                    this@PaymentListActivity, R.drawable.visa_card
-                                )
-                            )
-                        } else if (MASTERCARD_PREFIX.contains(
-                                proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                    .substring(0, 2) + ","
-                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                .isEmpty()
-                        ) {
-                            proceedAlertDialog.imageView52.setImageDrawable(
-                                ContextCompat.getDrawable(
-                                    this@PaymentListActivity, R.drawable.mastercard_card
-                                )
-                            )
-                        } else if (AMEX_PREFIX.contains(
-                                proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                    .substring(0, 2) + ","
-                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                .isEmpty()
-                        ) {
-                            proceedAlertDialog.imageView52.setImageDrawable(
-                                ContextCompat.getDrawable(
-                                    this@PaymentListActivity, R.drawable.amerian_card
-                                )
-                            )
-                        } else if (DISCOVER_PREFIX.contains(
-                                proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                    .substring(0, 4)
-                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                .isEmpty()
-                        ) {
-                            proceedAlertDialog.imageView52.setImageDrawable(
-                                ContextCompat.getDrawable(
-                                    this@PaymentListActivity, R.drawable.disover_card
-                                )
-                            )
-                        } else if (JCB.contains(
-                                proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                    .substring(0, 4)
-                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                .isEmpty()
-                        ) {
-                            proceedAlertDialog.imageView52.setImageDrawable(
-                                ContextCompat.getDrawable(
-                                    this@PaymentListActivity, R.drawable.jcb_card
-                                )
-                            )
-                        } else if (MAESTRO.contains(
-                                proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                    .substring(0, 4)
-                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                .isEmpty()
-                        ) {
-                            proceedAlertDialog.imageView52.setImageDrawable(
-                                ContextCompat.getDrawable(
-                                    this@PaymentListActivity, R.drawable.maestro_card
-                                )
-                            )
-                        } else if (UATP.contains(
-                                proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                    .substring(0, 4)
-                            ) && !proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                                .isEmpty()
-                        ) {
-                            proceedAlertDialog.imageView52.setImageDrawable(
-                                ContextCompat.getDrawable(
-                                    this@PaymentListActivity, R.drawable.uatp
-                                )
-                            )
-                        } else {
-
-                        }
-                    } else {
-
-                    }
-                } catch (e: java.lang.Exception) {
-                }
-
-            }
-        })
-
-        proceedAlertDialog.text_cancel_go_back.setOnClickListener {
-            proceedAlertDialog.dismiss()
-
         }
         var lastInput = ""
+        ccDialogBinding?.apply {
+            cardNumberTextInputEditText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    charSequence: CharSequence, i: Int, i1: Int, i2: Int
+                ) {
+                    proceedAlertDialog?.apply {
+                        try {
+                            if (!cardNumberTextInputEditText.text.toString()
+                                    .isEmpty()
+                            ) {
+                                image_american_express_card.visibility = View.VISIBLE
+                                if (VISA_PREFIX.contains(
+                                        cardNumberTextInputEditText.text.toString()
+                                            .substring(0, 1)
+                                    ) && !cardNumberTextInputEditText.text.toString()
+                                        .isEmpty()
+                                ) {
+                                    image_american_express_card.setImageDrawable(
+                                        ContextCompat.getDrawable(
+                                            this@PaymentListActivity, R.drawable.visa_card
+                                        )
+                                    )
 
-        proceedAlertDialog.expireDateTextInputEditText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {}
+                                } else if (MASTERCARD_PREFIX.contains(
+                                        cardNumberTextInputEditText.text.toString()
+                                            .substring(0, 2) + ","
+                                    ) && !cardNumberTextInputEditText.text.toString()
+                                        .isEmpty()
+                                ) {
+                                    image_american_express_card.setImageDrawable(
+                                        ContextCompat.getDrawable(
+                                            this@PaymentListActivity, R.drawable.mastercard_card
+                                        )
+                                    )
+                                } else if (AMEX_PREFIX.contains(
+                                        cardNumberTextInputEditText.text.toString()
+                                            .substring(0, 2) + ","
+                                    ) && !cardNumberTextInputEditText.text.toString()
+                                        .isEmpty()
+                                ) {
+                                    image_american_express_card.setImageDrawable(
+                                        ContextCompat.getDrawable(
+                                            this@PaymentListActivity, R.drawable.amerian_card
+                                        )
+                                    )
+                                } else if (DISCOVER_PREFIX.contains(
+                                        cardNumberTextInputEditText.text.toString()
+                                            .substring(0, 4)
+                                    ) && !cardNumberTextInputEditText.text.toString()
+                                        .isEmpty()
+                                ) {
+                                    image_american_express_card.setImageDrawable(
+                                        ContextCompat.getDrawable(
+                                            this@PaymentListActivity, R.drawable.amerian_card
+                                        )
+                                    )
+                                } else if (JCB.contains(
+                                        cardNumberTextInputEditText.text.toString()
+                                            .substring(0, 1)
+                                    ) && !cardNumberTextInputEditText.text.toString()
+                                        .isEmpty()
+                                ) {
+                                    image_american_express_card.setImageDrawable(
+                                        ContextCompat.getDrawable(
+                                            this@PaymentListActivity, R.drawable.amerian_card
+                                        )
+                                    )
+                                } else if (MAESTRO.contains(
+                                        cardNumberTextInputEditText.text.toString()
+                                            .substring(0, 2)
+                                    ) && !cardNumberTextInputEditText.text.toString()
+                                        .isEmpty()
+                                ) {
+                                    image_american_express_card.setImageDrawable(
+                                        ContextCompat.getDrawable(
+                                            this@PaymentListActivity, R.drawable.amerian_card
+                                        )
+                                    )
+                                } else {
+                                    image_american_express_card.visibility =
+                                        View.GONE
+                                }
+                            } else {
+                                image_american_express_card.visibility = View.GONE
+                            }
+                        } catch (e: java.lang.Exception) {
 
-            override fun beforeTextChanged(
-                p0: CharSequence?, p1: Int, p2: Int, p3: Int
-            ) {
-            }
-
-            @RequiresApi(Build.VERSION_CODES.N)
-            @SuppressLint("SetTextI18n", "NewApi")
-            override fun onTextChanged(
-                p0: CharSequence?, start: Int, removed: Int, added: Int
-            ) {
-                val input = p0.toString()
-                val formatter = SimpleDateFormat("MM/YY", Locale.GERMANY)
-                val expiryDateDate = Calendar.getInstance()
-                try {
-                    expiryDateDate.time = formatter.parse(input)
-                } catch (e: ParseException) {
-                    if (p0?.length == 2 && !lastInput.endsWith("/")) {
-                        val month = Integer.parseInt(input)
-                        if (month <= 12) {
-                            proceedAlertDialog.expireDateTextInputEditText.setText(
-                                proceedAlertDialog.expireDateTextInputEditText.text.toString() + "/"
-                            )
-                            proceedAlertDialog.expireDateTextInputEditText.setSelection(
-                                3
-                            )
-                        }
-                    } else if (p0?.length == 2 && lastInput.endsWith("/")) {
-                        val month = Integer.parseInt(input)
-                        if (month <= 12) {
-                            proceedAlertDialog.expireDateTextInputEditText.setText(
-                                proceedAlertDialog.expireDateTextInputEditText.text.toString()
-                                    .substring(0, 1)
-                            )
                         }
                     }
-                    lastInput = proceedAlertDialog.expireDateTextInputEditText.text.toString()
-                    //because not valid so code exits here
-                    return
+
                 }
+
+                override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+                    try {
+                        if (!cardNumberTextInputEditText.text.toString()
+                                .isEmpty()
+                        ) {
+                            image_american_express_card.visibility = View.VISIBLE
+                            if (VISA_PREFIX.contains(
+                                    cardNumberTextInputEditText.text.toString()
+                                        .substring(0, 1)
+                                ) && !cardNumberTextInputEditText.text.toString()
+                                    .isEmpty()
+                            ) {
+                                image_american_express_card.setImageDrawable(
+                                    ContextCompat.getDrawable(
+                                        this@PaymentListActivity, R.drawable.visa_card
+                                    )
+                                )
+                            } else if (MASTERCARD_PREFIX.contains(
+                                    cardNumberTextInputEditText.text.toString()
+                                        .substring(0, 2) + ","
+                                ) && !cardNumberTextInputEditText.text.toString()
+                                    .isEmpty()
+                            ) {
+                                image_american_express_card.setImageDrawable(
+                                    ContextCompat.getDrawable(
+                                        this@PaymentListActivity, R.drawable.mastercard_card
+                                    )
+                                )
+                            } else if (AMEX_PREFIX.contains(
+                                    cardNumberTextInputEditText.text.toString()
+                                        .substring(0, 2) + ","
+                                ) && !cardNumberTextInputEditText.text.toString()
+                                    .isEmpty()
+                            ) {
+                                image_american_express_card.setImageDrawable(
+                                    ContextCompat.getDrawable(
+                                        this@PaymentListActivity, R.drawable.amerian_card
+                                    )
+                                )
+                            } else if (DISCOVER_PREFIX.contains(
+                                    cardNumberTextInputEditText.text.toString()
+                                        .substring(0, 4)
+                                ) && !cardNumberTextInputEditText.text.toString()
+                                    .isEmpty()
+                            ) {
+                                image_american_express_card.setImageDrawable(
+                                    ContextCompat.getDrawable(
+                                        this@PaymentListActivity, R.drawable.disover_card
+                                    )
+                                )
+                            } else if (JCB.contains(
+                                    cardNumberTextInputEditText.text.toString()
+                                        .substring(0, 4)
+                                ) && !cardNumberTextInputEditText.text.toString()
+                                    .isEmpty()
+                            ) {
+                                image_american_express_card.setImageDrawable(
+                                    ContextCompat.getDrawable(
+                                        this@PaymentListActivity, R.drawable.jcb_card
+                                    )
+                                )
+                            } else if (MAESTRO.contains(
+                                    cardNumberTextInputEditText.text.toString()
+                                        .substring(0, 4)
+                                ) && !cardNumberTextInputEditText.text.toString()
+                                    .isEmpty()
+                            ) {
+                                image_american_express_card.setImageDrawable(
+                                    ContextCompat.getDrawable(
+                                        this@PaymentListActivity, R.drawable.maestro_card
+                                    )
+                                )
+                            } else if (UATP.contains(
+                                    cardNumberTextInputEditText.text.toString()
+                                        .substring(0, 4)
+                                ) && !cardNumberTextInputEditText.text.toString()
+                                    .isEmpty()
+                            ) {
+                                image_american_express_card.setImageDrawable(
+                                    ContextCompat.getDrawable(
+                                        this@PaymentListActivity, R.drawable.uatp
+                                    )
+                                )
+                            } else {
+                                image_american_express_card.visibility =
+                                    View.GONE
+                            }
+                        } else {
+                            image_american_express_card.visibility = View.GONE
+                        }
+                    } catch (e: java.lang.Exception) {
+                        e.printStackTrace()
+                    }
+                }
+
+                override fun afterTextChanged(editable: Editable) {
+
+                    try {
+                        if (!cardNumberTextInputEditText.text.toString()
+                                .isEmpty()
+                        ) {
+                            imageView52.visibility = View.VISIBLE
+                            if (VISA_PREFIX.contains(
+                                    cardNumberTextInputEditText.text.toString()
+                                        .substring(0, 1)
+                                ) && !cardNumberTextInputEditText.text.toString()
+                                    .isEmpty()
+                            ) {
+                                imageView52.setImageDrawable(
+                                    ContextCompat.getDrawable(
+                                        this@PaymentListActivity, R.drawable.visa_card
+                                    )
+                                )
+                            } else if (MASTERCARD_PREFIX.contains(
+                                    cardNumberTextInputEditText.text.toString()
+                                        .substring(0, 2) + ","
+                                ) && !cardNumberTextInputEditText.text.toString()
+                                    .isEmpty()
+                            ) {
+                                imageView52.setImageDrawable(
+                                    ContextCompat.getDrawable(
+                                        this@PaymentListActivity, R.drawable.mastercard_card
+                                    )
+                                )
+                            } else if (AMEX_PREFIX.contains(
+                                    cardNumberTextInputEditText.text.toString()
+                                        .substring(0, 2) + ","
+                                ) && !cardNumberTextInputEditText.text.toString()
+                                    .isEmpty()
+                            ) {
+                                imageView52.setImageDrawable(
+                                    ContextCompat.getDrawable(
+                                        this@PaymentListActivity, R.drawable.amerian_card
+                                    )
+                                )
+                            } else if (DISCOVER_PREFIX.contains(
+                                    cardNumberTextInputEditText.text.toString()
+                                        .substring(0, 4)
+                                ) && !cardNumberTextInputEditText.text.toString()
+                                    .isEmpty()
+                            ) {
+                                imageView52.setImageDrawable(
+                                    ContextCompat.getDrawable(
+                                        this@PaymentListActivity, R.drawable.disover_card
+                                    )
+                                )
+                            } else if (JCB.contains(
+                                    cardNumberTextInputEditText.text.toString()
+                                        .substring(0, 4)
+                                ) && !cardNumberTextInputEditText.text.toString()
+                                    .isEmpty()
+                            ) {
+                                imageView52.setImageDrawable(
+                                    ContextCompat.getDrawable(
+                                        this@PaymentListActivity, R.drawable.jcb_card
+                                    )
+                                )
+                            } else if (MAESTRO.contains(
+                                    cardNumberTextInputEditText.text.toString()
+                                        .substring(0, 4)
+                                ) && !cardNumberTextInputEditText.text.toString()
+                                    .isEmpty()
+                            ) {
+                                imageView52.setImageDrawable(
+                                    ContextCompat.getDrawable(
+                                        this@PaymentListActivity, R.drawable.maestro_card
+                                    )
+                                )
+                            } else if (UATP.contains(
+                                    cardNumberTextInputEditText.text.toString()
+                                        .substring(0, 4)
+                                ) && !cardNumberTextInputEditText.text.toString()
+                                    .isEmpty()
+                            ) {
+                                imageView52.setImageDrawable(
+                                    ContextCompat.getDrawable(
+                                        this@PaymentListActivity, R.drawable.uatp
+                                    )
+                                )
+                            } else {
+
+                            }
+                        } else {
+
+                        }
+                    } catch (e: java.lang.Exception) {
+                    }
+
+                }
+            })
+            expireDateTextInputEditText.addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(p0: Editable?) {}
+
+                override fun beforeTextChanged(
+                    p0: CharSequence?, p1: Int, p2: Int, p3: Int
+                ) {
+                }
+
+                @RequiresApi(Build.VERSION_CODES.N)
+                @SuppressLint("SetTextI18n", "NewApi")
+                override fun onTextChanged(
+                    p0: CharSequence?, start: Int, removed: Int, added: Int
+                ) {
+                    val input = p0.toString()
+                    val formatter = SimpleDateFormat("MM/YY", Locale.GERMANY)
+                    val expiryDateDate = Calendar.getInstance()
+                    try {
+                        expiryDateDate.time = formatter.parse(input)
+                    } catch (e: ParseException) {
+                        if (p0?.length == 2 && !lastInput.endsWith("/")) {
+                            val month = Integer.parseInt(input)
+                            if (month <= 12) {
+                                expireDateTextInputEditText.setText(
+                                    expireDateTextInputEditText.text.toString() + "/"
+                                )
+                                expireDateTextInputEditText.setSelection(
+                                    3
+                                )
+                            }
+                        } else if (p0?.length == 2 && lastInput.endsWith("/")) {
+                            val month = Integer.parseInt(input)
+                            if (month <= 12) {
+                                expireDateTextInputEditText.setText(
+                                    expireDateTextInputEditText.text.toString()
+                                        .substring(0, 1)
+                                )
+                            }
+                        }
+                        lastInput = expireDateTextInputEditText.text.toString()
+                        //because not valid so code exits here
+                        return
+                    }
+                }
+            })
+            textCancelGoBack.setOnClickListener {
+                proceedAlertDialog?.dismiss()
             }
-        })
+            btnPay.setOnClickListener {
+                btnPay.apply {
+                    isClickable=false
+                    isEnabled=false
+                    isFocusable=false
+                }
+                if (validateFields(proceedAlertDialog!!)){
+                    try {
+                        postCardData(
+                            PostCardRequest(
+                                bookingId,
+                                cardNumberTextInputEditText.text.toString()
+                                    .replace(" ".toRegex(), "").trim(),
+                                ccvTextInputEditText.text.toString(),
+                                expireDateTextInputEditText.text.toString()
+                                    .split("/")[0],
+                                expireDateTextInputEditText.text.toString()
+                                    .split("/")[1],
+                                refId
+                            )
+                        )
+                    } catch (e: Exception) {
+                        btnPay.apply {
+                            isClickable=true
+                            isEnabled=true
+                            isFocusable=true
+                        }
+                        println("exception--->${e.message}")
+                    }
+                }
+                else{
+                    btnPay.apply {
+                        isClickable=true
+                        isEnabled=true
+                        isFocusable=true
+                    }
+                }
 
-        proceedAlertDialog.btn_pay.setOnClickListener {
-            if (validateFields(proceedAlertDialog)) try {
-                postCardData(
-                    PostCardRequest(
-                        bookingId,
-                        proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                            .replace(" ".toRegex(), "").trim(),
-                        proceedAlertDialog.ccvTextInputEditText.text.toString(),
-                        proceedAlertDialog.expireDateTextInputEditText.text.toString()
-                            .split("/")[0],
-                        proceedAlertDialog.expireDateTextInputEditText.text.toString()
-                            .split("/")[1],
-                        refId
-                    )
-                )
-            } catch (e: Exception) {
-                println("exception--->${e.message}")
             }
-
-
         }
-
-
         creditCardInit(
             HmacKnetRequest(
                 bookingId, bookType, transId, preferences.getString(Constant.USER_ID).toString()
@@ -1032,6 +1140,11 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
+                        ccDialogBinding?.apply {
+                            btnPay.isEnabled=true
+                            btnPay.isFocusable=true
+                            btnPay.isClickable=true
+                        }
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
@@ -1042,9 +1155,13 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                             println("consumerSessionId12-->" + validateResponse.actionCode + "----" + validateResponse.errorDescription)
                                             if (validateResponse.actionCode == CardinalActionCode.CANCEL) {
                                                 toast("Transaction Cancelled!")
-                                            } else if (validateResponse.actionCode == CardinalActionCode.ERROR) {
+                                                finish()
+                                            }
+                                            else if (validateResponse.actionCode == CardinalActionCode.ERROR) {
                                                 toast(validateResponse.errorDescription)
-                                            } else if (validateResponse.actionCode == CardinalActionCode.SUCCESS) {
+                                                finish()
+                                            }
+                                            else if (validateResponse.actionCode == CardinalActionCode.SUCCESS) {
                                                 if (s != null) {
                                                     runOnUiThread {
                                                         validateJWT(
@@ -1070,7 +1187,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                     } else {
                                         LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
 
-                                        val dialog = OptionDialog(this,
+                                        dialog = OptionDialog(this,
                                             R.mipmap.ic_launcher,
                                             R.string.app_name,
                                             it.data.output.errorDescription,
@@ -1078,7 +1195,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                             negativeBtnText = R.string.no,
                                             positiveClick = {},
                                             negativeClick = {})
-                                        dialog.show()
+                                        dialog!!.show()
                                     }
                                 } catch (e: Exception) {
                                     println("updateUiCinemaSession ---> ${e.message}")
@@ -1087,7 +1204,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             } else {
                                 LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
 
-                                val dialog = OptionDialog(this,
+                                dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
                                     R.string.app_name,
                                     it.data?.msg.toString(),
@@ -1095,15 +1212,20 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                     negativeBtnText = R.string.no,
                                     positiveClick = {},
                                     negativeClick = {})
-                                dialog.show()
+                                dialog!!.show()
                             }
 
                         }
                     }
                     Status.ERROR -> {
+                        ccDialogBinding?.apply {
+                            btnPay.isEnabled=true
+                            btnPay.isFocusable=true
+                            btnPay.isClickable=true
+                        }
                         LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
 
-                        val dialog = OptionDialog(this,
+                        dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
                             it.message.toString(),
@@ -1111,12 +1233,11 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             negativeBtnText = R.string.no,
                             positiveClick = {},
                             negativeClick = {})
-                        dialog.show()
+                        dialog!!.show()
                     }
                     Status.LOADING -> {
                         LoaderDialog.getInstance(R.string.pleasewait)
                             ?.show(supportFragmentManager, null)
-
                     }
                 }
             }
@@ -1128,7 +1249,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+//                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
 
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
@@ -1147,15 +1268,16 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                             Constant.IntentKey.BOOKING_ID, bookingId
                                         )
                                         startActivity(intent)
+                                        finish()
                                     }
                                 } catch (e: Exception) {
                                     println("updateUiCinemaSession ---> ${e.message}")
                                 }
 
                             } else {
-                                LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+//                                LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
 
-                                val dialog = OptionDialog(this,
+                                dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
                                     R.string.app_name,
                                     it.data?.msg.toString(),
@@ -1163,15 +1285,15 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                     negativeBtnText = R.string.no,
                                     positiveClick = {},
                                     negativeClick = {})
-                                dialog.show()
+                                dialog!!.show()
                             }
 
                         }
                     }
                     Status.ERROR -> {
-                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+//                        LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
 
-                        val dialog = OptionDialog(this,
+                        dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
                             it.message.toString(),
@@ -1179,11 +1301,11 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             negativeBtnText = R.string.no,
                             positiveClick = {},
                             negativeClick = {})
-                        dialog.show()
+                        dialog!!.show()
                     }
                     Status.LOADING -> {
-                        LoaderDialog.getInstance(R.string.pleasewait)
-                            ?.show(supportFragmentManager, null)
+//                        LoaderDialog.getInstance(R.string.pleasewait)
+//                            ?.show(supportFragmentManager, null)
 
                     }
                 }
@@ -1197,7 +1319,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 when (resource.status) {
                     Status.SUCCESS -> {
                         LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
-
+                        Log.e("dialog_error","1207")
                         resource.data?.let { it ->
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
@@ -1247,8 +1369,9 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
                             } else {
                                 LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
+                                Log.e("dialog_error","1257")
 
-                                val dialog = OptionDialog(this,
+                                dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
                                     R.string.app_name,
                                     it.data?.msg.toString(),
@@ -1256,7 +1379,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                     negativeBtnText = R.string.no,
                                     positiveClick = {},
                                     negativeClick = {})
-                                dialog.show()
+                                dialog!!.show()
                             }
 
                         }
@@ -1264,7 +1387,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     Status.ERROR -> {
                         LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
 
-                        val dialog = OptionDialog(this,
+                        dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
                             it.message.toString(),
@@ -1272,7 +1395,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             negativeBtnText = R.string.no,
                             positiveClick = {},
                             negativeClick = {})
-                        dialog.show()
+                        dialog!!.show()
                     }
                     Status.LOADING -> {
                         LoaderDialog.getInstance(R.string.pleasewait)
@@ -1309,13 +1432,14 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun validateFields(proceedAlertDialog: AlertDialog): Boolean {
         return if (proceedAlertDialog.cardNumberTextInputEditText.text.toString()
                 .isEmpty() && proceedAlertDialog.cardNumberTextInputEditText.text.toString().length != 16 && !CreditCardUtils.isValid(
                 proceedAlertDialog.cardNumberTextInputEditText.text.toString().replace(" ", "")
             )
         ) {
-            val dialog = OptionDialog(this,
+            dialog = OptionDialog(this,
                 R.mipmap.ic_launcher,
                 R.string.app_name,
                 getString(R.string.valid_card),
@@ -1323,12 +1447,12 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 negativeBtnText = R.string.no,
                 positiveClick = {},
                 negativeClick = {})
-            dialog.show()
+            dialog!!.show()
             false
         } else if (proceedAlertDialog.expireDateTextInputEditText.text.toString()
                 .isEmpty() || proceedAlertDialog.expireDateTextInputEditText.text.toString().length < 5
         ) {
-            val dialog = OptionDialog(this,
+            dialog = OptionDialog(this,
                 R.mipmap.ic_launcher,
                 R.string.app_name,
                 getString(R.string.valid_expiry),
@@ -1336,14 +1460,14 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 negativeBtnText = R.string.no,
                 positiveClick = {},
                 negativeClick = {})
-            dialog.show()
+            dialog!!.show()
             false
         } else if (proceedAlertDialog.expireDateTextInputEditText.text.toString()
                 .isEmpty() || proceedAlertDialog.expireDateTextInputEditText.text.toString()
                 .split("/")
                 .toTypedArray()[0].toInt() > 12 || proceedAlertDialog.expireDateTextInputEditText.text.toString().length < 5
         ) {
-            val dialog = OptionDialog(this,
+            dialog = OptionDialog(this,
                 R.mipmap.ic_launcher,
                 R.string.app_name,
                 getString(R.string.valid_expiry),
@@ -1351,12 +1475,12 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 negativeBtnText = R.string.no,
                 positiveClick = {},
                 negativeClick = {})
-            dialog.show()
+            dialog!!.show()
             false
         } else if (proceedAlertDialog.ccvTextInputEditText.text.toString()
                 .isEmpty() && proceedAlertDialog.ccvTextInputEditText.length() != 3
         ) {
-            val dialog = OptionDialog(this,
+            dialog = OptionDialog(this,
                 R.mipmap.ic_launcher,
                 R.string.app_name,
                 getString(R.string.valid_cvv),
@@ -1364,7 +1488,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 negativeBtnText = R.string.no,
                 positiveClick = {},
                 negativeClick = {})
-            dialog.show()
+            dialog!!.show()
             false
         } else {
             true
@@ -1375,35 +1499,30 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         view: PaymentListResponse.Output.PayMode,
         offerCode: String,
         clickName: String,
-        clickId: String,
-        offerEditText: EditText,
-        textView157: TextView,
-        checkBox2: ImageView,
-        imageView66: ImageView,
-        textCancelBtn: TextView
+        clickId: String
     ) {
         if (clickName == "Gift Card") {
+            giftCardNumber = offerCode
             giftCardApply(
                 GiftCardRequest(
                     bookingId,
                     bookType,
                     offerCode,
                     transId,
-                    preferences.getString(Constant.USER_ID).toString()
-                ), offerEditText, textView157, checkBox2, imageView66, textCancelBtn
+                    preferences.getString(Constant.USER_ID).toString(), false
+                )
             )
         } else if (clickName == "Voucher") {
-
+            cardNo = offerCode
             voucherApply(
                 GiftCardRequest(
                     bookingId,
                     bookType,
                     offerCode,
                     transId,
-                    preferences.getString(Constant.USER_ID).toString()
-                ), offerEditText, textView157, checkBox2, imageView66, textCancelBtn
+                    preferences.getString(Constant.USER_ID).toString(), false
+                )
             )
-
         }
     }
 
@@ -1411,11 +1530,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         view: PaymentListResponse.Output.PayMode,
         offerCode: String,
         clickName: String,
-        clickId: String,
-        offerEditText: EditText,
-        textView157: TextView,
-        checkBox2: ImageView,
-        imageView66: ImageView
+        clickId: String
     ) {
         if (clickName == "Gift Card") {
             giftCardRemove(
@@ -1424,8 +1539,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     bookType,
                     offerCode,
                     transId,
-                    preferences.getString(Constant.USER_ID).toString()
-                ), offerEditText, textView157, checkBox2, imageView66
+                    preferences.getString(Constant.USER_ID).toString(), false
+                )
             )
         } else if (clickName == "Voucher") {
 
@@ -1433,12 +1548,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     private fun voucherApply(
-        request: GiftCardRequest,
-        offerEditText: EditText,
-        textView157: TextView,
-        checkBox2: ImageView,
-        imageView66: ImageView,
-        textCancelBtn: TextView
+        request: GiftCardRequest
     ) {
         summeryViewModel.voucherApply(request).observe(this) {
             it?.let { resource ->
@@ -1501,11 +1611,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     private fun giftCardRemove(
-        request: GiftCardRequest,
-        offerEditText: EditText,
-        apply: TextView,
-        imageCheck: ImageView,
-        remove: ImageView
+        request: GiftCardRequest
     ) {
         summeryViewModel.giftCardRemove(request).observe(this) {
             it?.let { resource ->
@@ -1517,16 +1623,17 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
                                     retriveRemoveGiftCard(
-                                        it.data.output, offerEditText, apply, imageCheck, remove
+                                        it.data.output
                                     )
                                 } catch (e: Exception) {
+                                    outputlist?.clear()
                                     println("updateUiCinemaSession ---> ${e.message}")
                                 }
 
                             } else {
                                 LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
 
-                                val dialog = OptionDialog(this,
+                                dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
                                     R.string.app_name,
                                     it.data?.msg.toString(),
@@ -1534,15 +1641,15 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                     negativeBtnText = R.string.no,
                                     positiveClick = {},
                                     negativeClick = {})
-                                dialog.show()
+                                dialog!!.show()
                             }
-
                         }
+                        adapter?.notifyDataSetChanged()
                     }
                     Status.ERROR -> {
                         LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
 
-                        val dialog = OptionDialog(this,
+                        dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
                             it.message.toString(),
@@ -1550,7 +1657,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             negativeBtnText = R.string.no,
                             positiveClick = {},
                             negativeClick = {})
-                        dialog.show()
+                        adapter?.notifyDataSetChanged()
+                        dialog!!.show()
                     }
                     Status.LOADING -> {
                         LoaderDialog.getInstance(R.string.pleasewait)
@@ -1563,34 +1671,18 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     private fun retriveRemoveGiftCard(
-        output: GiftCardRemove.Output,
-        offerEditText: EditText,
-        apply: TextView,
-        imageCheck: ImageView,
-        remove: ImageView
+        output: GiftCardRemove.Output
     ) {
-        binding?.textTotalAmount?.text = output.amount
-        apply.show()
-        imageCheck.hide()
-        remove.hide()
-
         outputlist?.clear()
         outputlist?.addAll(output.payInfo)
-        offerEditText.text.clear()
-        offerEditText.isClickable = true
-        offerEditText.isEnabled = true
-        offerEditText.isFocusable = true
-        et_enter_card_number.isFocusableInTouchMode = true
-        adapter?.notifyDataSetChanged()
+        giftCardApplied = false
+        giftCardAppliedFull = false
+        bankEnabled=true
+        binding?.textTotalAmount?.text = output.amount
     }
 
     private fun giftCardApply(
-        request: GiftCardRequest,
-        offerEditText: EditText,
-        apply: TextView,
-        imageCheck: ImageView,
-        remove: ImageView,
-        textCancelBtn: TextView
+        request: GiftCardRequest
     ) {
         summeryViewModel.giftCardApply(request).observe(this) {
             it?.let { resource ->
@@ -1602,12 +1694,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 try {
                                     retrieveDataGiftCard(
-                                        it.data.output,
-                                        offerEditText,
-                                        apply,
-                                        imageCheck,
-                                        remove,
-                                        textCancelBtn
+                                        it.data.output
                                     )
                                 } catch (e: Exception) {
                                     println("updateUiCinemaSession ---> ${e.message}")
@@ -1615,8 +1702,9 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
                             } else {
                                 LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
-
-                                val dialog = OptionDialog(this,
+                                giftCardApplied = false
+                                giftCardAppliedFull = false
+                                dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
                                     R.string.app_name,
                                     it.data?.msg.toString(),
@@ -1624,15 +1712,15 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                     negativeBtnText = R.string.no,
                                     positiveClick = {},
                                     negativeClick = {})
-                                dialog.show()
+                                dialog!!.show()
                             }
 
                         }
+                        adapter?.notifyDataSetChanged()
                     }
                     Status.ERROR -> {
                         LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
-
-                        val dialog = OptionDialog(this,
+                        dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
                             it.message.toString(),
@@ -1640,7 +1728,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             negativeBtnText = R.string.no,
                             positiveClick = {},
                             negativeClick = {})
-                        dialog.show()
+                        adapter?.notifyDataSetChanged()
+                        dialog!!.show()
                     }
                     Status.LOADING -> {
                         LoaderDialog.getInstance(R.string.pleasewait)
@@ -1654,54 +1743,109 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     private fun retrieveDataGiftCard(
-        output: GiftCardResponse.Output,
-        offerEditText: EditText,
-        apply: TextView,
-        imageCheck: ImageView,
-        remove: ImageView,
-        textCancelBtn: TextView
+        output: GiftCardResponse.Output
     ) {
-        if (output.PAID == "NO") {
-            summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.GIFT_CARD_PARTIAL)
-            binding?.textTotalAmount?.text = output.amount
-            offerEditText.isClickable = false
-            offerEditText.isEnabled = false
-            offerEditText.isFocusable = false
-            et_enter_card_number.isFocusableInTouchMode = false
-            outputlist!!.clear()
-            outputlist!!.addAll(output.payInfo)
-            binding?.textTotalAmount?.text = output.amount
-            apply.hide()
-            imageCheck.show()
-            remove.show()
-            adapter?.notifyDataSetChanged()
-        } else {
-            if(output.CAN_PAY!=null && output.CAN_PAY=="YES"){
-                summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.GIFT_CARD_COMPLETE)
-                apply.hide()
-                remove.show()
-                summeryViewModel.setPaymentMethodSelection(PaymentMethodSealedClass.GIFT_CARD_COMPLETE)
-                textCancelBtn.show()
-                offerEditText.isClickable = false
-                offerEditText.isEnabled = false
-                offerEditText.isFocusable = false
-                //show cancel button
-                //hide apply button
-                //enable input
-                //show offer applied label
-                binding!!.txtProceed.performClick()
+        giftCardApplyRequest = output
+        if(giftCardAppliedFull){
+            val intent =
+                Intent(applicationContext, FinalTicketActivity::class.java)
+            intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
+            intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
+            startActivity(intent)
+            finish()
+        }
+        else{
+            if (output.PAID != null && output.PAID == "NO") {
+                giftCardApplied = true
+                giftCardAppliedFull = false
+                bankEnabled=false
+                walletEnabled=false
+                knetEnabled=true
+                creditCardEnabled = true
+                knetSelected=false
+                creditCardSelected=false
+            }
+            else if (output.PAID != null && output.PAID == "YES") {
+                giftCardApplied = true
+                giftCardAppliedFull = true
+                bankEnabled = false
+                walletEnabled = false
+                knetSelected = false
+                creditCardEnabled = false
+                knetEnabled=false
+            }
+            else if (output.CAN_PAY != null && output.CAN_PAY == "YES") {
+                giftCardApplied = true
+                giftCardAppliedFull = true
+                bankEnabled = false
+                walletEnabled = false
+                knetSelected = false
+                creditCardEnabled = false
+                knetEnabled=false
             }
             Constant.IntentKey.TimerExtandCheck = true
             Constant.IntentKey.TimerExtand = 90
             Constant.IntentKey.TimerTime = 360
 
-//            val intent = Intent(applicationContext, FinalTicketActivity::class.java)
-//            intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
-//            intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
-//            startActivity(intent)
-            adapter?.notifyDataSetChanged()
-
+            binding?.textTotalAmount?.text = output.amount
+            outputlist!!.clear()
+            outputlist!!.addAll(output.payInfo)
         }
+
+    }
+
+    private fun retrieveDataNewWallet(
+        output: GiftCardResponse.Output
+    ) {
+        newWalletApplyRequest = output
+        if(walletAppliedFull){
+            val intent =
+                Intent(applicationContext, FinalTicketActivity::class.java)
+            intent.putExtra(Constant.IntentKey.TRANSACTION_ID, transId)
+            intent.putExtra(Constant.IntentKey.BOOKING_ID, bookingId)
+            startActivity(intent)
+            finish()
+        }
+        else{
+            if (output.PAID != null && output.PAID == "NO") {
+                walletApplied = true
+                walletAppliedFull = false
+                bankEnabled=false
+                creditCardEnabled = true
+                knetEnabled=true
+                giftCardEnabled=false
+                knetSelected=false
+                creditCardSelected=false
+            }
+            else if (output.PAID != null && output.PAID == "YES") {
+                walletApplied = true
+                walletAppliedFull = true
+                bankEnabled = false
+                giftCardEnabled=false
+                knetSelected = false
+                creditCardSelected=false
+                creditCardEnabled = false
+                knetEnabled=false
+            }
+            else if (output.CAN_PAY != null && output.CAN_PAY == "YES") {
+                walletApplied = true
+                walletAppliedFull = true
+                bankEnabled = false
+                giftCardEnabled=false
+                knetSelected = false
+                creditCardSelected=false
+                creditCardEnabled = false
+                knetEnabled=false
+            }
+            Constant.IntentKey.TimerExtandCheck = true
+            Constant.IntentKey.TimerExtand = 90
+            Constant.IntentKey.TimerTime = 360
+
+            binding?.textTotalAmount?.text = output.amount
+            outputlist!!.clear()
+            outputlist!!.addAll(output.payInfo)
+        }
+
     }
 
     // hmac Request
@@ -1734,7 +1878,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             } else {
                                 LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
 
-                                val dialog = OptionDialog(this,
+                                dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
                                     R.string.app_name,
                                     it.data?.msg.toString(),
@@ -1742,7 +1886,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                     negativeBtnText = R.string.no,
                                     positiveClick = {},
                                     negativeClick = {})
-                                dialog.show()
+                                dialog!!.show()
                             }
 
                         }
@@ -1750,7 +1894,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     Status.ERROR -> {
                         LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
 
-                        val dialog = OptionDialog(this,
+                        dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
                             it.message.toString(),
@@ -1758,7 +1902,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             negativeBtnText = R.string.no,
                             positiveClick = {},
                             negativeClick = {})
-                        dialog.show()
+                        dialog!!.show()
                     }
                     Status.LOADING -> {
 //                            loader = LoaderDialog(R.string.pleasewait)
@@ -1787,7 +1931,9 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
                         println("FinishTimer-=-->${Constant.IntentKey.TimerExtandCheck},Time--->${Constant.IntentKey.TimerExtand}")
                         if (!Constant.IntentKey.TimerExtandCheck) {
-                            extendTime()
+                            if(!this@PaymentListActivity.isFinishing){
+                                extendTime()
+                            }
                         } else if (Constant.IntentKey.TimerExtandCheck && Constant.IntentKey.TimerExtand > 0) {
                             object : CountDownTimer((Constant.IntentKey.TimerExtand * 1000), 1000) {
                                 @SuppressLint("SetTextI18n")
@@ -1801,7 +1947,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 }
 
                                 override fun onFinish() {
-                                    val dialog = OptionDialog(this@PaymentListActivity,
+                                    dialog = OptionDialog(this@PaymentListActivity,
                                         R.mipmap.ic_launcher,
                                         R.string.app_name,
                                         getString(R.string.timeOut),
@@ -1813,11 +1959,13 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                             finish()
                                         },
                                         negativeClick = {})
-                                    dialog.show()
+                                    if(!this@PaymentListActivity.isFinishing){
+                                        dialog!!.show()
+                                    }
                                 }
                             }.start()
                         } else if (Constant.IntentKey.TimerExtandCheck && Constant.IntentKey.TimerExtand < 0) {
-                            val dialog = OptionDialog(this@PaymentListActivity,
+                            dialog = OptionDialog(this@PaymentListActivity,
                                 R.mipmap.ic_launcher,
                                 R.string.app_name,
                                 getString(R.string.timeOut),
@@ -1825,7 +1973,9 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 negativeBtnText = R.string.no,
                                 positiveClick = {},
                                 negativeClick = {})
-                            dialog.show()
+                            if(!this@PaymentListActivity.isFinishing){
+                                dialog!!.show()
+                            }
                         }
                     }
                 }
@@ -1850,7 +2000,9 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         builder.setCancelable(false)
         val alertDialog: android.app.AlertDialog = builder.create()
         alertDialog.window?.setBackgroundDrawableResource(R.color.transparent)
-        alertDialog.show()
+        if(!this@PaymentListActivity.isFinishing){
+            alertDialog.show()
+        }
 
         dialogView.title.text = getString(R.string.app_name)
         dialogView.subtitle.text = getString(R.string.stillHere)
@@ -1886,36 +2038,36 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
     /////////////////////////////////       Cancel Booking Process /////////////////////////////////
     private fun cancelDialog() {
-        val dialog = Dialog(this)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.cancel_dialog)
-        dialog.window!!.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
-        dialog.window!!.setGravity(Gravity.BOTTOM)
-        dialog.show()
+        timerCancelDialog = Dialog(this@PaymentListActivity)
+        timerCancelDialog?.apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            setContentView(R.layout.cancel_dialog)
+            window!!.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            window!!.attributes.windowAnimations = R.style.DialogAnimation
+            window!!.setGravity(Gravity.BOTTOM)
+            show()
+            consSure?.setOnClickListener {
+                Constant.IntentKey.TimerExtandCheck = true
+                Constant.IntentKey.TimerExtand = 90
+                Constant.IntentKey.TimerTime = 360
+                cancelTrans(CancelTransRequest(bookingId, transId))
+                if (bookType == "FOOD") {
+                    Constant.IntentKey.DialogShow = true
+                    val intent = Intent(this@PaymentListActivity, HomeActivity::class.java)
+                    Constant.IntentKey.OPEN_FROM = 0
+                    startActivity(intent)
+                    finish()
 
-        dialog.consSure?.setOnClickListener {
-            Constant.IntentKey.TimerExtandCheck = true
-            Constant.IntentKey.TimerExtand = 90
-            Constant.IntentKey.TimerTime = 360
-            cancelTrans(CancelTransRequest(bookingId, transId))
-            if (bookType == "FOOD") {
-                Constant.IntentKey.DialogShow = true
-                val intent = Intent(this, HomeActivity::class.java)
-                Constant.IntentKey.OPEN_FROM = 0
-                startActivity(intent)
-                finish()
-
-            } else {
-                finish()
+                } else {
+                    finish()
+                }
             }
-        }
-
-        dialog.negative_btn?.setOnClickListener {
-            dialog.dismiss()
+            negative_btn?.setOnClickListener {
+                dismiss()
+            }
         }
     }
 
@@ -1938,7 +2090,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             } else {
                                 LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
 
-                                val dialog = OptionDialog(this,
+                                dialog = OptionDialog(this,
                                     R.mipmap.ic_launcher,
                                     R.string.app_name,
                                     it.data?.msg.toString(),
@@ -1946,7 +2098,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                     negativeBtnText = R.string.no,
                                     positiveClick = {},
                                     negativeClick = {})
-                                dialog.show()
+                                dialog!!.show()
                             }
 
                         }
@@ -1954,7 +2106,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     Status.ERROR -> {
                         LoaderDialog.getInstance(R.string.pleasewait)?.dismiss()
 
-                        val dialog = OptionDialog(this,
+                        dialog = OptionDialog(this,
                             R.mipmap.ic_launcher,
                             R.string.app_name,
                             it.message.toString(),
@@ -1962,7 +2114,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             negativeBtnText = R.string.no,
                             positiveClick = {},
                             negativeClick = {})
-                        dialog.show()
+                        dialog!!.show()
                     }
                     Status.LOADING -> {
                     }
@@ -1995,5 +2147,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             dialog.dismiss()
         }
     }
-
+    fun clearAmountList(){
+        outputlist?.clear()
+    }
 }

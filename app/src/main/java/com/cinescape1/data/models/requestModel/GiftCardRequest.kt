@@ -5,5 +5,6 @@ data class GiftCardRequest(
     val booktype: String,
     val cardNumber: String,
     val transid: String,
-    val userid: String
+    val userid: String,
+    val payFull:Boolean
 )
