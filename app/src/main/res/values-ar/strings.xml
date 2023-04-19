@@ -174,7 +174,10 @@
     <string name="gift_card1">بطاقة الهدايا</string>
     <string name="gift_voucher">قسيمة الهدايا</string>
     <string name="bank_offers">عروض البنك</string>
-    <string name="by_clicking_proceed_i_agree_to_the">بالضغط على استمرار، فإني أوافق على</string>
+
+    <string name="by_clicking_proceed_i_agree_to_the">عند الاستمرار أوافق على</string>
+    <string name="terms_amp_condition">الشروط والأحكام</string>
+
     <string name="available">متوفر</string>
     <string name="unavailable">غير متوفر</string>
     <string name="selected">المحدد</string>
@@ -192,11 +195,11 @@
     <string name="close_">إغلاق" "</string>
     <string name="apply">تنفيذ</string>
     <string name="checkout">التوجه للدفع</string>
-    <string name="cart">سلة التسوق</string>
-    <string name="clear_all_items">مسح كافة الاختيارات</string>
-    <string name="food_price">سعر المنتج</string>
+    <string name="cart">عربة التسوق</string>
+    <string name="clear_all_items">إزالة كافة الاختيارات</string>
+    <string name="food_price">سعر المأكولات</string>
     <string name="remove">إزالة</string>
-    <string name="no_food_items_added_to_cart">لا توجد منتجات مضافة إلى سلة التسوق</string>
+    <string name="no_food_items_added_to_cart">لا توجد مواد مضافة إلى عربة التسوق</string>
     <string name="wallet">المحفظة</string>
     <string name="no_go_back">للا، العودة لما سبق</string>
     <string name="yes_i_m_sure">نعم أنا متأكد</string>
@@ -210,7 +213,6 @@
     <string name="coming_soon">قريبا</string>
     <string name="faq">الأسئلة الشائعة</string>
     <string name="contact">التواصل</string>
-    <string name="terms_amp_condition">الشروط والأحكام</string>
     <string name="privacy_policy">سياسة الخصوصية</string>
     <string name="name">اسم</string>
     <string name="message">رسالة</string>
