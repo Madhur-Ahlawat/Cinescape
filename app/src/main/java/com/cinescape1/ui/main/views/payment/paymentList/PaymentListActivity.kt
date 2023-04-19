@@ -404,6 +404,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         adapter = PaymentListAdapter(this, output.payMode, this, summeryViewModel)
         binding?.recyclerPayMode?.layoutManager = gridLayout
         binding?.recyclerPayMode?.adapter = adapter
+        Log.e("EMPTY_AMOUNT_LIST_retrieveData",output?.payInfo?.size.toString())
     }
 
     override fun walletItemApply(view: PaymentListResponse.Output.PayMode) {
@@ -452,6 +453,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 binding?.textTotalAmount?.text = it?.data?.output?.amount
                                 outputlist?.clear()
                                 outputlist?.addAll(it?.data?.output?.payInfo)
+                                Log.e("EMPTY_AMOUNT_LIST_bankOfferApply",it?.data?.output?.payInfo?.size.toString())
                                 creditCardSelected = true
                                 creditCardEnabled=true
                                 bankApplied = true
@@ -609,6 +611,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 knetEnabled=true
                                 outputlist?.clear()
                                 outputlist?.addAll(it.data.output.payInfo)
+                                Log.e("EMPTY_AMOUNT_LIST_bankOfferApply",it?.data?.output?.payInfo?.size.toString())
+
                             }
                         }
                     }
@@ -1751,6 +1755,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         giftCardAppliedFull = false
         bankEnabled=true
         binding?.textTotalAmount?.text = output.amount
+        Log.e("EMPTY_AMOUNT_LIST_retriveRemoveGiftCard",output?.payInfo?.size.toString())
     }
 
     private fun retriveRemoveNewWallet(
@@ -1876,6 +1881,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             binding?.textTotalAmount?.text = output.amount
             outputlist!!.clear()
             outputlist!!.addAll(output.payInfo)
+            Log.e("EMPTY_AMOUNT_LIST_retrieveDataGiftCard",output?.payInfo?.size.toString())
         }
 
     }
@@ -1930,6 +1936,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             binding?.textTotalAmount?.text = output.amount
             outputlist!!.clear()
             outputlist!!.addAll(output.payInfo)
+            Log.e("EMPTY_AMOUNT_LIST_retrieveDataNewWallet",output?.payInfo?.size.toString())
+
         }
 
     }
