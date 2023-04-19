@@ -31,9 +31,6 @@
         tools:ignore="AllowBackup,UnusedAttribute"
         tools:replace="android:supportsRtl">
         <activity
-            android:name=".ui.main.views.payment.PaymentActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.main.views.details.commingSoon.ComingSoonActivity"
             android:exported="false"
             android:theme="@style/Theme.Cinescape.NoActionBar">

@@ -32,7 +32,6 @@ import com.cinescape1.ui.main.views.login.module.LoginModule
 import com.cinescape1.ui.main.views.login.otpVerification.OtpVerificationActivity
 import com.cinescape1.ui.main.views.login.otpVerification.module.OtpVerificationModule
 import com.cinescape1.ui.main.views.login.resetPassword.module.ResetPasswordModule
-import com.cinescape1.ui.main.views.payment.PaymentActivity
 import com.cinescape1.ui.main.views.payment.PaymentWebActivity
 import com.cinescape1.ui.main.views.payment.paymentFaield.PaymentFailedActivity
 import com.cinescape1.ui.main.views.payment.paymentFaield.module.PaymentFailedModule
@@ -142,10 +141,6 @@ abstract class ActivityModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [DeleteAccountModule::class])
     abstract fun deleteAccActivity(): DeleteAccountActivity
-
-    @ActivityScoped
-    @ContributesAndroidInjector(modules = [PaymentModule::class])
-    abstract fun paymentActivity(): PaymentActivity
 
 
 }
