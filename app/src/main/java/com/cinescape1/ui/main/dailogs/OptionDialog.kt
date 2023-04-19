@@ -1,5 +1,6 @@
 package com.cinescape1.ui.main.dailogs
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
@@ -82,6 +83,10 @@ class OptionDialog(
             dismiss()
             binding = null
         }
+    }
+
+    override fun dismiss() {
+            super.dismiss()
     }
 
     public override fun onDetachedFromWindow() {
