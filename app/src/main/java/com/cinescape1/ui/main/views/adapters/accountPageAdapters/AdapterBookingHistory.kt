@@ -20,8 +20,7 @@ import com.cinescape1.utils.*
 class AdapterBookingHistory(
     private val context: Activity,
     private var bookingHistoryList: ArrayList<HistoryResponse.Output>,
-    var listener: typeFaceItem
-) :
+    var listener: typeFaceItem) :
     RecyclerView.Adapter<AdapterBookingHistory.MyViewHolderBookingHistory>() {
     private var rowIndex = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderBookingHistory {
@@ -62,6 +61,13 @@ class AdapterBookingHistory(
             holder.foodTotalPrice.typeface = regular
             holder.foodPaidby.typeface = regular
 
+            holder.tvPaymentDetail.typeface = regular
+            holder.tvBookingId.typeface = regular
+            holder.tvTrackId.typeface = regular
+            holder.tvReferenceId.typeface = regular
+            holder.tvPayModes.typeface = regular
+            holder.textGrandTotal.typeface = regular
+
 
         } else if (Constant.LANGUAGE == "en") {
             LocaleHelper.setLocale(context, "en")
@@ -88,6 +94,13 @@ class AdapterBookingHistory(
             holder.foodTotalPrice.typeface = regular
             holder.foodPaidby.typeface = regular
 
+            holder.tvPaymentDetail.typeface = regular
+            holder.tvBookingId.typeface = regular
+            holder.tvTrackId.typeface = regular
+            holder.tvReferenceId.typeface = regular
+            holder.tvPayModes.typeface = regular
+            holder.textGrandTotal.typeface = regular
+
         } else {
 
             LocaleHelper.setLocale(context, "en")
@@ -113,6 +126,13 @@ class AdapterBookingHistory(
             holder.paidBy.typeface = regular
             holder.foodTotalPrice.typeface = regular
             holder.foodPaidby.typeface = regular
+
+            holder.tvPaymentDetail.typeface = regular
+            holder.tvBookingId.typeface = regular
+            holder.tvTrackId.typeface = regular
+            holder.tvReferenceId.typeface = regular
+            holder.tvPayModes.typeface = regular
+            holder.textGrandTotal.typeface = regular
 
         }
 
@@ -436,6 +456,13 @@ class AdapterBookingHistory(
         var viewBookingId: View = view.findViewById(R.id.view30_locations)
         var viewAuthCode: View = view.findViewById(R.id.view34_time)
         var consGrandTotal: ConstraintLayout = view.findViewById(R.id.consGrandTotal)
+
+        var tvPaymentDetail: TextView = view.findViewById(R.id.textView90)
+        var tvBookingId: TextView = view.findViewById(R.id.tvBookingId)
+        var tvTrackId: TextView = view.findViewById(R.id.tvTrackId)
+        var tvReferenceId: TextView = view.findViewById(R.id.tvReferenceId)
+        var tvPayModes: TextView = view.findViewById(R.id.tvMethod)
+        var textGrandTotal: TextView = view.findViewById(R.id.textView97)
 
     }
 

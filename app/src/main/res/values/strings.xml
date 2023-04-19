@@ -384,8 +384,8 @@
     <string name="type_your_email_address">Type your email address</string>
     <string name="confirm_deletion">Confirm Deletion</string>
     <string name="prepare_food">Prepare Food</string>
-<!--    <string name="add_food">Add Food</string>-->
-    <string name="add_food">Food</string>
+    <string name="add_food">Add Food</string>
+<!--    <string name="add_food">Food</string>-->
     <string name="food_pickup_id">Food Pickup Id</string>
 
     <string name="noBookings">There are currently no bookings</string>

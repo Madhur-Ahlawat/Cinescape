@@ -212,11 +212,13 @@ class UpcomingBookingAdapter(
         holder.btFoodPrepare.setOnClickListener {
             listenerFoodPrepare.foodPrepareClick(foodSelctedItem)
         }
+//            .putExtra("BOOKING", "ADDFOOD")
+
 
         holder.foodAddBtn.setOnClickListener {
             val intent = Intent(mContext, FoodActivity::class.java)
                 .putExtra("CINEMA_ID", foodSelctedItem.cinemacode)
-                .putExtra("BOOKING", "ADDFOOD")
+                .putExtra("BOOKING", "FOOD")
                 .putExtra("type", "FOOD")
                 .putExtra("typeSkip", "SkipButtonHide")
             mContext.startActivity(intent)

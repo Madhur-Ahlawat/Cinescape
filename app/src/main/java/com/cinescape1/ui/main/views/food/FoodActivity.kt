@@ -314,49 +314,51 @@ class FoodActivity : DaggerAppCompatActivity(),
             resendTimer()
             seatPrice = intent.getStringExtra("PRICE").toString()
 
-        } else if (booktype == "ADDFOOD") {
-
-            binding?.viewCancel?.setOnClickListener {
-                cancelDialog()
-            }
-            //TEMPRORY CODE
-//            toast("bookType--->${booktype}")
-            binding?.textTimeToLeft?.hide()
-            binding?.textTimeLeft?.hide()
-            binding?.textView112?.hide()
-
-            binding?.txtProceed?.setOnClickListener {
-                println("foodCartListSizeADDFOOD---------->${foodCartList?.size}---->${booktype}")
-
-                if (!foodCartList.isNullOrEmpty()) {
-                    try {
-                        val foodRequest = SaveFoodRequest()
-                        foodRequest.concessionFoods = foodCartList!!
-                        foodRequest.transid = transId
-                        foodRequest.cinemaId = cinemaId
-                        foodRequest.booktype = booktype
-                        foodRequest.userId = preferences.getString(Constant.USER_ID).toString()
-                        foodRequest.sessionId = sessionId
-                        saveFoods(foodRequest)
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-
-                } else {
-                    val intent = Intent(this, SummeryActivity::class.java)
-                    intent.putExtra("CINEMA_ID", cinemaId)
-                    intent.putExtra("SESSION_ID", sessionId)
-                    intent.putExtra("TRANS_ID", transId)
-                    intent.putExtra("BOOKING", booktype)
-                    TimerTime = timeCount
-                    startActivity(intent)
-                    finish()
-                }
-            }
-
-//            resendTimer()
-            seatPrice = intent.getStringExtra("PRICE").toString()
-        } else {
+        } 
+//        else if (booktype == "FOOD") {
+//
+//            binding?.viewCancel?.setOnClickListener {
+//                cancelDialog()
+//            }
+//            //TEMPRORY CODE
+////            toast("bookType--->${booktype}")
+//            binding?.textTimeToLeft?.hide()
+//            binding?.textTimeLeft?.hide()
+//            binding?.textView112?.hide()
+//
+//            binding?.txtProceed?.setOnClickListener {
+//                println("foodCartListSizeADDFOOD---------->${foodCartList?.size}---->${booktype}")
+//
+//                if (!foodCartList.isNullOrEmpty()) {
+//                    try {
+//                        val foodRequest = SaveFoodRequest()
+//                        foodRequest.concessionFoods = foodCartList!!
+//                        foodRequest.transid = transId
+//                        foodRequest.cinemaId = cinemaId
+//                        foodRequest.booktype = booktype
+//                        foodRequest.userId = preferences.getString(Constant.USER_ID).toString()
+//                        foodRequest.sessionId = sessionId
+//                        saveFoods(foodRequest)
+//                    } catch (e: Exception) {
+//                        e.printStackTrace()
+//                    }
+//
+//                } else {
+//                    val intent = Intent(this, SummeryActivity::class.java)
+//                    intent.putExtra("CINEMA_ID", cinemaId)
+//                    intent.putExtra("SESSION_ID", sessionId)
+//                    intent.putExtra("TRANS_ID", transId)
+//                    intent.putExtra("BOOKING", booktype)
+//                    TimerTime = timeCount
+//                    startActivity(intent)
+//                    finish()
+//                }
+//            }
+//
+////            resendTimer()
+//            seatPrice = intent.getStringExtra("PRICE").toString()
+//        }
+        else {
             binding?.textTimeToLeft?.hide()
             binding?.textTimeLeft?.hide()
             binding?.textView112?.hide()

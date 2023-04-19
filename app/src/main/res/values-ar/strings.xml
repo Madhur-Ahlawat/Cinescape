@@ -68,7 +68,7 @@
     <string name="text13">13+</string>
     <string name="cinescape_al_muhallab">سينسكيب المهلب</string>
     <string name="_9">9</string>
-    <string name="screen">الصالة</string>
+    <string name="screen">الشاشة</string>
     <string name="screenx">الشاشة</string>
     <string name="date">التاريخ</string>
     <string name="_04_nov_2020">04 نوفمبر 2020</string>
@@ -392,8 +392,8 @@
     <string name="type_your_email_address">اكتب البريد الالكتروني الخاص بك</string>
     <string name="confirm_deletion">تأكيد الحذف</string>
     <string name="prepare_food">حضر الطعام</string>
-<!--    <string name="add_food">أضف الطعام</string>-->
-    <string name="add_food"> الطعام</string>
+    <string name="add_food">أضف الطعام</string>
+<!--    <string name="add_food"> الطعام</string>-->
     <string name="food_pickup_id">معرّف استلام الطعام</string>
     <string name="noBookings">لا يوجد حاليا أي حجوزات</string>
     <string name="noHistory">لم يتم العثور على محفوظات الطلبات</string>
