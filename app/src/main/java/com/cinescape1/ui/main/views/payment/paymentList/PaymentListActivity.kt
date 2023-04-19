@@ -1855,6 +1855,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 creditCardEnabled = true
                 knetSelected=false
                 creditCardSelected=false
+                binding?.textTotalAmount?.text = output.amount
             }
             else if (output.PAID != null && output.PAID == "YES") {
                 giftCardApplied = true
@@ -1877,8 +1878,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             Constant.IntentKey.TimerExtandCheck = true
             Constant.IntentKey.TimerExtand = 90
             Constant.IntentKey.TimerTime = 360
-
-            binding?.textTotalAmount?.text = output.amount
             outputlist!!.clear()
             outputlist!!.addAll(output.payInfo)
             Log.e("EMPTY_AMOUNT_LIST_retrieveDataGiftCard",output?.payInfo?.size.toString())
