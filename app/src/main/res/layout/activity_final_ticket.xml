@@ -11,7 +11,7 @@
         android:id="@+id/uiFinalTaket"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +34,7 @@
             android:id="@+id/card_payment_options_ui"
             android:layout_width="153dp"
             android:layout_height="153dp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:cardCornerRadius="@dimen/margin15"
             app:cardUseCompatPadding="true"
             app:layout_constraintBottom_toBottomOf="@+id/image_head"
@@ -126,14 +126,14 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ContentDescription" />
-<!--List Data-->
+                <!--List Data-->
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginStart="27dp"
-                    android:layout_marginEnd="27dp"
                     android:layout_marginTop="-3dp"
+                    android:layout_marginEnd="27dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -174,8 +174,8 @@
                                 android:id="@+id/text_bookig_id_one"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:includeFontPadding="false"
                                 android:fontFamily="@font/sf_pro_text_regular"
+                                android:includeFontPadding="false"
                                 android:text="@string/booking_id"
                                 android:textColor="@color/text_alert_color"
                                 android:textSize="@dimen/size15"
@@ -188,8 +188,8 @@
                                 android:id="@+id/text_bookin_id_no"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:ellipsize="end"
                                 android:layout_marginTop="5dp"
+                                android:ellipsize="end"
                                 android:fontFamily="@font/sf_pro_text_bold"
                                 android:includeFontPadding="false"
                                 android:maxLines="2"
@@ -212,17 +212,16 @@
                                 app:layout_constraintHorizontal_weight="1.2"
                                 app:layout_constraintStart_toEndOf="@+id/view_booking_id_one"
                                 app:layout_constraintTop_toTopOf="@+id/view_booking_id_one" />
-
+                            <!--Food Pick Up                    -->
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:id="@+id/consFoodPickupId"
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
-                                android:visibility="visible"
+                                android:visibility="gone"
                                 app:layout_constraintBottom_toBottomOf="@+id/view_food_picku_no_one"
                                 app:layout_constraintEnd_toEndOf="@+id/view_food_picku_no_one"
                                 app:layout_constraintStart_toStartOf="@+id/view_food_picku_no_one"
                                 app:layout_constraintTop_toTopOf="@+id/view_food_picku_no_one">
-
 
                                 <TextView
                                     android:id="@+id/textView163"
@@ -255,9 +254,9 @@
                                     android:id="@+id/textView167"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
                                     android:fontFamily="@font/sf_pro_text_bold"
                                     android:includeFontPadding="false"
-                                    android:layout_marginTop="5dp"
                                     android:lineSpacingExtra="1sp"
                                     android:paddingTop="@dimen/margin2"
                                     android:textColor="@color/black"
@@ -367,18 +366,18 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/size15"
             android:layout_marginTop="30dp"
-            app:srcCompat="@drawable/ic_back_button"
             app:layout_constraintStart_toStartOf="@+id/image_head"
             app:layout_constraintTop_toTopOf="@+id/image_head"
-            tools:ignore="ContentDescription"
-            app:tint="@color/white" />
+            app:srcCompat="@drawable/ic_back_button"
+            app:tint="@color/white"
+            tools:ignore="ContentDescription" />
 
         <View
             android:id="@+id/view102"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:rotation="180"
             android:background="@drawable/final_ticket_bg"
+            android:rotation="180"
             app:layout_constraintBottom_toBottomOf="@+id/image_head"
             app:layout_constraintEnd_toEndOf="@+id/image_head"
             app:layout_constraintStart_toStartOf="@+id/image_head"
@@ -391,9 +390,9 @@
             android:layout_marginStart="25dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="25dp"
-            app:cardPreventCornerOverlap="false"
-            app:cardElevation="0dp"
             app:cardBackgroundColor="@color/transparent"
+            app:cardElevation="0dp"
+            app:cardPreventCornerOverlap="false"
             app:layout_constraintBottom_toBottomOf="@+id/image_head"
             app:layout_constraintEnd_toEndOf="@+id/image_head"
             app:layout_constraintStart_toStartOf="@+id/image_head"
@@ -429,17 +428,17 @@
                     app:siSquare="true" />
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:id="@+id/successConstraintLayout"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/green_curve"
+                    android:gravity="center"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.418"
-                    android:gravity="center"
                     app:layout_constraintStart_toStartOf="@+id/view103"
                     app:layout_constraintTop_toTopOf="@+id/view103">
 
@@ -456,10 +455,10 @@
                         android:id="@+id/textView46"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
                         android:fontFamily="@font/sf_pro_text_regular"
-                        android:textSize="@dimen/size14"
                         android:text="@string/your_booking_was"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size14"
                         app:layout_constraintBottom_toBottomOf="@+id/view104"
                         app:layout_constraintStart_toStartOf="@+id/view104"
                         app:layout_constraintTop_toTopOf="@+id/view104" />
@@ -468,10 +467,10 @@
                         android:id="@+id/textView120"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
                         android:fontFamily="@font/sf_pro_text_bold"
-                        android:textSize="@dimen/size16"
                         android:text="@string/successful"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size16"
                         app:layout_constraintBottom_toBottomOf="@+id/textView46"
                         app:layout_constraintStart_toEndOf="@+id/textView46"
                         app:layout_constraintTop_toTopOf="@+id/textView46" />
