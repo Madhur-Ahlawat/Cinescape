@@ -2,11 +2,8 @@ package com.cinescape1.ui.main.views.adapters.sliderAdapter
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -17,8 +14,10 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.NextBookingResponse
-import com.cinescape1.ui.main.views.finalTicket.FinalTicketActivity
+import com.cinescape1.databinding.ItemBookingBinding
 import com.cinescape1.utils.Constant
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.account_booking_history_item.*
 import kotlinx.android.synthetic.main.alert_booking.view.*
 import java.security.MessageDigest
 
@@ -36,9 +35,9 @@ class AdapterMultiMovieAlertBooking(
         parent: ViewGroup,
         viewType: Int
     ): MyViewHolderMultiMovieAlertBooking {
-        val inflate: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_booking, parent, false)
-        return MyViewHolderMultiMovieAlertBooking(inflate)
+        val binding: ItemBookingBinding = ItemBookingBinding.inflate(context.layoutInflater,parent,false)
+//            LayoutInflater.from(parent.context).inflate(R.layout.item_booking, parent, false)
+        return MyViewHolderMultiMovieAlertBooking(binding)
     }
 
     override fun onBindViewHolder(holder: MyViewHolderMultiMovieAlertBooking, position: Int) {
@@ -51,79 +50,84 @@ class AdapterMultiMovieAlertBooking(
                 .load(showtimeListItem.posterhori)
                 .transform(CutOffLogo(position))
                 .placeholder(R.drawable.placeholder_movie_alert_poster)
-                .into(holder.image)
+                .into(holder.binding.imageBookingAlert)
 
         }catch (e:java.lang.Exception){
+            if(position!=0){
+                Picasso.get().load(showtimeListItem.posterhori).into(holder.imageBookingAlert);
+            }
             e.printStackTrace()
         }
-
 
         when (showtimeListItem.experience) {
             "4DX" -> {
                 Glide
                     .with(context)
                     .load(R.drawable.four_dx)
-                    .into(holder.experience)
+                    .into(holder.binding.experienceName)
 
             }
             "Standard" -> {
                 Glide
                     .with(context)
                     .load(R.drawable.standard)
-                    .into(holder.experience)
+                    .into(holder.binding.experienceName)
             }
             "VIP" -> {
                 Glide
                     .with(context)
                     .load(R.drawable.vip)
-                    .into(holder.experience)
+                    .into(holder.binding.experienceName)
             }
             "IMAX" -> {
                 Glide
                     .with(context)
                     .load(R.drawable.imax)
-                    .into(holder.experience)
+                    .into(holder.binding.experienceName)
             }
             "3D" -> {
                 Glide
                     .with(context)
                     .load(R.drawable.threed_black)
-                    .into(holder.experience)
+                    .into(holder.binding.experienceName)
             }
             "DOLBY" -> {
                 Glide
                     .with(context)
                     .load(R.drawable.dolby_black)
-                    .into(holder.experience)
+                    .into(holder.binding.experienceName)
             }
             "ELEVEN" -> {
                 Glide
                     .with(context)
                     .load(R.drawable.eleven_black)
-                    .into(holder.experience)
+                    .into(holder.binding.experienceName)
             }
             "SCREENX" -> {
                 Glide
                     .with(context)
                     .load(R.drawable.screenx_black)
-                    .into(holder.experience)
+                    .into(holder.binding.experienceName)
             }
             "PREMIUM" -> {
                 Glide
                     .with(context)
                     .load(R.drawable.premium_black)
-                    .into(holder.experience)
+                    .into(holder.binding.experienceName)
+            }
+        }
+        holder?.apply {
+            binding?.apply {
+                textBombshell.isSelected = true
+                textBombshell.text = showtimeListItem.moviename
+                textLocationName.text = showtimeListItem.cinemaname
+                textScreenNumber.text = showtimeListItem.screenId.toString()
+                textDateVisible.text = showtimeListItem.showDate
+                textTimeVisible.text = showtimeListItem.showTime
+                rating.text = showtimeListItem.mcensor
             }
         }
 
-        holder.title.isSelected = true
-        holder.title.text = showtimeListItem.moviename
-        holder.title.text = showtimeListItem.moviename
-        holder.location.text = showtimeListItem.cinemaname
-        holder.screen.text = showtimeListItem.screenId.toString()
-        holder.date.text = showtimeListItem.showDate
-        holder.time.text = showtimeListItem.showTime
-        holder.rating.text = showtimeListItem.mcensor
         val ratingColor = showtimeListItem.ratingColor
 
         try {
@@ -135,13 +139,13 @@ class AdapterMultiMovieAlertBooking(
 
 
 
-        holder.bookings.text = context.getString(R.string.go_to_bookings)
-        holder.bookings.setOnClickListener {
+        holder.goToBookingBtn1.text = context.getString(R.string.go_to_bookings)
+        holder.goToBookingBtn1.setOnClickListener {
             Constant.IntentKey.BACKFinlTicket += 1
             listener.onDateClick(showtimeListItem)
         }
 
-        holder.image.setOnClickListener {
+        holder.imageBookingAlert.setOnClickListener {
             listener.onItemClick(showtimeListItem)
 
         }
@@ -157,17 +161,12 @@ class AdapterMultiMovieAlertBooking(
         notifyDataSetChanged()
     }
 
-    class MyViewHolderMultiMovieAlertBooking(view: View) : RecyclerView.ViewHolder(view) {
-        var title: TextView = view.text_bombshell
-        var location: TextView = view.text_location_name
-        var screen: TextView = view.text_screen_number
-        var date: TextView = view.text_date_visible
-        var time: TextView = view.text_time_visible
-        var rating: TextView = view.text13
-        var image: ImageView = view.image_booking_alert
-        var experience: ImageView = view.text_experience_name
-        var ratingUi: CardView = view.ratingUi
-        var bookings: TextView = view.go_to_booking_btn1
+    class MyViewHolderMultiMovieAlertBooking(binding: ItemBookingBinding) : RecyclerView.ViewHolder(binding.root) {
+        var binding=binding
+        var rating: TextView = binding.text13
+        var imageBookingAlert = binding.imageBookingAlert
+        var ratingUi: CardView = binding.ratingUi
+        var goToBookingBtn1 = binding.goToBookingBtn1
     }
 
     interface RecycleViewItemClickListener {
