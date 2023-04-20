@@ -72,15 +72,17 @@ import javax.inject.Inject
 import kotlin.math.abs
 
 @Suppress("DEPRECATION", "NAME_SHADOWING")
-class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewItemClickListener,
-    AdapterShowTimesCinemaTitle.CinemaAdapterListener, AdapterCinemaSessionScroll.LocationListener,
-    SimilarMovieAdapter.RecycleViewItemClickListener, AdpaterShowTimesCast.TypeFaceListenerShowTime,
+class ShowTimesActivity : DaggerAppCompatActivity(),
+    AdapterDayDate.RecycleViewItemClickListener,
+    AdapterShowTimesCinemaTitle.CinemaAdapterListener,
+    AdapterCinemaSessionScroll.LocationListener,
+    SimilarMovieAdapter.RecycleViewItemClickListener,
+    AdpaterShowTimesCast.TypeFaceListenerShowTime,
     AdapterShowTimesCinemaTitle.TypeFaceItem {
-    private var num = 0
 
+    private var num = 0
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
     @Inject
     lateinit var preferences: AppPreferences
     private val showTimeViewModel: ShowTimesViewModel by viewModels { viewModelFactory }
@@ -274,16 +276,16 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     }
 
     //advance booking Dialog
+    @SuppressLint("ResourceAsColor")
     private fun advanceBooking() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.cancel_dialog)
-        dialog.window!!.setLayout(
+        dialog.window?.setLayout(
             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
-        dialog.window!!.setGravity(Gravity.BOTTOM)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(R.color.black50))
+        dialog.window?.setGravity(Gravity.BOTTOM)
         dialog.show()
 
 

@@ -10,7 +10,7 @@
         android:id="@+id/uiFood"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -121,7 +121,7 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout38"
-            tools:itemCount="4"
+            tools:itemCount="8"
             tools:listitem="@layout/food_selected_item" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -136,7 +136,7 @@
             app:layout_constraintStart_toStartOf="@+id/recycler_food_select_item"
             app:layout_constraintTop_toBottomOf="@+id/recycler_food_select_item"
             tools:itemCount="4"
-            tools:listitem="@layout/individual_food_item" />
+            tools:listitem="@layout/food_selected_combo_item" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout3"

@@ -99,8 +99,10 @@ interface DataServices {
 
     @POST("bankoffer/apply")
     suspend fun bankApply(@Body request: BankOfferRequest): Response<BankOfferApply>
+
     @POST("clubcard/apply")
     suspend fun newWalletApply(@Body request: WalletApplyRequest): Response<GiftCardResponse>
+
     @POST("bankoffer/remove")
     suspend fun bankRemove(@Body request: BankOfferRequest): Response<OfferRemove>
 
@@ -234,11 +236,11 @@ interface DataServices {
                 chain.proceed(newRequest)
             })
 
-             if (BuildConfig.DEBUG) {
-            val logging = HttpLoggingInterceptor()
+            if (BuildConfig.DEBUG) {
+                val logging = HttpLoggingInterceptor()
                 logging.level = HttpLoggingInterceptor.Level.BODY
-            client.addInterceptor(logging)
-             }
+                client.addInterceptor(logging)
+            }
 
             return Retrofit.Builder()
                 .client(client.build())
