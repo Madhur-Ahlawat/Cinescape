@@ -72,15 +72,17 @@ import javax.inject.Inject
 import kotlin.math.abs
 
 @Suppress("DEPRECATION", "NAME_SHADOWING")
-class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewItemClickListener,
-    AdapterShowTimesCinemaTitle.CinemaAdapterListener, AdapterCinemaSessionScroll.LocationListener,
-    SimilarMovieAdapter.RecycleViewItemClickListener, AdpaterShowTimesCast.TypeFaceListenerShowTime,
+class ShowTimesActivity : DaggerAppCompatActivity(),
+    AdapterDayDate.RecycleViewItemClickListener,
+    AdapterShowTimesCinemaTitle.CinemaAdapterListener,
+    AdapterCinemaSessionScroll.LocationListener,
+    SimilarMovieAdapter.RecycleViewItemClickListener,
+    AdpaterShowTimesCast.TypeFaceListenerShowTime,
     AdapterShowTimesCinemaTitle.TypeFaceItem {
-    private var num = 0
 
+    private var num = 0
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
     @Inject
     lateinit var preferences: AppPreferences
     private val showTimeViewModel: ShowTimesViewModel by viewModels { viewModelFactory }
@@ -274,16 +276,16 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
     }
 
     //advance booking Dialog
+    @SuppressLint("ResourceAsColor")
     private fun advanceBooking() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.cancel_dialog)
-        dialog.window!!.setLayout(
+        dialog.window?.setLayout(
             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
-        dialog.window!!.setGravity(Gravity.BOTTOM)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(R.color.black50))
+        dialog.window?.setGravity(Gravity.BOTTOM)
         dialog.show()
 
 
@@ -556,8 +558,10 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                                     binding?.LayoutTime?.show()
                                     if (it.data.output.days.isNullOrEmpty()) {
                                         datePosition
+
                                     } else {
                                         datePosition = it.data.output.days[0].wdf
+
                                         dt = it.data.output.days[0].showdate
                                         dateTime = it.data.output.days[0].dt
                                         setShowTimesDayDateAdapter(it.data.output.days)
@@ -815,6 +819,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
         binding?.recylerviewShowTimeDate?.let { focusOnView(view, it) }
         dateTime = city.dt
         datePosition = city.wdf
+        toast("$datePosition-----${city.wdf}")
         dt = city.showdate
         getShowTimes(CinemaSessionRequest(dateTime, movieID))
     }
@@ -1238,7 +1243,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                                         ContextCompat.getColor(this, R.color.text_alert_color_red),
                                         android.graphics.PorterDuff.Mode.MULTIPLY)
 
-//                                Glide.with(this).load(data.iconActive).into(imgSeatSelectionType)
                                     textSeatType.setTextColor(getColor(R.color.text_alert_color_red))
                                     tvSeatAvailable.setTextColor(getColor(R.color.text_alert_color_red))
                                     tvKdPrice.setTextColor(getColor(R.color.text_alert_color_red))
@@ -1318,14 +1322,12 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                                             ContextCompat.getColor(this, R.color.text_alert_color_red),
                                             android.graphics.PorterDuff.Mode.MULTIPLY)
 
-//                                Glide.with(this).load(data.iconActive).into(imgSeatSelectionType)
                                         textSeatType.setTextColor(getColor(R.color.text_alert_color_red))
                                         tvSeatAvailable.setTextColor(getColor(R.color.text_alert_color_red))
                                         tvKdPrice.setTextColor(getColor(R.color.text_alert_color_red))
 
                                     }
                                 }
-
 
                             } catch (e: Exception) {
                                 e.printStackTrace()
@@ -1451,16 +1453,25 @@ class ShowTimesActivity : DaggerAppCompatActivity(), AdapterDayDate.RecycleViewI
                     this.startActivityForResult(
                         Intent(
                             mAlertDialog?.context, SeatScreenMainActivity::class.java
-                        ).putExtra("AREA_CODE", areaCode).putExtra("SEAT_DATA", output)
-                            .putExtra("TT_TYPE", ttType).putExtra("SHOW_DATA", showData)
+                        ).putExtra("AREA_CODE", areaCode)
+                            .putExtra("SEAT_DATA", output)
+                            .putExtra("TT_TYPE", ttType)
+                            .putExtra("SHOW_DATA", showData)
                             .putExtra("SHOW_DATA_CSESSION", showDataCSessionResponse)
-                            .putExtra("CINEMA", name).putExtra("SEAT_CAT", seatCat)
-                            .putExtra("SEAT_TYPE", seatType).putExtra("DATE_POS", datePos)
-                            .putExtra("SEAT_POS", num).putExtra("DateTime", dateTime)
-                            .putExtra("MovieId", movieID).putExtra("CinemaID", cinemaID)
-                            .putExtra("DatePosition", datePosition).putExtra("dt", dt)
-                            .putExtra("SessionID", sessionID).putExtra("SHOW_POS", pos)
-                            .putExtra("showTime", showTime).putExtra("CINEMA_POS", showPose), 50
+                            .putExtra("CINEMA", name)
+                            .putExtra("SEAT_CAT", seatCat)
+                            .putExtra("SEAT_TYPE", seatType)
+                            .putExtra("DATE_POS", datePos)
+                            .putExtra("SEAT_POS", num)
+                            .putExtra("DateTime", dateTime)
+                            .putExtra("MovieId", movieID)
+                            .putExtra("CinemaID", cinemaID)
+                            .putExtra("DatePosition", datePosition)
+                            .putExtra("dt", dt)
+                            .putExtra("SessionID", sessionID)
+                            .putExtra("SHOW_POS", pos)
+                            .putExtra("showTime", showTime)
+                            .putExtra("CINEMA_POS", showPose), 50
                     )
                     categoryClick = false
                     num = 0

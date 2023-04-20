@@ -621,14 +621,14 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
                 this@SummeryActivity,
                 1,
                 GridLayoutManager.VERTICAL,
-                false
-            )
+                false)
 
             recyclerview_food_chekout.layoutManager = LinearLayoutManager(this)
             val adapter = AdapterCheckoutFoodItem(this@SummeryActivity, concessionFoods)
             recyclerview_food_chekout.layoutManager = gridLayout
             recyclerview_food_chekout.adapter = adapter
             adapter.loadNewData(concessionFoods)
+
         }
 
     }
@@ -752,7 +752,6 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
                     val minutes = millisUntilFinished / (1000 * 60) % 60
                     textView111.text = "$minutes:$second"
                     Constant.IntentKey.TimerExtand = minutes * 60 + second
-
                 }
 
                 override fun onFinish() {

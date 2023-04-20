@@ -186,11 +186,12 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         super.onDestroy()
         proceedAlertDialog?.dismiss()
         Constant.CARD_NO = ""
-
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun manageFunctions() {
+        Constant().appBarHide(this@PaymentListActivity)
+
         try {
             bookingId = intent.getStringExtra("bookingId").toString()
             bookType = intent.getStringExtra("BOOKING").toString()

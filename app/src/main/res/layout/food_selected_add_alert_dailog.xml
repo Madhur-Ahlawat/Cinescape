@@ -249,12 +249,12 @@
                     app:layout_constraintEnd_toEndOf="@+id/view39_done_btn"
                     app:layout_constraintStart_toStartOf="@+id/view39_done_btn" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:id="@+id/constraintLayout32"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="0dp"
+                    android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="@+id/viw_total_price"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/viw_total_price"
                     app:layout_constraintTop_toTopOf="@+id/viw_total_price">
 
@@ -279,11 +279,11 @@
 
                     <TextView
                         android:id="@+id/tv_kd_total"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gibson_semibold"
-                        android:textColor="@color/white"
                         android:includeFontPadding="false"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/size14"
                         android:textStyle="normal"
                         app:layout_constraintBottom_toBottomOf="@+id/tev_total_price"
@@ -292,7 +292,7 @@
                         tools:ignore="HardcodedText"
                         tools:text="KD 0.000" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

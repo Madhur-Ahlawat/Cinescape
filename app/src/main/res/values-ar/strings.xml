@@ -125,7 +125,7 @@
     <string name="booking_id">رقم الحجز</string>
     <string name="food_pickup_number">رقم استلام المأكولات</string>
     <string name="how_to_pickup_food">كيف تستلم طلبك</string>
-    <string name="seats">مقاعد</string>
+    <string name="seats">المقاعد</string>
     <string name="cancel_n_reservation">إلغاء \  الحجز</string>
     <string name="resend_n_email">إعادة إرسال \  البريد الإلكتروني</string>
     <string name="your_booking_was_successful">تم الحجز بنجاح</string>
@@ -159,7 +159,7 @@
     <string name="refunds">المبالغ المستردة</string>
     <string name="your_refunded_credits">المبالغ المستردة الخاصة بك</string>
     <string name="your_booking_history">تاريخ الحجوزات</string>
-    <string name="category">فئة</string>
+    <string name="category">الفئة</string>
 
     <string name="paid_by_club_card">الدفع عن طريق</string>
     <string name="mad_n_monday">جنون \  يوم الاثنين</string>
@@ -191,8 +191,8 @@
     <string name="food_details">تفاصيل المأكولات</string>
     <string name="item">الصنف</string>
     <string name="qty">الكمية</string>
-    <string name="price">السعر</string>
-    <string name="ok">موافق</string>
+    <string name="price">السع</string>
+    <string name="ok">نعم</string>
     <string name="close_">إغلاق" "</string>
     <string name="apply">تنفيذ</string>
     <string name="checkout">التوجه للدفع</string>
@@ -209,7 +209,7 @@
     <string name="cancel_msg">سيؤدي الإلغاء إلى إعادة عملية الحجز</string>
     <string name="cinema_food_text">قم بمسح معرف الحجز أو رمز الاستجابة السريعة الخاص بك في أي KIOSK أو نقطة أوشر بمجرد وصولك إلى موقع السينما لبدء إعداد طلبك.</string>
     <string name="emp" />
-    <string name="total_food_price">مجموع سعر المأكولات</string>
+    <string name="total_food_price">إجمالي سعر التذاكر</string>
     <string name="now_showing">يعرض قريباً</string>
     <string name="coming_soon">قريبا</string>
     <string name="faq">الأسئلة الشائعة</string>
@@ -351,10 +351,10 @@
     <string name="enter_gift_card">أدخل رقم بطاقة الهدايا</string>
     <string name="enter_bank_card">Enter bank card number</string>
     <string name="enter_promo_code">إدخال الرمز الترويجي</string>
-    <string name="transaction_date_time"><![CDATA[تاريخ ووقت المعاملة]]></string>
-    <string name="reference_id">الرقم المرجعي</string>
-    <string name="track_number">رقم الشاحنة</string>
-    <string name="tickets">تذاكر</string>
+    <string name="transaction_date_time">تاريخ ووقت المعاملة</string>
+    <string name="reference_id">رقم المرجع</string>
+    <string name="track_number">رقم التتبع</string>
+    <string name="tickets">التذاكر</string>
     <string name="sorry_your_transaction">عذرا ، معاملتك</string>
     <string name="advanceBookingTxt">أنت تقوم بالحجز في موعد مسبق.</string>
     <string name="movieShowing">يتم عرض أفلام مماثلة الآن</string>

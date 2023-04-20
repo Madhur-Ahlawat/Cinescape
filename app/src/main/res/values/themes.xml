@@ -38,7 +38,7 @@
         <item name="android:layout_height">fill_parent</item>
     </style>
 
-    <style name="AppTheme.Dialog" parent="Theme.MaterialComponents.Light.Dialog">
+    <style name="AppTheme.Dialog">
         <item name="android:windowMinWidthMajor">98%</item>
         <item name="android:windowMinWidthMinor">98%</item>
     </style>

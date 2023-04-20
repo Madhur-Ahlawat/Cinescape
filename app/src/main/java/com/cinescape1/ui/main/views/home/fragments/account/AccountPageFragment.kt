@@ -540,7 +540,6 @@ class AccountPageFragment : DaggerFragment(),
         )
 
 
-
         view39_line.hide()
         view_ConfPassword.hide()
         textConfPassword.hide()
@@ -621,7 +620,6 @@ class AccountPageFragment : DaggerFragment(),
             // show the dialog
             datePicker.show()
         }
-
 
         //Save Prefrence
         textView3.setOnClickListener {
@@ -1092,6 +1090,7 @@ class AccountPageFragment : DaggerFragment(),
                 Constant.IntentKey.LANGUAGE_SELECT = "en"
                 LocaleHelper.setLocale(requireActivity(), "en")
                 preferences.putString(Constant.IntentKey.SELECT_LANGUAGE, "en")
+
                 OPEN_FROM = 1
                 val intent = requireActivity().intent
                 requireActivity().overridePendingTransition(0, 0)
@@ -1106,11 +1105,10 @@ class AccountPageFragment : DaggerFragment(),
                 preferences.putString(Constant.IntentKey.SELECT_LANGUAGE, "ar")
                 OPEN_FROM = 1
 
-//                preferences.putString( Constant.IntentKey.OPEN_FROM,"More")
                 val intent = requireActivity().intent
                 requireActivity().overridePendingTransition(0, 0)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
                 requireActivity().finish()
                 requireActivity().overridePendingTransition(0, 0)
                 startActivity(intent)
@@ -1238,25 +1236,6 @@ class AccountPageFragment : DaggerFragment(),
 
             }
 
-//            if (passWord == conPassWord) {
-//                changePassword(
-//                    ChangePasswordRequest(
-//                        passWord, preferences.getString(Constant.USER_ID)!!
-//                    )
-//                )
-//                dialog.dismiss()
-//            } else {
-//                val dialogs = OptionDialog(requireContext(),
-//                    R.mipmap.ic_launcher,
-//                    R.string.app_name,
-//                    "Invalid Password",
-//                    positiveBtnText = R.string.ok,
-//                    negativeBtnText = R.string.no,
-//                    positiveClick = {},
-//                    negativeClick = {})
-//                dialogs.show()
-//            }
-
         }
 
 
@@ -1297,6 +1276,7 @@ class AccountPageFragment : DaggerFragment(),
 
         proceedAlertDialog?.kd_to_pay?.text =
             " " + getString(R.string.price_kd) + " " + rechargeAmount
+
         proceedAlertDialog?.cardNumberTextInputEditText?.addTextChangedListener(object :
             TextWatcher {
             override fun beforeTextChanged(
@@ -2326,19 +2306,6 @@ class AccountPageFragment : DaggerFragment(),
         }
     }
 
-    private fun getMatchIcon(image: String): Int {
-
-        for (item in list) {
-            if ((resources.getResourceName(item.imgSeatExperience).toString().uppercase()).contains(
-                    image
-                )
-            ) {
-                return item.imgSeatExperience
-            }
-        }
-        return 0
-    }
-
     @SuppressLint("InflateParams")
     val viewListForSeatAgeRating = ArrayList<String>()
     private fun setAgeRatingFlexbox(
@@ -2760,36 +2727,6 @@ class AccountPageFragment : DaggerFragment(),
          * profilingHandle can also be used to cancel this profile if needed *
          * profilingHandle.cancel();
          * */m_sessionID = sessions1
-    }
-
-    private fun setCancelBackSpan(view: View) {
-//        try {
-//            val tvCancelBack = view.findViewById<TextView>(R.id.tv_cancel_back)
-//            val cancelGoBack = TextUtils.concat(
-//                Constant().getSpanableText(
-//                    ForegroundColorSpan(getColor(requireContext(), R.color.white)),
-//                    ResourcesCompat.getFont(requireContext(), R.font.sf_pro_text_bold)!!,
-//                    0,
-//                    7,
-//                    1.0f,
-//                    SpannableString(getString(R.string.cancels))
-//                ),
-//
-//                Constant().getSpanableText(
-//                    ForegroundColorSpan(getColor(requireContext(), R.color.hint_color)),
-//                    ResourcesCompat.getFont(requireContext(), R.font.sf_pro_text_regular)!!,
-//                    0,
-//                    11,
-//                    .8f,
-//                    SpannableString(getString(R.string.and_go_back))
-//                )
-//
-//            )
-//
-//            tvCancelBack.text = cancelGoBack
-//        } catch (e: Exception) {
-//
-//        }
     }
 
     //recharhge Amount
@@ -3499,11 +3436,11 @@ class AccountPageFragment : DaggerFragment(),
             image_credit_card.setColorFilter(requireActivity().getColor(R.color.hint_color))
             text_credit_card.setTextColor(requireContext().getColor(R.color.hint_color))
             clickEnable = 0
-            getProfile(
-                ProfileRequest(
-                    "", "", preferences.getString(Constant.USER_ID).toString()
-                )
-            )
+//            getProfile(
+//                ProfileRequest(
+//                    "", "", preferences.getString(Constant.USER_ID).toString()
+//                )
+//            )
 
         }
     }
