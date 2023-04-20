@@ -621,14 +621,14 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
                 this@SummeryActivity,
                 1,
                 GridLayoutManager.VERTICAL,
-                false
-            )
+                false)
 
             recyclerview_food_chekout.layoutManager = LinearLayoutManager(this)
             val adapter = AdapterCheckoutFoodItem(this@SummeryActivity, concessionFoods)
             recyclerview_food_chekout.layoutManager = gridLayout
             recyclerview_food_chekout.adapter = adapter
             adapter.loadNewData(concessionFoods)
+
         }
 
     }

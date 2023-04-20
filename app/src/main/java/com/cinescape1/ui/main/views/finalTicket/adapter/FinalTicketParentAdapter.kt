@@ -41,9 +41,7 @@ class FinalTicketParentAdapter(
     private var output: TicketSummaryResponse.Output,
     var listener1: TypeFaceFinalTicket0ne,
     var listener2: TypeFaceFinalTicketTwo,
-    var listener3: TypeFaceFinalTicketThree,
-    ) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    var listener3: TypeFaceFinalTicketThree) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var adapter: HomeChildAdapter? = null
     var cinemaId = ""
     var payMode = 0
@@ -56,14 +54,12 @@ class FinalTicketParentAdapter(
                 MyViewHolder(headerLayout)
             }
             2 -> {
-                val headerLayout =
-                    LayoutInflater.from(parent.context)
+                val headerLayout = LayoutInflater.from(parent.context)
                         .inflate(R.layout.final_ticket_item_two, parent, false)
                 MyViewHolderTwo(headerLayout)
             }
             else -> {
-                val headerLayout =
-                    LayoutInflater.from(parent.context)
+                val headerLayout = LayoutInflater.from(parent.context)
                         .inflate(R.layout.final_ticket_item_three, parent, false)
                 MyViewHolderThree(headerLayout)
             }
