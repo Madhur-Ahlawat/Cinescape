@@ -9,6 +9,7 @@
     <!-- Strings used for fragments for navigation -->
     <string name="modifi_seat">بالضغط على نعم، سيتم إعادة ضبط كافة اختياراتك</string>
     <string name="username">اسم االمستخدم / البريد الإلكتروني</string>
+    <string name="available_bank_offers">العروض المصرفية المتاحة</string>
     <string name="password">كلمة المرور</string>
     <string name="forgot_password">هل نسيت كلمة السر؟</string>
     <string name="not_register">غير مسجل؟</string>

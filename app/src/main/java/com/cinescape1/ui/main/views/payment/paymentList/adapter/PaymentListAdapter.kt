@@ -86,7 +86,7 @@ class PaymentListAdapter(
         list.add(
             PaymentListResponse.Output.PayMode.RespPayMode.PayModeBank(
                 0,
-                "Available Bank Offers"
+                context.resources.getString(R.string.available_bank_offers)
             )
         )
         list.addAll(respPayModes[0].payModeBanks)
@@ -292,7 +292,7 @@ class PaymentListAdapter(
                 }
                 binding.spinnerCardOptions.setBackgroundColor(
                     context.resources.getColor(
-                        R.color.dropDownColor
+                        R.color.white
                     )
                 )
                 if (binding?.spinnerCardOptions.adapter == null || !(binding?.spinnerCardOptions.adapter is BankOfferAdapter)) {

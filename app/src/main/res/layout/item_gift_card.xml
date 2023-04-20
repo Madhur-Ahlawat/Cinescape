@@ -13,6 +13,7 @@
             android:id="@+id/header_ui"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin40"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -22,7 +23,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="@dimen/margin8"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:textColor="@color/white"
@@ -30,6 +30,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/iv_dropdown"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 tools:text="Use a Bank Offer" />
 
             <ImageView
@@ -38,7 +39,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
                 android:padding="5dp"
-                android:layout_marginTop="@dimen/margin8"
                 android:foregroundGravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +79,6 @@
                     tools:listitem="@layout/item_offer" />
 
             </LinearLayout>
-
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/giftCard"
