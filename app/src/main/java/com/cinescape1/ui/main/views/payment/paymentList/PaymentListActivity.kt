@@ -280,11 +280,11 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             else if (walletAppliedFull) {
                 newWalletApplyObserve(
                     WalletApplyRequest(
-                        bookingId,
-                        bookType,
-                        walletAppliedFull,
-                        transId,
-                        preferences.getString(Constant.USER_ID).toString()
+                        bookingid = bookingId,
+                        booktype = bookType,
+                        payFull = walletAppliedFull,
+                        transid = transId,
+                        userid = preferences.getString(Constant.USER_ID).toString()
                     )
                 )
             }
