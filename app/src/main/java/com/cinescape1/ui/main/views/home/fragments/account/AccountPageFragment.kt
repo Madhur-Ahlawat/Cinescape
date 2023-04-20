@@ -1271,8 +1271,12 @@ class AccountPageFragment : DaggerFragment(),
         val mDialogView = LayoutInflater.from(requireContext())
             .inflate(R.layout.checkout_creditcart_payment_alert, null)
         val mBuilder = AlertDialog.Builder(requireActivity()).setView(mDialogView)
-        proceedAlertDialog = mBuilder.show()
-        proceedAlertDialog?.show()
+        proceedAlertDialog = mBuilder.create()
+        proceedAlertDialog?.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+        proceedAlertDialog?.setCancelable(false)
+        if(!requireActivity().isFinishing){
+            proceedAlertDialog!!.show()
+        }
 
         proceedAlertDialog?.kd_to_pay?.text =
             " " + getString(R.string.price_kd) + " " + rechargeAmount

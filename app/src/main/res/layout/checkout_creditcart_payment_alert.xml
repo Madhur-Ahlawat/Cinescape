@@ -13,12 +13,12 @@
         app:cardCornerRadius="21dp"
         app:cardElevation="@dimen/margin2">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:elevation="1dp"
-                android:layout_centerInParent="true"
-                android:layout_height="wrap_content"
-                android:background="@drawable/alert_cart_payment_bg">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:elevation="1dp"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"
+            android:background="@drawable/alert_cart_payment_bg">
 
                 <View
                     android:id="@+id/view1_main"
