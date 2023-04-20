@@ -273,49 +273,69 @@
                         app:layout_constraintHorizontal_weight="3"
                         app:layout_constraintStart_toStartOf="parent" />
 
-                    <TextView
-                        android:id="@+id/txt_screen1"
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/sf_pro_text_regular"
-                        android:text="@string/screen"
-                        android:textColor="@color/hint_color"
-                        android:textSize="@dimen/size14"
-                        android:textStyle="normal"
-                        app:layout_constraintEnd_toEndOf="@+id/views_screen"
-                        app:layout_constraintStart_toStartOf="@+id/views_screen"
-                        app:layout_constraintTop_toTopOf="@+id/views_screen" />
+                        android:layout_height="0dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/view_category"
+                        app:layout_constraintStart_toStartOf="parent">
 
-                    <TextView
-                        android:id="@+id/txt_scrrens"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:fontFamily="@font/sf_pro_text_bold"
-                        android:includeFontPadding="false"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="1sp"
-                        android:paddingStart="0dp"
-                        android:paddingEnd="@dimen/margin30"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/size15"
-                        app:layout_constraintEnd_toStartOf="@+id/tv_screenx"
-                        app:layout_constraintStart_toStartOf="@+id/views_screen"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_screen1"
-                        tools:text="@string/_9" />
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-                    <ImageView
-                        android:id="@+id/tv_screenx"
-                        android:layout_width="wrap_content"
-                        android:layout_height="16dp"
-                        android:layout_marginTop="2dp"
-                        android:adjustViewBounds="true"
-                        android:src="@drawable/screenx_black"
-                        app:layout_constraintBottom_toBottomOf="@+id/txt_scrrens"
-                        app:layout_constraintStart_toEndOf="@+id/txt_scrrens"
-                        app:layout_constraintTop_toTopOf="@+id/txt_scrrens"
-                        app:layout_constraintVertical_bias="0.0"
-                        tools:ignore="ContentDescription" />
+                            <TextView
+                                android:id="@+id/txt_screen1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/sf_pro_text_regular"
+                                android:text="@string/screen"
+                                android:textColor="@color/hint_color"
+                                android:textSize="@dimen/size14"
+                                android:textStyle="normal"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                            <LinearLayout
+                                app:layout_constraintTop_toBottomOf="@+id/txt_screen1"
+                                app:layout_constraintStart_toStartOf="parent"
+                                android:orientation="horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:id="@+id/txt_scrrens"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:fontFamily="@font/sf_pro_text_bold"
+                                    android:includeFontPadding="false"
+                                    android:letterSpacing="-0.01"
+                                    android:lineSpacingExtra="1sp"
+                                    android:paddingStart="0dp"
+                                    android:paddingEnd="@dimen/margin30"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/size15"
+                                    tools:text="@string/_9" />
+
+                                <ImageView
+                                    android:id="@+id/tv_screenx"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="16dp"
+                                    android:layout_marginTop="2dp"
+                                    android:adjustViewBounds="true"
+                                    android:src="@drawable/screenx_black"
+                                    tools:ignore="ContentDescription" />
+
+                            </LinearLayout>
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                     <View
                         android:id="@+id/view_category"

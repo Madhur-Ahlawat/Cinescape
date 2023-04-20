@@ -12,8 +12,10 @@ import com.cinescape1.R
 import com.cinescape1.data.models.responseModel.MoreTabResponse
 import com.cinescape1.data.models.responseModel.MoviesResponse
 
-class FaqAdapter(private val faqList: ArrayList<MoreTabResponse.Faq>,
-                 private val context: Activity, var listener: TypefaceListenerFaq) :
+class FaqAdapter(
+    private val faqList: ArrayList<MoreTabResponse.Faq>,
+    private val context: Activity,var  language: String?, var listener: TypefaceListenerFaq
+) :
     RecyclerView.Adapter<FaqAdapter.TodoViewHolder>() {
 
     private val dataList: ArrayList<String> = ArrayList()
@@ -34,7 +36,7 @@ class FaqAdapter(private val faqList: ArrayList<MoreTabResponse.Faq>,
         listener.onTypefaceFaq(holder.todoTitle)
 
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
-        val adapter = FaqChildAdapter(obj.faqs,context)
+        val adapter = FaqChildAdapter(obj.faqs,context,language)
         holder.faqChildRecycler.setHasFixedSize(true)
         holder.faqChildRecycler.layoutManager = layoutManager
         holder.faqChildRecycler.adapter = adapter

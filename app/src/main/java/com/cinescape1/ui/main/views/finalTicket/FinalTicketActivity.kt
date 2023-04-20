@@ -96,6 +96,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
     private var threePayMode1: TextView? = null
 
     private var prepareBtn = 0
+    private var language = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -252,6 +253,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
             printTicket(FinalTicketRequest(bookingId, transId))
         }
 
+        language=  preferences.getString(Constant.IntentKey.SELECT_LANGUAGE).toString()
         binding?.imagShare?.setColorFilter(this.getColor(R.color.white))
         binding?.tvShare?.setTextColor(this.getColor(R.color.white))
         movedNext()
@@ -348,6 +350,9 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
     @SuppressLint("SetTextI18n")
     private fun retrieveBookedResponse(output: TicketSummaryResponse.Output) {
 
+        if (language=="ar"){
+            binding?.textBookinIdNo?.gravity= Gravity.RIGHT
+        }
 //bookingId
         binding?.textBookinIdNo?.text = output.kioskId
         //pickupNumber
