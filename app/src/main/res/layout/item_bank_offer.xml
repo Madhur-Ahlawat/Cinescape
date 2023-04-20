@@ -74,18 +74,26 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <Spinner
+                    <com.cinescape1.utils.CustomSpinner
                         android:id="@+id/spinner_card_options"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="40dp"
-                        android:spinnerMode="dropdown"
+                        android:prompt="@string/available_bank_offers"
+                        android:overlapAnchor="false"
                         style="@style/spinnerDropDownItemStyle"
                         android:background="@color/transparent"
                         app:backgroundTint="@color/transparent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-
+                    <ImageView
+                        android:id="@+id/iv_dropdown_spinner"
+                        app:layout_constraintStart_toEndOf="@id/spinner_card_options"
+                        app:layout_constraintTop_toTopOf="@id/spinner_card_options"
+                        app:layout_constraintBottom_toBottomOf="@+id/spinner_card_options"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/arrow_down" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -100,6 +108,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/cl_choose_cards">
 
                     <EditText
+                        android:paddingVertical="4dp"
                         android:id="@+id/et_enter_bank_offer_card_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
