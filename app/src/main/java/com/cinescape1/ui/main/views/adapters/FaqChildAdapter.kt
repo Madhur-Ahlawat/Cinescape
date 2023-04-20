@@ -2,8 +2,6 @@ package com.cinescape1.ui.main.views.adapters
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.text.Html
-import android.text.method.LinkMovementMethod
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +19,9 @@ import com.cinescape1.utils.show
 
 class FaqChildAdapter(
     private val faqList: ArrayList<MoreTabResponse.Faq.Faqs>,
-    private val context: Activity) :
+    private val context: Activity,
+    private val language: String?
+) :
     RecyclerView.Adapter<FaqChildAdapter.TodoViewHolder>() {
 
     private val dataList: ArrayList<String> = ArrayList()
@@ -50,18 +50,21 @@ class FaqChildAdapter(
 
         println("Descriptin------>${obj.answer}")
 
+
         onTypefaceFaqChild(holder.todoTitle,holder.desc)
 
         val params = ConstraintLayout.LayoutParams(
-            ConstraintLayout.LayoutParams.MATCH_PARENT,
+            ConstraintLayout.LayoutParams.WRAP_CONTENT,
             ConstraintLayout.LayoutParams.WRAP_CONTENT
         )
+
         holder.itemView.layoutParams = params
 
         val lp = LinearLayout.LayoutParams(
             (width),
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
+
         // or set height to any fixed value you want
         holder.linearLayout.layoutParams = lp
 

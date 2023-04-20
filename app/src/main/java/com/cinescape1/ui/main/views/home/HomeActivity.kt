@@ -532,11 +532,7 @@ class HomeActivity : DaggerAppCompatActivity(),
                 mAlertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 val mBuilder = AlertDialog.Builder(this, R.style.YourThemeName).setView(mDialogView)
                 mAlertDialog = mBuilder.create()
-//
-//                    if (BACKFinlTicket == 0) {
-//                        buttonClick = 1
-//                        mAlertDialog?.show()
-//                    }
+
 
                 mAlertDialog?.show()
 
@@ -552,7 +548,6 @@ class HomeActivity : DaggerAppCompatActivity(),
                 val adapter = AdapterMultiMovieAlertBooking(this, output.output, this)
                 recyclerViewAlertBooking.layoutManager =
                     LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-
 
                 //buh
                 val snapHelper = PagerSnapHelper()

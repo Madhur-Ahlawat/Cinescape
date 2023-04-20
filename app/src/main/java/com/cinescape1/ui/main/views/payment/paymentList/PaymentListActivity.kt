@@ -399,12 +399,13 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
     private fun retrieveData(output: PaymentListResponse.Output) {
         binding?.paymentLayout?.show()
+        binding?.constraintLayout6?.show()
+
         binding?.textTotalAmount?.text = output.amount
         val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
         adapter = PaymentListAdapter(this, output.payMode, this, summeryViewModel)
         binding?.recyclerPayMode?.layoutManager = gridLayout
         binding?.recyclerPayMode?.adapter = adapter
-        Log.e("EMPTY_AMOUNT_LIST_retrieveData",output?.payInfo?.size.toString())
     }
 
     override fun walletItemApply(view: PaymentListResponse.Output.PayMode) {
