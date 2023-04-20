@@ -3436,11 +3436,11 @@ class AccountPageFragment : DaggerFragment(),
             image_credit_card.setColorFilter(requireActivity().getColor(R.color.hint_color))
             text_credit_card.setTextColor(requireContext().getColor(R.color.hint_color))
             clickEnable = 0
-            getProfile(
-                ProfileRequest(
-                    "", "", preferences.getString(Constant.USER_ID).toString()
-                )
-            )
+//            getProfile(
+//                ProfileRequest(
+//                    "", "", preferences.getString(Constant.USER_ID).toString()
+//                )
+//            )
 
         }
     }

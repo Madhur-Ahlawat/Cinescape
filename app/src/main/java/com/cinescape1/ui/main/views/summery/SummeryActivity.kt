@@ -752,7 +752,6 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
                     val minutes = millisUntilFinished / (1000 * 60) % 60
                     textView111.text = "$minutes:$second"
                     Constant.IntentKey.TimerExtand = minutes * 60 + second
-
                 }
 
                 override fun onFinish() {

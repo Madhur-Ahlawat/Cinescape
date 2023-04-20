@@ -57,15 +57,12 @@
 
                 <TextView
                     android:id="@+id/text_combo"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin20"
                     android:fontFamily="@font/sf_pro_text_bold"
                     android:textAlignment="textStart"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size12"
-                    app:layout_constraintEnd_toEndOf="@+id/view25"
-                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="@+id/view25"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="packed"
@@ -73,15 +70,13 @@
 
                 <TextView
                     android:id="@+id/text_food_name"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sf_pro_text_regular"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size12"
                     android:textStyle="normal"
                     android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="@+id/text_combo"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/text_combo"
                     app:layout_constraintTop_toBottomOf="@+id/text_combo"
                     tools:text="Large Popcorn &amp; Soda" />

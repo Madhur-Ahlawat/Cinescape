@@ -558,8 +558,10 @@ class ShowTimesActivity : DaggerAppCompatActivity(),
                                     binding?.LayoutTime?.show()
                                     if (it.data.output.days.isNullOrEmpty()) {
                                         datePosition
+
                                     } else {
                                         datePosition = it.data.output.days[0].wdf
+
                                         dt = it.data.output.days[0].showdate
                                         dateTime = it.data.output.days[0].dt
                                         setShowTimesDayDateAdapter(it.data.output.days)
@@ -817,6 +819,7 @@ class ShowTimesActivity : DaggerAppCompatActivity(),
         binding?.recylerviewShowTimeDate?.let { focusOnView(view, it) }
         dateTime = city.dt
         datePosition = city.wdf
+        toast("$datePosition-----${city.wdf}")
         dt = city.showdate
         getShowTimes(CinemaSessionRequest(dateTime, movieID))
     }
@@ -1240,7 +1243,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(),
                                         ContextCompat.getColor(this, R.color.text_alert_color_red),
                                         android.graphics.PorterDuff.Mode.MULTIPLY)
 
-//                                Glide.with(this).load(data.iconActive).into(imgSeatSelectionType)
                                     textSeatType.setTextColor(getColor(R.color.text_alert_color_red))
                                     tvSeatAvailable.setTextColor(getColor(R.color.text_alert_color_red))
                                     tvKdPrice.setTextColor(getColor(R.color.text_alert_color_red))
@@ -1320,14 +1322,12 @@ class ShowTimesActivity : DaggerAppCompatActivity(),
                                             ContextCompat.getColor(this, R.color.text_alert_color_red),
                                             android.graphics.PorterDuff.Mode.MULTIPLY)
 
-//                                Glide.with(this).load(data.iconActive).into(imgSeatSelectionType)
                                         textSeatType.setTextColor(getColor(R.color.text_alert_color_red))
                                         tvSeatAvailable.setTextColor(getColor(R.color.text_alert_color_red))
                                         tvKdPrice.setTextColor(getColor(R.color.text_alert_color_red))
 
                                     }
                                 }
-
 
                             } catch (e: Exception) {
                                 e.printStackTrace()
@@ -1453,16 +1453,25 @@ class ShowTimesActivity : DaggerAppCompatActivity(),
                     this.startActivityForResult(
                         Intent(
                             mAlertDialog?.context, SeatScreenMainActivity::class.java
-                        ).putExtra("AREA_CODE", areaCode).putExtra("SEAT_DATA", output)
-                            .putExtra("TT_TYPE", ttType).putExtra("SHOW_DATA", showData)
+                        ).putExtra("AREA_CODE", areaCode)
+                            .putExtra("SEAT_DATA", output)
+                            .putExtra("TT_TYPE", ttType)
+                            .putExtra("SHOW_DATA", showData)
                             .putExtra("SHOW_DATA_CSESSION", showDataCSessionResponse)
-                            .putExtra("CINEMA", name).putExtra("SEAT_CAT", seatCat)
-                            .putExtra("SEAT_TYPE", seatType).putExtra("DATE_POS", datePos)
-                            .putExtra("SEAT_POS", num).putExtra("DateTime", dateTime)
-                            .putExtra("MovieId", movieID).putExtra("CinemaID", cinemaID)
-                            .putExtra("DatePosition", datePosition).putExtra("dt", dt)
-                            .putExtra("SessionID", sessionID).putExtra("SHOW_POS", pos)
-                            .putExtra("showTime", showTime).putExtra("CINEMA_POS", showPose), 50
+                            .putExtra("CINEMA", name)
+                            .putExtra("SEAT_CAT", seatCat)
+                            .putExtra("SEAT_TYPE", seatType)
+                            .putExtra("DATE_POS", datePos)
+                            .putExtra("SEAT_POS", num)
+                            .putExtra("DateTime", dateTime)
+                            .putExtra("MovieId", movieID)
+                            .putExtra("CinemaID", cinemaID)
+                            .putExtra("DatePosition", datePosition)
+                            .putExtra("dt", dt)
+                            .putExtra("SessionID", sessionID)
+                            .putExtra("SHOW_POS", pos)
+                            .putExtra("showTime", showTime)
+                            .putExtra("CINEMA_POS", showPose), 50
                     )
                     categoryClick = false
                     num = 0
