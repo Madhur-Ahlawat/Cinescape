@@ -447,8 +447,11 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
 
         //Set Header image
         binding?.imageHead?.let {
-            Glide.with(this).load(output.posterhori).placeholder(R.drawable.app_icon).into(it)
+            Glide.with(this)
+                .load(output.posterhori)
+                .placeholder(R.drawable.app_icon).into(it)
         }
+
         if (output.bookingType == "BOOKING") {
             binding?.imageView49?.let {
                 Glide.with(this)
