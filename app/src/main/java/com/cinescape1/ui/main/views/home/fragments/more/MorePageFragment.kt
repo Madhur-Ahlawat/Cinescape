@@ -946,6 +946,7 @@ class MorePageFragment : DaggerFragment(),
     }
 
     private fun location(location: ArrayList<MoreTabResponse.Cinema>) {
+        println("location--------->${location}")
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding?.recyclerMore?.setHasFixedSize(true)
         val adapter = LocationAdapter(location, requireContext(), this)

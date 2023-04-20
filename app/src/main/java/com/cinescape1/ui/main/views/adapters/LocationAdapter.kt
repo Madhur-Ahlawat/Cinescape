@@ -33,7 +33,7 @@ class LocationAdapter(private val locationList: ArrayList<MoreTabResponse.Cinema
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val obj = locationList[position]
         dataList.add(obj.toString())
-        holder.workingHour.text = "Working hours  11:30 to 01:30"
+        holder.workingHour.text = obj.workingHours
         holder.address.text = obj.address1
         holder.title.text = obj.name
 
@@ -41,7 +41,7 @@ class LocationAdapter(private val locationList: ArrayList<MoreTabResponse.Cinema
 
         holder.map.setOnClickListener {
             val strUri =
-                "http://maps.google.com/maps?q=loc:" + obj.latitude + "," + obj.longitude.toString() + " (" + "Label which you want" + ")"
+                "http://maps.google.com/maps?q=loc:" + obj.latitude + "," + obj.longitude.toString() + " (" + obj.name + ")"
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(strUri))
             intent.setClassName(
                 "com.google.android.apps.maps",
