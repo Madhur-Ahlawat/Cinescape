@@ -11,7 +11,7 @@
         android:id="@+id/uiFinalTaket"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,9 +32,9 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_payment_options_ui"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:layout_width="153dp"
+            android:layout_height="153dp"
+            android:visibility="visible"
             app:cardCornerRadius="@dimen/margin15"
             app:cardUseCompatPadding="true"
             app:layout_constraintBottom_toBottomOf="@+id/image_head"
@@ -44,8 +44,8 @@
 
             <ImageView
                 android:id="@+id/image_qr_code"
-                android:layout_width="153dp"
-                android:layout_height="153dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="@dimen/margin5"
                 android:contentDescription="@string/contentDes"
                 android:scaleType="fitXY" />
@@ -499,6 +499,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="8dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/image_head"
             app:layout_constraintEnd_toEndOf="@+id/cardView">
 
