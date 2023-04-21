@@ -31,10 +31,9 @@ class LoaderDialog(private val message: Int) : DialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         isCancelable = false
-
         return DialogLoaderBinding.inflate(inflater, container, false).also {
             binding = it
         }.root

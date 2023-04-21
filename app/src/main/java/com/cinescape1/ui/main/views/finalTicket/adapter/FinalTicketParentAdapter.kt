@@ -371,6 +371,5 @@ class FinalTicketParentAdapter(
             threeTrackId: TextView, threeDateTime: TextView, threePayMode: TextView
         )
     }
-
-
+    
 }
