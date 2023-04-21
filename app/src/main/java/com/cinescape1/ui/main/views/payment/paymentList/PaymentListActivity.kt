@@ -140,7 +140,6 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     private var adapter: PaymentListAdapter? = null
 
     private var outputlist: ArrayList<PaymentListResponse.Output.PayInfo>? = null
-
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -400,12 +399,13 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 
     private fun retrieveData(output: PaymentListResponse.Output) {
         binding?.paymentLayout?.show()
+        binding?.constraintLayout6?.show()
+
         binding?.textTotalAmount?.text = output.amount
         val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
         adapter = PaymentListAdapter(this, output.payMode, this, summeryViewModel)
         binding?.recyclerPayMode?.layoutManager = gridLayout
         binding?.recyclerPayMode?.adapter = adapter
-        Log.e("EMPTY_AMOUNT_LIST_retrieveData",output?.payInfo?.size.toString())
     }
 
     override fun walletItemApply(view: PaymentListResponse.Output.PayMode) {
@@ -738,12 +738,11 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             CheckoutCreditcartPaymentAlertBinding.inflate(layoutInflater)
         val mBuilder = AlertDialog.Builder(this).setView(ccDialogBinding?.root)
         proceedAlertDialog = mBuilder.create()
-        proceedAlertDialog?.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+        proceedAlertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
         proceedAlertDialog?.setCancelable(false)
         if(!this@PaymentListActivity.isFinishing){
             proceedAlertDialog!!.show()
         }
-        Log.e("dialog_error","657")
 
         ccDialogBinding?.apply {
             kdToPay?.text = " $totalPrice"

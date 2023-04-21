@@ -315,24 +315,34 @@
             tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
 
-        <EditText
-            android:id="@+id/editText6"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
-            android:layout_height="@dimen/margin48"
-            android:layout_marginStart="8dp"
-            android:background="@null"
-            android:focusableInTouchMode="true"
-            android:fontFamily="@font/sf_pro_text_regular"
-            android:importantForAutofill="no"
-            android:inputType="number"
-            android:textColor="@color/white"
-            android:textColorHint="@color/hint_color"
-            android:textSize="@dimen/size14"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/editText4"
-            app:layout_constraintTop_toBottomOf="@id/view84"
-            tools:hint=""
-            tools:ignore="HardcodedText,LabelFor,TouchTargetSizeCheck" />
+            app:layout_constraintTop_toBottomOf="@id/view84">
+            <EditText
+                android:id="@+id/editText6"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin48"
+                android:layout_marginStart="8dp"
+                android:background="@null"
+                android:focusableInTouchMode="true"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:textColor="@color/white"
+                android:textColorHint="@color/hint_color"
+                android:textSize="@dimen/size14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:hint=""
+                tools:ignore="HardcodedText,LabelFor,TouchTargetSizeCheck" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <View

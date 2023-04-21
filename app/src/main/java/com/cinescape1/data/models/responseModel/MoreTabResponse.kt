@@ -15,6 +15,7 @@ data class MoreTabResponse(
     )
     data class Cinema(
         val active: Boolean,
+        val workingHours: String,
         val address1: String,
         val address2: String,
         val alerttxt: String,

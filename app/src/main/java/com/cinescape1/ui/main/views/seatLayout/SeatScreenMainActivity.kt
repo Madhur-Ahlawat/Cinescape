@@ -7,10 +7,12 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -135,6 +137,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                 binding?.textOtherShowtimes?.typeface = regular
 
             }
+
             else -> {
 
                 LocaleHelper.setLocale(this, "en")
@@ -254,6 +257,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
 
                             }
                         }
+
                         Status.ERROR -> {
                             loader?.dismiss()
                             val dialog = OptionDialog(this,
@@ -268,6 +272,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                                 })
                             dialog.show()
                         }
+
                         Status.LOADING -> {
                             loader = LoaderDialog(R.string.pleasewait)
                             loader?.show(supportFragmentManager, null)
@@ -468,6 +473,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                                 seatbtn.isEnabled = false
                                 seatbtn.isClickable = false
                             }
+
                             "EMPTY" -> {
                                 if (areaCode == seatitem.areacode) {
                                     seatbtn.setBackgroundResource(R.drawable.ic_available)
@@ -534,23 +540,18 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
     }
 
     private fun cancelDialog() {
-
         val dialog = AlertDialog.Builder(this, R.style.CustomAlertDialog).create()
         val view = layoutInflater.inflate(R.layout.cancel_dialog, null)
         dialog.setView(view)
         dialog.setCanceledOnTouchOutside(false)
+        dialog.window?.setGravity(Gravity.BOTTOM)
+        dialog.window!!.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(R.color.black50))
         dialog.show()
 
-//        val dialog = Dialog(this)
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-//        dialog.setContentView(R.layout.cancel_dialog)
-//        dialog.window!!.setLayout(
-//            ViewGroup.LayoutParams.MATCH_PARENT,
-//            ViewGroup.LayoutParams.WRAP_CONTENT
-//        )
-//        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-//        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
-//        dialog.window!!.setGravity(Gravity.BOTTOM)
 
         dialog.subtitle.text = getString(R.string.cancel_msg)
         dialog.show()
@@ -671,6 +672,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                                 }
                             }
                         }
+
                         Status.ERROR -> {
                             loader?.dismiss()
                             val dialog = OptionDialog(this,
@@ -685,6 +687,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                                 })
                             dialog.show()
                         }
+
                         Status.LOADING -> {
                             loader = LoaderDialog(R.string.pleasewait)
                             loader?.show(supportFragmentManager, null)

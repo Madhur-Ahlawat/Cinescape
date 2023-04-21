@@ -349,7 +349,7 @@
     <string name="promo">برومو</string>
     <string name="enter_voucher_code">أدخل رقم القسيمة</string>
     <string name="enter_gift_card">أدخل رقم بطاقة الهدايا</string>
-    <string name="enter_bank_card">Enter bank card number</string>
+    <string name="enter_bank_card">إعادة التدوير</string>
     <string name="enter_promo_code">إدخال الرمز الترويجي</string>
     <string name="transaction_date_time">تاريخ ووقت المعاملة</string>
     <string name="reference_id">رقم المرجع</string>

@@ -45,7 +45,6 @@ import com.cinescape1.ui.main.views.home.fragments.more.viewModel.MoreInfoViewMo
 import com.cinescape1.ui.main.views.adapters.*
 import com.cinescape1.ui.main.views.login.LoginActivity
 import com.cinescape1.utils.*
-import com.cinescape1.utils.Constant.Companion.setMargins
 import com.cinescape1.utils.Constant.IntentKey.Companion.OPEN_FROM
 import com.google.firebase.auth.FirebaseAuth
 import dagger.android.support.DaggerFragment
@@ -887,9 +886,10 @@ class MorePageFragment : DaggerFragment(),
     }
 
     private fun faq(faqs: ArrayList<MoreTabResponse.Faq>) {
+        var language= preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)
         binding?.otherDetails?.show()
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        val adapter = FaqAdapter(faqs, requireActivity(), this)
+        val adapter = FaqAdapter(faqs, requireActivity(), language,this,)
         binding?.otherDetails?.setHasFixedSize(true)
         binding?.otherDetails?.layoutManager = layoutManager
         binding?.otherDetails?.adapter = adapter
@@ -946,6 +946,7 @@ class MorePageFragment : DaggerFragment(),
     }
 
     private fun location(location: ArrayList<MoreTabResponse.Cinema>) {
+        println("location--------->${location}")
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding?.recyclerMore?.setHasFixedSize(true)
         val adapter = LocationAdapter(location, requireContext(), this)
