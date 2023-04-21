@@ -113,6 +113,8 @@ class PaymentWebActivity : DaggerAppCompatActivity() {
                             positiveBtnText = R.string.ok,
                             negativeBtnText = R.string.no,
                             positiveClick = {
+
+                                Constant.IntentKey.ReloadProfile = 1
                                 Constant.IntentKey.OPEN_FROM = 1
                                 println("rechargeWallet-------->1")
                                 finish()

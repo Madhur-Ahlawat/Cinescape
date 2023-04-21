@@ -58,6 +58,7 @@ import com.cinescape1.ui.main.views.payment.PaymentWebActivity
 import com.cinescape1.utils.*
 import com.cinescape1.utils.Constant.IntentKey.Companion.NextBookingsResponse
 import com.cinescape1.utils.Constant.IntentKey.Companion.OPEN_FROM
+import com.cinescape1.utils.Constant.IntentKey.Companion.ReloadProfile
 import com.google.android.flexbox.FlexboxLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.threatmetrix.TrustDefender.TMXConfig
@@ -1684,6 +1685,7 @@ class AccountPageFragment : DaggerFragment(),
                             }
                         }
                     }
+
                     Status.ERROR -> {
                         loader?.dismiss()
                         val dialog = OptionDialog(requireContext(),
@@ -1698,6 +1700,7 @@ class AccountPageFragment : DaggerFragment(),
                             negativeClick = {})
                         dialog.show()
                     }
+
                     Status.LOADING -> {
 
                     }
@@ -1772,6 +1775,7 @@ class AccountPageFragment : DaggerFragment(),
                             }
                         }
                     }
+
                     Status.ERROR -> {
                         loader?.dismiss()
                         val dialog = OptionDialog(requireContext(),
@@ -1784,6 +1788,7 @@ class AccountPageFragment : DaggerFragment(),
                             negativeClick = {})
                         dialog.show()
                     }
+
                     Status.LOADING -> {
                         loader = LoaderDialog(R.string.pleasewait)
                         loader?.show(requireActivity().supportFragmentManager, null)
@@ -2174,6 +2179,7 @@ class AccountPageFragment : DaggerFragment(),
                     Glide.with(this).load(list4dx[0].imgCate).placeholder(R.drawable.four_dx)
                         .into(experienceName)
                 }
+
                 "STANDARD" -> {
 //                    experienceName.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.standard))
 //                    experienceName.setImageResource(R.drawable.standard)
@@ -2193,6 +2199,7 @@ class AccountPageFragment : DaggerFragment(),
 
 
                 }
+
                 "IMAX" -> {
 //                    Glide.with(requireContext()).load(R.drawable.imax).into(experienceName)
 
@@ -2201,6 +2208,7 @@ class AccountPageFragment : DaggerFragment(),
                             .into(experienceName)
                     }
                 }
+
                 "3D" -> {
                     for (items in list3D) {
                         Glide.with(this).load(items.imgCate).placeholder(R.drawable.threed_black)
@@ -2208,6 +2216,7 @@ class AccountPageFragment : DaggerFragment(),
                     }
 
                 }
+
                 "DOLBY" -> {
                     for (items in listDolby) {
                         Glide.with(this).load(items.imgCate).placeholder(R.drawable.dolby_black)
@@ -2215,6 +2224,7 @@ class AccountPageFragment : DaggerFragment(),
                     }
 
                 }
+
                 "ELEVEN" -> {
 
                     for (items in listEleven) {
@@ -2224,6 +2234,7 @@ class AccountPageFragment : DaggerFragment(),
 
 
                 }
+
                 "SCREENX" -> {
                     for (items in listScreen) {
                         Glide.with(this).load(items.imgCate).placeholder(R.drawable.screenx_black)
@@ -2231,6 +2242,7 @@ class AccountPageFragment : DaggerFragment(),
                     }
 
                 }
+
                 "PREMIUM" -> {
                     for (items in listPremium) {
                         Glide.with(this).load(items.imgCate).placeholder(R.drawable.premium_black)
@@ -2501,6 +2513,7 @@ class AccountPageFragment : DaggerFragment(),
 
                         }
                     }
+
                     Status.ERROR -> {
                         loader?.dismiss()
                         val dialog = OptionDialog(requireContext(),
@@ -2513,6 +2526,7 @@ class AccountPageFragment : DaggerFragment(),
                             negativeClick = {})
                         dialog.show()
                     }
+
                     Status.LOADING -> {
 //                            loader = LoaderDialog(R.string.pleasewait)
 //                            loader?.show(requireActivity().supportFragmentManager, null)
@@ -2570,6 +2584,7 @@ class AccountPageFragment : DaggerFragment(),
 
                         }
                     }
+
                     Status.ERROR -> {
                         loader?.dismiss()
                         val dialog = OptionDialog(requireActivity(),
@@ -2582,6 +2597,7 @@ class AccountPageFragment : DaggerFragment(),
                             negativeClick = {})
                         dialog.show()
                     }
+
                     Status.LOADING -> {
                     }
                 }
@@ -2690,6 +2706,7 @@ class AccountPageFragment : DaggerFragment(),
 
                         }
                     }
+
                     Status.ERROR -> {
                         loader?.dismiss()
                         val dialog = OptionDialog(requireActivity(),
@@ -2702,6 +2719,7 @@ class AccountPageFragment : DaggerFragment(),
                             negativeClick = {})
                         dialog.show()
                     }
+
                     Status.LOADING -> {
 //                            loader = LoaderDialog(R.string.pleasewait)
 //                            loader?.show(requireActivity().supportFragmentManager, null)
@@ -2753,6 +2771,7 @@ class AccountPageFragment : DaggerFragment(),
                             }
                         }
                     }
+
                     Status.ERROR -> {
                         loader?.dismiss()
                         val dialog = OptionDialog(requireActivity(),
@@ -2765,6 +2784,7 @@ class AccountPageFragment : DaggerFragment(),
                             negativeClick = {})
                         dialog.show()
                     }
+
                     Status.LOADING -> {
                     }
                 }
@@ -2840,6 +2860,7 @@ class AccountPageFragment : DaggerFragment(),
                                 negativeClick = {})
                             dialog.show()
                         }
+
                         Status.LOADING -> {
                             loader = LoaderDialog(R.string.pleasewait)
                             loader?.show(childFragmentManager, null)
@@ -2906,6 +2927,7 @@ class AccountPageFragment : DaggerFragment(),
 
                         }
                     }
+
                     Status.ERROR -> {
                         loader?.dismiss()
                         val dialog = OptionDialog(requireActivity(),
@@ -2918,6 +2940,7 @@ class AccountPageFragment : DaggerFragment(),
                             negativeClick = {})
                         dialog.show()
                     }
+
                     Status.LOADING -> {
 //                            loader = LoaderDialog(R.string.pleasewait)
 //                            loader?.show(supportFragmentManager, null)
@@ -2948,6 +2971,7 @@ class AccountPageFragment : DaggerFragment(),
                             }
                         }
                     }
+
                     Status.ERROR -> {
                         loader?.dismiss()
                         val dialog = OptionDialog(requireActivity(),
@@ -2960,6 +2984,7 @@ class AccountPageFragment : DaggerFragment(),
                             negativeClick = {})
                         dialog.show()
                     }
+
                     Status.LOADING -> {
                     }
                 }
@@ -3068,6 +3093,7 @@ class AccountPageFragment : DaggerFragment(),
                             }
                         }
                     }
+
                     Status.ERROR -> {
                         loader?.dismiss()
                         val dialog = OptionDialog(requireActivity(),
@@ -3080,6 +3106,7 @@ class AccountPageFragment : DaggerFragment(),
                             negativeClick = {})
                         dialog.show()
                     }
+
                     Status.LOADING -> {
                         if (isAdded) {
                             loader = LoaderDialog(R.string.pleasewait)
@@ -3156,6 +3183,7 @@ class AccountPageFragment : DaggerFragment(),
                             negativeClick = {})
                         dialog.show()
                     }
+
                     Status.LOADING -> {
 
                         if (isAdded) {
@@ -3200,6 +3228,7 @@ class AccountPageFragment : DaggerFragment(),
                             }
                         }
                     }
+
                     Status.ERROR -> {
                         loader?.dismiss()
                         val dialog = OptionDialog(requireActivity(),
@@ -3214,6 +3243,7 @@ class AccountPageFragment : DaggerFragment(),
                             negativeClick = {})
                         dialog.show()
                     }
+
                     Status.LOADING -> {
 //                        if (isAdded) {
 //                            loader = LoaderDialog(R.string.pleasewait)
@@ -3294,6 +3324,7 @@ class AccountPageFragment : DaggerFragment(),
                             }
                         }
                     }
+
                     Status.ERROR -> {
                         loader?.dismiss()
                         val dialog = OptionDialog(requireActivity(),
@@ -3306,6 +3337,7 @@ class AccountPageFragment : DaggerFragment(),
                             negativeClick = {})
                         dialog.show()
                     }
+
                     Status.LOADING -> {
 
                         if (isAdded) {
@@ -3441,7 +3473,15 @@ class AccountPageFragment : DaggerFragment(),
 //                    "", "", preferences.getString(Constant.USER_ID).toString()
 //                )
 //            )
+        }
 
+        if (ReloadProfile == 1) {
+            ReloadProfile = 0
+            getProfile(
+                ProfileRequest(
+                    "", "", preferences.getString(Constant.USER_ID).toString()
+                )
+            )
         }
     }
 
@@ -3514,6 +3554,7 @@ class AccountPageFragment : DaggerFragment(),
                             }
                         }
                     }
+
                     Status.ERROR -> {
                         loader?.dismiss()
                         val dialog = OptionDialog(requireActivity(),
@@ -3526,6 +3567,7 @@ class AccountPageFragment : DaggerFragment(),
                             negativeClick = {})
                         dialog.show()
                     }
+
                     Status.LOADING -> {
                         loader = LoaderDialog(R.string.pleasewait)
                         loader?.show(requireActivity().supportFragmentManager, null)
@@ -3583,6 +3625,7 @@ class AccountPageFragment : DaggerFragment(),
 
                         }
                     }
+
                     Status.ERROR -> {
                         loader?.dismiss()
                         val dialog = OptionDialog(requireActivity(),
@@ -3595,6 +3638,7 @@ class AccountPageFragment : DaggerFragment(),
                             negativeClick = {})
                         dialog.show()
                     }
+
                     Status.LOADING -> {
                         loader = LoaderDialog(R.string.pleasewait)
                         loader?.show(requireActivity().supportFragmentManager, null)
@@ -3636,6 +3680,7 @@ class AccountPageFragment : DaggerFragment(),
                             }
                         }
                     }
+
                     Status.ERROR -> {
                         loader?.dismiss()
                         val dialog = OptionDialog(requireContext(),
@@ -3648,6 +3693,7 @@ class AccountPageFragment : DaggerFragment(),
                             negativeClick = {})
                         dialog.show()
                     }
+
                     Status.LOADING -> {
                         loader = LoaderDialog(R.string.pleasewait)
                         loader?.show(requireActivity().supportFragmentManager, null)
@@ -3686,6 +3732,7 @@ class AccountPageFragment : DaggerFragment(),
 
                         }
                     }
+
                     Status.ERROR -> {
                         loader?.dismiss()
                         val dialog = OptionDialog(requireActivity(),
@@ -3700,6 +3747,7 @@ class AccountPageFragment : DaggerFragment(),
                             negativeClick = {})
                         dialog.show()
                     }
+
                     Status.LOADING -> {
                         if (isAdded) {
                             loader = LoaderDialog(R.string.pleasewait)

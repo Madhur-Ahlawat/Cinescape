@@ -26,21 +26,29 @@
         app:layout_constraintStart_toEndOf="@+id/vv_item_name"
         app:layout_constraintTop_toTopOf="@+id/vv_item_name" />
 
-    <TextView
-        android:id="@+id/tvs_item_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/sf_pro_text_regular"
-        android:letterSpacing="-0.01"
-        android:lineSpacingExtra="7.5sp"
-        tools:text="Popcorn"
-        android:textColor="@color/black"
-        android:textSize="@dimen/size14"
-        android:textStyle="normal"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout39"
         app:layout_constraintEnd_toEndOf="@+id/vv_item_name"
         app:layout_constraintStart_toStartOf="@+id/vv_item_name"
-        app:layout_constraintTop_toTopOf="@+id/vv_item_name" />
+        app:layout_constraintTop_toTopOf="@+id/vv_item_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvs_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="7.5sp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size14"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Popcorn" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/tvs_item_subtitle"
@@ -55,10 +63,10 @@
         android:textStyle="normal"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/tvs_item_title"
+        app:layout_constraintEnd_toEndOf="@+id/constraintLayout39"
         app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="@+id/tvs_item_title"
-        app:layout_constraintTop_toBottomOf="@+id/tvs_item_title"
+        app:layout_constraintStart_toStartOf="@+id/constraintLayout39"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout39"
         tools:ignore="TextContrastCheck"
         tools:text="Medium Salt" />
 

@@ -223,6 +223,7 @@ class Constant {
             const val Offer_ID = "offerId"
             const val SELECT_LANGUAGE = "select_language"
             var OPEN_FROM: Int = 0
+            var ReloadProfile: Int = 0
             var DialogShow: Boolean = true
             var BOOKINGClick: Int=0
             var BACKFinlTicket: Int=0

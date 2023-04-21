@@ -26,11 +26,22 @@ android {
     buildTypes {
         debug {
             buildConfigField "String", "API_URL", "\"https://url/pre/\""
+            minifyEnabled false
+            debuggable true
+//            shrinkResources = true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
         }
         release {
             buildConfigField "String", "API_URL", "\"https://url/pro/\""
             minifyEnabled false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            debuggable false
+            minifyEnabled false
+//            shrinkResources = true
+            signingConfig signingConfigs.debug
         }
     }
 

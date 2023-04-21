@@ -819,7 +819,6 @@ class ShowTimesActivity : DaggerAppCompatActivity(),
         binding?.recylerviewShowTimeDate?.let { focusOnView(view, it) }
         dateTime = city.dt
         datePosition = city.wdf
-        toast("$datePosition-----${city.wdf}")
         dt = city.showdate
         getShowTimes(CinemaSessionRequest(dateTime, movieID))
     }
@@ -839,8 +838,8 @@ class ShowTimesActivity : DaggerAppCompatActivity(),
         position: Int,
         cinemaPos: Int,
         cinemaId: String,
-        showTime1: String
-    ) {
+        showTime1: String) {
+
         showTime = showTime1
         showPose = cinemaPos
         cinemaID = cinemaId
