@@ -634,14 +634,12 @@ class PaymentListAdapter(
                     knet.setOnClickListener {
                         knetSelected = true
                         creditCardSelected = false
-                        walletApplied = false
                         pos = position
                         notifyDataSetChanged()
                     }
                     creditCard.setOnClickListener {
                         knetSelected = false
                         creditCardSelected = true
-                        walletApplied = false
                         pos = position
                         notifyDataSetChanged()
                     }
