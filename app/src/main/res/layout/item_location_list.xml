@@ -32,28 +32,37 @@
         app:layout_constraintTop_toBottomOf="@+id/textView36"
         tools:text="Working hours  11:30 to 01:30 " />
 
-    <TextView
-        android:id="@+id/textView38"
+    <LinearLayout
+        android:id="@+id/constraintLayout40"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:layout_marginEnd="32dp"
-        android:fontFamily="@font/sf_pro_text_regular"
-        android:includeFontPadding="false"
-        android:justificationMode="inter_word"
-        android:textColor="#A6ADB4"
-        android:textSize="12sp"
         app:layout_constraintEnd_toStartOf="@+id/imageView22"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView37"
-        tools:text="Jassem Mohammad Al-Kharafi Road, 360 mall, Zahra, Kuwait" />
+        app:layout_constraintTop_toBottomOf="@+id/textView37">
+
+        <TextView
+            android:id="@+id/textView38"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:includeFontPadding="false"
+            android:justificationMode="inter_word"
+            android:textColor="#A6ADB4"
+            android:textSize="12sp"
+            tools:ignore="UnusedAttribute"
+            tools:text="Jassem Mohammad Al-Kharafi Road, 360 mall, Zahra, Kuwait" />
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/imageView22"
         android:layout_width="15dp"
         android:layout_height="24dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView38"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout40"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_location"
         tools:ignore="ContentDescription" />

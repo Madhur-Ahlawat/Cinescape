@@ -1,4 +1,4 @@
-package com.cinescape1.ui.main.views.adapters
+package com.cinescape1.ui.main.views.home.fragments.more.adapter
 
 import android.annotation.SuppressLint
 import android.app.Activity

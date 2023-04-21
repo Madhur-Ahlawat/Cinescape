@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black">
+
+
+    <LinearLayout
+        android:id="@+id/TopUi"
+        android:weightSum="1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView54"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/margin5"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:gravity="center_vertical"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="How early can I book a ticket?"
+            app:drawableEndCompat="@drawable/arrow_down" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView55"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:textColor="#A6ADB4"
+        android:textSize="@dimen/size14"
+        android:visibility="gone"
+        android:textColorLink="@color/white"
+        android:justificationMode="inter_word"
+        android:autoLink="web"
+        android:linksClickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TopUi"
+        tools:text="The Problem that caused your crash is that you want to instantiate your fragment with a constructor with parameter. but you in android you should create fragment with a non parameter constructor. so how to solve this problem to pass parameters in to your fragment:"
+        tools:ignore="UnusedAttribute" />
+
+
+    <View
+        android:id="@+id/view94"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin25"
+        android:layout_marginBottom="@dimen/margin20"
+        android:background="@color/lineColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView55" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

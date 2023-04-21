@@ -1,4 +1,4 @@
-package com.cinescape1.ui.main.views.adapters
+package com.cinescape1.ui.main.views.home.fragments.more.adapter
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -14,7 +14,9 @@ import com.cinescape1.data.models.responseModel.MoviesResponse
 
 class FaqAdapter(
     private val faqList: ArrayList<MoreTabResponse.Faq>,
-    private val context: Activity,var  language: String?, var listener: TypefaceListenerFaq
+    private val context: Activity,
+    var  language: String?,
+    var listener: TypefaceListenerFaq
 ) :
     RecyclerView.Adapter<FaqAdapter.TodoViewHolder>() {
 
@@ -35,11 +37,19 @@ class FaqAdapter(
         holder.todoTitle.text = obj.name
         listener.onTypefaceFaq(holder.todoTitle)
 
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
-        val adapter = FaqChildAdapter(obj.faqs,context,language)
-        holder.faqChildRecycler.setHasFixedSize(true)
-        holder.faqChildRecycler.layoutManager = layoutManager
-        holder.faqChildRecycler.adapter = adapter
+        if (language=="ar"){
+            val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
+            val adapter = FaqChildArabicAdapter(obj.faqs,context,language)
+            holder.faqChildRecycler.setHasFixedSize(true)
+            holder.faqChildRecycler.layoutManager = layoutManager
+            holder.faqChildRecycler.adapter = adapter
+        }else{
+            val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
+            val adapter = FaqChildAdapter(obj.faqs,context,language)
+            holder.faqChildRecycler.setHasFixedSize(true)
+            holder.faqChildRecycler.layoutManager = layoutManager
+            holder.faqChildRecycler.adapter = adapter
+        }
     }
 
     inner class TodoViewHolder(view: View) : RecyclerView.ViewHolder(view) {

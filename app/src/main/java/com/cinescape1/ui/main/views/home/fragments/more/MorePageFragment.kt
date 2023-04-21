@@ -41,8 +41,9 @@ import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.databinding.FragmentMorePageBinding
 import com.cinescape1.ui.main.dailogs.LoaderDialog
 import com.cinescape1.ui.main.dailogs.OptionDialog
-import com.cinescape1.ui.main.views.home.fragments.more.viewModel.MoreInfoViewModel
 import com.cinescape1.ui.main.views.adapters.*
+import com.cinescape1.ui.main.views.home.fragments.more.adapter.FaqAdapter
+import com.cinescape1.ui.main.views.home.fragments.more.viewModel.MoreInfoViewModel
 import com.cinescape1.ui.main.views.login.LoginActivity
 import com.cinescape1.utils.*
 import com.cinescape1.utils.Constant.IntentKey.Companion.OPEN_FROM
@@ -65,9 +66,9 @@ class MorePageFragment : DaggerFragment(),
     PrivacyAdapter.TypefaceListenerPrivacy,
     AgeRatingAdapter.TypefaceListenerAgeRating,
     TermsConditionAdapter.TypefaceListenerTermsCondition,
-    LocationAdapter.TypefaceListenerLocation ,
+    LocationAdapter.TypefaceListenerLocation,
     PhotoUtils.OnImageSelectListener,
-    ViewRefreshListener{
+    ViewRefreshListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -82,8 +83,8 @@ class MorePageFragment : DaggerFragment(),
     private var twitterUserName: String? = "Cinescapekuwait"
     private var countryCodeList = ArrayList<CountryCodeResponse.Output>()
     private var mAdapter: CountryCodeAdapter? = null
-    var countryCode: String = ""
-    var dialog: Dialog? = null
+    private var countryCode: String = ""
+    private var dialog: Dialog? = null
     private var broadcastReceiver: BroadcastReceiver? = null
     private var mobile: String = ""
     private var frontPhoto: MultipartBody.Part? = null
@@ -91,13 +92,16 @@ class MorePageFragment : DaggerFragment(),
     private var todoTitle1: TextView? = null
     private var todoTitle11: TextView? = null
     private var todoDesc1: TextView? = null
+
     // ageRating adapter
     private var type2: TextView? = null
     private var todoTitle2: TextView? = null
     private var todoDesc2: TextView? = null
+
     // terms Condition
     private var todoTitle3: TextView? = null
     private var todoDesc3: TextView? = null
+
     // location
     private var title4: TextView? = null
     private var workingHour4: TextView? = null
@@ -106,10 +110,12 @@ class MorePageFragment : DaggerFragment(),
     private var photoUtils: PhotoUtils? = null
     private var permsRequestCode = 202
 
+    private var language = ""
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         binding = FragmentMorePageBinding.inflate(layoutInflater, null, false)
         val view = binding?.root
@@ -174,6 +180,7 @@ class MorePageFragment : DaggerFragment(),
                 address4?.typeface = regular
 
             }
+
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(requireActivity(), "en")
                 image_switcher?.isChecked = true
@@ -226,6 +233,7 @@ class MorePageFragment : DaggerFragment(),
                 address4?.typeface = regular
 
             }
+
             else -> {
                 image_switcher?.isChecked = true
                 val regular = ResourcesCompat.getFont(requireActivity(), R.font.sf_pro_text_regular)
@@ -279,14 +287,17 @@ class MorePageFragment : DaggerFragment(),
         //Image hide Home
         (requireActivity().findViewById(R.id.imageView42) as ConstraintLayout).hide()
 
-        val   firstName = preferences.getString(Constant.FIRST_NAME).toString()
-       val lastName = preferences.getString(Constant.LAST_NAME).toString()
+        val firstName = preferences.getString(Constant.FIRST_NAME).toString()
+        val lastName = preferences.getString(Constant.LAST_NAME).toString()
 
         mobile = preferences.getString(Constant.MOBILE).toString()
         contactEmail.setText(preferences.getString(Constant.USER_EMAIL))
 
-        enterUsername.setText( "$firstName $lastName")
+        enterUsername.setText("$firstName $lastName")
         enter_mobile_numbers.setText(preferences.getString(Constant.MOBILE))
+
+        language = preferences.getString(Constant.IntentKey.SELECT_LANGUAGE).toString()
+
         image_switcher?.setOnCheckedChangeListener { _, b ->
             if (b) {
                 Constant.IntentKey.LANGUAGE_SELECT = "en"
@@ -324,176 +335,64 @@ class MorePageFragment : DaggerFragment(),
         binding?.imageUserProfile?.setColorFilter(requireActivity().getColor(R.color.white))
         binding?.textProfileTitle?.setTextColor(requireActivity().getColor(R.color.white))
 
-        //location
-        binding?.viewProfile?.setOnClickListener {
-            binding?.imageUserProfile?.setColorFilter(requireActivity().getColor(R.color.white))
-            binding?.textProfileTitle?.setTextColor(requireActivity().getColor(R.color.white))
-
-            binding?.imageBooking?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textBookingTitle?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-            binding?.imagePreference?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textPreference?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-            binding?.imageRecharageWallet?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textRecharageWallet?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-//            binding?.imageRefundCoin?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textRefund?.setTextColor(requireActivity().getColor(R.color.text_color))
 
 
-//            binding?.imageHistory?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textHistoery?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-            binding?.textView35?.text= getString(R.string.location)
-            binding?.textView35?.show()
-            binding?.otherDetails?.hide()
-            binding?.recyclerMore?.show()
-            binding?.contactUs?.hide()
-            location(responseData?.output?.cinemas!!)
-        }
-
-        //faq
-        binding?.viewBooking?.setOnClickListener {
-
-            binding?.imageUserProfile?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textProfileTitle?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-            binding?.imageBooking?.setColorFilter(requireActivity().getColor(R.color.white))
-            binding?.textBookingTitle?.setTextColor(requireActivity().getColor(R.color.white))
-
-            binding?.imagePreference?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textPreference?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-            binding?.imageRecharageWallet?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textRecharageWallet?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-//            binding?.imageRefundCoin?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textRefund?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-//            binding?.imageHistory?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textHistoery?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-            binding?.textView35?.hide()
-            binding?.contactUs?.hide()
-            binding?.recyclerMore?.hide()
-
-            responseData?.output?.faqs?.let { it1 -> faq(it1) }
-        }
-
-        //contact
-        binding?.viewPreference?.setOnClickListener {
-            binding?.imageUserProfile?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textProfileTitle?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-            binding?.imageBooking?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textBookingTitle?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-            binding?.imagePreference?.setColorFilter(requireActivity().getColor(R.color.white))
-            binding?.textPreference?.setTextColor(requireActivity().getColor(R.color.white))
-
-
-            binding?.imageRecharageWallet?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textRecharageWallet?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-//            binding?.imageRefundCoin?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textRefund?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-//            binding?.imageHistory?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textHistoery?.setTextColor(requireActivity().getColor(R.color.text_color))
-            binding?.textView35?.hide()
-            binding?.recyclerMore?.hide()
-            binding?.contactUs?.show()
-        }
-
-        //ageRating
-        binding?.viewRecharge?.setOnClickListener {
-            binding?.imageUserProfile?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textProfileTitle?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-            binding?.imageBooking?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textBookingTitle?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-
-            binding?.imagePreference?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textPreference?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-
-            binding?.imageRecharageWallet?.setColorFilter(requireActivity().getColor(R.color.white))
-            binding?.textRecharageWallet?.setTextColor(requireActivity().getColor(R.color.white))
-
-
-//            binding?.imageRefundCoin?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textRefund?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-
-//            binding?.imageHistory?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textHistoery?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-            binding?.textView35?.text =getString(R.string.age_rating)
-            binding?.textView35?.show()
-            binding?.otherDetails?.hide()
-            binding?.recyclerMore?.show()
-            binding?.contactUs?.hide()
-            responseData?.output?.ratings?.let { it1 -> ageRating(it1) }
-
-        }
-
-        //termsAndCondition
-        binding?.viewRefund?.setOnClickListener {
-            binding?.imageUserProfile?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textProfileTitle?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-            binding?.imageBooking?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textBookingTitle?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-
-            binding?.imagePreference?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textPreference?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-            binding?.imageRecharageWallet?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textRecharageWallet?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-//            binding?.imageRefundCoin?.setColorFilter(requireActivity().getColor(R.color.white))
-            binding?.textRefund?.setTextColor(requireActivity().getColor(R.color.white))
-
-//            binding?.imageHistory?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textHistoery?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-            binding?.textView35?.hide()
-            binding?.recyclerMore?.hide()
-            binding?.contactUs?.hide()
-            termsAndCondition(responseData?.output?.tncs!!)
-        }
-
-        //privacyPolicy
-        binding?.viewHistorys?.setOnClickListener {
-            binding?.imageUserProfile?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textProfileTitle?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-            binding?.imageBooking?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textBookingTitle?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-
-            binding?.imagePreference?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textPreference?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-            binding?.imageRecharageWallet?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textRecharageWallet?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-//            binding?.imageRefundCoin?.setColorFilter(requireActivity().getColor(R.color.text_color))
-            binding?.textRefund?.setTextColor(requireActivity().getColor(R.color.text_color))
-
-//            binding?.imageHistory?.setColorFilter(requireActivity().getColor(R.color.white))
-            binding?.textHistoery?.setTextColor(requireActivity().getColor(R.color.white))
-
-            contactUs?.hide()
-            binding?.textView35?.hide()
-            binding?.recyclerMore?.hide()
-            privacyPolicy(responseData?.output?.privacy!!)
-        }
 
         binding?.layoutContact?.textVersion?.text = "${getString(R.string.version)} ${Constant.version}"
+
+        if (mobile == "") {
+            text_signout.text = getString(R.string.sign_in)
+            view_first.setOnClickListener {
+                val intent = Intent(requireContext(), LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(intent)
+                requireActivity().finish()
+            }
+        } else {
+            text_signout.text = getString(R.string.sign_out)
+            view_first.setOnClickListener {
+                val dialog = OptionDialog(requireContext(),
+                    R.mipmap.ic_launcher,
+                    R.string.app_name,
+                    it.resources.getString(R.string.signout),
+                    positiveBtnText = R.string.ok,
+                    negativeBtnText = R.string.no,
+                    positiveClick = {
+                        FirebaseAuth.getInstance().signOut()
+                        preferences.clearData()
+                        val intent = Intent(requireContext(), LoginActivity::class.java)
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
+                        requireActivity().finish()
+                    },
+                    negativeClick = {
+                    })
+                dialog.show()
+            }
+        }
+
+        broadcastReceiver = MyReceiver()
+        broadcastIntent()
+        countryCodeLoad()
+        moreTabs()
+        contact()
+        manageClick()
+        manageArabic()
+    }
+
+    private fun manageArabic() {
+
+        if (language=="ar"){
+            //login
+            enter_mobile_numbers.textAlignment= View.TEXT_ALIGNMENT_TEXT_END
+        }else{
+            //login
+            enter_mobile_numbers.textAlignment=View.TEXT_ALIGNMENT_TEXT_START
+        }
+    }
+
+    private fun manageClick() {
 
         //Facebook
         imageView17.setOnClickListener {
@@ -516,7 +415,7 @@ class MorePageFragment : DaggerFragment(),
         }
 
         textView29.setOnClickListener {
-            if (!checkPermission()){
+            if (!checkPermission()) {
 //                requestPermission()
                 handlePermission()
                 println("PhotoUploadPics--------->no")
@@ -524,8 +423,6 @@ class MorePageFragment : DaggerFragment(),
                 println("PhotoUploadPics--------->yes")
                 uploadPhoto()
             }
-
-
 
 
 //            handlePermission()
@@ -613,43 +510,174 @@ class MorePageFragment : DaggerFragment(),
 
         }
 
-        if (mobile == "") {
-            text_signout.text = getString(R.string.sign_in)
-            view_first.setOnClickListener {
-                val intent = Intent(requireContext(), LoginActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                startActivity(intent)
-                requireActivity().finish()
-            }
-        } else {
-            text_signout.text = getString(R.string.sign_out)
-            view_first.setOnClickListener {
-                val dialog = OptionDialog(requireContext(),
-                    R.mipmap.ic_launcher,
-                    R.string.app_name,
-                    it.resources.getString(R.string.signout),
-                    positiveBtnText = R.string.ok,
-                    negativeBtnText = R.string.no,
-                    positiveClick = {
-                        FirebaseAuth.getInstance().signOut()
-                        preferences.clearData()
-                        val intent = Intent(requireContext(), LoginActivity::class.java)
-                        intent.flags =
-                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                        startActivity(intent)
-                        requireActivity().finish()
-                    },
-                    negativeClick = {
-                    })
-                dialog.show()
-            }
+        //location
+        binding?.viewProfile?.setOnClickListener {
+            binding?.imageUserProfile?.setColorFilter(requireActivity().getColor(R.color.white))
+            binding?.textProfileTitle?.setTextColor(requireActivity().getColor(R.color.white))
+
+            binding?.imageBooking?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textBookingTitle?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+            binding?.imagePreference?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textPreference?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+            binding?.imageRecharageWallet?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textRecharageWallet?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+//            binding?.imageRefundCoin?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textRefund?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+
+//            binding?.imageHistory?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textHistoery?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+            binding?.textView35?.text = getString(R.string.location)
+            binding?.textView35?.show()
+            binding?.otherDetails?.hide()
+            binding?.recyclerMore?.show()
+            binding?.contactUs?.hide()
+            location(responseData?.output?.cinemas!!)
         }
 
-        broadcastReceiver = MyReceiver()
-        broadcastIntent()
-        countryCodeLoad()
-        moreTabs()
-        contact()
+        //faq
+        binding?.viewBooking?.setOnClickListener {
+
+            binding?.imageUserProfile?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textProfileTitle?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+            binding?.imageBooking?.setColorFilter(requireActivity().getColor(R.color.white))
+            binding?.textBookingTitle?.setTextColor(requireActivity().getColor(R.color.white))
+
+            binding?.imagePreference?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textPreference?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+            binding?.imageRecharageWallet?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textRecharageWallet?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+//            binding?.imageRefundCoin?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textRefund?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+//            binding?.imageHistory?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textHistoery?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+            binding?.textView35?.hide()
+            binding?.contactUs?.hide()
+            binding?.recyclerMore?.hide()
+
+            responseData?.output?.faqs?.let { it1 -> faq(it1) }
+        }
+
+        //contact
+        binding?.viewPreference?.setOnClickListener {
+            binding?.imageUserProfile?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textProfileTitle?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+            binding?.imageBooking?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textBookingTitle?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+            binding?.imagePreference?.setColorFilter(requireActivity().getColor(R.color.white))
+            binding?.textPreference?.setTextColor(requireActivity().getColor(R.color.white))
+
+
+            binding?.imageRecharageWallet?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textRecharageWallet?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+//            binding?.imageRefundCoin?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textRefund?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+//            binding?.imageHistory?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textHistoery?.setTextColor(requireActivity().getColor(R.color.text_color))
+            binding?.textView35?.hide()
+            binding?.recyclerMore?.hide()
+            binding?.contactUs?.show()
+        }
+
+        //ageRating
+        binding?.viewRecharge?.setOnClickListener {
+            binding?.imageUserProfile?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textProfileTitle?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+            binding?.imageBooking?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textBookingTitle?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+
+            binding?.imagePreference?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textPreference?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+
+            binding?.imageRecharageWallet?.setColorFilter(requireActivity().getColor(R.color.white))
+            binding?.textRecharageWallet?.setTextColor(requireActivity().getColor(R.color.white))
+
+
+//            binding?.imageRefundCoin?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textRefund?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+
+//            binding?.imageHistory?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textHistoery?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+            binding?.textView35?.text = getString(R.string.age_rating)
+            binding?.textView35?.show()
+            binding?.otherDetails?.hide()
+            binding?.recyclerMore?.show()
+            binding?.contactUs?.hide()
+            responseData?.output?.ratings?.let { it1 -> ageRating(it1) }
+
+        }
+
+        //termsAndCondition
+        binding?.viewRefund?.setOnClickListener {
+            binding?.imageUserProfile?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textProfileTitle?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+            binding?.imageBooking?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textBookingTitle?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+
+            binding?.imagePreference?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textPreference?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+            binding?.imageRecharageWallet?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textRecharageWallet?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+//            binding?.imageRefundCoin?.setColorFilter(requireActivity().getColor(R.color.white))
+            binding?.textRefund?.setTextColor(requireActivity().getColor(R.color.white))
+
+//            binding?.imageHistory?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textHistoery?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+            binding?.textView35?.hide()
+            binding?.recyclerMore?.hide()
+            binding?.contactUs?.hide()
+            termsAndCondition(responseData?.output?.tncs!!)
+        }
+
+        //privacyPolicy
+        binding?.viewHistorys?.setOnClickListener {
+            binding?.imageUserProfile?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textProfileTitle?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+            binding?.imageBooking?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textBookingTitle?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+
+            binding?.imagePreference?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textPreference?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+            binding?.imageRecharageWallet?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textRecharageWallet?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+//            binding?.imageRefundCoin?.setColorFilter(requireActivity().getColor(R.color.text_color))
+            binding?.textRefund?.setTextColor(requireActivity().getColor(R.color.text_color))
+
+//            binding?.imageHistory?.setColorFilter(requireActivity().getColor(R.color.white))
+            binding?.textHistoery?.setTextColor(requireActivity().getColor(R.color.white))
+
+            contactUs?.hide()
+            binding?.textView35?.hide()
+            binding?.recyclerMore?.hide()
+            privacyPolicy(responseData?.output?.privacy!!)
+        }
     }
 
     /* Choose an image from Gallery */
@@ -716,6 +744,7 @@ class MorePageFragment : DaggerFragment(),
                                 }
                             }
                         }
+
                         Status.ERROR -> {
                             loader?.dismiss()
                             val dialog = OptionDialog(requireActivity(),
@@ -730,6 +759,7 @@ class MorePageFragment : DaggerFragment(),
                                 })
                             dialog.show()
                         }
+
                         Status.LOADING -> {
                             if (isAdded) {
                                 loader = LoaderDialog(R.string.pleasewait)
@@ -780,6 +810,7 @@ class MorePageFragment : DaggerFragment(),
                                 }
                             }
                         }
+
                         Status.ERROR -> {
                             loader?.dismiss()
                             val dialog = OptionDialog(requireActivity(),
@@ -792,6 +823,7 @@ class MorePageFragment : DaggerFragment(),
                                 negativeClick = {})
                             dialog.show()
                         }
+
                         Status.LOADING -> {
                             loader = LoaderDialog(R.string.pleasewait)
                             loader?.show(requireActivity().supportFragmentManager, null)
@@ -807,7 +839,8 @@ class MorePageFragment : DaggerFragment(),
         name: String,
         mobile: String,
         msg: String,
-        Photo: MultipartBody.Part ) {
+        Photo: MultipartBody.Part
+    ) {
         moreInfoViewModel.contactUs(email, name, mobile, msg, Photo)
             .observe(requireActivity()) {
                 it?.let { resource ->
@@ -843,9 +876,11 @@ class MorePageFragment : DaggerFragment(),
                                         },
                                         negativeClick = {
                                         })
-                                    dialog.show()                                }
+                                    dialog.show()
+                                }
                             }
                         }
+
                         Status.ERROR -> {
                             loader?.dismiss()
                             val dialog = OptionDialog(requireActivity(),
@@ -860,6 +895,7 @@ class MorePageFragment : DaggerFragment(),
                                 })
                             dialog.show()
                         }
+
                         Status.LOADING -> {
                             loader = LoaderDialog(R.string.pleasewait)
                             loader?.show(requireActivity().supportFragmentManager, null)
@@ -886,10 +922,10 @@ class MorePageFragment : DaggerFragment(),
     }
 
     private fun faq(faqs: ArrayList<MoreTabResponse.Faq>) {
-        var language= preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)
+        var language = preferences.getString(Constant.IntentKey.SELECT_LANGUAGE)
         binding?.otherDetails?.show()
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        val adapter = FaqAdapter(faqs, requireActivity(), language,this,)
+        val adapter = FaqAdapter(faqs, requireActivity(), language, this)
         binding?.otherDetails?.setHasFixedSize(true)
         binding?.otherDetails?.layoutManager = layoutManager
         binding?.otherDetails?.adapter = adapter
@@ -947,7 +983,8 @@ class MorePageFragment : DaggerFragment(),
 
     private fun location(location: ArrayList<MoreTabResponse.Cinema>) {
         println("location--------->${location}")
-        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding?.recyclerMore?.setHasFixedSize(true)
         val adapter = LocationAdapter(location, requireContext(), this)
         binding?.recyclerMore?.layoutManager = layoutManager
@@ -984,6 +1021,7 @@ class MorePageFragment : DaggerFragment(),
                                 }
                             }
                         }
+
                         Status.ERROR -> {
                             loader?.dismiss()
                             val dialog = OptionDialog(requireActivity(),
@@ -998,6 +1036,7 @@ class MorePageFragment : DaggerFragment(),
                                 })
                             dialog.show()
                         }
+
                         Status.LOADING -> {
                         }
                     }
@@ -1081,7 +1120,7 @@ class MorePageFragment : DaggerFragment(),
 
     }
 
-    override fun onItemClick(view: CountryCodeResponse.Output, check : Boolean) {
+    override fun onItemClick(view: CountryCodeResponse.Output, check: Boolean) {
         println("PhoneLength--->${view.phoneLength}")
         countryCode = view.isdCode
         val maxLengthEditText = view.phoneLength
@@ -1104,9 +1143,16 @@ class MorePageFragment : DaggerFragment(),
 
     @RequiresApi(Build.VERSION_CODES.R)
     private fun checkPermission(): Boolean {
-        val result: Int = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
-        val result1: Int = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-        val result2: Int = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        val result: Int =
+            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+        val result1: Int = ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        )
+        val result2: Int = ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
 
         return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED && result2 == PackageManager.PERMISSION_GRANTED
     }
@@ -1114,7 +1160,8 @@ class MorePageFragment : DaggerFragment(),
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
-        grantResults: IntArray) {
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         when (requestCode) {
@@ -1129,7 +1176,7 @@ class MorePageFragment : DaggerFragment(),
                         uploadPhoto()
                     } else {
                     }
-                }catch (e : Exception){
+                } catch (e: Exception) {
                     println("errorCamera---------->${e.message}")
                 }
 
@@ -1146,17 +1193,19 @@ class MorePageFragment : DaggerFragment(),
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 //        Thread {
-            if (resultCode == AppCompatActivity.RESULT_OK) {
-                if (requestCode == selectPicture) {
-                    // Get the url from data
-                    val selectedImageUri = data?.data
-                    val mFileTemp = File(ImageFilePath.getFilePath(requireContext(), selectedImageUri!!))
-                    val requestFile: RequestBody = mFileTemp.asRequestBody("multipart/form-data".toMediaTypeOrNull())
-                    val file = MultipartBody.Part.createFormData("file", mFileTemp.name, requestFile)
-                    frontPhoto = file
+        if (resultCode == AppCompatActivity.RESULT_OK) {
+            if (requestCode == selectPicture) {
+                // Get the url from data
+                val selectedImageUri = data?.data
+                val mFileTemp =
+                    File(ImageFilePath.getFilePath(requireContext(), selectedImageUri!!))
+                val requestFile: RequestBody =
+                    mFileTemp.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+                val file = MultipartBody.Part.createFormData("file", mFileTemp.name, requestFile)
+                frontPhoto = file
 
-                }
             }
+        }
 
     }
 

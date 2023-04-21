@@ -1,6 +1,5 @@
 package com.cinescape1.ui.main.dailogs
 
-import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
@@ -23,22 +22,32 @@ class OptionDialog(
     @StringRes private val negativeBtnText: Int,
     private val positiveClick: (() -> Unit)? = null,
     private val negativeClick: (() -> Unit)? = null
-) : Dialog(context, R.style.AppTheme_Dialog) {
+) : Dialog(context, R.style.AppTheme_Dialog2) {
 
-    companion object{
-        var optionDialog:OptionDialog?=null
-        fun getInstance(  context: Context,
-                          @DrawableRes illustrationRes: Int = -1,
-                          @StringRes title: Int,
-                          subtitle: String,
-                          @StringRes positiveBtnText: Int,
-                          @StringRes negativeBtnText: Int,
-                          positiveClick: (() -> Unit)? = null,
-                          negativeClick: (() -> Unit)? = null): OptionDialog? {
-            if(optionDialog!=null){
-            }
-            else{
-                optionDialog= OptionDialog(context,illustrationRes,title,subtitle,positiveBtnText,negativeBtnText,positiveClick,negativeClick)
+    companion object {
+        var optionDialog: OptionDialog? = null
+        fun getInstance(
+            context: Context,
+            @DrawableRes illustrationRes: Int = -1,
+            @StringRes title: Int,
+            subtitle: String,
+            @StringRes positiveBtnText: Int,
+            @StringRes negativeBtnText: Int,
+            positiveClick: (() -> Unit)? = null,
+            negativeClick: (() -> Unit)? = null
+        ): OptionDialog? {
+            if (optionDialog != null) {
+            } else {
+                optionDialog = OptionDialog(
+                    context,
+                    illustrationRes,
+                    title,
+                    subtitle,
+                    positiveBtnText,
+                    negativeBtnText,
+                    positiveClick,
+                    negativeClick
+                )
             }
             return optionDialog
         }
@@ -48,22 +57,22 @@ class OptionDialog(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-         binding = DialogOptionBinding.inflate(layoutInflater, null, false)
+        binding = DialogOptionBinding.inflate(layoutInflater, null, false)
         setContentView(binding?.root!!)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         setCancelable(false)
 
-        if (Constant.DISPLAY ==0){
-            Constant.DISPLAY =1
+        if (Constant.DISPLAY == 0) {
+            Constant.DISPLAY = 1
             //binding?.subtitle?.gravity = Gravity.START
-        }else{
+        } else {
             //binding?.subtitle?.gravity = Gravity.CENTER
         }
 
 
-        if (positiveBtnText==R.string.ok){
+        if (positiveBtnText == R.string.ok) {
             binding?.negativeBtn?.visibility = View.GONE
-        }else{
+        } else {
             binding?.negativeBtn?.visibility = View.VISIBLE
         }
 
@@ -78,18 +87,16 @@ class OptionDialog(
             dismiss()
             binding = null
         }
+
         binding?.negativeBtn?.setOnClickListener {
             negativeClick?.invoke()
             dismiss()
             binding = null
         }
+
     }
 
-    override fun dismiss() {
-            super.dismiss()
-    }
-
-    public override fun onDetachedFromWindow() {
+    override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         binding = null
     }

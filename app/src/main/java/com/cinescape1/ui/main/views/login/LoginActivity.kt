@@ -11,7 +11,9 @@ import android.net.ConnectivityManager.CONNECTIVITY_ACTION
 import android.os.Bundle
 import android.text.*
 import android.text.InputFilter.LengthFilter
+import android.text.Layout.Alignment
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -130,6 +132,7 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
     private val OnBoardingClick = "Name"
     private var clickOnBoarding: Boolean = false
 
+    private  var language="en"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -298,6 +301,8 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
             booking = intent.getStringExtra("BOOKING").toString()
         }
 
+        language = preferences.getString(Constant.IntentKey.SELECT_LANGUAGE).toString()
+
         //AppBar Hide
         Constant().hideKeyboard(this)
 
@@ -313,6 +318,20 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
         broadcastIntent()
         movedNext()
         countryCodeLoad()
+        manageGravity()
+    }
+
+    private fun manageGravity() {
+        if (language=="ar"){
+            //login
+            binding?.enterUsername?.textAlignment= View.TEXT_ALIGNMENT_TEXT_END
+            binding?.enterpassword?.textAlignment= View.TEXT_ALIGNMENT_TEXT_END
+        }else{
+
+            //login
+            binding?.enterUsername?.textAlignment=View.TEXT_ALIGNMENT_TEXT_START
+            binding?.enterpassword?.textAlignment= View.TEXT_ALIGNMENT_TEXT_START
+        }
     }
 
     private fun socialCredential() {
@@ -327,13 +346,11 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
 
     }
 
-
     private fun broadcastIntent() {
         @Suppress("DEPRECATION") registerReceiver(
             broadcastReceiver, IntentFilter(CONNECTIVITY_ACTION)
         )
     }
-
 
     private fun movedNext() {
         val bold = ResourcesCompat.getFont(this, R.font.sf_pro_text_bold)
@@ -741,7 +758,6 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
     }
 
 /////////////////////////////////    Log In   /////////////////////////////////
-
     private fun signingUsingApi(name: String, password: String) {
         loginViewModel.userLogin(this, name, password).observe(this) {
             it?.let { resource ->
