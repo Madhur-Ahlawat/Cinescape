@@ -283,7 +283,6 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
         }
 
         if (intent.hasExtra("from")) {
-            println("Details--->1231")
 
             ttType = intent.getStringExtra("type").toString()
             movieId = intent.getStringExtra("movieId").toString()
@@ -326,11 +325,28 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
             //login
             binding?.enterUsername?.textAlignment= View.TEXT_ALIGNMENT_TEXT_END
             binding?.enterpassword?.textAlignment= View.TEXT_ALIGNMENT_TEXT_END
-        }else{
 
+            //signup
+            binding?.enterEmails?.textAlignment= View.TEXT_ALIGNMENT_TEXT_END
+            binding?.enterFirstNames?.textAlignment= View.TEXT_ALIGNMENT_TEXT_END
+            binding?.enterLastName?.textAlignment= View.TEXT_ALIGNMENT_TEXT_END
+            binding?.enterPasswords?.textAlignment= View.TEXT_ALIGNMENT_TEXT_END
+            binding?.enterConfirmPassword?.textAlignment= View.TEXT_ALIGNMENT_TEXT_END
+            binding?.editTextPhone?.textAlignment= View.TEXT_ALIGNMENT_TEXT_END
+            binding?.enterDateBirth?.textAlignment= View.TEXT_ALIGNMENT_TEXT_END
+        }else{
             //login
             binding?.enterUsername?.textAlignment=View.TEXT_ALIGNMENT_TEXT_START
             binding?.enterpassword?.textAlignment= View.TEXT_ALIGNMENT_TEXT_START
+
+            //signup
+            binding?.enterEmails?.textAlignment= View.TEXT_ALIGNMENT_TEXT_START
+            binding?.enterFirstNames?.textAlignment= View.TEXT_ALIGNMENT_TEXT_START
+            binding?.enterLastName?.textAlignment= View.TEXT_ALIGNMENT_TEXT_START
+            binding?.enterPasswords?.textAlignment= View.TEXT_ALIGNMENT_TEXT_START
+            binding?.enterConfirmPassword?.textAlignment= View.TEXT_ALIGNMENT_TEXT_START
+            binding?.editTextPhone?.textAlignment= View.TEXT_ALIGNMENT_TEXT_START
+            binding?.enterDateBirth?.textAlignment= View.TEXT_ALIGNMENT_TEXT_START
         }
     }
 
