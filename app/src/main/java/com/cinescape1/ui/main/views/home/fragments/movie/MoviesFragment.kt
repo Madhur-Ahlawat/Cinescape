@@ -1,6 +1,7 @@
 package com.cinescape1.ui.main.views.home.fragments.movie
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.BroadcastReceiver
 import android.content.IntentFilter
 import android.graphics.Color
@@ -14,7 +15,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
+import android.app.Dialog
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
@@ -67,7 +68,7 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
     private lateinit var viewPager: ViewPager
     private lateinit var tabLayout: TabLayout
     private lateinit var filter: ImageView
-    private var loader: LoaderDialog? = null
+    private var loader: Dialog? = null
     private var isChecked = false
     private var commingSoonClick = false
     private var advanceClick = false
@@ -374,8 +375,8 @@ class MoviesFragment(val type: Int) : DaggerFragment(),
                     }
                     Status.LOADING -> {
                         if (isAdded) {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(requireActivity().supportFragmentManager, null)
+                            loader = LoaderDialog.getInstance(requireContext(),layoutInflater)
+                            loader?.show()
                         }
                     }
                 }

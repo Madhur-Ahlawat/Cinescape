@@ -6,11 +6,10 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.MotionEvent
-import android.view.View
 import android.view.View.OnTouchListener
-import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import android.app.Dialog
 import androidx.lifecycle.ViewModelProvider
 import com.cinescape1.R
 import com.cinescape1.data.models.requestModel.ForgotPasswordRequest
@@ -34,7 +33,7 @@ import javax.inject.Inject
 @SuppressLint("CustomSplashScreen")
 @ActivityScoped
 class ResetPasswordActivity : DaggerAppCompatActivity() {
-    private var loader: LoaderDialog? = null
+    private var loader: Dialog? = null
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject
@@ -276,8 +275,8 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        loader = LoaderDialog(R.string.pleasewait)
-                        loader?.show(supportFragmentManager, null)
+                        loader = LoaderDialog.getInstance(this,layoutInflater)
+                        loader?.show()
                     }
                 }
             }
@@ -330,8 +329,8 @@ class ResetPasswordActivity : DaggerAppCompatActivity() {
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        loader = LoaderDialog(R.string.pleasewait)
-                        loader?.show(supportFragmentManager, null)
+                        loader = LoaderDialog.getInstance(this,layoutInflater)
+                        loader?.show()
                     }
                 }
             }

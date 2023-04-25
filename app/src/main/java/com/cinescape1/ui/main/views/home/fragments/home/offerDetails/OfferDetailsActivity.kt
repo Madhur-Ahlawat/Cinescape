@@ -10,6 +10,7 @@ import android.view.View
 import android.view.WindowManager
 import android.webkit.WebViewClient
 import androidx.activity.viewModels
+import android.app.Dialog
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.cinescape1.R
@@ -32,7 +33,7 @@ import javax.inject.Inject
 @SuppressLint("CustomSplashScreen")
 @ActivityScoped
 class OfferDetailsActivity : DaggerAppCompatActivity() {
-    private var loader: LoaderDialog? = null
+    private var loader: Dialog? = null
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -110,8 +111,8 @@ class OfferDetailsActivity : DaggerAppCompatActivity() {
                         Status.ERROR -> {
                         }
                         Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
+                            loader = LoaderDialog.getInstance(this,layoutInflater)
+                            loader?.show()
                         }
                     }
                 }

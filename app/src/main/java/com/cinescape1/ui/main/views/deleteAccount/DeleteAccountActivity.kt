@@ -1,5 +1,6 @@
 package com.cinescape1.ui.main.views.deleteAccount
 
+import android.app.Dialog
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
@@ -36,7 +37,7 @@ class DeleteAccountActivity : DaggerAppCompatActivity() {
     lateinit var preferences: AppPreferences
     private val deleteAccountViewModel: DeleteAccountViewModel by viewModels { viewModelFactory }
     private var binding: DeleteAccountLayoutBinding? = null
-    private var loader: LoaderDialog? = null
+    private var loader: Dialog? = null
 
     private var message = ""
     private var userId = ""
@@ -222,8 +223,8 @@ class DeleteAccountActivity : DaggerAppCompatActivity() {
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        loader = LoaderDialog(R.string.pleasewait)
-                        loader?.show(supportFragmentManager, null)
+                        loader = LoaderDialog.getInstance(this,layoutInflater)
+                        loader?.show()
                     }
                 }
             }

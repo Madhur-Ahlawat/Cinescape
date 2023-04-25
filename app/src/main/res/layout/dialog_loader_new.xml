@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/transparent"
+    android:padding="24dp"
+    android:elevation="5dp"
+    android:layout_gravity="center"
+    android:gravity="center"
+    tools:context=".ui.main.dailogs.LoaderDialog"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/margin10"
+        app:cardBackgroundColor="@color/transparent"
+        app:contentPadding="@dimen/margin10"
+        app:cardUseCompatPadding="true">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/progress"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/loader"
+                android:background="@color/transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <ImageView
+                android:id="@+id/imageView19"
+                android:layout_width="@dimen/margin40"
+                android:layout_height="@dimen/margin40"
+                android:src="@drawable/ic_logo"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/progress"
+                app:layout_constraintEnd_toEndOf="@+id/progress"
+                app:layout_constraintStart_toStartOf="@+id/progress"
+                app:layout_constraintTop_toTopOf="@+id/progress"
+                tools:ignore="ContentDescription" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <TextView
+        android:id="@+id/pleaseWait"
+        android:fontFamily="@font/sf_pro_text_semibold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pleasewait"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textSize="@dimen/size16"
+        android:lineSpacingExtra="@dimen/size1"
+        app:layout_constraintEnd_toEndOf="@id/progress"
+        app:layout_constraintStart_toStartOf="@id/progress"
+        app:layout_constraintTop_toBottomOf="@id/progress" />
+
+    <TextView
+        android:id="@+id/message"
+        android:fontFamily="@font/sf_pro_text_semibold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="We are processing\nyour details"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/margin15"
+        android:visibility="gone"
+        android:gravity="center"
+        android:textSize="@dimen/size14"
+        android:lineSpacingExtra="@dimen/margin3"
+        app:layout_constraintEnd_toEndOf="@id/pleaseWait"
+        app:layout_constraintStart_toStartOf="@id/pleaseWait"
+        app:layout_constraintTop_toBottomOf="@id/pleaseWait" />
+
+</LinearLayout>

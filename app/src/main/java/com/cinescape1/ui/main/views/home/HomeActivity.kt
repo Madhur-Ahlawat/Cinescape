@@ -1,6 +1,7 @@
 package com.cinescape1.ui.main.views.home
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.BroadcastReceiver
 import android.content.Intent
@@ -13,7 +14,6 @@ import android.os.Bundle
 import android.view.*
 import android.widget.AdapterView
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -72,7 +72,7 @@ class HomeActivity : DaggerAppCompatActivity(),
     private var timeback: Long = 0
     private var mAlertDialog: AlertDialog? = null
     private var cinemaId = ""
-    private var loader: LoaderDialog? = null
+    private var loader: Dialog? = null
     private var spinner: AppCompatSpinner? = null
     private var locationlist = ArrayList<FoodResponse.Output.Cinema>()
     private var broadcastReceiver: BroadcastReceiver? = null

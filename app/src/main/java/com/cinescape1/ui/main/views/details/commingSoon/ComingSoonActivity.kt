@@ -7,6 +7,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
 import androidx.activity.viewModels
+import android.app.Dialog
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -33,7 +34,7 @@ import javax.inject.Inject
 class ComingSoonActivity : DaggerAppCompatActivity(),
     SimilarMovieAdapter.RecycleViewItemClickListener,
     AdpaterShowTimesCast.TypeFaceListenerShowTime {
-    private var loader: LoaderDialog? = null
+    private var loader: Dialog? = null
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -209,8 +210,8 @@ class ComingSoonActivity : DaggerAppCompatActivity(),
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        loader = LoaderDialog(R.string.pleasewait)
-                        loader?.show(supportFragmentManager, null)
+                        loader = LoaderDialog.getInstance(this,layoutInflater)
+                        loader?.show()
                     }
                 }
             }

@@ -1,6 +1,7 @@
 package com.cinescape1.ui.main.views.details.cinemaLocation
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.IntentFilter
@@ -16,7 +17,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.*
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
+import android.app.Dialog
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -76,7 +77,7 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
     private var datePosition = ""
     private var dt = ""
     private var showTime = ""
-    private var loader: LoaderDialog? = null
+    private var loader: Dialog? = null
     private var showDataCSessionResponse: CSessionResponse.Output? = null
     private var showData: CinemaSessionResponse.Output? = null
     private var totalPriceResponse: Double = 0.0
@@ -248,8 +249,8 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                             dialog.show()
                         }
                         Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
+                            loader = LoaderDialog.getInstance(this,layoutInflater)
+                            loader?.show()
                         }
                     }
                 }
@@ -367,8 +368,8 @@ class CinemaLocationActivity : DaggerAppCompatActivity(),
                         }
                         Status.LOADING -> {
                             println("loading--->Seat")
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
+                            loader = LoaderDialog.getInstance(this,layoutInflater)
+                            loader?.show()
                         }
                     }
                 }

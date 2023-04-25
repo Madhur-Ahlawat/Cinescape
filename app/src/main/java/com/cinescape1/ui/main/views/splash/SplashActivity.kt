@@ -5,7 +5,6 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Handler
@@ -19,8 +18,6 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
-import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.cinescape1.R
 import com.cinescape1.data.preference.AppPreferences
 import com.cinescape1.di.scoped.ActivityScoped
@@ -29,9 +26,6 @@ import com.cinescape1.ui.main.dailogs.OptionDialog
 import com.cinescape1.ui.main.views.player.viewModel.SplashViewModel
 import com.cinescape1.ui.main.views.home.HomeActivity
 import com.cinescape1.ui.main.views.login.LoginActivity
-import com.cinescape1.ui.main.views.login.otpVerification.OtpVerificationActivity
-import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity
-import com.cinescape1.ui.main.views.prefrence.UserPreferencesActivity
 import com.cinescape1.utils.Constant
 import com.cinescape1.utils.LocaleHelper
 import com.cinescape1.utils.Status
@@ -44,7 +38,7 @@ import javax.inject.Inject
 @SuppressLint("CustomSplashScreen")
 @ActivityScoped
 class SplashActivity : DaggerAppCompatActivity() {
-    private var loader: LoaderDialog? = null
+    private var loader: Dialog? = null
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject

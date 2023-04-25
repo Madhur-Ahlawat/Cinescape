@@ -68,7 +68,7 @@ import java.util.*
 
 
 class PaymentListAdapter(
-    private val context: Activity,
+    private val context: Context,
     private val payMode: ArrayList<PaymentListResponse.Output.PayMode>,
     private val listner: RecycleViewItemClickListener, private val viewModel: SummeryViewModel
 ) : RecyclerView.Adapter<PaymentListAdapter.PaymentListViewHolder>(),
@@ -466,6 +466,7 @@ class PaymentListAdapter(
                     }
                 }
                 if (giftCardAppliedFull) {
+
                     binding?.apply {
                         headerUi.isEnabled = true
                         headerUi.isFocusable = true
@@ -497,9 +498,9 @@ class PaymentListAdapter(
                         headerUi.isFocusable = true
                         headerUi.isClickable = true
                         etEnterGiftCardNumber?.apply {
+                            isClickable = true
                             isEnabled = true
                             isFocusable = true
-                            isClickable = true
                         }
                         textviewCancelGiftCard.hide()
                         tvApplyGiftCard.show()
@@ -885,10 +886,10 @@ class PaymentListAdapter(
     }
 
     override fun onSpinnerOpened(spinner: AppCompatSpinner?) {
-        Glide.with(context).load(context.resources.getDrawable(R.drawable.arrow_up)).into((binding as ItemBankOfferBinding).ivDropdownSpinner)
+        Glide.with((binding as ItemBankOfferBinding).ivDropdownSpinner.context).load(context.resources.getDrawable(R.drawable.arrow_up)).into((binding as ItemBankOfferBinding).ivDropdownSpinner)
     }
     override fun onSpinnerClosed(spinner: AppCompatSpinner?) {
-        Glide.with(context).load(context.resources.getDrawable(R.drawable.arrow_down)).into((binding as ItemBankOfferBinding).ivDropdownSpinner)
+        Glide.with((binding as ItemBankOfferBinding).ivDropdownSpinner.context).load(context.resources.getDrawable(R.drawable.arrow_down)).into((binding as ItemBankOfferBinding).ivDropdownSpinner)
     }
 
 }

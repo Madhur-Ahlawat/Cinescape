@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.app.Dialog
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -35,7 +36,7 @@ class FoodFragment : DaggerFragment(), AdapterView.OnItemSelectedListener {
     lateinit var preferences: AppPreferences
     private val homeViewModel: HomeViewModel by viewModels { viewModelFactory }
     private var binding: FragmentFoodBinding? = null
-    private var loader: LoaderDialog? = null
+    private var loader: Dialog? = null
     private var locationlist = ArrayList<FoodResponse.Output.Cinema>()
     private var cinemaId = ""
     private var yourLocation: String = ""
@@ -177,8 +178,8 @@ class FoodFragment : DaggerFragment(), AdapterView.OnItemSelectedListener {
                             dialog.show()
                         }
                         Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(requireActivity().supportFragmentManager, null)
+                            loader = LoaderDialog.getInstance(requireContext(),layoutInflater)
+                            loader?.show()
                         }
                     }
                 }

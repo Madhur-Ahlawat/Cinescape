@@ -15,6 +15,7 @@ import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
+import android.app.Dialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -52,7 +53,7 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
     private var binding: ActivityUserPreferencesBinding? = null
     private var MyReceiver: BroadcastReceiver? = null
     private var ageRatingList: java.util.ArrayList<ProfileResponse.Output.Rating>? = null
-    private var loader: LoaderDialog? = null
+    private var loader: Dialog? = null
     private var profileList: ArrayList<ProfileResponse.Output.Experience>? = null
     private val list: ArrayList<ModelPreferenceExperience> = arrayListOf(
         ModelPreferenceExperience(R.drawable.img_vip,0),
@@ -221,8 +222,8 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
                             dialog.show()
                         }
                         Status.LOADING -> {
-//                            loader = LoaderDialog(R.string.pleasewait)
-//                            loader?.show(requireActivity().supportFragmentManager, null)
+//                            loader = LoaderDialog.getInstance(this,layoutInflater)
+//                            loader?.show()
                         }
                     }
                 }
@@ -1006,8 +1007,8 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
                             dialog.show()
                         }
                         Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
+                            loader = LoaderDialog.getInstance(this,layoutInflater)
+                            loader?.show()
                         }
                     }
                 }
@@ -1050,8 +1051,8 @@ class UserPreferencesActivity : DaggerAppCompatActivity() {
                             dialog.show()
                         }
                         Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
+                            loader = LoaderDialog.getInstance(this,layoutInflater)
+                            loader?.show()
                         }
                     }
                 }

@@ -1,6 +1,7 @@
 package com.cinescape1.ui.main.views.finalTicket
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Bitmap
@@ -14,7 +15,6 @@ import android.text.Html
 import android.view.*
 import android.widget.TextView
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.isDigitsOnly
@@ -52,7 +52,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
     FinalTicketParentAdapter.TypeFaceFinalTicketTwo,
     FinalTicketParentAdapter.TypeFaceFinalTicketThree {
 
-    private var loader: LoaderDialog? = null
+    private var loader: Dialog? = null
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -339,8 +339,8 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        loader = LoaderDialog(R.string.pleasewait)
-                        loader?.show(supportFragmentManager, null)
+                        loader = LoaderDialog.getInstance(this,layoutInflater)
+                        loader?.show()
                     }
                 }
             }
@@ -568,8 +568,8 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        loader = LoaderDialog(R.string.pleasewait)
-                        loader?.show(supportFragmentManager, null)
+                        loader = LoaderDialog.getInstance(this,layoutInflater)
+                        loader?.show()
                     }
                 }
             }
@@ -699,8 +699,8 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        loader = LoaderDialog(R.string.pleasewait)
-                        loader?.show(this@FinalTicketActivity.supportFragmentManager, null)
+                        loader = LoaderDialog.getInstance(this,layoutInflater)
+                        loader?.show()
                     }
                 }
             }
@@ -782,7 +782,7 @@ class FinalTicketActivity : DaggerAppCompatActivity(),
                         dialog.show()
                     }
                     Status.LOADING -> {
-//                            loader = LoaderDialog(R.string.pleasewait)
+//                            loader = LoaderDialog.getInstance(this,layoutInflater)
 //                            loader?.show(this@FinalTicketActivity.supportFragmentManager, null)
                     }
                 }

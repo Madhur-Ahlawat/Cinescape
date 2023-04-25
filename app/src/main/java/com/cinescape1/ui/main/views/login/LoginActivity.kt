@@ -2,6 +2,7 @@ package com.cinescape1.ui.main.views.login
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.*
@@ -11,14 +12,11 @@ import android.net.ConnectivityManager.CONNECTIVITY_ACTION
 import android.os.Bundle
 import android.text.*
 import android.text.InputFilter.LengthFilter
-import android.text.Layout.Alignment
 import android.util.Log
-import android.view.Gravity
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -72,7 +70,7 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private var loader: LoaderDialog? = null
+    private var loader: Dialog? = null
 
     @Inject
     lateinit var preferences: AppPreferences
@@ -832,8 +830,8 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        loader = LoaderDialog(R.string.pleasewait)
-                        loader?.show(supportFragmentManager, null)
+                        loader = LoaderDialog.getInstance(this,layoutInflater)
+                        loader?.show()
                     }
                 }
             }
@@ -1000,8 +998,8 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        loader = LoaderDialog(R.string.pleasewait)
-                        loader?.show(supportFragmentManager, null)
+                        loader = LoaderDialog.getInstance(this,layoutInflater)
+                        loader?.show()
                     }
                 }
             }
@@ -1090,8 +1088,8 @@ class LoginActivity : DaggerAppCompatActivity(), CountryCodeAdapter.RecycleViewI
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        loader = LoaderDialog(R.string.pleasewait)
-                        loader?.show(supportFragmentManager, null)
+                        loader = LoaderDialog.getInstance(this,layoutInflater)
+                        loader?.show()
                     }
                 }
             }

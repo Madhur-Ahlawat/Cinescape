@@ -2,6 +2,7 @@ package com.cinescape1.ui.main.views.seatLayout
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.IntentFilter
@@ -68,7 +69,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
     private var cinemaPos1 = 0
     private var seatQuantity = 0
     private var seatQt = 0
-    private var loader: LoaderDialog? = null
+    private var loader: Dialog? = null
     private var passingValArrayList: ArrayList<ReserveSeatRequest.ReseveSeatVO> = ArrayList()
     private var dateTime = ""
     private var movieId = ""
@@ -274,8 +275,8 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                         }
 
                         Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
+                            loader = LoaderDialog.getInstance(this,layoutInflater)
+                            loader?.show()
                         }
                     }
                 }
@@ -549,7 +550,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
         )
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(R.color.black50))
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(this@SeatScreenMainActivity.resources.getColor(R.color.black50)))
         dialog.show()
 
 
@@ -689,8 +690,8 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                         }
 
                         Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
+                            loader = LoaderDialog.getInstance(this,layoutInflater)
+                            loader?.show()
                         }
                     }
                 }

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
+import android.app.Dialog
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -42,7 +43,7 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
     lateinit var preferences: AppPreferences
     private val homeViewModel: HomeViewModel by viewModels { viewModelFactory }
     private var binding: FragmentHomeBinding? = null
-    private var loader: LoaderDialog? = null
+    private var loader: Dialog? = null
     private var broadcastReceiver: BroadcastReceiver? = null
     var homeTitle1: TextView? = null
     var txtSeeAll1: TextView? = null
@@ -168,8 +169,8 @@ class HomeFragment : DaggerFragment(), HomeParentAdapter.RecycleViewItemClickLis
                         }
                         Status.LOADING -> {
                             if (isAdded) {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(requireActivity().supportFragmentManager, null)
+                            loader = LoaderDialog.getInstance(requireContext(),layoutInflater)
+                            loader?.show()
                         }
                         }
                     }

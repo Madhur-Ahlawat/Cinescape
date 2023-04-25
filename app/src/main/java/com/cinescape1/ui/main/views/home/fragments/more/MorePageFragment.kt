@@ -3,7 +3,7 @@ package com.cinescape1.ui.main.views.home.fragments.more
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.Dialog
+import android.app.AlertDialog
 import android.content.*
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -24,7 +24,7 @@ import android.view.WindowManager
 import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
+import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
@@ -76,7 +76,7 @@ class MorePageFragment : DaggerFragment(),
     @Inject
     lateinit var preferences: AppPreferences
     private var binding: FragmentMorePageBinding? = null
-    private var loader: LoaderDialog? = null
+    private var loader: Dialog? = null
     private val moreInfoViewModel: MoreInfoViewModel by viewModels { viewModelFactory }
     private var responseData: MoreTabResponse? = null
     private var responseData1: ArrayList<MoreTabResponse.Faq.Faqs>? = null
@@ -762,8 +762,8 @@ class MorePageFragment : DaggerFragment(),
 
                         Status.LOADING -> {
                             if (isAdded) {
-                                loader = LoaderDialog(R.string.pleasewait)
-                                loader?.show(requireActivity().supportFragmentManager, null)
+                                loader = LoaderDialog.getInstance(requireContext(),layoutInflater)
+                                loader?.show()
                             }
                         }
                     }
@@ -825,8 +825,8 @@ class MorePageFragment : DaggerFragment(),
                         }
 
                         Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(requireActivity().supportFragmentManager, null)
+                            loader = LoaderDialog.getInstance(requireContext(),layoutInflater)
+                            loader?.show()
                         }
                     }
                 }
@@ -897,8 +897,8 @@ class MorePageFragment : DaggerFragment(),
                         }
 
                         Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(requireActivity().supportFragmentManager, null)
+                            loader = LoaderDialog.getInstance(requireContext(),layoutInflater)
+                            loader?.show()
                         }
                     }
                 }

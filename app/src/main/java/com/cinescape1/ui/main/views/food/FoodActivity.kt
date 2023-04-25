@@ -2,6 +2,7 @@ package com.cinescape1.ui.main.views.food
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+
 import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.IntentFilter
@@ -16,6 +17,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
+import android.app.Dialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -103,7 +105,7 @@ class FoodActivity : DaggerAppCompatActivity(),
     private var sessionId = ""
     private var booktype = ""
     private var skipBtn = ""
-    private var loader: LoaderDialog? = null
+    private var loader: Dialog? = null
     private var tabItem: GetFoodResponse.ConcessionTab? = null
     private var tabItemArr: List<GetFoodResponse.ConcessionTab> = ArrayList()
     private var broadcastReceiver: BroadcastReceiver? = null
@@ -1008,8 +1010,8 @@ class FoodActivity : DaggerAppCompatActivity(),
                             dialog.show()
                         }
                         Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
+                            loader = LoaderDialog.getInstance(this,layoutInflater)
+                            loader?.show()
                         }
                     }
                 }
@@ -1076,8 +1078,8 @@ class FoodActivity : DaggerAppCompatActivity(),
                             dialog.show()
                         }
                         Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
+                            loader = LoaderDialog.getInstance(this,layoutInflater)
+                            loader?.show()
                         }
                     }
                 }

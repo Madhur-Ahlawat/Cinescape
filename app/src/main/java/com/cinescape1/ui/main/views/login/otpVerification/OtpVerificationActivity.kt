@@ -3,9 +3,8 @@ package com.cinescape1.ui.main.views.login.otpVerification
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.view.View
-import android.view.WindowManager
 import androidx.activity.viewModels
+import android.app.Dialog
 import androidx.lifecycle.ViewModelProvider
 import com.cinescape1.R
 import com.cinescape1.data.models.requestModel.OtpVerifyRequest
@@ -25,7 +24,7 @@ import javax.inject.Inject
 class OtpVerificationActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private var loader: LoaderDialog? = null
+    private var loader: Dialog? = null
 
     @Inject
     lateinit var preferences: AppPreferences
@@ -311,8 +310,8 @@ class OtpVerificationActivity : DaggerAppCompatActivity() {
                         dialog.show()
                     }
                     Status.LOADING -> {
-                        loader = LoaderDialog(R.string.pleasewait)
-                        loader?.show(supportFragmentManager, null)
+                        loader = LoaderDialog.getInstance(this,layoutInflater)
+                        loader?.show()
                     }
                 }
             }

@@ -3,6 +3,7 @@ package com.cinescape1.ui.main.views.payment.paymentFaield
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import android.app.Dialog
 import androidx.lifecycle.ViewModelProvider
 import com.cinescape1.R
 import com.cinescape1.data.models.requestModel.FinalTicketRequest
@@ -26,7 +27,7 @@ class PaymentFailedActivity : DaggerAppCompatActivity() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private var binding: ActivityPaymentFailedBinding? = null
     private val paymentFailedViewModel: PaymentFailedViewModel by viewModels { viewModelFactory }
-    private var loader: LoaderDialog? = null
+    private var loader: Dialog? = null
 
     private var bookingId = ""
     private var transId = ""
@@ -106,8 +107,8 @@ class PaymentFailedActivity : DaggerAppCompatActivity() {
                             dialog.show()
                         }
                         Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
+                            loader = LoaderDialog.getInstance(this,layoutInflater)
+                            loader?.show()
                         }
                     }
                 }

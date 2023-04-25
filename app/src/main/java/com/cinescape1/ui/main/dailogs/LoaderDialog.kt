@@ -1,47 +1,45 @@
 package com.cinescape1.ui.main.dailogs
 
+import android.R
+import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.DialogFragment
-import com.cinescape1.R
+import android.view.Window
+import android.view.WindowManager
 import com.cinescape1.databinding.DialogLoaderBinding
 
-class LoaderDialog(private val message: Int) : DialogFragment() {
-    private var binding: DialogLoaderBinding? = null
 
-    companion object{
-        var dialog:LoaderDialog?=null
-        fun getInstance(message:Int): LoaderDialog? {
-            if(dialog==null){
-                dialog=LoaderDialog(message)
+class LoaderDialog private constructor(context: Context) : Dialog(context) {
+    companion object {
+        var binding: DialogLoaderBinding? = null
+        var dialogs: MutableList<Dialog>? = mutableListOf()
+        var loaderAlertDialog: Dialog? = null
+        fun getInstance(context: Context, layoutInflater: LayoutInflater): Dialog? {
+            if (loaderAlertDialog != null) {
+                loaderAlertDialog?.dismiss()
+                loaderAlertDialog = null
             }
-            return dialog
+            binding = DialogLoaderBinding.inflate(layoutInflater)
+            loaderAlertDialog = Dialog(context, android.R.style.Theme_Translucent_NoTitleBar)
+            loaderAlertDialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            loaderAlertDialog?.setContentView(binding!!.root)
+            val window: Window? = loaderAlertDialog?.window
+            val wlp: WindowManager.LayoutParams? = window?.attributes
+            wlp?.gravity = Gravity.CENTER
+            wlp?.flags = wlp?.flags?.and(WindowManager.LayoutParams.FLAG_BLUR_BEHIND.inv())
+            window?.attributes = wlp
+            loaderAlertDialog?.window?.setLayout(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT
+            )
+            loaderAlertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            loaderAlertDialog!!.setCancelable(false)
+            dialogs!!.add(loaderAlertDialog!!)
+            return loaderAlertDialog
         }
-    }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, R.style.AppTheme_Dialog)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        isCancelable = false
-        return DialogLoaderBinding.inflate(inflater, container, false).also {
-            binding = it
-        }.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
     }
 
 }

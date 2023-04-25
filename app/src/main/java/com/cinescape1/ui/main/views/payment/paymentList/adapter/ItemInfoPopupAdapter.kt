@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.paymnet_info_item.view.*
 
 class ItemInfoPopupAdapter(
     private var context: Activity,
-    private var respPayModes: ArrayList<PaymentListResponse.Output.PayInfo>,
+    private var respPayModes: MutableList<PaymentListResponse.Output.PayInfo>,
 ) : RecyclerView.Adapter<ItemInfoPopupAdapter.ItemInfoPopupViewHolder>() {
 
     @SuppressLint("InflateParams")

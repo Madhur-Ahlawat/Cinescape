@@ -1,7 +1,6 @@
 package com.cinescape1.ui.main.views.summery
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.Dialog
 import android.content.BroadcastReceiver
 import android.content.Intent
@@ -58,7 +57,7 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
 
     @Inject
     lateinit var preferences: AppPreferences
-    private var loader: LoaderDialog? = null
+    private var loader: Dialog? = null
     private val summeryViewModel: SummeryViewModel by viewModels { viewModelFactory }
     private var binding: ActivityCheckoutWithFoodBinding? = null
     private var up = true
@@ -389,8 +388,8 @@ class SummeryActivity : DaggerAppCompatActivity(), SummerySeatListAdapter.TypeFa
                             dialog.show()
                         }
                         Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(supportFragmentManager, null)
+                            loader = LoaderDialog.getInstance(this,layoutInflater)
+                            loader?.show()
                         }
                     }
                 }

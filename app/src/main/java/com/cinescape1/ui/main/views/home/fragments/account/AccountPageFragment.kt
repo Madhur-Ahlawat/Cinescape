@@ -1,8 +1,8 @@
 package com.cinescape1.ui.main.views.home.fragments.account
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.DatePickerDialog
-import android.app.Dialog
 import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.IntentFilter
@@ -17,7 +17,7 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.*
 import android.widget.*
-import androidx.appcompat.app.AlertDialog
+import android.app.Dialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.content.res.ResourcesCompat
@@ -106,7 +106,7 @@ class AccountPageFragment : DaggerFragment(),
     lateinit var preferences: AppPreferences
 
     private var binding: FragmentAccountPageBinding? = null
-    private var loader: LoaderDialog? = null
+    private var loader: Dialog? = null
     private var profileList: ArrayList<ProfileResponse.Output.Experience>? = null
     private var ageRatingList: ArrayList<ProfileResponse.Output.Rating>? = null
     private val accountFragViewModel: AccountFragViewModel by viewModels { viewModelFactory }
@@ -1794,8 +1794,8 @@ class AccountPageFragment : DaggerFragment(),
                     }
 
                     Status.LOADING -> {
-                        loader = LoaderDialog(R.string.pleasewait)
-                        loader?.show(requireActivity().supportFragmentManager, null)
+                        loader = LoaderDialog.getInstance(requireContext(),layoutInflater)
+                        loader?.show()
                     }
                 }
             }
@@ -2532,8 +2532,8 @@ class AccountPageFragment : DaggerFragment(),
                     }
 
                     Status.LOADING -> {
-//                            loader = LoaderDialog(R.string.pleasewait)
-//                            loader?.show(requireActivity().supportFragmentManager, null)
+//                            loader = LoaderDialog.getInstance(requireContext(),layoutInflater)
+//                            loader?.show()
                     }
                 }
             }
@@ -2725,8 +2725,8 @@ class AccountPageFragment : DaggerFragment(),
                     }
 
                     Status.LOADING -> {
-//                            loader = LoaderDialog(R.string.pleasewait)
-//                            loader?.show(requireActivity().supportFragmentManager, null)
+//                            loader = LoaderDialog.getInstance(requireContext(),layoutInflater)
+//                            loader?.show()
                     }
                 }
             }
@@ -2866,8 +2866,8 @@ class AccountPageFragment : DaggerFragment(),
                         }
 
                         Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(childFragmentManager, null)
+                            loader = LoaderDialog.getInstance(requireContext(),layoutInflater)
+                            loader?.show()
                         }
                     }
                 }
@@ -2946,8 +2946,8 @@ class AccountPageFragment : DaggerFragment(),
                     }
 
                     Status.LOADING -> {
-//                            loader = LoaderDialog(R.string.pleasewait)
-//                            loader?.show(supportFragmentManager, null)
+//                            loader = LoaderDialog.getInstance(requireContext(),layoutInflater)
+//                            loader?.show()
                     }
                 }
             }
@@ -3113,8 +3113,8 @@ class AccountPageFragment : DaggerFragment(),
 
                     Status.LOADING -> {
                         if (isAdded) {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(childFragmentManager, null)
+                            loader = LoaderDialog.getInstance(requireContext(),layoutInflater)
+                            loader?.show()
                         }
 
                     }
@@ -3191,8 +3191,8 @@ class AccountPageFragment : DaggerFragment(),
                     Status.LOADING -> {
 
                         if (isAdded) {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(requireActivity().supportFragmentManager, null)
+                            loader = LoaderDialog.getInstance(requireContext(),layoutInflater)
+                            loader?.show()
                         }
 
                     }
@@ -3250,8 +3250,8 @@ class AccountPageFragment : DaggerFragment(),
 
                     Status.LOADING -> {
 //                        if (isAdded) {
-//                            loader = LoaderDialog(R.string.pleasewait)
-//                            loader?.show(requireActivity().supportFragmentManager, null)
+//                            loader = LoaderDialog.getInstance(requireContext(),layoutInflater)
+//                            loader?.show()
 //                        }
                     }
                 }
@@ -3345,8 +3345,8 @@ class AccountPageFragment : DaggerFragment(),
                     Status.LOADING -> {
 
                         if (isAdded) {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(requireActivity().supportFragmentManager, null)
+                            loader = LoaderDialog.getInstance(requireContext(),layoutInflater)
+                            loader?.show()
                         }
 
                     }
@@ -3573,8 +3573,8 @@ class AccountPageFragment : DaggerFragment(),
                     }
 
                     Status.LOADING -> {
-                        loader = LoaderDialog(R.string.pleasewait)
-                        loader?.show(requireActivity().supportFragmentManager, null)
+                        loader = LoaderDialog.getInstance(requireContext(),layoutInflater)
+                        loader?.show()
                     }
                 }
             }
@@ -3644,8 +3644,8 @@ class AccountPageFragment : DaggerFragment(),
                     }
 
                     Status.LOADING -> {
-                        loader = LoaderDialog(R.string.pleasewait)
-                        loader?.show(requireActivity().supportFragmentManager, null)
+                        loader = LoaderDialog.getInstance(requireContext(),layoutInflater)
+                        loader?.show()
                     }
                 }
             }
@@ -3699,8 +3699,8 @@ class AccountPageFragment : DaggerFragment(),
                     }
 
                     Status.LOADING -> {
-                        loader = LoaderDialog(R.string.pleasewait)
-                        loader?.show(requireActivity().supportFragmentManager, null)
+                        loader = LoaderDialog.getInstance(requireContext(),layoutInflater)
+                        loader?.show()
                     }
                 }
             }
@@ -3754,8 +3754,8 @@ class AccountPageFragment : DaggerFragment(),
 
                     Status.LOADING -> {
                         if (isAdded) {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(requireActivity().supportFragmentManager, null)
+                            loader = LoaderDialog.getInstance(requireContext(),layoutInflater)
+                            loader?.show()
                         }
 
                     }

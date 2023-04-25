@@ -6,6 +6,7 @@ import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
 import androidx.activity.viewModels
+import android.app.Dialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,7 +36,7 @@ class SeeAllActivity : DaggerAppCompatActivity() {
     private var binding: ActivitySeeAllBinding? = null
     private var parentLayoutManager: RecyclerView.LayoutManager? = null
     private var type: String? = null
-    private var loader: LoaderDialog? = null
+    private var loader: Dialog? = null
     private var broadcastReceiver: BroadcastReceiver? = null
 
     @SuppressLint("SetTextI18n")
@@ -110,8 +111,8 @@ class SeeAllActivity : DaggerAppCompatActivity() {
                             dialog.show()
                         }
                         Status.LOADING -> {
-                            loader = LoaderDialog(R.string.pleasewait)
-                            loader?.show(this.supportFragmentManager, null)
+                            loader = LoaderDialog.getInstance(this,layoutInflater)
+                            loader?.show()
                         }
                     }
                 }
