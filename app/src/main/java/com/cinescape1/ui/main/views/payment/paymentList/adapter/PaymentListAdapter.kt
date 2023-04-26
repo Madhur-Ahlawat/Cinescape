@@ -51,7 +51,10 @@ import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Comp
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.knetSelected
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.offerCode
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.offerId
+import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.payInfos
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.selectedCardType
+import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.ticketPrice
+import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.totalAmount
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.walletApplied
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.walletAppliedFull
 import com.cinescape1.ui.main.views.payment.paymentList.PaymentListActivity.Companion.walletClicked
@@ -76,16 +79,16 @@ class PaymentListAdapter(
 
     private var binding: ViewDataBinding? = null
     private var pos: Int = -1
-    public var customAdapter: BankOfferAdapter? = null
+    private var customAdapter: BankOfferAdapter? = null
     val list: ArrayList<PaymentListResponse.Output.PayMode.RespPayMode.PayModeBank> =
         ArrayList()
 
     init {
-        list?.clear()
+        list.clear()
     }
 
     private fun initSpinnerAdapter(respPayModes: ArrayList<PaymentListResponse.Output.PayMode.RespPayMode>) {
-        list?.clear()
+        list.clear()
         list.add(
             PaymentListResponse.Output.PayMode.RespPayMode.PayModeBank(
                 0,
@@ -97,9 +100,7 @@ class PaymentListAdapter(
     }
 
     inner class PaymentListViewHolder(val binding: ViewDataBinding?, var viewType: Int) :
-        ViewHolder(binding!!.root) {
-
-    }
+        ViewHolder(binding!!.root)
 
     @SuppressLint("InflateParams")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentListViewHolder {
@@ -136,16 +137,22 @@ class PaymentListAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (position == 0) {
-            return 0
-        } else if (position == 1) {
-            return 1
-        } else if (position == 2) {
-            return 2
-        } else if (position == 3) {
-            return 3
-        } else {
-            return 0
+        return when (position) {
+            0 -> {
+                0
+            }
+            1 -> {
+                1
+            }
+            2 -> {
+                2
+            }
+            3 -> {
+                3
+            }
+            else -> {
+                0
+            }
         }
     }
 
@@ -155,296 +162,266 @@ class PaymentListAdapter(
         @SuppressLint("RecyclerView") position: Int
     ) {
         pos = -1
-        if (holder.viewType == 0) {
-            var binding = holder.binding as ItemBankOfferBinding
-            with(payMode[position]) {
-                binding?.apply {
-                    headerUi.show()
-                    headerOfferType.text = name
-                    headerUi.setOnClickListener {
-                        pos = position
-                        if (bankClicked) {
-                            bankClicked = false
-                        } else {
-                            bankClicked = true
-                        }
-                        notifyItemChanged(pos)
-                    }
-                    textviewCancelBankOffer.setOnClickListener {
-                        pos = position
-                        val offerCode = binding.etEnterBankOfferCardNumber.text.toString()
-                        listner.bankItemRemove(
-                            offerId,
-                            offerCode
-                        )
-                    }
-                    textviewApplyBankOffer.setOnClickListener {
-                        cardNo =
-                            binding.etEnterBankOfferCardNumber.text.toString()
-                                .replace(" ", "")
-                        if (cardNo == "") {
-
-                            val dialog = OptionDialog(context,
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                "Bank offer can not be empty",
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
-
-                        } else if (cardNo.length != 16) {
-                            val dialog = OptionDialog(context,
-                                R.mipmap.ic_launcher,
-                                R.string.app_name,
-                                "Enter valid card number.",
-                                positiveBtnText = R.string.ok,
-                                negativeBtnText = R.string.no,
-                                positiveClick = {},
-                                negativeClick = {})
-                            dialog.show()
-                        } else {
-                            listner.bankItemApply(
-                                offerId,
-                                cardNo
-                            )
-
-                        }
-                    }
-                    etEnterBankOfferCardNumber.addTextChangedListener(object : TextWatcher {
-                        val space = ' '
-                        override fun beforeTextChanged(
-                            s: CharSequence?,
-                            start: Int,
-                            count: Int,
-                            after: Int
-                        ) {
-                        }
-
-                        override fun onTextChanged(
-                            s: CharSequence?,
-                            start: Int,
-                            before: Int,
-                            count: Int
-                        ) {
-                        }
-
-                        override fun afterTextChanged(s: Editable?) {
-                            // Remove spacing char
-                            if (s!!.length > 0 && s!!.length % 5 == 0) {
-                                val c = s[s.length - 1]
-                                if (space == c) {
-                                    s.delete(s.length - 1, s.length)
-                                }
-                            }
-                            // Insert char where needed.
-                            if (s.length > 0 && s!!.length % 5 == 0) {
-                                val c = s[s.length - 1]
-                                // Only if its a digit where there should be a space we insert a space
-                                if (Character.isDigit(c) && TextUtils.split(
-                                        s.toString(),
-                                        space.toString()
-                                    ).size <= 3
-                                ) {
-                                    s.insert(s.length - 1, space.toString())
-                                }
-                            }
-                            if (s.toString().length < 19) {
-                                binding?.apply {
-                                    textviewApplyBankOffer.hide()
-                                }
+        when (holder.viewType) {
+            0 -> {
+                var binding = holder.binding as ItemBankOfferBinding
+                with(payMode[position]) {
+                    binding.apply {
+                        headerUi.show()
+                        headerOfferType.text = name
+                        headerUi.setOnClickListener {
+                            pos = position
+                            if (bankClicked) {
+                                bankClicked = false
                             } else {
-                                binding?.apply {
-                                    textviewApplyBankOffer.show()
-                                }
+                                bankClicked = true
                             }
+                            notifyItemChanged(pos)
                         }
-                    })
-                    if (bankEnabled) {
-                        headerUi.isClickable = true
-                        headerUi.isEnabled = true
-                        headerUi.isFocusable = true
-                        headerOfferType.setTextColor(context.resources.getColor(R.color.white))
-                        ivDropdown.setColorFilter(context.resources.getColor(R.color.white))
-                    } else {
-                        bankClicked = false
-                        bankApplied = false
-                        headerOfferType.setTextColor(context.resources.getColor(R.color.gray))
-                        ivDropdown.setColorFilter(context.resources.getColor(R.color.gray))
-                        headerUi.isClickable = false
-                        headerUi.isEnabled = false
-                        headerUi.isFocusable = false
-
-                    }
-                }
-                //title
-                initSpinnerAdapter(respPayModes)
-
-                if (!PaymentListActivity.spinnerClickable) {
-                    binding.spinnerCardOptions?.apply {
-                        setEnabled(false);
-                        setClickable(false);
-                    }
-                } else {
-                    binding.spinnerCardOptions?.apply {
-                        setEnabled(true);
-                        setClickable(true);
-                    }
-                }
-                binding?.apply {
-                    headerOfferType.text = name
-                    spinnerCardOptions?.apply {
-                        prompt = context.resources.getString(R.string.available_bank_offers)
-                        setBackgroundColor(
-                            context.resources.getColor(
-                                R.color.white
+                        textviewCancelBankOffer.setOnClickListener {
+                            pos = position
+                            val offerCode = binding.etEnterBankOfferCardNumber.text.toString()
+                            listner.bankItemRemove(
+                                offerId,
+                                offerCode
                             )
-                        )
-                        if (adapter == null || !(adapter is BankOfferAdapter)) {
-                            adapter = customAdapter
                         }
-                        setListenerCallback(this@PaymentListAdapter)
-                        binding.spinnerCardOptions.onItemSelectedListener =
-                            object : AdapterView.OnItemSelectedListener {
-                                override fun onItemSelected(
-                                    parent: AdapterView<*>,
-                                    view: View,
-                                    position: Int,
-                                    id: Long
-                                ) {
-                                    selectedCardType = position
-                                    println("customAdapterPosition------>${position}")
-                                    offerId = list[position].id.toString()
-                                    if (position == 0) {
+                        textviewApplyBankOffer.setOnClickListener {
+                            cardNo =
+                                binding.etEnterBankOfferCardNumber.text.toString()
+                                    .replace(" ", "")
+                            if (cardNo == "") {
 
-                                        binding?.apply {
-                                            clEnterCardNumber.hide()
-                                            textviewApplyBankOffer.hide()
-                                            textviewCancelBankOffer.hide()
-                                            textviewApplyBankOffer.hide()
-                                            textviewCancelBankOffer.hide()
-                                        }
-                                    } else {
-                                        binding?.apply {
-                                            etEnterBankOfferCardNumber.isEnabled = true
-                                            clEnterCardNumber.show()
-//                                    textviewApplyBankOffer.show()
-//                                    textviewCancelBankOffer.hide()
-                                        }
+                                val dialog = OptionDialog(context,
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    "Bank offer can not be empty",
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
 
+                            } else if (cardNo.length != 16) {
+                                val dialog = OptionDialog(context,
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    "Enter valid card number.",
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
+                            } else {
+                                listner.bankItemApply(
+                                    offerId,
+                                    cardNo
+                                )
+
+                            }
+                        }
+                        etEnterBankOfferCardNumber.addTextChangedListener(object : TextWatcher {
+                            val space = ' '
+                            override fun beforeTextChanged(
+                                s: CharSequence?,
+                                start: Int,
+                                count: Int,
+                                after: Int
+                            ) {
+                            }
+
+                            override fun onTextChanged(
+                                s: CharSequence?,
+                                start: Int,
+                                before: Int,
+                                count: Int
+                            ) {
+                            }
+
+                            override fun afterTextChanged(s: Editable?) {
+                                // Remove spacing char
+                                if (s!!.length > 0 && s.length % 5 == 0) {
+                                    val c = s[s.length - 1]
+                                    if (space == c) {
+                                        s.delete(s.length - 1, s.length)
                                     }
-
-                                    val value =
-                                        parent.getItemAtPosition(position) as PaymentListResponse.Output.PayMode.RespPayMode.PayModeBank
-                                    view.setBackgroundColor(Color.parseColor("#000000"))
-                                    if (value == list[0]) {
-                                        (view as ConstraintLayout).findViewById<TextView>(R.id.textView21)
-                                            .setTextColor(Color.parseColor("#ADADAD"))
-                                    }
-
                                 }
-
-                                override fun onNothingSelected(parent: AdapterView<*>?) {
-                                    TODO("Not yet implemented")
+                                // Insert char where needed.
+                                if (s.length > 0 && s.length % 5 == 0) {
+                                    val c = s[s.length - 1]
+                                    // Only if its a digit where there should be a space we insert a space
+                                    if (Character.isDigit(c) && TextUtils.split(
+                                            s.toString(),
+                                            space.toString()
+                                        ).size <= 3
+                                    ) {
+                                        s.insert(s.length - 1, space.toString())
+                                    }
+                                }
+                                if (s.toString().length < 19) {
+                                    binding.apply {
+                                        textviewApplyBankOffer.hide()
+                                    }
+                                } else {
+                                    binding.apply {
+                                        textviewApplyBankOffer.show()
+                                    }
                                 }
                             }
-                        if (bankApplied) {
-                            spinnerCardOptions?.apply {
-                                isClickable = false
-                                isEnabled = false
-                                isFocusable = false
-                            }
-                            textviewCancelBankOffer.show()
-                            textviewApplyBankOffer.hide()
-                            etEnterBankOfferCardNumber.isEnabled = false
-                            tvOfferAppliedForNTickets.show()
+                        })
+                        if (bankEnabled) {
+                            headerUi.isClickable = true
+                            headerUi.isEnabled = true
+                            headerUi.isFocusable = true
+                            headerOfferType.setTextColor(context.resources.getColor(R.color.white))
+                            ivDropdown.setColorFilter(context.resources.getColor(R.color.white))
                         } else {
-                            spinnerCardOptions?.apply {
-                                isClickable = true
-                                isEnabled = true
-                                isFocusable = true
-                            }
-                            textviewCancelBankOffer.hide()
-                            textviewApplyBankOffer.show()
-                            etEnterBankOfferCardNumber.isEnabled = true
-                            tvOfferAppliedForNTickets.hide()
-                        }
+                            bankClicked = false
+                            bankApplied = false
+                            headerOfferType.setTextColor(context.resources.getColor(R.color.gray))
+                            ivDropdown.setColorFilter(context.resources.getColor(R.color.gray))
+                            headerUi.isClickable = false
+                            headerUi.isEnabled = false
+                            headerUi.isFocusable = false
 
-                        if (bankClicked) {
-                            ivDropdown.setImageResource(R.drawable.arrow_up)
-                            bankOfferUi.show()
-                            if (!bankApplied) {
+                        }
+                    }
+                    //title
+                    initSpinnerAdapter(respPayModes)
+
+                    if (!PaymentListActivity.spinnerClickable) {
+                        binding.spinnerCardOptions.apply {
+                            setEnabled(false)
+                            setClickable(false)
+                        }
+                    } else {
+                        binding.spinnerCardOptions.apply {
+                            setEnabled(true)
+                            setClickable(true)
+                        }
+                    }
+                    binding.apply {
+                        headerOfferType.text = name
+                        spinnerCardOptions.apply {
+                            prompt = context.resources.getString(R.string.available_bank_offers)
+                            setBackgroundColor(
+                                context.resources.getColor(
+                                    R.color.white
+                                )
+                            )
+                            if (adapter == null || !(adapter is BankOfferAdapter)) {
+                                adapter = customAdapter
+                            }
+                            setListenerCallback(this@PaymentListAdapter)
+                            binding.spinnerCardOptions.onItemSelectedListener =
+                                object : AdapterView.OnItemSelectedListener {
+                                    override fun onItemSelected(
+                                        parent: AdapterView<*>,
+                                        view: View,
+                                        position: Int,
+                                        id: Long
+                                    ) {
+                                        selectedCardType = position
+                                        println("customAdapterPosition------>${position}")
+                                        offerId = list[position].id.toString()
+                                        if (position == 0) {
+
+                                            binding.apply {
+                                                clEnterCardNumber.hide()
+                                                textviewApplyBankOffer.hide()
+                                                textviewCancelBankOffer.hide()
+                                                textviewApplyBankOffer.hide()
+                                                textviewCancelBankOffer.hide()
+                                            }
+                                        } else {
+                                            binding.apply {
+                                                etEnterBankOfferCardNumber.isEnabled = true
+                                                clEnterCardNumber.show()
+                                                //                                    textviewApplyBankOffer.show()
+                                                //                                    textviewCancelBankOffer.hide()
+                                            }
+
+                                        }
+
+                                        val value =
+                                            parent.getItemAtPosition(position) as PaymentListResponse.Output.PayMode.RespPayMode.PayModeBank
+                                        view.setBackgroundColor(Color.parseColor("#000000"))
+                                        if (value == list[0]) {
+                                            (view as ConstraintLayout).findViewById<TextView>(R.id.textView21)
+                                                .setTextColor(Color.parseColor("#ADADAD"))
+                                        }
+
+                                    }
+
+                                    override fun onNothingSelected(parent: AdapterView<*>?) {
+                                        TODO("Not yet implemented")
+                                    }
+                                }
+                            if (bankApplied) {
+                                spinnerCardOptions.apply {
+                                    isClickable = false
+                                    isEnabled = false
+                                    isFocusable = false
+                                }
+                                textviewCancelBankOffer.show()
+                                textviewApplyBankOffer.hide()
+                                etEnterBankOfferCardNumber.isEnabled = false
+                                tvOfferAppliedForNTickets.show()
+                            } else {
+                                spinnerCardOptions.apply {
+                                    isClickable = true
+                                    isEnabled = true
+                                    isFocusable = true
+                                }
                                 textviewCancelBankOffer.hide()
-                                if (etEnterBankOfferCardNumber.isVisible && etEnterBankOfferCardNumber.text.toString().length >= 19) {
-                                    textviewApplyBankOffer.show()
+                                textviewApplyBankOffer.show()
+                                etEnterBankOfferCardNumber.isEnabled = true
+                                tvOfferAppliedForNTickets.hide()
+                            }
+
+                            if (bankClicked) {
+                                ivDropdown.setImageResource(R.drawable.arrow_up)
+                                bankOfferUi.show()
+                                if (!bankApplied) {
+                                    textviewCancelBankOffer.hide()
+                                    if (etEnterBankOfferCardNumber.isVisible && etEnterBankOfferCardNumber.text.toString().length >= 19) {
+                                        textviewApplyBankOffer.show()
+                                    } else {
+                                        textviewApplyBankOffer.hide()
+                                    }
                                 } else {
                                     textviewApplyBankOffer.hide()
+                                    textviewCancelBankOffer.show()
+
                                 }
                             } else {
-                                textviewApplyBankOffer.hide()
-                                textviewCancelBankOffer.show()
-
+                                ivDropdown.setImageResource(R.drawable.arrow_down)
+                                bankOfferUi.hide()
                             }
-                        } else {
-                            ivDropdown.setImageResource(R.drawable.arrow_down)
-                            bankOfferUi.hide()
                         }
-                    }
 
+                    }
                 }
             }
-        }
-            else if (holder.viewType == 1) {
-            with(payMode[position]) {
-                var binding = holder.binding as ItemGiftCardBinding
-                binding?.apply {
-                    headerOfferType.text = name
-                    headerUi.show()
-                    headerUi.setOnClickListener {
-                        pos = position
-                        if (giftCardClicked) {
-                            giftCardClicked = false
-                        } else {
-                            giftCardClicked = true
+            1 -> {
+                with(payMode[position]) {
+                    var binding = holder.binding as ItemGiftCardBinding
+                    binding.apply {
+                        headerOfferType.text = name
+                        headerUi.show()
+                        headerUi.setOnClickListener {
+                            pos = position
+                            if (giftCardClicked) {
+                                giftCardClicked = false
+                            } else {
+                                giftCardClicked = true
+                            }
+                            notifyItemChanged(pos)
                         }
-                        notifyItemChanged(pos)
                     }
-                }
-                binding.tvApplyGiftCard.setOnClickListener {
-                    clickName = "Gift Card"
-                    offerCode = binding.etEnterGiftCardNumber!!.text.toString()
-                    if (offerCode == "") {
-                        val dialog = OptionDialog(context,
-                            R.mipmap.ic_launcher,
-                            R.string.app_name,
-                            "$clickName can not be empty",
-                            positiveBtnText = R.string.ok,
-                            negativeBtnText = R.string.no,
-                            positiveClick = {},
-                            negativeClick = {})
-                        dialog.show()
-                    } else {
-                        listner.onVoucherApply(
-                            this,
-                            offerCode!!,
-                            clickName,
-                            clickId
-                        )
-                    }
-                }
-                binding.textviewCancelGiftCard.setOnClickListener {
-                    clickName = "Gift Card"
-                    if (giftCardAppliedFull) {
-                        giftCardApplied = false
-                        giftCardAppliedFull = false
-                        bankEnabled = true
-                        walletEnabled = true
-                        knetEnabled = true
-                        creditCardEnabled = true
-                        notifyDataSetChanged()
-                    } else if (giftCardApplied) {
-                        offerCode = binding.etEnterGiftCardNumber!!.text.toString()
+                    binding.tvApplyGiftCard.setOnClickListener {
+                        clickName = "Gift Card"
+                        offerCode = binding.etEnterGiftCardNumber.text.toString()
                         if (offerCode == "") {
                             val dialog = OptionDialog(context,
                                 R.mipmap.ic_launcher,
@@ -456,7 +433,7 @@ class PaymentListAdapter(
                                 negativeClick = {})
                             dialog.show()
                         } else {
-                            listner.onGiftCardItemRemove(
+                            listner.onVoucherApply(
                                 this,
                                 offerCode!!,
                                 clickName,
@@ -464,300 +441,303 @@ class PaymentListAdapter(
                             )
                         }
                     }
-                }
-                if (giftCardAppliedFull) {
-
-                    binding?.apply {
-                        headerUi.isEnabled = true
-                        headerUi.isFocusable = true
-                        headerUi.isClickable = true
-                        etEnterGiftCardNumber?.apply {
-                            isClickable = false
-                            isEnabled = false
-                            isFocusable = false
-                        }
-                        textviewCancelGiftCard.show()
-                        tvApplyGiftCard.hide()
-                    }
-                } else if (giftCardApplied) {
-                    binding?.apply {
-                        headerUi.isEnabled = true
-                        headerUi.isFocusable = true
-                        headerUi.isClickable = true
-                        etEnterGiftCardNumber?.apply {
-                            isEnabled = false
-                            isFocusable = false
-                            isClickable = false
-                        }
-                        textviewCancelGiftCard.show()
-                        tvApplyGiftCard.hide()
-                    }
-                } else {
-                    binding?.apply {
-                        headerUi.isEnabled = true
-                        headerUi.isFocusable = true
-                        headerUi.isClickable = true
-                        etEnterGiftCardNumber?.apply {
-                            isClickable = true
-                            isEnabled = true
-                            isFocusable = true
-                        }
-                        textviewCancelGiftCard.hide()
-                        tvApplyGiftCard.show()
-                    }
-                }
-                if (giftCardEnabled) {
-                    binding?.apply {
-                        headerOfferType.setTextColor(context.resources.getColor(R.color.white))
-                        ivDropdown.setColorFilter(context.resources.getColor(R.color.white))
-                        headerUi.isClickable = true
-                        headerUi.isEnabled = true
-                        headerUi.isFocusable = true
-                    }
-                } else {
-                    giftCardClicked = false
-                    giftCardApplied = false
-                    giftCardAppliedFull = false
-                    binding?.apply {
-                        headerOfferType.setTextColor(context.resources.getColor(R.color.gray))
-                        ivDropdown.setColorFilter(context.resources.getColor(R.color.gray))
-                        headerUi.isClickable = false
-                        headerUi.isEnabled = false
-                        headerUi.isFocusable = false
-                    }
-                }
-                if (giftCardClicked) {
-                    binding?.apply {
-                        headerUi.show()
-                        giftCardUi.show()
-                        ivDropdown.setImageResource(R.drawable.arrow_up)
-                    }
-                } else {
-                    binding?.apply {
-                        headerUi.show()
-                        giftCardUi.hide()
-                        ivDropdown.setImageResource(R.drawable.arrow_down)
-
-                    }
-                }
-            }
-        } else if (holder.viewType == 2) {
-            with(payMode[position]) {
-                var binding = holder.binding as ItemWalletUiBinding
-                binding?.apply {
-                    headerOfferType.text = name
-                    headerUi.show()
-                    walletUi.show()
-                    headerUi.setOnClickListener {
-                        pos = position
-                        if (walletClicked) {
-                            walletClicked = false
-                        } else {
-                            walletClicked = true
-                        }
-                        notifyItemChanged(pos)
-                    }
-                    textviewBtWalletApply.setOnClickListener {
-                        listner.newWalletApplyApply(payFull = false)
-                    }
-                    textviewBtWalletCancel.setOnClickListener {
-                        if (walletAppliedFull) {
-                            pos = position
+                    binding.textviewCancelGiftCard.setOnClickListener {
+                        clickName = "Gift Card"
+                        if (giftCardAppliedFull) {
+                            giftCardApplied = false
+                            giftCardAppliedFull = false
                             bankEnabled = true
-                            giftCardEnabled = true
-                            knetSelected = false
-                            creditCardSelected = false
-                            creditCardEnabled = true
+                            walletEnabled = true
                             knetEnabled = true
-                            walletApplied = false
-                            walletAppliedFull = false
+                            creditCardEnabled = true
                             notifyDataSetChanged()
-                        } else {
-                            listner.onNewWalletRemove()
+                            totalAmount= ticketPrice
+                            payInfos.clear()
+                            giftCardEnabled=true
+                            payInfos.add(PaymentListResponse.Output.PayInfo("KWD "+ ticketPrice,true,"Ticket Price"))
+                            if(context is PaymentListActivity){
+                                (context as PaymentListActivity).resetTotalAmount()
+                            }
+                        } else if (giftCardApplied) {
+                            offerCode = binding.etEnterGiftCardNumber.text.toString()
+                            if (offerCode == "") {
+                                val dialog = OptionDialog(context,
+                                    R.mipmap.ic_launcher,
+                                    R.string.app_name,
+                                    "$clickName can not be empty",
+                                    positiveBtnText = R.string.ok,
+                                    negativeBtnText = R.string.no,
+                                    positiveClick = {},
+                                    negativeClick = {})
+                                dialog.show()
+                            } else {
+                                listner.onGiftCardItemRemove(
+                                    this,
+                                    offerCode!!,
+                                    clickName,
+                                    clickId
+                                )
+                            }
                         }
                     }
-                }
-                if (walletApplied) {
-                    binding?.apply {
-                        textviewBtWalletApply.hide()
-                        textviewBtWalletCancel.show()
-                    }
+                    if (giftCardAppliedFull) {
 
-                } else {
-                    binding?.apply {
-                        textviewBtWalletApply.show()
-                        textviewBtWalletCancel.hide()
+                        binding.apply {
+                            headerUi.isEnabled = true
+                            headerUi.isFocusable = true
+                            headerUi.isClickable = true
+                            etEnterGiftCardNumber.apply {
+                                isClickable = false
+                                isEnabled = false
+                                isFocusable = false
+                            }
+                            textviewCancelGiftCard.show()
+                            tvApplyGiftCard.hide()
+                        }
+                    } else if (giftCardApplied) {
+                        binding.apply {
+                            headerUi.isEnabled = true
+                            headerUi.isFocusable = true
+                            headerUi.isClickable = true
+                            etEnterGiftCardNumber.apply {
+                                isEnabled = false
+                                isFocusable = false
+                                isClickable = false
+                            }
+                            textviewCancelGiftCard.show()
+                            tvApplyGiftCard.hide()
+                        }
+                    } else {
+                        binding.apply {
+                            headerUi.isEnabled = true
+                            headerUi.isFocusable = true
+                            headerUi.isClickable = true
+                            etEnterGiftCardNumber.apply {
+                                isEnabled = true
+                                isFocusable = true
+                                isClickable = true
+                                invalidate()
+                            }
+                            textviewCancelGiftCard.hide()
+                            tvApplyGiftCard.show()
+                        }
                     }
-                }
-                if (walletEnabled) {
-                    binding?.apply {
-                        headerOfferType.setTextColor(context.resources.getColor(R.color.white))
-                        ivDropdown.setColorFilter(context.resources.getColor(R.color.white))
+                    if (giftCardEnabled) {
+                        binding.apply {
+                            headerOfferType.setTextColor(context.resources.getColor(R.color.white))
+                            ivDropdown.setColorFilter(context.resources.getColor(R.color.white))
+                            headerUi.isClickable = true
+                            headerUi.isEnabled = true
+                            headerUi.isFocusable = true
+                        }
+                    } else {
+                        giftCardClicked = false
+                        giftCardApplied = false
+                        giftCardAppliedFull = false
+                        binding.apply {
+                            headerOfferType.setTextColor(context.resources.getColor(R.color.gray))
+                            ivDropdown.setColorFilter(context.resources.getColor(R.color.gray))
+                            headerUi.isClickable = false
+                            headerUi.isEnabled = false
+                            headerUi.isFocusable = false
+                        }
+                    }
+                    if (giftCardClicked) {
+                        binding.apply {
+                            headerUi.show()
+                            giftCardUi.show()
+                            ivDropdown.setImageResource(R.drawable.arrow_up)
+                        }
+                    } else {
+                        binding.apply {
+                            headerUi.show()
+                            giftCardUi.hide()
+                            ivDropdown.setImageResource(R.drawable.arrow_down)
 
-                        headerUi.isClickable = true
-                        headerUi.isEnabled = true
-                        headerUi.isFocusable = true
-                    }
-                } else {
-                    walletClicked = false
-                    walletApplied = false
-                    binding?.apply {
-                        headerOfferType.setTextColor(context.resources.getColor(R.color.gray))
-                        ivDropdown.setColorFilter(context.resources.getColor(R.color.gray))
-                        headerUi.isClickable = false
-                        headerUi.isEnabled = false
-                        headerUi.isFocusable = false
-                    }
-                }
-                if (walletClicked) {
-                    binding?.apply {
-                        walletUi.show()
-                        textViewWalletBalance.text =
-                            context.getString(R.string.wallet_balance) + respPayModes[0].balance
-                        ivDropdown.setImageResource(R.drawable.arrow_up)
-                    }
-                } else {
-                    binding?.apply {
-                        ivDropdown.setImageResource(R.drawable.arrow_down)
-                        walletUi.hide()
+                        }
                     }
                 }
             }
-        } else if (holder.viewType == 3) {
-            with(payMode[position]) {
-                var binding = holder.binding as ItemGatewayUiBinding
-                binding?.apply {
-                    ivDropdown.hide()
-                    headerOfferType.text = name
-                    headerUi.show()
-                    knetCcUi.show()
-
-                    knet.setOnClickListener {
-                        knetSelected = true
-                        creditCardSelected = false
-                        pos = position
-                        notifyDataSetChanged()
-                    }
-                    creditCard.setOnClickListener {
-                        knetSelected = false
-                        creditCardSelected = true
-                        pos = position
-                        notifyDataSetChanged()
-                    }
-                }
-                if (knetEnabled) {
-                    binding?.apply {
-                        knet.apply {
-                            isClickable = true
-                            isFocusable = true
-                            isEnabled = true
-                        }
-                        imageKnet.setColorFilter(context.resources.getColor(R.color.white))
-                    }
-                } else {
-                    binding?.apply {
-                        knet.apply {
-                            isClickable = false
-                            isFocusable = false
-                            isEnabled = false
-                        }
-                        imageKnet.setColorFilter(context.resources.getColor(R.color.gray))
-                    }
-                }
-                if (creditCardEnabled) {
-
-                    binding?.apply {
-                        creditCard?.apply {
-                            isClickable = true
-                            isFocusable = true
-                            isEnabled = true
-                        }
-                        imageCreditCard.setColorFilter(context.resources.getColor(R.color.white))
-                    }
-                } else {
-                    binding?.apply {
-                        creditCard.apply {
-                            isClickable = false
-                            isFocusable = false
-                            isEnabled = false
-                        }
-                        imageCreditCard.setColorFilter(context.resources.getColor(R.color.gray))
-                    }
-                }
-                if (!(knetEnabled && creditCardEnabled)) {
-                    binding?.apply {
-                        headerOfferType.setTextColor(context.resources.getColor(R.color.gray))
-                    }
-                } else {
-                    binding?.apply {
-                        headerOfferType.setTextColor(context.resources.getColor(R.color.white))
-                    }
-                }
-                Glide.with(context)
-                    .load(this.respPayModes[1].imageUrl)
-                    .listener(object : RequestListener<Drawable> {
-                        override fun onLoadFailed(
-                            e: GlideException?,
-                            model: Any?,
-                            target: Target<Drawable>?,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            if (creditCardSelected) {
-                                holder.binding.apply {
-                                    imageCreditCard.setColorFilter(
-                                        ContextCompat.getColor(
-                                            context,
-                                            R.color.red
-                                        )
-                                    )
-                                    textCreditCardName.setTextColor(context.getColor(R.color.red))
-                                }
+            2 -> {
+                with(payMode[position]) {
+                    var binding = holder.binding as ItemWalletUiBinding
+                    binding.apply {
+                        headerOfferType.text = name
+                        headerUi.show()
+                        walletUi.show()
+                        headerUi.setOnClickListener {
+                            pos = position
+                            if (walletClicked) {
+                                walletClicked = false
                             } else {
-                                holder.binding.apply {
-                                    imageCreditCard.setColorFilter(
-                                        ContextCompat.getColor(
-                                            context,
-                                            R.color.white
-                                        )
-                                    )
-                                    textCreditCardName.setTextColor(context.getColor(R.color.white))
-                                }
+                                walletClicked = true
                             }
-                            //do something if error loading
-                            return false
+                            notifyItemChanged(pos)
+                        }
+                        textviewBtWalletApply.setOnClickListener {
+                            listner.newWalletApplyApply(payFull = false)
+                        }
+                        textviewBtWalletCancel.setOnClickListener {
+                            if (walletAppliedFull) {
+                                pos = position
+                                bankEnabled = true
+                                giftCardEnabled = true
+                                knetSelected = false
+                                creditCardSelected = false
+                                creditCardEnabled = true
+                                knetEnabled = true
+                                walletApplied = false
+                                walletAppliedFull = false
+                                totalAmount= ticketPrice
+                                payInfos.clear()
+                                payInfos.add(PaymentListResponse.Output.PayInfo("KWD "+ ticketPrice,true,"Ticket Price"))
+                                if(context is PaymentListActivity){
+                                    (context as PaymentListActivity).resetTotalAmount()
+                                }
+                                notifyDataSetChanged()
+                            } else {
+                                listner.onNewWalletRemove()
+                            }
+                        }
+                    }
+                    if (walletApplied) {
+                        binding.apply {
+                            textviewBtWalletApply.hide()
+                            textviewBtWalletCancel.show()
                         }
 
-                        override fun onResourceReady(
-                            resource: Drawable?,
-                            model: Any?,
-                            target: com.bumptech.glide.request.target.Target<Drawable>?,
-                            dataSource: DataSource?,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            Log.d(TAG, "OnResourceReady")
-                            if (creditCardSelected) {
-                                holder.binding.apply {
-                                    imageCreditCard.setColorFilter(
-                                        ContextCompat.getColor(
-                                            context,
-                                            R.color.red
-                                        )
-                                    )
-                                    textCreditCardName.setTextColor(context.getColor(R.color.red))
-                                }
-                            } else {
-                                if (!creditCardEnabled) {
-                                    binding.apply {
+                    } else {
+                        binding.apply {
+                            textviewBtWalletApply.show()
+                            textviewBtWalletCancel.hide()
+                        }
+                    }
+                    if (walletEnabled) {
+                        binding.apply {
+                            headerOfferType.setTextColor(context.resources.getColor(R.color.white))
+                            ivDropdown.setColorFilter(context.resources.getColor(R.color.white))
+
+                            headerUi.isClickable = true
+                            headerUi.isEnabled = true
+                            headerUi.isFocusable = true
+                        }
+                    } else {
+                        walletClicked = false
+                        walletApplied = false
+                        binding.apply {
+                            headerOfferType.setTextColor(context.resources.getColor(R.color.gray))
+                            ivDropdown.setColorFilter(context.resources.getColor(R.color.gray))
+                            headerUi.isClickable = false
+                            headerUi.isEnabled = false
+                            headerUi.isFocusable = false
+                        }
+                    }
+                    if (walletClicked) {
+                        binding.apply {
+                            walletUi.show()
+                            textViewWalletBalance.text =
+                                context.getString(R.string.wallet_balance) + respPayModes[0].balance
+                            ivDropdown.setImageResource(R.drawable.arrow_up)
+                        }
+                    } else {
+                        binding.apply {
+                            ivDropdown.setImageResource(R.drawable.arrow_down)
+                            walletUi.hide()
+                        }
+                    }
+                }
+            }
+            3 -> {
+                with(payMode[position]) {
+                    var binding = holder.binding as ItemGatewayUiBinding
+                    binding.apply {
+                        ivDropdown.hide()
+                        headerOfferType.text = name
+                        headerUi.show()
+                        knetCcUi.show()
+
+                        knet.setOnClickListener {
+                            knetSelected = true
+                            creditCardSelected = false
+                            pos = position
+                            notifyDataSetChanged()
+                        }
+                        creditCard.setOnClickListener {
+                            knetSelected = false
+                            creditCardSelected = true
+                            pos = position
+                            notifyDataSetChanged()
+                        }
+                    }
+                    if (knetEnabled) {
+                        binding.apply {
+                            knet.apply {
+                                isClickable = true
+                                isFocusable = true
+                                isEnabled = true
+                            }
+                            imageKnet.setColorFilter(context.resources.getColor(R.color.white))
+                        }
+                    } else {
+                        binding.apply {
+                            knet.apply {
+                                isClickable = false
+                                isFocusable = false
+                                isEnabled = false
+                            }
+                            imageKnet.setColorFilter(context.resources.getColor(R.color.gray))
+                        }
+                    }
+                    if (creditCardEnabled) {
+
+                        binding.apply {
+                            creditCard.apply {
+                                isClickable = true
+                                isFocusable = true
+                                isEnabled = true
+                            }
+                            imageCreditCard.setColorFilter(context.resources.getColor(R.color.white))
+                        }
+                    } else {
+                        binding.apply {
+                            creditCard.apply {
+                                isClickable = false
+                                isFocusable = false
+                                isEnabled = false
+                            }
+                            imageCreditCard.setColorFilter(context.resources.getColor(R.color.gray))
+                        }
+                    }
+                    if (!(knetEnabled && creditCardEnabled)) {
+                        binding.apply {
+                            headerOfferType.setTextColor(context.resources.getColor(R.color.gray))
+                        }
+                    } else {
+                        binding.apply {
+                            headerOfferType.setTextColor(context.resources.getColor(R.color.white))
+                        }
+                    }
+                    Glide.with(context)
+                        .load(this.respPayModes[1].imageUrl)
+                        .listener(object : RequestListener<Drawable> {
+                            override fun onLoadFailed(
+                                e: GlideException?,
+                                model: Any?,
+                                target: Target<Drawable>?,
+                                isFirstResource: Boolean
+                            ): Boolean {
+                                if (creditCardSelected) {
+                                    holder.binding.apply {
                                         imageCreditCard.setColorFilter(
                                             ContextCompat.getColor(
                                                 context,
-                                                R.color.gray
+                                                R.color.red
                                             )
                                         )
-                                        textCreditCardName.setTextColor(context.getColor(R.color.gray))
+                                        textCreditCardName.setTextColor(context.getColor(R.color.red))
                                     }
                                 } else {
-                                    binding.apply {
+                                    holder.binding.apply {
                                         imageCreditCard.setColorFilter(
                                             ContextCompat.getColor(
                                                 context,
@@ -767,106 +747,151 @@ class PaymentListAdapter(
                                         textCreditCardName.setTextColor(context.getColor(R.color.white))
                                     }
                                 }
+                                //do something if error loading
+                                return false
                             }
-                            return false
-                        }
-                    })
-                    .into(binding.imageCreditCard)
 
-                Glide.with(context)
-                    .load(this.respPayModes[0].imageUrl)
-                    .listener(object : RequestListener<Drawable> {
-                        override fun onLoadFailed(
-                            e: GlideException?,
-                            model: Any?,
-                            target: com.bumptech.glide.request.target.Target<Drawable>?,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            if (knetSelected) {
-                                binding.apply {
-                                    textKnetName.setTextColor(context.getColor(R.color.red))
-                                    imageKnet.setColorFilter(
-                                        ContextCompat.getColor(
-                                            context,
-                                            R.color.red
-                                        )
-                                    )
-                                }
-                            } else {
-                                if (!knetEnabled) {
-                                    binding.apply {
-                                        imageKnet.setColorFilter(
+                            override fun onResourceReady(
+                                resource: Drawable?,
+                                model: Any?,
+                                target: com.bumptech.glide.request.target.Target<Drawable>?,
+                                dataSource: DataSource?,
+                                isFirstResource: Boolean
+                            ): Boolean {
+                                Log.d(TAG, "OnResourceReady")
+                                if (creditCardSelected) {
+                                    holder.binding.apply {
+                                        imageCreditCard.setColorFilter(
                                             ContextCompat.getColor(
                                                 context,
-                                                R.color.gray
+                                                R.color.red
                                             )
                                         )
-                                        textKnetName.setTextColor(context.getColor(R.color.gray))
+                                        textCreditCardName.setTextColor(context.getColor(R.color.red))
                                     }
                                 } else {
-                                    binding.apply {
-                                        imageKnet.setColorFilter(
-                                            ContextCompat.getColor(
-                                                context,
-                                                R.color.white
+                                    if (!creditCardEnabled) {
+                                        binding.apply {
+                                            imageCreditCard.setColorFilter(
+                                                ContextCompat.getColor(
+                                                    context,
+                                                    R.color.gray
+                                                )
                                             )
-                                        )
-                                        textKnetName.setTextColor(context.getColor(R.color.white))
+                                            textCreditCardName.setTextColor(context.getColor(R.color.gray))
+                                        }
+                                    } else {
+                                        binding.apply {
+                                            imageCreditCard.setColorFilter(
+                                                ContextCompat.getColor(
+                                                    context,
+                                                    R.color.white
+                                                )
+                                            )
+                                            textCreditCardName.setTextColor(context.getColor(R.color.white))
+                                        }
                                     }
                                 }
+                                return false
                             }
-                            //do something if error loading
-                            return false
-                        }
+                        })
+                        .into(binding.imageCreditCard)
 
-                        override fun onResourceReady(
-                            resource: Drawable?,
-                            model: Any?,
-                            target: com.bumptech.glide.request.target.Target<Drawable>?,
-                            dataSource: DataSource?,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            Log.d(TAG, "OnResourceReady")
-                            if (knetSelected) {
-                                binding.apply {
-                                    textKnetName.setTextColor(context.getColor(R.color.red))
-                                    imageKnet.setColorFilter(
-                                        ContextCompat.getColor(
-                                            context,
-                                            R.color.red
-                                        )
-                                    )
-                                }
-                            } else {
-                                if (!knetEnabled) {
+                    Glide.with(context)
+                        .load(this.respPayModes[0].imageUrl)
+                        .listener(object : RequestListener<Drawable> {
+                            override fun onLoadFailed(
+                                e: GlideException?,
+                                model: Any?,
+                                target: com.bumptech.glide.request.target.Target<Drawable>?,
+                                isFirstResource: Boolean
+                            ): Boolean {
+                                if (knetSelected) {
                                     binding.apply {
+                                        textKnetName.setTextColor(context.getColor(R.color.red))
                                         imageKnet.setColorFilter(
                                             ContextCompat.getColor(
                                                 context,
-                                                R.color.gray
+                                                R.color.red
                                             )
                                         )
-                                        textKnetName.setTextColor(context.getColor(R.color.gray))
                                     }
                                 } else {
+                                    if (!knetEnabled) {
+                                        binding.apply {
+                                            imageKnet.setColorFilter(
+                                                ContextCompat.getColor(
+                                                    context,
+                                                    R.color.gray
+                                                )
+                                            )
+                                            textKnetName.setTextColor(context.getColor(R.color.gray))
+                                        }
+                                    } else {
+                                        binding.apply {
+                                            imageKnet.setColorFilter(
+                                                ContextCompat.getColor(
+                                                    context,
+                                                    R.color.white
+                                                )
+                                            )
+                                            textKnetName.setTextColor(context.getColor(R.color.white))
+                                        }
+                                    }
+                                }
+                                //do something if error loading
+                                return false
+                            }
+
+                            override fun onResourceReady(
+                                resource: Drawable?,
+                                model: Any?,
+                                target: com.bumptech.glide.request.target.Target<Drawable>?,
+                                dataSource: DataSource?,
+                                isFirstResource: Boolean
+                            ): Boolean {
+                                Log.d(TAG, "OnResourceReady")
+                                if (knetSelected) {
                                     binding.apply {
+                                        textKnetName.setTextColor(context.getColor(R.color.red))
                                         imageKnet.setColorFilter(
                                             ContextCompat.getColor(
                                                 context,
-                                                R.color.white
+                                                R.color.red
                                             )
                                         )
-                                        textKnetName.setTextColor(context.getColor(R.color.white))
                                     }
-                                }
+                                } else {
+                                    if (!knetEnabled) {
+                                        binding.apply {
+                                            imageKnet.setColorFilter(
+                                                ContextCompat.getColor(
+                                                    context,
+                                                    R.color.gray
+                                                )
+                                            )
+                                            textKnetName.setTextColor(context.getColor(R.color.gray))
+                                        }
+                                    } else {
+                                        binding.apply {
+                                            imageKnet.setColorFilter(
+                                                ContextCompat.getColor(
+                                                    context,
+                                                    R.color.white
+                                                )
+                                            )
+                                            textKnetName.setTextColor(context.getColor(R.color.white))
+                                        }
+                                    }
 
+                                }
+                                return false
                             }
-                            return false
-                        }
-                    })
-                    .into(binding.imageKnet)
+                        })
+                        .into(binding.imageKnet)
+                }
+
             }
-
         }
     }
 
@@ -886,10 +911,14 @@ class PaymentListAdapter(
     }
 
     override fun onSpinnerOpened(spinner: AppCompatSpinner?) {
-        Glide.with((binding as ItemBankOfferBinding).ivDropdownSpinner.context).load(context.resources.getDrawable(R.drawable.arrow_up)).into((binding as ItemBankOfferBinding).ivDropdownSpinner)
+        if(binding is ItemBankOfferBinding){
+            Glide.with((binding as ItemBankOfferBinding).ivDropdownSpinner.context).load(context.resources.getDrawable(R.drawable.arrow_up)).into((binding as ItemBankOfferBinding).ivDropdownSpinner)
+        }
     }
     override fun onSpinnerClosed(spinner: AppCompatSpinner?) {
-        Glide.with((binding as ItemBankOfferBinding).ivDropdownSpinner.context).load(context.resources.getDrawable(R.drawable.arrow_down)).into((binding as ItemBankOfferBinding).ivDropdownSpinner)
+        if(binding is ItemBankOfferBinding){
+            Glide.with((binding as ItemBankOfferBinding).ivDropdownSpinner.context).load(context.resources.getDrawable(R.drawable.arrow_down)).into((binding as ItemBankOfferBinding).ivDropdownSpinner)
+        }
     }
 
 }

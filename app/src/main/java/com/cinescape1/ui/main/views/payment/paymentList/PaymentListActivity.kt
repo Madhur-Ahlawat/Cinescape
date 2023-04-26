@@ -60,6 +60,7 @@ import kotlinx.android.synthetic.main.checkout_creditcart_payment_alert.*
 import kotlinx.android.synthetic.main.checkout_layout_ticket_include.*
 import kotlinx.android.synthetic.main.item_payment_list.*
 import org.json.JSONArray
+import java.math.BigDecimal
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -80,9 +81,9 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     companion object {
-        var giftCardAmount: Double = 0.0
-        var newWalletAmount: Double = 0.0
-        var bankOfferAmount: Double = 0.0
+        var giftCardAmount: BigDecimal = BigDecimal(0.00)
+        var newWalletAmount: BigDecimal = BigDecimal(0.00)
+        var bankOfferAmount: BigDecimal = BigDecimal(0.00)
         var payInfos: MutableList<PaymentListResponse.Output.PayInfo> = mutableListOf()
         var spinnerClickable: Boolean = true
         var bankApplied: Boolean = false
@@ -108,22 +109,25 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         var giftCardEnabled = true
         var walletEnabled = true
         var gatewayEnabled = true
-        var totalAmount: Double = 0.0
-        var ticketPrice: Double = 0.0
+        var totalAmount: BigDecimal = BigDecimal(0.00)
+        var ticketPrice: BigDecimal = BigDecimal(0.00)
         var knetEnabled = true
         var creditCardEnabled = true
+    }
+    fun resetTotalAmount(){
+        binding?.textTotalAmount?.text= "KWD "+ticketPrice
     }
 
     fun addPayInfo(payInfo: PaymentListResponse.Output.PayInfo) {
         if (!payInfos.contains(payInfo)) {
             payInfos.add(payInfo)
-            totalAmount + payInfo.amt.replace("KWD ", "").toDouble()
+            totalAmount + payInfo.amt.replace("KWD ", "").toBigDecimal()
         }
     }
 
     fun removePayInfo(payInfo: PaymentListResponse.Output.PayInfo) {
         payInfos.remove(payInfo)
-        totalAmount + payInfo.amt.replace("KWD ", "").toDouble()
+        totalAmount + payInfo.amt.replace("KWD ", "").toBigDecimal()
     }
 
     @Inject
@@ -167,7 +171,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     private fun resetStaticFlags() {
-        totalAmount = 0.0
+        totalAmount = BigDecimal(0.00)
         bankEnabled = true
         giftCardEnabled = true
         walletEnabled = true
@@ -253,6 +257,9 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         movedNext()
     }
 
+    override fun onBackPressed() {
+        cancelDialog()
+    }
     @RequiresApi(Build.VERSION_CODES.O)
     private fun movedNext() {
 
@@ -415,13 +422,24 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         binding?.constraintLayout6?.show()
         payInfos.clear()
         payInfos.addAll(output.payInfo)
-        totalAmount = output.amount.replace("KWD ", "").toDouble()
-        ticketPrice = output.amount.replace("KWD ", "").toDouble()
+        totalAmount = output.amount.replace("KWD ", "").toBigDecimal()
+        ticketPrice = output.amount.replace("KWD ", "").toBigDecimal()
+        newWalletAmount = getNewWalletAmount(output)
         binding?.textTotalAmount?.text = "KWD " + totalAmount
         val gridLayout = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
         adapter = PaymentListAdapter(this, output.payMode, this, summeryViewModel)
         binding?.recyclerPayMode?.layoutManager = gridLayout
         binding?.recyclerPayMode?.adapter = adapter
+    }
+
+    private fun getNewWalletAmount(output: PaymentListResponse.Output): BigDecimal {
+        var walletAmount=BigDecimal(0.00)
+        output.payMode.forEach { if(it.payType=="WALLET"){
+            it.respPayModes.forEach { it2-> if(it2.type=="WALLET"){
+                walletAmount=it2.balance.replace("KWD ","").toBigDecimal()
+            } }
+        } }
+        return walletAmount
     }
 
     override fun walletItemApply(view: PaymentListResponse.Output.PayMode) {
@@ -468,7 +486,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                             if (it.data?.result == Constant.status && it.data.code == Constant.SUCCESS_CODE) {
                                 Constant.CARD_NO = bankOfferRequest.cardNo
                                 binding?.textTotalAmount?.text = it?.data?.output?.amount
-                                totalAmount = it.data?.output?.amount.replace("KWD ","").toDouble()
+                                totalAmount =
+                                    it.data?.output?.amount.replace("KWD ", "").toBigDecimal()
                                 if (it?.data?.output?.payInfo != null && it?.data?.output?.payInfo.size > 0) {
                                     payInfos?.clear()
                                     payInfos?.addAll(it?.data?.output?.payInfo)
@@ -632,7 +651,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                 creditCardEnabled = true
                                 payInfos.clear()
                                 payInfos.addAll(it?.data.output.payInfo)
-                                totalAmount=it.data.output.amount.replace("KWD ","").toDouble()
+                                totalAmount =
+                                    it.data.output.amount.replace("KWD ", "").toBigDecimal()
 //                                knetEnabled = true
 //                                outputlist?.clear()
 //                                outputlist?.addAll(it.data.output.payInfo)
@@ -1777,9 +1797,12 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         giftCardApplied = false
         giftCardAppliedFull = false
         bankEnabled = true
-
+        totalAmount = ticketPrice
+        payInfos.clear()
+//        payInfos.add(PaymentListResponse.Output.PayInfo("KWD "+ ticketPrice,true,"Ticket Price"))
+        payInfos.addAll(output.payInfo)
+//        binding?.textTotalAmount?.text = "KWD " + totalAmount
         binding?.textTotalAmount?.text = output.amount
-
         Log.e("EMPTY_AMOUNT_LIST_retriveRemoveGiftCard", output?.payInfo?.size.toString())
     }
 
@@ -1794,6 +1817,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         giftCardEnabled = true
         knetSelected = false
         creditCardSelected = false
+        totalAmount = ticketPrice
+        payInfos.removeAt(payInfos.size - 1)
         var tempPayInfo: MutableList<PaymentListResponse.Output.PayInfo>? = mutableListOf()
 //        outputlist!!.forEach {
 //            if (!it.key.contains("club")) {
@@ -1802,7 +1827,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
 //        }
 //        outputlist?.clear()
 //        outputlist?.addAll(tempPayInfo!!)
-//        binding?.textTotalAmount?.text = output.output.amount
+        binding?.textTotalAmount?.text = "KWD " + totalAmount
     }
 
     private fun giftCardApply(
@@ -1887,11 +1912,14 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 creditCardEnabled = true
                 knetSelected = false
                 creditCardSelected = false
-                giftCardAmount=output.payInfo[output.payInfo.size-1].amt.replace("KWD ","").toDouble()
-                totalAmount= totalAmount-giftCardAmount
+                payInfos.clear()
+                payInfos.addAll(output.payInfo)
+                giftCardAmount =
+                    output.payInfo[output.payInfo.size - 1].amt.replace("KWD ", "").toBigDecimal()
+                totalAmount = output.amount.replace("KWD ", "").toBigDecimal()
                 binding?.textTotalAmount?.text = output.amount
             } else if (output.PAID != null && output.PAID == "YES") {
-                giftCardAmount= ticketPrice
+                giftCardAmount = ticketPrice
                 giftCardApplied = true
                 giftCardAppliedFull = true
                 bankEnabled = false
@@ -1899,32 +1927,25 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 knetSelected = false
                 creditCardEnabled = false
                 knetEnabled = false
-
-                payInfos.add(
-                    PaymentListResponse.Output.PayInfo(
-                        "KWD " + totalAmount,
-                        false,
-                        "Gift Card"
-                    )
-                )
-                totalAmount = 0.0
+                payInfos.clear()
+                payInfos.add(PaymentListResponse.Output.PayInfo("KWD " + ticketPrice,true,"Ticket Price"))
+                payInfos.add(PaymentListResponse.Output.PayInfo("KWD " + giftCardAmount,false,"Gift Card"))
+                totalAmount = BigDecimal(0.00)
+                binding?.textTotalAmount?.text = "KWD " + totalAmount
             } else if (output.CAN_PAY != null && output.CAN_PAY == "YES") {
                 giftCardApplied = true
-                giftCardAmount= ticketPrice
+                giftCardAmount = ticketPrice
                 giftCardAppliedFull = true
                 bankEnabled = false
                 walletEnabled = false
                 knetSelected = false
                 creditCardEnabled = false
                 knetEnabled = false
-                payInfos.add(
-                    PaymentListResponse.Output.PayInfo(
-                        "KWD " + totalAmount,
-                        false,
-                        "Gift Card"
-                    )
-                )
-                totalAmount = 0.0
+                payInfos.clear()
+                payInfos.add(PaymentListResponse.Output.PayInfo("KWD " + ticketPrice,true,"Ticket Price"))
+                payInfos.add(PaymentListResponse.Output.PayInfo("KWD " + giftCardAmount,false,"Gift Card"))
+                totalAmount = BigDecimal(0.00)
+                binding?.textTotalAmount?.text = "KWD " + totalAmount
             }
             Constant.IntentKey.TimerExtandCheck = true
             Constant.IntentKey.TimerExtand = 90
@@ -1957,8 +1978,9 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 giftCardEnabled = false
                 knetSelected = false
                 creditCardSelected = false
-                newWalletAmount=output.payInfo[output.payInfo.size-1].amt.replace("KWD ","").toDouble()
-                totalAmount= totalAmount- newWalletAmount
+                payInfos.clear()
+                payInfos.addAll(output.payInfo)
+                totalAmount = output.amount.replace("KWD ","").toBigDecimal()
                 binding?.textTotalAmount?.text = output.amount
             } else if (output.PAID != null && output.PAID == "YES") {
                 walletApplied = true
@@ -1969,14 +1991,23 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 creditCardSelected = false
                 creditCardEnabled = false
                 knetEnabled = false
+                payInfos.clear()
                 payInfos.add(
                     PaymentListResponse.Output.PayInfo(
-                        "KWD " + totalAmount,
+                        "KWD " + ticketPrice,
+                        true,
+                        "Ticket Price"
+                    )
+                )
+                payInfos.add(
+                    PaymentListResponse.Output.PayInfo(
+                        "KWD " + newWalletAmount,
                         false,
                         "Wallet"
                     )
                 )
-                totalAmount = 0.0
+                totalAmount = BigDecimal(0.00)
+                binding?.textTotalAmount?.text = "KWD " + totalAmount
             } else if (output.CAN_PAY != null && output.CAN_PAY == "YES") {
                 walletApplied = true
                 walletAppliedFull = true
@@ -1986,20 +2017,27 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 creditCardSelected = false
                 creditCardEnabled = false
                 knetEnabled = false
+                payInfos.clear()
                 payInfos.add(
                     PaymentListResponse.Output.PayInfo(
-                        "KWD " + totalAmount,
+                        "KWD " + ticketPrice,
+                        true,
+                        "Ticket Price"
+                    )
+                )
+                payInfos.add(
+                    PaymentListResponse.Output.PayInfo(
+                        "KWD " + newWalletAmount,
                         false,
                         "Wallet"
                     )
                 )
-                totalAmount = 0.0
+                totalAmount = BigDecimal(0.00)
+                binding?.textTotalAmount?.text = "KWD " + totalAmount
             }
             Constant.IntentKey.TimerExtandCheck = true
             Constant.IntentKey.TimerExtand = 90
             Constant.IntentKey.TimerTime = 360
-            totalAmount
-            binding?.textTotalAmount?.text = output.amount
             Log.e("EMPTY_AMOUNT_LIST_retrieveDataNewWallet", output?.payInfo?.size.toString())
 
         }

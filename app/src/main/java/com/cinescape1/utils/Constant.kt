@@ -212,6 +212,7 @@ class Constant {
     // public static String BI_PT="bi_pt";
     interface IntentKey {
         companion object {
+            val ENABLE_TIMER: Boolean=false
             const val MOVIE_ID = "movieId"
             const val LANGUAGE = "language"
             const val TRANSACTION_ID = "transactionId"

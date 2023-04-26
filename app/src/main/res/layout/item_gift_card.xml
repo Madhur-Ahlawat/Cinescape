@@ -90,7 +90,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/couponUi">
 
-                    <EditText
+
+                    <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/etEnterGiftCardNumber"
                         android:layout_width="0dp"
                         android:layout_marginTop="5dp"
@@ -99,10 +100,9 @@
                         android:autofillHints=""
                         android:importantForAutofill="no"
                         android:longClickable="false"
-                        android:gravity="center_vertical"
+                        android:gravity="center_vertical|start"
                         android:paddingVertical="12dp"
                         android:inputType="number"
-                        android:textAlignment="textStart"
                         android:hint="@string/enter_gift_card"
                         android:textColor="@color/white"
                         android:textColorHint="@color/lightGrey"
@@ -112,26 +112,6 @@
                         app:layout_constraintTop_toTopOf="parent"
                         android:textSize="@dimen/size15"
                         tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
-
-                <!--                <EditText-->
-                <!--                    android:id="@+id/offerEditText"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:background="@null"-->
-                <!--                    android:fontFamily="@font/sf_pro_text_regular"-->
-                <!--                    android:importantForAutofill="no"-->
-                <!--                    android:textColor="#7B7A7A"-->
-                <!--                    android:imeOptions="actionDone"-->
-                <!--                    android:singleLine="true"-->
-                <!--                    android:maxLength="16"-->
-                <!--                    android:textSize="@dimen/size15"-->
-                <!--                    android:hint="@string/enter_gift_card"-->
-                <!--                    android:textColorHint="@color/hint_color"-->
-                <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
-                <!--                    app:layout_constraintStart_toStartOf="parent"-->
-                <!--                    app:layout_constraintTop_toTopOf="parent"-->
-                <!--                    tools:ignore="LabelFor,TextFields" />-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

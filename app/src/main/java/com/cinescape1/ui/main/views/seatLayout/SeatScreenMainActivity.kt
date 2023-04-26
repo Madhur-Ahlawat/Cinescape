@@ -594,6 +594,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                     })
                 dialog.show()
             } else {
+
                 reserveSeat()
             }
         }
@@ -640,6 +641,7 @@ class SeatScreenMainActivity : DaggerAppCompatActivity(),
                                                     .putExtra("movieImage", movieImage)
                                                     .putExtra("movieType", movieType)
                                             )
+                                            Constant.IntentKey.ENABLE_TIMER
                                             finish()
                                         } else {
                                             startActivity(
