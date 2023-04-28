@@ -74,13 +74,13 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     private var newWalletApplyRequest: GiftCardResponse.Output? = null
     private var dialog: OptionDialog? = null
     private var timerCancelDialog: Dialog? = null
-    private var proceedAlertDialog: AlertDialog? = null
     private var giftCardApplyRequest: GiftCardResponse.Output? = null
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     companion object {
+        var proceedAlertDialog: AlertDialog? = null
         var giftCardAmount: BigDecimal = BigDecimal(0.00)
         var newWalletAmount: BigDecimal = BigDecimal(0.00)
         var bankOfferAmount: BigDecimal = BigDecimal(0.00)
@@ -267,7 +267,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             cancelDialog()
         }
 
-        binding?.constraintLayout6?.setOnClickListener {
+        binding?.viewTimeLeft?.setOnClickListener {
             paymentDialog()
         }
 
@@ -285,13 +285,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 )
             } else if (giftCardApplied) {
                 if (creditCardSelected) {
-//                    binding?.txtProceed?.isClickable = false
-//                    binding?.txtProceed?.isFocusable = false
-//                    binding?.txtProceed?.isEnabled = false
                     creditCardDialog(Constant.CARD_NO)
-//                    binding?.txtProceed?.isClickable = true
-//                    binding?.txtProceed?.isFocusable = true
-//                    binding?.txtProceed?.isEnabled = true
                 } else if (knetSelected) {
                     paymentHmac(
                         HmacKnetRequest(
@@ -433,12 +427,16 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     private fun getNewWalletAmount(output: PaymentListResponse.Output): BigDecimal {
-        var walletAmount=BigDecimal(0.00)
-        output.payMode.forEach { if(it.payType=="WALLET"){
-            it.respPayModes.forEach { it2-> if(it2.type=="WALLET"){
-                walletAmount=it2.balance.replace("KWD ","").toBigDecimal()
-            } }
-        } }
+        var walletAmount = BigDecimal(0.00)
+        output.payMode.forEach {
+            if (it.payType == "WALLET") {
+                it.respPayModes.forEach { it2 ->
+                    if (it2.type == "WALLET") {
+                        walletAmount = it2.balance.replace("KWD ", "").toBigDecimal()
+                    }
+                }
+            }
+        }
         return walletAmount
     }
 
@@ -782,10 +780,13 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         val yourUICustomizationObject = UiCustomization()
         cardinalConfigurationParameters.uiCustomization = yourUICustomizationObject
 
-        cardinal.configure(this, cardinalConfigurationParameters)
+        cardinal.configure(this@PaymentListActivity.applicationContext, cardinalConfigurationParameters)
         ccDialogBinding =
             CheckoutCreditcartPaymentAlertBinding.inflate(layoutInflater)
         val mBuilder = AlertDialog.Builder(this).setView(ccDialogBinding?.root)
+        if(proceedAlertDialog!=null && proceedAlertDialog!!.isShowing()){
+            proceedAlertDialog?.dismiss()
+        }
         proceedAlertDialog = mBuilder.create()
         proceedAlertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
         proceedAlertDialog?.setCancelable(false)
@@ -798,13 +799,13 @@ class PaymentListActivity : DaggerAppCompatActivity(),
             cardNumberTextInputEditText?.setText(cardNo)
         }
         if (cardNo == "") {
-            binding?.apply {
+            ccDialogBinding?.apply {
                 cardNumberTextInputEditText?.isClickable = true
                 cardNumberTextInputEditText?.isEnabled = true
                 cardNumberTextInputEditText?.isFocusable = true
             }
         } else {
-            binding?.apply {
+            ccDialogBinding?.apply {
                 cardNumberTextInputEditText?.isClickable = false
                 cardNumberTextInputEditText?.isEnabled = false
                 cardNumberTextInputEditText?.isFocusable = false
@@ -816,89 +817,87 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 override fun beforeTextChanged(
                     charSequence: CharSequence, i: Int, i1: Int, i2: Int
                 ) {
-                    proceedAlertDialog?.apply {
-                        try {
-                            if (!cardNumberTextInputEditText.text.toString()
+                    try {
+                        if (!cardNumberTextInputEditText.text.toString()
+                                .isEmpty()
+                        ) {
+                            image_american_express_card.visibility = View.VISIBLE
+                            if (VISA_PREFIX.contains(
+                                    cardNumberTextInputEditText.text.toString()
+                                        .substring(0, 1)
+                                ) && !cardNumberTextInputEditText.text.toString()
                                     .isEmpty()
                             ) {
-                                image_american_express_card.visibility = View.VISIBLE
-                                if (VISA_PREFIX.contains(
-                                        cardNumberTextInputEditText.text.toString()
-                                            .substring(0, 1)
-                                    ) && !cardNumberTextInputEditText.text.toString()
-                                        .isEmpty()
-                                ) {
-                                    image_american_express_card.setImageDrawable(
-                                        ContextCompat.getDrawable(
-                                            this@PaymentListActivity, R.drawable.visa_card
-                                        )
+                                image_american_express_card.setImageDrawable(
+                                    ContextCompat.getDrawable(
+                                        this@PaymentListActivity, R.drawable.visa_card
                                     )
+                                )
 
-                                } else if (MASTERCARD_PREFIX.contains(
-                                        cardNumberTextInputEditText.text.toString()
-                                            .substring(0, 2) + ","
-                                    ) && !cardNumberTextInputEditText.text.toString()
-                                        .isEmpty()
-                                ) {
-                                    image_american_express_card.setImageDrawable(
-                                        ContextCompat.getDrawable(
-                                            this@PaymentListActivity, R.drawable.mastercard_card
-                                        )
+                            } else if (MASTERCARD_PREFIX.contains(
+                                    cardNumberTextInputEditText.text.toString()
+                                        .substring(0, 2) + ","
+                                ) && !cardNumberTextInputEditText.text.toString()
+                                    .isEmpty()
+                            ) {
+                                image_american_express_card.setImageDrawable(
+                                    ContextCompat.getDrawable(
+                                        this@PaymentListActivity, R.drawable.mastercard_card
                                     )
-                                } else if (AMEX_PREFIX.contains(
-                                        cardNumberTextInputEditText.text.toString()
-                                            .substring(0, 2) + ","
-                                    ) && !cardNumberTextInputEditText.text.toString()
-                                        .isEmpty()
-                                ) {
-                                    image_american_express_card.setImageDrawable(
-                                        ContextCompat.getDrawable(
-                                            this@PaymentListActivity, R.drawable.amerian_card
-                                        )
+                                )
+                            } else if (AMEX_PREFIX.contains(
+                                    cardNumberTextInputEditText.text.toString()
+                                        .substring(0, 2) + ","
+                                ) && !cardNumberTextInputEditText.text.toString()
+                                    .isEmpty()
+                            ) {
+                                image_american_express_card.setImageDrawable(
+                                    ContextCompat.getDrawable(
+                                        this@PaymentListActivity, R.drawable.amerian_card
                                     )
-                                } else if (DISCOVER_PREFIX.contains(
-                                        cardNumberTextInputEditText.text.toString()
-                                            .substring(0, 4)
-                                    ) && !cardNumberTextInputEditText.text.toString()
-                                        .isEmpty()
-                                ) {
-                                    image_american_express_card.setImageDrawable(
-                                        ContextCompat.getDrawable(
-                                            this@PaymentListActivity, R.drawable.amerian_card
-                                        )
+                                )
+                            } else if (DISCOVER_PREFIX.contains(
+                                    cardNumberTextInputEditText.text.toString()
+                                        .substring(0, 4)
+                                ) && !cardNumberTextInputEditText.text.toString()
+                                    .isEmpty()
+                            ) {
+                                image_american_express_card.setImageDrawable(
+                                    ContextCompat.getDrawable(
+                                        this@PaymentListActivity, R.drawable.amerian_card
                                     )
-                                } else if (JCB.contains(
-                                        cardNumberTextInputEditText.text.toString()
-                                            .substring(0, 1)
-                                    ) && !cardNumberTextInputEditText.text.toString()
-                                        .isEmpty()
-                                ) {
-                                    image_american_express_card.setImageDrawable(
-                                        ContextCompat.getDrawable(
-                                            this@PaymentListActivity, R.drawable.amerian_card
-                                        )
+                                )
+                            } else if (JCB.contains(
+                                    cardNumberTextInputEditText.text.toString()
+                                        .substring(0, 1)
+                                ) && !cardNumberTextInputEditText.text.toString()
+                                    .isEmpty()
+                            ) {
+                                image_american_express_card.setImageDrawable(
+                                    ContextCompat.getDrawable(
+                                        this@PaymentListActivity, R.drawable.amerian_card
                                     )
-                                } else if (MAESTRO.contains(
-                                        cardNumberTextInputEditText.text.toString()
-                                            .substring(0, 2)
-                                    ) && !cardNumberTextInputEditText.text.toString()
-                                        .isEmpty()
-                                ) {
-                                    image_american_express_card.setImageDrawable(
-                                        ContextCompat.getDrawable(
-                                            this@PaymentListActivity, R.drawable.amerian_card
-                                        )
+                                )
+                            } else if (MAESTRO.contains(
+                                    cardNumberTextInputEditText.text.toString()
+                                        .substring(0, 2)
+                                ) && !cardNumberTextInputEditText.text.toString()
+                                    .isEmpty()
+                            ) {
+                                image_american_express_card.setImageDrawable(
+                                    ContextCompat.getDrawable(
+                                        this@PaymentListActivity, R.drawable.amerian_card
                                     )
-                                } else {
-                                    image_american_express_card.visibility =
-                                        View.GONE
-                                }
+                                )
                             } else {
-                                image_american_express_card.visibility = View.GONE
+                                image_american_express_card.visibility =
+                                    View.GONE
                             }
-                        } catch (e: java.lang.Exception) {
-
+                        } else {
+                            image_american_express_card.visibility = View.GONE
                         }
+                    } catch (e: java.lang.Exception) {
+
                     }
 
                 }
@@ -1137,44 +1136,42 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                     }
                 }
             })
+            ccDialogBinding?.apply {
+                textCancelGoBack.isEnabled = true
+                textCancelGoBack.isFocusable = true
+                textCancelGoBack.isClickable = true
+            }
             textCancelGoBack.setOnClickListener {
-                proceedAlertDialog?.dismiss()
+                if (!this@PaymentListActivity.isFinishing) {
+                    proceedAlertDialog!!.dismiss()
+                }
+            }
+            ccDialogBinding?.apply {
+                btnPay.isEnabled = true
+                btnPay.isFocusable = true
+                btnPay.isClickable = true
             }
             btnPay.setOnClickListener {
-                btnPay.apply {
-                    isClickable = false
-                    isEnabled = false
-                    isFocusable = false
-                }
-                if (validateFields(proceedAlertDialog!!)) {
-                    try {
-                        postCardData(
-                            PostCardRequest(
-                                bookingId,
-                                cardNumberTextInputEditText.text.toString()
-                                    .replace(" ".toRegex(), "").trim(),
-                                ccvTextInputEditText.text.toString(),
-                                expireDateTextInputEditText.text.toString()
-                                    .split("/")[0],
-                                expireDateTextInputEditText.text.toString()
-                                    .split("/")[1],
-                                refId
-                            )
-                        )
-                    } catch (e: Exception) {
-                        btnPay.apply {
-                            isClickable = true
-                            isEnabled = true
-                            isFocusable = true
-                        }
-                        println("exception--->${e.message}")
-                    }
-                } else {
+
+                if (validateFields(ccDialogBinding!!)) {
                     btnPay.apply {
-                        isClickable = true
-                        isEnabled = true
-                        isFocusable = true
+                        isClickable = false
+                        isEnabled = false
+                        isFocusable = false
                     }
+                    postCardData(
+                        PostCardRequest(
+                            bookingId,
+                            cardNumberTextInputEditText.text.toString()
+                                .replace(" ".toRegex(), "").trim(),
+                            ccvTextInputEditText.text.toString(),
+                            expireDateTextInputEditText.text.toString()
+                                .split("/")[0],
+                            expireDateTextInputEditText.text.toString()
+                                .split("/")[1],
+                            refId
+                        )
+                    )
                 }
 
             }
@@ -1247,6 +1244,11 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                                         dialog!!.show()
                                     }
                                 } catch (e: Exception) {
+                                    ccDialogBinding?.apply {
+                                        btnPay.isEnabled = true
+                                        btnPay.isFocusable = true
+                                        btnPay.isClickable = true
+                                    }
                                     println("updateUiCinemaSession ---> ${e.message}")
                                 }
 
@@ -1481,10 +1483,10 @@ class PaymentListActivity : DaggerAppCompatActivity(),
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun validateFields(proceedAlertDialog: AlertDialog): Boolean {
-        return if (proceedAlertDialog.cardNumberTextInputEditText.text.toString()
-                .isEmpty() && proceedAlertDialog.cardNumberTextInputEditText.text.toString().length != 16 && !CreditCardUtils.isValid(
-                proceedAlertDialog.cardNumberTextInputEditText.text.toString().replace(" ", "")
+    private fun validateFields(ccDialogBinding: CheckoutCreditcartPaymentAlertBinding): Boolean {
+        return if (ccDialogBinding?.cardNumberTextInputEditText?.text.toString()
+                .isEmpty() && ccDialogBinding?.cardNumberTextInputEditText?.text.toString().length != 16 && !CreditCardUtils.isValid(
+                ccDialogBinding?.cardNumberTextInputEditText?.text.toString().replace(" ", "")
             )
         ) {
             dialog = OptionDialog(this,
@@ -1497,8 +1499,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 negativeClick = {})
             dialog!!.show()
             false
-        } else if (proceedAlertDialog.expireDateTextInputEditText.text.toString()
-                .isEmpty() || proceedAlertDialog.expireDateTextInputEditText.text.toString().length < 5
+        } else if (ccDialogBinding?.expireDateTextInputEditText?.text.toString()
+                .isEmpty() || ccDialogBinding?.expireDateTextInputEditText?.text.toString().length < 5
         ) {
             dialog = OptionDialog(this,
                 R.mipmap.ic_launcher,
@@ -1510,10 +1512,10 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 negativeClick = {})
             dialog!!.show()
             false
-        } else if (proceedAlertDialog.expireDateTextInputEditText.text.toString()
-                .isEmpty() || proceedAlertDialog.expireDateTextInputEditText.text.toString()
+        } else if (ccDialogBinding?.expireDateTextInputEditText?.text.toString()
+                .isEmpty() || ccDialogBinding?.expireDateTextInputEditText?.text.toString()
                 .split("/")
-                .toTypedArray()[0].toInt() > 12 || proceedAlertDialog.expireDateTextInputEditText.text.toString().length < 5
+                .toTypedArray()[0].toInt() > 12 || ccDialogBinding?.expireDateTextInputEditText?.text.toString().length < 5
         ) {
             dialog = OptionDialog(this,
                 R.mipmap.ic_launcher,
@@ -1525,8 +1527,8 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 negativeClick = {})
             dialog!!.show()
             false
-        } else if (proceedAlertDialog.ccvTextInputEditText.text.toString()
-                .isEmpty() && proceedAlertDialog.ccvTextInputEditText.length() != 3
+        } else if (ccDialogBinding?.ccvTextInputEditText?.text.toString()
+                .isEmpty() && ccDialogBinding?.ccvTextInputEditText?.length() != 3
         ) {
             dialog = OptionDialog(this,
                 R.mipmap.ic_launcher,
@@ -1797,6 +1799,7 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         giftCardApplied = false
         giftCardAppliedFull = false
         bankEnabled = true
+        walletEnabled = true
         totalAmount = ticketPrice
         payInfos.clear()
 //        payInfos.add(PaymentListResponse.Output.PayInfo("KWD "+ ticketPrice,true,"Ticket Price"))
@@ -1928,8 +1931,20 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 creditCardEnabled = false
                 knetEnabled = false
                 payInfos.clear()
-                payInfos.add(PaymentListResponse.Output.PayInfo("KWD " + ticketPrice,true,"Ticket Price"))
-                payInfos.add(PaymentListResponse.Output.PayInfo("KWD " + giftCardAmount,false,"Gift Card"))
+                payInfos.add(
+                    PaymentListResponse.Output.PayInfo(
+                        "KWD " + ticketPrice,
+                        true,
+                        "Ticket Price"
+                    )
+                )
+                payInfos.add(
+                    PaymentListResponse.Output.PayInfo(
+                        "KWD " + giftCardAmount,
+                        false,
+                        "Gift Card"
+                    )
+                )
                 totalAmount = BigDecimal(0.00)
                 binding?.textTotalAmount?.text = "KWD " + totalAmount
             } else if (output.CAN_PAY != null && output.CAN_PAY == "YES") {
@@ -1942,8 +1957,20 @@ class PaymentListActivity : DaggerAppCompatActivity(),
                 creditCardEnabled = false
                 knetEnabled = false
                 payInfos.clear()
-                payInfos.add(PaymentListResponse.Output.PayInfo("KWD " + ticketPrice,true,"Ticket Price"))
-                payInfos.add(PaymentListResponse.Output.PayInfo("KWD " + giftCardAmount,false,"Gift Card"))
+                payInfos.add(
+                    PaymentListResponse.Output.PayInfo(
+                        "KWD " + ticketPrice,
+                        true,
+                        "Ticket Price"
+                    )
+                )
+                payInfos.add(
+                    PaymentListResponse.Output.PayInfo(
+                        "KWD " + giftCardAmount,
+                        false,
+                        "Gift Card"
+                    )
+                )
                 totalAmount = BigDecimal(0.00)
                 binding?.textTotalAmount?.text = "KWD " + totalAmount
             }
@@ -2191,10 +2218,10 @@ class PaymentListActivity : DaggerAppCompatActivity(),
         val viewGroup = findViewById<ViewGroup>(android.R.id.content)
         val dialogView: View =
             LayoutInflater.from(this).inflate(R.layout.cancel_dialog, viewGroup, false)
-        val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(this)
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         builder.setView(dialogView)
         builder.setCancelable(false)
-        val alertDialog: android.app.AlertDialog = builder.create()
+        val alertDialog: AlertDialog = builder.create()
         alertDialog.window?.setBackgroundDrawableResource(R.color.transparent)
         if (!this@PaymentListActivity.isFinishing) {
             alertDialog.show()

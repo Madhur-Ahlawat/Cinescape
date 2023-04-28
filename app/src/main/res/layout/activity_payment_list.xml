@@ -205,7 +205,9 @@
         <View
             android:id="@+id/view_time_left"
             android:layout_width="0dp"
+            android:background="@color/transparent"
             android:layout_height="65dp"
+            android:elevation="1dp"
             android:layout_marginStart="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/view_cancel"
             app:layout_constraintEnd_toStartOf="@+id/view_proceed"

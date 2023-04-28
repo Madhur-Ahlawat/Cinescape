@@ -3,23 +3,25 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_title"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:elevation="@dimen/margin2"
-        android:background="@color/transparent"
-        android:foregroundGravity="center"
-        app:cardCornerRadius="21dp"
-        app:cardElevation="@dimen/margin2">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="match_parent">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_title"
             android:layout_width="match_parent"
-            android:elevation="1dp"
-            android:layout_centerInParent="true"
-            android:layout_height="wrap_content"
-            android:background="@drawable/alert_cart_payment_bg">
+            android:layout_height="match_parent"
+            android:elevation="@dimen/margin2"
+            android:background="@color/transparent"
+            android:foregroundGravity="center"
+            app:cardCornerRadius="21dp"
+            app:cardElevation="@dimen/margin2">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:elevation="1dp"
+                android:layout_centerInParent="true"
+                android:layout_height="wrap_content"
+                android:background="@drawable/alert_cart_payment_bg">
 
                 <View
                     android:id="@+id/view1_main"
@@ -374,6 +376,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

@@ -182,7 +182,6 @@ class FoodActivity : DaggerAppCompatActivity(),
                 btnDecrease2?.typeface = regular
                 btnIncrease2?.typeface = regular
                 totalItems2?.typeface = regular
-
             }
             preferences.getString(Constant.IntentKey.SELECT_LANGUAGE) == "en" -> {
                 LocaleHelper.setLocale(this, "en")
@@ -1850,31 +1849,37 @@ class FoodActivity : DaggerAppCompatActivity(),
 
         if (foodItem.quantity > 0) {
             println("amtSend--->${foodItem.priceInCents}")
-            foodRequestData.priceInCents = foodItem.priceInCents.toString()
-            foodRequestData.itemId = foodItem.id
-            foodRequestData.id = foodItem.id
-            foodRequestData.quantity = foodItem.quantity
-            foodRequestData.itemType = foodItem.foodtype
-            foodRequestData.itemPrice = foodItem.itemPrice
-            foodRequestData.description = foodItem.description
-            foodRequestData.itemImageUrl = foodItem.itemImageUrl
-            foodRequestData.descriptionAlt = foodItem.descriptionAlt
+            foodRequestData?.apply {
+                priceInCents = foodItem.priceInCents.toString()
+                itemId = foodItem.id
+                id = foodItem.id
+                quantity = foodItem.quantity
+                itemType = foodItem.foodtype
+                itemPrice = foodItem.itemPrice
+                description = foodItem.description
+                itemImageUrl = foodItem.itemImageUrl
+                descriptionAlt = foodItem.descriptionAlt
+            }
+
 
             val arrModify = ArrayList<SaveFoodRequest.Modifier>()
             var modifiersName = ""
 
             for (k in foodItem.alternateItems.indices) {
                 if (foodItem.alternateItems[k].checkFlag) {
-                    foodRequestData.itemId = foodItem.alternateItems[k].id
-                    foodRequestData.itemImageUrl = foodItem.itemImageUrl
-                    foodRequestData.itemPrice = foodItem.alternateItems[k].itemPrice
-                    foodRequestData.headOfficeItemCode =
-                        foodItem.alternateItems[k].headOfficeItemCode
-                    foodRequestData.description =
-                        foodItem.description + " ( " + foodItem.alternateItems[k].description + " ) "
-                    foodRequestData.descriptionAlt =
-                        foodItem.description + " ( " + foodItem.alternateItems[k].descriptionAlt.toString() + " ) "
-                    println("foodItem.alternateItems---" + foodRequestData.description)
+                    foodRequestData?.apply {
+                        itemId = foodItem.alternateItems[k].id
+                        itemImageUrl = foodItem.itemImageUrl
+                        itemPrice = foodItem.alternateItems[k].itemPrice
+                        headOfficeItemCode =
+                            foodItem.alternateItems[k].headOfficeItemCode
+                        description =
+                            foodItem.description + " ( " + foodItem.alternateItems[k].description + " ) "
+                        descriptionAlt =
+                            foodItem.description + " ( " + foodItem.alternateItems[k].descriptionAlt.toString() + " ) "
+                        println("foodItem.alternateItems---" + description)
+                    }
+
                     for (l in foodItem.alternateItems[k].modifierGroups.indices) {
                         for (m in foodItem.alternateItems[k].modifierGroups[l].Modifiers.indices) {
                             val modifyModel = SaveFoodRequest.Modifier()
@@ -1897,10 +1902,13 @@ class FoodActivity : DaggerAppCompatActivity(),
                 println("CheckFoodType--->${foodItem.foodtype.uppercase()}")
 
                 var modifiers = ""
-                foodRequestData.headOfficeItemCode = foodItem.headOfficeItemCode
-                foodRequestData.description = foodItem.description
-                foodRequestData.itemImageUrl = foodItem.itemImageUrl
-                foodRequestData.descriptionAlt = foodItem.descriptionAlt
+                foodRequestData?.apply {
+                    headOfficeItemCode = foodItem.headOfficeItemCode
+                    description = foodItem.description
+                    itemImageUrl = foodItem.itemImageUrl
+                    descriptionAlt = foodItem.descriptionAlt
+                }
+
                 for (l in foodItem.modifierGroups.indices) {
                     try {
                         foodRequestData.description = foodItem.description
@@ -2023,7 +2031,6 @@ class FoodActivity : DaggerAppCompatActivity(),
             var foodSubName = ""
             var foodName = ""
             if (foodItem.quantity > 0) {
-
                 foodDtls.foodAmount = foodItem.itemTotal.toDouble()
                 foodDtls.foodId = foodItem.id
                 foodDtls.foodQuan = foodItem.quantity

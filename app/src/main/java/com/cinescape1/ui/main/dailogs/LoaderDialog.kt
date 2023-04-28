@@ -1,6 +1,5 @@
 package com.cinescape1.ui.main.dailogs
 
-import android.R
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
@@ -15,11 +14,12 @@ import com.cinescape1.databinding.DialogLoaderBinding
 class LoaderDialog private constructor(context: Context) : Dialog(context) {
     companion object {
         var binding: DialogLoaderBinding? = null
-        var dialogs: MutableList<Dialog>? = mutableListOf()
         var loaderAlertDialog: Dialog? = null
         fun getInstance(context: Context, layoutInflater: LayoutInflater): Dialog? {
             if (loaderAlertDialog != null) {
-                loaderAlertDialog?.dismiss()
+               if (loaderAlertDialog!!.isShowing){
+                    loaderAlertDialog?.dismiss()
+                }
                 loaderAlertDialog = null
             }
             binding = DialogLoaderBinding.inflate(layoutInflater)
@@ -37,7 +37,6 @@ class LoaderDialog private constructor(context: Context) : Dialog(context) {
             )
             loaderAlertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             loaderAlertDialog!!.setCancelable(false)
-            dialogs!!.add(loaderAlertDialog!!)
             return loaderAlertDialog
         }
     }
