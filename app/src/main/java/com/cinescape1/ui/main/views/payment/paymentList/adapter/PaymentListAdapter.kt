@@ -330,12 +330,12 @@ class PaymentListAdapter(
                                                 clEnterCardNumber.hide()
                                                 textviewApplyBankOffer.hide()
                                                 textviewCancelBankOffer.hide()
-                                                textviewApplyBankOffer.hide()
-                                                textviewCancelBankOffer.hide()
                                             }
                                         } else {
                                             binding.apply {
                                                 etEnterBankOfferCardNumber.isEnabled = true
+                                                etEnterBankOfferCardNumber.isClickable = true
+                                                etEnterBankOfferCardNumber.isFocusable = true
                                                 clEnterCardNumber.show()
                                                 //                                    textviewApplyBankOffer.show()
                                                 //                                    textviewCancelBankOffer.hide()
@@ -366,6 +366,8 @@ class PaymentListAdapter(
                                 textviewCancelBankOffer.show()
                                 textviewApplyBankOffer.hide()
                                 etEnterBankOfferCardNumber.isEnabled = false
+                                etEnterBankOfferCardNumber.isFocusable = false
+                                etEnterBankOfferCardNumber.isClickable = false
                                 tvOfferAppliedForNTickets.show()
                             } else {
                                 spinnerCardOptions.apply {
@@ -376,6 +378,8 @@ class PaymentListAdapter(
                                 textviewCancelBankOffer.hide()
                                 textviewApplyBankOffer.show()
                                 etEnterBankOfferCardNumber.isEnabled = true
+                                etEnterBankOfferCardNumber.isFocusable = true
+                                etEnterBankOfferCardNumber.isClickable = true
                                 tvOfferAppliedForNTickets.hide()
                             }
 
